@@ -28,19 +28,28 @@ db <- Database$new()
 \if{html}{\out{<a id="method-Database-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Database-new}{}}}
 \subsection{Method \code{new()}}{
+This object manages a database connection. The connection is configured
+using a json file which stores configuration information and credentials.
+The fields of this configuration file are as follows:
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Database$new(db_cred_file = "db_cred_file.json")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Database$new(
+  db_config = system.file("extdata", "db_config.json", package = "rdatabase")
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{db_cred_file}}{The absolute path of a configuration file (csv
+\item{\code{db_config}}{The absolute path of a configuration file (csv
 format) containing database connection information and credentials.
-The default value is the credential file stored in the inst/ directory}
+The default value is the credential file stored in the inst/ directory.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+driver:
+}
+
 \subsection{Returns}{
 A new (R6) Database object
 }

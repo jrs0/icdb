@@ -3,9 +3,15 @@ Database <- R6::R6Class(
   public = list(
     #' Construct a Database object
     #'
-    #' @param db_cred_file The absolute path of a configuration file (csv
+    #' This object manages a database connection. The connection is configured
+    #' using a json file which stores configuration information and credentials.
+    #' The fields of this configuration file are as follows:
+    #'
+    #' driver:
+    #'
+    #' @param db_config The absolute path of a configuration file (csv
     #' format) containing database connection information and credentials.
-    #' The default value is the credential file stored in the inst/ directory
+    #' The default value is the credential file stored in the inst/ directory.
     #'
     #' @return A new (R6) Database object
     #' @export
@@ -13,31 +19,20 @@ Database <- R6::R6Class(
     #' @examples
     #'
     #' db <- Database$new()
-    initialize = function(db_cred_file = "db_cred_file.json")
+    initialize = function(db_config = system.file("extdata",
+                                                  "db_config.json",
+                                                  package = "rdatabase"))
     {
-      if (!file.exists(db_cred_file))
+      if (!file.exists(db_config))
         stop("Database connection failed, input credential file does not exist")
-      json <- rjson::fromJSON(file = db_cred_file)
-      print(json)
+      private$config <- rjson::fromJSON(file = db_config)
     }
 
 
   ),
-  private = list(
-    driver = NA_character_,
-    server = NA_character_,
-    host = NA_character_,
-    trusted_connection = NA,
-    user = NA_character_,
-    password = NA_character_,
-    name = NA_character_,
-    schema = NA_character_,
-    table = NA_character_,
-    port = NA_integer_,
-    connection = NA
-  )
+  private = list(config = NULL,
+                 connection = NULL)
 )
-
 
 # The lines below is necessary to surpress a warning about no
 # imports from R6 (see "https://stackoverflow.com/questions/64055049/
