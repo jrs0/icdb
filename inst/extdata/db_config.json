@@ -1,10 +1,8 @@
 {
-"driver": "SQL Server",
-"server": "xsw-00-ash01",
+"host": "xsw-00-ash01",
 "trusted_connection": true,
 "port": 1433,
-"host": "localhost",
-"database": "ABI",
+"dbname": "ABI",
 "table": "vw_APC_SEM_001",
 "user": null,
 "password": null
