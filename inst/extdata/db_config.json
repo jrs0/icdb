@@ -1,8 +1,5 @@
 {
-"host": "xsw-00-ash01",
-"trusted_connection": true,
-"port": 1433,
-"dbname": "ABI",
-"user": null,
-"password": null
+  "driver": "SQL Server",
+  "server": "xsw-00-ash01",
+  "database": "ABI"
 }

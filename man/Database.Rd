@@ -8,15 +8,6 @@ Construct a Database object
 
 Construct a Database object
 }
-\examples{
-
-## ------------------------------------------------
-## Method `Database$new`
-## ------------------------------------------------
-
-
-db <- Database$new()
-}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -29,39 +20,45 @@ db <- Database$new()
 \if{latex}{\out{\hypertarget{method-Database-new}{}}}
 \subsection{Method \code{new()}}{
 This object manages a database connection. The connection is configured
-using a json file which stores configuration information and credentials.
-The fields of this configuration file are as follows:
+using either a data source name, or a json file which stores
+configuration information and credentials.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Database$new(
-  db_config = system.file("extdata", "db_config.json", package = "rdatabase")
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Database$new(data_source_name = NULL, db_config = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{db_config}}{The absolute path of a configuration file (csv
-format) containing database connection information and credentials.
-The default value is the credential file stored in the inst/ directory.}
+\item{\code{data_source_name}}{The data source name (DSN) for the database.  If
+this argument is provided, it will be preferred to the config file.}
+
+\item{\code{db_config}}{The absolute path of a configuration file (csv format)
+containing database connection information and credentials. The default
+value is the credential file stored in the inst/ directory.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-driver:
+A data source name (DNS) is a string that refers to a connection set up
+using the "ODBC data sources" app on Windows (8). Open this app; in the
+"User DSN" tab, add a new data source using "Add". Select "SQL Server",
+and then follow through the wizard. Choose a name for the data source,
+which is arbitrary -- this is the data source name. Set the "Server"
+field to the server name (the same as in SQL Management Studio). In one
+of the pages, make sure you pick a default database to connect to.
+Finally, at the end of the wizard, check the connection. If it fails,
+debug it before moving on to using this function.
+
+If you cannot make the DSN work, you can also supply a configuration file,
+in JSON format. Three keys are required: "driver" must be set to the
+database driver (potentially "SQL Server"); "server" must be set the to
+server name; and "database" must be set to the name of the database to
+connect to. An example configuration file is in extdata/db_config.json.
 }
 
 \subsection{Returns}{
 A new (R6) Database object
 }
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{
-db <- Database$new()
-}
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Database-clone"></a>}}

@@ -17,7 +17,11 @@ Database <- R6::R6Class(
     #' Finally, at the end of the wizard, check the connection. If it fails,
     #' debug it before moving on to using this function.
     #'
-    #'
+    #' If you cannot make the DSN work, you can also supply a configuration file,
+    #' in JSON format. Three keys are required: "driver" must be set to the
+    #' database driver (potentially "SQL Server"); "server" must be set the to
+    #' server name; and "database" must be set to the name of the database to
+    #' connect to. An example configuration file is in extdata/db_config.json.
     #'
     #' @param data_source_name The data source name (DSN) for the database.  If
     #'   this argument is provided, it will be preferred to the config file.
@@ -29,22 +33,29 @@ Database <- R6::R6Class(
     #' @return A new (R6) Database object
     #' @export
     #'
-    #' @examples
-    #'
-    #' db <- Database$new()
-    initialize = function(data_source_name = NULL,
-                          db_config = NULL)
+    initialize = function(data_source_name = NULL, db_config = NULL)
     {
       # If the data source name argument was passed, connect using that
       if (!is.null(data_source_name))
       {
-        print(paste("Connecting using data source name (DSN):",data_source_name))
-        private$connection <- DBI::dbConnect(odbc::odbc(), data_source_name)
+        print(paste("Connecting using data source name (DSN):", data_source_name))
+        private$connection <-
+          DBI::dbConnect(odbc::odbc(), data_source_name)
       }
-      else if (!is.null(db_config) && !file.exists(db_config))
+      else if (!is.null(db_config))
       {
+        if (!file.exists(db_config))
+        {
+          stop(paste0("The supplied db_config file ", db_config,
+                      " does not exist"))
+        }
         print("Connecting using config file")
         private$config <- rjson::fromJSON(file = db_config)
+        private$connection <- DBI::dbConnect(odbc::odbc(),
+                                             driver = private$config$driver,
+                                             server = private$config$server,
+                                             database = private$config$database,
+                                             )
       }
       else
       {
