@@ -15,7 +15,7 @@ setClass(
   prototype = list(
     connection = DBI::dbConnect(odbc::odbc(), "HES_ABI"),
     config = list(),
-    dsn = NULL
+    dsn = NA_character_
   )
 )
 
@@ -72,15 +72,17 @@ DatabaseS4 <- function(data_source_name = NULL,
       stop("The supplied db_config file ", db_config, " does not exist.")
     }
     message("Connecting using config file")
-    # private$config <- rjson::fromJSON(file = db_config)
-    # new("DatabaseS4", DBI::dbConnect(odbc::odbc(), data_source_name),
-    #     dsn = data_source_name)
-    # private$connection <- DBI::dbConnect(
-    #   odbc::odbc(),
-    #   driver = private$config$driver,
-    #   server = private$config$server,
-    #   database = private$config$database,
-    #)
+
+    j <- rjson::fromJSON(file = db_config)
+
+    con <- DBI::dbConnect(
+      odbc::odbc(),
+      driver = j$driver,
+      server = j$server,
+      database = j$database,
+    )
+
+    new("DatabaseS4", connection = con, config = j)
   }
   else
   {
@@ -88,18 +90,30 @@ DatabaseS4 <- function(data_source_name = NULL,
   }
 }
 
-setGeneric("dsn", function(x) {
-  standardGeneric("dsn")
-})
-setGeneric("dsn<-", function(x, value) {
-  standardGeneric("dsn<-")
-})
-
+setGeneric("dsn", function(x) {standardGeneric("dsn")})
 setMethod("dsn", "DatabaseS4", function(x) {
   x@dsn
 })
-setMethod("dsn<-", "DatabaseS4", function(x, value)
-{
-  x@dsn <- value
-  x
+
+setGeneric("tables", function(x) {standardGeneric("tables")})
+setMethod("tables", "DatabaseS4", function(x) {
+  DBI::dbListTables(x@connection)
 })
+
+
+setGeneric("fn", function(x) {standardGeneric("fn")})
+setMethod("fn", "DatabaseS4", function(x) {
+  vars <- c("nhs_number")
+  tbl <- dplyr::tbl(x@connection, "new_cambridge_score")
+
+  #tbl %>% dplyr::select(dplyr::all_of(vars)) %>% dplyr::show_query() %>%
+  #  dplyr::collect()
+
+  # Put filter before select!
+
+   tbl %>% dplyr::filter(attribute_period == "2022-01-01") %>%
+     dplyr::select(dplyr::all_of(vars)) %>%
+     dplyr::show_query() %>% dplyr::collect()
+})
+
+
