@@ -53,6 +53,6 @@ The functions in the package are labelled according to a 5 point scale
 - 4: To be confirmed…
 
 These scores are provided at the end of the documnentation for each
-function as a line of the form “doneness: 2”. You can take this as an
+function as a line of the form “doneness: 2/4”. You can take this as an
 indication of what kind of state the function is in, and what needs most
 work.

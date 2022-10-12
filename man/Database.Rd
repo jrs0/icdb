@@ -2,16 +2,17 @@
 % Please edit documentation in R/db_r6.R
 \name{Database}
 \alias{Database}
-\title{Construct a Database object}
+\title{Database R6 class}
 \description{
-Construct a Database object
-
+A wrapper for a database connection to an SQL Server (Microsoft)
 Construct a Database object
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Database-new}{\code{Database$new()}}
+\item \href{#method-Database-finalize}{\code{Database$finalize()}}
+\item \href{#method-Database-print}{\code{Database$print()}}
 \item \href{#method-Database-clone}{\code{Database$clone()}}
 }
 }
@@ -19,9 +20,6 @@ Construct a Database object
 \if{html}{\out{<a id="method-Database-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Database-new}{}}}
 \subsection{Method \code{new()}}{
-This object manages a database connection. The connection is configured
-using either a data source name, or a json file which stores
-configuration information and credentials.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Database$new(data_source_name = NULL, db_config = NULL)}\if{html}{\out{</div>}}
 }
@@ -39,7 +37,13 @@ value is the credential file stored in the inst/ directory.}
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-A data source name (DNS) is a string that refers to a connection set up
+This object manages a database connection. The connection is configured
+using either a data source name, or a json file which stores
+configuration information and credentials. After this function has run
+without errors, you should have a new Database object containing a valid
+connection.
+
+A data source name (DNS) is a string that refers to a connection set
 using the "ODBC data sources" app on Windows (8). Open this app; in the
 "User DSN" tab, add a new data source using "Add". Select "SQL Server",
 and then follow through the wizard. Choose a name for the data source,
@@ -54,10 +58,44 @@ in JSON format. Three keys are required: "driver" must be set to the
 database driver (potentially "SQL Server"); "server" must be set the to
 server name; and "database" must be set to the name of the database to
 connect to. An example configuration file is in extdata/db_config.json.
+
+doneness 0
 }
 
 \subsection{Returns}{
 A new (R6) Database object
+
+Close database connection on object deletion
+
+This function closes the previously open database connection when
+the object is deleted (e.g. when rm(db) is run).
+
+Doneness 0
+
+Print the state of the Database object
+
+Doneness 0
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Database-finalize"></a>}}
+\if{latex}{\out{\hypertarget{method-Database-finalize}{}}}
+\subsection{Method \code{finalize()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Database$finalize()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Database-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Database-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Database$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+Invisible self
 }
 }
 \if{html}{\out{<hr>}}
