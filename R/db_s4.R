@@ -13,7 +13,7 @@ setClass(
     dsn = "character"
   ),
   prototype = list(
-    connection = DBI::dbConnect(odbc::odbc(), "HES_ABI"),
+    connection = NULL,
     config = list(),
     dsn = NA_character_
   )
@@ -100,11 +100,11 @@ setMethod("tables", "DatabaseS4", function(x) {
   DBI::dbListTables(x@connection)
 })
 
-
 setGeneric("fn", function(x) standardGeneric("fn"))
 setMethod("fn", "DatabaseS4", function(x) {
-  vars <- c("nhs_number")
-  tbl <- dplyr::tbl(x@connection, "pseudo_")
+
+  vars <- c("PersonTitle")
+  tbl <- dplyr::tbl(x@connection, "tbl_AE_SEM_ALL")
 
   #tbl %>% dplyr::select(dplyr::all_of(vars)) %>% dplyr::show_query() %>%
   #  dplyr::collect()
@@ -113,7 +113,8 @@ setMethod("fn", "DatabaseS4", function(x) {
 
    tbl %>% dplyr::filter(attribute_period == "2022-01-01") %>%
      dplyr::select(dplyr::all_of(vars)) %>%
-     dplyr::show_query() %>% dplyr::collect()
+     dplyr::show_query()
+   #%>% dplyr::collect()
 })
 
 #' Print out the database connection object
