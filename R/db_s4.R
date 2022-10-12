@@ -111,10 +111,10 @@ setMethod("fn", "DatabaseS4", function(x) {
 
   # Put filter before select!
 
-   tbl %>% dplyr::filter(attribute_period == "2022-01-01") %>%
+   tbl %>% head(n=10) %>%
      dplyr::select(dplyr::all_of(vars)) %>%
-     dplyr::show_query()
-   #%>% dplyr::collect()
+     dplyr::show_query() %>%
+     dplyr::collect()
 })
 
 #' Print out the database connection object
