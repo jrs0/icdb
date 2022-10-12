@@ -1,6 +1,6 @@
 setClass("Database",
             slots = c(
-                connection = "character",
+                connection = "Microsoft SQL Server",
                 config = "numeric"
             )
 )
