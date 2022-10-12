@@ -43,4 +43,19 @@ What is special about using `README.Rmd` instead of just `README.md`? You can in
 summary(cars)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+## Code completedness
+
+The functions in the package are labelled according to a 5 point scale (0-4),
+according to the following criteria:
+
+- 0: An initial version of the function has been written, but lacks either 
+documentation or testing
+- 1: The function has an initial version that also has initial documentation 
+and is covered by some preliminary tests
+- 2: To be confirmed...
+- 3: To be confirmed...
+- 4: To be confirmed...
+
+These scores are provided at the end of the documnentation for each function
+as a line of the form "doneness: 2". You can take this as an indication of what
+kind of state the function is in, and what needs most work.
