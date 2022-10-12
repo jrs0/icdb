@@ -4,14 +4,27 @@ Database <- R6::R6Class(
     #' Construct a Database object
     #'
     #' This object manages a database connection. The connection is configured
-    #' using a json file which stores configuration information and credentials.
-    #' The fields of this configuration file are as follows:
+    #' using either a data source name, or a json file which stores
+    #' configuration information and credentials.
     #'
-    #' driver:
+    #' A data source name (DNS) is a string that refers to a connection set up
+    #' using the "ODBC data sources" app on Windows (8). Open this app; in the
+    #' "User DSN" tab, add a new data source using "Add". Select "SQL Server",
+    #' and then follow through the wizard. Choose a name for the data source,
+    #' which is arbitrary -- this is the data source name. Set the "Server"
+    #' field to the server name (the same as in SQL Management Studio). In one
+    #' of the pages, make sure you pick a default database to connect to.
+    #' Finally, at the end of the wizard, check the connection. If it fails,
+    #' debug it before moving on to using this function.
     #'
-    #' @param db_config The absolute path of a configuration file (csv
-    #' format) containing database connection information and credentials.
-    #' The default value is the credential file stored in the inst/ directory.
+    #'
+    #'
+    #' @param data_source_name The data source name (DSN) for the database.  If
+    #'   this argument is provided, it will be preferred to the config file.
+    #'
+    #' @param db_config The absolute path of a configuration file (csv format)
+    #'   containing database connection information and credentials. The default
+    #'   value is the credential file stored in the inst/ directory.
     #'
     #' @return A new (R6) Database object
     #' @export
@@ -19,24 +32,24 @@ Database <- R6::R6Class(
     #' @examples
     #'
     #' db <- Database$new()
-    initialize = function(db_config = system.file("extdata",
-                                                  "db_config.json",
-                                                  package = "rdatabase"))
+    initialize = function(data_source_name = NULL,
+                          db_config = NULL)
     {
-      if (!file.exists(db_config))
-        stop("Database connection failed, input credential file does not exist")
-      private$config <- rjson::fromJSON(file = db_config)
-      print(private$config)
-      private$connection <- DBI::dbConnect(
-        driver = "SQL Server",
-        #RMariaDB::MariaDB(),
-        odbc::odbc(),
-        host = private$config$host,
-        port = private$config$port,
-        database = private$config$dbname,
-        #user = private$config$user,
-        #password = private$config$password
-      )
+      # If the data source name argument was passed, connect using that
+      if (!is.null(data_source_name))
+      {
+        print(paste("Connecting using data source name (DSN):",data_source_name))
+        private$connection <- DBI::dbConnect(odbc::odbc(), data_source_name)
+      }
+      else if (!is.null(db_config) && !file.exists(db_config))
+      {
+        print("Connecting using config file")
+        private$config <- rjson::fromJSON(file = db_config)
+      }
+      else
+      {
+        stop("You must provide a data source name or a config file argument.")
+      }
       print(private$connection)
     }
 
