@@ -12,6 +12,8 @@ Database class wrapping an SQL server connection
 \describe{
 \item{\code{connection}}{Microsoft SQL Server.}
 
-\item{\code{config}}{numeric.}
+\item{\code{config}}{list. Database connection information as a named list}
+
+\item{\code{dsn}}{}
 }}
 

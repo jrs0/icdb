@@ -90,21 +90,21 @@ DatabaseS4 <- function(data_source_name = NULL,
   }
 }
 
-setGeneric("dsn", function(x) {standardGeneric("dsn")})
+setGeneric("dsn", function(x) standardGeneric("dsn"))
 setMethod("dsn", "DatabaseS4", function(x) {
   x@dsn
 })
 
-setGeneric("tables", function(x) {standardGeneric("tables")})
+setGeneric("tables", function(x) standardGeneric("tables"))
 setMethod("tables", "DatabaseS4", function(x) {
   DBI::dbListTables(x@connection)
 })
 
 
-setGeneric("fn", function(x) {standardGeneric("fn")})
+setGeneric("fn", function(x) standardGeneric("fn"))
 setMethod("fn", "DatabaseS4", function(x) {
   vars <- c("nhs_number")
-  tbl <- dplyr::tbl(x@connection, "new_cambridge_score")
+  tbl <- dplyr::tbl(x@connection, "pseudo_")
 
   #tbl %>% dplyr::select(dplyr::all_of(vars)) %>% dplyr::show_query() %>%
   #  dplyr::collect()
@@ -115,5 +115,28 @@ setMethod("fn", "DatabaseS4", function(x) {
      dplyr::select(dplyr::all_of(vars)) %>%
      dplyr::show_query() %>% dplyr::collect()
 })
+
+#' Print out the database connection object
+#'
+#' Use this function to print the database connection, including the
+#' database name.
+#'
+#' @param DatabaseS4
+#'
+#' @export
+#'
+setMethod("show", "DatabaseS4", function(object) {
+  message("Wrapper around database connection")
+  message("Database name: ", object@connection@info$dbname)
+  if(!is.na(object@dsn))
+  {
+    message("Database connection via data source name (DSN): ", object@dsn)
+  }
+  else
+  {
+    message("Database connection via config file")
+  }
+})
+
 
 
