@@ -13,12 +13,13 @@ NULL
 #' @export
 setClass(
   "Database",
+  contains = "list",
   slots = c(
     connection = "DBIConnection",
     config = "list",
     dsn = "character"
   ),
-  prototype = list(
+  prototype = prototype(
     connection = NULL,
     config = list(),
     dsn = NA_character_
@@ -68,7 +69,7 @@ Database <- function(data_source_name = NULL,
   if (!is.null(data_source_name))
   {
     message("Connecting using data source name (DSN): ", data_source_name)
-    new(
+    db <- new(
       "Database",
       connection = DBI::dbConnect(odbc::odbc(), data_source_name),
       dsn = data_source_name
@@ -91,12 +92,22 @@ Database <- function(data_source_name = NULL,
       database = j$database,
     )
 
-    new("Database", connection = con, config = j)
+    db <- new("Database", connection = con, config = j)
   }
   else
   {
     stop("You must provide a data source name or a config file argument.")
   }
+
+  # Copy the list of tables into the inherited list class (get rid of for)
+  tables <- DBI::dbListTables(db@connection)
+  for (t in tables)
+  {
+    db[[t]] <- 0
+  }
+
+  db
+
 }
 
 setGeneric("dsn", function(x) standardGeneric("dsn"))
