@@ -142,8 +142,11 @@ setMethod("fn", "Database", function(x) {
 #' @return A dply::tbl object which wraps a database table
 #' @export
 #'
-setMethod("[[", c(x="Database", i="character"), function(x, i, j, ...) {
-  dplyr::tbl(x@connection, i)
+#'
+setGeneric("table", function(db, tab) standardGeneric("table"))
+
+setMethod("table", c(db="Database", tab="character"), function(db,tab) {
+  dplyr::tbl(db@connection, tab)
 })
 
 
