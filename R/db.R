@@ -128,7 +128,18 @@ setMethod("fn", "Database", function(x) {
 
 setGeneric("sql", function(db, query) standardGeneric("sql"))
 setMethod("sql", c("Database", "character"), function(db, query) {
-  message("Hello ", query)
+
+  # Submit the SQL query
+  res <- DBI::dbSendQuery(db@connection, query)
+
+  # Fetch all results
+  df <- DBI::dbFetch(res, n=-1)
+
+  # Clear the results
+  DBI::dbClearResult(res)
+
+  # Return the dataframe of results
+  df
 })
 
 #' Print out the Database object
