@@ -21,11 +21,9 @@ NULL
 setClass(
     "Table",
     slots = representation(
-      tabname = "character",
-      tbl = "tbl_Microsoft SQL Server"),
+      tabname = "character"),
     prototype = prototype(
-      tabname = NA_character_,
-      tbl = NULL)
+      tabname = NA_character_)
 )
 
 #' Create a new Table object (not for use outside Database class)
@@ -37,7 +35,7 @@ setClass(
 
 Table <- function(tabname)
 {
-  new("Table")
+  new("Table", tabname = tabname)
 }
 
 #' Database class wrapping an SQL server connection
@@ -137,6 +135,8 @@ Database <- function(data_source_name = NULL,
 
   # Copy the list of tables into the inherited list class (get rid of for)
   tables <- DBI::dbListTables(db@connection)
+
+
   for (t in tables)
   {
     db[[t]] <- Table(t)
@@ -145,6 +145,7 @@ Database <- function(data_source_name = NULL,
   db
 
 }
+
 
 setGeneric("dsn", function(x) standardGeneric("dsn"))
 setMethod("dsn", "Database", function(x) {
