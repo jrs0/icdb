@@ -2,8 +2,11 @@
 
 export()
 export(sql)
+export(table)
 exportClasses(Database)
 exportMethods(show)
+exportMethods(sql)
+exportMethods(table)
 importClassesFrom(DBI,DBIConnection)
 importFrom(magrittr,"%>%")
 importFrom(methods,new)

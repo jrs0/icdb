@@ -136,19 +136,23 @@ setMethod("fn", "Database", function(x) {
 #' function is an alternative to using a direct sql query using the sql()
 #' generic
 #'
-#' @param x The Database (S4) object to use for the query
-#' @param table The name of the table to use in the database
+#' @param db The Database (S4) object to use for the query
+#' @param tab The name of the table to use in the database
 #'
 #' @return A dply::tbl object which wraps a database table
 #' @export
 #'
-#'
 setGeneric("table", function(db, tab) standardGeneric("table"))
 
+#' Get the dplyr table wrapper for a table passed as a string
+#'
+#' @param db .
+#' @param tab .
+#'
+#' @export
 setMethod("table", c(db="Database", tab="character"), function(db,tab) {
   dplyr::tbl(db@connection, tab)
 })
-
 
 #' Submit an SQL query to a database object
 #'
@@ -162,10 +166,9 @@ setGeneric("sql", function(db, query) standardGeneric("sql"))
 
 #' Perform an SQL query by directly passing the SQL string
 #'
-#' @docType methods
-#' @aliases show-Database show, Database-method
+#' @param db The Database to submit to query to
+#' @param query The query to submit (character string)
 #'
-#' @param object The object to be printed
 #' @export
 setMethod("sql", c("Database", "character"), function(db, query) {
 

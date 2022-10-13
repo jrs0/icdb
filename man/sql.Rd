@@ -12,7 +12,7 @@ sql(db, query)
 \item{query}{A string with the SQL query}
 }
 \value{
-A dataframe containing the results
+A tibble containing the results
 }
 \description{
 Submit an SQL query to a database object

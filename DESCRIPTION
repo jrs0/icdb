@@ -16,4 +16,5 @@ Imports:
     methods,
     odbc,
     rjson,
+    tibble,
     utils
