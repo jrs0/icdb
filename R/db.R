@@ -20,6 +20,7 @@ NULL
 #'
 setClass(
     "Table",
+    contains = "list",
     slots = representation(
       tabname = "character"),
     prototype = prototype(
@@ -138,7 +139,7 @@ Database <- function(data_source_name = NULL,
 
   for (t in tables)
   {
-    db[[t]] <- t
+    db[[t]] <- 1#table(db,t)
   }
 
   db

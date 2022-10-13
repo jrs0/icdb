@@ -7,9 +7,7 @@
 table(db, tab)
 }
 \arguments{
-\item{db}{The Database (S4) object to use for the query}
-
-\item{tab}{The name of the table to use in the database}
+\item{tab}{The name of the Table object to use read}
 }
 \value{
 A dply::tbl object which wraps a database table
