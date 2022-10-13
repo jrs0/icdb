@@ -99,8 +99,7 @@ Database <- function(data_source_name = NULL,
   }
 }
 
-setGeneric("dsn", function(x)
-  standardGeneric("dsn"))
+setGeneric("dsn", function(x) standardGeneric("dsn"))
 setMethod("dsn", "Database", function(x) {
   x@dsn
 })
@@ -111,8 +110,7 @@ setMethod("tables", "Database", function(x) {
   DBI::dbListTables(x@connection)
 })
 
-setGeneric("fn", function(x)
-  standardGeneric("fn"))
+setGeneric("fn", function(x) standardGeneric("fn"))
 setMethod("fn", "Database", function(x) {
   vars <- c("PersonTitle")
   tbl <- dplyr::tbl(x@connection, "tbl_AE_SEM_ALL")
@@ -128,24 +126,22 @@ setMethod("fn", "Database", function(x) {
     dplyr::collect()
 })
 
-
 #' Print out the Database object
 #'
-#' @param object The object to be printed
+#' @docType methods
+#' @aliases show-Database show, Database-method
 #'
-#' @aliases show-Database
+#' @param object The object to be printed
 #' @export
-setMethod("show", "Database",
-
-          function(object) {
-            message("Wrapper around database connection")
-            message("Database name: ", object@connection@info$dbname)
-            if (!is.na(object@dsn))
-            {
-              message("Database connection via data source name (DSN): ", object@dsn)
-            }
-            else
-            {
-              message("Database connection via config file")
-            }
-          })
+setMethod("show", "Database", function(object) {
+  message("Wrapper around database connection")
+  message("Database name: ", object@connection@info$dbname)
+  if (!is.na(object@dsn))
+  {
+    message("Database connection via data source name (DSN): ", object@dsn)
+  }
+  else
+  {
+    message("Database connection via config file")
+  }
+})
