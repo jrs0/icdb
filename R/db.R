@@ -126,7 +126,44 @@ setMethod("fn", "Database", function(x) {
     dplyr::collect()
 })
 
+
+#' Get a table in the database in a form ready for dplyr processing
+#'
+#' Use this function to obtain a dplyr::tbl (a kind of shell object) from a
+#' table in the database. This object does not contain the full data to begin
+#' with. Instead, it can be used as the basis of dplyr-based SQL queries,
+#' finishing with a %>% collect() call which does actually produce data. This
+#' function is an alternative to using a direct sql query using the sql()
+#' generic
+#'
+#' @param x The Database (S4) object to use for the query
+#' @param table The name of the table to use in the database
+#'
+#' @return A dply::tbl object which wraps a database table
+#' @export
+#'
+setMethod("[[", c(x="Database", i="character"), function(x, i, j, ...) {
+  message(i)
+})
+
+
+#' Submit an SQL query to a database object
+#'
+#' @param db The database to query
+#' @param query A string with the SQL query
+#'
+#' @return A tibble containing the results
+#' @export
+#'
 setGeneric("sql", function(db, query) standardGeneric("sql"))
+
+#' Perform an SQL query by directly passing the SQL string
+#'
+#' @docType methods
+#' @aliases show-Database show, Database-method
+#'
+#' @param object The object to be printed
+#' @export
 setMethod("sql", c("Database", "character"), function(db, query) {
 
   # Submit the SQL query
@@ -138,8 +175,8 @@ setMethod("sql", c("Database", "character"), function(db, query) {
   # Clear the results
   DBI::dbClearResult(res)
 
-  # Return the dataframe of results
-  df
+  # Return the dataframe of results as a tibble
+  tibble::as_tibble(df)
 })
 
 #' Print out the Database object
