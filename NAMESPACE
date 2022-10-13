@@ -2,5 +2,8 @@
 
 export()
 exportClasses(DatabaseS4)
+exportMethods(show)
+importClassesFrom(DBI,DBIConnection)
 importFrom(magrittr,"%>%")
 importFrom(methods,new)
+importFrom(methods,show)

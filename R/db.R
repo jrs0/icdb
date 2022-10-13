@@ -1,5 +1,6 @@
-#' @importFrom methods new
+#' @importFrom methods new show
 #' @importFrom magrittr %>%
+#' @importClassesFrom DBI DBIConnection
 #' @export
 NULL
 
@@ -13,7 +14,7 @@ NULL
 setClass(
   "DatabaseS4",
   slots = c(
-    connection = "Microsoft SQL Server",
+    connection = "DBIConnection",
     config = "list",
     dsn = "character"
   ),
@@ -30,7 +31,8 @@ setClass(
 #' using either a data source name, or a json file which stores
 #' configuration information and credentials. After this function has run
 #' without errors, you should have a new Database object containing a valid
-#' connection.
+#' connection. The data source is specified by a data source name, which is
+#' configured using a Windows program. This is the preferred connection method.
 #'
 #' A data source name (DNS) is a string that refers to a connection set
 #' using the "ODBC data sources" app on Windows (8). Open this app; in the
@@ -123,20 +125,23 @@ setMethod("fn", "DatabaseS4", function(x) {
 })
 
 
-setMethod("show", "DatabaseS4",
-
-          function(object) {
-            message("Wrapper around database connection")
-            message("Database name: ", object@connection@info$dbname)
-            if (!is.na(object@dsn))
-            {
-              message("Database connection via data source name (DSN): ", object@dsn)
-            }
-            else
-            {
-              message("Database connection via config file")
-            }
-          })
+#' Print out the Database object
+#'
+#' @param object The object to be printed
+#'
+#' @export
+setMethod("show", "DatabaseS4", function(object) {
+  message("Wrapper around database connection")
+  message("Database name: ", object@connection@info$dbname)
+  if (!is.na(object@dsn))
+  {
+    message("Database connection via data source name (DSN): ", object@dsn)
+  }
+  else
+  {
+    message("Database connection via config file")
+  }
+})
 
 
 

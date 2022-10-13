@@ -22,7 +22,8 @@ This object manages a database connection. The connection is configured
 using either a data source name, or a json file which stores
 configuration information and credentials. After this function has run
 without errors, you should have a new Database object containing a valid
-connection.
+connection. The data source is specified by a data source name, which is
+configured using a Windows program. This is the preferred connection method.
 }
 \details{
 A data source name (DNS) is a string that refers to a connection set
