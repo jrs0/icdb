@@ -136,10 +136,9 @@ Database <- function(data_source_name = NULL,
   # Copy the list of tables into the inherited list class (get rid of for)
   tables <- DBI::dbListTables(db@connection)
 
-
   for (t in tables)
   {
-    db[[t]] <- Table(t)
+    db[[t]] <- t
   }
 
   db
@@ -184,8 +183,7 @@ setMethod("fn", "Database", function(x) {
 #' function is an alternative to using a direct sql query using the sql()
 #' generic
 #'
-#' @param db The Database (S4) object to use for the query
-#' @param tab The name of the table to use in the database
+#' @param tab The name of the Table object to use read
 #'
 #' @return A dply::tbl object which wraps a database table
 #' @export
@@ -198,7 +196,7 @@ setGeneric("table", function(db, tab) standardGeneric("table"))
 #' @param tab .
 #'
 #' @export
-setMethod("table", c(db="Database", tab="character"), function(db,tab) {
+setMethod("table", c(db = "Database", tab="character"), function(db, tab) {
   dplyr::tbl(db@connection, tab)
 })
 
