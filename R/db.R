@@ -12,7 +12,7 @@ NULL
 #'
 #' @export
 setClass(
-  "DatabaseS4",
+  "Database",
   slots = c(
     connection = "DBIConnection",
     config = "list",
@@ -61,16 +61,18 @@ setClass(
 #'
 #' @return A new (S4) Database object
 #'
-DatabaseS4 <- function(data_source_name = NULL,
-                      db_config = NULL)
+Database <- function(data_source_name = NULL,
+                     db_config = NULL)
 {
   # If the data source name argument was passed, connect using that
   if (!is.null(data_source_name))
   {
     message("Connecting using data source name (DSN): ", data_source_name)
-    new("DatabaseS4",
-        connection = DBI::dbConnect(odbc::odbc(), data_source_name),
-        dsn = data_source_name)
+    new(
+      "Database",
+      connection = DBI::dbConnect(odbc::odbc(), data_source_name),
+      dsn = data_source_name
+    )
   }
   else if (!is.null(db_config))
   {
@@ -89,7 +91,7 @@ DatabaseS4 <- function(data_source_name = NULL,
       database = j$database,
     )
 
-    new("DatabaseS4", connection = con, config = j)
+    new("Database", connection = con, config = j)
   }
   else
   {
@@ -97,19 +99,21 @@ DatabaseS4 <- function(data_source_name = NULL,
   }
 }
 
-setGeneric("dsn", function(x) standardGeneric("dsn"))
-setMethod("dsn", "DatabaseS4", function(x) {
+setGeneric("dsn", function(x)
+  standardGeneric("dsn"))
+setMethod("dsn", "Database", function(x) {
   x@dsn
 })
 
-setGeneric("tables", function(x) standardGeneric("tables"))
-setMethod("tables", "DatabaseS4", function(x) {
+setGeneric("tables", function(x)
+  standardGeneric("tables"))
+setMethod("tables", "Database", function(x) {
   DBI::dbListTables(x@connection)
 })
 
-setGeneric("fn", function(x) standardGeneric("fn"))
-setMethod("fn", "DatabaseS4", function(x) {
-
+setGeneric("fn", function(x)
+  standardGeneric("fn"))
+setMethod("fn", "Database", function(x) {
   vars <- c("PersonTitle")
   tbl <- dplyr::tbl(x@connection, "tbl_AE_SEM_ALL")
 
@@ -118,10 +122,10 @@ setMethod("fn", "DatabaseS4", function(x) {
 
   # Put filter before select!
 
-   tbl %>% utils::head(n=10) %>%
-     dplyr::select(dplyr::all_of(vars)) %>%
-     dplyr::show_query() %>%
-     dplyr::collect()
+  tbl %>% utils::head(n = 10) %>%
+    dplyr::select(dplyr::all_of(vars)) %>%
+    dplyr::show_query() %>%
+    dplyr::collect()
 })
 
 
@@ -129,19 +133,19 @@ setMethod("fn", "DatabaseS4", function(x) {
 #'
 #' @param object The object to be printed
 #'
+#' @aliases show-Database
 #' @export
-setMethod("show", "DatabaseS4", function(object) {
-  message("Wrapper around database connection")
-  message("Database name: ", object@connection@info$dbname)
-  if (!is.na(object@dsn))
-  {
-    message("Database connection via data source name (DSN): ", object@dsn)
-  }
-  else
-  {
-    message("Database connection via config file")
-  }
-})
+setMethod("show", "Database",
 
-
-
+          function(object) {
+            message("Wrapper around database connection")
+            message("Database name: ", object@connection@info$dbname)
+            if (!is.na(object@dsn))
+            {
+              message("Database connection via data source name (DSN): ", object@dsn)
+            }
+            else
+            {
+              message("Database connection via config file")
+            }
+          })
