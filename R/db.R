@@ -1,8 +1,46 @@
 #' @importFrom methods new show
 #' @importFrom magrittr %>%
-#' @importClassesFrom DBI DBIConnection
+#' @importClassesFrom DBI DBIConnection 'tbl_Microsoft SQL Server'
 #' @export
 NULL
+
+#' A Table class for a table in the Database class
+#'
+#' The purpose of this class is to wrap the dplyr table shell object for
+#' storing in the Database class. The Database class is essentially a list
+#' of these objects, named by the table name. This permits tab-completion of
+#' table names when a database is created. However, the innards of this class
+#' is only populated when the table is created, so that it is not necessary
+#' to store thousands of dplyr::tab objects. There is more optimisation work
+#' to do, but this will test the principle.
+#'
+#' @slot tabname character The name of the table
+#'
+#' @export
+#'
+#' @examples
+setClass(
+    "Table",
+    slots = representation(
+      tabname = "character",
+      tbl = "tbl_Microsoft SQL Server"),
+    prototype = prototype(
+      tabname = NA_character_,
+      tbl = NULL)
+)
+
+#' Create a new Table object (not for use outside Database class)
+#'
+#' @param tabname The table name (a string)
+#'
+#' @return
+#' @export
+#'
+#' @examples
+Table <- function(tabname)
+{
+  new("Table")
+}
 
 #' Database class wrapping an SQL server connection
 #'
@@ -14,7 +52,7 @@ NULL
 setClass(
   "Database",
   contains = "list",
-  slots = c(
+  slots = representation(
     connection = "DBIConnection",
     config = "list",
     dsn = "character"
