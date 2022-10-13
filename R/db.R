@@ -137,15 +137,32 @@ Database <- function(data_source_name = NULL,
   # Copy the list of tables into the inherited list class (get rid of for)
   tables <- DBI::dbListTables(db@connection)
 
+  # This is the problem part of the code -- it really needs to store a
+  # function to return the table object, but that doesn't work (yet).
   for (t in tables)
   {
-    db[[t]] <- 1#table(db,t)
+    db[[t]] <- t
   }
 
   db
 
 }
 
+setGeneric("searchCols", function(db) standardGeneric("searchCols"))
+setMethod("searchCols", "Database", function(db) {
+  for (t in db) {
+    message("Searching in", t)
+    tryCatch(
+      expr = {
+        tbl <- table(db, t)
+      },
+      error = function(x) {
+        warning("Failed to read table '", t, "'")
+      }
+    )
+
+  }
+})
 
 setGeneric("dsn", function(x) standardGeneric("dsn"))
 setMethod("dsn", "Database", function(x) {
