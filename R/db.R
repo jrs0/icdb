@@ -143,7 +143,7 @@ setMethod("fn", "Database", function(x) {
 #' @export
 #'
 setMethod("[[", c(x="Database", i="character"), function(x, i, j, ...) {
-  message(i)
+  dplyr::tbl(x@connection, i)
 })
 
 
