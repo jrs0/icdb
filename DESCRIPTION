@@ -11,7 +11,9 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports: 
     DBI,
+    dplyr,
     magrittr,
     methods,
-    R6,
-    rjson
+    odbc,
+    rjson,
+    utils

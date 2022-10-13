@@ -116,7 +116,7 @@ setMethod("fn", "DatabaseS4", function(x) {
 
   # Put filter before select!
 
-   tbl %>% rlang::head(n=10) %>%
+   tbl %>% utils::head(n=10) %>%
      dplyr::select(dplyr::all_of(vars)) %>%
      dplyr::show_query() %>%
      dplyr::collect()

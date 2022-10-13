@@ -2,7 +2,5 @@
 
 export()
 exportClasses(DatabaseS4)
-import(R6)
-import(rjson)
 importFrom(magrittr,"%>%")
 importFrom(methods,new)
