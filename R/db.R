@@ -1,6 +1,6 @@
 #' @importFrom methods new show
 #' @importFrom magrittr %>%
-#' @importClassesFrom DBI DBIConnection 'tbl_Microsoft SQL Server'
+#' @importClassesFrom DBI DBIConnection
 #' @export
 NULL
 
@@ -18,7 +18,6 @@ NULL
 #'
 #' @export
 #'
-#' @examples
 setClass(
     "Table",
     slots = representation(
@@ -33,10 +32,9 @@ setClass(
 #'
 #' @param tabname The table name (a string)
 #'
-#' @return
+#' @return The new Table object
 #' @export
-#'
-#' @examples
+
 Table <- function(tabname)
 {
   new("Table")
@@ -141,7 +139,7 @@ Database <- function(data_source_name = NULL,
   tables <- DBI::dbListTables(db@connection)
   for (t in tables)
   {
-    db[[t]] <- 0
+    db[[t]] <- Table(t)
   }
 
   db
