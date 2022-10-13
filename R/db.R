@@ -126,6 +126,11 @@ setMethod("fn", "Database", function(x) {
     dplyr::collect()
 })
 
+setGeneric("sql", function(db, query) standardGeneric("sql"))
+setMethod("sql", c("Database", "character"), function(db, query) {
+  message("Hello ", query)
+})
+
 #' Print out the Database object
 #'
 #' @docType methods
