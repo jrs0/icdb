@@ -4,6 +4,7 @@
 #' @export
 NULL
 
+#' Global variable storing the query cache folder path
 query_cache_path <- "cache/"
 
 #' A Table class for a table in the Database class
@@ -293,17 +294,47 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 #' @export
 setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 
-  # Submit the SQL query
-  res <- DBI::dbSendQuery(db@connection, query)
+  # Create the cache folder if necessary
+  if (!dir.exists(query_cache_path))
+  {
+    dir.create(query_cache_path)
+  }
 
-  # Fetch all results
-  df <- DBI::dbFetch(res, n=-1)
+  # Generate the cache file name
+  cachefile_name <- paste0(rlang::hash(query), ".rds")
+  cachefile_full <- paste0(query_cache_path, "/", cachefile_name)
 
-  # Clear the results
-  DBI::dbClearResult(res)
+  # Search for the cached file
+  if (file.exists(cachefile_full))
+  {
+    message("Found cached results for this query, using that")
 
-  # Return the dataframe of results as a tibble
-  tibble::as_tibble(df)
+    # Return the cached data
+    readRDS(cachefile_full)
+  }
+  else
+  {
+    # Submit the SQL query
+    res <- DBI::dbSendQuery(db@connection, query)
+
+    # Fetch all results
+    df <- DBI::dbFetch(res, n=-1)
+
+    # Clear the results
+    DBI::dbClearResult(res)
+
+    # Create a tibble from the datafram
+    t <- tibble::as_tibble(df)
+
+    # Save the results in the cache
+    saveRDS(t, file = cachefile_full)
+
+    # Return the dataframe of results as a tibble
+    t
+  }
+
+
+
 })
 
 setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
