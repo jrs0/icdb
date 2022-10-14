@@ -156,6 +156,8 @@ readCache <- function(cache, data)
 
 setMethod("summary", "Cache", function(object, ...) {
 
+  message("The cache is stored in the folder: ", object@path)
+
   # Get the list of files
   file_list <- list.files(object@path, pattern = "meta\\.rds")
 
@@ -167,7 +169,7 @@ setMethod("summary", "Cache", function(object, ...) {
     list(hits = metadata$hits,
          data = metadata$data,
          write_time = metadata$write_time,
-         last_access = metadata$last_access)
+         last_access = metadata$last_access
   }
 
   res <- file_list %>%
@@ -176,28 +178,7 @@ setMethod("summary", "Cache", function(object, ...) {
     purrr::map(unlist)
   dput(res)
   t <- do.call(tibble, res)
-  print(t)
 
-  # # Make lists for data
-  # hits <- vector(length(file_list))
-  # data <- vector(length(file_list))
-  #
-  # # Iterate over all the metadata files in the cache
-  # for (i in 1:length(file_list))
-  # {
-  #   file <- file_list[[i]]
-  #
-  #   meta_file <- paste0(object@path, "/", file)
-  #   metadata <- readRDS(meta_file)
-  #
-  #   data[[i]] <- metadata$data
-  #   hits[[i]] <-  metadata$hits
-  # }
-  #
-  # t <- dplyr::tibble(hits = hits, data = data)
-  #
-  # print(t)
-  #
-  # invisible(object)
+  # Print the summary
   t
 })
