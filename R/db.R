@@ -225,6 +225,14 @@ setMethod("fn", "Database", function(x) {
 
 #' Access a table in a Database object
 #'
+#' Use this function to access a table in the Database object. The Database
+#' object behaves like a list, but the elements of the list are evaluated only
+#' when this function is called. When a call like db$table_name is made, this
+#' function creates the corresponding dplyr::tbl object and returns it. Since
+#' this is not a particularly long operation, the results do not need to be
+#' cached. Use the resulting object for any processing you can do with
+#' dplyr::tbl, e.g. pipe it to some SQL-type queries and collect().
+#'
 #' @param x The database
 #' @param name The table to access
 #'
@@ -232,8 +240,9 @@ setMethod("fn", "Database", function(x) {
 #' @export
 setMethod("$", "Database", function(x, name) {
   table(db, name)
-
 })
+
+
 
 #' Get a table in the database in a form ready for dplyr processing
 #'
@@ -269,7 +278,7 @@ setMethod("table", c(db = "Database", tab="character"), function(db, tab) {
 #' @return A tibble containing the results
 #' @export
 #'
-setGeneric("sql", function(db, query) standardGeneric("sql"))
+setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 
 #' Perform an SQL query by directly passing the SQL string
 #'
@@ -277,7 +286,7 @@ setGeneric("sql", function(db, query) standardGeneric("sql"))
 #' @param query The query to submit (character string)
 #'
 #' @export
-setMethod("sql", c("Database", "character"), function(db, query) {
+setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 
   # Submit the SQL query
   res <- DBI::dbSendQuery(db@connection, query)
