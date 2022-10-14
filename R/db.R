@@ -7,41 +7,6 @@ NULL
 #' Global variable storing the query cache folder path
 query_cache_path <- "cache/"
 
-#' A Table class for a table in the Database class
-#'
-#' The purpose of this class is to wrap the dplyr table shell object for
-#' storing in the Database class. The Database class is essentially a list
-#' of these objects, named by the table name. This permits tab-completion of
-#' table names when a database is created. However, the innards of this class
-#' is only populated when the table is created, so that it is not necessary
-#' to store thousands of dplyr::tab objects. There is more optimisation work
-#' to do, but this will test the principle.
-#'
-#' @slot tabname character The name of the table
-#'
-#' @export
-#'
-setClass(
-    "Table",
-    contains = "list",
-    slots = representation(
-      tabname = "character"),
-    prototype = prototype(
-      tabname = NA_character_)
-)
-
-#' Create a new Table object (not for use outside Database class)
-#'
-#' @param tabname The table name (a string)
-#'
-#' @return The new Table object
-#' @export
-
-Table <- function(tabname)
-{
-  new("Table", tabname = tabname)
-}
-
 #' Database class wrapping an SQL server connection
 #'
 #' @slot connection Microsoft SQL Server.
@@ -151,7 +116,6 @@ Database <- function(data_source_name = NULL,
 
 }
 
-
 #' Search the tables and columns in a database for partial names
 #'
 #' Several of the databases are very large, with hundreds of tables each
@@ -159,19 +123,16 @@ Database <- function(data_source_name = NULL,
 #' relevant columns in the tables of the database, by partially matching the
 #' table and column names and printing the results.
 #'
-#'
-#'
 #' @param db The Database object to query
 #' @param col_pattern The pattern to match column names (regexp)
+#' @param tab_pattern The pattern to match table names (regexp)
 #'
-#' @return
 #' @export
 #'
-#' @examples
 setGeneric("searchCols", function(db, col_pattern, tab_pattern)
   standardGeneric("searchCols"))
 
-
+#' Search the tables and columns in a database for partial names
 setMethod("searchCols", "Database",
           function(db, col_pattern, tab_pattern) {
 
@@ -186,7 +147,7 @@ setMethod("searchCols", "Database",
         col_matches <- grep(col_pattern, names, value=TRUE)
         if (length(col_matches) > 0) {
           print(paste0("Found these colums in table '", t, "':"))
-          writeLines(paste0("  ", capture.output(print(col_matches))))
+          writeLines(paste0("  ", utils::capture.output(print(col_matches))))
           cat("\n")
         }
       },
@@ -208,23 +169,6 @@ setGeneric("tables", function(x)
 setMethod("tables", "Database", function(x) {
   DBI::dbListTables(x@connection)
 })
-
-setGeneric("fn", function(x) standardGeneric("fn"))
-setMethod("fn", "Database", function(x) {
-  vars <- c("PersonTitle")
-  tbl <- dplyr::tbl(x@connection, "tbl_AE_SEM_ALL")
-
-  #tbl %>% dplyr::select(dplyr::all_of(vars)) %>% dplyr::show_query() %>%
-  #  dplyr::collect()
-
-  # Put filter before select!
-
-  tbl %>% utils::head(n = 10) %>%
-    dplyr::select(dplyr::all_of(vars)) %>%
-    dplyr::show_query() %>%
-    dplyr::collect()
-})
-
 
 #' Access a table in a Database object
 #'
@@ -255,7 +199,7 @@ setMethod("$", "Database", function(x, name) {
 #' function is an alternative to using a direct sql query using the sql()
 #' generic
 #'
-#' @param tab The name of the Table object to use read
+#' @param tab The name of the table object to use read
 #'
 #' @return A dply::tbl object which wraps a database table
 #' @export
@@ -294,11 +238,6 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 #' @export
 setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 
-  # Create the cache folder if necessary
-  if (!dir.exists(query_cache_path))
-  {
-    dir.create(query_cache_path)
-  }
 
   # Generate the cache file name
   cachefile_name <- paste0(rlang::hash(query), ".rds")
@@ -310,7 +249,8 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
     message("Found cached results for this query, using that")
 
     # Return the cached data
-    readRDS(cachefile_full)
+    cachedata <- readRDS(cachefile_full)
+    cachedata$results
   }
   else
   {
@@ -326,17 +266,44 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
     # Create a tibble from the datafram
     t <- tibble::as_tibble(df)
 
+    # Create the data structure to cache, which stores the query
+    # and the results
+    cachedata <- list(query = query, results = t)
+
     # Save the results in the cache
-    saveRDS(t, file = cachefile_full)
+    saveRDS(cachedata, file = cachefile_full)
 
     # Return the dataframe of results as a tibble
     t
   }
 
-
-
 })
 
+#' Show the contents of the database query cache
+#'
+#' @export
+#'
+show_cache <- function()
+{
+  for (file in list.files(query_cache_path))
+  {
+    # Make the full path
+    cachefile_full <- paste0(query_cache_path, "/", file)
+
+    # Get the cached data
+    cachedata <- readRDS(cachefile_full)
+
+    print(cachedata)
+  }
+}
+
+#' Submit an SQL query from a file and get the results
+#'
+#' @param db The Database object to submit the query to
+#' @param file The path to the file containing SQL
+#'
+#' @return A tibble containing the results
+#' @export
 setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
 
 #' Perform a SQL query from a file

@@ -7,7 +7,7 @@
 table(db, tab)
 }
 \arguments{
-\item{tab}{The name of the Table object to use read}
+\item{tab}{The name of the table object to use read}
 }
 \value{
 A dply::tbl object which wraps a database table

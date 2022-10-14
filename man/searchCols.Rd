@@ -10,6 +10,8 @@ searchCols(db, col_pattern, tab_pattern)
 \item{db}{The Database object to query}
 
 \item{col_pattern}{The pattern to match column names (regexp)}
+
+\item{tab_pattern}{The pattern to match table names (regexp)}
 }
 \description{
 Several of the databases are very large, with hundreds of tables each
