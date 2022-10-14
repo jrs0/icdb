@@ -148,16 +148,47 @@ Database <- function(data_source_name = NULL,
 
 }
 
-setGeneric("searchCols", function(db) standardGeneric("searchCols"))
-setMethod("searchCols", "Database", function(db) {
-  for (t in db) {
-    message("Searching in", t)
+
+#' Search the tables and columns in a database for partial names
+#'
+#' Several of the databases are very large, with hundreds of tables each
+#' with hundreds of columns. This function is designed to help with finding
+#' relevant columns in the tables of the database, by partially matching the
+#' table and column names and printing the results.
+#'
+#'
+#'
+#' @param db The Database object to query
+#' @param col_pattern The pattern to match column names (regexp)
+#'
+#' @return
+#' @export
+#'
+#' @examples
+setGeneric("searchCols", function(db, col_pattern, tab_pattern)
+  standardGeneric("searchCols"))
+
+
+setMethod("searchCols", "Database",
+          function(db, col_pattern, tab_pattern) {
+
+  # Filter table names
+  tab_matches <- grep(tab_pattern, db, value=TRUE)
+
+  for (t in tab_matches) {
     tryCatch(
       expr = {
         tbl <- table(db, t)
+        names <- colnames(tbl)
+        col_matches <- grep(col_pattern, names, value=TRUE)
+        if (length(col_matches) > 0) {
+          print(paste0("Found these colums in table '", t, "':"))
+          writeLines(paste0("  ", capture.output(print(col_matches))))
+          cat("\n")
+        }
       },
       error = function(x) {
-        warning("Failed to read table '", t, "'")
+        warning(x)
       }
     )
 
@@ -191,6 +222,18 @@ setMethod("fn", "Database", function(x) {
     dplyr::collect()
 })
 
+
+#' Access a table in a Database object
+#'
+#' @param x The database
+#' @param name The table to access
+#'
+#' @return A dplyr::tbl data source wrapper
+#' @export
+setMethod("$", "Database", function(x, name) {
+  table(db, name)
+
+})
 
 #' Get a table in the database in a form ready for dplyr processing
 #'
