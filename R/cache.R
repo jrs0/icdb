@@ -183,3 +183,31 @@ setMethod("summary", "Cache", function(object, ...) {
   # Print the summary
   t
 })
+
+#' Clear the cache
+#'
+#' Delete all the cached results in the cache folder.
+#'
+setGeneric("clear", function(cache) standardGeneric("clear"))
+
+#' Clear the cache
+#'
+#' Delete all the cached results in the cache folder.
+#'
+setMethod("clear", "Cache", function(cache) {
+  # Check if directory exists
+  if (dir.exists(cache@path) && length(list.files(cache@path)) > 0)
+  {
+    list.files(cache@path) %>%
+      stringr::str_c(cache@path,.) %>%
+      purrr::map(file.remove)
+    message("Cleared cache.")
+  }
+  else
+  {
+    message("Cache already empty.")
+  }
+  invisible(cache)
+})
+
+
