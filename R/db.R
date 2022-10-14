@@ -239,7 +239,7 @@ setMethod("fn", "Database", function(x) {
 #' @return A dplyr::tbl data source wrapper
 #' @export
 setMethod("$", "Database", function(x, name) {
-  table(db, name)
+  table(x, name)
 })
 
 
@@ -281,6 +281,10 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 
 #' Perform an SQL query by directly passing the SQL string
 #'
+#' Submit an SQL query to the Database and obtain the results of the query in
+#' a tibble dataframe. The query results are cached in a file on the disk,
+#' so that if do the same query a second time, the local results are used.
+#'
 #' @param db The Database to submit to query to
 #' @param query The query to submit (character string)
 #'
@@ -302,7 +306,14 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 
 setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
 
-#' Perform an SQL query from a file
+#' Perform a SQL query from a file
+#'
+#' If you have a file of SQL, submit it as a query to the database using this
+#' function. It reads the file into a string and passes it to the sqlQuery
+#' function. This function also caches the results of the query in a file
+#' so that next time the function is called, the query will attempt to use
+#' the cached file before using the SQL server. See the documentation for
+#' sqlQuery for more information about how this works.
 #'
 #' @param db The Database to submit to query to
 #' @param query The query to submit (character string)
