@@ -243,7 +243,6 @@ setMethod("$", "Database", function(x, name) {
 })
 
 
-
 #' Get a table in the database in a form ready for dplyr processing
 #'
 #' Use this function to obtain a dplyr::tbl (a kind of shell object) from a
@@ -299,6 +298,23 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 
   # Return the dataframe of results as a tibble
   tibble::as_tibble(df)
+})
+
+setGeneric("sqlFile", function(db, file) standardGeneric("sqlFile"))
+
+#' Perform an SQL query from a file
+#'
+#' @param db The Database to submit to query to
+#' @param query The query to submit (character string)
+#'
+#' @export
+setMethod("sqlFile", c("Database", "character"), function(db, file) {
+
+  # Read the query as a string
+  str <- readr::read_file(file)
+
+  # Do the query
+  sqlQuery(db, str)
 })
 
 #' Print out the Database object
