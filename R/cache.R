@@ -66,10 +66,10 @@ setMethod("getContents", "Cache", function(c) {
 #' readCache that the data is not already present in the cache.
 #'
 #' @param cache A Cache object in which to store the data
-#' @param object The main (typically large) object to store in the cache
 #' @param data Data about the object, used to generate the hash
+#' @param object The main (typically large) object to store in the cache
 #'
-writeCache <- function(cache, object, data)
+writeCache <- function(cache, data, object)
 {
   # Create the directory if it does not exist
   if (!dir.exists(cache@path))
@@ -104,3 +104,92 @@ writeCache <- function(cache, object, data)
   saveRDS(metadata, file = meta_file)
 
 }
+
+#' Read an object from the cache
+#'
+#' Use this function to get an object from
+#'
+#' @param cache The Cache object to read from
+#' @param data The same data object passed to the writeCache function
+#'
+#' @return Returns the object associated with the data. Null if not found.
+readCache <- function(cache, data)
+{
+  # Check if directory exists
+  if (!dir.exists(cache@path))
+  {
+    NULL
+  }
+
+  # Make the has out of the metadata
+  hash <- rlang::hash(data)
+
+  # Create the object filename and the metadata filename
+  obj_file <- paste0(cache@path, "/", hash, ".obj.rds")
+  meta_file <- paste0(cache@path, "/", hash, ".meta.rds")
+
+  # Check to see if the files exist
+  if (file.exists(meta_file))
+  {
+    if (file.exists(obj_file))
+    {
+      # Open the meta file and increment the update values
+      metadata <- readRDS(meta_file)
+      metadata$hits <-  metadata$hits + 1
+      metadata$last_access <-  Sys.time()
+      saveRDS(metadata, file = meta_file)
+
+      # Now open and return the object
+      readRDS(obj_file)
+    }
+    else
+    {
+      stop("The cache is corrupt: missing .obj.rds file for .meta.rds file.")
+    }
+  }
+  else
+  {
+    NULL
+  }
+}
+
+setMethod("summary", "Cache", function(object, ...) {
+
+  # Get the list of files
+  file_list <- list.files(object@path, pattern = "meta\\.rds")
+
+  # Make a function to get the data
+  get_metadata <- function(file) {
+    meta_file <- paste0(object@path, "/", file)
+    metadata <- readRDS(meta_file)
+    print(metadata)
+    list(metadata$hits, metadata$data)
+  }
+
+  res <- file_list %>% purrr::map(get_metadata) %>% purrr::transpose()
+  names(res) <- c("hits", "data")
+  t <- do.call(data.frame, res)
+
+  # # Make lists for data
+  # hits <- vector(length(file_list))
+  # data <- vector(length(file_list))
+  #
+  # # Iterate over all the metadata files in the cache
+  # for (i in 1:length(file_list))
+  # {
+  #   file <- file_list[[i]]
+  #
+  #   meta_file <- paste0(object@path, "/", file)
+  #   metadata <- readRDS(meta_file)
+  #
+  #   data[[i]] <- metadata$data
+  #   hits[[i]] <-  metadata$hits
+  # }
+  #
+  # t <- dplyr::tibble(hits = hits, data = data)
+  #
+  # print(t)
+  #
+  # invisible(object)
+  t
+})
