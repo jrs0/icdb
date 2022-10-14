@@ -300,7 +300,7 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
   tibble::as_tibble(df)
 })
 
-setGeneric("sqlFile", function(db, file) standardGeneric("sqlFile"))
+setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
 
 #' Perform an SQL query from a file
 #'
@@ -308,7 +308,7 @@ setGeneric("sqlFile", function(db, file) standardGeneric("sqlFile"))
 #' @param query The query to submit (character string)
 #'
 #' @export
-setMethod("sqlFile", c("Database", "character"), function(db, file) {
+setMethod("sqlFromFile", c("Database", "character"), function(db, file) {
 
   # Read the query as a string
   str <- readr::read_file(file)
