@@ -135,8 +135,9 @@ readCache <- function(cache, data)
     {
       # Open the meta file and increment the update values
       metadata <- readRDS(meta_file)
+      print(summary(metadata))
       metadata$hits <-  metadata$hits + 1
-      metadata$last_access <-  Sys.time()
+      metadata$last_access <- Sys.time()
       saveRDS(metadata, file = meta_file)
 
       # Now open and return the object
@@ -162,6 +163,7 @@ setMethod("summary", "Cache", function(object, ...) {
   get_metadata <- function(file) {
     meta_file <- paste0(object@path, "/", file)
     metadata <- readRDS(meta_file)
+    print(metadata$last_access)
     list(hits = metadata$hits,
          data = metadata$data,
          write_time = metadata$write_time,
