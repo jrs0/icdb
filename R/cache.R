@@ -178,7 +178,7 @@ setMethod("summary", "Cache", function(object, ...) {
     purrr::transpose() %>%
     purrr::map(unlist)
 
-  t <- do.call(tibble, res)
+  t <- do.call(tibble::tibble, res)
 
   # Print the summary
   t
