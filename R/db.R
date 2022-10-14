@@ -4,6 +4,8 @@
 #' @export
 NULL
 
+query_cache_path <- "cache/"
+
 #' A Table class for a table in the Database class
 #'
 #' The purpose of this class is to wrap the dplyr table shell object for
