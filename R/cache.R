@@ -162,13 +162,19 @@ setMethod("summary", "Cache", function(object, ...) {
   get_metadata <- function(file) {
     meta_file <- paste0(object@path, "/", file)
     metadata <- readRDS(meta_file)
-    print(metadata)
-    list(metadata$hits, metadata$data)
+    list(hits = metadata$hits,
+         data = metadata$data,
+         write_time = metadata$write_time,
+         last_access = metadata$last_access)
   }
 
-  res <- file_list %>% purrr::map(get_metadata) %>% purrr::transpose()
-  names(res) <- c("hits", "data")
-  t <- do.call(data.frame, res)
+  res <- file_list %>%
+    purrr::map(get_metadata) %>%
+    purrr::transpose() %>%
+    purrr::map(unlist)
+  dput(res)
+  t <- do.call(tibble, res)
+  print(t)
 
   # # Make lists for data
   # hits <- vector(length(file_list))
