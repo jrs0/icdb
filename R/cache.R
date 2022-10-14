@@ -91,10 +91,11 @@ writeCache <- function(cache, data, object)
   # structure that also holds information generic to all cache entries: the
   # number of hits, last access, etc. This information is used to track how
   # the entry is used, and provide summary information.
+  now <- Sys.time()
   metadata <- list(
-    hits = 0,
-    write_time = Sys.time(),
-    last_access = NULL,
+    hits = 1,
+    write_time = now,
+    last_access = now,
 
     # Finally, store the user provided data
     data = data
@@ -166,17 +167,17 @@ setMethod("summary", "Cache", function(object, ...) {
     meta_file <- paste0(object@path, "/", file)
     metadata <- readRDS(meta_file)
     print(metadata$last_access)
-    list(hits = metadata$hits,
-         data = metadata$data,
+    list(data = metadata$data,
+         hits = metadata$hits,
          write_time = metadata$write_time,
-         last_access = metadata$last_access
+         last_access = metadata$last_access)
   }
 
   res <- file_list %>%
     purrr::map(get_metadata) %>%
     purrr::transpose() %>%
     purrr::map(unlist)
-  dput(res)
+
   t <- do.call(tibble, res)
 
   # Print the summary

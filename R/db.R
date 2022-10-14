@@ -5,7 +5,7 @@
 NULL
 
 #' Global variable storing the query cache folder path
-query_cache_path <- "cache/"
+cache <- Cache("cache/")
 
 #' Database class wrapping an SQL server connection
 #'
@@ -238,19 +238,14 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 #' @export
 setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 
-
-  # Generate the cache file name
-  cachefile_name <- paste0(rlang::hash(query), ".rds")
-  cachefile_full <- paste0(query_cache_path, "/", cachefile_name)
-
   # Search for the cached file
-  if (file.exists(cachefile_full))
+  result <- readCache(cache, query)
+  if (!is.null(result))
   {
     message("Found cached results for this query, using that")
 
     # Return the cached data
-    cachedata <- readRDS(cachefile_full)
-    cachedata$results
+    result
   }
   else
   {
@@ -263,15 +258,11 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
     # Clear the results
     DBI::dbClearResult(res)
 
-    # Create a tibble from the datafram
+    # Create a tibble from the dataframe
     t <- tibble::as_tibble(df)
 
-    # Create the data structure to cache, which stores the query
-    # and the results
-    cachedata <- list(query = query, results = t)
-
     # Save the results in the cache
-    saveRDS(cachedata, file = cachefile_full)
+    writeCache(cache, query, t)
 
     # Return the dataframe of results as a tibble
     t
