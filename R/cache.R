@@ -74,22 +74,9 @@ setMethod("getContents", "Cache", function(c) {
 ##'
 writeCache <- function(cache, data, object)
 {
-    ## Create the directory if it does not exist
-    if (!dir.exists(cache@path))
-    {
-        dir.create(cache@path)
-    }
-    
     ## Make the hash out of the metadata
     hash <- rlang::hash(data)
-
-    ## Create the object filename and the metadata filename
-    obj_file <- paste0(cache@path, "/", hash, ".obj.rds")
-    meta_file <- paste0(cache@path, "/", hash, ".meta.rds")
-
-    ## Store the object
-    saveRDS(object, file = obj_file)
-
+    
     ## The metadata is not saved directly. Instead, it is encapsulated inside a
     ## structure that also holds information generic to all cache entries: the
     ## number of hits, last access, etc. This information is used to track how
@@ -106,11 +93,25 @@ writeCache <- function(cache, data, object)
         data = data
     )
 
-    ## Write the metadata to the file
-    saveRDS(metadata, file = meta_file)
+    ## Write the object to the level 1 cache first
+    cache@level1[[hash]] <- list(metadata = metadata, object = object)
 
-    ## Now 
+    ## Create the level 2 directory if it does not exist
+    if (!dir.exists(cache@path))
+    {
+        dir.create(cache@path)
+    }
     
+    ## Create the object filename and the metadata filename
+    obj_file <- paste0(cache@path, "/", hash, ".obj.rds")
+    meta_file <- paste0(cache@path, "/", hash, ".meta.rds")
+
+    ## Store the metadata and the object to the level 2 cache directory
+    saveRDS(metadata, file = meta_file)
+    saveRDS(object, file = obj_file)
+
+    ## Return the cache object
+    cache
 }
 
 ##' Read an object from the cache
@@ -133,7 +134,6 @@ readCache <- function(cache, data)
         ## Update the metadata
         val$metadata$hits <- val$metadata$hits + 1
         val$metadata$last_access <- Sys.time()
-
 
         ## Now return the object
         val$object
