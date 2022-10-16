@@ -104,6 +104,9 @@ writeCache <- function(cache, data, object)
     ## Write the object to the level 1 cache first
     cache@level1[[hash]] <- list(metadata = metadata, object = object)
 
+    ## After writing to the level 1 cache, check whether anything needs
+    ## to be deleted (currently, if it has too many elements)
+    
     ## Create the level 2 directory if it does not exist
     if (!dir.exists(cache@path))
     {
