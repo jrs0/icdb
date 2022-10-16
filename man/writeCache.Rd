@@ -13,6 +13,9 @@ writeCache(cache, data, object)
 
 \item{object}{The main (typically large) object to store in the cache}
 }
+\value{
+The modified cache object
+}
 \description{
 This function creates an entry in the cache. It should not be called by the
 user of the package. The data comprises two parts: an object, which is
@@ -22,6 +25,13 @@ data can be anything, but a named list is a simple way to organise the
 necessary data.
 }
 \details{
+Data is stored in two places: the level 1 cache, which is stored in memory;
+and the level 2 cache, which is written to disk. Identical data is stored in
+both locations, in terms of access time, etc. This function initialises the
+hits to 1, meaning that this is the first access. All subsequent accesses of
+the data should use the readCache function, which modifies the metadata in the
+cache.
+
 This function will not check the cache before writing to it, so any duplicate
 data will be overwritten. Only call this function after establish via
 readCache that the data is not already present in the cache.

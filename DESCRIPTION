@@ -18,6 +18,7 @@ Imports:
     readr,
     rjson,
     rlang,
+    RMariaDB,
     stringr,
     tibble,
     utils
