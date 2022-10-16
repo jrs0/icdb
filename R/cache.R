@@ -64,6 +64,13 @@ setMethod("getContents", "Cache", function(c) {
 ##' data can be anything, but a named list is a simple way to organise the
 ##' necessary data.
 ##'
+##' Data is stored in two places: the level 1 cache, which is stored in memory;
+##' and the level 2 cache, which is written to disk. Identical data is stored in
+##' both locations, in terms of access time, etc. This function initialises the
+##' hits to 1, meaning that this is the first access. All subsequent accesses of
+##' the data should use the readCache function, which modifies the metadata in the
+##' cache.
+##' 
 ##' This function will not check the cache before writing to it, so any duplicate
 ##' data will be overwritten. Only call this function after establish via
 ##' readCache that the data is not already present in the cache.
@@ -71,6 +78,7 @@ setMethod("getContents", "Cache", function(c) {
 ##' @param cache A Cache object in which to store the data
 ##' @param data Data about the object, used to generate the hash
 ##' @param object The main (typically large) object to store in the cache
+##' @return The modified cache object
 ##'
 writeCache <- function(cache, data, object)
 {
@@ -128,9 +136,11 @@ readCache <- function(cache, data)
     hash <- rlang::hash(data)
 
     ## First, attempt to read the data from the level 1 cache
-    val <- cache@level1$hash
+    val <- cache@level1[[hash]]
     if (!is.null(val))
     {
+        message("Found data in level 1 cache, using that.")
+        
         ## Update the metadata
         val$metadata$hits <- val$metadata$hits + 1
         val$metadata$last_access <- Sys.time()
