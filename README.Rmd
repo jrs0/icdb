@@ -13,16 +13,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-# rdatabase
+# icdb
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of rdatabase is to ...
+The goal of icdb is to ...
 
 ## Installation
 
-You can install the development version of rdatabase like so:
+You can install the development version of icdb like so:
 
 ``` r
 # FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
@@ -33,7 +33,7 @@ You can install the development version of rdatabase like so:
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(rdatabase)
+library(icdb)
 ## basic example code
 ```
 

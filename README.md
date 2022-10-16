@@ -1,16 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rdatabase
+# icdb
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
-The goal of rdatabase is to …
+The goal of icdb is to …
 
 ## Installation
 
-You can install the development version of rdatabase like so:
+You can install the development version of icdb like so:
 
 ``` r
 # FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
@@ -21,7 +22,12 @@ You can install the development version of rdatabase like so:
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(rdatabase)
+library(icdb)
+#> 
+#> Attaching package: 'icdb'
+#> The following object is masked from 'package:base':
+#> 
+#>     table
 ## basic example code
 ```
 
@@ -44,13 +50,13 @@ summary(cars)
 The functions in the package are labelled according to a 5 point scale
 (0-4), according to the following criteria:
 
-- 0: An initial version of the function has been written, but lacks
-  either documentation or testing
-- 1: The function has an initial version that also has initial
-  documentation and is covered by some preliminary tests
-- 2: To be confirmed…
-- 3: To be confirmed…
-- 4: To be confirmed…
+  - 0: An initial version of the function has been written, but lacks
+    either documentation or testing
+  - 1: The function has an initial version that also has initial
+    documentation and is covered by some preliminary tests
+  - 2: To be confirmed…
+  - 3: To be confirmed…
+  - 4: To be confirmed…
 
 These scores are provided at the end of the documnentation for each
 function as a line of the form “doneness: 2/4”. You can take this as an
