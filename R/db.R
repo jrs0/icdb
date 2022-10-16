@@ -10,7 +10,7 @@ NULL
 #' object (can't have upper and lower case filenames in package). Need to think
 #' of a better name, but this will do for now. Might get rid of the object
 #' entirely.
-queries <- Cache("cache/")
+querycache <- Cache("cache/")
 
 #' Database class wrapping an SQL server connection
 #'
@@ -246,34 +246,34 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 
                                         # Search for the cached file
-    result <- readCache(cache, query)
+    result <- readCache(querycache, query)
     if (!is.null(result))
     {
         message("Found cached results for this query, using that")
 
-                                        # Return the cached data
+        ## Return the cached data
         result
     }
     else
     {
-                                        # Submit the SQL query
+        ## Submit the SQL query
         res <- DBI::dbSendQuery(db@connection, query)
 
-                                        # Fetch all results
+        ## Fetch all results
         df <- DBI::dbFetch(res, n=-1)
 
-                                        # Clear the results
+        ## Clear the results
         DBI::dbClearResult(res)
 
-                                        # Create a tibble from the dataframe
+        ## Create a tibble from the dataframe
         t <- tibble::as_tibble(df)
 
-                                        # Save the results in the cache
-        writeCache(cache, query, t)
+        ## Save the results in the cache
+        writeCache(querycache, query, t)
 
-                                        # Return the dataframe of results as a tibble
+        ## Return the dataframe of results as a tibble
         t
-    }
+    } 
 
 })
 
@@ -285,10 +285,10 @@ show_cache <- function()
 {
     for (file in list.files(query_cache_path))
     {
-                                        # Make the full path
+        ## Make the full path
         cachefile_full <- paste0(query_cache_path, "/", file)
 
-                                        # Get the cached data
+        ## Get the cached data
         cachedata <- readRDS(cachefile_full)
 
         print(cachedata)
