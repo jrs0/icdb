@@ -15,8 +15,10 @@ Imports:
     magrittr,
     methods,
     odbc,
+    purrr,
     readr,
     rjson,
     rlang,
+    stringr,
     tibble,
     utils

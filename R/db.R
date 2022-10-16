@@ -5,7 +5,12 @@
 NULL
 
 #' Global variable storing the query cache folder path
-cache <- Cache("cache/")
+#'
+#' Note: This was previously called cache, but that conflicted with the Cache
+#' object (can't have upper and lower case filenames in package). Need to think
+#' of a better name, but this will do for now. Might get rid of the object
+#' entirely.
+queries <- Cache("cache/")
 
 #' Database class wrapping an SQL server connection
 #'
@@ -15,18 +20,18 @@ cache <- Cache("cache/")
 #'
 #' @export
 setClass(
-  "Database",
-  contains = "list",
-  slots = representation(
-    connection = "DBIConnection",
-    config = "list",
-    dsn = "character"
-  ),
-  prototype = prototype(
-    connection = NULL,
-    config = list(),
-    dsn = NA_character_
-  )
+    "Database",
+    contains = "list",
+    slots = representation(
+        connection = "DBIConnection",
+        config = "list",
+        dsn = "character"
+    ),
+    prototype = prototype(
+        connection = NULL,
+        config = list(),
+        dsn = NA_character_
+    )
 )
 
 #' Construct a Database object
@@ -66,53 +71,55 @@ setClass(
 #' @return A new (S4) Database object
 #'
 Database <- function(data_source_name = NULL,
-                     db_config = NULL)
+                     config = NULL)
 {
-  # If the data source name argument was passed, connect using that
-  if (!is.null(data_source_name))
-  {
-    message("Connecting using data source name (DSN): ", data_source_name)
-    db <- new(
-      "Database",
-      connection = DBI::dbConnect(odbc::odbc(), data_source_name),
-      dsn = data_source_name
-    )
-  }
-  else if (!is.null(db_config))
-  {
-    if (!file.exists(db_config))
+                                        # If the data source name argument was passed, connect using that
+    if (!is.null(data_source_name))
     {
-      stop("The supplied db_config file ", db_config, " does not exist.")
+        message("Connecting using data source name (DSN): ", data_source_name)
+        db <- new(
+            "Database",
+            connection = DBI::dbConnect(odbc::odbc(), data_source_name),
+            dsn = data_source_name
+        )
     }
-    message("Connecting using config file")
+    else if (!is.null(config))
+    {
+        if (!file.exists(config))
+        {
+            stop("The supplied config file ", config, " does not exist.")
+        }
+        message("Connecting using config file")
 
-    j <- rjson::fromJSON(file = db_config)
+        conf <- rjson::fromJSON(file = config)
+        
+        ## Create the mapping from strings to drivers
+        drv_map <- list(
+            "SQL Server" = odbc::odbc(), # For Microsoft
+            "mysql" = RMariaDB::MariaDB(), # Both mysql and mariadb using RMariaDB
+            "mariadb" = RMariaDB::MariaDB()
+        )
+        conf$drv <- drv_map[[conf$drv]]
+        con <- do.call(DBI::dbConnect, conf)
 
-    con <- DBI::dbConnect(
-      odbc::odbc(),
-      driver = j$driver,
-      server = j$server,
-      database = j$database,
-    )
+        db <- new("Database", connection = con, config = conf)
+    }
+    else
+    {
+        stop("You must provide a data source name or a config file argument.")
+    }
 
-    db <- new("Database", connection = con, config = j)
-  }
-  else
-  {
-    stop("You must provide a data source name or a config file argument.")
-  }
+                                        # Copy the list of tables into the inherited list class (get rid of for)
+    tables <- DBI::dbListTables(db@connection)
 
-  # Copy the list of tables into the inherited list class (get rid of for)
-  tables <- DBI::dbListTables(db@connection)
+                                        # This is the problem part of the code -- it really needs to store a
+                                        # function to return the table object, but that doesn't work (yet).
+    for (t in tables)
+    {
+        db[[t]] <- t
+    }
 
-  # This is the problem part of the code -- it really needs to store a
-  # function to return the table object, but that doesn't work (yet).
-  for (t in tables)
-  {
-    db[[t]] <- t
-  }
-
-  db
+    db
 
 }
 
@@ -130,44 +137,44 @@ Database <- function(data_source_name = NULL,
 #' @export
 #'
 setGeneric("searchCols", function(db, col_pattern, tab_pattern)
-  standardGeneric("searchCols"))
+    standardGeneric("searchCols"))
 
 #' Search the tables and columns in a database for partial names
 setMethod("searchCols", "Database",
           function(db, col_pattern, tab_pattern) {
 
-  # Filter table names
-  tab_matches <- grep(tab_pattern, db, value=TRUE)
+                                        # Filter table names
+              tab_matches <- grep(tab_pattern, db, value=TRUE)
 
-  for (t in tab_matches) {
-    tryCatch(
-      expr = {
-        tbl <- table(db, t)
-        names <- colnames(tbl)
-        col_matches <- grep(col_pattern, names, value=TRUE)
-        if (length(col_matches) > 0) {
-          print(paste0("Found these colums in table '", t, "':"))
-          writeLines(paste0("  ", utils::capture.output(print(col_matches))))
-          cat("\n")
-        }
-      },
-      error = function(x) {
-        warning(x)
-      }
-    )
+              for (t in tab_matches) {
+                  tryCatch(
+                      expr = {
+                          tbl <- table(db, t)
+                          names <- colnames(tbl)
+                          col_matches <- grep(col_pattern, names, value=TRUE)
+                          if (length(col_matches) > 0) {
+                              print(paste0("Found these colums in table '", t, "':"))
+                              writeLines(paste0("  ", utils::capture.output(print(col_matches))))
+                              cat("\n")
+                          }
+                      },
+                      error = function(x) {
+                          warning(x)
+                      }
+                  )
 
-  }
-})
+              }
+          })
 
 setGeneric("dsn", function(x) standardGeneric("dsn"))
 setMethod("dsn", "Database", function(x) {
-  x@dsn
+    x@dsn
 })
 
 setGeneric("tables", function(x)
-  standardGeneric("tables"))
+    standardGeneric("tables"))
 setMethod("tables", "Database", function(x) {
-  DBI::dbListTables(x@connection)
+    DBI::dbListTables(x@connection)
 })
 
 #' Access a table in a Database object
@@ -186,7 +193,7 @@ setMethod("tables", "Database", function(x) {
 #' @return A dplyr::tbl data source wrapper
 #' @export
 setMethod("$", "Database", function(x, name) {
-  table(x, name)
+    table(x, name)
 })
 
 
@@ -213,7 +220,7 @@ setGeneric("table", function(db, tab) standardGeneric("table"))
 #'
 #' @export
 setMethod("table", c(db = "Database", tab="character"), function(db, tab) {
-  dplyr::tbl(db@connection, tab)
+    dplyr::tbl(db@connection, tab)
 })
 
 #' Submit an SQL query to a database object
@@ -238,35 +245,35 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 #' @export
 setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 
-  # Search for the cached file
-  result <- readCache(cache, query)
-  if (!is.null(result))
-  {
-    message("Found cached results for this query, using that")
+                                        # Search for the cached file
+    result <- readCache(cache, query)
+    if (!is.null(result))
+    {
+        message("Found cached results for this query, using that")
 
-    # Return the cached data
-    result
-  }
-  else
-  {
-    # Submit the SQL query
-    res <- DBI::dbSendQuery(db@connection, query)
+                                        # Return the cached data
+        result
+    }
+    else
+    {
+                                        # Submit the SQL query
+        res <- DBI::dbSendQuery(db@connection, query)
 
-    # Fetch all results
-    df <- DBI::dbFetch(res, n=-1)
+                                        # Fetch all results
+        df <- DBI::dbFetch(res, n=-1)
 
-    # Clear the results
-    DBI::dbClearResult(res)
+                                        # Clear the results
+        DBI::dbClearResult(res)
 
-    # Create a tibble from the dataframe
-    t <- tibble::as_tibble(df)
+                                        # Create a tibble from the dataframe
+        t <- tibble::as_tibble(df)
 
-    # Save the results in the cache
-    writeCache(cache, query, t)
+                                        # Save the results in the cache
+        writeCache(cache, query, t)
 
-    # Return the dataframe of results as a tibble
-    t
-  }
+                                        # Return the dataframe of results as a tibble
+        t
+    }
 
 })
 
@@ -276,16 +283,16 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 #'
 show_cache <- function()
 {
-  for (file in list.files(query_cache_path))
-  {
-    # Make the full path
-    cachefile_full <- paste0(query_cache_path, "/", file)
+    for (file in list.files(query_cache_path))
+    {
+                                        # Make the full path
+        cachefile_full <- paste0(query_cache_path, "/", file)
 
-    # Get the cached data
-    cachedata <- readRDS(cachefile_full)
+                                        # Get the cached data
+        cachedata <- readRDS(cachefile_full)
 
-    print(cachedata)
-  }
+        print(cachedata)
+    }
 }
 
 #' Submit an SQL query from a file and get the results
@@ -312,11 +319,11 @@ setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
 #' @export
 setMethod("sqlFromFile", c("Database", "character"), function(db, file) {
 
-  # Read the query as a string
-  str <- readr::read_file(file)
+                                        # Read the query as a string
+    str <- readr::read_file(file)
 
-  # Do the query
-  sqlQuery(db, str)
+                                        # Do the query
+    sqlQuery(db, str)
 })
 
 #' Print out the Database object
@@ -327,14 +334,15 @@ setMethod("sqlFromFile", c("Database", "character"), function(db, file) {
 #' @param object The object to be printed
 #' @export
 setMethod("show", "Database", function(object) {
-  message("Wrapper around database connection")
-  message("Database name: ", object@connection@info$dbname)
-  if (!is.na(object@dsn))
-  {
-    message("Database connection via data source name (DSN): ", object@dsn)
-  }
-  else
-  {
-    message("Database connection via config file")
-  }
+    message("Wrapper around database connection")
+    message("Database name: ", object@connection@info$dbname)
+    if (!is.na(object@dsn))
+    {
+        message("Database connection via data source name (DSN): ", object@dsn)
+    }
+    else
+    {
+        message("Database connection via config file")
+    }
 })
+
