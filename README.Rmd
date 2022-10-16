@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# icdb
+# icdb (ICB-DB)
 
 <!-- badges: start -->
 <!-- badges: end -->
