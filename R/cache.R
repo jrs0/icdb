@@ -83,9 +83,9 @@ write_cache <- function(data, object)
     ## to be deleted (currently, if it has too many elements)
     
     ## Create the level 2 directory if it does not exist
-    if (!dir.exists(cache_object@path))
+    if (!dir.exists(cache_object$path))
     {
-        dir.create(cache_object@path)
+        dir.create(cache_object$path)
     }
     
     ## Create the object filename and the metadata filename
@@ -129,7 +129,7 @@ read_cache <- function(data)
         {
             ## Open the meta file and increment the update values
             metadata <- readRDS(meta_file)
-            metadata <- recordHit(metadata)
+            metadata <- record_hit(metadata)
             saveRDS(metadata, file = meta_file)
 
             ## Now open and return the object
@@ -148,7 +148,7 @@ read_cache <- function(data)
 
 summarise_cache <-function()
 {
-    message("The cache is stored in the folder: ", cache_object@path)
+    message("The cache is stored in the folder: ", cache_object$path)
 
     ## Get the list of files
     file_list <- list.files(cache_object$path, pattern = "meta\\.rds")
