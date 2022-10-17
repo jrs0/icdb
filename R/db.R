@@ -71,7 +71,9 @@ Database <- function(data_source_name = NULL,
         message("Connecting using data source name (DSN): ", data_source_name)
         db <- new(
             "Database",
-            connection = DBI::dbConnect(odbc::odbc(), data_source_name),
+            ## Note the bigint argument, see comment below
+            connection = DBI::dbConnect(odbc::odbc(), data_source_name,
+                                        bigint = "character"),
             dsn = data_source_name
         )
     }
@@ -92,6 +94,11 @@ Database <- function(data_source_name = NULL,
             "mariadb" = RMariaDB::MariaDB()
         )
         conf$drv <- drv_map[[conf$drv]]
+
+        ## This parameter is really important for getting bigints
+        ## (often used in ID columns) in a format that will work
+        ## with dplyr (storing the bigint as a character string)
+        conf$bigint <- "character"
         con <- do.call(DBI::dbConnect, conf)
 
         db <- new("Database", connection = con, config = conf)
