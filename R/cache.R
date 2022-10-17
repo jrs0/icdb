@@ -146,7 +146,7 @@ read_cache <- function(data)
     }
 }
 
-summarise_cache <-function()
+show_cache <-function()
 {
     message("The cache is stored in the folder: ", cache_object$path)
 

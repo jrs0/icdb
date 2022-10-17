@@ -85,7 +85,7 @@ Database <- function(data_source_name = NULL,
 
         conf <- rjson::fromJSON(file = config)
         
-#### Create the mapping from strings to drivers
+        ## Create the mapping from strings to drivers
         drv_map <- list(
             "SQL Server" = odbc::odbc(), ## For Microsoft
             "mysql" = RMariaDB::MariaDB(), ## Both mysql and mariadb using RMariaDB
@@ -238,54 +238,36 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 
     ## Search for the cached file
-    result <- readCache(querycache, query)
+    result <- read_cache(query)
     if (!is.null(result))
     {
         message("Found cached results for this query, using that")
 
-#### Return the cached data
+        ## Return the cached data
         result
     }
     else
     {
-#### Submit the SQL query
+        ## Submit the SQL query
         res <- DBI::dbSendQuery(db@connection, query)
 
-#### Fetch all results
+        ## Fetch all results
         df <- DBI::dbFetch(res, n=-1)
 
-#### Clear the results
+        ## Clear the results
         DBI::dbClearResult(res)
 
-#### Create a tibble from the dataframe
+        ## Create a tibble from the dataframe
         t <- tibble::as_tibble(df)
 
-#### Save the results in the cache
-        writeCache(querycache, query, t)
+        ## Save the results in the cache
+        write_cache(query, t)
 
-#### Return the dataframe of results as a tibble
+        ## Return the dataframe of results as a tibble
         t
     } 
 
 })
-
-##' Show the contents of the database query cache
-##'
-##' @export
-##'
-show_cache <- function()
-{
-    for (file in list.files(query_cache_path))
-    {
-#### Make the full path
-        cachefile_full <- paste0(query_cache_path, "/", file)
-
-#### Get the cached data
-        cachedata <- readRDS(cachefile_full)
-
-        print(cachedata)
-    }
-}
 
 ##' Submit an SQL query from a file and get the results
 ##'

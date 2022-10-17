@@ -2,7 +2,6 @@
 
 export()
 export(searchCols)
-export(show_cache)
 export(sqlFromFile)
 export(sqlQuery)
 export(table)
