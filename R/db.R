@@ -272,7 +272,6 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
         ## Return the dataframe of results as a tibble
         t
     } 
-
 })
 
 ##' Submit an SQL query from a file and get the results
@@ -325,4 +324,41 @@ setMethod("show", "Database", function(object) {
         message("Database connection via config file")
     }
 })
+##' This function is a replacement for the dplyr::collect() function
+##' that is used to submit an SQL query to a database. This function
+##' is called in the same way, by piping to collect(), but it caches
+##' the query behind the scenes, so that the next time the query is
+##' fetched, the results are available quicker.
+##'
+##' @title Collect and cache SQL query results
+##' @param x The dplyr SQL query to collect
+##' @param ... Other arguments for dplyr::collect()
+##' @return The query results
+##'
+collect <- function(x, ...)
+{
+    ## Generate an SQL string for the query
+    output <- capture.output(x %>% dplyr::show_query())
+    query <- paste(tail(output, -1), collapse="")    
+    
+    ## Search for the cached file
+    result <- read_cache(query)
+    if (!is.null(result))
+    {
+        message("Found cached results for this query, using that")
 
+        ## Return the cached data
+        result
+    }
+    else
+    {
+        ## Get the results
+        t <- x %>% dplyr::collect(...)
+
+        ## Save the results in the cache
+        write_cache(query, t)
+
+        ## Return the dataframe of results as a tibble
+        t
+    } 
+}
