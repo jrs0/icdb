@@ -73,49 +73,54 @@ record_hit <- function(metadata)
 ##'
 write_cache <- function(data, object)
 {
-    ## Make the hash out of the metadata
-    hash <- rlang::hash(data)
-    
-    ## The metadata is not saved directly. Instead, it is encapsulated inside a
-    ## structure that also holds information generic to all cache_object entries: the
-    ## number of hits, last access, etc. This information is used to track how
-    ## the entry is used, and provide summary information.
-    now <- Sys.time()
-    metadata <- list(
-        hits = 1,
-        level1 = TRUE,
-        level2 = TRUE,
-        write_time = now,
-        last_access = now,
-
-        ## Finally, store the user provided data
-        data = data
-    )
-
-    ## Write the object to the level 1 cache_object first. This is a hack
-    ## to write to the fields of the S4 object in the parent environment.
-    ## I don't have time to figure out the right way to do this now.
-    ## I have used this pattern everywhere for now.
     tmp <- cache_object
-    tmp@level1[[hash]] <- list(metadata = metadata, object = object)
+    tmp@path <- "different"
     cache_object <<- tmp
-    
-    ## After writing to the level 1 cache_object, check whether anything needs
-    ## to be deleted (currently, if it has too many elements)
-    
-    ## Create the level 2 directory if it does not exist
-    if (!dir.exists(cache_object@path))
-    {
-        dir.create(cache_object@path)
-    }
-    
-    ## Create the object filename and the metadata filename
-    obj_file <- paste0(cache_object@path, "/", hash, ".obj.rds")
-    meta_file <- paste0(cache_object@path, "/", hash, ".meta.rds")
 
-    ## Store the metadata and the object to the level 2 cache_object directory
-    saveRDS(metadata, file = meta_file)
-    saveRDS(object, file = obj_file)
+    ## ## Make the hash out of the metadata
+    ## hash <- rlang::hash(data)
+    
+    ## ## The metadata is not saved directly. Instead, it is encapsulated inside a
+    ## ## structure that also holds information generic to all cache_object entries: the
+    ## ## number of hits, last access, etc. This information is used to track how
+    ## ## the entry is used, and provide summary information.
+    ## now <- Sys.time()
+    ## metadata <- list(
+    ##     hits = 1,
+    ##     level1 = TRUE,
+    ##     level2 = TRUE,
+    ##     write_time = now,
+    ##     last_access = now,
+
+    ##     ## Finally, store the user provided data
+    ##     data = data
+    ## )
+
+    ## ## Write the object to the level 1 cache_object first. This is a hack
+    ## ## to write to the fields of the S4 object in the parent environment.
+    ## ## I don't have time to figure out the right way to do this now.
+    ## ## I have used this pattern everywhere for now.
+    ## tmp <- cache_object
+    ## tmp@level1[[hash]] <- list(metadata = metadata, object = object)
+    ## print(tmp)
+    ##                                     #cache_object <<- tmp
+    
+    ## ## After writing to the level 1 cache_object, check whether anything needs
+    ## ## to be deleted (currently, if it has too many elements)
+    
+    ## ## Create the level 2 directory if it does not exist
+    ## if (!dir.exists(cache_object@path))
+    ## {
+    ##     dir.create(cache_object@path)
+    ## }
+    
+    ## ## Create the object filename and the metadata filename
+    ## obj_file <- paste0(cache_object@path, "/", hash, ".obj.rds")
+    ## meta_file <- paste0(cache_object@path, "/", hash, ".meta.rds")
+
+    ## ## Store the metadata and the object to the level 2 cache_object directory
+    ## saveRDS(metadata, file = meta_file)
+    ## saveRDS(object, file = obj_file)
 }
 
 ##' Read an object from the cache
