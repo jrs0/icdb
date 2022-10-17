@@ -1,31 +1,15 @@
-##' Class for managing a query results cache
-##'
-##' @slot connection Microsoft SQL Server.
-##' @slot config list. Database connection information as a named list
-##' @slot dsn
-##'
-##' @export
-setClass(
-    "Cache",
-    slots = representation(
-        level1 = "list",
-        path = "character"
-    ),
-    prototype = prototype(
-        path = "cache/",
-        level1 = list()
-        
-    )
-)
 
 ##' Create a new cache object
 ##'
 ##' @return A new Cache object
 Cache <- function(path = "cache/")
 {
-    ## Create the new object
-    c <- new("Cache", path = path)
-
+    ## Make the object
+    c <- list(
+        path = path,
+        level1 = list()
+    )
+    
     ## Create the directory if it does not exist
     if (!dir.exists(path))
     {
@@ -37,8 +21,9 @@ Cache <- function(path = "cache/")
 }
 
 ##' Global cache object, ideally not accessible to users of the package
-##' (not achieved that yet)
-cache_object <- Cache("cache/")
+##' (not achieved that yet). This should probably be an R6 class. An R4
+##' class will not work because it is not mutable. To fix later.
+cache_object <- 3 #<- Cache("cache/")
 
 record_hit <- function(metadata)
 {
@@ -73,54 +58,50 @@ record_hit <- function(metadata)
 ##'
 write_cache <- function(data, object)
 {
-    tmp <- cache_object
-    tmp@path <- "different"
-    cache_object <<- tmp
-
-    ## ## Make the hash out of the metadata
-    ## hash <- rlang::hash(data)
+    ## Make the hash out of the metadata
+    hash <- rlang::hash(data)
     
-    ## ## The metadata is not saved directly. Instead, it is encapsulated inside a
-    ## ## structure that also holds information generic to all cache_object entries: the
-    ## ## number of hits, last access, etc. This information is used to track how
-    ## ## the entry is used, and provide summary information.
-    ## now <- Sys.time()
-    ## metadata <- list(
-    ##     hits = 1,
-    ##     level1 = TRUE,
-    ##     level2 = TRUE,
-    ##     write_time = now,
-    ##     last_access = now,
+    ## The metadata is not saved directly. Instead, it is encapsulated inside a
+    ## structure that also holds information generic to all cache_object entries: the
+    ## number of hits, last access, etc. This information is used to track how
+    ## the entry is used, and provide summary information.
+    now <- Sys.time()
+    metadata <- list(
+        hits = 1,
+        level1 = TRUE,
+        level2 = TRUE,
+        write_time = now,
+        last_access = now,
 
-    ##     ## Finally, store the user provided data
-    ##     data = data
-    ## )
+        ## Finally, store the user provided data
+        data = data
+    )
 
-    ## ## Write the object to the level 1 cache_object first. This is a hack
-    ## ## to write to the fields of the S4 object in the parent environment.
-    ## ## I don't have time to figure out the right way to do this now.
-    ## ## I have used this pattern everywhere for now.
-    ## tmp <- cache_object
-    ## tmp@level1[[hash]] <- list(metadata = metadata, object = object)
-    ## print(tmp)
-    ##                                     #cache_object <<- tmp
+    ## Write the object to the level 1 cache_object first. This is a hack
+    ## to write to the fields of the S4 object in the parent environment.
+    ## I don't have time to figure out the right way to do this now.
+    ## I have used this pattern everywhere for now.
+    #tmp <- cache_object
+    #tmp$level1[[hash]] <- list(metadata = metadata, object = object)
+    #cache_object <<- tmp
+    cache_object <<- 4
     
-    ## ## After writing to the level 1 cache_object, check whether anything needs
-    ## ## to be deleted (currently, if it has too many elements)
+    ## After writing to the level 1 cache_object, check whether anything needs
+    ## to be deleted (currently, if it has too many elements)
     
-    ## ## Create the level 2 directory if it does not exist
-    ## if (!dir.exists(cache_object@path))
-    ## {
-    ##     dir.create(cache_object@path)
-    ## }
+    ## Create the level 2 directory if it does not exist
+    if (!dir.exists(cache_object@path))
+    {
+        dir.create(cache_object@path)
+    }
     
-    ## ## Create the object filename and the metadata filename
-    ## obj_file <- paste0(cache_object@path, "/", hash, ".obj.rds")
-    ## meta_file <- paste0(cache_object@path, "/", hash, ".meta.rds")
+    ## Create the object filename and the metadata filename
+    obj_file <- paste0(cache_object@path, "/", hash, ".obj.rds")
+    meta_file <- paste0(cache_object@path, "/", hash, ".meta.rds")
 
-    ## ## Store the metadata and the object to the level 2 cache_object directory
-    ## saveRDS(metadata, file = meta_file)
-    ## saveRDS(object, file = obj_file)
+    ## Store the metadata and the object to the level 2 cache_object directory
+    saveRDS(metadata, file = meta_file)
+    saveRDS(object, file = obj_file)
 }
 
 ##' Read an object from the cache
