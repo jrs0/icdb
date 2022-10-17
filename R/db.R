@@ -337,12 +337,16 @@ setMethod("show", "Database", function(object) {
 ##' the query behind the scenes, so that the next time the query is
 ##' fetched, the results are available quicker.
 ##'
+##' In order to avoid ambiguity caused by the order in which icdb and
+##' dplyr are loaded, this function is not called collect. You can still
+##' use collect, but 
+##' 
 ##' @title Collect and cache SQL query results
 ##' @param x The dplyr SQL query to collect
 ##' @param ... Other arguments for dplyr::collect()
 ##' @return The query results
 ##'
-collect <- function(x, ...)
+run <- function(x, ...)
 {
     ## Generate an SQL string for the query
     output <- capture.output(x %>% dplyr::show_query())
