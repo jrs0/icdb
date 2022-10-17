@@ -55,6 +55,13 @@ setMethod("getContents", "Cache", function(c) {
 
 })
 
+recordHit <- function(metadata)
+{
+    metadata$hits <-  metadata$hits + 1
+    metadata$last_access <- Sys.time()
+    metadata
+}
+
 ##' Write an element into the cache
 ##'
 ##' This function creates an entry in the cache. It should not be called by the
@@ -145,8 +152,7 @@ readCache <- function(cache, data)
         message("Found data in level 1 cache, using that.")
         
         ## Update the metadata
-        val$metadata$hits <- val$metadata$hits + 1
-        val$metadata$last_access <- Sys.time()
+        cache@level1[[hash]]&metadata <- recordHit(val$metadata)
 
         ## Now return the object
         val$object
@@ -169,8 +175,7 @@ readCache <- function(cache, data)
         {
             ## Open the meta file and increment the update values
             metadata <- readRDS(meta_file)
-            metadata$hits <-  metadata$hits + 1
-            metadata$last_access <- Sys.time()
+            metadata <- recordHit(metadata)
             saveRDS(metadata, file = meta_file)
 
             ## Now open and return the object
