@@ -1,6 +1,15 @@
+##' @importFrom methods new show
+##' @importFrom magrittr %>%
+##' @importClassesFrom DBI DBIConnection
+##' @export
+NULL
+
 
 ##' Create a new cache object
 ##'
+##' @param path The directory in which to store the cache, defaults to "cache/" relative
+##' to the current working directory.
+##' 
 ##' @return A new Cache object
 Cache <- function(path = "cache/")
 {
@@ -52,7 +61,6 @@ record_hit <- function(metadata)
 ##' data will be overwritten. Only call this function after establish via
 ##' readCache that the data is not already present in the cache.
 ##'
-##' @param cache A Cache object in which to store the data
 ##' @param data Data about the object, used to generate the hash
 ##' @param object The main (typically large) object to store in the cache
 ##'
@@ -101,7 +109,6 @@ write_cache <- function(data, object)
 ##'
 ##' Use this function to get an object from
 ##'
-##' @param cache The Cache object to read from
 ##' @param data The same data object passed to the writeCache function
 ##'
 ##' @return Returns the object associated with the data. Null if not found.

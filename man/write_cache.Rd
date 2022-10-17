@@ -10,8 +10,6 @@ write_cache(data, object)
 \item{data}{Data about the object, used to generate the hash}
 
 \item{object}{The main (typically large) object to store in the cache}
-
-\item{cache}{A Cache object in which to store the data}
 }
 \description{
 This function creates an entry in the cache. It should not be called by the

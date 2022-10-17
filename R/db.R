@@ -56,7 +56,7 @@ setClass(
 ##' @param data_source_name The data source name (DSN) for the database.  If
 ##'   this argument is provided, it will be preferred to the config file.
 ##'
-##' @param db_config The absolute path of a configuration file (csv format)
+##' @param config The absolute path of a configuration file (csv format)
 ##'   containing database connection information and credentials. The default
 ##'   value is the credential file stored in the inst/ directory.
 ##'
@@ -132,6 +132,12 @@ setGeneric("searchCols", function(db, col_pattern, tab_pattern)
     standardGeneric("searchCols"))
 
 ##' Search the tables and columns in a database for partial names
+##
+##' @param db The Database object to query
+##' @param col_pattern The pattern to match column names (regexp)
+##' @param tab_pattern The pattern to match table names (regexp)
+##'
+##' @export 
 setMethod("searchCols", "Database",
           function(db, col_pattern, tab_pattern) {
 
@@ -288,7 +294,7 @@ setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
 ##' sqlQuery for more information about how this works.
 ##'
 ##' @param db The Database to submit to query to
-##' @param query The query to submit (character string)
+##' @param file The file containing the query to submit
 ##'
 ##' @export
 setMethod("sqlFromFile", c("Database", "character"), function(db, file) {

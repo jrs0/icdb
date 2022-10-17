@@ -6,6 +6,13 @@
 \usage{
 \S4method{searchCols}{Database}(db, col_pattern, tab_pattern)
 }
+\arguments{
+\item{db}{The Database object to query}
+
+\item{col_pattern}{The pattern to match column names (regexp)}
+
+\item{tab_pattern}{The pattern to match table names (regexp)}
+}
 \description{
 Search the tables and columns in a database for partial names
 }

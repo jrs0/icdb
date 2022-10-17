@@ -6,6 +6,10 @@
 \usage{
 Cache(path = "cache/")
 }
+\arguments{
+\item{path}{The directory in which to store the cache, defaults to "cache/" relative
+to the current working directory.}
+}
 \value{
 A new Cache object
 }

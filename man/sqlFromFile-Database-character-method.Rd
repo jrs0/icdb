@@ -9,7 +9,7 @@
 \arguments{
 \item{db}{The Database to submit to query to}
 
-\item{query}{The query to submit (character string)}
+\item{file}{The file containing the query to submit}
 }
 \description{
 If you have a file of SQL, submit it as a query to the database using this

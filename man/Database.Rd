@@ -10,7 +10,7 @@ Database(data_source_name = NULL, config = NULL)
 \item{data_source_name}{The data source name (DSN) for the database.  If
 this argument is provided, it will be preferred to the config file.}
 
-\item{db_config}{The absolute path of a configuration file (csv format)
+\item{config}{The absolute path of a configuration file (csv format)
 containing database connection information and credentials. The default
 value is the credential file stored in the inst/ directory.}
 }

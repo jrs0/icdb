@@ -8,8 +8,6 @@ read_cache(data)
 }
 \arguments{
 \item{data}{The same data object passed to the writeCache function}
-
-\item{cache}{The Cache object to read from}
 }
 \value{
 Returns the object associated with the data. Null if not found.
