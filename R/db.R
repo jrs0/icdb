@@ -4,14 +4,6 @@
 ##' @export
 NULL
 
-##' Global variable storing the query cache folder path
-##'
-##' Note: This was previously called cache, but that conflicted with the Cache
-##' object (can't have upper and lower case filenames in package). Need to think
-##' of a better name, but this will do for now. Might get rid of the object
-##' entirely.
-querycache <- Cache("cache/")
-
 ##' Database class wrapping an SQL server connection
 ##'
 ##' @slot connection Microsoft SQL Server.

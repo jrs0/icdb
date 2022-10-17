@@ -18,7 +18,6 @@ setClass(
     )
 )
 
-
 ##' Create a new cache object
 ##'
 ##' @return A new Cache object
@@ -37,25 +36,11 @@ Cache <- function(path = "cache/")
     c
 }
 
+##' Global cache object, ideally not accessible to users of the package
+##' (not achieved that yet)
+cache_object <- Cache("cache/")
 
-setMethod("summary", "Cache", function(object, ...) {
-
-    ## Open the cache folder and count the number of items
-    
-    ## Print the disk space used
-    
-    ## Show other summaries
-    
-})
-
-setGeneric("getContents", function(c) standardGeneric("getContents"))
-
-setMethod("getContents", "Cache", function(c) {
-
-
-})
-
-recordHit <- function(metadata)
+record_hit <- function(metadata)
 {
     metadata$hits <-  metadata$hits + 1
     metadata$last_access <- Sys.time()
@@ -85,15 +70,14 @@ recordHit <- function(metadata)
 ##' @param cache A Cache object in which to store the data
 ##' @param data Data about the object, used to generate the hash
 ##' @param object The main (typically large) object to store in the cache
-##' @return The modified cache object
 ##'
-writeCache <- function(cache, data, object)
+write_cache <- function(data, object)
 {
     ## Make the hash out of the metadata
     hash <- rlang::hash(data)
     
     ## The metadata is not saved directly. Instead, it is encapsulated inside a
-    ## structure that also holds information generic to all cache entries: the
+    ## structure that also holds information generic to all cache_object entries: the
     ## number of hits, last access, etc. This information is used to track how
     ## the entry is used, and provide summary information.
     now <- Sys.time()
@@ -108,28 +92,30 @@ writeCache <- function(cache, data, object)
         data = data
     )
 
-    ## Write the object to the level 1 cache first
-    cache@level1[[hash]] <- list(metadata = metadata, object = object)
-
-    ## After writing to the level 1 cache, check whether anything needs
+    ## Write the object to the level 1 cache_object first. This is a hack
+    ## to write to the fields of the S4 object in the parent environment.
+    ## I don't have time to figure out the right way to do this now.
+    ## I have used this pattern everywhere for now.
+    tmp <- cache_object
+    tmp@level1[[hash]] <- list(metadata = metadata, object = object)
+    cache_object <<- tmp
+    
+    ## After writing to the level 1 cache_object, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
     
     ## Create the level 2 directory if it does not exist
-    if (!dir.exists(cache@path))
+    if (!dir.exists(cache_object@path))
     {
-        dir.create(cache@path)
+        dir.create(cache_object@path)
     }
     
     ## Create the object filename and the metadata filename
-    obj_file <- paste0(cache@path, "/", hash, ".obj.rds")
-    meta_file <- paste0(cache@path, "/", hash, ".meta.rds")
+    obj_file <- paste0(cache_object@path, "/", hash, ".obj.rds")
+    meta_file <- paste0(cache_object@path, "/", hash, ".meta.rds")
 
-    ## Store the metadata and the object to the level 2 cache directory
+    ## Store the metadata and the object to the level 2 cache_object directory
     saveRDS(metadata, file = meta_file)
     saveRDS(object, file = obj_file)
-
-    ## Return the cache object
-    cache
 }
 
 ##' Read an object from the cache
@@ -140,33 +126,33 @@ writeCache <- function(cache, data, object)
 ##' @param data The same data object passed to the writeCache function
 ##'
 ##' @return Returns the object associated with the data. Null if not found.
-readCache <- function(cache, data)
+read_cache <- function(data)
 {
     ## Make the has out of the metadata
     hash <- rlang::hash(data)
 
-    ## First, attempt to read the data from the level 1 cache
-    val <- cache@level1[[hash]]
+    ## First, attempt to read the data from the level 1 cache_object
+    val <- cache_object@level1[[hash]]
     if (!is.null(val))
     {
-        message("Found data in level 1 cache, using that.")
+        message("Found data in level 1 cache_object, using that.")
         
         ## Update the metadata
-        cache@level1[[hash]]&metadata <- recordHit(val$metadata)
+        cache_object@level1[[hash]]&metadata <<- recordHit(val$metadata)
 
         ## Now return the object
         val$object
     }
     
-    ## If data is not in the L1 cache, check if L2 directory exists
-    if (!dir.exists(cache@path))
+    ## If data is not in the L1 cache_object, check if L2 directory exists
+    if (!dir.exists(cache_object@path))
     {
         NULL
     }
 
     ## Create the object filename and the metadata filename
-    obj_file <- paste0(cache@path, "/", hash, ".obj.rds")
-    meta_file <- paste0(cache@path, "/", hash, ".meta.rds")
+    obj_file <- paste0(cache_object@path, "/", hash, ".obj.rds")
+    meta_file <- paste0(cache_object@path, "/", hash, ".meta.rds")
 
     ## Check to see if the files exist
     if (file.exists(meta_file))
@@ -183,7 +169,7 @@ readCache <- function(cache, data)
         }
         else
         {
-            stop("The cache is corrupt: missing .obj.rds file for .meta.rds file.")
+            stop("The cache_object is corrupt: missing .obj.rds file for .meta.rds file.")
         }
     }
     else
@@ -192,16 +178,16 @@ readCache <- function(cache, data)
     }
 }
 
-setMethod("summary", "Cache", function(object, ...) {
-
-    message("The cache is stored in the folder: ", object@path)
+summarise_cache <-function()
+{
+    message("The cache is stored in the folder: ", cache_object@path)
 
     ## Get the list of files
-    file_list <- list.files(object@path, pattern = "meta\\.rds")
+    file_list <- list.files(cache_object@path, pattern = "meta\\.rds")
 
     ## Make a function to get the data
     get_metadata <- function(file) {
-        meta_file <- paste0(object@path, "/", file)
+        meta_file <- paste0(cache_object@path, "/", file)
         metadata <- readRDS(meta_file)
         print(metadata$last_access)
 
@@ -221,32 +207,28 @@ setMethod("summary", "Cache", function(object, ...) {
 
     ## Print the summary
     t
-})
+}
+
 
 ##' Clear the cache
 ##'
 ##' Delete all the cached results in the cache folder.
 ##'
-setGeneric("clear", function(cache) standardGeneric("clear"))
-
-##' Clear the cache
-##'
-##' Delete all the cached results in the cache folder.
-##'
-setMethod("clear", "Cache", function(cache) {
+clear_cache <- function()
+{
     ## Check if directory exists
-    if (dir.exists(cache@path) && length(list.files(cache@path)) > 0)
+    if (dir.exists(cache_object@path) && length(list.files(cache_object@path)) > 0)
     {
-        list.files(cache@path) %>%
-            stringr::str_c(cache@path,.) %>%
+        list.files(cache_object@path) %>%
+            stringr::str_c(cache_object@path,.) %>%
             purrr::map(file.remove)
-        message("Cleared cache.")
+        message("Cleared cache_object.")
     }
     else
     {
-        message("Cache already empty.")
+        message("Cache_Object already empty.")
     }
-    invisible(cache)
-})
+    invisible(cache_object)
+}
 
 

@@ -2,7 +2,8 @@
 % Please edit documentation in R/cache.R
 \name{Cache}
 \alias{Cache}
-\title{Create a new cache object}
+\title{Global cache object, not accessible outside cache
+Create a new cache object}
 \usage{
 Cache(path = "cache/")
 }
@@ -10,5 +11,6 @@ Cache(path = "cache/")
 A new Cache object
 }
 \description{
+Global cache object, not accessible outside cache
 Create a new cache object
 }
