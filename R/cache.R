@@ -27,6 +27,42 @@ record_hit <- function(metadata)
     metadata
 }
 
+##' Write en entry from the leve1 cache to the level2 cache
+##'
+##' @title Flush entry to the level2 cache
+##' @param meta_row The row in the meta field of the leve1 cache to write
+write_level2 <- function(metadata)
+{
+    ## Get the hash key of the cache entry
+    hash <- metadata$hash
+    
+    ## Create the level 2 directory if it does not exist
+    if (!dir.exists(pkg_env$cache$path))
+    {
+        dir.create(pkg_env$cache$path)
+    }
+    
+    ## Create the object filename and the metadata filename
+    obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
+    meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
+
+    ## Store the metadata and the object to the level 2 pkg_env$cache directory
+    saveRDS(metadata, file = meta_file)
+    saveRDS(pkg_env$cache$level1$objects[[hash]], file = obj_file)
+}
+
+##' Get the metadata associated with a hash as a list
+##'
+##' @title Get metadata list
+##' @param hash The hash of the cache entry
+get_metadata <- function(hash_val)
+{
+    tbl <- pkg_env$cache$level1$meta %>%
+        dplyr::filter(hash == hash_val)
+    stopifnot(nrow(tbl) == 1)
+    as.list(tbl[1,])   
+}
+
 ##' Write an element into the cache
 ##'
 ##' This function creates an entry in the cache. It should not be called by the
@@ -60,16 +96,6 @@ write_cache <- function(data, object)
     ## number of hits, last access, etc. This information is used to track how
     ## the entry is used, and provide summary information.
     now <- Sys.time()
-    metadata <- list(
-        hits = 1,
-        level1 = TRUE,
-        level2 = TRUE,
-        write_time = now,
-        last_access = now,
-
-        ## Finally, store the user provided data
-        data = data
-    )
 
     ## Write the object to the level 1 cache first here
     pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
@@ -79,6 +105,12 @@ write_cache <- function(data, object)
                        level2 = TRUE,
                        write_time = now,
                        last_access = now)
+
+    ## Write the new object to the level 1 cache
+    pkg_env$cache$level1$objects[[hash]] <- object
+    
+    ## Write the new entry to the level2 cache
+    write_level2(get_metadata(hash))
     
     ## After writing to the level 1 cache, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
@@ -87,23 +119,21 @@ write_cache <- function(data, object)
         ## Find the oldest element in the cache, and write it to
         ## the level 2 cache. This assumes that it is dirty -- could
         ## add a flag to indicate whether the entry needs to be flushed
-        row_to_delete <- pkg_env$cache$level1$meta %>% dplyr::filter(last_access == min(last_access))
-        print(row_to_delete)
-    }
-    
-    ## Create the level 2 directory if it does not exist
-    if (!dir.exists(pkg_env$cache$path))
-    {
-        dir.create(pkg_env$cache$path)
-    }
-    
-    ## Create the object filename and the metadata filename
-    obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
-    meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
+        metadata <- pkg_env$cache$level1$meta %>%
+            dplyr::filter(last_access == min(last_access)) %>%
+            as.list()
 
-    ## Store the metadata and the object to the level 2 pkg_env$cache directory
-    saveRDS(metadata, file = meta_file)
-    saveRDS(object, file = obj_file)
+        ## Mark the row as not in the level1 cache anymore
+        metadata$level1 <- FALSE
+        
+        ## Write the row to the level2 cache
+        write_level2(metadata)
+
+        ## Now delete the entry from the level1 cache
+        pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+            dplyr::filter(hash != metadata$hash)
+    }
+    
 }
 
 ##' Read an object from the cache
@@ -158,6 +188,12 @@ show_cache <-function()
 {
     message("The cache is stored in the folder: ", pkg_env$cache$path)
 
+    ## Print the level cache metadata
+    message("Level 1 cache metadata:")
+    print(pkg_env$cache$level1$meta)
+
+    return()
+    
     ## Get the list of files
     file_list <- list.files(pkg_env$cache$path, pattern = "meta\\.rds")
 
