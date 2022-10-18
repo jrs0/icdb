@@ -82,17 +82,13 @@ write_cache <- function(data, object)
     
     ## After writing to the level 1 cache, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
-    if (length(pkg_env$cache$level1) > 3)
+    if (nrow(pkg_env$cache$level1$meta) > 1)
     {
         ## Find the oldest element in the cache, and write it to
         ## the level 2 cache. This assumes that it is dirty -- could
         ## add a flag to indicate whether the entry needs to be flushed
-        
-        
-        tbl <- do.call(rbind, pkg_env$cache$level1)
-        print(tbl)
-        stop()
-        
+        row_to_delete <- pkg_env$cache$level1$meta %>% dplyr::filter(last_access == min(last_access))
+        print(row_to_delete)
     }
     
     ## Create the level 2 directory if it does not exist
