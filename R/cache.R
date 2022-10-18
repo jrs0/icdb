@@ -129,9 +129,6 @@ prune_level1 <- function()
         metadata <- pkg_env$cache$level1$meta %>%
             dplyr::filter(last_access == min(last_access)) %>%
             as.list()
-
-        ## Mark the row as not in the level1 cache anymore
-        metadata$level1 <- FALSE
         
         ## Write the row to the level2 cache
         write_level2(metadata)
@@ -229,6 +226,8 @@ show_cache <-function()
     message("Level 1 cache metadata:")
     tbl <- pkg_env$cache$level1$meta
 
+    tbl <- tbl %>% tibble::add_column(in_memory = TRUE)
+    
     ## Next, get the level 2 files and remove those that are in level 1
     file_list <- list.files(pkg_env$cache$path, pattern = "meta\\.rds") %>%
         dplyr::as_tibble() %>%
@@ -243,7 +242,12 @@ show_cache <-function()
     }
     
     res <- file_list[["value"]] %>%  purrr::map_dfr(fn)
-    dplyr::bind_rows(tbl, res)
+    tbl <- dplyr::bind_rows(tbl, res)
+
+    ## Replace NA in mem column by FALSE
+    tbl[is.na(tbl)] <- FALSE
+
+    tbl
 }
 
 
@@ -257,8 +261,6 @@ clear_cache <- function()
     pkg_env$cache$level1$meta = dplyr::tibble(hash=character(),
                                               data = character(),
                                               hits = numeric(),
-                                              level1 = logical(),
-                                              level2 = logical(),
                                               write_time = as.Date(character()),
                                               last_access = as.Date(character()))
     pkg_env$cache$level1$objects = list()
