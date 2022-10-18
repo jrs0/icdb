@@ -13,8 +13,6 @@ pkg_env$cache <- list(
     level1 = list(meta = dplyr::tibble(hash=character(),
                                        data = character(),
                                        hits = numeric(),
-                                       level1 = logical(),
-                                       level2 = logical(),
                                        write_time = as.Date(character()),
                                        last_access = as.Date(character())),
                   objects = list()),
@@ -103,8 +101,6 @@ write_cache <- function(data, object)
         dplyr::add_row(hash = hash,
                        data = data,
                        hits = 1,
-                       level1 = TRUE,
-                       level2 = TRUE,
                        write_time = now,
                        last_access = now)
 
@@ -204,8 +200,13 @@ read_cache <- function(data)
             ## Open the meta file and increment the update values
             metadata <- readRDS(meta_file)
             metadata <- record_hit(metadata)
+
+            ## Record that the 
+            
             saveRDS(metadata, file = meta_file)
 
+            ## Promote the 
+            
             ## Now open and return the object
             readRDS(obj_file)
         }
@@ -252,18 +253,24 @@ show_cache <-function()
 ##'
 clear_cache <- function()
 {
+    ## Clear the level 1 cache
+    pkg_env$cache$level1$meta = dplyr::tibble(hash=character(),
+                                              data = character(),
+                                              hits = numeric(),
+                                              level1 = logical(),
+                                              level2 = logical(),
+                                              write_time = as.Date(character()),
+                                              last_access = as.Date(character()))
+    pkg_env$cache$level1$objects = list()
+    
     ## Check if directory exists
     if (dir.exists(pkg_env$cache$path) && length(list.files(pkg_env$cache$path)) > 0)
     {
         list.files(pkg_env$cache$path) %>%
             stringr::str_c(pkg_env$cache$path,.) %>%
             purrr::map(file.remove)
-        message("Cleared pkg_env$cache.")
     }
-    else
-    {
-        message("Pkg_Env$Cache already empty.")
-    }
+    message("Cleared cache.")
     invisible(pkg_env$cache)
 }
 
