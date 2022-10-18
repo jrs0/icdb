@@ -123,7 +123,7 @@ prune_level1 <- function()
 {
     ## After writing to the level 1 cache, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
-    if (nrow(pkg_env$cache$level1$meta) > 1)
+    if (nrow(pkg_env$cache$level1$meta) > 2)
     {
         ## Find the oldest element in the cache, and write it to
         ## the level 2 cache. This assumes that it is dirty -- could
@@ -196,37 +196,27 @@ show_cache <-function()
 {
     message("The cache is stored in the folder: ", pkg_env$cache$path)
 
-    ## Print the level cache metadata
+    ## Print the level 1 cache metadata
     message("Level 1 cache metadata:")
-    print(pkg_env$cache$level1$meta)
+    tbl <- pkg_env$cache$level1$meta
 
-    return()
-    
-    ## Get the list of files
-    file_list <- list.files(pkg_env$cache$path, pattern = "meta\\.rds")
+    ## Next, get the level 2 files and remove those that are in level 1
+    file_list <- list.files(pkg_env$cache$path, pattern = "meta\\.rds") %>%
+        dplyr::as_tibble() %>%
+        dplyr::mutate(value = stringr::str_replace(value, ".meta.rds", "")) %>%
+        dplyr::filter(!(value %in% tbl$hash)) %>%
+        dplyr::mutate(value = paste0(value, ".meta.rds"))
 
     ## Make a function to get the data
-    get_metadata <- function(file) {
+    fn <- function(file) {
         meta_file <- paste0(pkg_env$cache$path, "/", file)
-        metadata <- readRDS(meta_file)
-        print(metadata$last_access)
-
-        ## Replace this
-        list(data = metadata$data,
-             hits = metadata$hits,
-             write_time = metadata$write_time,
-             last_access = metadata$last_access)
+        print(meta_file)
+        res <- readRDS(meta_file)
+        res
     }
-
-    res <- file_list %>%
-        purrr::map(get_metadata) %>%
-        purrr::transpose() %>%
-        purrr::map(unlist)
-
-    t <- do.call(dplyr::tibble, res)
-
-    ## Print the summary
-    t
+    
+    res <- file_list[["value"]] %>%  purrr::map_dfr(fn)
+    dplyr::bind_rows(tbl, res)
 }
 
 
