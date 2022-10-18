@@ -111,7 +111,16 @@ write_cache <- function(data, object)
     
     ## Write the new entry to the level2 cache
     write_level2(get_metadata(hash))
+
+    ## Flush the level1 cache
+    prune_level1()
     
+}
+##' Remove entries from the level 1 cache, flushing them to level 2
+##'
+##' @title Flush and prune the level 1 cache
+prune_level1 <- function()
+{
     ## After writing to the level 1 cache, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
     if (nrow(pkg_env$cache$level1$meta) > 1)
@@ -132,8 +141,7 @@ write_cache <- function(data, object)
         ## Now delete the entry from the level1 cache
         pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
             dplyr::filter(hash != metadata$hash)
-    }
-    
+    }    
 }
 
 ##' Read an object from the cache
