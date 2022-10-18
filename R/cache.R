@@ -5,37 +5,11 @@
 NULL
 
 
+## Currently using an environment to prototype, can change to an R6 class to
+## make it slightly better. What would be even better is if a global variable
+## (local to the package) just worked, but that might not be possible.
 pkg_env <- new.env(parent = emptyenv())
-pkg_env$cache_object <- list(path = "cache/", level1 = list())
-
-##' Create a new cache object
-##'
-##' @param path The directory in which to store the cache, defaults to "cache/" relative
-##' to the current working directory.
-##' 
-##' @return A new Cache object
-Cache <- function(path = "cache/")
-{
-    ## Make the object
-    c <- list(
-        path = path,
-        level1 = list()
-    )
-    
-    ## Create the directory if it does not exist
-    if (!dir.exists(path))
-    {
-        dir.create(path)
-    }
-
-    ## Return the new object
-    c
-}
-
-##' Global cache object, ideally not accessible to users of the package
-##' (not achieved that yet). This should probably be an R6 class. An R4
-##' class will not work because it is not mutable. To fix later.
-## pkg_env$cache_object <- Cache("cache/")
+pkg_env$cache <- list(path = "cache/", level1 = list())
 
 record_hit <- function(metadata)
 {
@@ -73,7 +47,7 @@ write_cache <- function(data, object)
     hash <- rlang::hash(data)
     
     ## The metadata is not saved directly. Instead, it is encapsulated inside a
-    ## structure that also holds information generic to all pkg_env$cache_object entries: the
+    ## structure that also holds information generic to all pkg_env$cache entries: the
     ## number of hits, last access, etc. This information is used to track how
     ## the entry is used, and provide summary information.
     now <- Sys.time()
@@ -88,22 +62,35 @@ write_cache <- function(data, object)
         data = data
     )
 
-    ## Write the object to the level 1 pkg_env$cache_object first here
+    ## Write the object to the level 1 cache first here
+    pkg_env$cache$level1[[hash]] <- list(hash=hash, metadata=metadata, object=object)
     
-    ## After writing to the level 1 pkg_env$cache_object, check whether anything needs
+    ## After writing to the level 1 cache, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
+    if (length(pkg_env$cache$level1) > 3)
+    {
+        ## Find the oldest element in the cache, and write it to
+        ## the level 2 cache. This assumes that it is dirty -- could
+        ## add a flag to indicate whether the entry needs to be flushed
+        
+        
+        tbl <- do.call(rbind, pkg_env$cache$level1)
+        print(tbl)
+        stop()
+        
+    }
     
     ## Create the level 2 directory if it does not exist
-    if (!dir.exists(pkg_env$cache_object$path))
+    if (!dir.exists(pkg_env$cache$path))
     {
-        dir.create(pkg_env$cache_object$path)
+        dir.create(pkg_env$cache$path)
     }
     
     ## Create the object filename and the metadata filename
-    obj_file <- paste0(pkg_env$cache_object$path, "/", hash, ".obj.rds")
-    meta_file <- paste0(pkg_env$cache_object$path, "/", hash, ".meta.rds")
+    obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
+    meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
 
-    ## Store the metadata and the object to the level 2 pkg_env$cache_object directory
+    ## Store the metadata and the object to the level 2 pkg_env$cache directory
     saveRDS(metadata, file = meta_file)
     saveRDS(object, file = obj_file)
 }
@@ -120,17 +107,17 @@ read_cache <- function(data)
     ## Make the has out of the metadata
     hash <- rlang::hash(data)
 
-    ## First, attempt to read the data from the level 1 pkg_env$cache_object here
+    ## First, attempt to read the data from the level 1 pkg_env$cache here
 
-    ## If data is not in the L1 pkg_env$cache_object, check if L2 directory exists
-    if (!dir.exists(pkg_env$cache_object$path))
+    ## If data is not in the L1 pkg_env$cache, check if L2 directory exists
+    if (!dir.exists(pkg_env$cache$path))
     {
         NULL
     }
 
     ## Create the object filename and the metadata filename
-    obj_file <- paste0(pkg_env$cache_object$path, "/", hash, ".obj.rds")
-    meta_file <- paste0(pkg_env$cache_object$path, "/", hash, ".meta.rds")
+    obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
+    meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
 
     ## Check to see if the files exist
     if (file.exists(meta_file))
@@ -147,7 +134,7 @@ read_cache <- function(data)
         }
         else
         {
-            stop("The pkg_env$cache_object is corrupt: missing .obj.rds file for .meta.rds file.")
+            stop("The pkg_env$cache is corrupt: missing .obj.rds file for .meta.rds file.")
         }
     }
     else
@@ -158,14 +145,14 @@ read_cache <- function(data)
 
 show_cache <-function()
 {
-    message("The cache is stored in the folder: ", pkg_env$cache_object$path)
+    message("The cache is stored in the folder: ", pkg_env$cache$path)
 
     ## Get the list of files
-    file_list <- list.files(pkg_env$cache_object$path, pattern = "meta\\.rds")
+    file_list <- list.files(pkg_env$cache$path, pattern = "meta\\.rds")
 
     ## Make a function to get the data
     get_metadata <- function(file) {
-        meta_file <- paste0(pkg_env$cache_object$path, "/", file)
+        meta_file <- paste0(pkg_env$cache$path, "/", file)
         metadata <- readRDS(meta_file)
         print(metadata$last_access)
 
@@ -195,18 +182,18 @@ show_cache <-function()
 clear_cache <- function()
 {
     ## Check if directory exists
-    if (dir.exists(pkg_env$cache_object$path) && length(list.files(pkg_env$cache_object$path)) > 0)
+    if (dir.exists(pkg_env$cache$path) && length(list.files(pkg_env$cache$path)) > 0)
     {
-        list.files(pkg_env$cache_object$path) %>%
-            stringr::str_c(pkg_env$cache_object$path,.) %>%
+        list.files(pkg_env$cache$path) %>%
+            stringr::str_c(pkg_env$cache$path,.) %>%
             purrr::map(file.remove)
-        message("Cleared pkg_env$cache_object.")
+        message("Cleared pkg_env$cache.")
     }
     else
     {
-        message("Pkg_Env$Cache_Object already empty.")
+        message("Pkg_Env$Cache already empty.")
     }
-    invisible(pkg_env$cache_object)
+    invisible(pkg_env$cache)
 }
 
 
