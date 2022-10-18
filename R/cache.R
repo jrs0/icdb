@@ -9,7 +9,7 @@ NULL
 ## make it slightly better. What would be even better is if a global variable
 ## (local to the package) just worked, but that might not be possible.
 pkg_env <- new.env(parent = emptyenv())
-pkg_env$cache <- list(path = "cache/", level1 = list())
+pkg_env$cache <- tibble(hash=character()))
 
 record_hit <- function(metadata)
 {
@@ -63,7 +63,7 @@ write_cache <- function(data, object)
     )
 
     ## Write the object to the level 1 cache first here
-    pkg_env$cache$level1[[hash]] <- list(hash=hash, metadata=metadata, object=object)
+    pkg_env$cache$level1 %>% add_row(hash = hash)
     
     ## After writing to the level 1 cache, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
