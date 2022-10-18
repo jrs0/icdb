@@ -15,6 +15,7 @@ pkg_env$cache <- list(
                                        hits = numeric(),
                                        write_time = as.Date(character()),
                                        last_access = as.Date(character())),
+                  max_size = 2,
                   objects = list()),
     path = "cache/"
 )
@@ -48,6 +49,29 @@ write_level2 <- function(metadata)
     ## Store the metadata and the object to the level 2 pkg_env$cache directory
     saveRDS(metadata, file = meta_file)
     saveRDS(pkg_env$cache$level1$objects[[hash]], file = obj_file)
+}
+
+write_level1 <- function(metadata, object)
+{
+    ## The metadata is not saved directly. Instead, it is encapsulated inside a
+    ## structure that also holds information generic to all pkg_env$cache entries: the
+    ## number of hits, last access, etc. This information is used to track how
+    ## the entry is used, and provide summary information.
+    now <- Sys.time()
+
+    ## Write the object to the level 1 cache first here
+    pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+        dplyr::add_row(hash = metadata$hash,
+                       data = metadata$data,
+                       hits = metadata$hits,
+                       write_time = metadata$write_time,
+                       last_access = metadata$last_access)
+
+    ## Write the new object to the level 1 cache
+    pkg_env$cache$level1$objects[[metadata$hash]] <- object
+
+    ## Prune the level 1 cache
+    prune_level1()
 }
 
 ##' Get the metadata associated with a hash as a list
@@ -89,31 +113,24 @@ write_cache <- function(data, object)
 {
     ## Make the hash out of the metadata
     hash <- rlang::hash(data)
-    
-    ## The metadata is not saved directly. Instead, it is encapsulated inside a
-    ## structure that also holds information generic to all pkg_env$cache entries: the
-    ## number of hits, last access, etc. This information is used to track how
-    ## the entry is used, and provide summary information.
-    now <- Sys.time()
 
-    ## Write the object to the level 1 cache first here
-    pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
-        dplyr::add_row(hash = hash,
-                       data = data,
-                       hits = 1,
-                       write_time = now,
-                       last_access = now)
+    ## Initialise the metadata
+    now = Sys.time()
+    metadata <- list(
+        hash = hash,
+        data = data,
+        hits = 1,
+        write_time = now,
+        last_access = now        
+    )
 
-    ## Write the new object to the level 1 cache
-    pkg_env$cache$level1$objects[[hash]] <- object
+    ## Write new entry to the level1 cache
+    write_level1(metadata, object)
     
     ## Write the new entry to the level2 cache
-    write_level2(get_metadata(hash))
-
-    ## Flush the level1 cache
-    prune_level1()
-    
+    write_level2(get_metadata(hash))    
 }
+
 ##' Remove entries from the level 1 cache, flushing them to level 2
 ##'
 ##' @title Flush and prune the level 1 cache
@@ -121,7 +138,7 @@ prune_level1 <- function()
 {
     ## After writing to the level 1 cache, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
-    if (nrow(pkg_env$cache$level1$meta) > 2)
+    if (nrow(pkg_env$cache$level1$meta) > pkg_env$cache$level1$max_size)
     {
         ## Find the oldest element in the cache, and write it to
         ## the level 2 cache. This assumes that it is dirty -- could
@@ -197,15 +214,16 @@ read_cache <- function(data)
             ## Open the meta file and increment the update values
             metadata <- readRDS(meta_file)
             metadata <- record_hit(metadata)
-
-            ## Record that the 
-            
             saveRDS(metadata, file = meta_file)
 
-            ## Promote the 
-            
             ## Now open and return the object
-            readRDS(obj_file)
+            object <- readRDS(obj_file)
+            
+            ## Promote the entry to the level 1 cache
+            write_level1(metadata, object)
+
+            ## Return the object
+            object
         }
         else
         {
