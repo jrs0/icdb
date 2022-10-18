@@ -11,6 +11,7 @@ NULL
 pkg_env <- new.env(parent = emptyenv())
 pkg_env$cache <- list(
     level1 = list(meta = dplyr::tibble(hash=character(),
+                                       data = character(),
                                        hits = numeric(),
                                        level1 = logical(),
                                        level2 = logical(),
@@ -100,6 +101,7 @@ write_cache <- function(data, object)
     ## Write the object to the level 1 cache first here
     pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
         dplyr::add_row(hash = hash,
+                       data = data,
                        hits = 1,
                        level1 = TRUE,
                        level2 = TRUE,
@@ -156,8 +158,34 @@ read_cache <- function(data)
     ## Make the has out of the metadata
     hash <- rlang::hash(data)
 
-    ## First, attempt to read the data from the level 1 pkg_env$cache here
+    now <- Sys.time()
+    
+    ## First, attempt to read the data from the level 1 cache here
+    res <- pkg_env$cache$level1$meta %>%
+        dplyr::filter(hash == !!hash)
+    if (nrow(res) == 1)
+    {
+        message("Found data in level 1 cache")
 
+        ## Get the record as a list
+        metadata <- as.list(res)        
+
+        ## Update the metadata
+        metadata <- record_hit(metadata)
+        
+        ## Delete the entry from the level 1 cache
+        pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+            dplyr::filter(hash != !!hash)
+
+        ## Now re-add the entry from the list
+        pkg_env$cache$level1$meta <-
+            dplyr::bind_rows(pkg_env$cache$level1$meta, metadata)
+    
+        ## Data present in level 1 cache
+        return(pkg_env$cache$level1$objects[[hash]])
+    }
+    
+    
     ## If data is not in the L1 pkg_env$cache, check if L2 directory exists
     if (!dir.exists(pkg_env$cache$path))
     {
@@ -210,9 +238,7 @@ show_cache <-function()
     ## Make a function to get the data
     fn <- function(file) {
         meta_file <- paste0(pkg_env$cache$path, "/", file)
-        print(meta_file)
-        res <- readRDS(meta_file)
-        res
+        readRDS(meta_file)
     }
     
     res <- file_list[["value"]] %>%  purrr::map_dfr(fn)
