@@ -63,7 +63,8 @@ setClass(
 ##'   value is the credential file stored in the inst/ directory.
 ##'
 ##' @return A new (S4) Database object
-##'
+##' 
+##' @export
 Database <- function(data_source_name = NULL,
                      config = NULL)
 {
@@ -352,6 +353,7 @@ setMethod("show", "Database", function(object) {
 ##' @param ... Other arguments for dplyr::collect()
 ##' @return The query results
 ##'
+##' @export
 run <- function(x, ...)
 {
     ## Generate an SQL string for the query
