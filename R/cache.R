@@ -245,7 +245,12 @@ read_cache <- function(data)
         NULL
     }
 }
-
+##' Show the contents of the cache as a dataframe
+##'
+##' @title Summarise the cache
+##' @return A tibble containing cache entries
+##'
+##' @export
 show_cache <-function()
 {
     message("The cache is stored in the folder: ", pkg_env$cache$path)

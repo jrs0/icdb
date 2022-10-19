@@ -269,6 +269,22 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
         start <- lubridate::now()
         
         ## Submit the SQL query
+        ##
+        ## It appears there is a bug in odbc (or maybe somewhere else) relating
+        ## to getting tables that have long nvarchar fields:
+        ## https://stackoverflow.com/questions/45001152/r-dbi-odbc-error
+        ## -nanodbc-nanodbc-cpp3110-07009-microsoftodbc-driver-13-fo
+        ##
+        ## Trying to get columns from these tables causes the dbFetch routine
+        ## to fail, and corrupts the connection. The issue likely affects the
+        ## dplyr collect() too. The solution seems to be some kind of
+        ## reordering the select elements in the SQL query to put these fields
+        ## at the end.
+        ##
+        ## This issues also affects the table() generic for accessing the
+        ## table using e.g. db$table_name, because that probably does a
+        ## query behind the scenes.
+        ##
         res <- DBI::dbSendQuery(db@connection, query)
 
         ## Fetch all results
