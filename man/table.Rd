@@ -7,6 +7,8 @@
 table(db, tab)
 }
 \arguments{
+\item{db}{The database to read from}
+
 \item{tab}{The name of the table object to use read}
 }
 \value{

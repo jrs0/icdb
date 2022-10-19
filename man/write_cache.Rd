@@ -4,12 +4,14 @@
 \alias{write_cache}
 \title{Write an element into the cache}
 \usage{
-write_cache(data, object)
+write_cache(data, object, time)
 }
 \arguments{
 \item{data}{Data about the object, used to generate the hash}
 
 \item{object}{The main (typically large) object to store in the cache}
+
+\item{time}{The duration of the operation that requires caching}
 }
 \description{
 This function creates an entry in the cache. It should not be called by the

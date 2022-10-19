@@ -14,6 +14,8 @@ Database class wrapping an SQL server connection
 
 \item{\code{config}}{list. Database connection information as a named list}
 
-\item{\code{dsn}}{}
+\item{\code{dsn}}{Domain source name (Windows only)}
+
+\item{\code{.Data}}{From the contained list}
 }}
 

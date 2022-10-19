@@ -10,13 +10,14 @@ NULL
 ## (local to the package) just worked, but that might not be possible.
 pkg_env <- new.env(parent = emptyenv())
 pkg_env$cache <- list(
-    level1 = list(meta = dplyr::tibble(hash=character(),
-                                       data = character(),
-                                       hits = numeric(),
-                                       write_time = as.Date(character()),
-                                       last_access = as.Date(character()),
-                                       time = as.difftime(1, units="hours")),
-                  max_size = 2,
+    level1 = list(meta = dplyr::tibble(hash=character(), # The key
+                                       data = character(), # Used to generate the key
+                                       hits = numeric(), # Number of times the cache entry was read
+                                       write_time = as.Date(character()), # When the entry was written
+                                       last_access = as.Date(character()), # When the entry was last accessed
+                                       time = as.difftime(1, units="hours") # How long did the original computation take
+                                       ),
+                  max_size = 20,
                   objects = list()),
     path = "cache/"
 )
@@ -31,10 +32,12 @@ record_hit <- function(metadata)
 ##' Write en entry from the leve1 cache to the level2 cache
 ##'
 ##' @title Flush entry to the level2 cache
-##' @param meta_row The row in the meta field of the leve1 cache to write
+##' @param metadata The metadata as a named list
 write_level2 <- function(metadata)
 {
-    ## For now, do not use the level 2 cache
+    ## For now, do not use the level 2 cache. This really slows down the
+    ## query routine, because writing large query results to file is really
+    ## slow. Can introduce level 2 again if a need arises.
     return()
     
     ## Get the hash key of the cache entry
@@ -83,10 +86,10 @@ write_level1 <- function(metadata, object)
 ##'
 ##' @title Get metadata list
 ##' @param hash The hash of the cache entry
-get_metadata <- function(hash_val)
+get_metadata <- function(hash)
 {
     tbl <- pkg_env$cache$level1$meta %>%
-        dplyr::filter(hash == hash_val)
+        dplyr::filter(hash == !!hash)
     stopifnot(nrow(tbl) == 1)
     as.list(tbl[1,])   
 }
@@ -287,7 +290,8 @@ clear_cache <- function()
                                               data = character(),
                                               hits = numeric(),
                                               write_time = as.Date(character()),
-                                              last_access = as.Date(character()))
+                                              last_access = as.Date(character()),
+                                              time = as.difftime(1, units="hours"))
     pkg_env$cache$level1$objects = list()
     
     ## Check if directory exists

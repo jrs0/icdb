@@ -1,5 +1,6 @@
 ##' @importFrom methods new show
 ##' @importFrom magrittr %>%
+##' @importFrom utils capture.output tail
 ##' @importClassesFrom DBI DBIConnection
 ##' @export
 NULL
@@ -8,7 +9,8 @@ NULL
 ##'
 ##' @slot connection Microsoft SQL Server.
 ##' @slot config list. Database connection information as a named list
-##' @slot dsn
+##' @slot dsn Domain source name (Windows only)
+##' @slot .Data From the contained list
 ##'
 ##' @export
 setClass(
@@ -211,6 +213,7 @@ setMethod("$", "Database", function(x, name) {
 ##' function is an alternative to using a direct sql query using the sql()
 ##' generic
 ##'
+##' @param db The database to read from
 ##' @param tab The name of the table object to use read
 ##'
 ##' @return A dply::tbl object which wraps a database table
