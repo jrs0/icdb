@@ -11,6 +11,7 @@ RoxygenNote: 7.2.1
 Imports: 
     DBI,
     dplyr,
+    lubridate,
     magrittr,
     methods,
     odbc,

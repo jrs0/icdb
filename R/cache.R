@@ -14,7 +14,8 @@ pkg_env$cache <- list(
                                        data = character(),
                                        hits = numeric(),
                                        write_time = as.Date(character()),
-                                       last_access = as.Date(character())),
+                                       last_access = as.Date(character()),
+                                       time = as.difftime(1, units="hours")),
                   max_size = 2,
                   objects = list()),
     path = "cache/"
@@ -23,7 +24,7 @@ pkg_env$cache <- list(
 record_hit <- function(metadata)
 {
     metadata$hits <-  metadata$hits + 1
-    metadata$last_access <- Sys.time()
+    metadata$last_access <- lubridate::now()
     metadata
 }
 
@@ -57,13 +58,14 @@ write_level1 <- function(metadata, object)
     ## structure that also holds information generic to all pkg_env$cache entries: the
     ## number of hits, last access, etc. This information is used to track how
     ## the entry is used, and provide summary information.
-    now <- Sys.time()
+    now <- lubridate::now()
 
     ## Write the object to the level 1 cache first here
     pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
         dplyr::add_row(hash = metadata$hash,
                        data = metadata$data,
                        hits = metadata$hits,
+                       time = metadata$time,
                        write_time = metadata$write_time,
                        last_access = metadata$last_access)
 
@@ -108,20 +110,22 @@ get_metadata <- function(hash_val)
 ##'
 ##' @param data Data about the object, used to generate the hash
 ##' @param object The main (typically large) object to store in the cache
+##' @param time The duration of the operation that requires caching
 ##'
-write_cache <- function(data, object)
+write_cache <- function(data, object, time)
 {
     ## Make the hash out of the metadata
     hash <- rlang::hash(data)
 
     ## Initialise the metadata
-    now = Sys.time()
+    now = lubridate::now()
     metadata <- list(
         hash = hash,
         data = data,
         hits = 1,
         write_time = now,
-        last_access = now        
+        last_access = now,
+        time = time
     )
 
     ## Write new entry to the level1 cache
@@ -168,7 +172,7 @@ read_cache <- function(data)
     ## Make the has out of the metadata
     hash <- rlang::hash(data)
 
-    now <- Sys.time()
+    now <- lubridate::now()
     
     ## First, attempt to read the data from the level 1 cache here
     res <- pkg_env$cache$level1$meta %>%

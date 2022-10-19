@@ -261,6 +261,9 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
     }
     else
     {
+        ## Record the start time
+        start <- lubridate::now()
+        
         ## Submit the SQL query
         res <- DBI::dbSendQuery(db@connection, query)
 
@@ -274,7 +277,7 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
         t <- tibble::as_tibble(df)
 
         ## Save the results in the cache
-        write_cache(query, t)
+        write_cache(query, t, lubridate::now() - start)
 
         ## Return the dataframe of results as a tibble
         t
@@ -363,11 +366,14 @@ run <- function(x, ...)
     }
     else
     {
+        ## Record the start time
+        start <- lubridate::now()
+        
         ## Get the results
         t <- x %>% dplyr::collect(...)
 
         ## Save the results in the cache
-        write_cache(query, t)
+        write_cache(query, t, lubridate::now() - start)
 
         ## Return the dataframe of results as a tibble
         t
