@@ -34,6 +34,9 @@ record_hit <- function(metadata)
 ##' @param meta_row The row in the meta field of the leve1 cache to write
 write_level2 <- function(metadata)
 {
+    ## For now, do not use the level 2 cache
+    return()
+    
     ## Get the hash key of the cache entry
     hash <- metadata$hash
     
