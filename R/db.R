@@ -119,19 +119,25 @@ Database <- function(data_source_name = NULL,
     }
 
     ## Copy the list of databases into a list, ready to store in the object
-    databases <- DBI::dbGetQuery("SELECT name FROM master.sys.databases")
+    databases <- db@connection %>%
+        DBI::dbGetQuery("SELECT name FROM master.sys.databases")
     
     ## This is the problem part of the code -- it really needs to store a
     ## function to return the table object, but that doesn't work (yet).
-    for (d in databases)
+    for (d in databases$name)
     {
         ## Get the list of tables associated with this database.
         ## Need to double check that this catalog_name is the right
         ## argument to specify the database name for all backends.
-        tables <- DBI::dbListTables(catalog_name = d)
+        tables <- db@connection %>% DBI::dbListTables(catalog_name = d)
 
+        ## Turn the tables into a named list where each name is a table
+        ## name, and each 
+        tbl <- tables %>% tibble::as_tibble() %>% dplyr::distinct() %>%
+            tidyr::pivot_wider(names_from = value, values_from = value)
+        
         ## Store the tables under a named entry for the database
-        db[[t]] <- tables
+        db[[d]] <- tbl
     }
 
     db
@@ -154,7 +160,7 @@ setGeneric("searchCols", function(db, col_pattern, tab_pattern)
     standardGeneric("searchCols"))
 
 ##' Search the tables and columns in a database for partial names
-##
+##'
 ##' @param db The Database object to query
 ##' @param col_pattern The pattern to match column names (regexp)
 ##' @param tab_pattern The pattern to match table names (regexp)
@@ -197,24 +203,24 @@ setMethod("tables", "Database", function(x) {
     DBI::dbListTables(x@connection)
 })
 
-##' Access a table in a Database object
-##'
-##' Use this function to access a table in the Database object. The Database
-##' object behaves like a list, but the elements of the list are evaluated only
-##' when this function is called. When a call like db$table_name is made, this
-##' function creates the corresponding dplyr::tbl object and returns it. Since
-##' this is not a particularly long operation, the results do not need to be
-##' cached. Use the resulting object for any processing you can do with
-##' dplyr::tbl, e.g. pipe it to some SQL-type queries and collect().
-##'
-##' @param x The database
-##' @param name The table to access
-##'
-##' @return A dplyr::tbl data source wrapper
-##' @export
-setMethod("$", "Database", function(x, name) {
-    table(x, name)
-})
+## ##' Access a table in a Database object
+## ##'
+## ##' Use this function to access a table in the Database object. The Database
+## ##' object behaves like a list, but the elements of the list are evaluated only
+## ##' when this function is called. When a call like db$table_name is made, this
+## ##' function creates the corresponding dplyr::tbl object and returns it. Since
+## ##' this is not a particularly long operation, the results do not need to be
+## ##' cached. Use the resulting object for any processing you can do with
+## ##' dplyr::tbl, e.g. pipe it to some SQL-type queries and collect().
+## ##'
+## ##' @param x The database
+## ##' @param name The table to access
+## ##'
+## ##' @return A dplyr::tbl data source wrapper
+## ##' @export
+## setMethod("$", "Database", function(x, name) {
+##     table(x, name)
+## })
 
 
 ##' Get a table in the database in a form ready for dplyr processing
