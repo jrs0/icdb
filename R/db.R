@@ -133,14 +133,31 @@ Database <- function(data_source_name = NULL,
 
         ## Turn the tables into a named list where each name is a table
         ## name, and each 
-        tbl <- tables %>% tibble::as_tibble() %>% dplyr::distinct() %>%
-            tidyr::pivot_wider(names_from = value, values_from = value)
+        ## tbl <- tables %>% tibble::as_tibble() %>% dplyr::distinct() %>%
+        ##     tidyr::pivot_wider(names_from = value,
+        ##                        values_from = value)
+
+        ## Replace all the strings with functions to return the table
+        ## tbl %>% dplyr::mutate()
         
         ## Store the tables under a named entry for the database
-        db[[d]] <- tbl
+        db[[d]] <- list()
+        for (tabname in tables)
+        {
+            db[[d]][[tabname]] <- table_getter(db, tabname)
+        }
     }
 
     db
+}
+
+table_getter <- function(db, tabname)
+{
+    function()
+    {
+        table(db, tabname)
+    }
+
 }
 
 ##' Search the tables and columns in a database for partial names
