@@ -22,6 +22,17 @@ setClass(
         # Empty
     )
 )
+
+##' Get a new Tables object, a simple wrapper around a list of
+##' database tables.
+##'
+##' @title Make a new list of tables
+##' @return The new Tables object
+Tables <- function()
+{
+    new("Tables")
+}
+
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
@@ -160,7 +171,7 @@ Database <- function(data_source_name = NULL,
         tables <- db@connection %>% DBI::dbListTables(catalog_name = d)
 
         ## Store the tables under a named entry for the database
-        db[[d]] <- list()
+        db[[d]] <- Tables()
         for (tabname in tables)
         {
             db[[d]][[tabname]] <- table_getter(db, d, tabname)
