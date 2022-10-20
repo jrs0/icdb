@@ -4,7 +4,6 @@
 # icdb (ICB-DB)
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of icdb is to …
@@ -50,15 +49,32 @@ summary(cars)
 The functions in the package are labelled according to a 5 point scale
 (0-4), according to the following criteria:
 
-  - 0: An initial version of the function has been written, but lacks
-    either documentation or testing
-  - 1: The function has an initial version that also has initial
-    documentation and is covered by some preliminary tests
-  - 2: To be confirmed…
-  - 3: To be confirmed…
-  - 4: To be confirmed…
+- 0: An initial version of the function has been written, but lacks
+  either documentation or testing
+- 1: The function has an initial version that also has initial
+  documentation and is covered by some preliminary tests
+- 2: To be confirmed…
+- 3: To be confirmed…
+- 4: To be confirmed…
 
 These scores are provided at the end of the documnentation for each
 function as a line of the form “doneness: 2/4”. You can take this as an
 indication of what kind of state the function is in, and what needs most
 work.
+
+If there is no doneness label, assume that the function is incomplete.
+
+## Todo list
+
+Here is a list of improvements that need to be made:
+
+- Connect to the server, not a database. Arrange things so that the user
+  can autocomplete databases before tables. Try to make it work so that
+  the same database connection can be used in multiple dplyr pipe
+  operations.
+- Flush the level1 cache to the disk at some point (i.e. when the
+  session ends) to shorten the load time next session. Make sure there
+  is a clear way to disable this (it might not be a desirable default).
+- Need to try to get autocomplete working in every context it makes
+  sense (col names etc.).
+- 
