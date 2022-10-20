@@ -33,6 +33,53 @@ Tables <- function()
     new("Tables")
 }
 
+##' Get the tree of accessible objects in the database connection
+##'
+##' Objects in a database connection are stored as a tree. At the root of
+##' the tree is a starting prefix, which may represent a collection of
+##' databases, a database, or even a table in a database. This function
+##' recursively traverses the objects in the database using DBI::dbListObjects()
+##' and stores the results in a tree structure for the purpose of automcompleting
+##' object names.
+##'
+##' The entire object tree for a database server can be quite large. This
+##' causes the database connection to lag when it is first opened. However, there
+##' is no way to avoid this delay if the list-based-autocompleting method is
+##' used, which is currently the only implemented option. Setting a specific
+##' prefix may help alleviate this performance problem if the area of interest
+##' is known.
+##'
+##' It may be possible to set the default database prefix in the data source
+##' setup (Windows).
+##' 
+##' @title Build the tree of accessible database object
+##' @param db The database object containing the connection
+##' @param prefix The starting prefix defining the root of the tree
+##' 
+##' @return Nested list structure containing the object tree
+build_object_tree <- function(db, prefix)
+{
+    ## Get the list of objects underneath the current prefix. This
+    ## is returned as two columns: a table column containing the object
+    ## (a character), and a flag prefix which is TRUE if this string
+    ## represents an object.
+    objs <- db@connection %>% DBI::dbListObjects(prefix = prefix)
+    
+    ## Convert the objects to a named list. At this point, each list
+    ## name is the object
+    obj_list <- objs %>% tibble::deframe() %>% as.list()
+
+    ## Replace TRUE values with the next level of objects
+    obj_list <- obj_list %>% purrr::map()
+    
+    
+    ## If the prefix field is true, then descend one level down and
+    ## record the objects underneath the current level
+
+    tree
+
+}
+
 ##' Get the table with the specified name as a dplyr::tbl
 ##'
 ##' @title Overload $ for Tables so that it returns the dplyr::tbl
@@ -157,12 +204,17 @@ Databases <- function(data_source_name = NULL,
     }
 
     ## Copy the list of databases into a list, ready to store in the object
+    ##databases <- db@connection %>%
+    ##    DBI::dbGetQuery("SELECT name FROM master.sys.databases")
+
+    ## For mysql
     databases <- db@connection %>%
-        DBI::dbGetQuery("SELECT name FROM master.sys.databases")
+        DBI::dbGetQuery("show databases")
     
     ## This is the problem part of the code -- it really needs to store a
     ## function to return the table object, but that doesn't work (yet).
-    for (d in databases$name)
+    #for (d in databases$name)
+    for (d in databases$Database)
     {
         ## Get the list of tables associated with this database.
         ## Need to double check that this catalog_name is the right
