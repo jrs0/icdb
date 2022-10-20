@@ -69,4 +69,4 @@ Here is a list of improvements that need to be made:
 - Connect to the server, not a database. Arrange things so that the user can autocomplete databases before tables. Try to make it work so that the same database connection can be used in multiple dplyr pipe operations.
 - Flush the level1 cache to the disk at some point (i.e. when the session ends) to shorten the load time next session. Make sure there is a clear way to disable this (it might not be a desirable default).
 - Need to try to get autocomplete working in every context it makes sense (col names etc.).
-- 
+- Look into replacing dbSendQuery with dbGetQuery for simplicity 

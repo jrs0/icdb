@@ -77,4 +77,4 @@ Here is a list of improvements that need to be made:
   is a clear way to disable this (it might not be a desirable default).
 - Need to try to get autocomplete working in every context it makes
   sense (col names etc.).
-- 
+- Look into replacing dbSendQuery with dbGetQuery for simplicity
