@@ -131,15 +131,6 @@ Database <- function(data_source_name = NULL,
         ## argument to specify the database name for all backends.
         tables <- db@connection %>% DBI::dbListTables(catalog_name = d)
 
-        ## Turn the tables into a named list where each name is a table
-        ## name, and each 
-        ## tbl <- tables %>% tibble::as_tibble() %>% dplyr::distinct() %>%
-        ##     tidyr::pivot_wider(names_from = value,
-        ##                        values_from = value)
-
-        ## Replace all the strings with functions to return the table
-        ## tbl %>% dplyr::mutate()
-        
         ## Store the tables under a named entry for the database
         db[[d]] <- list()
         for (tabname in tables)
@@ -150,15 +141,15 @@ Database <- function(data_source_name = NULL,
 
     db
 }
-##' Functional returning a function that gets a dplyr::tbl 
+##' Function factory returning a function that gets a dplyr::tbl 
 ##'
 ##' This function is the way to associate a function with every table
 ##' object in the db list, and replaces the need to overload `$`, while
 ##' also avoiding the problem of storing the table name and database
-##' name in the functions environment. This is the purpose of a functional;
-##' to capture variables in the enclosing environment and allow them to
-##' persist when the function is called. Read this page and the associated
-##' environment sections for a full explanation:
+##' name in the functions environment. This is the purpose of a function
+##' factory; to capture variables in the enclosing environment and allow
+##' them to persist when the function is called. Read this page and the
+##' associated environment sections for a full explanation:
 ##' https://adv-r.hadley.nz/function-factories.html
 ##'
 ##' This function needs a bit of work -- this is only a first draft.
@@ -169,8 +160,7 @@ Database <- function(data_source_name = NULL,
 ##' fine. However, it would be better to understand what the catalog and
 ##' schema really are and make this robust.
 ##'
-##' 
-##' @title Get a function to return a table object
+##' @title Get a function which returns a table object
 ##' @param db The database object to use (containing the connection)
 ##' @param database The database name
 ##' @param tabname The table name
@@ -181,7 +171,8 @@ table_getter <- function(db, database, tabname)
     force(tabname)
     function()
     {
-        dplyr::tbl(db@connection, dbplyr::in_catalog(database, "dbo", tabname))
+        dplyr::tbl(db@connection,
+                   dbplyr::in_catalog(database, "dbo", tabname))
     }
 }
 
