@@ -144,18 +144,20 @@ Database <- function(data_source_name = NULL,
         db[[d]] <- list()
         for (tabname in tables)
         {
-            db[[d]][[tabname]] <- table_getter(db, tabname)
+            db[[d]][[tabname]] <- table_getter(db, d, tabname)
         }
     }
 
     db
 }
 
-table_getter <- function(db, tabname)
+table_getter <- function(db, database, tabname)
 {
+    force(database)
+    force(tabname)
     function()
     {
-        table(db, tabname)
+        table(db, paste0(database,".dbo.",tabname))
     }
 
 }
