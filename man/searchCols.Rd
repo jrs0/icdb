@@ -7,7 +7,7 @@
 searchCols(db, col_pattern, tab_pattern)
 }
 \arguments{
-\item{db}{The Database object to query}
+\item{db}{The Databases object to query}
 
 \item{col_pattern}{The pattern to match column names (regexp)}
 

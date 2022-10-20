@@ -7,7 +7,7 @@
 sqlFromFile(db, file)
 }
 \arguments{
-\item{db}{The Database object to submit the query to}
+\item{db}{The Databases object to submit the query to}
 
 \item{file}{The path to the file containing SQL}
 }

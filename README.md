@@ -84,3 +84,4 @@ Here is a list of improvements that need to be made:
   autocompletion of lists – however, this requires the list to be
   populated. It would be better to find a different autocomplete method
   that allowed lazy evaluation of completion options.
+- 

@@ -33,27 +33,26 @@ Tables <- function()
     new("Tables")
 }
 
-##' .. content for \description{} (no empty lines) ..
+##' Get the table with the specified name as a dplyr::tbl
 ##'
-##' .. content for \details{} ..
 ##' @title Overload $ for Tables so that it returns the dplyr::tbl
-##' @param x The Tables object (element in a Database object)
+##' @param x The Tables object (element in a Databases object)
 ##' @param name The table name to get
 ##' @return The dplyr::tbl for the selected table
 setMethod("$", "Tables", function(x, name) {
     x[[name]]()
 })
 
-##' Database class wrapping an SQL server connection
+##' Databases class wrapping an SQL server connection
 ##'
 ##' @slot connection Microsoft SQL Server.
-##' @slot config list. Database connection information as a named list
+##' @slot config list. Databases connection information as a named list
 ##' @slot dsn Domain source name (Windows only)
 ##' @slot .Data From the contained list
 ##'
 ##' @export
 setClass(
-    "Database",
+    "Databases",
     contains = "list",
     slots = representation(
         connection = "DBIConnection",
@@ -67,12 +66,12 @@ setClass(
     )
 )
 
-##' Construct a Database object
+##' Construct a Databases object
 ##'
 ##' This object manages a database connection. The connection is configured
 ##' using either a data source name, or a json file which stores
 ##' configuration information and credentials. After this function has run
-##' without errors, you should have a new Database object containing a valid
+##' without errors, you should have a new Databases object containing a valid
 ##' connection. The data source is specified by a data source name, which is
 ##' configured using a Windows program. This is the preferred connection method.
 ##'
@@ -108,10 +107,10 @@ setClass(
 ##'   containing database connection information and credentials. The default
 ##'   value is the credential file stored in the inst/ directory.
 ##'
-##' @return A new (S4) Database object
+##' @return A new (S4) Databases object
 ##' 
 ##' @export
-Database <- function(data_source_name = NULL,
+Databases <- function(data_source_name = NULL,
                      config = NULL)
 {
     ## If the data source name argument was passed, connect using that
@@ -119,7 +118,7 @@ Database <- function(data_source_name = NULL,
     {
         message("Connecting using data source name (DSN): ", data_source_name)
         db <- new(
-            "Database",
+            "Databases",
             ## Note the bigint argument, see comment below
             connection = DBI::dbConnect(odbc::odbc(), data_source_name,
                                         bigint = "character"),
@@ -150,7 +149,7 @@ Database <- function(data_source_name = NULL,
         conf$bigint <- "character"
         con <- do.call(DBI::dbConnect, conf)
 
-        db <- new("Database", connection = con, config = conf)
+        db <- new("Databases", connection = con, config = conf)
     }
     else
     {
@@ -222,7 +221,7 @@ table_getter <- function(db, database, tabname)
 ##' relevant columns in the tables of the database, by partially matching the
 ##' table and column names and printing the results.
 ##'
-##' @param db The Database object to query
+##' @param db The Databases object to query
 ##' @param col_pattern The pattern to match column names (regexp)
 ##' @param tab_pattern The pattern to match table names (regexp)
 ##'
@@ -233,12 +232,12 @@ setGeneric("searchCols", function(db, col_pattern, tab_pattern)
 
 ##' Search the tables and columns in a database for partial names
 ##'
-##' @param db The Database object to query
+##' @param db The Databases object to query
 ##' @param col_pattern The pattern to match column names (regexp)
 ##' @param tab_pattern The pattern to match table names (regexp)
 ##'
 ##' @export 
-setMethod("searchCols", "Database",
+setMethod("searchCols", "Databases",
           function(db, col_pattern, tab_pattern) {
 
               ## Filter table names
@@ -265,19 +264,19 @@ setMethod("searchCols", "Database",
           })
 
 setGeneric("dsn", function(x) standardGeneric("dsn"))
-setMethod("dsn", "Database", function(x) {
+setMethod("dsn", "Databases", function(x) {
     x@dsn
 })
 
 setGeneric("tables", function(x)
     standardGeneric("tables"))
-setMethod("tables", "Database", function(x) {
+setMethod("tables", "Databases", function(x) {
     DBI::dbListTables(x@connection)
 })
 
-## Access a table in a Database object
+## Access a table in a Databases object
 ##
-## Use this function to access a table in the Database object. The Database
+## Use this function to access a table in the Databases object. The Databases
 ## object behaves like a list, but the elements of the list are evaluated only
 ## when this function is called. When a call like db$table_name is made, this
 ## function creates the corresponding dplyr::tbl object and returns it. Since
@@ -315,7 +314,7 @@ setGeneric("table", function(db, tab) standardGeneric("table"))
 ##' @param tab .
 ##'
 ##' @export
-setMethod("table", c(db = "Database", tab="character"), function(db, tab) {
+setMethod("table", c(db = "Databases", tab="character"), function(db, tab) {
     dplyr::tbl(db@connection, tab)
 })
 
@@ -331,15 +330,15 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 
 ##' Perform an SQL query by directly passing the SQL string
 ##'
-##' Submit an SQL query to the Database and obtain the results of the query in
+##' Submit an SQL query to the Databases and obtain the results of the query in
 ##' a tibble dataframe. The query results are cached in a file on the disk,
 ##' so that if do the same query a second time, the local results are used.
 ##'
-##' @param db The Database to submit to query to
+##' @param db The Databases to submit to query to
 ##' @param query The query to submit (character string)
 ##'
 ##' @export
-setMethod("sqlQuery", c("Database", "character"), function(db, query) {
+setMethod("sqlQuery", c("Databases", "character"), function(db, query) {
 
     ## Search for the cached file
     result <- read_cache(query)
@@ -395,7 +394,7 @@ setMethod("sqlQuery", c("Database", "character"), function(db, query) {
 
 ##' Submit an SQL query from a file and get the results
 ##'
-##' @param db The Database object to submit the query to
+##' @param db The Databases object to submit the query to
 ##' @param file The path to the file containing SQL
 ##'
 ##' @return A tibble containing the results
@@ -411,11 +410,11 @@ setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
 ##' the cached file before using the SQL server. See the documentation for
 ##' sqlQuery for more information about how this works.
 ##'
-##' @param db The Database to submit to query to
+##' @param db The Databases to submit to query to
 ##' @param file The file containing the query to submit
 ##'
 ##' @export
-setMethod("sqlFromFile", c("Database", "character"), function(db, file) {
+setMethod("sqlFromFile", c("Databases", "character"), function(db, file) {
 
     ## Read the query as a string
     str <- readr::read_file(file)
@@ -424,23 +423,23 @@ setMethod("sqlFromFile", c("Database", "character"), function(db, file) {
     sqlQuery(db, str)
 })
 
-##' Print out the Database object
+##' Print out the Databases object
 ##'
 ##' @docType methods
-##' @aliases show-Database show, Database-method
+##' @aliases show-Databases show, Databases-method
 ##'
 ##' @param object The object to be printed
 ##' @export
-setMethod("show", "Database", function(object) {
+setMethod("show", "Databases", function(object) {
     message("Wrapper around database connection")
-    message("Database name: ", object@connection@info$dbname)
+    message("Databases name: ", object@connection@info$dbname)
     if (!is.na(object@dsn))
     {
-        message("Database connection via data source name (DSN): ", object@dsn)
+        message("Database server connection via data source name (DSN): ", object@dsn)
     }
     else
     {
-        message("Database connection via config file")
+        message("Database server connection via config file")
     }
 })
 ##' This function is a replacement for the dplyr::collect() function
