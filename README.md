@@ -78,3 +78,9 @@ Here is a list of improvements that need to be made:
 - Need to try to get autocomplete working in every context it makes
   sense (col names etc.).
 - Look into replacing dbSendQuery with dbGetQuery for simplicity
+- Really need to find a way to lazily evaluate the contents of the
+  Databases object. Currently, all the databases and tables are stored
+  because the current autocomplete method rests of built-in
+  autocompletion of lists – however, this requires the list to be
+  populated. It would be better to find a different autocomplete method
+  that allowed lazy evaluation of completion options.

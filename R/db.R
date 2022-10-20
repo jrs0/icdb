@@ -5,6 +5,34 @@
 ##' @export
 NULL
 
+##' Class for wrapping a list of tables
+##'
+##' The only purpose of this at the moment is to allow overloading
+##' the '$' operator for table access. There might be more uses for
+##' it later.
+##' 
+##' @title Tables class 
+setClass(
+    "Tables",
+    contains = "list",
+    slots = representation(
+        # Empty
+    ),
+    prototype = prototype(
+        # Empty
+    )
+)
+##' .. content for \description{} (no empty lines) ..
+##'
+##' .. content for \details{} ..
+##' @title Overload $ for Tables so that it returns the dplyr::tbl
+##' @param x The Tables object (element in a Database object)
+##' @param name The table name to get
+##' @return The dplyr::tbl for the selected table
+setMethod("$", "Tables", function(x, name) {
+    x[[name]]()
+})
+
 ##' Database class wrapping an SQL server connection
 ##'
 ##' @slot connection Microsoft SQL Server.
