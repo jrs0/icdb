@@ -203,24 +203,21 @@ setMethod("tables", "Database", function(x) {
     DBI::dbListTables(x@connection)
 })
 
-## ##' Access a table in a Database object
-## ##'
-## ##' Use this function to access a table in the Database object. The Database
-## ##' object behaves like a list, but the elements of the list are evaluated only
-## ##' when this function is called. When a call like db$table_name is made, this
-## ##' function creates the corresponding dplyr::tbl object and returns it. Since
-## ##' this is not a particularly long operation, the results do not need to be
-## ##' cached. Use the resulting object for any processing you can do with
-## ##' dplyr::tbl, e.g. pipe it to some SQL-type queries and collect().
-## ##'
-## ##' @param x The database
-## ##' @param name The table to access
-## ##'
-## ##' @return A dplyr::tbl data source wrapper
-## ##' @export
-## setMethod("$", "Database", function(x, name) {
-##     table(x, name)
-## })
+## Access a table in a Database object
+##
+## Use this function to access a table in the Database object. The Database
+## object behaves like a list, but the elements of the list are evaluated only
+## when this function is called. When a call like db$table_name is made, this
+## function creates the corresponding dplyr::tbl object and returns it. Since
+## this is not a particularly long operation, the results do not need to be
+## cached. Use the resulting object for any processing you can do with
+## dplyr::tbl, e.g. pipe it to some SQL-type queries and collect().
+##
+## @param x The database
+## @param name The table to access
+##
+## @return A dplyr::tbl data source wrapper
+## @export
 
 
 ##' Get a table in the database in a form ready for dplyr processing
