@@ -150,16 +150,39 @@ Database <- function(data_source_name = NULL,
 
     db
 }
-
+##' Functional returning a function that gets a dplyr::tbl 
+##'
+##' This function is the way to associate a function with every table
+##' object in the db list, and replaces the need to overload `$`, while
+##' also avoiding the problem of storing the table name and database
+##' name in the functions environment. This is the purpose of a functional;
+##' to capture variables in the enclosing environment and allow them to
+##' persist when the function is called. Read this page and the associated
+##' environment sections for a full explanation:
+##' https://adv-r.hadley.nz/function-factories.html
+##'
+##' This function needs a bit of work -- this is only a first draft.
+##' The main issue is hard coding the dbo object, which should really
+##' come from somewhere and is probably going to lead to bugs down the
+##' line. When I find a failure case, it can be fixed here. Currently, the
+##' function just forms the name database.dbo.tabname, which seems to work
+##' fine. However, it would be better to understand what the catalog and
+##' schema really are and make this robust.
+##'
+##' 
+##' @title Get a function to return a table object
+##' @param db The database object to use (containing the connection)
+##' @param database The database name
+##' @param tabname The table name
+##' 
 table_getter <- function(db, database, tabname)
 {
     force(database)
     force(tabname)
     function()
     {
-        table(db, paste0(database,".dbo.",tabname))
+        dplyr::tbl(db@connection, dbplyr::in_catalog(database, "dbo", tabname))
     }
-
 }
 
 ##' Search the tables and columns in a database for partial names
