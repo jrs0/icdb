@@ -118,18 +118,23 @@ Database <- function(data_source_name = NULL,
         stop("You must provide a data source name or a config file argument.")
     }
 
-    ## Copy the list of tables into the inherited list class (get rid of for)
-    tables <- DBI::dbListTables(db@connection)
-
+    ## Copy the list of databases into a list, ready to store in the object
+    databases <- DBI::dbGetQuery("SELECT name FROM master.sys.databases")
+    
     ## This is the problem part of the code -- it really needs to store a
     ## function to return the table object, but that doesn't work (yet).
-    for (t in tables)
+    for (d in databases)
     {
-        db[[t]] <- t
+        ## Get the list of tables associated with this database.
+        ## Need to double check that this catalog_name is the right
+        ## argument to specify the database name for all backends.
+        tables <- DBI::dbListTables(catalog_name = d)
+
+        ## Store the tables under a named entry for the database
+        db[[t]] <- tables
     }
 
     db
-
 }
 
 ##' Search the tables and columns in a database for partial names
