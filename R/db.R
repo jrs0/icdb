@@ -65,7 +65,7 @@ build_object_tree <- function(con, prefix)
     ## represents an object.
     objs <-con %>%
         DBI::dbListObjects(prefix = prefix) %>%
-        as_tibble()
+        tibble::as_tibble()
 
     ## Get the labels of the IDs
     labels <- objs %>% purrr::pmap(~ tail(.x@name,1))
@@ -208,17 +208,12 @@ Databases <- function(data_source_name = NULL,
     }
 
     ## Copy the list of databases into a list, ready to store in the object
-    ##databases <- db@connection %>%
-    ##    DBI::dbGetQuery("SELECT name FROM master.sys.databases")
-
-    ## For mysql
     databases <- db@connection %>%
-        DBI::dbGetQuery("show databases")
-    
+       DBI::dbGetQuery("SELECT name FROM master.sys.databases")
+
     ## This is the problem part of the code -- it really needs to store a
     ## function to return the table object, but that doesn't work (yet).
-    #for (d in databases$name)
-    for (d in databases$Database)
+    for (d in databases$name)
     {
         ## Get the list of tables associated with this database.
         ## Need to double check that this catalog_name is the right
@@ -259,12 +254,14 @@ Databases <- function(data_source_name = NULL,
 ##' @param database The database name
 ##' @param tabname The table name
 ##' 
-table_getter <- function(con, id)
+table_getter <- function(db, database, tabname)
 {
-    force(id)
+    force(database)
+    force(tabname)
     function()
     {
-        dplyr::tbl(con, id)
+        dplyr::tbl(db@connection,
+                   dbplyr::in_catalog(database, "dbo", tabname))
     }
 }
 
