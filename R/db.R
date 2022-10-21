@@ -264,7 +264,7 @@ table_getter <- function(con, id)
     force(id)
     function()
     {
-        dplyr::tbl(con, DBI::dbQuoteIdentifier(id))
+        dplyr::tbl(con, id)
     }
 }
 
