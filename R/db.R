@@ -53,7 +53,7 @@ Tables <- function()
 ##' setup (Windows).
 ##' 
 ##' @title Build the tree of accessible database object
-##' @param db The database object containing the connection
+##' @param con The database connection object
 ##' @param prefix The starting prefix defining the root of the tree (ID type)
 ##' 
 ##' @return Nested list structure containing the object tree
