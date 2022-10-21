@@ -54,30 +54,34 @@ Tables <- function()
 ##' 
 ##' @title Build the tree of accessible database object
 ##' @param db The database object containing the connection
-##' @param prefix The starting prefix defining the root of the tree
+##' @param prefix The starting prefix defining the root of the tree (ID type)
 ##' 
 ##' @return Nested list structure containing the object tree
-build_object_tree <- function(db, prefix)
+build_object_tree <- function(con, prefix)
 {
     ## Get the list of objects underneath the current prefix. This
     ## is returned as two columns: a table column containing the object
     ## (a character), and a flag prefix which is TRUE if this string
     ## represents an object.
-    objs <- db@connection %>% DBI::dbListObjects(prefix = prefix)
-    
-    ## Convert the objects to a named list. At this point, each list
-    ## name is the object
-    obj_list <- objs %>% tibble::deframe() %>% as.list()
+    objs <-con %>%
+        DBI::dbListObjects(prefix = prefix) %>%
+        as_tibble()
 
-    ## Replace TRUE values with the next level of objects
-    obj_list <- obj_list %>% purrr::map()
-    
-    
-    ## If the prefix field is true, then descend one level down and
-    ## record the objects underneath the current level
+    ## Get the labels of the IDs
+    labels <- objs %>% purrr::pmap(~ tail(.x@name,1))
 
-    tree
+    ## Create the sublists underneath the labels
+    values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
+                                        build_object_tree(con, .x)
+                                    } else {
+                                        table_getter(con, .x)
+                                    })
 
+    ## Bind the labels and values into a named list and return it
+    names(values) <- labels
+
+    ## Return the list
+    values
 }
 
 ##' Get the table with the specified name as a dplyr::tbl
@@ -255,14 +259,12 @@ Databases <- function(data_source_name = NULL,
 ##' @param database The database name
 ##' @param tabname The table name
 ##' 
-table_getter <- function(db, database, tabname)
+table_getter <- function(con, id)
 {
-    force(database)
-    force(tabname)
+    force(id)
     function()
     {
-        dplyr::tbl(db@connection,
-                   dbplyr::in_catalog(database, "dbo", tabname))
+        dplyr::tbl(con, DBI::dbQuoteIdentifier(id))
     }
 }
 
