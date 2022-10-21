@@ -5,22 +5,21 @@
 ##' @export
 NULL
 
-##' Class for wrapping a database table
+##' Class for wrapping a list of tables
 ##'
 ##' The only purpose of this at the moment is to allow overloading
 ##' the '$' operator for table access. There might be more uses for
 ##' it later.
 ##' 
-##' @title Table class 
+##' @title Tables class 
 setClass(
-    "Table",
+    "Tables",
+    contains = "list",
     slots = representation(
-        con = "DBIConnection",
-        id = "Id"
+        # Empty
     ),
     prototype = prototype(
-        con = NULL,
-        id = NULL
+        # Empty
     )
 )
 
@@ -29,9 +28,9 @@ setClass(
 ##'
 ##' @title Make a new list of tables
 ##' @return The new Tables object
-Table <- function(con, id)
+Tables <- function()
 {
-    new("Table", con = con, id = id)
+    new("Tables")
 }
 
 ##' Get the tree of accessible objects in the database connection
@@ -75,7 +74,7 @@ build_object_tree <- function(con, prefix)
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
                                         build_object_tree(con, .x)
                                     } else {
-                                        Table(con, .x)
+                                        table_getter(con, .x)
                                     })
 
     ## Bind the labels and values into a named list and return it
@@ -87,12 +86,12 @@ build_object_tree <- function(con, prefix)
 
 ##' Get the table with the specified name as a dplyr::tbl
 ##'
-##' @title Overload $ for Table so that it returns the dplyr::tbl
-##' @param x The Table object (element in a Databases object)
+##' @title Overload $ for Tables so that it returns the dplyr::tbl
+##' @param x The Tables object (element in a Databases object)
 ##' @param name The table name to get
 ##' @return The dplyr::tbl for the selected table
-setMethod("$", "Table", function(x, name) {
-    
+setMethod("$", "Tables", function(x, name) {
+    x[[name]]()
 })
 
 ##' Databases class wrapping an SQL server connection

@@ -4,7 +4,7 @@
 \alias{table_getter}
 \title{Get a function which returns a table object}
 \usage{
-table_getter(con, id)
+table_getter(db, database, tabname)
 }
 \arguments{
 \item{db}{The database object to use (containing the connection)}
