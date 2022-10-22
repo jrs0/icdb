@@ -4,6 +4,7 @@
 # icdb (ICB-DB)
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The goal of icdb is to …
@@ -49,13 +50,13 @@ summary(cars)
 The functions in the package are labelled according to a 5 point scale
 (0-4), according to the following criteria:
 
-- 0: An initial version of the function has been written, but lacks
-  either documentation or testing
-- 1: The function has an initial version that also has initial
-  documentation and is covered by some preliminary tests
-- 2: To be confirmed…
-- 3: To be confirmed…
-- 4: To be confirmed…
+  - 0: An initial version of the function has been written, but lacks
+    either documentation or testing
+  - 1: The function has an initial version that also has initial
+    documentation and is covered by some preliminary tests
+  - 2: To be confirmed…
+  - 3: To be confirmed…
+  - 4: To be confirmed…
 
 These scores are provided at the end of the documnentation for each
 function as a line of the form “doneness: 2/4”. You can take this as an
@@ -68,20 +69,25 @@ If there is no doneness label, assume that the function is incomplete.
 
 Here is a list of improvements that need to be made:
 
-- Connect to the server, not a database. Arrange things so that the user
-  can autocomplete databases before tables. Try to make it work so that
-  the same database connection can be used in multiple dplyr pipe
-  operations.
-- Flush the level1 cache to the disk at some point (i.e. when the
-  session ends) to shorten the load time next session. Make sure there
-  is a clear way to disable this (it might not be a desirable default).
-- Need to try to get autocomplete working in every context it makes
-  sense (col names etc.).
-- Look into replacing dbSendQuery with dbGetQuery for simplicity
-- Really need to find a way to lazily evaluate the contents of the
-  Databases object. Currently, all the databases and tables are stored
-  because the current autocomplete method rests of built-in
-  autocompletion of lists – however, this requires the list to be
-  populated. It would be better to find a different autocomplete method
-  that allowed lazy evaluation of completion options.
-- 
+  - Connect to the server, not a database. Arrange things so that the
+    user can autocomplete databases before tables. Try to make it work
+    so that the same database connection can be used in multiple dplyr
+    pipe operations.
+  - Flush the level1 cache to the disk at some point (i.e. when the
+    session ends) to shorten the load time next session. Make sure there
+    is a clear way to disable this (it might not be a desirable
+    default).
+  - Need to try to get autocomplete working in every context it makes
+    sense (col names etc.).
+  - Look into replacing dbSendQuery with dbGetQuery for simplicity
+  - Really need to find a way to lazily evaluate the contents of the
+    Databases object. Currently, all the databases and tables are stored
+    because the current autocomplete method rests of built-in
+    autocompletion of lists – however, this requires the list to be
+    populated. It would be better to find a different autocomplete
+    method that allowed lazy evaluation of completion options.
+  - Need to reconcile the mysql and sql server (microsoft) way of
+    getting lists of databases and tables. mysql returns objects
+    properly using dbListObjects, but sql server lists the databases in
+    a table and then there is no clear way to get the tables without raw
+    sql.
