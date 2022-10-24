@@ -4,14 +4,16 @@
 \alias{table_getter}
 \title{Get a function which returns a table object}
 \usage{
-table_getter(db, database, tabname)
+table_getter(db, database, table_schema, table_name)
 }
 \arguments{
 \item{db}{The database object to use (containing the connection)}
 
 \item{database}{The database name}
 
-\item{tabname}{The table name}
+\item{table_schema}{The table schema name}
+
+\item{table_name}{The table name}
 }
 \description{
 Function factory returning a function that gets a dplyr::tbl

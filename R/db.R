@@ -263,7 +263,7 @@ Databases <- function(data_source_name = NULL,
 ##' @title Get a function which returns a table object
 ##' @param db The database object to use (containing the connection)
 ##' @param database The database name
-##' @param schema_name The table schema name
+##' @param table_schema The table schema name
 ##' @param table_name The table name
 ##' 
 table_getter <- function(db, database, table_schema, table_name)
