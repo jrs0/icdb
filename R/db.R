@@ -215,25 +215,31 @@ Databases <- function(data_source_name = NULL,
     ## function to return the table object, but that doesn't work (yet).
     for (d in databases$name)
     {
-        ## Get the list of schemas associated with the database
-    databases <- db@connection %>%
-       DBI::dbGetQuery("SELECT name FROM master.sys.databases")
-        
-        ## Get the list of tables associated with this database.
-        ## Need to double check that this catalog_name is the right
-        ## argument to specify the database name for all backends.
-        tables <- db@connection %>% DBI::dbListTables(catalog_name = d)
-
-        ## Store the tables under a named entry for the database
-        db[[d]] <- Tables()
-        for (tabname in tables)
+        tryCatch (   
         {
-            db[[d]][[tabname]] <- table_getter(db, d, tabname)
-        }
+            ## Get the list of tables associated with this database,
+            ## and their associated schemas
+            tables <- db@connection %>%
+                DBI::dbGetQuery(paste0("SELECT table_schema,table_name FROM ",d,".INFORMATION_SCHEMA.TABLES"))
+            
+            ## Put the tables in the database
+            db[[d]] <- tables %>% purrr::pmap(~ table_getter(db, d, .x, .y))
+            names(db[[d]]) <- tables$table_name
+        },
+        error = function(cond)
+        {
+            ## Currently, do nothing. This is a quick way to ensure that access problems
+            ## do not break the code.
+            ## TODO  Come back and fix this to read permissions
+        }        
+        )
+        
     }
 
     db
 }
+
+    
 ##' Function factory returning a function that gets a dplyr::tbl 
 ##'
 ##' This function is the way to associate a function with every table
@@ -256,16 +262,18 @@ Databases <- function(data_source_name = NULL,
 ##' @title Get a function which returns a table object
 ##' @param db The database object to use (containing the connection)
 ##' @param database The database name
-##' @param tabname The table name
+##' @param schema_name The table schema name
+##' @param table_name The table name
 ##' 
-table_getter <- function(db, database, tabname)
+table_getter <- function(db, database, table_schema, table_name)
 {
     force(database)
-    force(tabname)
+    force(table_schema)
+    force(table_name)
     function()
     {
         dplyr::tbl(db@connection,
-                   dbplyr::in_catalog(database, "dbo", tabname))
+                   dbplyr::in_catalog(database, schema, tabname))
     }
 }
 
