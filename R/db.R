@@ -223,8 +223,9 @@ Databases <- function(data_source_name = NULL,
                 DBI::dbGetQuery(paste0("SELECT table_schema,table_name FROM ",d,".INFORMATION_SCHEMA.TABLES"))
             
             ## Put the tables in the database
-            db[[d]] <- tables %>% purrr::pmap(~ table_getter(db, d, .x, .y))
-            names(db[[d]]) <- tables$table_name
+            db[[d]] <- Tables()
+            db[[d]]@.Data <- tables %>% purrr::pmap(~ table_getter(db, d, .x, .y))
+            names(db[[d]]@.Data) <- tables$table_name
         },
         error = function(cond)
         {
@@ -273,7 +274,7 @@ table_getter <- function(db, database, table_schema, table_name)
     function()
     {
         dplyr::tbl(db@connection,
-                   dbplyr::in_catalog(database, schema, tabname))
+                   dbplyr::in_catalog(database, table_schema, table_name))
     }
 }
 
