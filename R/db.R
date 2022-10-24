@@ -215,6 +215,10 @@ Databases <- function(data_source_name = NULL,
     ## function to return the table object, but that doesn't work (yet).
     for (d in databases$name)
     {
+        ## Get the list of schemas associated with the database
+    databases <- db@connection %>%
+       DBI::dbGetQuery("SELECT name FROM master.sys.databases")
+        
         ## Get the list of tables associated with this database.
         ## Need to double check that this catalog_name is the right
         ## argument to specify the database name for all backends.
