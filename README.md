@@ -154,6 +154,13 @@ will run a new query, because the `filter` condition changed. However,
 if you go back to the old query, it will still be stored in the cache.
 The cache is automatically deleted when the R session is closed.
 
+You can view the current state of the cache by running
+
+``` r
+# Returns a tibble where each row is a stored query
+show_cache()
+```
+
 TODO finish this section.
 
 ## Library development
