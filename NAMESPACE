@@ -2,6 +2,7 @@
 
 export()
 export(Databases)
+export(clear_cache)
 export(run)
 export(searchCols)
 export(show_cache)

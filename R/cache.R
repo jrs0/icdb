@@ -288,6 +288,7 @@ show_cache <-function()
 ##'
 ##' Delete all the cached results in the cache folder.
 ##'
+##' @export
 clear_cache <- function()
 {
     ## Clear the level 1 cache
