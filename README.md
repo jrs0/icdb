@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ICDB: A database library for Microsoft SQL Server
+# ICDB: a database library for Microsoft SQL Server
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -159,6 +159,15 @@ You can view the current state of the cache by running
 ``` r
 # Returns a tibble where each row is a stored query
 show_cache()
+```
+
+This will return a tibble containing stored query metadata, including
+information such as the write time and the last access. To clear the
+cache (delete all stored queries), run
+
+``` r
+# Returns a tibble where each row is a stored query
+clear_cache()
 ```
 
 TODO finish this section.
