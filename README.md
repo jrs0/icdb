@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ICDB (ICB-DB): a simplified database connection for NHS databases
+# ICDB: a simplified database connection for NHS databases
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of icdb is to wrap the dplyr DBI library and make it easier to
+The goal of ICDB is to wrap the dplyr DBI library and make it easier to
 use NHS databases hosted on Microsoft SQL Servers. The library features
 a connection that autocompletes database and table names, automatically
 generates SQL queries from familiar dplyr functions, and caches results
@@ -33,13 +33,15 @@ sections below for how to use the library.
 
 The first step in using the library is connecting to a database server.
 The ICDB library connects to a server, not a particular database. This
-makes it possible to use the same connection to access different
-databases on the same server. The easiest and most secure way to connect
-to the database server is to use the Windows *ODBC Data Sources*
-application. This application stores a pre-configured connection under a
-particular name (the *data source name*), which can then be used in R
-code to connect to the database. By using this type of connection, you
-do not have to store config files with hard-coded database credentials.
+makes it possible to use the same connection across different databases
+on the same server.
+
+The easiest and most secure way to connect to the database server is to
+use the Windows *ODBC Data Sources* application. This application stores
+a pre-configured connection under a particular name (the *data source
+name*), which can then be used in R code to connect to the database. By
+using this type of connection, you do not have to store config files
+with hard-coded database credentials.
 
 To set up the connection:
 
@@ -63,11 +65,6 @@ After setting up a data source name, try executing the code below
 
 ``` r
 library(icdb)
-#> 
-#> Attaching package: 'icdb'
-#> The following object is masked from 'package:base':
-#> 
-#>     table
 ## This line may take a little while to run, due to the way the library works.
 srv <- Databases("XSW")
 #> Connecting using data source name (DSN): XSW
