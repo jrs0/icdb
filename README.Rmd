@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ICDB: a simplified database connection for NHS databases 
+# ICDB: A simplified database connection for Microsoft SQL Server
 
 <!-- badges: start -->
 <!-- badges: end -->

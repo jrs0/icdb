@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ICDB: a simplified database connection for NHS databases
+# ICDB: A simplified database connection for Microsoft SQL Server
 
 <!-- badges: start -->
 <!-- badges: end -->
