@@ -65,10 +65,52 @@ After setting up a data source name, try executing the code below
 
 ``` r
 library(icdb)
-## This line may take a little while to run, due to the way the library works.
+## The next line may take a little while to run, due to the way the library works.
 srv <- Databases("XSW")
 #> Connecting using data source name (DSN): XSW
 ```
+
+The `srv` object behaves like a list of lists. The first level contains
+databases on the server, and the next level contains tables in that
+database. Database and table names tab complete (in RStudio and Emacs
+ESS), to make it easier to find what you are looking for. After running
+the code above, try typing `{r eval=FALSE}srv$` to see the list of
+database names. Then type `{r eval=FALSE}srv$dbname$` to get the list of
+tables in the database called *dbname*.
+
+### Seeing a table summary
+
+The simplest use of ICDB is inspecting the structure of a table. Do this
+by running
+
+``` r
+# Print the structure of the table `tabname' in the database `dbname'
+srv$dbname$tabname
+```
+
+This expression returns the same tibble that you would get if you had
+run `{r eval=FALSE} dplyr::tbl` on a [DBI database
+connection](https://solutions.rstudio.com/db/r-packages/dplyr/). This
+object is not the full table – it is just a shell object showing what
+columns and data types the table contains.
+
+### Generating an SQL query
+
+The main advantage of using dplyr (the library that ICDB uses) is that
+SQL is often unnecessary, and can be replaced by familiar dplyr
+functions. You can pipe the `srv` object to dplyr functions like
+`filter` and `select` to get a tibble of data from the database. Try
+running a snippet like the following (replace with valid database, table
+and column names), which shows the SQL generated for a simple
+dplyr-based query:
+
+``` r
+library(tidyverse)
+## Assumes a database `dbname' contains a table `tabname', which has a numeric column `value'
+srv$dbname$tabname %>% filter(value != 0) %>% select(value) %>% show_query()
+```
+
+To actually run the query, replace
 
 ## Library development
 
