@@ -5,6 +5,45 @@
 ##' @export
 NULL
 
+
+
+make_use_cache <- function()
+{
+    ## Global flag indicating whether caching should be used or not
+    cache_flag <- FALSE
+
+    ## Return the use_cache function
+    function(choice)
+    {
+        cache_flag <- choice
+    }
+}
+
+##' Use this function to turn on or off caching. If caching is
+##' enabled, then query results will be saved behind the scenes.
+##' If caching is disabled, queries will always return results
+##' directly from the database. Caching is disabled by default.
+##' You must explicitly call this function if you want to use it.
+##' You only need to call this function once, when you load the
+##' ICDB library using library(icdb).
+##' 
+##' If caching is enabled, and you perform exactly the same query
+##' again (for example, by running the same script), then the
+##' cached results will be used, which will speed up the running
+##' of the script. This can make development and debugging easier,
+##' because the turnaround time for running commands and scripts
+##' is reduced.
+##'
+##' If caching is disabled, then results will always come from the
+##' database. This can make code take longer to run, but will
+##' always guarantee that results are up to date.
+##'
+##' @title Turn on or off caching
+##' @param choice TRUE will turn on the cache, FALSE will turn it off
+##' 
+##' @export
+use_cache <- make_use_cache()
+
 ##' Class for wrapping a list of tables
 ##'
 ##' The only purpose of this at the moment is to allow overloading
@@ -338,50 +377,6 @@ setMethod("tables", "Databases", function(x) {
     DBI::dbListTables(x@connection)
 })
 
-## Access a table in a Databases object
-##
-## Use this function to access a table in the Databases object. The Databases
-## object behaves like a list, but the elements of the list are evaluated only
-## when this function is called. When a call like db$table_name is made, this
-## function creates the corresponding dplyr::tbl object and returns it. Since
-## this is not a particularly long operation, the results do not need to be
-## cached. Use the resulting object for any processing you can do with
-## dplyr::tbl, e.g. pipe it to some SQL-type queries and collect().
-##
-## @param x The database
-## @param name The table to access
-##
-## @return A dplyr::tbl data source wrapper
-## @export
-
-
-## ##' Get a table in the database in a form ready for dplyr processing
-## ##'
-## ##' Use this function to obtain a dplyr::tbl (a kind of shell object) from a
-## ##' table in the database. This object does not contain the full data to begin
-## ##' with. Instead, it can be used as the basis of dplyr-based SQL queries,
-## ##' finishing with a %>% collect() call which does actually produce data. This
-## ##' function is an alternative to using a direct sql query using the sql()
-## ##' generic
-## ##'
-## ##' @param db The database to read from
-## ##' @param tab The name of the table object to use read
-## ##'
-## ##' @return A dply::tbl object which wraps a database table
-## ##' @export
-## ##'
-## setGeneric("table", function(db, tab) standardGeneric("table"))
-
-## ##' Get the dplyr table wrapper for a table passed as a string
-## ##'
-## ##' @param db .
-## ##' @param tab .
-## ##'
-## ##' @export
-## setMethod("table", c(db = "Databases", tab="character"), function(db, tab) {
-##     dplyr::tbl(db@connection, tab)
-## })
-
 ##' Submit an SQL query to a database object
 ##'
 ##' @param db The database to query
@@ -404,8 +399,13 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 ##' @export
 setMethod("sqlQuery", c("Databases", "character"), function(db, query) {
 
-    ## Search for the cached file
-    result <- read_cache(query)
+    ## Search for the cached file, if caching is enabled
+    result <- NULL
+    if (cache_flag == TRUE)
+    {
+        result <- read_cache(query)
+    }
+    
     if (!is.null(result))
     {
         message("Found cached results for this query, using that")
@@ -449,8 +449,11 @@ setMethod("sqlQuery", c("Databases", "character"), function(db, query) {
         t <- tibble::as_tibble(df)
 
         ## Save the results in the cache
-        write_cache(query, t, lubridate::now() - start)
-
+        if (cache_flag == TRUE)
+        {
+            write_cache(query, t, lubridate::now() - start)
+        }
+        
         ## Return the dataframe of results as a tibble
         t
     } 
@@ -528,8 +531,13 @@ run <- function(x, ...)
     output <- capture.output(x %>% dplyr::show_query())
     query <- paste(tail(output, -1), collapse="")    
     
-    ## Search for the cached file
-    result <- read_cache(query)
+    ## Search for the cached file, if caching is enabled
+    result <- NULL
+    if (cache_flag == TRUE)
+    {
+        result <- read_cache(query)
+    }
+    
     if (!is.null(result))
     {
         message("Found cached results for this query, using that")
@@ -546,8 +554,11 @@ run <- function(x, ...)
         t <- x %>% dplyr::collect(...)
 
         ## Save the results in the cache
-        write_cache(query, t, lubridate::now() - start)
-
+        if (cache_flag == TRUE)
+        {
+            write_cache(query, t, lubridate::now() - start)
+        }
+        
         ## Return the dataframe of results as a tibble
         t
     } 
