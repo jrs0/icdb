@@ -412,7 +412,7 @@ setMethod("sqlQuery", c("Databases", "character"), function(db, query) {
 
     ## Search for the cached file, if caching is enabled
     result <- NULL
-    if (cache_flag == TRUE)
+    if (get_cache_flag() == TRUE)
     {
         result <- read_cache(query)
     }
@@ -460,7 +460,7 @@ setMethod("sqlQuery", c("Databases", "character"), function(db, query) {
         t <- tibble::as_tibble(df)
 
         ## Save the results in the cache
-        if (cache_flag == TRUE)
+        if (get_cache_flag() == TRUE)
         {
             write_cache(query, t, lubridate::now() - start)
         }
@@ -544,7 +544,7 @@ run <- function(x, ...)
     
     ## Search for the cached file, if caching is enabled
     result <- NULL
-    if (cache_flag == TRUE)
+    if (get_cache_flag() == TRUE)
     {
         result <- read_cache(query)
     }
@@ -565,7 +565,7 @@ run <- function(x, ...)
         t <- x %>% dplyr::collect(...)
 
         ## Save the results in the cache
-        if (cache_flag == TRUE)
+        if (get_cache_flag() == TRUE)
         {
             write_cache(query, t, lubridate::now() - start)
         }
