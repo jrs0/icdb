@@ -355,32 +355,32 @@ setMethod("tables", "Databases", function(x) {
 ## @export
 
 
-##' Get a table in the database in a form ready for dplyr processing
-##'
-##' Use this function to obtain a dplyr::tbl (a kind of shell object) from a
-##' table in the database. This object does not contain the full data to begin
-##' with. Instead, it can be used as the basis of dplyr-based SQL queries,
-##' finishing with a %>% collect() call which does actually produce data. This
-##' function is an alternative to using a direct sql query using the sql()
-##' generic
-##'
-##' @param db The database to read from
-##' @param tab The name of the table object to use read
-##'
-##' @return A dply::tbl object which wraps a database table
-##' @export
-##'
-setGeneric("table", function(db, tab) standardGeneric("table"))
+## ##' Get a table in the database in a form ready for dplyr processing
+## ##'
+## ##' Use this function to obtain a dplyr::tbl (a kind of shell object) from a
+## ##' table in the database. This object does not contain the full data to begin
+## ##' with. Instead, it can be used as the basis of dplyr-based SQL queries,
+## ##' finishing with a %>% collect() call which does actually produce data. This
+## ##' function is an alternative to using a direct sql query using the sql()
+## ##' generic
+## ##'
+## ##' @param db The database to read from
+## ##' @param tab The name of the table object to use read
+## ##'
+## ##' @return A dply::tbl object which wraps a database table
+## ##' @export
+## ##'
+## setGeneric("table", function(db, tab) standardGeneric("table"))
 
-##' Get the dplyr table wrapper for a table passed as a string
-##'
-##' @param db .
-##' @param tab .
-##'
-##' @export
-setMethod("table", c(db = "Databases", tab="character"), function(db, tab) {
-    dplyr::tbl(db@connection, tab)
-})
+## ##' Get the dplyr table wrapper for a table passed as a string
+## ##'
+## ##' @param db .
+## ##' @param tab .
+## ##'
+## ##' @export
+## setMethod("table", c(db = "Databases", tab="character"), function(db, tab) {
+##     dplyr::tbl(db@connection, tab)
+## })
 
 ##' Submit an SQL query to a database object
 ##'

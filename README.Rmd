@@ -13,12 +13,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ICDB (ICB-DB): a simplified database connection for NHS databases 
+# ICDB: a simplified database connection for NHS databases 
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of icdb is to wrap the dplyr DBI library and make it easier to use NHS databases hosted on Microsoft SQL Servers. The library features a connection that autocompletes database and table names, automatically generates SQL queries from familiar dplyr functions, and caches results to make speed up prototyping and development. 
+The goal of ICDB is to wrap the dplyr DBI library and make it easier to use NHS databases hosted on Microsoft SQL Servers. The library features a connection that autocompletes database and table names, automatically generates SQL queries from familiar dplyr functions, and caches results to make speed up prototyping and development. 
 
 **This library is not fully developed yet -- expect the interface and other features to change**
 
@@ -35,7 +35,9 @@ Once you have installed the library, you should be able to load the ICDB package
 
 ## Connecting to a database
 
-The first step in using the library is connecting to a database server. The ICDB library connects to a server, not a particular database. This makes it possible to use the same connection to access different databases on the same server. The easiest and most secure way to connect to the database server is to use the Windows *ODBC Data Sources* application. This application stores a pre-configured connection under a particular name (the *data source name*), which can then be used in R code to connect to the database. By using this type of connection, you do not have to store config files with hard-coded database credentials. 
+The first step in using the library is connecting to a database server. The ICDB library connects to a server, not a particular database. This makes it possible to use the same connection across different databases on the same server.
+
+The easiest and most secure way to connect to the database server is to use the Windows *ODBC Data Sources* application. This application stores a pre-configured connection under a particular name (the *data source name*), which can then be used in R code to connect to the database. By using this type of connection, you do not have to store config files with hard-coded database credentials. 
 
 To set up the connection:
 
