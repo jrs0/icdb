@@ -282,7 +282,7 @@ Databases <- function(data_source_name = NULL,
     ## Most database drivers return the databases and tables as a tree of objects,
     ## via the dbListObjects function. SQL Server does not work like this, so treat
     ## it separately
-    if (grep("SQL Server", conf$driver) == 1)
+    if (grepl("SQL Server", conf$driver))
     {
         ## Copy the list of databases into a list, ready to store in the object
         databases <- db@connection %>%
