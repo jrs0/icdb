@@ -17,7 +17,7 @@ pkg_env$cache <- list(
                                        last_access = as.Date(character()), # When the entry was last accessed
                                        time = as.difftime(1, units="hours") # How long did the original computation take
                                        ),
-                  max_size = 20,
+                  max_size = 3,
                   objects = list()),
     path = "cache/"
 )
@@ -35,11 +35,6 @@ record_hit <- function(metadata)
 ##' @param metadata The metadata as a named list
 write_level2 <- function(metadata)
 {
-    ## For now, do not use the level 2 cache. This really slows down the
-    ## query routine, because writing large query results to file is really
-    ## slow. Can introduce level 2 again if a need arises.
-    return()
-    
     ## Get the hash key of the cache entry
     hash <- metadata$hash
     
