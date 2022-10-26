@@ -1,0 +1,4 @@
+{
+    "drv":"sqlite",
+    "dbname": "inst/testdata/minimal-db"
+}

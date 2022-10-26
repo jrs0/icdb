@@ -248,7 +248,8 @@ Databases <- function(data_source_name = NULL,
         drv_map <- list(
             "ODBC Driver 17 for SQL Server" = odbc::odbc(), ## For Microsoft
             "mysql" = RMariaDB::MariaDB(), ## Both mysql and mariadb using RMariaDB
-            "mariadb" = RMariaDB::MariaDB()
+            "mariadb" = RMariaDB::MariaDB(),
+            "sqlite" = RSQLite::SQLite()
         )
 
         drv <- drv_map[[conf$drv]]
