@@ -1,4 +1,7 @@
-##' @export
+##'
+##' 
+NULL
+
 APC <- function(table)
 {
     ## Read the mapping config file
