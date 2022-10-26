@@ -23,4 +23,5 @@ Imports:
     RMariaDB,
     stringr,
     tibble,
-    utils
+    utils,
+    yaml

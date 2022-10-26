@@ -158,3 +158,5 @@ Here is a list of improvements that need to be made:
 - Look into replacing dbSendQuery with dbGetQuery for simplicity 
 - Really need to find a way to lazily evaluate the contents of the Databases object. Currently, all the databases and tables are stored because the current autocomplete method rests of built-in autocompletion of lists -- however, this requires the list to be populated. It would be better to find a different autocomplete method that allowed lazy evaluation of completion options.
 - Need to reconcile the mysql and sql server (microsoft) way of getting lists of databases and tables. mysql returns objects properly using dbListObjects, but sql server lists the databases in a table and then there is no clear way to get the tables without raw sql.
+- Need to make a better error message when the user tries to get a non-existent table
+- Need to test cache properly

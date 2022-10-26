@@ -17,9 +17,8 @@ write_cache(data, object, time)
 This function creates an entry in the cache. It should not be called by the
 user of the package. The data comprises two parts: an object, which is
 typically large, which is used to store "results" in the cache. The second
-part is data about the results, which is used to generate a key. The
-data can be anything, but a named list is a simple way to organise the
-necessary data.
+part is data about the results, which is used to generate a hash to identify
+the large object in the cache. This data must currently be a character.
 }
 \details{
 Data is stored in two places: the level 1 cache, which is stored in memory;
@@ -28,6 +27,9 @@ both locations, in terms of access time, etc. This function initialises the
 hits to 1, meaning that this is the first access. All subsequent accesses of
 the data should use the readCache function, which modifies the metadata in the
 cache.
+
+The level 2 cache is not written directly -- instead, data is only written to
+the disk when the object must be removed from the level 1 (memory) cache.
 
 This function will not check the cache before writing to it, so any duplicate
 data will be overwritten. Only call this function after establish via

@@ -220,3 +220,6 @@ Here is a list of improvements that need to be made:
   lists of databases and tables. mysql returns objects properly using
   dbListObjects, but sql server lists the databases in a table and then
   there is no clear way to get the tables without raw sql.
+- Need to make a better error message when the user tries to get a
+  non-existent table
+- Need to test cache properly
