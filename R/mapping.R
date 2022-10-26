@@ -19,7 +19,12 @@ setClass(
     )    
 )
 
-
+strategy_equivalent <- function(tbl, columns)
+{
+    print(columns)
+    tbl %>% dplyr::select(columns[[1]])
+}
+  
 logical_table_getter <- function(srv, database, source_table, logical_table)
 {
     force(srv)
@@ -28,10 +33,9 @@ logical_table_getter <- function(srv, database, source_table, logical_table)
     force(logical_table)
     function()
     {
-        srv[[database]][[source_table]]() %>%
-                                          dplyr::select(logical_table[[1]]) %>%
-                                          head(30) %>%
-                                          run()
+        tbl <- srv[[database]][[source_table]]()
+        tbl %>%
+            strategy_equivalent(logical_table[[1]]$columns)
     }
 }
 
