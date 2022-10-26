@@ -19,5 +19,6 @@ test_that("Databases throws error when a config file contains an invalid driver 
 ### Tests for valid connections via config files
 
 test_that("Databases connects to sqlite database without errors", {
-    expect_error(Databases(config=system.file("extdata", "sqlite.json",package="icdb")))
+    srv <- Databases(config=system.file("extdata", "sqlite.json",package="icdb"))
+    expect_true(DBI::dbIsValid(srv@connection))
 })

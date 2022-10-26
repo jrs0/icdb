@@ -270,6 +270,15 @@ Databases <- function(data_source_name = NULL,
         ## (often used in ID columns) in a format that will work
         ## with dplyr (storing the bigint as a character string)
         conf$bigint <- "character"
+
+        ## If the testdata flag is true, then replace the dbname with
+        ## the correct path to the database
+        if (conf$testdata == TRUE)
+        {
+            conf_args$dbname <- system.file("testdata", conf_args$dbname, package="icdb")
+        }
+        
+        ## Open the database connection
         con <- do.call(DBI::dbConnect, conf_args)
 
         db <- new("Databases", connection = con, config = conf)
