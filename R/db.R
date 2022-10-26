@@ -365,20 +365,6 @@ table_getter <- function(db, database, table_schema, table_name)
     }
 }
 
-##' The name isn't staying. This function is used for all the "good" databases
-##' that actually list objects properly (everything except SQL Server). The
-##' id field can be passed to dbQuoteIdentifier to create a query
-table_better_getter <- function(con, id)
-{
-    force(con)
-    force(id)
-    function()
-    {
-        dplyr::tbl(con, id)
-    }
-}
-
-
 ##' Search the tables and columns in a database for partial names
 ##'
 ##' Several of the databases are very large, with hundreds of tables each
