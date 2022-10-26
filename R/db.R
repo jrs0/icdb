@@ -252,14 +252,16 @@ Databases <- function(data_source_name = NULL,
             "sqlite" = RSQLite::SQLite()
         )
 
-        drv <- drv_map[[conf$drv]]
+        ## Duplicate the config file to use as arguments in DBI::dbConnect
+        conf_args <- conf
+        drv <- drv_map[[conf$driver]]
         if (!is.null(drv))
         {
-            conf$drv <- drv
+            conf_args$drv <- drv
         }
         else
         {
-            stop("Unrecognised driver '", conf$drv,
+            stop("Unrecognised driver '", conf$driver,
                  "' specified in config file '", config,
                  call.=FALSE)
         }
@@ -268,7 +270,7 @@ Databases <- function(data_source_name = NULL,
         ## (often used in ID columns) in a format that will work
         ## with dplyr (storing the bigint as a character string)
         conf$bigint <- "character"
-        con <- do.call(DBI::dbConnect, conf)
+        con <- do.call(DBI::dbConnect, conf_args)
 
         db <- new("Databases", connection = con, config = conf)
     }
@@ -277,37 +279,52 @@ Databases <- function(data_source_name = NULL,
         stop("You must provide a data source name or a config file argument.")
     }
 
-    ## Copy the list of databases into a list, ready to store in the object
-    databases <- db@connection %>%
-       DBI::dbGetQuery("SELECT name FROM master.sys.databases")
-
-    ## This is the problem part of the code -- it really needs to store a
-    ## function to return the table object, but that doesn't work (yet).
-    for (d in databases$name)
+    ## Most database drivers return the databases and tables as a tree of objects,
+    ## via the dbListObjects function. SQL Server does not work like this, so treat
+    ## it separately
+    if (grep("SQL Server", conf$driver) == 1)
     {
-        tryCatch (   
-        {
-            ## Get the list of tables associated with this database,
-            ## and their associated schemas
-            tables <- db@connection %>%
-                DBI::dbGetQuery(paste0("SELECT table_schema,table_name FROM ",d,".INFORMATION_SCHEMA.TABLES"))
-            
-            ## Put the tables in the database
-            db[[d]] <- Tables()
-            db[[d]]@.Data <- tables %>% purrr::pmap(~ table_getter(db, d, .x, .y))
-            names(db[[d]]@.Data) <- tables$table_name
-        },
-        error = function(cond)
-        {
-            ## Currently, do nothing. This is a quick way to ensure that access problems
-            ## do not break the code.
-            ## TODO  Come back and fix this to read permissions
-        }        
-        )
+        ## Copy the list of databases into a list, ready to store in the object
+        databases <- db@connection %>%
+            DBI::dbGetQuery("SELECT name FROM master.sys.databases")
         
+        ## This is the problem part of the code -- it really needs to store a
+        ## function to return the table object, but that doesn't work (yet).
+        for (d in databases$name)
+        {
+            tryCatch (   
+            {
+                ## Get the list of tables associated with this database,
+                ## and their associated schemas
+                tables <- db@connection %>%
+                    DBI::dbGetQuery(paste0("SELECT table_schema,table_name FROM ", d,
+                                           ".INFORMATION_SCHEMA.TABLES"))
+                
+                ## Put the tables in the database
+                db[[d]] <- Tables()
+                db[[d]]@.Data <- tables %>% purrr::pmap(~ table_getter(db, d, .x, .y))
+                names(db[[d]]@.Data) <- tables$table_name
+            },
+            error = function(cond)
+            {
+                ## Currently, do nothing. This is a quick way to ensure that access problems
+                ## do not break the code.
+                ## TODO  Come back and fix this to read permissions
+            }        
+            )
+        }
     }
-
-    db
+    else
+    {
+        ## All other database drivers support the object tree approach -- use that
+        ## to populate the nested list. Currently, these lists will store an
+        ## evaluated dplyr::tbl because it is not possible to overload $ in this
+        ## case.
+        ## TODO think up a method to make lazy evaluation of list items work here
+        db@.Data <- build_object_tree(con, NULL)
+    }
+        
+        db
 }
 
     
