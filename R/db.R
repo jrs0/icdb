@@ -124,7 +124,7 @@ build_object_tree <- function(con, prefix)
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
                                         build_object_tree(con, .x)
                                     } else {
-                                        table_better_getter(con, .x)
+                                        dplyr::tbl(con, .x)                                        
                                     })
 
     ## Bind the labels and values into a named list and return it
