@@ -243,14 +243,26 @@ Databases <- function(data_source_name = NULL,
             },
             conf <- rjson::fromJSON(file = config)
         )
+
         ## Create the mapping from strings to drivers
         drv_map <- list(
             "ODBC Driver 17 for SQL Server" = odbc::odbc(), ## For Microsoft
             "mysql" = RMariaDB::MariaDB(), ## Both mysql and mariadb using RMariaDB
             "mariadb" = RMariaDB::MariaDB()
         )
-        conf$drv <- drv_map[[conf$drv]]
 
+        drv <- drv_map[[conf$drv]]
+        if (!is.null(drv))
+        {
+            conf$drv <- drv
+        }
+        else
+        {
+            stop("Unrecognised driver '", conf$drv,
+                 "' specified in config file '", config,
+                 call.=FALSE)
+        }
+        
         ## This parameter is really important for getting bigints
         ## (often used in ID columns) in a format that will work
         ## with dplyr (storing the bigint as a character string)
