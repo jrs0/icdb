@@ -557,20 +557,32 @@ setMethod("sqlFromFile", c("Databases", "character"), function(db, file) {
 ##' @docType methods
 ##' @aliases show-Databases show, Databases-method
 ##'
+##' TODO: This function needs improvement -- at the moment it is really just a
+##' placeholder for something more useful.
+##' 
 ##' @param object The object to be printed
 ##' @export
 setMethod("show", "Databases", function(object) {
-    message("Wrapper around database connection")
-    message("Databases name: ", object@connection@info$dbname)
-    if (!is.na(object@dsn))
+    if (grepl("SQL Server", object@config$driver))
     {
-        message("Database server connection via data source name (DSN): ", object@dsn)
+        message("Database connection (Microsoft SQL Server)")
+        message("Databases name: ", object@connection@info$dbname)
+        if (!is.na(object@dsn))
+        {
+            message("Database server connection via data source name (DSN): ", object@dsn)
+        }
+        else
+        {
+            message("Database server connection via config file")
+        }
     }
     else
     {
-        message("Database server connection via config file")
+        message("Database connection (Other database)")
+        message("Database: ", object@connection@dbname)
     }
 })
+
 ##' This function is a replacement for the dplyr::collect() function
 ##' that is used to submit an SQL query to a database. This function
 ##' is called in the same way, by piping to collect(), but it caches

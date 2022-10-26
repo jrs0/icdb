@@ -6,6 +6,25 @@
 \alias{show-Databases}
 \alias{show,}
 \alias{Databases-method}
+\alias{TODO:}
+\alias{This}
+\alias{function}
+\alias{needs}
+\alias{improvement}
+\alias{--}
+\alias{at}
+\alias{the}
+\alias{moment}
+\alias{it}
+\alias{is}
+\alias{really}
+\alias{just}
+\alias{a}
+\alias{placeholder}
+\alias{for}
+\alias{something}
+\alias{more}
+\alias{useful.}
 \title{Print out the Databases object}
 \usage{
 \S4method{show}{Databases}(object)
