@@ -17,7 +17,7 @@ pkg_env$cache <- list(
                                        last_access = as.Date(character()), # When the entry was last accessed
                                        time = as.difftime(1, units="hours") # How long did the original computation take
                                        ),
-                  max_size = 3,
+                  max_size = 2,
                   objects = list()),
     path = "cache/"
 )
@@ -274,7 +274,7 @@ show_cache <-function()
     ## Replace NA in mem column by FALSE
     tbl[is.na(tbl)] <- FALSE
 
-    tbl
+    tbl %>% dplyr::arrange(desc(last_access))
 }
 
 
