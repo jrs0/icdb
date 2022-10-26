@@ -212,7 +212,7 @@ setClass(
 ##' 
 ##' @export
 Databases <- function(data_source_name = NULL,
-                     config = NULL)
+                      config = NULL)
 {
     ## If the data source name argument was passed, connect using that
     if (!is.null(data_source_name))
@@ -234,8 +234,15 @@ Databases <- function(data_source_name = NULL,
         }
         message("Connecting using config file")
 
-        conf <- rjson::fromJSON(file = config)
-        
+        tryCatch(
+            error = function(cnd)
+            {
+                stop("An error occured parsing the config file '",
+                     config,
+                     "' supplied to Databases()", call.=FALSE)
+            },
+            conf <- rjson::fromJSON(file = config)
+        )
         ## Create the mapping from strings to drivers
         drv_map <- list(
             "ODBC Driver 17 for SQL Server" = odbc::odbc(), ## For Microsoft
