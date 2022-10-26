@@ -291,7 +291,7 @@ Databases <- function(data_source_name = NULL,
     ## Most database drivers return the databases and tables as a tree of objects,
     ## via the dbListObjects function. SQL Server does not work like this, so treat
     ## it separately
-    if (grepl("SQL Server", conf$driver))
+    if (!is.na(db@dsn) || grepl("SQL Server", conf$driver))
     {
         ## Copy the list of databases into a list, ready to store in the object
         databases <- db@connection %>%
@@ -558,7 +558,7 @@ setMethod("sqlFromFile", c("Databases", "character"), function(db, file) {
 ##' @param object The object to be printed
 ##' @export
 setMethod("show", "Databases", function(object) {
-    if (grepl("SQL Server", object@config$driver))
+    if (!is.na(object@dsn) || grepl("SQL Server", object@config$driver))
     {
         message("Database connection (Microsoft SQL Server)")
         message("Databases name: ", object@connection@info$dbname)
