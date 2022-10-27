@@ -3,9 +3,18 @@
 \docType{class}
 \name{Databases-class}
 \alias{Databases-class}
-\title{Databases class wrapping an SQL server connection}
-\description{
+\title{Overload $ for Tables so that it returns the dplyr::tbl}
+\arguments{
+\item{x}{The Tables object (element in a Databases object)}
+
+\item{name}{The table name to get}
+}
+\value{
+The dplyr::tbl for the selected table
 Databases class wrapping an SQL server connection
+}
+\description{
+Get the table with the specified name as a dplyr::tbl
 }
 \section{Slots}{
 

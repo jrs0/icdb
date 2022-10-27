@@ -344,7 +344,7 @@ Databases <- function(data_source_name = NULL,
                 
                 ## Put the tables in the database
                 db[[d]] <- Tables()
-                db[[d]]@.Data <- tables %>% purrr::pmap(~ table_getter(db, d, .x, .y))
+                db[[d]]@.Data <- tables %>% purrr::pmap(~ Tab(table_getter(db, d, .x, .y)))
                 names(db[[d]]@.Data) <- tables$table_name
             },
             error = function(cond)
