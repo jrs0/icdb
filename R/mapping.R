@@ -39,16 +39,19 @@ logical_table_getter <- function(srv, database, source_table, logical_table)
         
         ## Make the set of columns to select (old names,
         ## union of columns in mapping file)
-        flat_fields <- unlist(logical_table)
-        old_cols <- flat_fields[grepl("columns",names(flat_fields))] 
-        tbl <- tbl %>% dplyr::select(unname(old_cols))
+        flat_column_names <- names(unlist(logical_table))
+        old_cols <- flat_column_names[grepl("columns",flat_column_names)] %>%
+            strsplit("\\.") %>% purrr::map(~ tail(.x,n=1)) %>%
+            unlist()
+        
+        tbl <- tbl %>% dplyr::select(old_cols)
         
         ## Loop over column names
         for (logical_column in names(logical_table))
         {
             ## Loop over the constituent columns that make up the logical column
             count <- 1
-            for (old_name in logical_table[[logical_column]]$columns)
+            for (old_name in names(logical_table[[logical_column]]$columns))
             {
                 new_name <- paste0(logical_column,"_",count)
                 tbl <- tbl %>% dplyr::rename_with(~ new_name, old_name)
