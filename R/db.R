@@ -173,6 +173,18 @@ build_object_tree <- function(con, prefix)
     values
 }
 
+setGeneric("docs", function(tab) standardGeneric("docs"))
+setMethod("docs", "Tab", function(tab) {
+    if(length(tab@docs) == 0)
+    {
+        message("There is no documentation for this table")
+    }
+    else
+    {
+        tab@docs
+    }
+})
+
 ##' Databases class wrapping an SQL server connection
 ##'
 ##' @slot connection Microsoft SQL Server.
