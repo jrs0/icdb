@@ -109,7 +109,7 @@ MappedDB <- function(srv, mapping = system.file("extdata", "mapping.yaml", packa
 ##' @param mapping A named list storing a level of the yaml config file
 ##' @return A named list containing the results of parsing the file
 ##' 
-parse_mapping <- function(mapping, source_database = NULL, source_table = NULL)
+parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL)
 {
     if ("databases" %in% names(mapping))
     {
@@ -117,7 +117,7 @@ parse_mapping <- function(mapping, source_database = NULL, source_table = NULL)
         d <- list()
         for (database in names(mapping$databases))
         {
-            d[[database]] <- parse_mapping(mapping$databases[[database]])
+            d[[database]] <- parse_mapping(mapping$databases[[database]], srv)
         }
         d
     }
@@ -132,7 +132,7 @@ parse_mapping <- function(mapping, source_database = NULL, source_table = NULL)
         t <- list()
         for (table in names(mapping$tables))
         {
-            t[[table]] <- parse_mapping(mapping$tables[[table]],
+            t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
                                         source_database = source_database)
         }
         t
@@ -151,14 +151,20 @@ parse_mapping <- function(mapping, source_database = NULL, source_table = NULL)
         {
             source_database <- mapping$source_database
         }
-        
+
+        ## Next, create a table object for the database
         message("parsing a table")
         message("source table: ", source_table)
         message("source database: ", source_database)
+        tbl <- srv[[source_database]][[source_table]]()
+        
+        
         c <- list()
         for (column in names(mapping$columns))
         {
-            c[[column]] <- parse_mapping(mapping$columns[[column]])
+            c[[column]] <- parse_mapping(mapping$columns[[column]], srv,
+                                         source_database = source_database,
+                                         source_table = source_table)
         }
         c
     }
