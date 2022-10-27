@@ -1,4 +1,5 @@
 apc:
+  docs: "The APC table contains admitted patient care data from the HES dataset. Rows from the table correspond to patient episodes, which are care activities performed by a single consultant while the patient is in hospital."
   database: "ABI"
   source_table: "vw_APC_SEM_001"
   logical_tables:
@@ -6,6 +7,7 @@ apc:
     # names for "(D|d)ate" and "(T|t)ime". Note that all occurances
     # of "Date" and "Time" used capital start letters.
     episodes:
+      docs: "The episodes "
       start:
         columns:
           "StartDate_ConsultantEpisode": "something"
