@@ -125,8 +125,9 @@ parse_mapping <- function(mapping)
     {
         ## If there is a tables field, then the current mapping is a logical
         ## database. Record the database name for the next function execution
-        ## environment
-        source_database <- mapping$source
+        ## environment. 
+        source_database <- mapping$source_database
+        message("parsing a database")
         message("source database: ", source_database)
         t <- list()
         for (table in names(mapping$tables))
@@ -138,8 +139,20 @@ parse_mapping <- function(mapping)
     else if ("columns" %in% names(mapping))
     {
         ## If there is a columns field, then the current mapping is a table.
-        ## 
-        message("Parsing columns")
+        ## Record the source table name for the next execution environment
+        source_table <- mapping$source_table
+
+        ## Check if there is a source_database key -- if there is, it must
+        ## overwrite the value inherited from the calling environment, to
+        ## support the possibility that tables in the same logical database
+        ## in fact originate from separate source databases.
+        if (!is.null(mapping$source_database))
+        {
+            source_database <- mapping$source_database
+        }
+        message("parsing a table")
+        message("source table: ", source_table)
+        message("source database: ", source_database)
         c <- list()
         for (column in names(mapping$columns))
         {
