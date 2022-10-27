@@ -2,6 +2,7 @@
 ##' @importFrom magrittr %>%
 ##' @importFrom utils capture.output tail
 ##' @importClassesFrom DBI DBIConnection
+##' @importClassesFrom dplyr tbl
 ##' @export
 NULL
 
@@ -83,11 +84,12 @@ setClass(
 ##' into a Tables list
 setClass(
     "Tab",
+    contains = "tbl",
     slots = representation(
-        fns = "list" ## Two names: table_getter and docs_getter
+        docs = "list" ## Two names: table_getter and docs_getter
     ),
     prototype = prototype(
-        fns = list()
+        docs = list()
     )
 )
 ##' Create a new Tab object
@@ -98,11 +100,14 @@ setClass(
 ##' to get the documentation for the table.
 ##' 
 ##' @title Make a new Tab object
+##'
+##' @param tbl The dplyr::tbl to store
+##' @param docs The docs list associated with the tbl
+##' 
 ##' @return The new Tab object
-Tab <- function(table_getter, docs_getter = NULL)
+Tab <- function(tbl, docs)
 {
-    new("Tab", fns = list(table_getter = table_getter,
-                          docs_getter = docs_getter))
+    new("Tab", tbl, docs = docs)
 }
 
 ##' Get a new Tables object, a simple wrapper around a list of
@@ -176,6 +181,12 @@ build_object_tree <- function(con, prefix)
 setMethod("$", "Tables", function(x, name) {
     x[[name]]()
 })
+
+
+help <- function(tab)
+{
+    tab@docs
+}
 
 ##' Databases class wrapping an SQL server connection
 ##'
@@ -344,7 +355,7 @@ Databases <- function(data_source_name = NULL,
                 
                 ## Put the tables in the database
                 db[[d]] <- Tables()
-                db[[d]]@.Data <- tables %>% purrr::pmap(~ Tab(table_getter(db, d, .x, .y)))
+                db[[d]]@.Data <- tables %>% purrr::pmap(~ table_getter(db, d, .x, .y))
                 names(db[[d]]@.Data) <- tables$table_name
             },
             error = function(cond)
@@ -395,15 +406,22 @@ Databases <- function(data_source_name = NULL,
 ##' @param table_schema The table schema name
 ##' @param table_name The table name
 ##' 
-table_getter <- function(db, database, table_schema, table_name)
+table_getter <- function(db, database, table_schema, table_name, docs = list())
 {
     force(database)
     force(table_schema)
     force(table_name)
+    force(docs)
     function()
     {
-        dplyr::tbl(db@connection,
-                   dbplyr::in_catalog(database, table_schema, table_name))
+        ## Get the table shell object
+        tbl <- dplyr::tbl(db@connection,
+                          dbplyr::in_catalog(database,
+                                             table_schema,
+                                             table_name))
+
+        ## Return a new Tab object wrapping the tbl and the docs
+        Tab(tbl, docs)
     }
 }
 
