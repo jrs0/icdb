@@ -22,14 +22,15 @@ setClass(
     )    
 )
 
-logical_table_getter <- function(srv, database, source_table, logical_table)
+logical_table_getter <- function(srv, database, logical_table)
 {
     force(srv)
     force(database)
-    force(source_table)
     force(logical_table)
     function()
     {
+        ## Get the name of the logical table and fetch the table
+        source_table <- logical_table$source_table
         tbl <- srv[[database]][[source_table]]()
 
         ## TODO There is an important potential bug in this code, where a column name in
@@ -70,20 +71,26 @@ make_docs <- function(logical_db)
 
 MappedDB <- function(srv, mapping = system.file("extdata", "mapping.yaml", package="icdb"))
 {
+    ## The structure of the yaml file makes a recursive implementation of this function
+    ## much more appropriate, but this will do for now. In general, it would be good if
+    ## each level in the yaml file inherited fields from the level above (for example,
+    ## source databases and tables), to support a more general nested structure of logical
+    ## objects
+    
     m <- yaml::read_yaml(mapping)
 
     mdb <- new("MappedDB", mapping = m)
 
-    # ldb stands for logical database
+    ## ldb stands for logical database. This loop should really be replaced by something
+    ## recursive, because a new level is needed for each level in the yaml file.
     for (ldb_name in names(m))
     {
         ## Get the names of the source database and source table
-        database <- m[[ldb_name]]$database
-        source_table <- m[[ldb_name]]$source_table
+        database <- m[[ldb_name]]$source_database
 
         mdb[[ldb_name]] <- Tables()
-        mdb[[ldb_name]]@.Data <- m[[ldb_name]]$logical_tables %>%
-            purrr::map(~ Tab(logical_table_getter(srv, database, source_table, .x),
+        mdb[[ldb_name]]@.Data <- m[[ldb_name]]$tables %>%
+            purrr::map(~ Tab(logical_table_getter(srv, database, .x),
                              make_docs(m[[ldb_name]])))
         names(mdb[[ldb_name]]@.Data) <- names(m[[ldb_name]]$logical_tables)
     }

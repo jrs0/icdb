@@ -7,7 +7,7 @@ hes:
     # of "Date" and "Time" used capital start letters.
     apc:
       source_table: "vw_APC_SEM_001"
-      docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes; individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital."
+      docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital."
       start:
         docs: "The start column is a datetime field that is the time when the episode began."
         columns:
