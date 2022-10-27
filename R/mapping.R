@@ -171,7 +171,8 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         
         ## Next, create the function which will return the the tbl object
         ## corresponding to this logical table
-        logical_table_getter(srv, source_database, source_table, mapping$columns)
+        Tab(logical_table_getter(srv, source_database, source_table, mapping$columns),
+            list(mapping$docs))
         
     }
     else if ("strategy" %in% names(mapping))
