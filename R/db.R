@@ -2,7 +2,7 @@
 ##' @importFrom magrittr %>%
 ##' @importFrom utils capture.output tail
 ##' @importClassesFrom DBI DBIConnection
-##' @importClassesFrom dplyr tbl
+##' @importClassesFrom dbplyr tbl_sql
 ##' @export
 NULL
 
@@ -84,11 +84,12 @@ setClass(
 ##' into a Tables list
 setClass(
     "Tab",
-    contains = "tbl",
     slots = representation(
-        docs = "list" ## Two names: table_getter and docs_getter
+        tbl = "list" ## List to encapsulate the "tbl_Microsoft SQL Server" type. Name: val
+        docs = "list"
     ),
     prototype = prototype(
+        tbl = list(),
         docs = list()
     )
 )
@@ -107,7 +108,7 @@ setClass(
 ##' @return The new Tab object
 Tab <- function(tbl, docs)
 {
-    new("Tab", tbl, docs = docs)
+    new("Tab", tbl = list(val = tbl), docs = docs)
 }
 
 ##' Get a new Tables object, a simple wrapper around a list of
