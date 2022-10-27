@@ -22,15 +22,31 @@ setClass(
     )    
 )
 
-logical_table_getter <- function(srv, source_database, source_table)
+logical_table_getter <- function(srv, source_database, source_table, columns)
 {
     force(srv)
     force(source_database)
     force(source_table)
+    force(columns)
+    
     function()
     {
         ## Get the name of the logical table and fetch the table
         tbl <- srv[[source_database]][[source_table]]()
+
+        ## The first step is to select the relevant real columns
+        real_columns <- list()
+        for (logical_column in columns)
+        {
+            real_columns <- c(real_columns, names(logical_column$source_columns))
+        }
+        tbl <- tbl %>% dplyr::select(unlist(real_columns))
+        
+        ## Next, rename the columns according to names derived from the logical
+        ## column name
+        
+
+        
         tbl
     }
 }
@@ -125,25 +141,46 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
             source_database <- mapping$source_database
         }
 
-        ## Next, create a table object for the database
         message("parsing a table")
         message("source table: ", source_table)
         message("source database: ", source_database)
-        return(logical_table_getter(srv, source_database, source_table))
+
+        ## Inspect the logical column information in the table, and construct
+        ## a mapping from old column names to new column names. 
+        ## cols <- list()
+        ## print(mapping$columns)
+        ## stop()
+        ## for (column in names(mapping$columns))
+        ## {
+        ##     cols <- c(cols, parse_mapping(mapping$columns[[column]], srv,
+        ##                                   source_database = source_database,
+        ##                                   source_table = source_table))
+        ## }
         
-        c <- list()
-        for (column in names(mapping$columns))
-        {
-            c[[column]] <- parse_mapping(mapping$columns[[column]], srv,
-                                         source_database = source_database,
-                                         source_table = source_table)
-        }
-        c
+        ## Next, create the function which will return the the tbl object
+        ## corresponding to this logical table
+        logical_table_getter(srv, source_database, source_table, mapping$columns)
+        
     }
     else if ("strategy" %in% names(mapping))
     {
+        stop("This function does not parse the source_columns")
+        
+        ## If there is a strategy field, then the current mapping element is
+        ## a logical column. A logical column contains a list of source_columns,
+        ## which are real columns in the database. The logical column also contains
+        ## a strategy field, which informs higher levels of the program how the
+        ## columns should be reduced to one column.
         message("Parsing strategy")
-        mapping$strategy  
+
+        ## Get the list of source columns (names are column names, values are
+        ## documentation strings)
+        r <- names(mapping$source_column)
+
+        ## Do something with the strategy
+        ##mapping$strategy  
+
+        r
     }
     else
     {
