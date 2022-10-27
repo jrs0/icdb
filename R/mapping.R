@@ -22,13 +22,6 @@ setClass(
     )    
 )
 
-strategy_equivalent <- function(tbl, columns)
-{
-    print(columns)
-    tbl %>% dplyr::select(columns) %>%
-        dplyr::mutate(xyz = !!columns[[1]])
-}
-  
 logical_table_getter <- function(srv, database, source_table, logical_table)
 {
     force(srv)
@@ -38,8 +31,8 @@ logical_table_getter <- function(srv, database, source_table, logical_table)
     function()
     {
         tbl <- srv[[database]][[source_table]]()
-        tbl %>%
-            strategy_equivalent(logical_table[[1]]$columns)
+        tbl %>% dplyr::rename(start_1 = logical_table[[1]]$columns[[1]])
+                                             
     }
 }
 

@@ -7,27 +7,15 @@ apc:
     # of "Date" and "Time" used capital start letters.
     episodes:
       start:
-        strategy: "equivalent"
         columns:
           - "StartDate_ConsultantEpisode"
           - "StartDate1"
           - "StartTime_Episode"
-      end:
         strategy: "equivalent"
+        
+      end:
         columns:
           - "EndDate_ConsultantEpisode"
           - "EndDate1"
           - "EndTime_Episode"
-    spells:
-      start:
         strategy: "equivalent"
-        columns:
-          - "StartDate_HospitalProviderSpell"
-          - "AIMTC_ProviderSpell_Start_Date"
-          - "StartTime_HospitalProviderSpell"
-      end:
-        strategy: "equivalent"
-        columns:
-          - "DischardDate_FromHospitalProviderSpell"
-          - "AIMTC_ProviderSpell_End_Date"
-          - "EndTime_HospitalProviderSpell"
