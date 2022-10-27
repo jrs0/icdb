@@ -8,14 +8,14 @@ apc:
     episodes:
       start:
         columns:
-          - "StartDate_ConsultantEpisode"
-          - "StartDate1"
-          - "StartTime_Episode"
+          "StartDate_ConsultantEpisode": "something"
+          "StartDate1": "something"
+          "StartTime_Episode": "something"
         strategy: "equivalent"
         
       end:
         columns:
-          - "EndDate_ConsultantEpisode"
-          - "EndDate1"
-          - "EndTime_Episode"
+          "EndDate_ConsultantEpisode": "something"
+          "EndDate1": "something"
+          "EndTime_Episode": "something"
         strategy: "equivalent"
