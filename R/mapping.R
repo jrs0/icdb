@@ -31,8 +31,20 @@ logical_table_getter <- function(srv, database, source_table, logical_table)
     function()
     {
         tbl <- srv[[database]][[source_table]]()
-        tbl %>% dplyr::rename(start_1 = logical_table[[1]]$columns[[1]])
-                                             
+
+        ## Loop over column names
+        for (logical_column in names(logical_table))
+        {
+            ## Loop over the constituent columns that make up the logical column
+            count <- 1
+            for (old_name in logical_table[[logical_column]]$columns)
+            {
+                new_name <- paste0(logical_column,"_",count)
+                tbl <- tbl %>% dplyr::rename_with(~ new_name, old_name)
+                count <- count + 1 
+            }
+        }
+        tbl
     }
 }
 
