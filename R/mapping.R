@@ -63,9 +63,9 @@ logical_table_getter <- function(srv, source_database, source_table, columns)
     }
 }
 
-make_docs <- function(logical_db)
+make_table_docs <- function(table)
 {
-    list(values = logical_db)
+    "Fancy docs"
 }
 
 MappedDB <- function(srv, mapping = system.file("extdata", "mapping.yaml", package="icdb"))
@@ -157,23 +157,10 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         message("source table: ", source_table)
         message("source database: ", source_database)
 
-        ## Inspect the logical column information in the table, and construct
-        ## a mapping from old column names to new column names. 
-        ## cols <- list()
-        ## print(mapping$columns)
-        ## stop()
-        ## for (column in names(mapping$columns))
-        ## {
-        ##     cols <- c(cols, parse_mapping(mapping$columns[[column]], srv,
-        ##                                   source_database = source_database,
-        ##                                   source_table = source_table))
-        ## }
-        
         ## Next, create the function which will return the the tbl object
         ## corresponding to this logical table
         Tab(logical_table_getter(srv, source_database, source_table, mapping$columns),
-            list(mapping$docs))
-        
+            make_table_docs(mapping))
     }
     else if ("strategy" %in% names(mapping))
     {

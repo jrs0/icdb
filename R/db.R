@@ -86,10 +86,10 @@ setClass(
     "Tab",
     contains = "function",
     slots = representation(
-        docs = "list"
+        docs = "character"
     ),
     prototype = prototype(
-        docs = list()
+        docs = ""
     )
 )
 ##' Create a new Tab object
@@ -105,7 +105,7 @@ setClass(
 ##' @param docs The docs list associated with the tbl
 ##' 
 ##' @return The new Tab object
-Tab <- function(table_getter, docs = list())
+Tab <- function(table_getter, docs = "There is no documentation for this object\n")
 {
     new("Tab", table_getter, docs = docs)
 }
@@ -174,14 +174,7 @@ build_object_tree <- function(con, prefix)
 
 setGeneric("docs", function(tab) standardGeneric("docs"))
 setMethod("docs", "Tab", function(tab) {
-    if(length(tab@docs) == 0)
-    {
-        message("There is no documentation for this table")
-    }
-    else
-    {
-        tab@docs
-    }
+    cat(tab@docs)
 })
 
 ##' Databases class wrapping an SQL server connection
