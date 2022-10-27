@@ -40,19 +40,19 @@ logical_table_getter <- function(srv, source_database, source_table, columns)
         {
             real_columns <- c(real_columns, names(logical_column$source_columns))
         }
-        tbl <- tbl %>% dplyr::select(unlist(real_columns))
+        tbl <- tbl %>% dplyr::select(all_of(unlist(real_columns)))
         
         ## Next, rename the columns according to names derived from the logical
         ## column name
-
-        
-        for (logical_column in columns)
+        for (logical_column_name in names(columns))
         {
+            logical_column <- columns[[logical_column_name]]
+            
             ## Loop over the constituent columns that make up the logical column
             count <- 1
             for (old_name in names(logical_column$source_columns))
             {
-                new_name <- paste0(logical_column,"_",count)
+                new_name <- paste0(logical_column_name,"_",count)
                 tbl <- tbl %>% dplyr::rename_with(~ new_name, old_name)
                 count <- count + 1 
             }
