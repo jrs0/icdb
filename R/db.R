@@ -7,6 +7,12 @@ NULL
 
 
 ## Make helper functions to turn on and off the cache
+##' .. content for \description{} (no empty lines) ..
+##'
+##' .. content for \details{} ..
+##' @title 
+##' @return 
+##' @author 
 make_cache_fns <- function()
 {
     ## Global flag indicating whether caching should be used or not
@@ -66,30 +72,48 @@ setClass(
     "Tables",
     contains = "list",
     slots = representation(
-        doclist = "list"
+        # Empty currently
     ),
     prototype = prototype(
-        doclist = list()
+        # Empty currently
     )
 )
 
+##' Class to store just one table. Each of these objects goes
+##' into a Tables list
+setClass(
+    "Tab",
+    slots = representation(
+        fns = "list" ## Two names: table_getter and docs_getter
+    ),
+    prototype = prototype(
+        fns = list()
+    )
+)
+##' Create a new Tab object
+##'
+##' The purpose of the Tab object is to store information about a table
+##' in Tables (Tab is used instead of Table to avoid confusion). The
+##' object stores two things: a function to get the table, and a function
+##' to get the documentation for the table.
+##' 
+##' @title Make a new Tab object
+##' @return The new Tab object
+Tab <- function(table_getter, docs_getter = NULL)
+{
+    new("Tab", fns = list(table_getter = table_getter,
+                          docs_getter = docs_getter))
+}
+
 ##' Get a new Tables object, a simple wrapper around a list of
 ##' database tables.
-##'
-##' The optional parameter docs contains a named list of
-##' documentation for each table stored in the Tables class.
-##' The names of the list are table names, and the value
-##' associated to each name is another list which contains
-##' documentation for each column in the table.
 ##' 
 ##' @title Make a new list of tables
-##'
-##' @param docs The list of documentation for each table.
 ##' 
 ##' @return The new Tables object
-Tables <- function(docs = list())
+Tables <- function()
 {
-    new("Tables", doclist = docs)
+    new("Tables")
 }
 
 ##' Get the tree of accessible objects in the database connection

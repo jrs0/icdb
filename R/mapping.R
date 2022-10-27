@@ -22,10 +22,6 @@ setClass(
     )    
 )
 
-setClass(
-    contains = "Tables"
-)
-
 logical_table_getter <- function(srv, database, source_table, logical_table)
 {
     force(srv)
