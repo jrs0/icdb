@@ -106,7 +106,7 @@ setClass(
 ##' @param docs The docs list associated with the tbl
 ##' 
 ##' @return The new Tab object
-Tab <- function(table_getter, docs)
+Tab <- function(table_getter, docs = list())
 {
     new("Tab", table_getter, docs = docs)
 }
@@ -356,7 +356,7 @@ Databases <- function(data_source_name = NULL,
                 
                 ## Put the tables in the database
                 db[[d]] <- Tables()
-                db[[d]]@.Data <- tables %>% purrr::pmap(~ table_getter(db, d, .x, .y))
+                db[[d]]@.Data <- tables %>% purrr::pmap(~ Tab(table_getter(db, d, .x, .y)))
                 names(db[[d]]@.Data) <- tables$table_name
             },
             error = function(cond)
@@ -416,13 +416,10 @@ table_getter <- function(db, database, table_schema, table_name, docs = list())
     function()
     {
         ## Get the table shell object
-        tbl <- dplyr::tbl(db@connection,
-                          dbplyr::in_catalog(database,
-                                             table_schema,
-                                             table_name))
-
-        ## Return a new Tab object wrapping the tbl and the docs
-        Tab(tbl, docs)
+        dplyr::tbl(db@connection,
+                   dbplyr::in_catalog(database,
+                                      table_schema,
+                                      table_name))
     }
 }
 
