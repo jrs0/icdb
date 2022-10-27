@@ -4,18 +4,18 @@
 databases:
   hes:
     docs: "The HES database contains hospital episode statistics, which contain records of patient care activities that take place in a hospital visit."
-    source: "ABI"
+    source_database: "ABI"
     tables:
       # Start and end dates and times were obtained by greping column
       # names for "(D|d)ate" and "(T|t)ime". Note that all occurances
       # of "Date" and "Time" used capital start letters.
       apc:
         docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital."
-        source: "vw_APC_SEM_001"
+        source_table: "vw_APC_SEM_001"
         columns:
           start:
             docs: "The start column is a datetime field that is the time when the episode began."
-            source:
+            source_columns:
               "StartDate_ConsultantEpisode": "something"
               "StartDate1": "something"
               "StartTime_Episode": "something"
@@ -23,8 +23,12 @@ databases:
 
           end:
             docs: "The end column is a datetime field that is the time when the episode finished."
-            source:
+            source_columns:
               "EndDate_ConsultantEpisode": "something"
               "EndDate1": "something"
               "EndTime_Episode": "something"
             strategy: "equivalent"
+      ae:
+        docs: "The A&E HES data"
+        source_table: "vw_AE_SEM_001"
+        columns: []

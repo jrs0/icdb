@@ -113,32 +113,44 @@ parse_mapping <- function(mapping)
 {
     if ("databases" %in% names(mapping))
     {
-        message("Parsing databases")
-        for (database in mapping$databases)
+        ## When you get to a list of databases, parse each database is turn
+        d <- list()
+        for (database in names(mapping$databases))
         {
-            parse_mapping(database)
+            d[[database]] <- parse_mapping(mapping$databases[[database]])
         }
+        d
     }
     else if ("tables" %in% names(mapping))
     {
-        message("Parsing tables")
-        for (table in mapping$tables)
+        ## If there is a tables field, then the current mapping is a logical
+        ## database. Record the database name for the next function execution
+        ## environment
+        source_database <- mapping$source
+        message("source database: ", source_database)
+        t <- list()
+        for (table in names(mapping$tables))
         {
-            parse_mapping(table)
+            t[[table]] <- parse_mapping(mapping$tables[[table]])
         }
+        t
     }
     else if ("columns" %in% names(mapping))
     {
+        ## If there is a columns field, then the current mapping is a table.
+        ## 
         message("Parsing columns")
-        for (column in mapping$columns)
+        c <- list()
+        for (column in names(mapping$columns))
         {
-            parse_mapping(column)
+            c[[column]] <- parse_mapping(mapping$columns[[column]])
         }
+        c
     }
     else if ("strategy" %in% names(mapping))
     {
         message("Parsing strategy")
-        mapping$strategy     
+        mapping$strategy  
     }
     else
     {
