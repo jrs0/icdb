@@ -32,6 +32,11 @@ logical_table_getter <- function(srv, database, source_table, logical_table)
     {
         tbl <- srv[[database]][[source_table]]()
 
+        ## TODO There is an important potential bug in this code, where a column name in
+        ## the database might conflict with a logical column name. The chance is quite slim,
+        ## but if it does, the routine below may rename the wrong columns. This needs
+        ## testing and possibly modifying to cover this case.
+        
         ## Make the set of columns to select (old names,
         ## union of columns in mapping file)
         flat_fields <- unlist(logical_table)
