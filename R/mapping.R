@@ -97,3 +97,53 @@ MappedDB <- function(srv, mapping = system.file("extdata", "mapping.yaml", packa
 
     mdb
 }
+
+##' This function parses the tree returned by reading the yaml mapping
+##' file, and returns a named list of the contents of the current level
+##' passed as the argument. The function is recursive, and will descend
+##' through the configuration, generating a tree of documentation,
+##' database and table information that acts like a logical database.
+##'
+##' 
+##' @title Mapping-tree parser
+##' @param mapping A named list storing a level of the yaml config file
+##' @return A named list containing the results of parsing the file
+##' 
+parse_mapping <- function(mapping)
+{
+    if ("databases" %in% names(mapping))
+    {
+        message("Parsing databases")
+        for (database in mapping$databases)
+        {
+            parse_mapping(database)
+        }
+    }
+    else if ("tables" %in% names(mapping))
+    {
+        message("Parsing tables")
+        for (table in mapping$tables)
+        {
+            parse_mapping(table)
+        }
+    }
+    else if ("columns" %in% names(mapping))
+    {
+        message("Parsing columns")
+        for (column in mapping$columns)
+        {
+            parse_mapping(column)
+        }
+    }
+    else if ("strategy" %in% names(mapping))
+    {
+        message("Parsing strategy")
+        mapping$strategy     
+    }
+    else
+    {
+        stop("Error in config file: at least one of tables, columns, or strategy must be ",
+             "present at each level")
+    }
+}
+
