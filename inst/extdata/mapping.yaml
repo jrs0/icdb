@@ -1,17 +1,20 @@
+# Each level of this file has the same structure: a docs, source, and <contents> field. The <contents> field
+# can be one of: "tables", "columns", or "strategy", which determines whether the level refers to a database,
+# table, or column, respectively.
 hes:
   docs: "The HES database contains hospital episode statistics, which contain records of patient care activities that take place in a hospital visit."
-  source_database: "ABI"
+  source: "ABI"
   tables:
     # Start and end dates and times were obtained by greping column
     # names for "(D|d)ate" and "(T|t)ime". Note that all occurances
     # of "Date" and "Time" used capital start letters.
     apc:
-      source_table: "vw_APC_SEM_001"
       docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital."
+      source: "vw_APC_SEM_001"
       columns:
         start:
           docs: "The start column is a datetime field that is the time when the episode began."
-          source_columns:
+          source:
             "StartDate_ConsultantEpisode": "something"
             "StartDate1": "something"
             "StartTime_Episode": "something"
@@ -19,7 +22,7 @@ hes:
         
         end:
           docs: "The end column is a datetime field that is the time when the episode finished."
-          source_columns:
+          source:
             "EndDate_ConsultantEpisode": "something"
             "EndDate1": "something"
             "EndTime_Episode": "something"
