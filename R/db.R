@@ -80,6 +80,7 @@ setClass(
     )
 )
 
+
 ##' Class to store just one table. Each of these objects goes
 ##' into a Tables list
 setClass(
