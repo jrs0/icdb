@@ -58,8 +58,14 @@ logical_table_getter <- function(srv, database, source_table, logical_table)
                 count <- count + 1 
             }
         }
+        
         tbl
     }
+}
+
+make_docs <- function(logical_db)
+{
+    list(values = logical_db)
 }
 
 MappedDB <- function(srv, mapping = system.file("extdata", "mapping.yaml", package="icdb"))
@@ -74,10 +80,11 @@ MappedDB <- function(srv, mapping = system.file("extdata", "mapping.yaml", packa
         ## Get the names of the source database and source table
         database <- m[[ldb_name]]$database
         source_table <- m[[ldb_name]]$source_table
-        
+
         mdb[[ldb_name]] <- Tables()
         mdb[[ldb_name]]@.Data <- m[[ldb_name]]$logical_tables %>%
-            purrr::map(~ logical_table_getter(srv, database, source_table, .x))
+            purrr::map(~ Tab(logical_table_getter(srv, database, source_table, .x),
+                             make_docs(m[[ldb_name]])))
         names(mdb[[ldb_name]]@.Data) <- names(m[[ldb_name]]$logical_tables)
     }
 
