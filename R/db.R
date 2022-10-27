@@ -6,13 +6,7 @@
 NULL
 
 
-## Make helper functions to turn on and off the cache
-##' .. content for \description{} (no empty lines) ..
-##'
-##' .. content for \details{} ..
-##' @title 
-##' @return 
-##' @author 
+##' Make helper functions to turn on and off the cache
 make_cache_fns <- function()
 {
     ## Global flag indicating whether caching should be used or not

@@ -65,7 +65,22 @@ logical_table_getter <- function(srv, source_database, source_table, columns)
 
 make_table_docs <- function(table)
 {
-    "Fancy docs"
+    str <- "\n-- Documentation for logical table object ---\n\n"
+    str <- str %>% paste0(table$docs, "\n\n")
+
+    ## Document all the logical column names
+    str <- str %>% paste0("Documentation for logical column names:\n\n")
+    for (logical_column_name in names(table$columns))
+    {
+        logical_column <- table$columns[[logical_column_name]]
+        str <- str %>% paste0("\t", logical_column_name, ": ", logical_column$docs, "\n")
+        for (real_column_name in names(logical_column$source_columns))
+        {
+            str <- str %>% paste0("\t\t", real_column_name, "\n")
+        }
+    }
+
+    str
 }
 
 MappedDB <- function(srv, mapping = system.file("extdata", "mapping.yaml", package="icdb"))
