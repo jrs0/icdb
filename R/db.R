@@ -66,21 +66,30 @@ setClass(
     "Tables",
     contains = "list",
     slots = representation(
-        # Empty
+        doclist = "list"
     ),
     prototype = prototype(
-        # Empty
+        doclist = list()
     )
 )
 
 ##' Get a new Tables object, a simple wrapper around a list of
 ##' database tables.
 ##'
+##' The optional parameter docs contains a named list of
+##' documentation for each table stored in the Tables class.
+##' The names of the list are table names, and the value
+##' associated to each name is another list which contains
+##' documentation for each column in the table.
+##' 
 ##' @title Make a new list of tables
+##'
+##' @param docs The list of documentation for each table.
+##' 
 ##' @return The new Tables object
-Tables <- function()
+Tables <- function(docs = list())
 {
-    new("Tables")
+    new("Tables", doclist = docs)
 }
 
 ##' Get the tree of accessible objects in the database connection
