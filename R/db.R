@@ -173,22 +173,6 @@ build_object_tree <- function(con, prefix)
     values
 }
 
-##' Get the table with the specified name as a dplyr::tbl
-##'
-##' @title Overload $ for Tables so that it returns the dplyr::tbl
-##' @param x The Tables object (element in a Databases object)
-##' @param name The table name to get
-##' @return The dplyr::tbl for the selected table
-setMethod("$", "Tables", function(x, name) {
-    x[[name]]()
-})
-
-
-help <- function(tab)
-{
-    tab@docs
-}
-
 ##' Databases class wrapping an SQL server connection
 ##'
 ##' @slot connection Microsoft SQL Server.
@@ -407,12 +391,11 @@ Databases <- function(data_source_name = NULL,
 ##' @param table_schema The table schema name
 ##' @param table_name The table name
 ##' 
-table_getter <- function(db, database, table_schema, table_name, docs = list())
+table_getter <- function(db, database, table_schema, table_name)
 {
     force(database)
     force(table_schema)
     force(table_name)
-    force(docs)
     function()
     {
         ## Get the table shell object
