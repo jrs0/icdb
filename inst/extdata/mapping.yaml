@@ -8,18 +8,19 @@ hes:
     apc:
       source_table: "vw_APC_SEM_001"
       docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital."
-      start:
-        docs: "The start column is a datetime field that is the time when the episode began."
-        columns:
-          "StartDate_ConsultantEpisode": "something"
-          "StartDate1": "something"
-          "StartTime_Episode": "something"
-        strategy: "equivalent"
+      columns:
+        start:
+          docs: "The start column is a datetime field that is the time when the episode began."
+          source_columns:
+            "StartDate_ConsultantEpisode": "something"
+            "StartDate1": "something"
+            "StartTime_Episode": "something"
+          strategy: "equivalent"
         
-      end:
-        docs: "The end column is a datetime field that is the time when the episode finished."
-        columns:
-          "EndDate_ConsultantEpisode": "something"
-          "EndDate1": "something"
-          "EndTime_Episode": "something"
-        strategy: "equivalent"
+        end:
+          docs: "The end column is a datetime field that is the time when the episode finished."
+          source_columns:
+            "EndDate_ConsultantEpisode": "something"
+            "EndDate1": "something"
+            "EndTime_Episode": "something"
+          strategy: "equivalent"
