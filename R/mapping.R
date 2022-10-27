@@ -109,7 +109,7 @@ MappedDB <- function(srv, mapping = system.file("extdata", "mapping.yaml", packa
 ##' @param mapping A named list storing a level of the yaml config file
 ##' @return A named list containing the results of parsing the file
 ##' 
-parse_mapping <- function(mapping)
+parse_mapping <- function(mapping, source_database = NULL, source_table = NULL)
 {
     if ("databases" %in% names(mapping))
     {
@@ -132,7 +132,8 @@ parse_mapping <- function(mapping)
         t <- list()
         for (table in names(mapping$tables))
         {
-            t[[table]] <- parse_mapping(mapping$tables[[table]])
+            t[[table]] <- parse_mapping(mapping$tables[[table]],
+                                        source_database = source_database)
         }
         t
     }
@@ -150,6 +151,7 @@ parse_mapping <- function(mapping)
         {
             source_database <- mapping$source_database
         }
+        
         message("parsing a table")
         message("source table: ", source_table)
         message("source database: ", source_database)
