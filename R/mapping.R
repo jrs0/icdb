@@ -32,6 +32,13 @@ logical_table_getter <- function(srv, database, source_table, logical_table)
     {
         tbl <- srv[[database]][[source_table]]()
 
+        ## Make the set of columns to select (old names,
+        ## union of columns in mapping file)
+        flat_fields <- unlist(logical_table)
+        old_cols <- flat_fields[grepl("columns",names(flat_fields))] 
+        print(old_cols)
+        tbl <- tbl %>% dplyr::select(old_cols)
+        
         ## Loop over column names
         for (logical_column in names(logical_table))
         {
