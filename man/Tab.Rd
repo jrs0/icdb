@@ -4,7 +4,12 @@
 \alias{Tab}
 \title{Make a new Tab object}
 \usage{
-Tab(table_getter, docs_getter = NULL)
+Tab(table_getter, docs = list())
+}
+\arguments{
+\item{table_getter}{A function that will return a dplyr::tbl}
+
+\item{docs}{The docs list associated with the tbl}
 }
 \value{
 The new Tab object

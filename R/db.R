@@ -2,7 +2,6 @@
 ##' @importFrom magrittr %>%
 ##' @importFrom utils capture.output tail
 ##' @importClassesFrom DBI DBIConnection
-##' @importClassesFrom dbplyr tbl_sql
 ##' @export
 NULL
 
@@ -102,7 +101,7 @@ setClass(
 ##' 
 ##' @title Make a new Tab object
 ##'
-##' @param tbl The dplyr::tbl to store
+##' @param table_getter A function that will return a dplyr::tbl
 ##' @param docs The docs list associated with the tbl
 ##' 
 ##' @return The new Tab object
