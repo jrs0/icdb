@@ -85,12 +85,11 @@ setClass(
 ##' into a Tables list
 setClass(
     "Tab",
+    contains = "function",
     slots = representation(
-        tbl = "list" ## List to encapsulate the "tbl_Microsoft SQL Server" type. Name: val
         docs = "list"
     ),
     prototype = prototype(
-        tbl = list(),
         docs = list()
     )
 )
@@ -107,9 +106,9 @@ setClass(
 ##' @param docs The docs list associated with the tbl
 ##' 
 ##' @return The new Tab object
-Tab <- function(tbl, docs)
+Tab <- function(table_getter, docs)
 {
-    new("Tab", tbl = list(val = tbl), docs = docs)
+    new("Tab", table_getter, docs = docs)
 }
 
 ##' Get a new Tables object, a simple wrapper around a list of
