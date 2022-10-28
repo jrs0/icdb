@@ -32,7 +32,7 @@ logical_table_getter <- function(srv, source_database, source_table, columns)
     function()
     {
         ## Get the name of the logical table and fetch the table
-        tbl <- srv[[source_database]][[source_table]]()
+        tbl <- get_tbl(srv, source_database, source_table)
 
         ## The first step is to select the relevant real columns
         real_columns <- list()
