@@ -150,8 +150,6 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         ## database. Record the database name for the next function execution
         ## environment. 
         source_database <- mapping$source_database
-        message("parsing a database")
-        message("source database: ", source_database)
         t <- list()
         for (table in names(mapping$tables))
         {
@@ -182,10 +180,6 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
             source_database <- mapping$source_database
         }
 
-        message("parsing a table")
-        message("source table: ", source_table)
-        message("source database: ", source_database)
-
         ## Next, create the function which will return the the tbl object
         ## corresponding to this logical table
         Tab(logical_table_getter(srv, source_database, source_table, mapping$columns),
@@ -200,7 +194,6 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         ## which are real columns in the database. The logical column also contains
         ## a strategy field, which informs higher levels of the program how the
         ## columns should be reduced to one column.
-        message("Parsing strategy")
 
         ## Get the list of source columns (names are column names, values are
         ## documentation strings)
