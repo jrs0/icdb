@@ -147,6 +147,18 @@ MappedTab <- function(tab, logical_columns)
     new("MappedTab", tab, logical_columns = logical_columns)
 }
 
+setGeneric("reduce", function(x) standardGeneric("reduce"))
+setMethod("reduce", "MappedTab", function(x)
+{
+    
+})
+
+setMethod("show","MappedTab", function(object)
+{
+    cat("--- Mapped table object ---\n\n")
+    object@.Data()
+})
+
 ##' This function parses the tree returned by reading the yaml mapping
 ##' file, and returns a named list of the contents of the current level
 ##' passed as the argument. The function is recursive, and will descend
