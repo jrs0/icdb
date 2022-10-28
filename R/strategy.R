@@ -28,14 +28,17 @@ NULL
 ##' 
 ##' @title Reduce equivalent columns
 ##' @param tbl An input dplyr::tbl
-##' @param name 
-##' @return 
-##' @author 
+##' @param name
+##' @return The tbl after reducing the columns
 strategy_equivalent <- function(tbl, name)
 {
+    ## Get the member column names
     regx <- paste0(name,"_\\d+")
+    members <- tbl %>% dplyr::select(dplyr::matches(regx)) %>%
+        colnames()
+    
     tbl %>% dplyr::select(dplyr::matches(regx)) %>%
-        dplyr::mutate(!!name := !!paste0(name,"_1")) %>% 
-        dplyr::show_query()
+        dplyr::mutate(!!name := dplyr::coalesce(members))
+
 }
 
