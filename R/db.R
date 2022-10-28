@@ -80,12 +80,10 @@ setClass(
     "Tab",
     contains = "function",
     slots = representation(
-        docs = "character",
-        prev = "ANY"
+        docs = "character"
     ),
     prototype = prototype(
-        docs = "",
-        prev = NULL
+        docs = ""
     )
 )
 ##' Create a new Tab object
