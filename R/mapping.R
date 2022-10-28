@@ -156,7 +156,16 @@ setMethod("reduce", "MappedTab", function(x)
 setMethod("show","MappedTab", function(object)
 {
     cat("--- Mapped table object ---\n\n")
-    object@.Data()
+    ##object@.Data()
+    cat("\n\n--- Logical columns ---\n\n")
+    for (logical_column_name in names(object@logical_columns))
+    {
+        column <- object@logical_columns[[logical_column_name]]
+        cat(logical_column_name, ":", "[", column$strategy,"]\n")
+        for (source_column_name in names(column$source_columns)) {
+            cat("\t - ", source_column_name, "\n")
+        }
+    }
 })
 
 ##' This function parses the tree returned by reading the yaml mapping
