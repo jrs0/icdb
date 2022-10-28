@@ -113,6 +113,20 @@ setClass(
         prev = NULL
     )
 )
+
+setClass(
+    "DocLeaf",
+    contains = "Tab",
+    slots = representation(
+        docs = "list",
+        prev = "ANY"
+    ),
+    prototype = prototype(
+        docs = list(),
+        prev = NULL
+    )
+)
+
 ##' Makes an item of type DocNode, suitable for storing in the logical object
 ##' tree. The arguments are a list of item below this level in the tree (children
 ##' of the current node), and the docs is a named list of documentation items
@@ -123,10 +137,18 @@ setClass(
 ##' @param docs Named list of documentation items describing this level
 ##' @return 
 ##' @author 
-DocNode <- function(item_list, docs, prev = NULL)
+DocNode <- function(item_list = list(), docs = list(), prev = NULL)
 {
     new("DocNode", item_list, docs = docs, prev = prev)
 }
+
+DocLeaf <- function(table, docs = list(), prev = NULL)
+{
+    new("DocLeaf", table, docs = docs, prev = prev)
+}
+
+
+
 
 setMethod("docs", "DocNode", function(x)
 {
@@ -148,7 +170,8 @@ setMethod("docs", "DocNode", function(x)
 ##' @param mapping A named list storing a level of the yaml config file
 ##' @return A named list containing the results of parsing the file
 ##' 
-parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL)
+parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL,
+                          prev = NULL)
 {
     if ("databases" %in% names(mapping))
     {
@@ -158,9 +181,8 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         {
             docs <- list()
             docs[[database]] <- mapping$databases[[database]]$docs
-            item_list <- parse_mapping(mapping$databases[[database]])
-            node <- DocNode(, srv),
-                            docs, prev = NULL)
+            item_list <- parse_mapping(mapping$databases[[database]], srv)
+            node <- DocNode(item_list, srv, docs, prev = NULL)
             d[[database]] <- node
         }
         d
@@ -176,9 +198,12 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         {
             docs <- list()
             docs[[table]] <- mapping$databases[[table]]$docs
-            t[[table]] <- DocNode(parse_mapping(mapping$tables[[table]], srv,
-                                                source_database = source_database),
-                                  docs, prev = )
+            node <- DocLeaf(docs = docs)
+            item_list <- parse_mapping(mapping$tables[[table]], srv,
+                                       source_database = source_database,
+                                       prev = node)
+            node@.Data <- item_list
+            t[[table]] <- node            
         }
         t
     }
