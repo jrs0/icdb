@@ -105,10 +105,12 @@ setClass(
     "DocNode",
     contains = "list",
     slots = representation(
-        docs = "list"
+        docs = "list",
+        prev = "ANY"
     ),
     prototype = prototype(
-        docs = list()
+        docs = list(),
+        prev = NULL
     )
 )
 ##' Makes an item of type DocNode, suitable for storing in the logical object
@@ -121,13 +123,16 @@ setClass(
 ##' @param docs Named list of documentation items describing this level
 ##' @return 
 ##' @author 
-DocNode <- function(item_list, docs)
+DocNode <- function(item_list, docs, prev = NULL)
 {
-    new("DocNode", item_list, docs = docs)
+    new("DocNode", item_list, docs = docs, prev = prev)
 }
 
 setMethod("docs", "DocNode", function(x)
 {
+    if (!is.null(x@prev)) {
+        docs(x@prev)
+    }
     cat(paste0(names(x@docs), ": ", x@docs,"\n"))
 })
 
@@ -156,6 +161,9 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
                             docs)
             d[[database]] <- node
         }
+
+        ## This is the top level of the recursive function, so descend once through
+        ## the tree here setting up the documentation previous links
         d
     }
     else if ("tables" %in% names(mapping))
