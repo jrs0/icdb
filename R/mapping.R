@@ -101,7 +101,25 @@ MappedDB <- function(srv, mapping = system.file("extdata", "mapping.yaml", packa
     mdb
 }
 
+setClass(
+    "DocNode",
+    contains = "list",
+    slots = representation(
+        docs = "character"
+    ),
+    prototype = prototype(
+        docs = ""
+    )
+)
 
+DocNode <- function(item_list, docs)
+{
+    new("DocNode", item_list, docs = docs)
+}
+
+setMethod("docs", "DocNode", function(x) {
+    cat(x@docs, "\n")
+})
 
 ##' This function parses the tree returned by reading the yaml mapping
 ##' file, and returns a named list of the contents of the current level
@@ -140,7 +158,14 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
             t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
                                         source_database = source_database)
         }
-        t
+        
+        ## Get the documentation at this level
+        docs = ""
+        if ("docs" %in% names(mapping))
+        {
+            docs = mapping$docs
+        }
+        DocNode(t, docs)
     }
     else if ("columns" %in% names(mapping))
     {

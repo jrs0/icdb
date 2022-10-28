@@ -166,9 +166,9 @@ build_object_tree <- function(con, prefix)
     values
 }
 
-setGeneric("docs", function(tab) standardGeneric("docs"))
-setMethod("docs", "Tab", function(tab) {
-    cat(tab@docs)
+setGeneric("docs", function(x) standardGeneric("docs"))
+setMethod("docs", "Tab", function(x) {
+    cat(x@docs)
 })
 
 ##' Databases class wrapping an SQL server connection
