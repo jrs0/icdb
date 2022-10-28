@@ -13,6 +13,12 @@ databases:
         docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital."
         source_table: "vw_APC_SEM_001"
         columns:
+          nhs_number:
+            docs: "The NHS number identifies the patient. The field is anonymised."
+            source_columns:
+              "AIMTC_Pseudo_NHS": ""
+              "NHSnumber":"This one looks like it is NULL everywhere. Also, this is an INT column"
+            strategy: "coalesce"
           start:
             docs: "The start column is a datetime field that is the time when the episode began."
             source_columns:
