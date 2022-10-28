@@ -18,7 +18,7 @@ databases:
             source_columns:
               "AIMTC_Pseudo_NHS": ""
               "NHSnumber": "This one looks like it is NULL everywhere. Also, this is an INT column"
-            strategy: "coalesce"
+            strategy: "coalesce_exclude_null"
           start:
             docs: "The start column is a datetime field that is the time when the episode began."
             source_columns:

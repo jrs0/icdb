@@ -43,3 +43,19 @@ strategy_coalesce <- function(tbl, name)
     tbl %>% dplyr::mutate(!!name := case_when(!!!cases), .keep = "unused")
 }
 
+##' This is the same as the coalesce strategy, but it also filters out rows
+##' where the coalesced result is null. This is important for logical
+##' columns where a null result would render the entire row meaningless.
+##'
+##' This function excludes all undefined value
+##' 
+##' @title 
+##' @param tbl The tbl to process
+##' @param name The logical column name
+##' @return The tbl after reducing
+strategy_coalesce_exclude_null <- function(tbl, name)
+{
+    tbl %>% strategy_coalesce(name) %>%
+        dplyr::filter(!is.na(!!as.name(name)))
+}
+
