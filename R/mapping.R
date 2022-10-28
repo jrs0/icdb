@@ -121,6 +121,32 @@ setMethod("docs", "DocNode", function(x) {
     cat(x@docs, "\n")
 })
 
+setClass(
+    "MappedTab",
+    contains = "Tab",
+    slots = representation(
+        logical_columns = "list"
+    ),
+    prototype = prototype(
+        logical_columns = list()
+    )
+)
+
+##' Create a mapped table object. This object stores the table itself
+##' (a Tab), along with metadata providing the logical column names,
+##' which underlying physical columns make up these logical columns,
+##' documentation for the columns, and reduce strategies for collapsing
+##' each logical column into one column.
+##'
+##' @title Create a MappedTab object
+##' @param tab The underlying Tab to use
+##' @param logical_columns The columns portion of the parsed yaml config file
+##' @return A new MappedTab object
+MappedTab <- function(tab, logical_columns)
+{
+    new("MappedTab", tab, logical_columns = logical_columns)
+}
+
 ##' This function parses the tree returned by reading the yaml mapping
 ##' file, and returns a named list of the contents of the current level
 ##' passed as the argument. The function is recursive, and will descend
@@ -182,8 +208,9 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
 
         ## Next, create the function which will return the the tbl object
         ## corresponding to this logical table
-        Tab(logical_table_getter(srv, source_database, source_table, mapping$columns),
-            make_table_docs(mapping))
+        tab <- Tab(logical_table_getter(srv, source_database, source_table, mapping$columns),
+                   make_table_docs(mapping))
+        MappedTab(tab, logical_columns = mapping$columns)
     }
     else if ("strategy" %in% names(mapping))
     {
