@@ -105,12 +105,10 @@ setClass(
     "DocNode",
     contains = "list",
     slots = representation(
-        docs = "list",
-        prev = "ANY"
+        docs = "list"
     ),
     prototype = prototype(
-        docs = list(),
-        prev = NULL
+        docs = list()
     )
 )
 ##' Makes an item of type DocNode, suitable for storing in the logical object
@@ -123,17 +121,13 @@ setClass(
 ##' @param docs Named list of documentation items describing this level
 ##' @return 
 ##' @author 
-DocNode <- function(item_list, docs, prev = NULL)
+DocNode <- function(item_list, docs)
 {
-    new("DocNode", item_list, docs = docs, prev = prev)
+    new("DocNode", item_list, docs = docs)
 }
 
 setMethod("docs", "DocNode", function(x)
 {
-    if (!is.null(x@prev))
-    {
-        docs(x@prev)
-    }
     cat(paste0(names(x@docs), ": ", x@docs,"\n"))
 })
 
@@ -157,10 +151,9 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         for (database in names(mapping$databases))
         {
             docs <- list()
-            docs[[database]] <- mapping$databases[[database]]$docs
-            item_list <- parse_mapping(mapping$databases[[database]])
-            node <- DocNode(, srv),
-                            docs, prev = NULL)
+            docs[[database]] <-  mapping$databases[[database]]$docs
+            node <- DocNode(parse_mapping(mapping$databases[[database]], srv),
+                            docs)
             d[[database]] <- node
         }
         d
@@ -174,11 +167,8 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         t <- list()
         for (table in names(mapping$tables))
         {
-            docs <- list()
-            docs[[table]] <- mapping$databases[[table]]$docs
-            t[[table]] <- DocNode(parse_mapping(mapping$tables[[table]], srv,
-                                                source_database = source_database),
-                                  docs, prev = )
+            t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
+                                        source_database = source_database)
         }
         t
     }
