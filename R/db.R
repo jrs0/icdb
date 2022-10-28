@@ -239,7 +239,8 @@ setClass(
 ##' 
 ##' @export
 Databases <- function(data_source_name = NULL,
-                      config = NULL)
+                      config = NULL,
+                      interactive = TRUE)
 {
     ## If the data source name argument was passed, connect using that
     if (!is.null(data_source_name))
@@ -315,6 +316,14 @@ Databases <- function(data_source_name = NULL,
         stop("You must provide a data source name or a config file argument.")
     }
 
+    ## When you get here, the connection is open. Return if interactive mode is
+    ## disabled. If interactive mode is enabled, then move on to the next stage
+    ## which constructs the nested list
+    if (interactive == FALSE)
+    {
+        return(db)
+    }
+    
     ## Most database drivers return the databases and tables as a tree of objects,
     ## via the dbListObjects function. SQL Server does not work like this, so treat
     ## it separately
@@ -361,6 +370,38 @@ Databases <- function(data_source_name = NULL,
     }
         
         db
+}
+
+##' This is the function for obtaining a table in non-interactive Databases mode.
+##' The purpose of this function is to speed up the initial loading of the
+##' Databases object, in an non-interactive environment. However, that means that
+##' it is necessary to recheck the database server for the schema name each
+##' time a table is requested. This does not add too much overhead.
+##'
+##' Currently, this function only supports Microsoft SQL Server
+##' 
+##' @title Get a dplyr::tbl corresponding to a table
+##' @param srv The Databases object containing the server connection
+##' @param database The name of the database
+##' @param table The name of the table
+##' @return The dplyr::tbl (shell) for the table
+##' 
+get_tbl <- function(srv, database, table)
+{
+    res <- srv@connection %>%
+        DBI::dbGetQuery(paste0("SELECT table_schema FROM ",
+                               database,
+                               ".INFORMATION_SCHEMA.TABLES WHERE table_name = '",
+                               table, "'"))
+
+    ## Pick the first schema in the list. This is potentially a bug
+    ## TODO Come back and look at this
+    schema <- res$table_schema[[1]]   
+
+    ## Get the table
+    dplyr::tbl(srv@connection, dbplyr::in_catalog(database,
+                                                  schema,
+                                                  table))    
 }
 
     

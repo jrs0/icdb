@@ -17,7 +17,7 @@ databases:
             docs: "The NHS number identifies the patient. The field is anonymised."
             source_columns:
               "AIMTC_Pseudo_NHS": ""
-              "NHSnumber":"This one looks like it is NULL everywhere. Also, this is an INT column"
+              "NHSnumber": "This one looks like it is NULL everywhere. Also, this is an INT column"
             strategy: "coalesce"
           start:
             docs: "The start column is a datetime field that is the time when the episode began."
@@ -26,7 +26,6 @@ databases:
               "StartDate1": "something"
               "StartTime_Episode": "something"
             strategy: "coalesce"
-
           end:
             docs: "The end column is a datetime field that is the time when the episode finished."
             source_columns:
