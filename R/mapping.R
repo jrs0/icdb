@@ -136,6 +136,18 @@ setMethod("docs", "DocNode", function(x)
     cat(paste0(names(x@docs), ": ", x@docs,"\n"))
 })
 
+##' Recursive function to descend through the logical object tree setting
+##' documentation links
+set_docs_links <- function(tree, prev = NULL)
+{
+    for (node_name in names(tree))
+    {
+        tree[[node_name]]@prev <- prev;
+        tree[[node_name]]@.Data <- set_docs_links(tree[[node_name]], tree)
+    }
+    tree
+}
+
 ##' This function parses the tree returned by reading the yaml mapping
 ##' file, and returns a named list of the contents of the current level
 ##' passed as the argument. The function is recursive, and will descend
@@ -164,7 +176,7 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
 
         ## This is the top level of the recursive function, so descend once through
         ## the tree here setting up the documentation previous links
-        d
+        set_docs_links(d)
     }
     else if ("tables" %in% names(mapping))
     {
