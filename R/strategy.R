@@ -20,25 +20,25 @@
 ##'
 NULL
 
-##' Reduce a logical column by the equivalent strategy, which treats elements
+##' Reduce a logical column by the coalesce strategy, which treats elements
 ##' of the logical column as expressing the same information. A value is placed
 ##' in the logical output column if it exists in at least one of the member
 ##' columns. If two columns contain valid data, the columns are checked for
 ##' equality, and an error is thrown if the columns disagree.
 ##' 
-##' @title Reduce equivalent columns
+##' @title Reduce by coalescing columns
 ##' @param tbl An input dplyr::tbl
 ##' @param name
 ##' @return The tbl after reducing the columns
-strategy_equivalent <- function(tbl, name)
+strategy_coalesce <- function(tbl, name)
 {
     ## Get the member column names
     regx <- paste0(name,"_\\d+")
-    tbl %>% dplyr::select(dplyr::matches(regx)) %>%
-        dplyr::transmute(!!name := case_when(
-                               !is.null(start_1) ~ start_1,
-                               !is.null(start_2) ~ start_2,
-                               !is.null(start_3) ~ start_3
-                           ))    
+    cases <- tbl %>%
+        dplyr::select(dplyr::matches(regx)) %>%
+        colnames() %>%
+        purrr::map(~ rlang::quo(!is.null(!!as.name(.)) ~ !!as.name(.)))
+
+    tbl %>% dplyr::transmute(!!name := case_when(!!!cases)) %>% dplyr::show_query()
 }
 
