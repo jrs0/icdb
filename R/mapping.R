@@ -105,20 +105,30 @@ setClass(
     "DocNode",
     contains = "list",
     slots = representation(
-        docs = "character"
+        docs = "list"
     ),
     prototype = prototype(
-        docs = ""
+        docs = list()
     )
 )
-
+##' Makes an item of type DocNode, suitable for storing in the logical object
+##' tree. The arguments are a list of item below this level in the tree (children
+##' of the current node), and the docs is a named list of documentation items
+##' associated with this level
+##'
+##' @title Make a DocNode object
+##' @param item_list List of objects below this level
+##' @param docs Named list of documentation items describing this level
+##' @return 
+##' @author 
 DocNode <- function(item_list, docs)
 {
     new("DocNode", item_list, docs = docs)
 }
 
-setMethod("docs", "DocNode", function(x) {
-    cat(x@docs, "\n")
+setMethod("docs", "DocNode", function(x)
+{
+    cat(paste0(names(x@docs), ": ", x@docs,"\n"))
 })
 
 ##' This function parses the tree returned by reading the yaml mapping
@@ -140,7 +150,11 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         d <- list()
         for (database in names(mapping$databases))
         {
-            d[[database]] <- parse_mapping(mapping$databases[[database]], srv)
+            docs <- list()
+            docs[[database]] <-  mapping$databases[[database]]$docs
+            node <- DocNode(parse_mapping(mapping$databases[[database]], srv),
+                            docs)
+            d[[database]] <- node
         }
         d
     }
@@ -150,22 +164,13 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         ## database. Record the database name for the next function execution
         ## environment. 
         source_database <- mapping$source_database
-        message("parsing a database")
-        message("source database: ", source_database)
         t <- list()
         for (table in names(mapping$tables))
         {
             t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
                                         source_database = source_database)
         }
-        
-        ## Get the documentation at this level
-        docs = ""
-        if ("docs" %in% names(mapping))
-        {
-            docs = mapping$docs
-        }
-        DocNode(t, docs)
+        t
     }
     else if ("columns" %in% names(mapping))
     {
@@ -182,10 +187,6 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
             source_database <- mapping$source_database
         }
 
-        message("parsing a table")
-        message("source table: ", source_table)
-        message("source database: ", source_database)
-
         ## Next, create the function which will return the the tbl object
         ## corresponding to this logical table
         Tab(logical_table_getter(srv, source_database, source_table, mapping$columns),
@@ -200,7 +201,6 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         ## which are real columns in the database. The logical column also contains
         ## a strategy field, which informs higher levels of the program how the
         ## columns should be reduced to one column.
-        message("Parsing strategy")
 
         ## Get the list of source columns (names are column names, values are
         ## documentation strings)
