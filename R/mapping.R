@@ -154,13 +154,23 @@ MappedTab <- function(tab, logical_columns)
 setGeneric("reduce", function(x) standardGeneric("reduce"))
 setMethod("reduce", "MappedTab", function(x)
 {
-    
+    ## Loop over all the logical columns, reducing by the specified
+    ## strategy
+    tbl <- x()
+    for (logical_column_name in names(x@logical_columns))
+    {
+        column <- x@logical_columns[[logical_column_name]]
+        strategy <- column$strategy
+        tbl <- do.call(paste0("strategy_", strategy),
+                       list(tbl, logical_column_name))
+    }
+    tbl
 })
 
 setMethod("show","MappedTab", function(object)
 {
     cat("--- Mapped table object ---\n\n")
-    ##object@.Data()
+    print(object@.Data())
     cat("\n\n--- Logical columns ---\n\n")
     for (logical_column_name in names(object@logical_columns))
     {

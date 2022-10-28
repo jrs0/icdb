@@ -21,10 +21,11 @@
 NULL
 
 ##' Reduce a logical column by the coalesce strategy, which treats elements
-##' of the logical column as expressing the same information. A value is placed
-##' in the logical output column if it exists in at least one of the member
-##' columns. If two columns contain valid data, the columns are checked for
-##' equality, and an error is thrown if the columns disagree.
+##' of the logical column as expressing the same information. Physical columns
+##' are ordered according to the ordering specified in the yaml file. The value
+##' in the final logical column is selected from the first physical column for
+##' which the value is not NULL. This is the same as the SQL COALESCE function,
+##' which does the same thing.
 ##' 
 ##' @title Reduce by coalescing columns
 ##' @param tbl An input dplyr::tbl
@@ -39,6 +40,6 @@ strategy_coalesce <- function(tbl, name)
         colnames() %>%
         purrr::map(~ rlang::quo(!is.null(!!as.name(.)) ~ !!as.name(.)))
 
-    tbl %>% dplyr::transmute(!!name := case_when(!!!cases)) %>% dplyr::show_query()
+    tbl %>% dplyr::mutate(!!name := case_when(!!!cases), .keep = "unused")
 }
 

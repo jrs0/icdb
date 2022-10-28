@@ -19,7 +19,7 @@ databases:
               "StartDate_ConsultantEpisode": "something"
               "StartDate1": "something"
               "StartTime_Episode": "something"
-            strategy: "equivalent"
+            strategy: "coalesce"
 
           end:
             docs: "The end column is a datetime field that is the time when the episode finished."
@@ -27,7 +27,7 @@ databases:
               "EndDate_ConsultantEpisode": "something"
               "EndDate1": "something"
               "EndTime_Episode": "something"
-            strategy: "equivalent"
+            strategy: "coalesce"
       ae:
         docs: "The A&E HES data"
         source_table: "vw_AE_SEM_001"
