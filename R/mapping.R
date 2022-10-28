@@ -89,8 +89,12 @@ make_table_docs <- function(table)
     str
 }
 
-MappedDB <- function(srv, mapping = system.file("extdata", "mapping.yaml", package="icdb"))
+MappedDB <- function(dsn, mapping = system.file("extdata", "mapping.yaml", package="icdb"))
 {
+    ## Connect to the server
+    srv <- Databases(dsn)
+
+    ## Read the yaml mapping file
     m <- yaml::read_yaml(mapping)
 
     mdb <- new("MappedDB", mapping = m)

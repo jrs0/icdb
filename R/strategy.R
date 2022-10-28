@@ -34,11 +34,11 @@ strategy_equivalent <- function(tbl, name)
 {
     ## Get the member column names
     regx <- paste0(name,"_\\d+")
-    members <- tbl %>% dplyr::select(dplyr::matches(regx)) %>%
-        colnames()
-    
     tbl %>% dplyr::select(dplyr::matches(regx)) %>%
-        dplyr::mutate(!!name := dplyr::coalesce(members))
-
+        dplyr::transmute(!!name := case_when(
+                               !is.null(start_1) ~ start_1,
+                               !is.null(start_2) ~ start_2,
+                               !is.null(start_3) ~ start_3
+                           ))    
 }
 
