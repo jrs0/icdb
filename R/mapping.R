@@ -105,10 +105,12 @@ setClass(
     "DocNode",
     contains = "list",
     slots = representation(
-        docs = "list"
+        docs = "list",
+        prev = "ANY"
     ),
     prototype = prototype(
-        docs = list()
+        docs = list(),
+        prev = NULL
     )
 )
 ##' Makes an item of type DocNode, suitable for storing in the logical object
@@ -121,13 +123,17 @@ setClass(
 ##' @param docs Named list of documentation items describing this level
 ##' @return 
 ##' @author 
-DocNode <- function(item_list, docs)
+DocNode <- function(item_list, docs, prev = NULL)
 {
-    new("DocNode", item_list, docs = docs)
+    new("DocNode", item_list, docs = docs, prev = prev)
 }
 
 setMethod("docs", "DocNode", function(x)
 {
+    if (!is.null(x@prev))
+    {
+        docs(x@prev)
+    }
     cat(paste0(names(x@docs), ": ", x@docs,"\n"))
 })
 
@@ -151,9 +157,10 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         for (database in names(mapping$databases))
         {
             docs <- list()
-            docs[[database]] <-  mapping$databases[[database]]$docs
-            node <- DocNode(parse_mapping(mapping$databases[[database]], srv),
-                            docs)
+            docs[[database]] <- mapping$databases[[database]]$docs
+            item_list <- parse_mapping(mapping$databases[[database]])
+            node <- DocNode(, srv),
+                            docs, prev = NULL)
             d[[database]] <- node
         }
         d
@@ -167,8 +174,11 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         t <- list()
         for (table in names(mapping$tables))
         {
-            t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
-                                        source_database = source_database)
+            docs <- list()
+            docs[[table]] <- mapping$databases[[table]]$docs
+            t[[table]] <- DocNode(parse_mapping(mapping$tables[[table]], srv,
+                                                source_database = source_database),
+                                  docs, prev = )
         }
         t
     }
