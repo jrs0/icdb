@@ -4,5 +4,8 @@ NULL
 
 spells <- function(tbl)
 {
-   tbl %>% head(100) %>% icdb::run()
+    codes <- yaml::read_yaml(system.file("extdata", "acs_codes.yaml", package="icdb"))
+    tbl %>%
+        filter(primary_diagnosis %in% !!codes) %>%
+        dplyr::show_query
 }

@@ -37,7 +37,8 @@ databases:
             docs: "The main diagnosis for this episode? The field is an ICD 10 code."
             source_columns:
               "DiagnosisPrimary_ICD": ""
-            strategy: "coalesce"
+            strategy: "in"
+            
       ae:
         docs: "The A&E HES data"
         source_table: "vw_AE_SEM_001"

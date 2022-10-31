@@ -236,6 +236,8 @@ Here is a list of improvements that need to be made:
 - Need to make a better error message when the user tries to get a
   non-existent table
 - Need to test cache properly
+- Add a way to specify the cache directory location (e.g. on the C drive) in the 
+  use_cache function.
 
 ### Problem reports
 
