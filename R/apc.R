@@ -10,6 +10,6 @@ spells <- function(tbl, start = lubridate::ymd("2021-8-1"), end = lubridate::ymd
                       start >= !!start,
                       start <= !!end) %>%
         tidyr::pivot_wider(names_from=primary_diagnosis, values_from=start) %>%
-        dplyr::show_query()
+        icdb::run()
         
 }
