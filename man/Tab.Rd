@@ -4,7 +4,7 @@
 \alias{Tab}
 \title{Make a new Tab object}
 \usage{
-Tab(table_getter, docs = list())
+Tab(table_getter, docs = "There is no documentation for this object\\n")
 }
 \arguments{
 \item{table_getter}{A function that will return a dplyr::tbl}

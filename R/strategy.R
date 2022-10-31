@@ -8,10 +8,10 @@
 ##' second argument. The function returns a tibble that is the result of applying the reduce operation
 ##' to the given logical column.
 ##'
-##' Before the reduce operation, a logical column consists of N tibble columns, labelled <name>_1,
-##' <name>_2, ..., <name>_N. The <name> is defined in the mapping.yaml file, and the numbers come from
+##' Before the reduce operation, a logical column consists of N tibble columns, labelled {name}_1,
+##' {name}_2, ..., {name}_N. The {name} is defined in the mapping.yaml file, and the numbers come from
 ##' enumerating the physical columns in the order listed in the mapping.yaml file. The result of
-##' applying a strategy is to reduce these columns down to a single column, called <name>, by drawing
+##' applying a strategy is to reduce these columns down to a single column, called {name}, by drawing
 ##' on information provided in each physical column.
 ##'
 ##' The name argument (the second argument to the strategy functions) is not quoted (unlike regular
@@ -29,7 +29,7 @@ NULL
 ##' 
 ##' @title Reduce by coalescing columns
 ##' @param tbl An input dplyr::tbl
-##' @param name
+##' @param name The logical column name 
 ##' @return The tbl after reducing the columns
 strategy_coalesce <- function(tbl, name)
 {
@@ -49,7 +49,7 @@ strategy_coalesce <- function(tbl, name)
 ##'
 ##' This function excludes all undefined value
 ##' 
-##' @title 
+##' @title Reduce by coalescing columns, excluding resulting null values
 ##' @param tbl The tbl to process
 ##' @param name The logical column name
 ##' @return The tbl after reducing
