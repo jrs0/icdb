@@ -26,6 +26,10 @@ NULL
 ##' in the final logical column is selected from the first physical column for
 ##' which the value is not NULL. This is the same as the SQL COALESCE function,
 ##' which does the same thing.
+##'
+##' TODO: consider replacing this function by the built-in coalesce function
+##' which probably works. Secondly, it may be a good idea to put the default
+##' statement of the case when to catch issues (like everything being null).
 ##' 
 ##' @title Reduce by coalescing columns
 ##' @param tbl An input dplyr::tbl
@@ -39,7 +43,6 @@ strategy_coalesce <- function(tbl, name)
         dplyr::select(dplyr::matches(regx)) %>%
         colnames() %>%
         purrr::map(~ rlang::quo(!is.null(!!as.name(.)) ~ !!as.name(.)))
-
     tbl %>% dplyr::mutate(!!name := case_when(!!!cases), .keep = "unused")
 }
 
