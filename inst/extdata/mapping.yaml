@@ -38,7 +38,12 @@ databases:
             source_columns:
               "DiagnosisPrimary_ICD": ""
             strategy: "coalesce"
-            
+          spell_id:
+            docs: "The ID field linking episodes that form part of the same spell (a continuous hospital visit). "
+            source_columns:
+              "PBRspellID": ""
+            strategy: "coalesce"
+              
       ae:
         docs: "The A&E HES data"
         source_table: "vw_AE_SEM_001"
