@@ -36,8 +36,6 @@ get_codes <- function(codes, flat = character())
 spells <- function(tbl)
 {
     codes <- yaml::read_yaml(system.file("extdata", "acs_codes.yaml", package="icdb"))
-    ## tbl %>%
-    ##     filter(primary_diagnosis %in% !!codes) %>%
-    ##     dplyr::show_query()
-    get_codes(codes)
+    tbl %>%
+        dplyr::filter(primary_diagnosis %in% !!get_codes(codes))
 }
