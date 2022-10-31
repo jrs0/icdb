@@ -13,20 +13,19 @@ NULL
 ##' 
 ##' @title Get a flat list of codes
 ##' @param codes The parsed codes definition list of lists
-##' @return A character vector containing the codes 
+##' @return A named character vector containing the codes 
 ##' @author 
-get_codes <- function(codes)
+get_codes <- function(codes, flat = character())
 {
     if ("categories" %in% names(codes))
     {
-        for (category in codes$categories)
-        {
-            get_codes(category)
-        }
+        codes$categories %>%
+            purrr::map(~ get_codes(.)) %>%
+            unlist()
     }
     else if ("code" %in% names(codes))
     {
-        print(codes$code)
+        codes$code
     }
     else
     {
