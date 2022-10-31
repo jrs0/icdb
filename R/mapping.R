@@ -2,15 +2,6 @@
 ##' 
 NULL
 
-APC <- function(table)
-{
-    ## Read the mapping config file
-    mapping <- yaml::read_yaml(system.file("extdata", "mapping.yaml", package = "icdb"))
-
-    
-    table %>% dplyr::select(mapping$apc$episode$start) %>% head(10000) %>% icdb::run()
-}
-
 setClass(
     "MappedDB",
     contains = "list",
@@ -176,6 +167,8 @@ setMethod("show","MappedTab", function(object)
     {
         column <- object@logical_columns[[logical_column_name]]
         cat(logical_column_name, ":", "[", column$strategy,"]\n")
+        cat("\t", column$docs,"\n")
+        cat("\t Underlying columns:\n")
         for (source_column_name in names(column$source_columns)) {
             cat("\t - ", source_column_name, "\n")
         }

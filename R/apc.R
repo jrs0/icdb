@@ -2,7 +2,7 @@
 ##'
 NULL
 
-spells <- function(logical_table)
+spells <- function(tbl)
 {
-    tbl %>% head(100) %>% icdb::run()
+   tbl %>% head(100) %>% icdb::run()
 }
