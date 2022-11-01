@@ -22,6 +22,8 @@ The goal of ICDB is to wrap the dplyr DBI library and make it easier to use NHS 
 
 **This library is not fully developed yet -- expect the interface and other features to change**
 
+*NOTE: If you have been using the library, and you download the latest version, be aware that table names must now be followed with brackets, e.g. srv$dbname$tabname().*
+
 ## Installation
 
 First clone or download this repository. If you use RStudio, open the ICDB project, and install the library as follows:
@@ -49,7 +51,7 @@ To set up the connection:
 
 After setting up a data source name, try executing the code below (replace *XSW* with whatever you used for the data source name):
 
-```{r}
+```{r, eval=FALSE}
 library(icdb)
 ## The next line may take a little while to run, due to the way the library works.
 srv <- Databases("XSW")
@@ -62,8 +64,10 @@ The `srv` object behaves like a list of lists. The first level contains database
 The simplest use of ICDB is inspecting the structure of a table. Do this by running 
 
 ```{r eval=FALSE}
-# Print the structure of the table `tabname' in the database `dbname'
-srv$dbname$tabname
+## Print the structure of the table `tabname' in the database `dbname'
+## You curently need to put brackets after the table name to get the tbl.
+## This may change in future.
+srv$dbname$tabname()
 ```
 
 This expression returns the same tibble that you would get if you had run `dplyr::tbl` on a [DBI database connection](https://solutions.rstudio.com/db/r-packages/dplyr/). This object is not the full table -- it is just a shell object showing what columns and data types the table contains.
@@ -75,14 +79,14 @@ The main advantage of using dplyr (the library that ICDB uses) is that SQL is of
 ```{r eval=FALSE}
 library(tidyverse)
 ## Assumes a database `dbname' contains a table `tabname', which has a numeric column `value'
-srv$dbname$tabname %>% filter(value != 0) %>% select(value) %>% show_query()
+srv$dbname$tabname() %>% filter(value != 0) %>% select(value) %>% show_query()
 ```
 
 To actually run the query, replace `show_query()` with `run()`:
 
 ```{r eval=FALSE}
 # This returns a tibble containing the results of the query
-results <- srv$dbname$tabname %>% filter(value != 0) %>% select(value) %>% run()
+results <- srv$dbname$tabname() %>% filter(value != 0) %>% select(value) %>% run()
 ```
 
 Once you have `results` (a tibble), you can do anything that you would normally do with a tibble (`filter`, `select`, `mutate`, etc.)
@@ -96,14 +100,14 @@ Large queries (those returning a lot of data, or requiring a lot of server-side 
 When a query like
 
 ```{r eval=FALSE}
-results <- srv$dbname$tabname %>% filter(value != 0) %>% select(value) %>% run()
+results <- srv$dbname$tabname() %>% filter(value != 0) %>% select(value) %>% run()
 ```
 
 is run, it may take several minutes to execute. However, the second time it is run, the results are returned instantly. This is because the `run()` function stored the result behind the scenes, in case you need it again soon. 
 
 If you change any aspect of the query that changes the SQL, then the query will be rerun. For example, 
 ```{r eval=FALSE}
-results <- srv$dbname$tabname %>% filter(value != 1) %>% select(value) %>% run()
+results <- srv$dbname$tabname() %>% filter(value != 1) %>% select(value) %>% run()
 ```
 
 will run a new query, because the `filter` condition changed. However, if you go back to the old query, it will still be stored in the cache. The cache is automatically deleted when the R session is closed.
@@ -135,7 +139,6 @@ This is a quick way to make good column names.
 
 ```{r, eval=FALSE}
 tbl %>% rename_with(.fn = janitor::make_clean_names)
-
 ```
 
 ## Library development 
@@ -179,6 +182,6 @@ Here is a list of improvements that need to be made:
 
 This section contains a list of issues people had trying to use the library
 
-- After fresh install, getting an error with dbplyr (no function in_catalog in namespace:dbplyr). The issue was trying to use dbplyr 2.1.1, when icdb requires 2.2.1. Need to specify library versions in DESCRIPTION file).
+- After fresh install, getting an error with dbplyr (no function in_catalog in namespace:dbplyr). The issue was trying to use dbplyr 2.1.1, when icdb requires 2.2.1. Need to specify library versions in DESCRIPTION file). **SOLVED** by adding the dependency version to the DESCRIPTION file.
 
-- After fresh install, getting error "no applicable method for 'tbl' applied to an object of class Microsoft SQL Server". This error may have been caused by a dplyr minor version (1.0.9 -> 1.0.10), but more likely was just an issue with a corrupt Databases object from the old dbplyr version above. Note that tidyverse may encode the versions of its constituent packages.
+- After fresh install, getting error "no applicable method for 'tbl' applied to an object of class Microsoft SQL Server". This error may have been caused by a dplyr minor version (1.0.9 -> 1.0.10), but more likely was just an issue with a corrupt Databases object from the old dbplyr version above. Note that tidyverse may encode the versions of its constituent packages. **SOLVED** for now by reintroducing lazy evaluation of the dplyr::tbl in the object tree for the database. See the comments in the build\_object\_tree() function. This issue needs a bit more thinking about.
