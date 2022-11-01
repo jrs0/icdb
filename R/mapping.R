@@ -265,7 +265,8 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         ## corresponding to this logical table
         tab <- Tab(logical_table_getter(srv, source_database, source_table, mapping$columns),
                    make_table_docs(mapping))
-        MappedTab(tab, logical_columns = mapping$columns)
+        mtab <- MappedTab(tab, logical_columns = mapping$columns)
+        tbl <- mtab %>% icdb::reduce()
     }
     else if ("strategy" %in% names(mapping))
     {
