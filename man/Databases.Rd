@@ -4,7 +4,7 @@
 \alias{Databases}
 \title{Construct a Databases object}
 \usage{
-Databases(data_source_name = NULL, config = NULL)
+Databases(data_source_name = NULL, config = NULL, interactive = TRUE)
 }
 \arguments{
 \item{data_source_name}{The data source name (DSN) for the database.  If
@@ -13,6 +13,9 @@ this argument is provided, it will be preferred to the config file.}
 \item{config}{The absolute path of a configuration file (csv format)
 containing database connection information and credentials. The default
 value is the credential file stored in the inst/ directory.}
+
+\item{interactive}{This parameter specifies whether the list of databases
+and tables is populated.}
 }
 \value{
 A new (S4) Databases object

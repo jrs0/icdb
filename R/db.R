@@ -235,11 +235,15 @@ setClass(
 ##'   containing database connection information and credentials. The default
 ##'   value is the credential file stored in the inst/ directory.
 ##'
+##' @param interactive This parameter specifies whether the list of databases
+##' and tables is populated. 
+##' 
 ##' @return A new (S4) Databases object
 ##' 
 ##' @export
 Databases <- function(data_source_name = NULL,
-                      config = NULL)
+                      config = NULL,
+                      interactive = TRUE)
 {
     ## If the data source name argument was passed, connect using that
     if (!is.null(data_source_name))
@@ -315,6 +319,14 @@ Databases <- function(data_source_name = NULL,
         stop("You must provide a data source name or a config file argument.")
     }
 
+    ## When you get here, the connection is open. Return if interactive mode is
+    ## disabled. If interactive mode is enabled, then move on to the next stage
+    ## which constructs the nested list
+    if (interactive == FALSE)
+    {
+        return(db)
+    }
+    
     ## Most database drivers return the databases and tables as a tree of objects,
     ## via the dbListObjects function. SQL Server does not work like this, so treat
     ## it separately
