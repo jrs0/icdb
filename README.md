@@ -180,9 +180,8 @@ This section contains a cheatsheet of things you can do that work.
 
 This is a quick way to make good column names.
 
-```{r, eval=FALSE}
+``` r
 tbl %>% rename_with(.fn = janitor::make_clean_names)
-
 ```
 
 ## Library development
@@ -236,14 +235,21 @@ Here is a list of improvements that need to be made:
 - Need to make a better error message when the user tries to get a
   non-existent table
 - Need to test cache properly
-- Add a way to specify the cache directory location (e.g. on the C drive) in the 
-  use_cache function.
+- Need to add proper database disconnection code
 
 ### Problem reports
 
-This section contains a list of issues people had trying to use the library
+This section contains a list of issues people had trying to use the
+library
 
-- After fresh install, getting an error with dbplyr (no function in_catalog in namespace:dbplyr). The issue was trying to use dbplyr 2.1.1, when icdb requires 2.2.1. Need to specify library versions in DESCRIPTION file).
+- After fresh install, getting an error with dbplyr (no function
+  in_catalog in namespace:dbplyr). The issue was trying to use dbplyr
+  2.1.1, when icdb requires 2.2.1. Need to specify library versions in
+  DESCRIPTION file).
 
-- After fresh install, getting error "no applicable method for 'tbl' applied to an object of class Microsoft SQL Server". This error may have been caused by a dplyr minor version (1.0.9 -> 1.0.10), but more likely was just an issue with a corrupt Databases object from the old dbplyr version above. Note that tidyverse may encode the versions of its constituent packages.
-
+- After fresh install, getting error “no applicable method for ‘tbl’
+  applied to an object of class Microsoft SQL Server”. This error may
+  have been caused by a dplyr minor version (1.0.9 -\> 1.0.10), but more
+  likely was just an issue with a corrupt Databases object from the old
+  dbplyr version above. Note that tidyverse may encode the versions of
+  its constituent packages.

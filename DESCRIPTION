@@ -10,7 +10,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports: 
     DBI,
-    dbplyr,
+    dbplyr (>= 2.2.1),
     dplyr,
     lubridate,
     magrittr,
