@@ -1,6 +1,6 @@
 Package: icdb
 Title: An R interface for ICB databases
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person("John", "Scott", , "john.scott17@nhs.net", role = c("aut", "cre"))
 Description: Provides a database interface that caches database queries submitted using either SQL or the dplyr database interface.
