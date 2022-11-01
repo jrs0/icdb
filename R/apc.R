@@ -9,7 +9,8 @@ spells <- function(tbl, start = lubridate::ymd("2021-8-1"), end = lubridate::ymd
         dplyr::filter(primary_diagnosis %in% !!get_codes(codes),
                       start >= !!start,
                       start <= !!end) %>%
-        tidyr::pivot_wider(names_from=primary_diagnosis, values_from=start) %>%
-        icdb::run()
-        
+        run() %>%
+        dplyr::group_by(spell_id) %>%
+        summarise(n=n())
+        ## tidyr::pivot_wider(names_from=primary_diagnosis, values_from=start)
 }
