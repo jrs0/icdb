@@ -4,7 +4,7 @@
 \alias{Databases}
 \title{Construct a Databases object}
 \usage{
-Databases(data_source_name = NULL, config = NULL, interactive = TRUE)
+Databases(data_source_name = NULL, config = NULL)
 }
 \arguments{
 \item{data_source_name}{The data source name (DSN) for the database.  If

@@ -13,9 +13,10 @@ NULL
 ##' 
 ##' @title Get a flat list of codes
 ##' @param codes The parsed codes definition list of lists
-##' @return A named character vector containing the codes 
-##' @author 
-get_codes <- function(codes, flat = character())
+##' @return A named character vector containing the codes
+##'
+##' @export
+get_codes <- function(codes)
 {
     if ("categories" %in% names(codes))
     {

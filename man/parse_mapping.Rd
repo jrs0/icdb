@@ -8,6 +8,13 @@ parse_mapping(mapping, srv, source_database = NULL, source_table = NULL)
 }
 \arguments{
 \item{mapping}{A named list storing a level of the yaml config file}
+
+\item{srv}{The Databases object with the underlying connection}
+
+\item{source_database}{The name of the source database for the current
+level}
+
+\item{source_table}{The name of the source table for the current level}
 }
 \value{
 A named list containing the results of parsing the file

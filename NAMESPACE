@@ -3,6 +3,7 @@
 export()
 export(Databases)
 export(clear_cache)
+export(get_codes)
 export(run)
 export(searchCols)
 export(show_cache)

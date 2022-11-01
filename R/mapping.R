@@ -158,6 +158,13 @@ setMethod("reduce", "MappedTab", function(x)
     tbl
 })
 
+##' Print the contents of a mapped table object
+##'
+##' This shows the associated dplyr::tbl and also the logical
+##' column names with documentation
+##'
+##' @title Show a mapped table object.
+##' @param object The object to show
 setMethod("show","MappedTab", function(object)
 {
     cat("--- Mapped table object ---\n\n")
@@ -181,9 +188,12 @@ setMethod("show","MappedTab", function(object)
 ##' through the configuration, generating a tree of documentation,
 ##' database and table information that acts like a logical database.
 ##'
-##' 
 ##' @title Mapping-tree parser
 ##' @param mapping A named list storing a level of the yaml config file
+##' @param srv The Databases object with the underlying connection
+##' @param source_database The name of the source database for the current
+##' level
+##' @param source_table The name of the source table for the current level
 ##' @return A named list containing the results of parsing the file
 ##' 
 parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL)

@@ -22,3 +22,8 @@ in the final logical column is selected from the first physical column for
 which the value is not NULL. This is the same as the SQL COALESCE function,
 which does the same thing.
 }
+\details{
+TODO: consider replacing this function by the built-in coalesce function
+which probably works. Secondly, it may be a good idea to put the default
+statement of the case when to catch issues (like everything being null).
+}
