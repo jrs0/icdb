@@ -156,7 +156,10 @@ MappedTab <- function(tab, logical_columns)
     new("MappedTab", tab, logical_columns = logical_columns)
 }
 
+##' @export
 setGeneric("reduce", function(x) standardGeneric("reduce"))
+
+##' @export
 setMethod("reduce", "MappedTab", function(x)
 {
     ## Loop over all the logical columns, reducing by the specified
