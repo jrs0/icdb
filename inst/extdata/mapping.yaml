@@ -19,15 +19,15 @@ databases:
               "AIMTC_Pseudo_NHS": ""
               "NHSnumber": "This one looks like it is NULL everywhere. Also, this is an INT column"
             strategy: "coalesce_exclude_null"
-          start:
-            docs: "The start column is a datetime field that is the time when the episode began."
+          episode_start:
+            docs: "A datetime field that is the time when the episode began."
             source_columns:
               "StartDate_ConsultantEpisode": "something"
               "StartDate1": "something"
               "StartTime_Episode": "something"
             strategy: "coalesce"
-          end:
-            docs: "The end column is a datetime field that is the time when the episode finished."
+          episode_end:
+            docs: "A datetime field that is the time when the episode finished."
             source_columns:
               "EndDate_ConsultantEpisode": "something"
               "EndDate1": "something"
@@ -42,6 +42,22 @@ databases:
             docs: "The ID field linking episodes that form part of the same spell (a continuous hospital visit). "
             source_columns:
               "PBRspellID": ""
+            strategy: "coalesce"
+          spell_start:
+            docs: "A datetime field that is the time when the associated spell for this episode began."
+            source_columns:
+              "AIMTC_ProviderSpell_Start_Date": ""
+              "StartDate_HospitalProviderSpell": ""
+              "StartTime_HospitalProviderSpell": ""
+            strategy: "coalesce"
+          spell_end:
+            docs: "A datetime field that is the time when the associated spell for this episode ended."
+            source_columns:
+              "AIMTC_ProviderSpell_End_Date": ""
+              "DischargeDate_FromHospitalProviderSpell": ""
+              "DischargeTime_HospitalProviderSpell": ""
+            related_columns:
+              "HospitalProviderSpellDischargeReadyDate": "probably not the end date, but maybe related."
             strategy: "coalesce"
               
       ae:
