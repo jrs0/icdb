@@ -80,6 +80,20 @@ make_table_docs <- function(table)
     str
 }
 
+##' Create a new mapped database object. A mapped database is an object that contains
+##' logical databases, logical tables and logical column names, with documentation.
+##' The structure of the database is defined by a mapping.yaml file, which describes
+##' how to obtain the fields from an underlying data source.
+##'
+##' To make a mapped database, pass the Data Source Name (see Databases documentation)
+##' along with a mapping.yaml file.
+##'
+##' @title Create a mapped databases (logical database object) 
+##' @param dsn Data source name 
+##' @param mapping the path to a mapping.yaml file
+##' @return A new MappedDB object
+##'
+##' @export
 MappedDB <- function(dsn, mapping = system.file("extdata", "mapping.yaml", package="icdb"))
 {
     ## Connect to the server

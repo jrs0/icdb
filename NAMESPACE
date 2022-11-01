@@ -2,6 +2,7 @@
 
 export()
 export(Databases)
+export(MappedDB)
 export(clear_cache)
 export(get_codes)
 export(run)
