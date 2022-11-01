@@ -14,6 +14,84 @@ knitr::opts_chunk$set(
 )
 ```
 
+The first step in using ICDB is connecting to a database server. The ICDB library connects to a server, not a particular database. This makes it possible to use the same connection across different databases on the same server.
+
+ICDB is designed to connect to Microsoft SQL Server, MySQL or SQLite. This page describes how to connect to each type of database. Before executing the code snippets in the sections below, make sure you load the library using:
+
 ```{r setup}
 library(icdb)
 ```
+
+# Connecting to a Microsoft SQL Server
+
+The easiest and most secure way to connect to the database server hosting Microsoft SQL Server is to use the Windows *ODBC Data Sources* application. This application stores a pre-configured connection under a particular name (the *data source name*), which can then be used in R code to connect to the database. By using this type of connection, you do not have to store config files with hard-coded database credentials. 
+
+To set up the connection:
+
+1. Open the *ODBC Data Sources* program
+2. Click *Add* to start adding a new data source
+3. Select the *ODBC Driver 17 for SQL Server*. **Important: do not select the SQL Server driver.** Click *Finish*.
+4. Choose an arbitrary name (e.g. *XSW*) for the connection -- this will be the *data source name*. Add an optional description. In the server field, specify the hostname of the server (see the *Server Name* field when you open *SQL Server Management Studio*)
+5. Step through the other pages of the wizard, leaving all other values as default. At the end, make sure you click *Test Data Source...* to ensure the connection is working. If this step causes errors, make sure they are fixed before moving on. After completing the wizard, the new data source should be listed in the *ODBC Data Sources* program.
+
+After setting up a data source name, try executing the code below (replace *XSW* with whatever you used for the data source name):
+
+```{r, eval=FALSE}
+library(icdb)
+## The next line may take a little while to run, due to the way the library works.
+srv <- Databases("XSW")
+```
+
+The `srv` object behaves like a list of lists. The first level contains databases on the server, and the next level contains tables in that database. Database and table names tab complete (in RStudio and Emacs ESS), to make it easier to find what you are looking for. After running the code above, try typing `srv$` to see the list of database names. Then type `srv$dbname$` to get the list of tables in the database called *dbname*.
+
+
+# Connecting to a MySQL server
+
+You can connect to a MySQL server using a configuration file formatted in [JSON](https://en.wikipedia.org/wiki/JSON). The file must have the following structure:
+
+```{json}
+{
+	"driver":"mysql",
+    "host": "mysql_server_hostname",
+    "user": "test_mysql_user",
+    "password": "Test_User%Password9",
+    "testdata": false
+}
+```
+
+Replace the fields with information specific to your own server, as follows:
+
+- **driver**: This must be set to "mysql" to connect to a MySQL server
+- **host**: The hostname of the MySQL server. This is a name that will resolve to the IP address of the server. If you have a server running locally on your personal computer, then set this field to "localhost".
+- **user**/**password**: You need to specify your username and password credentials for accessing the server. Th
+- **testdata**: You must leave this field as *false*. There is an internal requirement for this field that will be removed in future versions of the library.
+
+Save the contents above in a file, for example *mysql.json*, and put it somewhere accessible from your R script. Then run the following command
+
+```{r, eval=FALSE}
+srv <- Databases(config = "path/to/mysql.json")
+```
+
+Database names and table names should now tab complete on typing srv\$ and srv\$dbname.
+
+TOCHECK: It is also possible to connect to a MySQL server using a data source name, as described in the section above. Make sure you follow through the data source wizard and select the MySQL server driver, and specify any other connection credentials. TODO add more detail here.
+
+# Connecting to an SQLite database file
+
+You can connect to an SQLite database file. Use a configuration file (e.g. *sqlite.json*) with the following structure:
+
+```{json}
+{
+    "driver":"sqlite",
+    "dbname":"path/to/file.db",
+    "testdata": false
+}
+```
+
+Then run the following command to make the connection:
+
+```{r, eval=FALSE}
+srv <- Databases(config = "path/to/mysql.json")
+```
+
+
