@@ -171,7 +171,7 @@ build_object_tree <- function(con, prefix)
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
                                         build_object_tree(con, .x)
                                     } else {
-                                        dplyr::tbl(con, .x)                                        
+                                        make_table_getter(con, .x)
                                     })
 
     ## Bind the labels and values into a named list and return it
@@ -179,6 +179,31 @@ build_object_tree <- function(con, prefix)
 
     ## Return the list
     values
+}
+
+##' Make a function that returns a table getter. The function which
+##' is returned can be called to produce a dplyr::tbl.
+##'
+##' Even though the code uses () to access the table name, this level
+##' of indirection is still necessary because of the bug referenced
+##' in the build_object_tree body -- using a table getter means that
+##' the tbl is only created when the user asks for it, removing some
+##' edge cases with "bad" tables (like COLUMNS_EXTENSIONS in mysql
+##' information_schema, which contains JSON columns).
+##'
+##' @title Make a table getter
+##' @param con The connection to the database
+##' @param id The id (from DBI::dbListObjects) referencing the table
+##' @return A function which, when called, returns a dplyr::tbl
+##' 
+make_table_getter <- function(con, id)
+{
+    force(con)
+    force(id)
+    function()
+    {
+        dplyr::tbl(con, id)
+    }
 }
 
 setGeneric("docs", function(x) standardGeneric("docs"))
