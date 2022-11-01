@@ -22,7 +22,7 @@ The goal of ICDB is to wrap the dplyr DBI library and make it easier to use NHS 
 
 **This library is not fully developed yet -- expect the interface and other features to change**
 
-*NOTE: If you have been using the library, and you download the latest version, be aware that table names must now be followed with brackets, e.g. srv$dbname$tabname().*
+*NOTE: If you have been using the library, and you download the latest version, be aware that table names must now be followed with brackets, e.g. srv\$dbname\$tabname().*
 
 ## Installation
 

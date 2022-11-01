@@ -18,8 +18,7 @@ other features to change**
 
 *NOTE: If you have been using the library, and you download the latest
 version, be aware that table names must now be followed with brackets,
-e.g. srv![dbname](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;dbname
-"dbname")tabname().*
+e.g. srv$dbname$tabname().*
 
 ## Installation
 
