@@ -148,10 +148,25 @@ build_object_tree <- function(con, prefix)
     objs <-con %>%
         DBI::dbListObjects(prefix = prefix) %>%
         tibble::as_tibble()
-
     ## Get the labels of the IDs
     labels <- objs %>% purrr::pmap(~ tail(.x@name,1))
 
+    ## TODO: when parsing mysql information_schema, the table
+    ## COLUMNS_EXTENSIONS contains JSON fields, which are not
+    ## supported by RMariaDB currently (see
+    ## https://www.rapids.science/1.9/common-errors/. See also
+    ## https://bugzilla.redhat.com/show_bug.cgi?id=1546113.
+    ##
+    ## This error has become a problem because of the eager
+    ## evaluation of the dplyr::tbl -- before, it only
+    ## tried to create the tbl when it was requested, which
+    ## meant the error never showed up (because no-one selected
+    ## information_schema.COLUMNS_EXTENSIONS). For now, I think
+    ## going back to this situation is better, and the real
+    ## solution can be left for another time (especially because
+    ## there might not be any solution using DBI).
+    ##
+    
     ## Create the sublists underneath the labels
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
                                         build_object_tree(con, .x)
