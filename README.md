@@ -253,3 +253,10 @@ library
   likely was just an issue with a corrupt Databases object from the old
   dbplyr version above. Note that tidyverse may encode the versions of
   its constituent packages.
+
+- On MAC, attempt to connect to mysql via config file gave an error
+  like: “Error: Unimplemented MAX_NO_FIELD_TYPES”.
+  [https://www.rapids.science/1.9/common-errors/](This%20page) says that
+  the error is due to having a JSON column type in the table, and
+  RMariaDB cannot handle JSON types. However, there did not seem to be
+  any JSON types. Needs further investigation.
