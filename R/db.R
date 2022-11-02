@@ -211,35 +211,35 @@ setMethod("docs", "Tab", function(x) {
     cat(x@docs)
 })
 
-##' Databases class wrapping an SQL server connection
+##' Server class wrapping an SQL server connection
 ##'
 ##' @slot connection Microsoft SQL Server.
-##' @slot config list. Databases connection information as a named list
+##' @slot config list. Server connection information as a named list
 ##' @slot dsn Domain source name (Windows only)
 ##' @slot .Data From the contained list
 ##'
 ##' @export
 setClass(
-    "Databases",
+    "Server",
     contains = "list",
     slots = representation(
-        connection = "DBIConnection",
+        con = "DBIConnection",
         config = "list",
         dsn = "character"
     ),
     prototype = prototype(
-        connection = NULL,
+        con = NULL,
         config = list(),
         dsn = NA_character_
     )
 )
 
-##' Construct a Databases object
+##' Construct a Server object
 ##'
-##' This object manages a database connection. The connection is configured
-##' using either a data source name, or a json file which stores
+##' This object manages a connection to a database server. The connection
+##' is configured using either a data source name, or a json file which stores
 ##' configuration information and credentials. After this function has run
-##' without errors, you should have a new Databases object containing a valid
+##' without errors, you should have a new Server object containing a valid
 ##' connection. The data source is specified by a data source name, which is
 ##' configured using a Windows program. This is the preferred connection method.
 ##'
@@ -281,7 +281,7 @@ setClass(
 ##' @return A new (S4) Databases object
 ##' 
 ##' @export
-Databases <- function(data_source_name = NULL,
+Server <- function(data_source_name = NULL,
                       config = NULL,
                       interactive = TRUE)
 {
@@ -292,7 +292,7 @@ Databases <- function(data_source_name = NULL,
         db <- new(
             "Databases",
             ## Note the bigint argument, see comment below
-            connection = DBI::dbConnect(odbc::odbc(), data_source_name,
+            con = DBI::dbConnect(odbc::odbc(), data_source_name,
                                         bigint = "character"),
             dsn = data_source_name
         )
@@ -352,7 +352,7 @@ Databases <- function(data_source_name = NULL,
         ## Open the database connection
         con <- do.call(DBI::dbConnect, conf_args)
 
-        db <- new("Databases", connection = con, config = conf)
+        db <- new("Databases", con = con, config = conf)
     }
     else
     {
@@ -373,7 +373,7 @@ Databases <- function(data_source_name = NULL,
     if (!is.na(db@dsn) || grepl("SQL Server", conf$driver))
     {
         ## Copy the list of databases into a list, ready to store in the object
-        databases <- db@connection %>%
+        databases <- db@con %>%
             DBI::dbGetQuery("SELECT name FROM master.sys.databases")
         
         ## This is the problem part of the code -- it really needs to store a
@@ -384,7 +384,7 @@ Databases <- function(data_source_name = NULL,
             {
                 ## Get the list of tables associated with this database,
                 ## and their associated schemas
-                tables <- db@connection %>%
+                tables <- db@con %>%
                     DBI::dbGetQuery(paste0("SELECT table_schema,table_name FROM ", d,
                                            ".INFORMATION_SCHEMA.TABLES"))
                 
@@ -431,7 +431,7 @@ Databases <- function(data_source_name = NULL,
 ##' 
 get_tbl <- function(srv, database, table)
 {
-    res <- srv@connection %>%
+    res <- srv@con %>%
         DBI::dbGetQuery(paste0("SELECT table_schema FROM ",
                                database,
                                ".INFORMATION_SCHEMA.TABLES WHERE table_name = '",
@@ -442,9 +442,9 @@ get_tbl <- function(srv, database, table)
     schema <- res$table_schema[[1]]   
 
     ## Get the table
-    dplyr::tbl(srv@connection, dbplyr::in_catalog(database,
-                                                  schema,
-                                                  table))    
+    dplyr::tbl(srv@con, dbplyr::in_catalog(database,
+                                           schema,
+                                           table))    
 }
 
     
@@ -458,33 +458,25 @@ get_tbl <- function(srv, database, table)
 ##' them to persist when the function is called. Read this page and the
 ##' associated environment sections for a full explanation:
 ##' https://adv-r.hadley.nz/function-factories.html
-##'
-##' This function needs a bit of work -- this is only a first draft.
-##' The main issue is hard coding the dbo object, which should really
-##' come from somewhere and is probably going to lead to bugs down the
-##' line. When I find a failure case, it can be fixed here. Currently, the
-##' function just forms the name database.dbo.tabname, which seems to work
-##' fine. However, it would be better to understand what the catalog and
-##' schema really are and make this robust.
-##'
+
 ##' @title Get a function which returns a table object
-##' @param db The database object to use (containing the connection)
+##' @param srv The Server object to use (containing the connection)
 ##' @param database The database name
 ##' @param table_schema The table schema name
 ##' @param table_name The table name
 ##' 
-table_getter <- function(db, database, table_schema, table_name)
+table_getter <- function(srv, database, table_schema, table_name)
 {
+    force(srv)
     force(database)
     force(table_schema)
     force(table_name)
     function()
     {
+        ## Create the reference to the table in the database
+        id <- dbplyr::in_catalog(database, table_schema, table_name)
         ## Get the table shell object
-        dplyr::tbl(db@connection,
-                   dbplyr::in_catalog(database,
-                                      table_schema,
-                                      table_name))
+        dplyr::tbl(srv@con, id)
     }
 }
 
@@ -545,7 +537,7 @@ setMethod("dsn", "Databases", function(x) {
 setGeneric("tables", function(x)
     standardGeneric("tables"))
 setMethod("tables", "Databases", function(x) {
-    DBI::dbListTables(x@connection)
+    DBI::dbListTables(x@con)
 })
 
 ##' Submit an SQL query to a database object
@@ -608,7 +600,7 @@ setMethod("sqlQuery", c("Databases", "character"), function(db, query) {
         ##
         ## See also: https://github.com/r-dbi/odbc/issues/309
         ##
-        res <- DBI::dbSendQuery(db@connection, query)
+        res <- DBI::dbSendQuery(db@con, query)
 
         ## Fetch all results
         df <- DBI::dbFetch(res, n=-1)
@@ -675,7 +667,7 @@ setMethod("show", "Databases", function(object) {
     if (!is.na(object@dsn) || grepl("SQL Server", object@config$driver))
     {
         message("Database connection (Microsoft SQL Server)")
-        message("Databases name: ", object@connection@info$dbname)
+        message("Databases name: ", object@con@info$dbname)
         if (!is.na(object@dsn))
         {
             message("Database server connection via data source name (DSN): ", object@dsn)
@@ -688,7 +680,7 @@ setMethod("show", "Databases", function(object) {
     else
     {
         message("Database connection (Other database)")
-        message("Database: ", object@connection@dbname)
+        message("Database: ", object@con@dbname)
     }
 })
 
