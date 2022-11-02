@@ -140,6 +140,28 @@ build_object_tree <- function(con, prefix)
     values
 }
 
+##' Simple wrapper to print a user error. This class inherits from
+##' function, which means it is expecting to be called. The purpose
+##' of wrapping this in a class is to throw an error in the show
+##' method, to catch the case where a user tries to view a table
+##' by just writing table name without (). Without this, the user
+##' would just get the body of the function, which is not really very
+##' helpful for debugging.
+setClass(
+    "TableGetter",
+    contains = "function",
+    slots = representation(
+        ## Nothing here
+    ),
+    prototype = prototype(
+        ## Nothing here
+    )
+)
+
+setMethod("show", "TableGetter", function(object) {
+    stop("You must use parentheses () after the table name to get the tibble.")
+})
+
 ##' Make a function that returns a table getter. The function which
 ##' is returned can be called to produce a dplyr::tbl.
 ##'
@@ -343,7 +365,9 @@ Server <- function(data_source_name = NULL,
                                            ".INFORMATION_SCHEMA.TABLES"))
                 
                 ## Put the tables in the database
-                db[[d]] <- tables %>% purrr::pmap(~ table_getter(db, d, .x, .y))
+                db[[d]] <- tables %>% purrr::pmap(~ new("TableFn",
+                                                        make_table_getter(db, d, .x, .y))
+                                                  )
                 names(db[[d]]) <- tables$table_name
             },
             error = function(cond)
@@ -418,7 +442,7 @@ get_tbl <- function(srv, database, table)
 ##' @param table_schema The table schema name
 ##' @param table_name The table name
 ##' 
-table_getter <- function(srv, database, table_schema, table_name)
+make_table_getter <- function(srv, database, table_schema, table_name)
 {
     force(srv)
     force(database)
