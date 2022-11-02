@@ -14,25 +14,41 @@
 ##' same seed is guaranteed to produce the same dataset.
 ##' @param nspells The number of spells to include in the dataset
 ##' 
-gen_apc <- function(filename, seed = 1, nspells = 100)
+gen_apc <- function(filename, seed = 1, nspells = 10)
 {
-    set.seed(seed)
-
+    stopifnot(nspells >= 1)
+    
     ## Create the gendata/ folder if it does not exist
     if (!dir.exists("gendata"))
     {
         dir.create("gendata")
     }
 
+    ## Set the seed so that subsequent operations are repeatable
+    set.seed(seed)
+
+    ## Generate the number of episodes for each spell
+    ## Take abs to make positive and add 1 so that >= 1
+    neps <- abs(as.integer(rnorm(nspells, sd=5))) + 1
+
+    ## Generate a random NHS number (not the real format)
+    nhs_numbers <- as.character(as.integer(900000000 + runif(nspells, min=0, max=100000)))
+
+    ## Make the data frame with the episode data
+    df <- tibble::tibble(NHSNnmber = rep(nhs_numbers, neps))
+    
     ## Create the database
     con <- DBI::dbConnect(RSQLite::SQLite(), paste0("gendata/",filename))
 
-    ## Make a table
-    DBI::dbCreateTable(con, name="APC_SYNTH",
-                       fields = c(
-                           Pseudo_NHS_Number = "TEXT"
-                       )
-                       )
+    ## In case the file already exists and the table exists, remove the table
+    if (DBI::dbExistsTable(con, "APC_SYNTH")) {
+        DBI::dbRemoveTable(con, "APC_SYNTH")
+    }
 
+    ## Make a new table from the data frame
+    DBI::dbWriteTable(con, name="APC_SYNTH",
+                       value = df, overwrite = TRUE)
+
+    
     DBI::dbDisconnect(con)
 }
