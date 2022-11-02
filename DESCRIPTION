@@ -17,7 +17,6 @@ Imports:
     methods,
     odbc,
     purrr,
-    qpdf,
     readr,
     rjson,
     rlang,
