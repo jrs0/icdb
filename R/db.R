@@ -55,25 +55,6 @@ use_cache <- cache_fns$use_cache
 ##' Internal function for getting the value of the cache flag
 get_cache_flag <- cache_fns$get_cache_flag
 
-##' Class for wrapping a list of tables
-##'
-##' The only purpose of this at the moment is to allow overloading
-##' the '$' operator for table access. There might be more uses for
-##' it later.
-##' 
-##' @title Tables class 
-setClass(
-    "Tables",
-    contains = "list",
-    slots = representation(
-        # Empty currently
-    ),
-    prototype = prototype(
-        # Empty currently
-    )
-)
-
-
 ##' Class to store just one table. Each of these objects goes
 ##' into a Tables list
 setClass(
@@ -290,7 +271,7 @@ Server <- function(data_source_name = NULL,
     {
         message("Connecting using data source name (DSN): ", data_source_name)
         db <- new(
-            "Databases",
+            "Server",
             ## Note the bigint argument, see comment below
             con = DBI::dbConnect(odbc::odbc(), data_source_name,
                                         bigint = "character"),
@@ -352,7 +333,7 @@ Server <- function(data_source_name = NULL,
         ## Open the database connection
         con <- do.call(DBI::dbConnect, conf_args)
 
-        db <- new("Databases", con = con, config = conf)
+        db <- new("Server", con = con, config = conf)
     }
     else
     {
@@ -503,7 +484,7 @@ setGeneric("searchCols", function(db, col_pattern, tab_pattern)
 ##' @param tab_pattern The pattern to match table names (regexp)
 ##'
 ##' @export 
-setMethod("searchCols", "Databases",
+setMethod("searchCols", "Server",
           function(db, col_pattern, tab_pattern) {
 
               ## Filter table names
@@ -529,17 +510,6 @@ setMethod("searchCols", "Databases",
               }
           })
 
-setGeneric("dsn", function(x) standardGeneric("dsn"))
-setMethod("dsn", "Databases", function(x) {
-    x@dsn
-})
-
-setGeneric("tables", function(x)
-    standardGeneric("tables"))
-setMethod("tables", "Databases", function(x) {
-    DBI::dbListTables(x@con)
-})
-
 ##' Submit an SQL query to a database object
 ##'
 ##' @param db The database to query
@@ -560,7 +530,7 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 ##' @param query The query to submit (character string)
 ##'
 ##' @export
-setMethod("sqlQuery", c("Databases", "character"), function(db, query) {
+setMethod("sqlQuery", c("Server", "character"), function(db, query) {
 
     ## Search for the cached file, if caching is enabled
     result <- NULL
@@ -644,7 +614,7 @@ setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
 ##' @param file The file containing the query to submit
 ##'
 ##' @export
-setMethod("sqlFromFile", c("Databases", "character"), function(db, file) {
+setMethod("sqlFromFile", c("Server", "character"), function(db, file) {
 
     ## Read the query as a string
     str <- readr::read_file(file)
@@ -663,7 +633,7 @@ setMethod("sqlFromFile", c("Databases", "character"), function(db, file) {
 ##' 
 ##' @param object The object to be printed
 ##' @export
-setMethod("show", "Databases", function(object) {
+setMethod("show", "Server", function(object) {
     if (!is.na(object@dsn) || grepl("SQL Server", object@config$driver))
     {
         message("Database connection (Microsoft SQL Server)")

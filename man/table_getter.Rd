@@ -4,10 +4,10 @@
 \alias{table_getter}
 \title{Get a function which returns a table object}
 \usage{
-table_getter(db, database, table_schema, table_name)
+table_getter(srv, database, table_schema, table_name)
 }
 \arguments{
-\item{db}{The database object to use (containing the connection)}
+\item{srv}{The Server object to use (containing the connection)}
 
 \item{database}{The database name}
 
@@ -27,12 +27,4 @@ factory; to capture variables in the enclosing environment and allow
 them to persist when the function is called. Read this page and the
 associated environment sections for a full explanation:
 https://adv-r.hadley.nz/function-factories.html
-
-This function needs a bit of work -- this is only a first draft.
-The main issue is hard coding the dbo object, which should really
-come from somewhere and is probably going to lead to bugs down the
-line. When I find a failure case, it can be fixed here. Currently, the
-function just forms the name database.dbo.tabname, which seems to work
-fine. However, it would be better to understand what the catalog and
-schema really are and make this robust.
 }
