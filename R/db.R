@@ -159,7 +159,7 @@ setClass(
 )
 
 setMethod("show", "TableGetter", function(object) {
-    stop("You must use parentheses () after the table name to get the tibble.")
+    message("You must use parentheses () after the table name to get the tibble.")
 })
 
 ##' Make a function that returns a table getter. The function which
@@ -365,7 +365,9 @@ Server <- function(data_source_name = NULL,
                                            ".INFORMATION_SCHEMA.TABLES"))
                 
                 ## Put the tables in the database
-                db[[d]] <- tables %>% purrr::pmap(~ make_table_getter(db, d, .x, .y))
+                db[[d]] <- tables %>% purrr::pmap(~ new("TableGetter",
+                                                        make_table_getter(db, d, .x, .y))
+                                                  )
                 names(db[[d]]) <- tables$table_name
             },
             error = function(cond)
@@ -373,6 +375,12 @@ Server <- function(data_source_name = NULL,
                 ## Currently, do nothing. This is a quick way to ensure that access problems
                 ## do not break the code.
                 ## TODO  Come back and fix this to read permissions
+                ##
+                ## NOTE TO DEVELOPERS: be aware that this is currently a bit of a gotcha for
+                ## debugging, because this clause will catch any errors, even ones while
+                ## you are developing. Uncomment the line below if something is going wrong
+                ## and you want to see what.
+                ##print(cond)
             }        
             )
         }
