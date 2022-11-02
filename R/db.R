@@ -86,35 +86,6 @@ Tab <- function(table_getter, docs = "There is no documentation for this object\
     new("Tab", table_getter, docs = docs)
 }
 
-##' Class for wrapping a list of tables
-##'
-##' The only purpose of this at the moment is to allow overloading
-##' the '$' operator for table access. There might be more uses for
-##' it later.
-##' 
-##' @title Tables class 
-setClass(
-    "Tables",
-    contains = "list",
-    slots = representation(
-        # Empty currently
-    ),
-    prototype = prototype(
-        # Empty currently
-    )
-)
-
-##' Get a new Tables object, a simple wrapper around a list of
-##' database tables.
-##' 
-##' @title Make a new list of tables
-##' 
-##' @return The new Tables object
-Tables <- function()
-{
-    new("Tables")
-}
-
 ##' Get the tree of accessible objects in the database connection
 ##'
 ##' Objects in a database connection are stored as a tree. At the root of
@@ -389,9 +360,8 @@ Server <- function(data_source_name = NULL,
                                            ".INFORMATION_SCHEMA.TABLES"))
                 
                 ## Put the tables in the database
-                db[[d]] <- Tables()
-                db[[d]]@.Data <- tables %>% purrr::pmap(~ Tab(table_getter(db, d, .x, .y)))
-                names(db[[d]]@.Data) <- tables$table_name
+                db[[d]] <- tables %>% purrr::pmap(~ Tab(table_getter(db, d, .x, .y)))
+                names(db[[d]]) <- tables$table_name
             },
             error = function(cond)
             {
