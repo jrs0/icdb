@@ -165,11 +165,6 @@ make_table_getter <- function(con, id)
     }
 }
 
-setGeneric("docs", function(x) standardGeneric("docs"))
-setMethod("docs", "Tab", function(x) {
-    cat(x@docs)
-})
-
 ##' Server class wrapping an SQL server connection
 ##'
 ##' @slot connection Microsoft SQL Server.
@@ -451,8 +446,8 @@ table_getter <- function(srv, database, table_schema, table_name)
 ##'
 ##' @export
 ##'
-setGeneric("search", function(srv, col_pattern, tab_pattern)
-    standardGeneric("search"))
+setGeneric("grep", function(srv, col_pattern, tab_pattern)
+    standardGeneric("grep"))
 
 ##' Search the tables and columns in a database for partial names
 ##'
@@ -461,7 +456,7 @@ setGeneric("search", function(srv, col_pattern, tab_pattern)
 ##' @param tab_pattern The pattern to match table names (regexp)
 ##'
 ##' @export 
-setMethod("search", "Server",
+setMethod("grep", "Server",
           function(srv, col_pattern, tab_pattern) {
 
               ## Filter table names
