@@ -51,8 +51,18 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
                 count <- count + 1 
             }
         }
+
+        ## Loop over all the logical columns, reducing by the specified
+        ## strategy
+        for (logical_column_name in names(columns))
+        {
+            column <- columns[[logical_column_name]]
+            strategy <- column$strategy
+            tbl <- do.call(paste0("strategy_", strategy),
+                           list(tbl, logical_column_name))
+        }
         
-        MappedTable(tbl, mapping)
+        MappedTable(tbl, mapping) 
     }
 }
 
@@ -204,37 +214,7 @@ print.MappedTable <- function(x,...)
 ## {
 ##     new("MappedTab", tab, logical_columns = logical_columns)
 ## }
-
-## setGeneric("reduce", function(x) standardGeneric("reduce"))
-
-##' Reduce a mapped table object to a tbl with single logical columns
-##'
-##' When a MappedTab is generated, each logical column corresponds to
-##' a set of columns in the tbl. Before the table can be used, these
-##' columns need to be reduced to a single logical column. See the
-##' strategy.R file for more information.
-##' 
-##' @title Reduce a MappedTab
-##' @param x The MappedTab object to reduce
-##' @return A dplyr::tbl with the logical columns in the MappedTab
-## setMethod("reduce", "MappedTab", function(x)
-## {
-##     ## Loop over all the logical columns, reducing by the specified
-##     ## strategy
-##     tbl <- x()
-##     for (logical_column_name in names(x@logical_columns))
-##     {
-##         column <- x@logical_columns[[logical_column_name]]
-##         strategy <- column$strategy
-##         tbl <- do.call(paste0("strategy_", strategy),
-##                        list(tbl, logical_column_name))
-##     }
-##     tbl
-## })
-
-##reduce.Mapped
-
-
+-
 ##' Print the contents of a mapped table object
 ##'
 ##' This shows the associated dplyr::tbl and also the logical
