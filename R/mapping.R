@@ -13,12 +13,15 @@ setClass(
     )    
 )
 
-make_logical_table_getter <- function(srv, source_database, source_table, columns)
+make_mapped_table_getter <- function(srv, source_database, source_table, table)
 {
     force(srv)
     force(source_database)
     force(source_table)
-    force(columns)
+    columns <- table$columns
+    
+    ## Create the table documentation
+    docs <- make_table_docs(table)
     
     function()
     {
@@ -50,7 +53,7 @@ make_logical_table_getter <- function(srv, source_database, source_table, column
         }
 
         
-        tbl
+        MappedTable(tbl, docs)
     }
 }
 
@@ -141,14 +144,23 @@ DocNode <- function(item_list, docs)
 ##     )
 ## )
 
-new_MappedTable <- function(tbl)
+new_MappedTable <- function(tbl, docs)
 {
-    Table(tbl, class="MappedTable")
+    mtab <- Table(tbl, class="MappedTable")
+    attr(mtab, "docs") <- docs
+    mtab
 }
 
-MappedTable <- function(tbl)
+MappedTable <- function(tbl, docs)
 {
-    new_MappedTable(tbl)
+    new_MappedTable(tbl, docs)
+}
+
+##' @export
+print.MappedTable <- function(x,...)
+{
+    cat(attr(x,"docs"))
+    NextMethod()
 }
 
 ##' Create a mapped table object. This object stores the table itself
@@ -282,11 +294,9 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
             source_database <- mapping$source_database
         }
 
-        ## Next, create the function which will return the the tbl object
+        ## Next, create the function which will return the the Mapped object
         ## corresponding to this logical table
-        tab <- TableGetter(make_logical_table_getter(srv, source_database, source_table, mapping$columns))
-        ## mtab <- MappedTable(tab, logical_columns = mapping$columns)
-        ## tbl <- mtab## %>% icdb::reduce()
+        tab <- TableGetter(make_mapped_table_getter(srv, source_database, source_table, mapping))
     }
     else if ("strategy" %in% names(mapping))
     {

@@ -157,16 +157,9 @@ new_Table <- function(tbl, ..., class=character())
 ##' Use constructor -- anything else needed here?
 Table <- function(tbl, ..., class=character())
 {
-    new_Table(tbl, ..., class)
+    new_Table(tbl, ..., class=class)
 }
 
-##' @export
-print.Table <- function(x, ...)
-{
-    cat("Table object containing a tibble: \n")
-    NextMethod()
-    invisible(x)
-}
 
 ##' Simple wrapper to print a user error. This class inherits from
 ##' function, which means it is expecting to be called. The purpose
