@@ -51,7 +51,6 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
                 count <- count + 1 
             }
         }
-
         
         MappedTable(tbl, mapping)
     }
@@ -96,29 +95,7 @@ extract_docs <- function(mapping)
     }
     
     docs
-    
-    ## str <- "\n-- Documentation for logical table object ---\n\n"
-    ## str <- str %>% paste0(table$docs, "\n\n")
-
-    ## ## Document all the logical column names
-    ## str <- str %>% paste0("Documentation for logical column names:\n\n")
-    ## for (logical_column_name in names(table$columns))
-    ## {
-    ##     logical_column <- table$columns[[logical_column_name]]
-    ##     str <- str %>% paste0("\t", logical_column_name, ":\n")
-    ##     str <- str %>% paste0("\t\t", logical_column$docs, ".\n")
-    ##     str <- str %>% paste0("\t\tUnderlying database columns:\n")
-
-    ##     for (real_column_name in names(logical_column$source_columns))
-    ##     {
-    ##         str <- str %>% paste0("\t\t\t", real_column_name, "\n")
-    ##     }
-
-    ##     str <- str %>% paste0("\t\tReduce strategy: ", logical_column$strategy, ".\n")
-
-    ## }
-
-    ## str
+ 
 }
 
 ##' Create a new mapped database object. A mapped database is an object that contains
@@ -179,27 +156,26 @@ MappedTable <- function(tbl, mapping)
     new_MappedTable(tbl, mapping)
 }
 
-print_docs <- function(docs, level = 0)
+print_mapping <- function(mapping, level = 0)
 {
     ## First print the top level summary information
-    cat("--- SUMMARY ---\n")
-    cat(stringr::str_wrap(docs$docs),"\n")
+    cat(crayon::bold("\nSUMMARY\n"))
+    cat(stringr::str_wrap(mapping$docs),"\n")
     
     ## Next, print information about the logical columns
-    cat("--- COLUMNS ---\n")
-    for (logical_column_name in names(docs$columns))
+    cat(crayon::bold("\nMAPPED COLUMNS\n"))
+    for (logical_column_name in names(mapping$columns))
     {
-        logical_column <- docs$columns[[logical_column_name]]
-        cat(logical_column_name, ":\n")
-        cat("\t", logical_column$docs, ".\n")
-        cat("\tUnderlying database columns:\n")
-        
+        logical_column <- mapping$columns[[logical_column_name]]
+        cat(crayon::blue(logical_column_name), "\n")
+        cat(stringr::str_wrap(crayon::bold(logical_column$docs)), "\n")
+        cat("Generated from:\n")
         for (real_column_name in names(logical_column$source_columns))
         {
-            cat("\t\t\t", real_column_name, "\n")
+            cat(paste0(" - ", real_column_name, "\n"))
         }
 
-        cat("\t\tReduce strategy: ", logical_column$strategy, ".\n")
+        cat("Reduce strategy: ", logical_column$strategy, "\n\n")
 
     }
 }
@@ -208,7 +184,9 @@ print_docs <- function(docs, level = 0)
 ##' @export
 print.MappedTable <- function(x,...)
 {
-    print_docs(attr(x,"docs"))
+    print_mapping(attr(x,"mapping"))
+
+    cat(crayon::bold("\nMAPPED TABLE\n"))
     NextMethod()
 }
 
