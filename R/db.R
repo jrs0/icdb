@@ -1,3 +1,22 @@
+## Information for developers:
+##
+## The structure of the Server object is the most important part of this
+## file. The Server is a nested list of list, where each level corresponds
+## to an object in the database (first databases, then tables -- schemas
+## are omitted for now). The innermost list contains functions which
+## return Table objects. These objects inherit from dplyr::tbl, and
+## form the base for other classes that contain additional information.
+##
+## The need to store functions in the nested list is to prevent a
+## potentially large number of SQL queries for large databases, and
+## also to avoid bugs (e.g. mysql) with some of the tables not working
+## with DBI (the backend for this library).
+## 
+##
+##
+
+
+
 ##' @importFrom methods new show
 ##' @importFrom magrittr %>%
 ##' @importFrom utils capture.output tail
@@ -54,37 +73,6 @@ use_cache <- cache_fns$use_cache
 
 ##' Internal function for getting the value of the cache flag
 get_cache_flag <- cache_fns$get_cache_flag
-
-##' Class to store just one table. Each of these objects goes
-##' into a Tables list
-setClass(
-    "Tab",
-    contains = "function",
-    slots = representation(
-        docs = "character"
-    ),
-    prototype = prototype(
-        docs = ""
-    )
-)
-
-##' Create a new Tab object
-##'
-##' The purpose of the Tab object is to store information about a table
-##' in Tables (Tab is used instead of Table to avoid confusion). The
-##' object stores two things: a function to get the table, and a function
-##' to get the documentation for the table.
-##' 
-##' @title Make a new Tab object
-##'
-##' @param table_getter A function that will return a dplyr::tbl
-##' @param docs The docs list associated with the tbl
-##' 
-##' @return The new Tab object
-Tab <- function(table_getter, docs = "There is no documentation for this object\n")
-{
-    new("Tab", table_getter, docs = docs)
-}
 
 ##' Get the tree of accessible objects in the database connection
 ##'
@@ -360,7 +348,7 @@ Server <- function(data_source_name = NULL,
                                            ".INFORMATION_SCHEMA.TABLES"))
                 
                 ## Put the tables in the database
-                db[[d]] <- tables %>% purrr::pmap(~ Tab(table_getter(db, d, .x, .y)))
+                db[[d]] <- tables %>% purrr::pmap(~ table_getter(db, d, .x, .y))
                 names(db[[d]]) <- tables$table_name
             },
             error = function(cond)
@@ -457,14 +445,14 @@ table_getter <- function(srv, database, table_schema, table_name)
 ##' relevant columns in the tables of the database, by partially matching the
 ##' table and column names and printing the results.
 ##'
-##' @param db The Databases object to query
+##' @param srv The Server object to query
 ##' @param col_pattern The pattern to match column names (regexp)
 ##' @param tab_pattern The pattern to match table names (regexp)
 ##'
 ##' @export
 ##'
-setGeneric("searchCols", function(db, col_pattern, tab_pattern)
-    standardGeneric("searchCols"))
+setGeneric("search", function(srv, col_pattern, tab_pattern)
+    standardGeneric("search"))
 
 ##' Search the tables and columns in a database for partial names
 ##'
@@ -473,8 +461,8 @@ setGeneric("searchCols", function(db, col_pattern, tab_pattern)
 ##' @param tab_pattern The pattern to match table names (regexp)
 ##'
 ##' @export 
-setMethod("searchCols", "Server",
-          function(db, col_pattern, tab_pattern) {
+setMethod("search", "Server",
+          function(srv, col_pattern, tab_pattern) {
 
               ## Filter table names
               tab_matches <- grep(tab_pattern, db, value=TRUE)
