@@ -142,21 +142,23 @@ build_object_tree <- function(con, prefix)
 }
 
 
-##' A class inheriting from tibble that will form the base class
-##' for objects returned from databases in the library
-##'
-##' 
-##' 
-setClass(
-    "Table",
-    contains = "tbl",
-    slots = representation(
-        ## Nothing here
-    ),
-    prototype = prototype(
-        ## Nothing here
-    )
-)
+## ##' A class inheriting from tibble that will form the base class
+## ##' for objects returned from databases in the library
+## ##'
+## ##' 
+## ##' 
+## setClass(
+##     "Table",
+##     contains = "tbl",
+##     slots = representation(
+##         ## Nothing here
+##     ),
+##     prototype = prototype(
+##         ## Nothing here
+##     )
+## )
+
+
 
 
 ##' Make a new Table object, which is the basic type used to
@@ -168,9 +170,11 @@ setClass(
 ##' @param tbl The underlying tbl to use
 ##' @return The new Table object
 ##' 
-Table <- function(tbl)
+new_Table <- function(tbl, ..., class=character())
 {
-    new("Table", tbl)
+    structure(tbl,
+              class=c(class, class(tbl), "Table")
+              )
 }
 
 ##' Simple wrapper to print a user error. This class inherits from
