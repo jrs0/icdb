@@ -173,8 +173,20 @@ build_object_tree <- function(con, prefix)
 new_Table <- function(tbl, ..., class=character())
 {
     structure(tbl,
-              class=c(class, class(tbl), "Table")
+              class=c("table", class, class(tbl))
               )
+}
+
+##' Use constructor -- anything else needed here?
+Table <- function(tbl, ..., class=character())
+{
+    new_Table(tbl, ..., class)
+}
+
+print.table <- function(x, ...)
+{
+    cat("A Table object")
+    invisible(x)
 }
 
 ##' Simple wrapper to print a user error. This class inherits from
