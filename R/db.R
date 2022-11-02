@@ -173,7 +173,7 @@ build_object_tree <- function(con, prefix)
 new_Table <- function(tbl, ..., class=character())
 {
     structure(tbl,
-              class=c("table", class, class(tbl))
+              class=c("Table", class, class(tbl))
               )
 }
 
@@ -183,9 +183,10 @@ Table <- function(tbl, ..., class=character())
     new_Table(tbl, ..., class)
 }
 
-print.table <- function(x, ...)
+##' @export
+print.Table <- function(x, ...)
 {
-    cat("A Table object")
+    print("Table object")
     invisible(x)
 }
 

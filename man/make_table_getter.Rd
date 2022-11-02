@@ -2,10 +2,8 @@
 % Please edit documentation in R/db.R
 \name{make_table_getter}
 \alias{make_table_getter}
-\title{Make a table getter}
+\title{Get a function which returns a table object}
 \usage{
-make_table_getter(srv, database, table_schema, table_name)
-
 make_table_getter(srv, database, table_schema, table_name)
 }
 \arguments{
@@ -16,28 +14,12 @@ make_table_getter(srv, database, table_schema, table_name)
 \item{table_schema}{The table schema name}
 
 \item{table_name}{The table name}
-
-\item{con}{The connection to the database}
-
-\item{id}{The id (from DBI::dbListObjects) referencing the table}
-}
-\value{
-A function which, when called, returns a dplyr::tbl
 }
 \description{
 Make a function that returns a table getter. The function which
-is returned can be called to produce a dplyr::tbl.
-
-Function factory returning a function that gets a dplyr::tbl
+is returned can be called to produce a Table object.
 }
 \details{
-Even though the code uses () to access the table name, this level
-of indirection is still necessary because of the bug referenced
-in the build_object_tree body -- using a table getter means that
-the tbl is only created when the user asks for it, removing some
-edge cases with "bad" tables (like COLUMNS_EXTENSIONS in mysql
-information_schema, which contains JSON columns).
-
 This function is the way to associate a function with every table
 object in the db list, and replaces the need to overload \code{$}, while
 also avoiding the problem of storing the table name and database
@@ -46,4 +28,11 @@ factory; to capture variables in the enclosing environment and allow
 them to persist when the function is called. Read this page and the
 associated environment sections for a full explanation:
 https://adv-r.hadley.nz/function-factories.html
+
+Even though the code uses () to access the table name, this level
+of indirection is still necessary because of the bug referenced
+in the build_object_tree body -- using a table getter means that
+the tbl is only created when the user asks for it, removing some
+edge cases with "bad" tables (like COLUMNS_EXTENSIONS in mysql
+information_schema, which contains JSON columns).
 }
