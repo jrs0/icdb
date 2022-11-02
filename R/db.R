@@ -21,6 +21,7 @@
 ##' @importFrom magrittr %>%
 ##' @importFrom utils capture.output tail
 ##' @importClassesFrom DBI DBIConnection
+##' @importClassesFrom dplyr tbl_sql
 ##' @export
 NULL
 
@@ -140,8 +141,12 @@ build_object_tree <- function(con, prefix)
     values
 }
 
+
 ##' A class inheriting from tibble that will form the base class
 ##' for objects returned from databases in the library
+##'
+##' 
+##' 
 setClass(
     "Table",
     contains = "tbl",
@@ -189,7 +194,6 @@ setClass(
 setMethod("show", "TableGetter", function(object) {
     message("You must use parentheses () after the table name to get the tibble.")
 })
-
 
 ##' Server class wrapping an SQL server connection
 ##'
