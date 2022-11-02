@@ -21,7 +21,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
     columns <- table$columns
     
     ## Create the table documentation
-    docs <- extract_docs(table)
+    mapping <- table
     
     function()
     {
@@ -53,7 +53,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
         }
 
         
-        MappedTable(tbl, docs)
+        MappedTable(tbl, mapping)
     }
 }
 
@@ -167,50 +167,43 @@ DocNode <- function(item_list, docs)
     new("DocNode", item_list, docs = docs)
 }
 
-## setMethod("docs", "DocNode", function(x) {
-##     cat(x@docs, "\n")
-## })
-
-## setClass(
-##     "MappedTab",
-##     contains = "Tab",
-##     slots = representation(
-##         logical_columns = "list"
-##     ),
-##     prototype = prototype(
-##         logical_columns = list()
-##     )
-## )
-
-new_MappedTable <- function(tbl, docs)
+new_MappedTable <- function(tbl, mapping)
 {
     mtab <- Table(tbl, class="MappedTable")
-    attr(mtab, "docs") <- docs
+    attr(mtab, "mapping") <- mapping
     mtab
 }
 
-MappedTable <- function(tbl, docs)
+MappedTable <- function(tbl, mapping)
 {
-    new_MappedTable(tbl, docs)
+    new_MappedTable(tbl, mapping)
 }
 
 print_docs <- function(docs, level = 0)
 {
-    for (label in names(docs))
+    ## First print the top level summary information
+    cat("--- SUMMARY ---\n")
+    cat(stringr::str_wrap(docs$docs),"\n")
+    
+    ## Next, print information about the logical columns
+    cat("--- COLUMNS ---\n")
+    for (logical_column_name in names(docs$columns))
     {
-        item <- docs[[label]]
-        cat(rep("\t", level), label,":\n")
-        if (is.list(item))
+        logical_column <- docs$columns[[logical_column_name]]
+        cat(logical_column_name, ":\n")
+        cat("\t", logical_column$docs, ".\n")
+        cat("\tUnderlying database columns:\n")
+        
+        for (real_column_name in names(logical_column$source_columns))
         {
-            print_docs(item, level + 1)
+            cat("\t\t\t", real_column_name, "\n")
         }
-        else
-        {
-            cat(rep("\t", level), stringr::str_wrap(item))
-        }
-        cat("\n")
+
+        cat("\t\tReduce strategy: ", logical_column$strategy, ".\n")
+
     }
 }
+
 
 ##' @export
 print.MappedTable <- function(x,...)
