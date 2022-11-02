@@ -138,15 +138,6 @@ build_object_tree <- function(con, prefix)
     values
 }
 
-##' Make a new Table object, which is the basic type used to
-##' store tables in the library. This function should be
-##' used in the table_getter to give a tibble object back
-##' to the user. 
-##'
-##' @title Make a Table 
-##' @param tbl The underlying tbl to use
-##' @return The new Table object
-##' 
 new_Table <- function(tbl, ..., class=character())
 {
     structure(tbl,
@@ -154,7 +145,17 @@ new_Table <- function(tbl, ..., class=character())
               )
 }
 
-##' Use constructor -- anything else needed here?
+##' Make a new Table object, which is the basic type used to
+##' store tables in the library. This function should be
+##' used in the table_getter to give a tibble object back
+##' to the user. 
+##'
+##' @title Make a Table 
+##' @param tbl The underlying tbl to use
+##' @param ... Further arguments from other constructors
+##' @param class Other classes (used for subclasses)
+##' @return The new Table object
+##' 
 Table <- function(tbl, ..., class=character())
 {
     new_Table(tbl, ..., class=class)
@@ -184,13 +185,17 @@ TableGetter <- function(table_getter)
     new("TableGetter", table_getter)
 }
 
+##' Print a warning if the user tries to view the TableGetter object directly
+##'
+##' @title Print the TableGetter
+##' @param object The TableGetter object
 setMethod("show", "TableGetter", function(object) {
     message("You must use parentheses () after the table name to get the tibble.")
 })
 
 ##' Server class wrapping an SQL server connection
 ##'
-##' @slot connection Microsoft SQL Server.
+##' @slot con Microsoft SQL Server.
 ##' @slot config list. Server connection information as a named list
 ##' @slot dsn Domain source name (Windows only)
 ##' @slot .Data From the contained list
@@ -485,55 +490,6 @@ make_table_getter <- function(srv, database, table_schema, table_name, id = NULL
         Table(tbl)
     }
 }
-
-##' Search the tables and columns in a database for partial names
-##'
-##' Several of the databases are very large, with hundreds of tables each
-##' with hundreds of columns. This function is designed to help with finding
-##' relevant columns in the tables of the database, by partially matching the
-##' table and column names and printing the results.
-##'
-##' @param srv The Server object to query
-##' @param col_pattern The pattern to match column names (regexp)
-##' @param tab_pattern The pattern to match table names (regexp)
-##'
-##' @export
-##'
-setGeneric("grep", function(srv, col_pattern, tab_pattern)
-    standardGeneric("grep"))
-
-##' Search the tables and columns in a database for partial names
-##'
-##' @param db The Databases object to query
-##' @param col_pattern The pattern to match column names (regexp)
-##' @param tab_pattern The pattern to match table names (regexp)
-##'
-##' @export 
-setMethod("grep", "Server",
-          function(srv, col_pattern, tab_pattern) {
-
-              ## Filter table names
-              tab_matches <- grep(tab_pattern, db, value=TRUE)
-
-              for (t in tab_matches) {
-                  tryCatch(
-                      expr = {
-                          tbl <- table(db, t)
-                          names <- colnames(tbl)
-                          col_matches <- grep(col_pattern, names, value=TRUE)
-                          if (length(col_matches) > 0) {
-                              print(paste0("Found these colums in table '", t, "':"))
-                              writeLines(paste0("  ", utils::capture.output(print(col_matches))))
-                              cat("\n")
-                          }
-                      },
-                      error = function(x) {
-                          warning(x)
-                      }
-                  )
-
-              }
-          })
 
 ##' Submit an SQL query to a database object
 ##'
