@@ -21,7 +21,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
     columns <- table$columns
     
     ## Create the table documentation
-    docs <- make_table_docs(table)
+    docs <- extract_docs(table)
     
     function()
     {
@@ -194,11 +194,28 @@ MappedTable <- function(tbl, docs)
     new_MappedTable(tbl, docs)
 }
 
+print_docs <- function(docs, level = 0)
+{
+    for (label in names(docs))
+    {
+        item <- docs[[label]]
+        cat(rep("\t", level), label,":\n")
+        if (is.list(item))
+        {
+            print_docs(item, level + 1)
+        }
+        else
+        {
+            cat(rep("\t", level), stringr::str_wrap(item))
+        }
+        cat("\n")
+    }
+}
+
 ##' @export
 print.MappedTable <- function(x,...)
 {
-    ##cat(stringr::str_wrap(attr(x,"docs")))
-    print(attr(x,"docs"))
+    print_docs(attr(x,"docs"))
     NextMethod()
 }
 
