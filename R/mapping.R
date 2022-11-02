@@ -13,7 +13,7 @@ setClass(
     )    
 )
 
-logical_table_getter <- function(srv, source_database, source_table, columns)
+make_logical_table_getter <- function(srv, source_database, source_table, columns)
 {
     force(srv)
     force(source_database)
@@ -126,20 +126,25 @@ DocNode <- function(item_list, docs)
     new("DocNode", item_list, docs = docs)
 }
 
-setMethod("docs", "DocNode", function(x) {
-    cat(x@docs, "\n")
-})
+## setMethod("docs", "DocNode", function(x) {
+##     cat(x@docs, "\n")
+## })
 
-setClass(
-    "MappedTab",
-    contains = "Tab",
-    slots = representation(
-        logical_columns = "list"
-    ),
-    prototype = prototype(
-        logical_columns = list()
-    )
-)
+## setClass(
+##     "MappedTab",
+##     contains = "Tab",
+##     slots = representation(
+##         logical_columns = "list"
+##     ),
+##     prototype = prototype(
+##         logical_columns = list()
+##     )
+## )
+
+new_MappedTable <- function(tbl)
+{
+    Table(tbl, class="MappedTable")
+}
 
 ##' Create a mapped table object. This object stores the table itself
 ##' (a Tab), along with metadata providing the logical column names,
@@ -151,12 +156,12 @@ setClass(
 ##' @param tab The underlying Tab to use
 ##' @param logical_columns The columns portion of the parsed yaml config file
 ##' @return A new MappedTab object
-MappedTab <- function(tab, logical_columns)
-{
-    new("MappedTab", tab, logical_columns = logical_columns)
-}
+## MappedTab <- function(tab, logical_columns)
+## {
+##     new("MappedTab", tab, logical_columns = logical_columns)
+## }
 
-setGeneric("reduce", function(x) standardGeneric("reduce"))
+## setGeneric("reduce", function(x) standardGeneric("reduce"))
 
 ##' Reduce a mapped table object to a tbl with single logical columns
 ##'
