@@ -67,6 +67,7 @@ setClass(
         docs = ""
     )
 )
+
 ##' Create a new Tab object
 ##'
 ##' The purpose of the Tab object is to store information about a table
@@ -84,6 +85,24 @@ Tab <- function(table_getter, docs = "There is no documentation for this object\
 {
     new("Tab", table_getter, docs = docs)
 }
+
+##' Class for wrapping a list of tables
+##'
+##' The only purpose of this at the moment is to allow overloading
+##' the '$' operator for table access. There might be more uses for
+##' it later.
+##' 
+##' @title Tables class 
+setClass(
+    "Tables",
+    contains = "list",
+    slots = representation(
+        # Empty currently
+    ),
+    prototype = prototype(
+        # Empty currently
+    )
+)
 
 ##' Get a new Tables object, a simple wrapper around a list of
 ##' database tables.
@@ -263,8 +282,8 @@ setClass(
 ##' 
 ##' @export
 Server <- function(data_source_name = NULL,
-                      config = NULL,
-                      interactive = TRUE)
+                   config = NULL,
+                   interactive = TRUE)
 {
     ## If the data source name argument was passed, connect using that
     if (!is.null(data_source_name))
