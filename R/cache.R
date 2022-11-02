@@ -4,7 +4,6 @@
 ##' @export
 NULL
 
-
 ## Currently using an environment to prototype, can change to an R6 class to
 ## make it slightly better. What would be even better is if a global variable
 ## (local to the package) just worked, but that might not be possible.

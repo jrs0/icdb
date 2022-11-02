@@ -22,3 +22,4 @@ test_that("Server connects to sqlite database without errors", {
     srv <- Server(config=system.file("extdata", "sqlite.json", package="icdb"))
     expect_true(DBI::dbIsValid(srv@con))
 })
+

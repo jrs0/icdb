@@ -179,6 +179,7 @@ Here is a list of improvements that need to be made:
 - Need to add proper database disconnection code
 - Should replace the server connection files with YAML not JSON (for consistency with everything else)
 - Replace the testdata flag with proper logic for connecting to an SQLite database.
+- Handle closing the database connection properly.
 
 ### Problem reports
 
