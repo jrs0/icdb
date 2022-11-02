@@ -284,10 +284,9 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
 
         ## Next, create the function which will return the the tbl object
         ## corresponding to this logical table
-        tab <- TableGetter(make_logical_table_getter(srv, source_database, source_table, mapping$columns),
-                           make_table_docs(mapping))
-        mtab <- MappedTable(tab, logical_columns = mapping$columns)
-        tbl <- mtab## %>% icdb::reduce()
+        tab <- TableGetter(make_logical_table_getter(srv, source_database, source_table, mapping$columns))
+        ## mtab <- MappedTable(tab, logical_columns = mapping$columns)
+        ## tbl <- mtab## %>% icdb::reduce()
     }
     else if ("strategy" %in% names(mapping))
     {
