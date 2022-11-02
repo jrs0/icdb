@@ -1,6 +1,6 @@
-##' .. content for \description{} (no empty lines) ..
+##' Generate a synthetic table of admitted patient care
+##' data and save it to an SQLite database file.
 ##'
-##' .. content for \details{} ..
 ##' @title Generate a synthetic admitted patient care database
 ##' @param filename The name of the sqlite database file in which
 ##' to store the resulting database. The file will be placed in a
@@ -48,13 +48,27 @@ gen_apc <- function(filename, seed = 1, nspells = 10)
                "I219", "I222", "I229", "I240", "I248", "I249", "I200")
     diagnosis_col <- sample(icd10, N, replace=TRUE)
 
-    ## Generate random start and end times for each episode, in sequence
-    
+    ## Generate random start and end times for each episode. Episodes
+    ## do not overlap in this example, and each one starts when the previous
+    ## one ends
+    start_date <- lubridate::ymd("2018-1-1")
+    end_date <- lubridate::ymd("2020-1-1")
+    spell_starts <- lubridate::as_datetime( runif(nspells, as.numeric(as.POSIXct(start_date)), as.numeric(as.POSIXct(end_date))))
+    ## ep_durations <- abs(20 + rnorm(5, sd = 300)) %>% lubridate::make_difftime(units="minutes")
+    ## ep_ends <- ep_starts + ep_durations
+
+    ep_starts_col <- rep(spell_starts, neps)
     
     ## Make the data frame with the episode data
-    df <- tibble::tibble(NHSNnmber = nhs_num_col,
+    tbl <- tibble::tibble(NHSNnmber = nhs_num_col,
                          DiagnosisICD = diagnosis_col,
-                         SpellID = spell_id_col)
+                         SpellID = spell_id_col,
+                         EpisodeStartDate = ep_starts_col)
+
+    ## TODO do this properly
+    tbl[,"EpsiodeStartDate"] <- as.character(tbl[["EpisodeStartDate"]])  
+
+    print(tbl)
     
     ## Create the database
     con <- DBI::dbConnect(RSQLite::SQLite(), paste0("gendata/",filename))
@@ -66,7 +80,7 @@ gen_apc <- function(filename, seed = 1, nspells = 10)
 
     ## Make a new table from the data frame
     DBI::dbWriteTable(con, name="APC_SYNTH",
-                       value = df, overwrite = TRUE)
+                       value = tbl, overwrite = TRUE)
 
     
     DBI::dbDisconnect(con)
