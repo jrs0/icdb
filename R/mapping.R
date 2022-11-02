@@ -159,7 +159,7 @@ MappedTable <- function(tbl, docs)
 ##' @export
 print.MappedTable <- function(x,...)
 {
-    cat(attr(x,"docs"))
+    cat(stringr::str_wrap(attr(x,"docs")))
     NextMethod()
 }
 
