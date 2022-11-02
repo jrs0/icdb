@@ -15,13 +15,10 @@
 ##
 ##
 
-
-
 ##' @importFrom methods new show
 ##' @importFrom magrittr %>%
 ##' @importFrom utils capture.output tail
 ##' @importClassesFrom DBI DBIConnection
-##' @importClassesFrom dplyr tbl_sql
 ##' @export
 NULL
 
@@ -186,7 +183,8 @@ Table <- function(tbl, ..., class=character())
 ##' @export
 print.Table <- function(x, ...)
 {
-    print("Table object")
+    cat("Table object\n")
+    NextMethod()
     invisible(x)
 }
 
