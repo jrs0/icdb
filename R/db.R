@@ -138,26 +138,6 @@ build_object_tree <- function(con, prefix)
     values
 }
 
-
-## ##' A class inheriting from tibble that will form the base class
-## ##' for objects returned from databases in the library
-## ##'
-## ##' 
-## ##' 
-## setClass(
-##     "Table",
-##     contains = "tbl",
-##     slots = representation(
-##         ## Nothing here
-##     ),
-##     prototype = prototype(
-##         ## Nothing here
-##     )
-## )
-
-
-
-
 ##' Make a new Table object, which is the basic type used to
 ##' store tables in the library. This function should be
 ##' used in the table_getter to give a tibble object back
@@ -183,7 +163,7 @@ Table <- function(tbl, ..., class=character())
 ##' @export
 print.Table <- function(x, ...)
 {
-    cat("Table object\n")
+    cat("Table object containing a tibble: \n")
     NextMethod()
     invisible(x)
 }
