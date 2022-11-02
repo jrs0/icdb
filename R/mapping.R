@@ -3,7 +3,7 @@
 NULL
 
 setClass(
-    "MappedDB",
+    "MappedSrv",
     contains = "list",
     slots = representation(
         mapping = "list"
@@ -94,15 +94,15 @@ make_table_docs <- function(table)
 ##' @return A new MappedDB object
 ##'
 ##' @export
-MappedDB <- function(dsn, mapping = system.file("extdata", "mapping.yaml", package="icdb"))
+MappedSrv <- function(dsn, mapping = system.file("extdata", "mapping.yaml", package="icdb"))
 {
     ## Connect to the server
-    srv <- Databases(dsn, interactive = FALSE)
+    srv <- Server(dsn, interactive = FALSE)
 
     ## Read the yaml mapping file
     m <- yaml::read_yaml(mapping)
 
-    mdb <- new("MappedDB", mapping = m)
+    mdb <- new("MappedSrv", mapping = m)
 
     ## Write the parsed config file tree to the object
     mdb@.Data <- parse_mapping(m, srv)
@@ -146,6 +146,11 @@ new_MappedTable <- function(tbl)
     Table(tbl, class="MappedTable")
 }
 
+MappedTable <- function(tbl)
+{
+    new_MappedTable(tbl)
+}
+
 ##' Create a mapped table object. This object stores the table itself
 ##' (a Tab), along with metadata providing the logical column names,
 ##' which underlying physical columns make up these logical columns,
@@ -173,20 +178,23 @@ new_MappedTable <- function(tbl)
 ##' @title Reduce a MappedTab
 ##' @param x The MappedTab object to reduce
 ##' @return A dplyr::tbl with the logical columns in the MappedTab
-setMethod("reduce", "MappedTab", function(x)
-{
-    ## Loop over all the logical columns, reducing by the specified
-    ## strategy
-    tbl <- x()
-    for (logical_column_name in names(x@logical_columns))
-    {
-        column <- x@logical_columns[[logical_column_name]]
-        strategy <- column$strategy
-        tbl <- do.call(paste0("strategy_", strategy),
-                       list(tbl, logical_column_name))
-    }
-    tbl
-})
+## setMethod("reduce", "MappedTab", function(x)
+## {
+##     ## Loop over all the logical columns, reducing by the specified
+##     ## strategy
+##     tbl <- x()
+##     for (logical_column_name in names(x@logical_columns))
+##     {
+##         column <- x@logical_columns[[logical_column_name]]
+##         strategy <- column$strategy
+##         tbl <- do.call(paste0("strategy_", strategy),
+##                        list(tbl, logical_column_name))
+##     }
+##     tbl
+## })
+
+##reduce.Mapped
+
 
 ##' Print the contents of a mapped table object
 ##'
@@ -195,22 +203,22 @@ setMethod("reduce", "MappedTab", function(x)
 ##'
 ##' @title Show a mapped table object.
 ##' @param object The object to show
-setMethod("show","MappedTab", function(object)
-{
-    cat("--- Mapped table object ---\n\n")
-    print(object@.Data())
-    cat("\n\n--- Logical columns ---\n\n")
-    for (logical_column_name in names(object@logical_columns))
-    {
-        column <- object@logical_columns[[logical_column_name]]
-        cat(logical_column_name, ":", "[", column$strategy,"]\n")
-        cat("\t", column$docs,"\n")
-        cat("\t Underlying columns:\n")
-        for (source_column_name in names(column$source_columns)) {
-            cat("\t - ", source_column_name, "\n")
-        }
-    }
-})
+## setMethod("show","MappedTab", function(object)
+## {
+##     cat("--- Mapped table object ---\n\n")
+##     print(object@.Data())
+##     cat("\n\n--- Logical columns ---\n\n")
+##     for (logical_column_name in names(object@logical_columns))
+##     {
+##         column <- object@logical_columns[[logical_column_name]]
+##         cat(logical_column_name, ":", "[", column$strategy,"]\n")
+##         cat("\t", column$docs,"\n")
+##         cat("\t Underlying columns:\n")
+##         for (source_column_name in names(column$source_columns)) {
+##             cat("\t - ", source_column_name, "\n")
+##         }
+##     }
+## })
 
 ##' This function parses the tree returned by reading the yaml mapping
 ##' file, and returns a named list of the contents of the current level
@@ -276,10 +284,10 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
 
         ## Next, create the function which will return the the tbl object
         ## corresponding to this logical table
-        tab <- Tab(logical_table_getter(srv, source_database, source_table, mapping$columns),
-                   make_table_docs(mapping))
-        mtab <- MappedTab(tab, logical_columns = mapping$columns)
-        tbl <- mtab %>% icdb::reduce()
+        tab <- TableGetter(make_logical_table_getter(srv, source_database, source_table, mapping$columns),
+                           make_table_docs(mapping))
+        mtab <- MappedTable(tab, logical_columns = mapping$columns)
+        tbl <- mtab## %>% icdb::reduce()
     }
     else if ("strategy" %in% names(mapping))
     {
