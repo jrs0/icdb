@@ -148,15 +148,30 @@ build_object_tree <- function(con, prefix)
     objs <-con %>%
         DBI::dbListObjects(prefix = prefix) %>%
         tibble::as_tibble()
-
     ## Get the labels of the IDs
     labels <- objs %>% purrr::pmap(~ tail(.x@name,1))
 
+    ## TODO: when parsing mysql information_schema, the table
+    ## COLUMNS_EXTENSIONS contains JSON fields, which are not
+    ## supported by RMariaDB currently (see
+    ## https://www.rapids.science/1.9/common-errors/. See also
+    ## https://bugzilla.redhat.com/show_bug.cgi?id=1546113.
+    ##
+    ## This error has become a problem because of the eager
+    ## evaluation of the dplyr::tbl -- before, it only
+    ## tried to create the tbl when it was requested, which
+    ## meant the error never showed up (because no-one selected
+    ## information_schema.COLUMNS_EXTENSIONS). For now, I think
+    ## going back to this situation is better, and the real
+    ## solution can be left for another time (especially because
+    ## there might not be any solution using DBI).
+    ##
+    
     ## Create the sublists underneath the labels
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
                                         build_object_tree(con, .x)
                                     } else {
-                                        dplyr::tbl(con, .x)                                        
+                                        make_table_getter(con, .x)
                                     })
 
     ## Bind the labels and values into a named list and return it
@@ -164,6 +179,31 @@ build_object_tree <- function(con, prefix)
 
     ## Return the list
     values
+}
+
+##' Make a function that returns a table getter. The function which
+##' is returned can be called to produce a dplyr::tbl.
+##'
+##' Even though the code uses () to access the table name, this level
+##' of indirection is still necessary because of the bug referenced
+##' in the build_object_tree body -- using a table getter means that
+##' the tbl is only created when the user asks for it, removing some
+##' edge cases with "bad" tables (like COLUMNS_EXTENSIONS in mysql
+##' information_schema, which contains JSON columns).
+##'
+##' @title Make a table getter
+##' @param con The connection to the database
+##' @param id The id (from DBI::dbListObjects) referencing the table
+##' @return A function which, when called, returns a dplyr::tbl
+##' 
+make_table_getter <- function(con, id)
+{
+    force(con)
+    force(id)
+    function()
+    {
+        dplyr::tbl(con, id)
+    }
 }
 
 setGeneric("docs", function(x) standardGeneric("docs"))

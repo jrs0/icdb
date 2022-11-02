@@ -3,6 +3,7 @@
     "host": "mysql_server_hostname",
     "user": "test_mysql_user",
     "password": "Test_User%Password9",
-    "dbname": "food"
+    "dbname": "food",
+    "testdata": false
 }
 

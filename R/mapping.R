@@ -156,10 +156,18 @@ MappedTab <- function(tab, logical_columns)
     new("MappedTab", tab, logical_columns = logical_columns)
 }
 
-##' @export
 setGeneric("reduce", function(x) standardGeneric("reduce"))
 
-##' @export
+##' Reduce a mapped table object to a tbl with single logical columns
+##'
+##' When a MappedTab is generated, each logical column corresponds to
+##' a set of columns in the tbl. Before the table can be used, these
+##' columns need to be reduced to a single logical column. See the
+##' strategy.R file for more information.
+##' 
+##' @title Reduce a MappedTab
+##' @param x The MappedTab object to reduce
+##' @return A dplyr::tbl with the logical columns in the MappedTab
 setMethod("reduce", "MappedTab", function(x)
 {
     ## Loop over all the logical columns, reducing by the specified

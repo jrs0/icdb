@@ -5,3 +5,7 @@
 .DS_Store
 cache/
 *~
+docs
+inst/doc
+/doc/
+/Meta/

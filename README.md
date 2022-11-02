@@ -15,6 +15,10 @@ to make speed up prototyping and development.
 **This library is not fully developed yet – expect the interface and
 other features to change**
 
+*NOTE: If you have been using the library, and you download the latest
+version, be aware that table names must now be followed with brackets,
+e.g. srv\$dbname\$tabname().*
+
 ## Installation
 
 First clone or download this repository. If you use RStudio, open the
@@ -67,7 +71,6 @@ After setting up a data source name, try executing the code below
 library(icdb)
 ## The next line may take a little while to run, due to the way the library works.
 srv <- Databases("XSW")
-#> Connecting using data source name (DSN): XSW
 ```
 
 The `srv` object behaves like a list of lists. The first level contains
@@ -84,8 +87,10 @@ The simplest use of ICDB is inspecting the structure of a table. Do this
 by running
 
 ``` r
-# Print the structure of the table `tabname' in the database `dbname'
-srv$dbname$tabname
+## Print the structure of the table `tabname' in the database `dbname'
+## You curently need to put brackets after the table name to get the tbl.
+## This may change in future.
+srv$dbname$tabname()
 ```
 
 This expression returns the same tibble that you would get if you had
@@ -107,14 +112,14 @@ dplyr-based query:
 ``` r
 library(tidyverse)
 ## Assumes a database `dbname' contains a table `tabname', which has a numeric column `value'
-srv$dbname$tabname %>% filter(value != 0) %>% select(value) %>% show_query()
+srv$dbname$tabname() %>% filter(value != 0) %>% select(value) %>% show_query()
 ```
 
 To actually run the query, replace `show_query()` with `run()`:
 
 ``` r
 # This returns a tibble containing the results of the query
-results <- srv$dbname$tabname %>% filter(value != 0) %>% select(value) %>% run()
+results <- srv$dbname$tabname() %>% filter(value != 0) %>% select(value) %>% run()
 ```
 
 Once you have `results` (a tibble), you can do anything that you would
@@ -135,7 +140,7 @@ these queries for development purposes.
 When a query like
 
 ``` r
-results <- srv$dbname$tabname %>% filter(value != 0) %>% select(value) %>% run()
+results <- srv$dbname$tabname() %>% filter(value != 0) %>% select(value) %>% run()
 ```
 
 is run, it may take several minutes to execute. However, the second time
@@ -147,7 +152,7 @@ If you change any aspect of the query that changes the SQL, then the
 query will be rerun. For example,
 
 ``` r
-results <- srv$dbname$tabname %>% filter(value != 1) %>% select(value) %>% run()
+results <- srv$dbname$tabname() %>% filter(value != 1) %>% select(value) %>% run()
 ```
 
 will run a new query, because the `filter` condition changed. However,
@@ -236,6 +241,10 @@ Here is a list of improvements that need to be made:
   non-existent table
 - Need to test cache properly
 - Need to add proper database disconnection code
+- Should replace the server connection files with YAML not JSON (for
+  consistency with everything else)
+- Replace the testdata flag with proper logic for connecting to an
+  SQLite database.
 
 ### Problem reports
 
@@ -245,7 +254,8 @@ library
 - After fresh install, getting an error with dbplyr (no function
   in_catalog in namespace:dbplyr). The issue was trying to use dbplyr
   2.1.1, when icdb requires 2.2.1. Need to specify library versions in
-  DESCRIPTION file).
+  DESCRIPTION file). **SOLVED** by adding the dependency version to the
+  DESCRIPTION file.
 
 - After fresh install, getting error “no applicable method for ‘tbl’
   applied to an object of class Microsoft SQL Server”. This error may
@@ -259,4 +269,7 @@ library
   [https://www.rapids.science/1.9/common-errors/](This%20page) says that
   the error is due to having a JSON column type in the table, and
   RMariaDB cannot handle JSON types. However, there did not seem to be
-  any JSON types. Needs further investigation.
+  any JSON types. Needs further investigation. **SOLVED** for now by
+  reintroducing lazy evaluation of the dplyr::tbl in the object tree for
+  the database. See the comments in the build_object_tree() function.
+  This issue needs a bit more thinking about.
