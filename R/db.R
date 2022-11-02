@@ -140,7 +140,8 @@ build_object_tree <- function(con, prefix)
     values
 }
 
-##'
+##' A class inheriting from tibble that will form the base class
+##' for objects returned from databases in the library
 setClass(
     "Table",
     contains = "tbl",
@@ -151,6 +152,21 @@ setClass(
         ## Nothing here
     )
 )
+
+
+##' Make a new Table object, which is the basic type used to
+##' store tables in the library. This function should be
+##' used in the table_getter to give a tibble object back
+##' to the user. 
+##'
+##' @title Make a Table 
+##' @param tbl The underlying tbl to use
+##' @return The new Table object
+##' 
+Table <- function(tbl)
+{
+    new("Table", tbl)
+}
 
 ##' Simple wrapper to print a user error. This class inherits from
 ##' function, which means it is expecting to be called. The purpose
@@ -174,30 +190,6 @@ setMethod("show", "TableGetter", function(object) {
     message("You must use parentheses () after the table name to get the tibble.")
 })
 
-##' Make a function that returns a table getter. The function which
-##' is returned can be called to produce a dplyr::tbl.
-##'
-##' Even though the code uses () to access the table name, this level
-##' of indirection is still necessary because of the bug referenced
-##' in the build_object_tree body -- using a table getter means that
-##' the tbl is only created when the user asks for it, removing some
-##' edge cases with "bad" tables (like COLUMNS_EXTENSIONS in mysql
-##' information_schema, which contains JSON columns).
-##'
-##' @title Make a table getter
-##' @param con The connection to the database
-##' @param id The id (from DBI::dbListObjects) referencing the table
-##' @return A function which, when called, returns a dplyr::tbl
-##' 
-make_table_getter <- function(con, id)
-{
-    force(con)
-    force(id)
-    function()
-    {
-        dplyr::tbl(con, id)
-    }
-}
 
 ##' Server class wrapping an SQL server connection
 ##'
@@ -442,8 +434,9 @@ get_tbl <- function(srv, database, table)
                                            table))    
 }
 
-    
-##' Function factory returning a function that gets a dplyr::tbl 
+
+##' Make a function that returns a table getter. The function which
+##' is returned can be called to produce a Table object.
 ##'
 ##' This function is the way to associate a function with every table
 ##' object in the db list, and replaces the need to overload `$`, while
@@ -454,6 +447,13 @@ get_tbl <- function(srv, database, table)
 ##' associated environment sections for a full explanation:
 ##' https://adv-r.hadley.nz/function-factories.html
 ##'
+##' Even though the code uses () to access the table name, this level
+##' of indirection is still necessary because of the bug referenced
+##' in the build_object_tree body -- using a table getter means that
+##' the tbl is only created when the user asks for it, removing some
+##' edge cases with "bad" tables (like COLUMNS_EXTENSIONS in mysql
+##' information_schema, which contains JSON columns).
+##' 
 ##' @title Get a function which returns a table object
 ##' @param srv The Server object to use (containing the connection)
 ##' @param database The database name
@@ -470,8 +470,12 @@ make_table_getter <- function(srv, database, table_schema, table_name)
     {
         ## Create the reference to the table in the database
         id <- dbplyr::in_catalog(database, table_schema, table_name)
+
         ## Get the table shell object
-        dplyr::tbl(srv@con, id)
+        tbl <- dplyr::tbl(srv@con, id)
+
+        ## Return th Table object wrapping the tbl
+        Table(tbl)
     }
 }
 
