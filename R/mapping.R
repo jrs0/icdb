@@ -57,30 +57,44 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
     }
 }
 
-make_table_docs <- function(table)
+extract_docs <- function(mapping)
 {
-    str <- "\n-- Documentation for logical table object ---\n\n"
-    str <- str %>% paste0(table$docs, "\n\n")
-
-    ## Document all the logical column names
-    str <- str %>% paste0("Documentation for logical column names:\n\n")
-    for (logical_column_name in names(table$columns))
+    fn <- function(level)
     {
-        logical_column <- table$columns[[logical_column_name]]
-        str <- str %>% paste0("\t", logical_column_name, ":\n")
-        str <- str %>% paste0("\t\t", logical_column$docs, ".\n")
-        str <- str %>% paste0("\t\tUnderlying database columns:\n")
-
-        for (real_column_name in names(logical_column$source_columns))
-        {
-            str <- str %>% paste0("\t\t\t", real_column_name, "\n")
-        }
-
-        str <- str %>% paste0("\t\tReduce strategy: ", logical_column$strategy, ".\n")
-
+        
     }
+    
+    mapping <- purrr::map(~ if(.x == "docs")
+                            {
+                                .x
+                            }
+                            else
+                            {
+                                
+                            })
+    
+    ## str <- "\n-- Documentation for logical table object ---\n\n"
+    ## str <- str %>% paste0(table$docs, "\n\n")
 
-    str
+    ## ## Document all the logical column names
+    ## str <- str %>% paste0("Documentation for logical column names:\n\n")
+    ## for (logical_column_name in names(table$columns))
+    ## {
+    ##     logical_column <- table$columns[[logical_column_name]]
+    ##     str <- str %>% paste0("\t", logical_column_name, ":\n")
+    ##     str <- str %>% paste0("\t\t", logical_column$docs, ".\n")
+    ##     str <- str %>% paste0("\t\tUnderlying database columns:\n")
+
+    ##     for (real_column_name in names(logical_column$source_columns))
+    ##     {
+    ##         str <- str %>% paste0("\t\t\t", real_column_name, "\n")
+    ##     }
+
+    ##     str <- str %>% paste0("\t\tReduce strategy: ", logical_column$strategy, ".\n")
+
+    ## }
+
+    ## str
 }
 
 ##' Create a new mapped database object. A mapped database is an object that contains
@@ -159,7 +173,8 @@ MappedTable <- function(tbl, docs)
 ##' @export
 print.MappedTable <- function(x,...)
 {
-    cat(stringr::str_wrap(attr(x,"docs")))
+    ##cat(stringr::str_wrap(attr(x,"docs")))
+    print(attr(x,"docs"))
     NextMethod()
 }
 
