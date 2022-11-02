@@ -4,7 +4,7 @@
 \alias{make_table_getter}
 \title{Get a function which returns a table object}
 \usage{
-make_table_getter(srv, database, table_schema, table_name)
+make_table_getter(srv, database, table_schema, table_name, id = NULL)
 }
 \arguments{
 \item{srv}{The Server object to use (containing the connection)}
@@ -14,6 +14,8 @@ make_table_getter(srv, database, table_schema, table_name)
 \item{table_schema}{The table schema name}
 
 \item{table_name}{The table name}
+
+\item{id}{You can also pass the complete Id, if it is available}
 }
 \description{
 Make a function that returns a table getter. The function which

@@ -128,7 +128,7 @@ build_object_tree <- function(con, prefix)
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
                                         build_object_tree(con, .x)
                                     } else {
-                                        make_table_getter(con, .x)
+                                        make_table_getter(con, id = .x)
                                     })
 
     ## Bind the labels and values into a named list and return it
@@ -454,18 +454,30 @@ get_tbl <- function(srv, database, table)
 ##' @param database The database name
 ##' @param table_schema The table schema name
 ##' @param table_name The table name
+##' @param id You can also pass the complete Id, if it is available
 ##' 
-make_table_getter <- function(srv, database, table_schema, table_name)
+make_table_getter <- function(srv, database, table_schema, table_name, id = NULL)
 {
+    
     force(srv)
-    force(database)
-    force(table_schema)
-    force(table_name)
+    if (is.null(id))
+    {
+        force(database)
+        force(table_schema)
+        force(table_name)
+    }
+    else
+    {
+        force(id)
+    }
     function()
     {
         ## Create the reference to the table in the database
-        id <- dbplyr::in_catalog(database, table_schema, table_name)
-
+        if (is.null(id))
+        {
+            id <- dbplyr::in_catalog(database, table_schema, table_name)
+        }
+        
         ## Get the table shell object
         tbl <- dplyr::tbl(srv@con, id)
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/mapping.R
 \name{parse_mapping}
 \alias{parse_mapping}
-\title{Create a MappedTab object}
+\title{Mapping-tree parser}
 \usage{
 parse_mapping(mapping, srv, source_database = NULL, source_table = NULL)
 }
@@ -15,41 +15,14 @@ parse_mapping(mapping, srv, source_database = NULL, source_table = NULL)
 level}
 
 \item{source_table}{The name of the source table for the current level}
-
-\item{tab}{The underlying Tab to use}
-
-\item{logical_columns}{The columns portion of the parsed yaml config file}
-
-\item{x}{The MappedTab object to reduce}
-
-\item{object}{The object to show
+}
+\value{
+A named list containing the results of parsing the file
+}
+\description{
 This function parses the tree returned by reading the yaml mapping
 file, and returns a named list of the contents of the current level
 passed as the argument. The function is recursive, and will descend
 through the configuration, generating a tree of documentation,
-database and table information that acts like a logical database.}
-}
-\value{
-A new MappedTab object
-Reduce a mapped table object to a tbl with single logical columns
-
-When a MappedTab is generated, each logical column corresponds to
-a set of columns in the tbl. Before the table can be used, these
-columns need to be reduced to a single logical column. See the
-strategy.R file for more information.
-
-A dplyr::tbl with the logical columns in the MappedTab
-Print the contents of a mapped table object
-
-This shows the associated dplyr::tbl and also the logical
-column names with documentation
-
-A named list containing the results of parsing the file
-}
-\description{
-Create a mapped table object. This object stores the table itself
-(a Tab), along with metadata providing the logical column names,
-which underlying physical columns make up these logical columns,
-documentation for the columns, and reduce strategies for collapsing
-each logical column into one column.
+database and table information that acts like a logical database.
 }

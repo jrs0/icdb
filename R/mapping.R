@@ -66,48 +66,6 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
     }
 }
 
-extract_docs <- function(mapping)
-{
-    docs <- list()
-    for (label in names(mapping))
-    {
-        if (label == "source_columns")
-        {
-            ## The contents of the source columns is a set of key
-            ## value pairs where the value is the documentation.
-            ## Treat this is a special case
-            col_docs <- list()
-            for (col_name in names(mapping[[label]]))
-            {
-                col_docs[[col_name]] <- mapping[[label]][[col_name]]
-            }
-            docs[[label]] <- col_docs
-        }
-        if (is.list(mapping[[label]]))
-        {
-            ## Descend into the list and extract documentation
-            ## from it
-            sub_list <- extract_docs(mapping[[label]])
-            if (length(sub_list) > 0)
-            {
-                docs[[label]] <- sub_list
-            }
-        }
-        else if (label == "docs")
-        {
-            ## Store the documentation string in the docs list
-            docs[[label]] = mapping[[label]]
-        }
-        else
-        {
-            ## Drop everything else in the nested list. 
-        }
-    }
-    
-    docs
- 
-}
-
 ##' Create a new mapped database object. A mapped database is an object that contains
 ##' logical databases, logical tables and logical column names, with documentation.
 ##' The structure of the database is defined by a mapping.yaml file, which describes
@@ -136,22 +94,6 @@ MappedSrv <- function(dsn, mapping = system.file("extdata", "mapping.yaml", pack
     mdb@.Data <- parse_mapping(m, srv)
     
     mdb
-}
-
-setClass(
-    "DocNode",
-    contains = "list",
-    slots = representation(
-        docs = "character"
-    ),
-    prototype = prototype(
-        docs = ""
-    )
-)
-
-DocNode <- function(item_list, docs)
-{
-    new("DocNode", item_list, docs = docs)
 }
 
 new_MappedTable <- function(tbl, mapping)
@@ -196,48 +138,9 @@ print.MappedTable <- function(x,...)
 {
     print_mapping(attr(x,"mapping"))
 
-    cat(crayon::bold("\nMAPPED TABLE\n"))
+    cat(crayon::bold("MAPPED TABLE\n"))
     NextMethod()
 }
-
-##' Create a mapped table object. This object stores the table itself
-##' (a Tab), along with metadata providing the logical column names,
-##' which underlying physical columns make up these logical columns,
-##' documentation for the columns, and reduce strategies for collapsing
-##' each logical column into one column.
-##'
-##' @title Create a MappedTab object
-##' @param tab The underlying Tab to use
-##' @param logical_columns The columns portion of the parsed yaml config file
-##' @return A new MappedTab object
-## MappedTab <- function(tab, logical_columns)
-## {
-##     new("MappedTab", tab, logical_columns = logical_columns)
-## }
--
-##' Print the contents of a mapped table object
-##'
-##' This shows the associated dplyr::tbl and also the logical
-##' column names with documentation
-##'
-##' @title Show a mapped table object.
-##' @param object The object to show
-## setMethod("show","MappedTab", function(object)
-## {
-##     cat("--- Mapped table object ---\n\n")
-##     print(object@.Data())
-##     cat("\n\n--- Logical columns ---\n\n")
-##     for (logical_column_name in names(object@logical_columns))
-##     {
-##         column <- object@logical_columns[[logical_column_name]]
-##         cat(logical_column_name, ":", "[", column$strategy,"]\n")
-##         cat("\t", column$docs,"\n")
-##         cat("\t Underlying columns:\n")
-##         for (source_column_name in names(column$source_columns)) {
-##             cat("\t - ", source_column_name, "\n")
-##         }
-##     }
-## })
 
 ##' This function parses the tree returned by reading the yaml mapping
 ##' file, and returns a named list of the contents of the current level
