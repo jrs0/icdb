@@ -31,11 +31,30 @@ gen_apc <- function(filename, seed = 1, nspells = 10)
     ## Take abs to make positive and add 1 so that >= 1
     neps <- abs(as.integer(rnorm(nspells, sd=5))) + 1
 
+    ## Store the length of the table
+    N <- sum(neps)
+    
     ## Generate a random NHS number (not the real format)
     nhs_numbers <- as.character(as.integer(900000000 + runif(nspells, min=0, max=100000)))
 
+    ## Create the NHS number columns
+    nhs_num_col <- rep(nhs_numbers, neps)
+
+    ## Create the spell ID column
+    spell_id_col <- rep(1:nspells, neps)
+    
+    ## Generate the ICD codes (treating each episode as independent)
+    icd10 <- c("I210", "I211", "I212", "I213", "I220", "I221", "I228", "I214", 
+               "I219", "I222", "I229", "I240", "I248", "I249", "I200")
+    diagnosis_col <- sample(icd10, N, replace=TRUE)
+
+    ## Generate random start and end times for each episode, in sequence
+    
+    
     ## Make the data frame with the episode data
-    df <- tibble::tibble(NHSNnmber = rep(nhs_numbers, neps))
+    df <- tibble::tibble(NHSNnmber = nhs_num_col,
+                         DiagnosisICD = diagnosis_col,
+                         SpellID = spell_id_col)
     
     ## Create the database
     con <- DBI::dbConnect(RSQLite::SQLite(), paste0("gendata/",filename))
