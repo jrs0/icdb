@@ -140,6 +140,18 @@ build_object_tree <- function(con, prefix)
     values
 }
 
+##'
+setClass(
+    "Table",
+    contains = "tbl",
+    slots = representation(
+        ## Nothing here
+    ),
+    prototype = prototype(
+        ## Nothing here
+    )
+)
+
 ##' Simple wrapper to print a user error. This class inherits from
 ##' function, which means it is expecting to be called. The purpose
 ##' of wrapping this in a class is to throw an error in the show
@@ -441,7 +453,7 @@ get_tbl <- function(srv, database, table)
 ##' them to persist when the function is called. Read this page and the
 ##' associated environment sections for a full explanation:
 ##' https://adv-r.hadley.nz/function-factories.html
-
+##'
 ##' @title Get a function which returns a table object
 ##' @param srv The Server object to use (containing the connection)
 ##' @param database The database name
