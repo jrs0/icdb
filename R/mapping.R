@@ -59,19 +59,43 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 
 extract_docs <- function(mapping)
 {
-    fn <- function(level)
+    docs <- list()
+    for (label in names(mapping))
     {
-        
+        if (label == "source_columns")
+        {
+            ## The contents of the source columns is a set of key
+            ## value pairs where the value is the documentation.
+            ## Treat this is a special case
+            col_docs <- list()
+            for (col_name in names(mapping[[label]]))
+            {
+                col_docs[[col_name]] <- mapping[[label]][[col_name]]
+            }
+            docs[[label]] <- col_docs
+        }
+        if (is.list(mapping[[label]]))
+        {
+            ## Descend into the list and extract documentation
+            ## from it
+            sub_list <- extract_docs(mapping[[label]])
+            if (length(sub_list) > 0)
+            {
+                docs[[label]] <- sub_list
+            }
+        }
+        else if (label == "docs")
+        {
+            ## Store the documentation string in the docs list
+            docs[[label]] = mapping[[label]]
+        }
+        else
+        {
+            ## Drop everything else in the nested list. 
+        }
     }
     
-    mapping <- purrr::map(~ if(.x == "docs")
-                            {
-                                .x
-                            }
-                            else
-                            {
-                                
-                            })
+    docs
     
     ## str <- "\n-- Documentation for logical table object ---\n\n"
     ## str <- str %>% paste0(table$docs, "\n\n")
