@@ -180,6 +180,7 @@ Here is a list of improvements that need to be made:
 - Should replace the server connection files with YAML not JSON (for consistency with everything else)
 - Replace the testdata flag with proper logic for connecting to an SQLite database.
 - Handle closing the database connection properly.
+- Probably better to use the syntax table(srv$$dbname$tabname) instead of srv$dbname$tabname(). Then you could do srv$dbname$tabname %>% get_table(). Also, maybe there is a way to implement the non-parentheses methods even when there is a nested list -- if the \$ method could be made to check for a list, and do something different for a function.
 
 ### Problem reports
 
