@@ -20,9 +20,25 @@ get_codes <- function(codes)
 {
     if ("categories" %in% names(codes))
     {
-        codes$categories %>%
-            purrr::map(~ get_codes(.)) %>%
-            unlist()
+        code_list <- codes$categories %>%
+            purrr::map(~ get_codes(.))
+
+        code_list
+
+        parse <- function(code_list, prefix = "")
+        {
+            if (is.list(code_list))
+            {
+                for (name in names(code_list))
+                {
+                    full <- paste0(prefix, ".", name) 
+                }
+            }
+            else
+            {
+
+            }
+        }
     }
     else if ("code" %in% names(codes))
     {
