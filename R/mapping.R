@@ -180,14 +180,8 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
             t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
                                         source_database = source_database)
         }
-        
-        ## Get the documentation at this level
-        docs = ""
-        if ("docs" %in% names(mapping))
-        {
-            docs = mapping$docs
-        }
-        DocNode(t, docs)
+        ## Return the list of tables
+        t
     }
     else if ("columns" %in% names(mapping))
     {
