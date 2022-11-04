@@ -80,9 +80,12 @@ strategy_codes_from <- function(tbl, name, codes_file)
     ## Parse the codes file
     codes <- parse_codes(codes_yaml)
 
+    ## Generate the codes map
+    code_map <- gen_code_map(codes)
+
     ## Generate the filter and casewhen statements
-    cases <- gen_casewhen(codes, name)
-    flt <- gen_filter(codes, name)
+    cases <- gen_casewhen(code_map, name)
+    flt <- gen_filter(code_map, name)
     
     ## Perform the selection and filtering operation on the column
     tbl %>% dplyr::filter(!!!flt) %>%
