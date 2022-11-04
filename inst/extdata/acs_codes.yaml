@@ -45,8 +45,7 @@ categories:
                 code: "I214"
               unspecified:
                 docs: "Unspecified myocardial infarction (but assumed to be NSTEMI?)"
-                code: ["I219", "I21.9"]
-
+                code: "(I219|I21.9)"
               subsequent:           
                 docs: "Occuring within four weeks of another myocardial infarction"
                 categories: 

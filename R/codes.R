@@ -16,29 +16,17 @@ NULL
 ##' @return A named character vector containing the codes
 ##'
 ##' @export
-get_codes <- function(codes, prefix = "")
+get_codes <- function(codes)
 {
-    result = list()
     if ("categories" %in% names(codes))
     {
-        sub <- codes$categories
-        for (name in names(sub))
-        {
-            ## This returns a list of the codes
-            ## at this level. Prepend all the names
-            ## with the prefix for this level
-            sub_result <- get_codes(sub[[name]], name)
-            
-            print(name)
-            
-            result <- c(result, sub_result)
-        }
-        print(sub)
-        stop()
+        codes$categories %>%
+            purrr::map(~ get_codes(.)) %>%
+            unlist()
     }
     else if ("code" %in% names(codes))
     {
-        res <- codes$code
+        codes$code
     }
     else
     {
