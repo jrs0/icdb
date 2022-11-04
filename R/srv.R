@@ -210,7 +210,8 @@ print.Node <- function(x, ...)
     }
     else if (class(obj) == "TableWrapper")
     {
-        ## Call the object, which 
+        ## Call the object, which returns a table, and
+        ## return the result
         obj()
     }
     else
@@ -444,7 +445,12 @@ Server <- function(data_source_name = NULL,
                                            ".INFORMATION_SCHEMA.TABLES"))
                 
                 ## Put the tables in the database
-                db[[d]] <- tables %>% purrr::pmap(~ TableGetter(make_table_getter(db, d, .x, .y)))
+                
+                
+                db[[d]] <- tables %>%
+                    purrr::pmap(~ TableWrapper(make_table_getter(db, d, .x, .y))) %>%
+                    Node()
+                
                 names(db[[d]]) <- tables$table_name
             },
             error = function(cond)
