@@ -232,41 +232,6 @@ TableWrapper <- function(table_getter)
 }
 
 
-
-## ##' Simple wrapper to print a user error. This class inherits from
-## ##' function, which means it is expecting to be called. The purpose
-## ##' of wrapping this in a class is to throw an error in the show
-## ##' method, to catch the case where a user tries to view a table
-## ##' by just writing table name without (). Without this, the user
-## ##' would just get the body of the function, which is not really very
-## ##' helpful for debugging.
-## setClass(
-##     "TableGetter",
-##     contains = "function",
-##     slots = representation(
-##         ## Nothing here
-##     ),
-##     prototype = prototype(
-##         ## Nothing here
-##     )
-## )
-
-## TableGetter <- function(table_getter)
-## {
-##     new("TableGetter", table_getter)
-## }
-
-## ##' Print a warning if the user tries to view the TableGetter object directly
-## ##'
-## ##' @title Print the TableGetter
-## ##' @param object The TableGetter object
-## setMethod("show", "TableGetter", function(object) {
-##     message("You must use parentheses () after the table name to get the tibble.")
-## })
-
-
-
-
 ##' Server class wrapping an SQL server connection
 ##'
 ##' @slot con Microsoft SQL Server.
