@@ -42,13 +42,13 @@ parse_codes <- function(codes)
 ##' @param y The parsed list (from parse_codes) to generate the mapping from
 ##' @return 
 ##' @author 
-gen_casewhen <- function(y)
+gen_casewhen <- function(y, colname)
 {
     ## Generate the case-when
     m <- setNames(names(y), y)
     m %>%
         list(names(m),m) %>%
-        purrr::pmap(~ rlang::quo(!!as.name(.y) ~ !!as.name(.x))) %>%
+        purrr::pmap(~ rlang::quo(grepl(!!.y, !!as.name(colname)) ~ !!as.name(.x))) %>%
         unname()
 }
 

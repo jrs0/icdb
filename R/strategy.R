@@ -81,9 +81,9 @@ strategy_codes_from <- function(tbl, name, codes_file)
     codes <- parse_codes(codes_yaml)
 
     ## Generate the filter and casewhen statements
-    cases <- gen_casewhen(codes)
+    cases <- gen_casewhen(codes, name)
     flt <- gen_filter(codes, name)
-
+    
     ## Perform the selection and filtering operation on the column
     tbl %>% dplyr::filter(!!!flt) %>%
         dplyr::mutate(!!name := case_when(!!!cases), .keep = "unused") %>%
