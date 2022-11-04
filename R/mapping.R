@@ -196,7 +196,7 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
                                         source_database = source_database)
         }
         ## Return the list of tables
-        t
+        Node(t)
     }
     else if ("columns" %in% names(mapping))
     {
@@ -215,7 +215,7 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
 
         ## Next, create the function which will return the the Mapped object
         ## corresponding to this logical table
-        tab <- TableGetter(make_mapped_table_getter(srv, source_database, source_table, mapping))
+        tab <- TableWrapper(make_mapped_table_getter(srv, source_database, source_table, mapping))
     }
     else if ("strategy" %in% names(mapping))
     {
