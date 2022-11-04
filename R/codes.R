@@ -107,11 +107,11 @@ gen_casewhen <- function(code_map, colname)
         unname()
 }
 
-gen_filter <- function(y,colname)
+gen_filter <- function(code_map,colname)
 {
     ## Generate the filter
-    y %>%
-        purrr::map(~ rlang::quo(!!as.name(colname) %regex% !!.)) %>%
+    names(code_map) %>%
+        purrr::map(~ rlang::quo(!!as.name(colname) %like% !!.)) %>%
         unname()
     
 }
