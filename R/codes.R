@@ -55,7 +55,7 @@ gen_filter <- function(y,colname)
 {
     ## Generate the filter
     y %>%
-        purrr::map(~ rlang::quo(!!as.name(colname) %like% !!.)) %>%
+        purrr::map(~ rlang::quo(!!as.name(colname) %regexp% !!.)) %>%
         unname()
     
 }
