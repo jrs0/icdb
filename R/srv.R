@@ -202,8 +202,35 @@ print.Node <- function(x, ...)
 ##' @export
 `$.Node` <- function(x,i)
 {
-    NextMethod()
+    obj <- NextMethod()
+    if (class(obj) == "Node")
+    {
+        ## Return for printing or otherwise
+        obj
+    }
+    else if (class(obj) == "TableWrapper")
+    {
+        ## Call the object, which 
+        obj()
+    }
+    else
+    {
+        stop("Unexpected object class in Node while calling `$`")
+    }
 }
+
+
+new_TableWrapper <- function(table_getter)
+{
+    structure(table_getter, class = "TableWrapper")
+}
+
+TableWrapper <- function(table_getter)
+{
+    new_TableWrapper(table_getter)
+}
+
+
 
 ## ##' Simple wrapper to print a user error. This class inherits from
 ## ##' function, which means it is expecting to be called. The purpose
