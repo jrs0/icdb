@@ -380,8 +380,7 @@ Server <- function(data_source_name = NULL,
                 ## do not break the code.
                 ## TODO  Come back and fix this to read permissions
                 ##
-                ## NOTE TO DEVELOPERS: be aware that this is currently a bit of a gotcha for
-                ## debugging, because this clause will catch any errors, even ones while
+                ## NOTE TO DEVELOPERS: this clause will catch any errors, even ones while
                 ## you are developing. Uncomment the line below if something is going wrong
                 ## and you want to see what.
                 ##print(cond)
