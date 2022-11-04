@@ -21,62 +21,16 @@ get_codes <- function(codes, result = list())
     if ("categories" %in% names(codes))
     {
 
-        
-        ## Descend all the way to the leaf nodes and
-        ## then process recursion in return values. Sub
-        ## is a list of lists, one for each 
-        sub <- codes$categories %>%
+        res <- codes$categories %>%
             purrr::map(~ get_codes(., result))
-
-        print(sub)
-        stop("ASd")
-        
-        ## Assume sub is a named list. Go through it
-        ## prepending the names at this level to the
-        ## names in the list
-        names(sub) %>% purrr::map(paste0(names(codes$categories,
-                                               ".", names(sub))))
-
-        ## Append the current result for this level
-        
-                                  
-                                  
-        
-        ## for (name in names(code_list))
-        ## {
-            
-        ## }
-        
-
-        ## ## This function generates a list where each name
-        ## ## is a dot separated string with the labels in the
-        ## ## yaml file (for each code), and the values are
-        ## ## list of ICD10 codes corresponding to that level.
-        ## parse <- function(code_list, prefix = "")
-        ## {
-        ##     if (is.list(code_list))
-        ##     {
-        ##         ## Then generate names 
-        ##         for (name in names(code_list))
-        ##         {
-        ##             full <- paste0(prefix, ".", name) 
-        ##         }
-        ##     }
-        ##     else
-        ##     {
-
-        ##     }
-        ## }
-
-        ##parse(code_list)
+        res
     }
     else if ("code" %in% names(codes))
     {
-        result <- codes$code
+        res <- codes$code
     }
     else
     {
         stop("Each level of the codes structure must contains 'categories' or 'code'")
     }
-    result
 }
