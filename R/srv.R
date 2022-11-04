@@ -161,37 +161,61 @@ Table <- function(tbl, ..., class=character())
     new_Table(tbl, ..., class=class)
 }
 
-
-##' Simple wrapper to print a user error. This class inherits from
-##' function, which means it is expecting to be called. The purpose
-##' of wrapping this in a class is to throw an error in the show
-##' method, to catch the case where a user tries to view a table
-##' by just writing table name without (). Without this, the user
-##' would just get the body of the function, which is not really very
-##' helpful for debugging.
-setClass(
-    "TableGetter",
-    contains = "function",
-    slots = representation(
-        ## Nothing here
-    ),
-    prototype = prototype(
-        ## Nothing here
-    )
-)
-
-TableGetter <- function(table_getter)
+##' The Server object is a nested list of Nodes, which each
+##' represent an object in the database. This is the S3 class
+##' for a Node.
+##'
+##' The one job of the Node is to correctly handle the `$`
+##' overload for the object being accessed in the object
+##' tree. For the Server, `$` is overloaded to list the top
+##' level objects. All other objects in the tree are either
+##' Nodes or Tables. The `$` operator for a Node is overloaded
+##' in such a way that it checks whether the node below it is
+##' a Node or a Table. If it is a Node, it prints a list of the
+##' contents of that Node. If it is a Table, it automatically
+##' fetches the dplyr::tbl.
+##' 
+##' @title Node object for intermediate positions in the object tree.
+##' @return A new Node S3 object
+##' 
+new_Node <- function()
 {
-    new("TableGetter", table_getter)
+
 }
 
-##' Print a warning if the user tries to view the TableGetter object directly
-##'
-##' @title Print the TableGetter
-##' @param object The TableGetter object
-setMethod("show", "TableGetter", function(object) {
-    message("You must use parentheses () after the table name to get the tibble.")
-})
+## ##' Simple wrapper to print a user error. This class inherits from
+## ##' function, which means it is expecting to be called. The purpose
+## ##' of wrapping this in a class is to throw an error in the show
+## ##' method, to catch the case where a user tries to view a table
+## ##' by just writing table name without (). Without this, the user
+## ##' would just get the body of the function, which is not really very
+## ##' helpful for debugging.
+## setClass(
+##     "TableGetter",
+##     contains = "function",
+##     slots = representation(
+##         ## Nothing here
+##     ),
+##     prototype = prototype(
+##         ## Nothing here
+##     )
+## )
+
+## TableGetter <- function(table_getter)
+## {
+##     new("TableGetter", table_getter)
+## }
+
+## ##' Print a warning if the user tries to view the TableGetter object directly
+## ##'
+## ##' @title Print the TableGetter
+## ##' @param object The TableGetter object
+## setMethod("show", "TableGetter", function(object) {
+##     message("You must use parentheses () after the table name to get the tibble.")
+## })
+
+
+
 
 ##' Server class wrapping an SQL server connection
 ##'
