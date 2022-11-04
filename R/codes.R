@@ -103,7 +103,7 @@ gen_casewhen <- function(code_map, colname)
 {
     code_map %>%
         list(names(.), .) %>%
-        purrr::pmap(~ rlang::quo(!!as.name(colname) %like% !!.x ~ !!.y)) %>%
+        purrr::pmap(~ rlang::expr(!!as.name(colname) %like% !!.x ~ !!.y)) %>%
         unname()
 }
 
@@ -111,7 +111,7 @@ gen_filter <- function(code_map,colname)
 {
     ## Generate the filter
     names(code_map) %>%
-        purrr::map(~ rlang::quo(!!as.name(colname) %like% !!.)) %>%
+        purrr::map(~ rlang::expr(!!as.name(colname) %like% !!.)) %>%
         unname()
     
 }
