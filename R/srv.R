@@ -192,6 +192,13 @@ Node <- function(subobjects, ..., class=character())
     new_Node(subobjects, ..., class=class)
 }
 
+
+##' @export
+print.Node <- function(x, ...)
+{
+    print(names(x))
+}
+
 ##' @export
 `$.Node` <- function(x,i)
 {
