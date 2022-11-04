@@ -64,3 +64,19 @@ strategy_coalesce_exclude_null <- function(tbl, name)
         dplyr::filter(!is.na(!!as.name(name)))
 }
 
+strategy_codes_from <- function(tbl, name, codes_file)
+{
+    ## Read the codes file
+    codes_yaml <- yaml::read_yaml(codes_file)
+
+    ## Parse the codes file
+    codes <- parse_codes(codes_yaml)
+
+    ## Generate the filter and casewhen statements
+    cases <- gen_caseswhen(codes)
+    flt <- gen_filter(codes)
+
+    ## Perform the selection and filtering operation on the column
+    
+}
+

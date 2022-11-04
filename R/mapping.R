@@ -58,8 +58,22 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
         {
             column <- columns[[logical_column_name]]
             strategy <- column$strategy
-            tbl <- do.call(paste0("strategy_", strategy),
-                           list(tbl, logical_column_name))
+
+            ## If the item is not a list, then it is a simple function
+            ## which can be called to process the item
+            if (!is.list(strategy))
+            {
+                tbl <- do.call(paste0("strategy_", strategy),
+                               list(tbl, logical_column_name))
+            }
+            else
+            {
+                ## If the strategy is a list, then the first element
+                ## is the function name and the subsequent elements are
+                ## the arguments
+                tbl <- do.call(paste0("strategy_", strategy[1]),
+                               list(tbl, logical_column_name, strategy[[-1]]))
+            }
         }
         
         MappedTable(tbl, mapping) 
