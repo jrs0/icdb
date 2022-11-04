@@ -174,13 +174,28 @@ Table <- function(tbl, ..., class=character())
 ##' a Node or a Table. If it is a Node, it prints a list of the
 ##' contents of that Node. If it is a Table, it automatically
 ##' fetches the dplyr::tbl.
+##'
+##' The Node object is a named list of either Nodes or Tables. 
 ##' 
 ##' @title Node object for intermediate positions in the object tree.
 ##' @return A new Node S3 object
 ##' 
-new_Node <- function()
+new_Node <- function(subobjects, ..., class=character())
 {
+    structure(subobjects,
+              class=c("Node", class)
+              )
+}
 
+Node <- function(subobjects, ..., class=character())
+{
+    new_Node(subobjects, ..., class=class)
+}
+
+##' @export
+`$.Node` <- function(x,i)
+{
+    NextMethod()
 }
 
 ## ##' Simple wrapper to print a user error. This class inherits from
