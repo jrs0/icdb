@@ -37,7 +37,7 @@ databases:
             docs: "The main diagnosis for this episode? The field is an ICD 10 code."
             source_columns:
               "DiagnosisPrimary_ICD": ""
-            strategy: "coalesce"
+            strategy: ["codes_from", "acs_codes.yaml"]
           spell_id:
             docs: "The ID field linking episodes that form part of the same spell (a continuous hospital visit). "
             source_columns:
