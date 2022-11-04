@@ -64,8 +64,31 @@ strategy_coalesce_exclude_null <- function(tbl, name)
         dplyr::filter(!is.na(!!as.name(name)))
 }
 
+##' Read ICD codes (or any other codes) from a codes configuration file and
+##' remap the column values with readable hierarchical strings.
+##'
+##' Note that this function only currently works on logical columns with
+##' only one source column.
+##'
+##' @title Remap a column of codes to hierarchy of strings
+##' @param tbl The tbl to process
+##' @param name The logical column name
+##' @param codes_file The name of the codes configuration file
+##' @return The tbl after reducing
+##'
 strategy_codes_from <- function(tbl, name, codes_file)
 {
+    ## Check there is only one source column
+    regx <- paste0(name,"_\\d+")
+    num_cols <- tbl %>%
+        dplyr::select(dplyr::matches(regx)) %>%
+        colnames() %>%
+        length()
+    if (num_cols > 1)
+    {
+        stop("Strategy 'codes_from' currently only works with one source_column.")
+    }
+    
     ## Read the codes file from the current directory, or
     ## try from extdata
     if (file.exists(codes_file))
@@ -84,8 +107,9 @@ strategy_codes_from <- function(tbl, name, codes_file)
     code_map <- gen_code_map(codes)
 
     ## Generate the filter and casewhen statements
-    cases <- gen_casewhen(code_map, name)
-    flt <- gen_filter(code_map, name)
+    col <- paste0(name,"_1") 
+    cases <- gen_casewhen(code_map, col)
+    flt <- gen_filter(code_map, col)
     
     ## Perform the selection and filtering operation on the column
     tbl %>% dplyr::filter(!!!flt) %>%
