@@ -20,15 +20,41 @@ parse_codes <- function(codes)
 {
     if ("categories" %in% names(codes))
     {
-        ## Get the next level down
-        codes$categories %>%
-            purrr::map(~ parse_codes(.)) %>%
-            unlist()
+        ## Create a list that will hold all the results
+        results <- list()
+        
+        ## Loop over the items in the category field,
+        ## and call parse_codes at each level. parse_codes
+        ## should return a list of items, where each item
+        ## corresponds to a category. These items are named
+        ## lists, where the names are the code strings and
+        ## the values are the lists of ICD codes.
+        for (category_name in names(codes$categories))
+        {
+            ## Looping over categories here. Each category
+            ## uses parse_codes to get a flat list, and the
+            ## the category name is prepended to the names
+            ## of that list. This list is then added onto the
+            ## end of the main results list
+            res <- parse_codes(codes$categories[[category_name]])
+
+            ## Add the category name onto the front of every
+            ## item in the list
+            names(res) <- paste0(category_name, ".", names(res))
+
+            ## Finally, add these to the (flat) list of results
+            ## for this category level
+            results <- c(results, res)
+        }
+
+        ## Return the results for this category level
+        results
+
     }
     else if ("code" %in% names(codes))
     {
         ## Return the code
-        codes$code
+        list(codes$code)
     }
     else
     {
