@@ -16,15 +16,36 @@ NULL
 ##' @return A named character vector containing the codes
 ##'
 ##' @export
-get_codes <- function(codes)
+get_codes <- function(codes, result = list())
 {
     if ("categories" %in% names(codes))
     {
-        code_list <- codes$categories %>%
-            purrr::map(~ get_codes(.))
 
-        code_list
+        
+        ## Descend all the way to the leaf nodes and
+        ## then process recursion in return values. Sub
+        ## is a list of lists, one for each 
+        sub <- codes$categories %>%
+            purrr::map(~ get_codes(., result))
 
+        print(sub)
+        stop("ASd")
+        
+        ## Assume sub is a named list. Go through it
+        ## prepending the names at this level to the
+        ## names in the list
+        names(sub) %>% purrr::map(paste0(names(codes$categories,
+                                               ".", names(sub))))
+
+        ## Append the current result for this level
+        
+                                  
+                                  
+        
+        ## for (name in names(code_list))
+        ## {
+            
+        ## }
         
 
         ## ## This function generates a list where each name
@@ -51,10 +72,11 @@ get_codes <- function(codes)
     }
     else if ("code" %in% names(codes))
     {
-        codes$code
+        result <- codes$code
     }
     else
     {
         stop("Each level of the codes structure must contains 'categories' or 'code'")
     }
+    result
 }
