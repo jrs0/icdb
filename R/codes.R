@@ -25,20 +25,29 @@ get_codes <- function(codes)
 
         code_list
 
-        parse <- function(code_list, prefix = "")
-        {
-            if (is.list(code_list))
-            {
-                for (name in names(code_list))
-                {
-                    full <- paste0(prefix, ".", name) 
-                }
-            }
-            else
-            {
+        
 
-            }
-        }
+        ## ## This function generates a list where each name
+        ## ## is a dot separated string with the labels in the
+        ## ## yaml file (for each code), and the values are
+        ## ## list of ICD10 codes corresponding to that level.
+        ## parse <- function(code_list, prefix = "")
+        ## {
+        ##     if (is.list(code_list))
+        ##     {
+        ##         ## Then generate names 
+        ##         for (name in names(code_list))
+        ##         {
+        ##             full <- paste0(prefix, ".", name) 
+        ##         }
+        ##     }
+        ##     else
+        ##     {
+
+        ##     }
+        ## }
+
+        ##parse(code_list)
     }
     else if ("code" %in% names(codes))
     {
