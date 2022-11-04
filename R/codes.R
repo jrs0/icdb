@@ -35,6 +35,7 @@ parse_codes <- function(codes)
         stop("Each level of the codes structure must contains 'categories' or 'code'")
     }
 }
+
 ##' Use this function to generate a list of case-when like statements ready
 ##' for use in a dplyr query to filter a diagnosis column by codes
 ##'
