@@ -16,14 +16,11 @@ NULL
 ##' @return A named character vector containing the codes
 ##'
 ##' @export
-get_codes <- function(codes, result = list())
+get_codes <- function(codes, names = character())
 {
     if ("categories" %in% names(codes))
     {
-
-        res <- codes$categories %>%
-            purrr::map(~ get_codes(., result))
-        res
+        
     }
     else if ("code" %in% names(codes))
     {
