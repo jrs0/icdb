@@ -40,6 +40,8 @@ parse_codes <- function(codes)
 
             ## Add the category name onto the front of every
             ## item in the list
+            ## TODO add check for final element here to surpress
+            ## trailing dot. (Not very important).
             names(res) <- paste0(category_name, ".", names(res))
 
             ## Finally, add these to the (flat) list of results
@@ -62,20 +64,46 @@ parse_codes <- function(codes)
     }
 }
 
+##' This function reverses the names and values of the parsed ICD codes from
+##' parse_codes, ready for use in the filtering and case-when operations of
+##' the SQL queries. This function produces are named character vector,
+##' which may map many to one (representing multiple ICD code patterns for the
+##' same ICD code).
+##'
+##' The only need for this function is that regex is not properly supported in
+##' SQL Server. If regex is supported, remove this and just store the codes
+##' as regex patterns in the codes yaml file.
+##'
+##' @title Generate ICD code mapping for SQL queries
+##' @param parsed_codes The result of calling parse_codes
+##' @return A named character vector from LIKE patterns to the string it represents
+##' 
+gen_code_map <- function(parsed_codes)
+{
+    result <- character()
+    for (name in names(parsed_codes))
+    {
+        for (code in parsed_codes[[name]])
+        {
+            ## Reverse the list and flatten codes 
+            result[[code]] <- name
+        }
+    }
+    result
+}
+
 ##' Use this function to generate a list of case-when like statements ready
 ##' for use in a dplyr query to filter a diagnosis column by codes
 ##'
-##' @title 
-##' @param y The parsed list (from parse_codes) to generate the mapping from
-##' @return 
-##' @author 
-gen_casewhen <- function(y, colname)
+##' @title Generate the case-when list to use in the dplyr query
+##' @param code_map The map from gen_code_map
+##' @return A list of case when statements (expand with !!! in case_when)
+##' 
+gen_casewhen <- function(code_map, colname)
 {
-    ## Generate the case-when
-    m <- setNames(names(y), y)
-    m %>%
-        list(names(m),m) %>%
-        purrr::pmap(~ rlang::quo(!!as.name(colname) %regex% !!.y ~ !!as.name(.x))) %>%
+    code_map %>%
+        list(names(.), .) %>%
+        purrr::pmap(~ rlang::quo(!!as.name(colname) %like% !!.x ~ !!as.name(.y))) %>%
         unname()
 }
 
