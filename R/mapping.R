@@ -63,7 +63,6 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
             ## which can be called to process the item
             if (length(strategy) == 1)
             {
-                print(strategy)
                 tbl <- do.call(paste0("strategy_", strategy),
                                list(tbl, logical_column_name))
             }
