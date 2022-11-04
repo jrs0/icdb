@@ -48,7 +48,7 @@ gen_casewhen <- function(y, colname)
     m <- setNames(names(y), y)
     m %>%
         list(names(m),m) %>%
-        purrr::pmap(~ rlang::quo(grepl(!!.y, !!as.name(colname)) ~ !!as.name(.x))) %>%
+        purrr::pmap(~ rlang::quo(!!as.name(colname) %regexp% !!.y ~ !!as.name(.x))) %>%
         unname()
 }
 
