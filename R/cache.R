@@ -18,7 +18,8 @@ pkg_env$cache <- list(
                                        ),
                   max_size = 2,
                   objects = list()),
-    path = "cache/"
+    path = "cache/",
+    use_cache = FALSE
 )
 
 record_hit <- function(metadata)
