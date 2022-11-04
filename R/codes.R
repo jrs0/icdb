@@ -16,20 +16,36 @@ NULL
 ##' @return A named character vector containing the codes
 ##'
 ##' @export
-get_codes <- function(codes)
+parse_codes <- function(codes)
 {
     if ("categories" %in% names(codes))
     {
+        ## Get the next level down
         codes$categories %>%
-            purrr::map(~ get_codes(.)) %>%
+            purrr::map(~ parse_codes(.)) %>%
             unlist()
     }
     else if ("code" %in% names(codes))
     {
+        ## Return the code
         codes$code
     }
     else
     {
         stop("Each level of the codes structure must contains 'categories' or 'code'")
     }
+}
+##' Use this function to generate a list of case-when like statements ready
+##' for use in a dplyr query to filter a diagnosis column by codes
+##'
+##' @title 
+##' @param y The parsed list (from parse_codes) to generate the mapping from
+##' @return 
+##' @author 
+gen_codes_map <- function(y)
+{
+    m <- setNames(names(y), y)
+    m %>%
+        list(names(m),m) %>%
+        purrr::pmap(~ rlang::quo(matches(!!as.name(.y)) ~ !!as.name(.x)))
 }
