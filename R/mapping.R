@@ -2,22 +2,16 @@
 ##' 
 NULL
 
-setOldClass("Node")
 setClass(
     "MappedSrv",
-    contains = "Node",
+    contains = "list",
     slots = representation(
         mapping = "list"
     ),
     prototype = prototype(
-        mapping = Node(list())
+        mapping = list()
     )    
 )
-
-setMethod("show", "MappedSrv", function(object)
-{
-    print(object@.Data)
-})
 
 make_mapped_table_getter <- function(srv, source_database, source_table, table)
 {
@@ -186,7 +180,7 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         {
             d[[database]] <- parse_mapping(mapping$databases[[database]], srv)
         }
-        Node(d)
+        d
     }
     else if ("tables" %in% names(mapping))
     {
