@@ -61,8 +61,9 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 
             ## If the item is not a list, then it is a simple function
             ## which can be called to process the item
-            if (!is.list(strategy))
+            if (length(strategy) == 1)
             {
+                print(strategy)
                 tbl <- do.call(paste0("strategy_", strategy),
                                list(tbl, logical_column_name))
             }

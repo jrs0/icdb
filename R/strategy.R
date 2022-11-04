@@ -66,17 +66,26 @@ strategy_coalesce_exclude_null <- function(tbl, name)
 
 strategy_codes_from <- function(tbl, name, codes_file)
 {
-    ## Read the codes file
-    codes_yaml <- yaml::read_yaml(codes_file)
-
+    ## Read the codes file from the current directory, or
+    ## try from extdata
+    if (file.exists(codes_file))
+    {
+        codes_yaml <- yaml::read_yaml(codes_file)
+    }
+    else
+    {
+        codes_yaml <- yaml::read_yaml(system.file("extdata", codes_file, package="icdb"))
+    }
+        
     ## Parse the codes file
     codes <- parse_codes(codes_yaml)
 
     ## Generate the filter and casewhen statements
-    cases <- gen_caseswhen(codes)
-    flt <- gen_filter(codes)
+    cases <- gen_casewhen(codes)
+    flt <- gen_filter(codes, name)
 
     ## Perform the selection and filtering operation on the column
-    
+    tbl %>% dplyr::filter(!!!flt) %>%
+        dplyr::mutate(!!name := case_when(!!!cases), .keep = "unused")
 }
 
