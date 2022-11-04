@@ -462,7 +462,6 @@ get_tbl <- function(srv, database, table)
 ##' 
 make_table_getter <- function(srv, database, table_schema, table_name, id = NULL)
 {
-    
     force(srv)
     if (is.null(id))
     {
