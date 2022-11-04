@@ -109,18 +109,9 @@ gen_casewhen <- function(code_map, colname)
 
 gen_filter <- function(code_map,colname)
 {
-    ## Generate the filter
+    ## Map reduce to generate the OR list for dplyr filtering
     flt <- names(code_map) %>%
-        purrr::map(~ rlang::expr(!!as.name(colname) %like% !!.))
-
-    ## Not got time to mess around with functional programming,
-    ## can come back to this later
-    for (cond in flt)
-    {
-        e <- !!e || !!cond
-    }
-
-    e
-    
+        purrr::map(~ rlang::expr(!!as.name(colname) %like% !!.)) %>%
+        purrr::reduce(~ rlang::expr(!!.x || !!.y))
 }
 
