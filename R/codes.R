@@ -16,11 +16,25 @@ NULL
 ##' @return A named character vector containing the codes
 ##'
 ##' @export
-get_codes <- function(codes, names = character())
+get_codes <- function(codes, prefix = "")
 {
+    result = list()
     if ("categories" %in% names(codes))
     {
-        
+        sub <- codes$categories
+        for (name in names(sub))
+        {
+            ## This returns a list of the codes
+            ## at this level. Prepend all the names
+            ## with the prefix for this level
+            sub_result <- get_codes(sub[[name]], name)
+            
+            print(name)
+            
+            result <- c(result, sub_result)
+        }
+        print(sub)
+        stop()
     }
     else if ("code" %in% names(codes))
     {
