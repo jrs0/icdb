@@ -2,7 +2,7 @@
 % Please edit documentation in R/srv.R
 \name{build_object_tree}
 \alias{build_object_tree}
-\title{Build the tree of accessible database object}
+\title{Turn on or off caching}
 \usage{
 build_object_tree(con, prefix)
 }
@@ -10,28 +10,30 @@ build_object_tree(con, prefix)
 \item{con}{The database connection object}
 
 \item{prefix}{The starting prefix defining the root of the tree (ID type)}
+
+\item{choice}{TRUE will turn on the cache, FALSE will turn it off}
 }
 \value{
 Nested list structure containing the object tree
 }
 \description{
-Get the tree of accessible objects in the database connection
+Use this function to turn on or off caching. If caching is
+enabled, then query results will be saved behind the scenes.
+If caching is disabled, queries will always return results
+directly from the database. Caching is disabled by default.
+You must explicitly call this function if you want to use it.
+You only need to call this function once, when you load the
+ICDB library using library(icdb).
 }
 \details{
-Objects in a database connection are stored as a tree. At the root of
-the tree is a starting prefix, which may represent a collection of
-databases, a database, or even a table in a database. This function
-recursively traverses the objects in the database using DBI::dbListObjects()
-and stores the results in a tree structure for the purpose of automcompleting
-object names.
+If caching is enabled, and you perform exactly the same query
+again (for example, by running the same script), then the
+cached results will be used, which will speed up the running
+of the script. This can make development and debugging easier,
+because the turnaround time for running commands and scripts
+is reduced.
 
-The entire object tree for a database server can be quite large. This
-causes the database connection to lag when it is first opened. However, there
-is no way to avoid this delay if the list-based-autocompleting method is
-used, which is currently the only implemented option. Setting a specific
-prefix may help alleviate this performance problem if the area of interest
-is known.
-
-It may be possible to set the default database prefix in the data source
-setup (Windows).
+If caching is disabled, then results will always come from the
+database. This can make code take longer to run, but will
+always guarantee that results are up to date.
 }

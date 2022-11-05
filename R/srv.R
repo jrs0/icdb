@@ -22,27 +22,26 @@
 ##' @export
 NULL
 
+## ##' Make helper functions to turn on and off the cache
+## make_cache_fns <- function()
+## {
+##     ## Global flag indicating whether caching should be used or not
+##     cache_flag <- FALSE
 
-##' Make helper functions to turn on and off the cache
-make_cache_fns <- function()
-{
-    ## Global flag indicating whether caching should be used or not
-    cache_flag <- FALSE
+##     ## Return the use_cache and get_cache_flag function in a vector
+##     c(
+##         use_cache = function(choice)
+##         {
+##             cache_flag <<- choice
+##         },
+##         get_cache_flag = function()
+##         {
+##             cache_flag
+##         }
+##     )
+## }
 
-    ## Return the use_cache and get_cache_flag function in a vector
-    c(
-        use_cache = function(choice)
-        {
-            cache_flag <<- choice
-        },
-        get_cache_flag = function()
-        {
-            cache_flag
-        }
-    )
-}
-
-cache_fns <- make_cache_fns()
+## cache_fns <- make_cache_fns()
 
 ##' Use this function to turn on or off caching. If caching is
 ##' enabled, then query results will be saved behind the scenes.
@@ -67,10 +66,10 @@ cache_fns <- make_cache_fns()
 ##' @param choice TRUE will turn on the cache, FALSE will turn it off
 ##' 
 ##' @export
-use_cache <- cache_fns$use_cache
+## use_cache <- cache_fns$use_cache
 
 ##' Internal function for getting the value of the cache flag
-get_cache_flag <- cache_fns$get_cache_flag
+## get_cache_flag <- cache_fns$get_cache_flag
 
 ##' Get the tree of accessible objects in the database connection
 ##'

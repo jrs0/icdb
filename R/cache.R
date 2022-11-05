@@ -22,6 +22,23 @@ pkg_env$cache <- list(
     use_cache = FALSE
 )
 
+##' Use this function to turn the cache on or off. If the cache is
+##' on, then data will be written to and read from the cache. If
+##' the cache is off, then the read_cache function will always
+##' return NULL and the write cache function will return without
+##' doing anything. Turning the cache off does not clear the
+##' cache, and turning the cache back on later will make available
+##' the same cache contents as before.
+##'
+##' @title Turn the cache on or off
+##' @param state TRUE to turn the cache on, FALSE to turn it off
+##' @export
+##' 
+use_cache <- function(state)
+{
+    pkg_env$cache$use_cache <- state
+}
+
 record_hit <- function(metadata)
 {
     metadata$hits <-  metadata$hits + 1
@@ -117,6 +134,12 @@ get_metadata <- function(hash)
 ##'
 write_cache <- function(data, object, time)
 {
+    ## If the cache is disabled, return without doing anything
+    if (pkg_env$cache$use_cache == FALSE)
+    {
+        return(NULL)
+    }
+    
     ## Make the hash out of the metadata
     hash <- rlang::hash(data)
 
@@ -166,9 +189,15 @@ prune_level1 <- function()
 ##'
 ##' @param data The same data object passed to the writeCache function
 ##'
-##' @return Returns the object associated with the data. Null if not found.
+##' @return Returns the object associated with the data. NULL if not found.
 read_cache <- function(data)
 {
+    ## If the cache is disabled, return NULL
+    if (pkg_env$cache$use_cache == FALSE)
+    {
+        return(NULL)
+    }
+    
     ## Make the has out of the metadata
     hash <- rlang::hash(data)
 
