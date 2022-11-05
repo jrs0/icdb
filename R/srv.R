@@ -710,12 +710,8 @@ run <- function(x, ...)
     output <- capture.output(x %>% dplyr::show_query())
     query <- paste(tail(output, -1), collapse="")    
     
-    ## Search for the cached file, if caching is enabled
-    result <- NULL
-    if (get_cache_flag() == TRUE)
-    {
-        result <- read_cache(query)
-    }
+    ## Search for the cached file
+    result <- read_cache(query)
     
     if (!is.null(result))
     {
@@ -733,11 +729,8 @@ run <- function(x, ...)
         t <- x %>% dplyr::collect(...)
 
         ## Save the results in the cache
-        if (get_cache_flag() == TRUE)
-        {
-            write_cache(query, t, lubridate::now() - start)
-        }
-        
+        write_cache(query, t, lubridate::now() - start)
+       
         ## Return the dataframe of results as a tibble
         t
     } 
