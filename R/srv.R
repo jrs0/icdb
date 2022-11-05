@@ -126,16 +126,16 @@ build_object_tree <- function(con, prefix)
     
     ## Create the sublists underneath the labels
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
-                                        build_object_tree(con, .x)
-                                    } else {
-                                        make_table_getter(con, id = .x)
-                                    })
+                                         build_object_tree(con, .x)
+                                     } else {
+                                         TableWrapper(make_table_getter(con, id = .x))
+                                     })
 
     ## Bind the labels and values into a named list and return it
     names(values) <- labels
 
     ## Return the list
-    values
+    Node(values)
 }
 
 new_Table <- function(tbl, ..., class=character())
@@ -231,6 +231,7 @@ TableWrapper <- function(table_getter)
     new_TableWrapper(table_getter)
 }
 
+setOldClass("Node")
 
 ##' Server class wrapping an SQL server connection
 ##'
@@ -240,9 +241,10 @@ TableWrapper <- function(table_getter)
 ##' @slot .Data From the contained list
 ##'
 ##' @export
+##' 
 setClass(
     "Server",
-    contains = "list",
+    contains = "Node",
     slots = representation(
         con = "DBIConnection",
         config = "list",
@@ -410,8 +412,6 @@ Server <- function(data_source_name = NULL,
                                            ".INFORMATION_SCHEMA.TABLES"))
                 
                 ## Put the tables in the database
-                
-                
                 db[[d]] <- tables %>%
                     purrr::pmap(~ TableWrapper(make_table_getter(db, d, .x, .y))) %>%
                     Node()
@@ -439,7 +439,7 @@ Server <- function(data_source_name = NULL,
         ## evaluated dplyr::tbl because it is not possible to overload $ in this
         ## case.
         ## TODO think up a method to make lazy evaluation of list items work here
-        db@.Data <- build_object_tree(con, NULL)
+        db@.S3Class <- build_object_tree(con, NULL)
     }
         
         db
