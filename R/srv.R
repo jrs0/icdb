@@ -128,7 +128,8 @@ build_object_tree <- function(con, prefix)
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
                                          build_object_tree(con, .x)
                                      } else {
-                                         TableWrapper(make_table_getter(con, id = .x))
+                                         TableWrapper(make_table_getter(con,
+                                                                        id = .x))
                                      })
 
     ## Bind the labels and values into a named list and return it
@@ -246,14 +247,14 @@ setClass(
     "Server",
     contains = "Node",
     slots = representation(
-        con = "DBIConnection",
-        config = "list",
-        dsn = "character"
+        con = "DBIConnection"
+        ## config = "list",
+        ## dsn = "character"
     ),
     prototype = prototype(
-        con = NULL,
-        config = list(),
-        dsn = NA_character_
+        con = NULL
+        ## config = list(),
+        ## dsn = NA_character_
     )
 )
 
@@ -312,13 +313,16 @@ Server <- function(data_source_name = NULL,
     if (!is.null(data_source_name))
     {
         message("Connecting using data source name (DSN): ", data_source_name)
-        db <- new(
-            "Server",
-            ## Note the bigint argument, see comment below
-            con = DBI::dbConnect(odbc::odbc(), data_source_name,
-                                        bigint = "character"),
-            dsn = data_source_name
-        )
+        ## db <- new(
+        ##     "Server",
+        ##     ## Note the bigint argument, see comment below
+        ##     con = DBI::dbConnect(odbc::odbc(), data_source_name,
+        ##                                 bigint = "character"),
+        ##     dsn = data_source_name
+        ## )
+        con <- DBI::dbConnect(odbc::odbc(), data_source_name,
+                             bigint = "character")
+
     }
     else if (!is.null(config))
     {
@@ -375,7 +379,7 @@ Server <- function(data_source_name = NULL,
         ## Open the database connection
         con <- do.call(DBI::dbConnect, conf_args)
 
-        db <- new("Server", con = con, config = conf)
+        ##db <- new("Server", con = con, config = conf)
     }
     else
     {
@@ -393,10 +397,13 @@ Server <- function(data_source_name = NULL,
     ## Most database drivers return the databases and tables as a tree of objects,
     ## via the dbListObjects function. SQL Server does not work like this, so treat
     ## it separately
-    if (!is.na(db@dsn) || grepl("SQL Server", conf$driver))
+    if (!is.null(data_source_name) || grepl("SQL Server", conf$driver))
     {
+        ## Create a top level Node object
+        node <- Node()
+        
         ## Copy the list of databases into a list, ready to store in the object
-        databases <- db@con %>%
+        databases <- con %>%
             DBI::dbGetQuery("SELECT name FROM master.sys.databases")
         
         ## This is the problem part of the code -- it really needs to store a
@@ -407,16 +414,16 @@ Server <- function(data_source_name = NULL,
             {
                 ## Get the list of tables associated with this database,
                 ## and their associated schemas
-                tables <- db@con %>%
+                tables <- con %>%
                     DBI::dbGetQuery(paste0("SELECT table_schema,table_name FROM ", d,
                                            ".INFORMATION_SCHEMA.TABLES"))
                 
                 ## Put the tables in the database
-                db[[d]] <- tables %>%
+                node[[d]] <- tables %>%
                     purrr::pmap(~ TableWrapper(make_table_getter(db, d, .x, .y))) %>%
                     Node()
                 
-                names(db[[d]]) <- tables$table_name
+                names(node[[d]]) <- tables$table_name
             },
             error = function(cond)
             {
@@ -439,10 +446,11 @@ Server <- function(data_source_name = NULL,
         ## evaluated dplyr::tbl because it is not possible to overload $ in this
         ## case.
         ## TODO think up a method to make lazy evaluation of list items work here
-        db@.S3Class <- build_object_tree(con, NULL)
+        node <- build_object_tree(con, NULL)
     }
-        
-        db
+    
+    ## Now create and return the Server object
+    new("Server", node, con = con)
 }
 
 ##' This is the function for obtaining a table in non-interactive Databases mode.
@@ -657,24 +665,26 @@ setMethod("sqlFromFile", c("Server", "character"), function(db, file) {
 ##' @param object The object to be printed
 ##' @export
 setMethod("show", "Server", function(object) {
-    if (!is.na(object@dsn) || grepl("SQL Server", object@config$driver))
-    {
-        message("Database connection (Microsoft SQL Server)")
-        message("Databases name: ", object@con@info$dbname)
-        if (!is.na(object@dsn))
-        {
-            message("Database server connection via data source name (DSN): ", object@dsn)
-        }
-        else
-        {
-            message("Database server connection via config file")
-        }
-    }
-    else
-    {
-        message("Database connection (Other database)")
-        message("Database: ", object@con@dbname)
-    }
+    ## if (!is.na(object@dsn) || grepl("SQL Server", object@config$driver))
+    ## {
+    ##     message("Database connection (Microsoft SQL Server)")
+    ##     message("Databases name: ", object@con@info$dbname)
+    ##     if (!is.na(object@dsn))
+    ##     {
+    ##         message("Database server connection via data source name (DSN): ", object@dsn)
+    ##     }
+    ##     else
+    ##     {
+    ##         message("Database server connection via config file")
+    ##     }
+    ## }
+    ## else
+    ## {
+    ##     message("Database connection (Other database)")
+    ##     message("Database: ", object@con@dbname)
+    ## }
+    print(object)
+
 })
 
 ##' This function is a replacement for the dplyr::collect() function
