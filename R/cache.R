@@ -40,6 +40,9 @@ pkg_env$cache <- list(
 ##' If caching is disabled, then results will always come from the
 ##' database. This can make code take longer to run, but will
 ##' always guarantee that results are up to date.
+##'
+##' The cache is disabled by default. This is to ensure that, by
+##' default, queries always return up-to-date results.
 ##' 
 ##' @title Turn the cache on or off
 ##' @param state TRUE to turn the cache on, FALSE to turn it off
