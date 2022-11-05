@@ -420,7 +420,7 @@ Server <- function(data_source_name = NULL,
                 
                 ## Put the tables in the database
                 node[[d]] <- tables %>%
-                    purrr::pmap(~ TableWrapper(make_table_getter(db, d, .x, .y))) %>%
+                    purrr::pmap(~ TableWrapper(make_table_getter(con, d, .x, .y))) %>%
                     Node()
                 
                 names(node[[d]]) <- tables$table_name
