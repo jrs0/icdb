@@ -506,15 +506,15 @@ get_tbl <- function(srv, database, table)
 ##' information_schema, which contains JSON columns).
 ##' 
 ##' @title Get a function which returns a table object
-##' @param srv The Server object to use (containing the connection)
+##' @param srv The database connection to use
 ##' @param database The database name
 ##' @param table_schema The table schema name
 ##' @param table_name The table name
 ##' @param id You can also pass the complete Id, if it is available
 ##' 
-make_table_getter <- function(srv, database, table_schema, table_name, id = NULL)
+make_table_getter <- function(con, database, table_schema, table_name, id = NULL)
 {
-    force(srv)
+    force(con)
     if (is.null(id))
     {
         force(database)
@@ -525,6 +525,7 @@ make_table_getter <- function(srv, database, table_schema, table_name, id = NULL
     {
         force(id)
     }
+
     function()
     {
         ## Create the reference to the table in the database
@@ -534,7 +535,7 @@ make_table_getter <- function(srv, database, table_schema, table_name, id = NULL
         }
         
         ## Get the table shell object
-        tbl <- dplyr::tbl(srv@con, id)
+        tbl <- dplyr::tbl(con, id)
 
         ## Return th Table object wrapping the tbl
         Table(tbl)
