@@ -30,6 +30,17 @@ pkg_env$cache <- list(
 ##' cache, and turning the cache back on later will make available
 ##' the same cache contents as before.
 ##'
+##' If caching is enabled, and you perform exactly the same query
+##' again (for example, by running the same script), then the
+##' cached results will be used, which will speed up the running
+##' of the script. This can make development and debugging easier,
+##' because the turnaround time for running commands and scripts
+##' is reduced.
+##'
+##' If caching is disabled, then results will always come from the
+##' database. This can make code take longer to run, but will
+##' always guarantee that results are up to date.
+##' 
 ##' @title Turn the cache on or off
 ##' @param state TRUE to turn the cache on, FALSE to turn it off
 ##' @export
