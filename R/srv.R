@@ -414,7 +414,7 @@ Server <- function(data_source_name = NULL,
 ##' it is necessary to recheck the database server for the schema name each
 ##' time a table is requested. This does not add too much overhead.
 ##'
-##' Currently, this function only supports Microsoft SQL Server
+##' Currently, this function only supports Microsoft SQL Server.
 ##' 
 ##' @title Get a dplyr::tbl corresponding to a table
 ##' @param srv The Databases object containing the server connection
