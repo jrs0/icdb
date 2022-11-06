@@ -65,25 +65,47 @@ databases:
         source_table: "vw_AE_SEM_001"
         columns: []
 
+
+  mort:
+    docs: "There are two main tables containing death information....."
+    source_database: "ABI"
+    tables:
+      civ-reg:
+        docs: "The Civil Registry Mortality table contains information about when a person died and what they died of, listed as ICD10 diagnosis codes. It also has lots of other information, such as where they died."
+        source_table: "test_lookup_test"
+        columns: []
+
+      nhais:
+        docs: "NHAIS Deaths table...."
+        source_table: "test_lookup_test"
+        columns: []
+
+
   swd:
     docs: "The MODELLING_SQL_AREA database contains the System Wide Dataset tables (activity, attributes, measurements), which bring together data from primary care (GPs), secondary care (hsopitals), mental health, and community care services."
     source_database: "MODELLING_SQL_AREA"
     tables:
-      activity:
+      act:
         docs: "The SWD activity table contains records of healthcare encounters (e.g. a GP appointment) from  primary care (GPs), secondary care (hsopitals), mental health, and community care services."
         source_table: "test___test"
-        columns:
-          nhs_number:
-            docs: "The NHS number identifies the patient. The field is anonymised."
-            source_columns:
-              "nhs_number": ""
-            strategy: "coalesce_exclude_null"
-      attributes:
-        docs: "The SWD attributes table contains records of patient attributes at snapshots through the year (monthly updates)."
+        columns: []
+
+      att:
+        docs: "The SWD attributes table contains records of patient attributes at the latest snapshot through the year (monthly updates), PLUS a few other measures such as 'air quality' that is NOT present in the activity history table (these additional measures is the only reason to keep a separate reference to this table, otherwise we could have just filter the activity history table by most recent)."
+        source_table: "swd_attributes"
+        columns: []
+
+      att-h:
+        docs: "The SWD attributes-history table contains every monthly snapshot of patient attributes going back to inception of the swd attributes table in 201X(?when, look this up)."
         source_table: "primary_care_attributes"
-        columns:
-          nhs_number:
-            docs: "The NHS number identifies the patient. The field is anonymised."
-            source_columns:
-              "nhs_number": ""
-            strategy: "coalesce_exclude_null"
+        columns: []
+
+      res:
+        docs: "The SWD results, or measurements, table now contains results from various tests. As there are many different types of measures all stored in a single column, this data is stored as character strings and needs to be parsed - e.g. blood pressure = as.character("123/80")."
+        source_table: "test___test"
+        columns: []
+
+      lsoa:
+        docs: "The LSOA (Lower Super Output Area) table contains details about the local areas in Bristol. We need this as it provides the key for matching patients to the various local 'regions' - in order of size: 'wards', 'LSOAs' and 'MSOAs' (Middle Super Output Areas)"
+        source_table: "test___test"
+        columns: []
