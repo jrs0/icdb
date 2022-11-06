@@ -424,20 +424,43 @@ Server <- function(data_source_name = NULL,
 ##' 
 get_tbl <- function(srv, database, table)
 {
-    res <- srv@con %>%
-        DBI::dbGetQuery(paste0("SELECT table_schema FROM ",
-                               database,
-                               ".INFORMATION_SCHEMA.TABLES WHERE table_name = '",
-                               table, "'"))
+    ## Currently, this function just does a different thing for
+    ## each database type.
+    ## TODO: fix so that this function works with any database
+    ## type generically. This probably involves refactoring the
+    ## table fetching method.
+    dbclass <- class(srv@con)
+    if (grepl("sqlite", dbclass, ignore.case = TRUE))
+    {
+        ## Only use the table for an SQLite server
+        tbl <- dplyr::tbl(srv@con, table)
+    }
+    else if (grepl("sql server", dbclass, ignore.case = TRUE))
+    {
+        res <- srv@con %>%
+            DBI::dbGetQuery(
+                     paste0("SELECT table_schema FROM ",
+                            database,
+                            ".INFORMATION_SCHEMA.TABLES WHERE table_name = '",
+                            table, "'"))        
 
-    ## Pick the first schema in the list. This is potentially a bug
-    ## TODO Come back and look at this
-    schema <- res$table_schema[[1]]   
+        ## Pick the first schema in the list. This is potentially a bug
+        ## TODO Come back and look at this
+        schema <- res$table_schema[[1]]   
+        
+        ## Get the table
+        tbl <- dplyr::tbl(srv@con, dbplyr::in_catalog(database,
+                                                      schema,
+                                                      table))   
+    }
+    else
+    {
+        stop("Other databases not currently supported in get_tbl")
+    }
 
-    ## Get the table
-    dplyr::tbl(srv@con, dbplyr::in_catalog(database,
-                                           schema,
-                                           table))    
+
+    tbl
+
 }
 
 ##' Make a function that returns a table getter. The function which

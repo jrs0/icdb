@@ -9,6 +9,5 @@ tables:
       nhs_number:
         docs: "The NHS number identifies the patient. The field is anonymised."
         source_columns:
-          "AIMTC_Pseudo_NHS": ""
-          "NHSnumber": "This one looks like it is NULL everywhere. Also, this is an INT column"
+          "NHSNumber": ""
         strategy: "coalesce_exclude_null"
