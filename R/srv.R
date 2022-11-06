@@ -280,9 +280,9 @@ Server <- function(data_source_name = NULL,
         tryCatch(
             error = function(cnd)
             {
-                stop("An error occured parsing the config file '",
-                     config,
-                     "' supplied to Databases()", call.=FALSE)
+                message(cnd$message)
+                stop("Could not connect to Server because of the YAML ",
+                     "parsing error above", call.=FALSE)
             },
             conf <- yaml::read_yaml(config)
         )
