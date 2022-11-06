@@ -7,3 +7,4 @@
 * Disabled cache by default. Call use_cache(TRUE) to use the cache
 * Tables in a Databases object now require brackets to use: srv\$dbname\$tabname()
 * Started adding tests
+* Started a proper package documentation site

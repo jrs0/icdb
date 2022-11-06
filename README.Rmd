@@ -31,7 +31,9 @@ The first step to using the library is to find a copy of the documentation. To g
 devtools::build_site()
 ```
 
-Once the documentation has finished building, a web page should open with the package documentation. Look in the *Articles* tab for information about getting started, and other usage guides.
+Once the documentation has finished building, there will be a folder called *docs/* in the root location of the repository containing the generated documentation. In addition, a web page should open with the home page of the package documentation. After you close this page, you can access the documentation again by opening *docs/index.html* in your web browser.
+
+Look in the *Articles* tab for information about getting started, and other usage guides.
 
 # Older readme below...
 
