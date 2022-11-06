@@ -10,7 +10,7 @@ read_cache(data)
 \item{data}{The same data object passed to the writeCache function}
 }
 \value{
-Returns the object associated with the data. Null if not found.
+Returns the object associated with the data. NULL if not found.
 }
 \description{
 Use this function to get an object from
