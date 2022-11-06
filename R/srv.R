@@ -302,7 +302,6 @@ Server <- function(data_source_name = NULL,
         ## If a file is used, expand to the path of the file
         if (!is.null(conf$dbfile))
         {
-            print(conf)
             if (fs::is_file(conf$dbfile))
             {
                 ## Use the file in the current directory
@@ -334,8 +333,6 @@ Server <- function(data_source_name = NULL,
         ## with dplyr (storing the bigint as a character string)
         conf$bigint <- "character"
 
-        print(conf)
-        
         ## Open the database connection
         con <- do.call(DBI::dbConnect, conf)
     }
