@@ -346,7 +346,7 @@ Server <- function(data_source_name = NULL,
     ## which constructs the nested list
     if (interactive == FALSE)
     {
-        return(db)
+        return(new("Server", Node(list()), con = con))
     }
     
     ## Most database drivers return the databases and tables as a tree of objects,
