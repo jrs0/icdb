@@ -11,3 +11,15 @@ tables:
         source_columns:
           "NHSNumber": ""
         strategy: "coalesce_exclude_null"
+      spell_id:
+        docs: "Unique identifier for the spell"
+        source_columns:
+          "SpellID": ""
+        strategy: "coalesce"
+      primary_diagnosis:
+        docs: "The main diagnosis for this episode? The field is an ICD 10 code."
+        source_columns:
+          "DiagnosisICD": ""
+        strategy: ["codes_from", "acs_codes.yaml"]
+
+        
