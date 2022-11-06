@@ -250,14 +250,14 @@ setClass(
 ##'   value is the credential file stored in the inst/ directory.
 ##'
 ##' @param interactive This parameter specifies whether the list of databases
-##' and tables is populated. 
+##' and tables is populated. This is used to make the MappedSrv object load
+##' faster, by only fetching the tables specified in the mapping.
 ##' 
-##' @return A new (S4) Databases object
+##' @return A new (S4) Server object
 ##' 
 ##' @export
 Server <- function(data_source_name = NULL,
                    config = NULL,
-                   path = NULL,
                    interactive = TRUE)
 {
     ## If the data source name argument was passed, connect using that
@@ -267,8 +267,7 @@ Server <- function(data_source_name = NULL,
         ## Make sure to pass bigint = character to avoid using 64-bit ints
         ## in R. 
         con <- DBI::dbConnect(odbc::odbc(), data_source_name,
-                             bigint = "character")
-
+                              bigint = "character")
     }
     else if (!is.null(config))
     {
@@ -288,6 +287,9 @@ Server <- function(data_source_name = NULL,
             conf <- yaml::read_yaml(config)
         )
 
+        ## Store the driver name to use below
+        driver_name <- conf$driver
+        
         ## Create the mapping from strings to drivers
         drv_map <- list(
             "ODBC Driver 17 for SQL Server" = odbc::odbc(), ## For Microsoft
@@ -305,7 +307,12 @@ Server <- function(data_source_name = NULL,
                 ## Use the file in the current directory
                 conf$dbname <- conf$dbfile
             }
-
+            else
+            {
+                stop("Did not find database file '", conf$dbfile,
+                     "' in the current working directory")
+            }
+            
             ## Remove the dbfile name from the conf
             conf$dbfile <- NULL
         }        
@@ -326,8 +333,7 @@ Server <- function(data_source_name = NULL,
         ## with dplyr (storing the bigint as a character string)
         conf$bigint <- "character"
 
-        ## If the testdata flag is true, then replace the dbname with
-        ## the correct path to the database
+        print(conf)
         
         ## Open the database connection
         con <- do.call(DBI::dbConnect, conf)
@@ -348,7 +354,7 @@ Server <- function(data_source_name = NULL,
     ## Most database drivers return the databases and tables as a tree of objects,
     ## via the dbListObjects function. SQL Server does not work like this, so treat
     ## it separately
-    if (!is.null(data_source_name) || grepl("SQL Server", conf$driver))
+    if (!is.null(data_source_name) || grepl("SQL Server", driver_name))
     {
         ## Create a top level Node object
         node <- Node()
@@ -435,7 +441,6 @@ get_tbl <- function(srv, database, table)
                                            schema,
                                            table))    
 }
-
 
 ##' Make a function that returns a table getter. The function which
 ##' is returned can be called to produce a Table object.
