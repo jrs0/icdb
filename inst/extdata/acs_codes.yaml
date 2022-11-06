@@ -12,9 +12,12 @@ categories:
               anterior-transmural:
                 docs: "Across the full myocardium, involving left anterior descending coronary artery"
                 codes: "I210"
+                tag: "something"
               inferior-transmural:
                 docs: "Across the full myocardium, involving right coronary artery"
                 codes: "I211"
+                tag: "another"
+                exclude: true
               other-transmural:
                 docs: "Across the full myocardium, not inferior or anterior"
                 codes: "I212"
@@ -22,6 +25,7 @@ categories:
                 docs: "Across the full myocardium, further detail not specified"
                 codes: "I213"
               subsequent:
+                tag: "catch-all-tag"
                 docs: "Occuring within four weeks of another myocardial infarction"
                 categories: 
                   anterior-transmural:
@@ -71,3 +75,6 @@ categories:
       unstable-angina:
         docs: "No ST-elevation, and also no presence of troponin, but patient presents with MI-like symptomns"
         codes: "I200"
+  _default:
+    # A special area that will catch anything
+    exclude: true
