@@ -22,56 +22,6 @@
 ##' @export
 NULL
 
-
-##' Make helper functions to turn on and off the cache
-make_cache_fns <- function()
-{
-    ## Global flag indicating whether caching should be used or not
-    cache_flag <- FALSE
-
-    ## Return the use_cache and get_cache_flag function in a vector
-    c(
-        use_cache = function(choice)
-        {
-            cache_flag <<- choice
-        },
-        get_cache_flag = function()
-        {
-            cache_flag
-        }
-    )
-}
-
-cache_fns <- make_cache_fns()
-
-##' Use this function to turn on or off caching. If caching is
-##' enabled, then query results will be saved behind the scenes.
-##' If caching is disabled, queries will always return results
-##' directly from the database. Caching is disabled by default.
-##' You must explicitly call this function if you want to use it.
-##' You only need to call this function once, when you load the
-##' ICDB library using library(icdb).
-##' 
-##' If caching is enabled, and you perform exactly the same query
-##' again (for example, by running the same script), then the
-##' cached results will be used, which will speed up the running
-##' of the script. This can make development and debugging easier,
-##' because the turnaround time for running commands and scripts
-##' is reduced.
-##'
-##' If caching is disabled, then results will always come from the
-##' database. This can make code take longer to run, but will
-##' always guarantee that results are up to date.
-##'
-##' @title Turn on or off caching
-##' @param choice TRUE will turn on the cache, FALSE will turn it off
-##' 
-##' @export
-use_cache <- cache_fns$use_cache
-
-##' Internal function for getting the value of the cache flag
-get_cache_flag <- cache_fns$get_cache_flag
-
 ##' Get the tree of accessible objects in the database connection
 ##'
 ##' Objects in a database connection are stored as a tree. At the root of
@@ -126,16 +76,17 @@ build_object_tree <- function(con, prefix)
     
     ## Create the sublists underneath the labels
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
-                                        build_object_tree(con, .x)
-                                    } else {
-                                        make_table_getter(con, id = .x)
-                                    })
+                                         build_object_tree(con, .x)
+                                     } else {
+                                         TableWrapper(make_table_getter(con,
+                                                                        id = .x))
+                                     })
 
     ## Bind the labels and values into a named list and return it
     names(values) <- labels
 
     ## Return the list
-    values
+    Node(values)
 }
 
 new_Table <- function(tbl, ..., class=character())
@@ -161,37 +112,77 @@ Table <- function(tbl, ..., class=character())
     new_Table(tbl, ..., class=class)
 }
 
-
-##' Simple wrapper to print a user error. This class inherits from
-##' function, which means it is expecting to be called. The purpose
-##' of wrapping this in a class is to throw an error in the show
-##' method, to catch the case where a user tries to view a table
-##' by just writing table name without (). Without this, the user
-##' would just get the body of the function, which is not really very
-##' helpful for debugging.
-setClass(
-    "TableGetter",
-    contains = "function",
-    slots = representation(
-        ## Nothing here
-    ),
-    prototype = prototype(
-        ## Nothing here
-    )
-)
-
-TableGetter <- function(table_getter)
+##' The Server object is a nested list of Nodes, which each
+##' represent an object in the database. This is the S3 class
+##' for a Node.
+##'
+##' The one job of the Node is to correctly handle the `$`
+##' overload for the object being accessed in the object
+##' tree. For the Server, `$` is overloaded to list the top
+##' level objects. All other objects in the tree are either
+##' Nodes or Tables. The `$` operator for a Node is overloaded
+##' in such a way that it checks whether the node below it is
+##' a Node or a Table. If it is a Node, it prints a list of the
+##' contents of that Node. If it is a Table, it automatically
+##' fetches the dplyr::tbl.
+##'
+##' The Node object is a named list of either Nodes or Tables. 
+##' 
+##' @title Node object for intermediate positions in the object tree.
+##' @return A new Node S3 object
+##' 
+new_Node <- function(subobjects, ..., class=character())
 {
-    new("TableGetter", table_getter)
+    structure(subobjects,
+              class=c("Node", class)
+              )
 }
 
-##' Print a warning if the user tries to view the TableGetter object directly
-##'
-##' @title Print the TableGetter
-##' @param object The TableGetter object
-setMethod("show", "TableGetter", function(object) {
-    message("You must use parentheses () after the table name to get the tibble.")
-})
+Node <- function(subobjects, ..., class=character())
+{
+    new_Node(subobjects, ..., class=class)
+}
+
+
+##' @export
+print.Node <- function(x, ...)
+{
+    print(names(x))
+}
+
+##' @export
+`$.Node` <- function(x,i)
+{
+    obj <- NextMethod()
+    if (class(obj) == "Node")
+    {
+        ## Return for printing or otherwise
+        obj
+    }
+    else if (class(obj) == "TableWrapper")
+    {
+        ## Call the object, which returns a table, and
+        ## return the result
+        obj()
+    }
+    else
+    {
+        stop("Unexpected object class in Node while calling `$`")
+    }
+}
+
+
+new_TableWrapper <- function(table_getter)
+{
+    structure(table_getter, class = "TableWrapper")
+}
+
+TableWrapper <- function(table_getter)
+{
+    new_TableWrapper(table_getter)
+}
+
+setOldClass("Node")
 
 ##' Server class wrapping an SQL server connection
 ##'
@@ -201,18 +192,19 @@ setMethod("show", "TableGetter", function(object) {
 ##' @slot .Data From the contained list
 ##'
 ##' @export
+##' 
 setClass(
     "Server",
-    contains = "list",
+    contains = "Node",
     slots = representation(
-        con = "DBIConnection",
-        config = "list",
-        dsn = "character"
+        con = "DBIConnection"
+        ## config = "list",
+        ## dsn = "character"
     ),
     prototype = prototype(
-        con = NULL,
-        config = list(),
-        dsn = NA_character_
+        con = NULL
+        ## config = list(),
+        ## dsn = NA_character_
     )
 )
 
@@ -258,9 +250,10 @@ setClass(
 ##'   value is the credential file stored in the inst/ directory.
 ##'
 ##' @param interactive This parameter specifies whether the list of databases
-##' and tables is populated. 
+##' and tables is populated. This is used to make the MappedSrv object load
+##' faster, by only fetching the tables specified in the mapping.
 ##' 
-##' @return A new (S4) Databases object
+##' @return A new (S4) Server object
 ##' 
 ##' @export
 Server <- function(data_source_name = NULL,
@@ -271,13 +264,10 @@ Server <- function(data_source_name = NULL,
     if (!is.null(data_source_name))
     {
         message("Connecting using data source name (DSN): ", data_source_name)
-        db <- new(
-            "Server",
-            ## Note the bigint argument, see comment below
-            con = DBI::dbConnect(odbc::odbc(), data_source_name,
-                                        bigint = "character"),
-            dsn = data_source_name
-        )
+        ## Make sure to pass bigint = character to avoid using 64-bit ints
+        ## in R. 
+        con <- DBI::dbConnect(odbc::odbc(), data_source_name,
+                              bigint = "character")
     }
     else if (!is.null(config))
     {
@@ -290,13 +280,16 @@ Server <- function(data_source_name = NULL,
         tryCatch(
             error = function(cnd)
             {
-                stop("An error occured parsing the config file '",
-                     config,
-                     "' supplied to Databases()", call.=FALSE)
+                message(cnd$message)
+                stop("Could not connect to Server because of the YAML ",
+                     "parsing error above", call.=FALSE)
             },
-            conf <- rjson::fromJSON(file = config)
+            conf <- yaml::read_yaml(config)
         )
 
+        ## Store the driver name to use below
+        driver_name <- conf$driver
+        
         ## Create the mapping from strings to drivers
         drv_map <- list(
             "ODBC Driver 17 for SQL Server" = odbc::odbc(), ## For Microsoft
@@ -305,14 +298,30 @@ Server <- function(data_source_name = NULL,
             "sqlite" = RSQLite::SQLite()
         )
 
-        ## Duplicate the config file to use as arguments in DBI::dbConnect
-        conf_args <- conf
-        drv <- drv_map[[conf$driver]]
-        if (!is.null(drv))
+        ## Check if the database is specified as a file or as a name.
+        ## If a file is used, expand to the path of the file
+        if (!is.null(conf$dbfile))
         {
-            conf_args$drv <- drv
-        }
-        else
+            if (fs::is_file(conf$dbfile))
+            {
+                ## Use the file in the current directory
+                conf$dbname <- conf$dbfile
+            }
+            else
+            {
+                stop("Could not find database file '", conf$dbfile,
+                     "' in the current working directory")
+            }
+            
+            ## Remove the dbfile name from the conf
+            conf$dbfile <- NULL
+        }        
+        
+        ## The conf file will be used as arguments in DBI::dbConnect.
+        ## First, replace the driver element with the drv object
+        conf$drv <- drv_map[[conf$driver]]
+        conf$driver <- NULL
+        if (is.null(conf$drv))
         {
             stop("Unrecognised driver '", conf$driver,
                  "' specified in config file '", config,
@@ -324,17 +333,8 @@ Server <- function(data_source_name = NULL,
         ## with dplyr (storing the bigint as a character string)
         conf$bigint <- "character"
 
-        ## If the testdata flag is true, then replace the dbname with
-        ## the correct path to the database
-        if (conf$testdata == TRUE)
-        {
-            conf_args$dbname <- system.file("testdata", conf_args$dbname, package="icdb")
-        }
-        
         ## Open the database connection
-        con <- do.call(DBI::dbConnect, conf_args)
-
-        db <- new("Server", con = con, config = conf)
+        con <- do.call(DBI::dbConnect, conf)
     }
     else
     {
@@ -352,10 +352,13 @@ Server <- function(data_source_name = NULL,
     ## Most database drivers return the databases and tables as a tree of objects,
     ## via the dbListObjects function. SQL Server does not work like this, so treat
     ## it separately
-    if (!is.na(db@dsn) || grepl("SQL Server", conf$driver))
+    if (!is.null(data_source_name) || grepl("SQL Server", driver_name))
     {
+        ## Create a top level Node object
+        node <- Node()
+        
         ## Copy the list of databases into a list, ready to store in the object
-        databases <- db@con %>%
+        databases <- con %>%
             DBI::dbGetQuery("SELECT name FROM master.sys.databases")
         
         ## This is the problem part of the code -- it really needs to store a
@@ -366,13 +369,16 @@ Server <- function(data_source_name = NULL,
             {
                 ## Get the list of tables associated with this database,
                 ## and their associated schemas
-                tables <- db@con %>%
+                tables <- con %>%
                     DBI::dbGetQuery(paste0("SELECT table_schema,table_name FROM ", d,
                                            ".INFORMATION_SCHEMA.TABLES"))
                 
                 ## Put the tables in the database
-                db[[d]] <- tables %>% purrr::pmap(~ TableGetter(make_table_getter(db, d, .x, .y)))
-                names(db[[d]]) <- tables$table_name
+                node[[d]] <- tables %>%
+                    purrr::pmap(~ TableWrapper(make_table_getter(con, d, .x, .y))) %>%
+                    Node()
+                
+                names(node[[d]]) <- tables$table_name
             },
             error = function(cond)
             {
@@ -395,10 +401,11 @@ Server <- function(data_source_name = NULL,
         ## evaluated dplyr::tbl because it is not possible to overload $ in this
         ## case.
         ## TODO think up a method to make lazy evaluation of list items work here
-        db@.Data <- build_object_tree(con, NULL)
+        node <- build_object_tree(con, NULL)
     }
-        
-        db
+    
+    ## Now create and return the Server object
+    new("Server", node, con = con)
 }
 
 ##' This is the function for obtaining a table in non-interactive Databases mode.
@@ -433,7 +440,6 @@ get_tbl <- function(srv, database, table)
                                            table))    
 }
 
-
 ##' Make a function that returns a table getter. The function which
 ##' is returned can be called to produce a Table object.
 ##'
@@ -454,15 +460,15 @@ get_tbl <- function(srv, database, table)
 ##' information_schema, which contains JSON columns).
 ##' 
 ##' @title Get a function which returns a table object
-##' @param srv The Server object to use (containing the connection)
+##' @param srv The database connection to use
 ##' @param database The database name
 ##' @param table_schema The table schema name
 ##' @param table_name The table name
 ##' @param id You can also pass the complete Id, if it is available
 ##' 
-make_table_getter <- function(srv, database, table_schema, table_name, id = NULL)
+make_table_getter <- function(con, database, table_schema, table_name, id = NULL)
 {
-    force(srv)
+    force(con)
     if (is.null(id))
     {
         force(database)
@@ -473,6 +479,7 @@ make_table_getter <- function(srv, database, table_schema, table_name, id = NULL
     {
         force(id)
     }
+
     function()
     {
         ## Create the reference to the table in the database
@@ -482,7 +489,7 @@ make_table_getter <- function(srv, database, table_schema, table_name, id = NULL
         }
         
         ## Get the table shell object
-        tbl <- dplyr::tbl(srv@con, id)
+        tbl <- dplyr::tbl(con, id)
 
         ## Return th Table object wrapping the tbl
         Table(tbl)
@@ -613,24 +620,26 @@ setMethod("sqlFromFile", c("Server", "character"), function(db, file) {
 ##' @param object The object to be printed
 ##' @export
 setMethod("show", "Server", function(object) {
-    if (!is.na(object@dsn) || grepl("SQL Server", object@config$driver))
-    {
-        message("Database connection (Microsoft SQL Server)")
-        message("Databases name: ", object@con@info$dbname)
-        if (!is.na(object@dsn))
-        {
-            message("Database server connection via data source name (DSN): ", object@dsn)
-        }
-        else
-        {
-            message("Database server connection via config file")
-        }
-    }
-    else
-    {
-        message("Database connection (Other database)")
-        message("Database: ", object@con@dbname)
-    }
+    ## if (!is.na(object@dsn) || grepl("SQL Server", object@config$driver))
+    ## {
+    ##     message("Database connection (Microsoft SQL Server)")
+    ##     message("Databases name: ", object@con@info$dbname)
+    ##     if (!is.na(object@dsn))
+    ##     {
+    ##         message("Database server connection via data source name (DSN): ", object@dsn)
+    ##     }
+    ##     else
+    ##     {
+    ##         message("Database server connection via config file")
+    ##     }
+    ## }
+    ## else
+    ## {
+    ##     message("Database connection (Other database)")
+    ##     message("Database: ", object@con@dbname)
+    ## }
+    print(object)
+
 })
 
 ##' This function is a replacement for the dplyr::collect() function
@@ -655,12 +664,8 @@ run <- function(x, ...)
     output <- capture.output(x %>% dplyr::show_query())
     query <- paste(tail(output, -1), collapse="")    
     
-    ## Search for the cached file, if caching is enabled
-    result <- NULL
-    if (get_cache_flag() == TRUE)
-    {
-        result <- read_cache(query)
-    }
+    ## Search for the cached file
+    result <- read_cache(query)
     
     if (!is.null(result))
     {
@@ -678,11 +683,8 @@ run <- function(x, ...)
         t <- x %>% dplyr::collect(...)
 
         ## Save the results in the cache
-        if (get_cache_flag() == TRUE)
-        {
-            write_cache(query, t, lubridate::now() - start)
-        }
-        
+        write_cache(query, t, lubridate::now() - start)
+       
         ## Return the dataframe of results as a tibble
         t
     } 

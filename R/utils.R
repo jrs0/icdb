@@ -53,20 +53,22 @@ gen_apc <- function(filename, seed = 1, nspells = 10)
     ## one ends
     start_date <- lubridate::ymd("2018-1-1")
     end_date <- lubridate::ymd("2020-1-1")
-    spell_starts <- lubridate::as_datetime( runif(nspells, as.numeric(as.POSIXct(start_date)), as.numeric(as.POSIXct(end_date))))
+    spell_starts <- lubridate::as_datetime(
+                                   runif(nspells,
+                                         as.numeric(as.POSIXct(start_date)),
+                                         as.numeric(as.POSIXct(end_date)))) %>%
+        as.character()
+    
     ## ep_durations <- abs(20 + rnorm(5, sd = 300)) %>% lubridate::make_difftime(units="minutes")
     ## ep_ends <- ep_starts + ep_durations
 
-    ep_starts_col <- rep(spell_starts, neps)
+    spell_starts_col <- rep(spell_starts, neps)
     
     ## Make the data frame with the episode data
     tbl <- tibble::tibble(NHSNnmber = nhs_num_col,
                          DiagnosisICD = diagnosis_col,
                          SpellID = spell_id_col,
-                         EpisodeStartDate = ep_starts_col)
-
-    ## TODO do this properly
-    tbl[,"EpsiodeStartDate"] <- as.character(tbl[["EpisodeStartDate"]])  
+                         SpellStartDate = spell_starts_col)
 
     print(tbl)
     

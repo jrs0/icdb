@@ -1,9 +1,10 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ICDB: a database library for Microsoft SQL Server
+# ICB Database Library
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The goal of ICDB is to wrap the dplyr DBI library and make it easier to
@@ -17,7 +18,7 @@ other features to change**
 
 *NOTE: If you have been using the library, and you download the latest
 version, be aware that table names must now be followed with brackets,
-e.g. srv\$dbname\$tabname().*
+e.g. srv$dbname$tabname().*
 
 ## Installation
 
@@ -198,13 +199,13 @@ This section contains notes about development, such as todo lists, etc.
 The functions in the package are labelled according to a 5 point scale
 (0-4), according to the following criteria:
 
-- 0: An initial version of the function has been written, but lacks
-  either documentation or testing
-- 1: The function has an initial version that also has initial
-  documentation and is covered by some preliminary tests
-- 2: To be confirmed…
-- 3: To be confirmed…
-- 4: To be confirmed…
+  - 0: An initial version of the function has been written, but lacks
+    either documentation or testing
+  - 1: The function has an initial version that also has initial
+    documentation and is covered by some preliminary tests
+  - 2: To be confirmed…
+  - 3: To be confirmed…
+  - 4: To be confirmed…
 
 These scores are provided at the end of the documnentation for each
 function as a line of the form “doneness: 2/4”. You can take this as an
@@ -217,59 +218,72 @@ If there is no doneness label, assume that the function is incomplete.
 
 Here is a list of improvements that need to be made:
 
-- Connect to the server, not a database. Arrange things so that the user
-  can autocomplete databases before tables. Try to make it work so that
-  the same database connection can be used in multiple dplyr pipe
-  operations.
-- Flush the level1 cache to the disk at some point (i.e. when the
-  session ends) to shorten the load time next session. Make sure there
-  is a clear way to disable this (it might not be a desirable default).
-- Need to try to get autocomplete working in every context it makes
-  sense (col names etc.).
-- Look into replacing dbSendQuery with dbGetQuery for simplicity
-- Really need to find a way to lazily evaluate the contents of the
-  Databases object. Currently, all the databases and tables are stored
-  because the current autocomplete method rests of built-in
-  autocompletion of lists – however, this requires the list to be
-  populated. It would be better to find a different autocomplete method
-  that allowed lazy evaluation of completion options.
-- Need to reconcile the mysql and sql server (microsoft) way of getting
-  lists of databases and tables. mysql returns objects properly using
-  dbListObjects, but sql server lists the databases in a table and then
-  there is no clear way to get the tables without raw sql.
-- Need to make a better error message when the user tries to get a
-  non-existent table
-- Need to test cache properly
-- Need to add proper database disconnection code
-- Should replace the server connection files with YAML not JSON (for
-  consistency with everything else)
-- Replace the testdata flag with proper logic for connecting to an
-  SQLite database.
+  - Connect to the server, not a database. Arrange things so that the
+    user can autocomplete databases before tables. Try to make it work
+    so that the same database connection can be used in multiple dplyr
+    pipe operations.
+  - Flush the level1 cache to the disk at some point (i.e. when the
+    session ends) to shorten the load time next session. Make sure there
+    is a clear way to disable this (it might not be a desirable
+    default).
+  - Need to try to get autocomplete working in every context it makes
+    sense (col names etc.).
+  - Look into replacing dbSendQuery with dbGetQuery for simplicity
+  - Really need to find a way to lazily evaluate the contents of the
+    Databases object. Currently, all the databases and tables are stored
+    because the current autocomplete method rests of built-in
+    autocompletion of lists – however, this requires the list to be
+    populated. It would be better to find a different autocomplete
+    method that allowed lazy evaluation of completion options.
+  - Need to reconcile the mysql and sql server (microsoft) way of
+    getting lists of databases and tables. mysql returns objects
+    properly using dbListObjects, but sql server lists the databases in
+    a table and then there is no clear way to get the tables without raw
+    sql.
+  - Need to make a better error message when the user tries to get a
+    non-existent table
+  - Need to test cache properly
+  - Need to add proper database disconnection code
+  - Should replace the server connection files with YAML not JSON (for
+    consistency with everything else)
+  - Replace the testdata flag with proper logic for connecting to an
+    SQLite database.
+  - Handle closing the database connection properly.
+  - Probably better to use the syntax
+    table(srv$![dbname](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;dbname
+    "dbname")tabname) instead of
+    srv![dbname](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;dbname
+    "dbname")tabname(). Then you could do
+    srv![dbname](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;dbname
+    "dbname")tabname %\>% get\_table(). Also, maybe there is a way to
+    implement the non-parentheses methods even when there is a nested
+    list – if the $ method could be made to check for a list, and do
+    something different for a function.
 
 ### Problem reports
 
 This section contains a list of issues people had trying to use the
 library
 
-- After fresh install, getting an error with dbplyr (no function
-  in_catalog in namespace:dbplyr). The issue was trying to use dbplyr
-  2.1.1, when icdb requires 2.2.1. Need to specify library versions in
-  DESCRIPTION file). **SOLVED** by adding the dependency version to the
-  DESCRIPTION file.
+  - After fresh install, getting an error with dbplyr (no function
+    in\_catalog in namespace:dbplyr). The issue was trying to use dbplyr
+    2.1.1, when icdb requires 2.2.1. Need to specify library versions in
+    DESCRIPTION file). **SOLVED** by adding the dependency version to
+    the DESCRIPTION file.
 
-- After fresh install, getting error “no applicable method for ‘tbl’
-  applied to an object of class Microsoft SQL Server”. This error may
-  have been caused by a dplyr minor version (1.0.9 -\> 1.0.10), but more
-  likely was just an issue with a corrupt Databases object from the old
-  dbplyr version above. Note that tidyverse may encode the versions of
-  its constituent packages.
+  - After fresh install, getting error “no applicable method for ‘tbl’
+    applied to an object of class Microsoft SQL Server”. This error may
+    have been caused by a dplyr minor version (1.0.9 -\> 1.0.10), but
+    more likely was just an issue with a corrupt Databases object from
+    the old dbplyr version above. Note that tidyverse may encode the
+    versions of its constituent packages.
 
-- On MAC, attempt to connect to mysql via config file gave an error
-  like: “Error: Unimplemented MAX_NO_FIELD_TYPES”.
-  [https://www.rapids.science/1.9/common-errors/](This%20page) says that
-  the error is due to having a JSON column type in the table, and
-  RMariaDB cannot handle JSON types. However, there did not seem to be
-  any JSON types. Needs further investigation. **SOLVED** for now by
-  reintroducing lazy evaluation of the dplyr::tbl in the object tree for
-  the database. See the comments in the build_object_tree() function.
-  This issue needs a bit more thinking about.
+  - On MAC, attempt to connect to mysql via config file gave an error
+    like: “Error: Unimplemented MAX\_NO\_FIELD\_TYPES”.
+    [https://www.rapids.science/1.9/common-errors/](This%20page) says
+    that the error is due to having a JSON column type in the table, and
+    RMariaDB cannot handle JSON types. However, there did not seem to be
+    any JSON types. Needs further investigation. **SOLVED** for now by
+    reintroducing lazy evaluation of the dplyr::tbl in the object tree
+    for the database. See the comments in the build\_object\_tree()
+    function. This issue needs a bit more thinking about.

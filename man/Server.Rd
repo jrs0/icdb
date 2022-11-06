@@ -15,10 +15,11 @@ containing database connection information and credentials. The default
 value is the credential file stored in the inst/ directory.}
 
 \item{interactive}{This parameter specifies whether the list of databases
-and tables is populated.}
+and tables is populated. This is used to make the MappedSrv object load
+faster, by only fetching the tables specified in the mapping.}
 }
 \value{
-A new (S4) Databases object
+A new (S4) Server object
 }
 \description{
 This object manages a connection to a database server. The connection

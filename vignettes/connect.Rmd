@@ -39,24 +39,21 @@ After setting up a data source name, try executing the code below (replace *XSW*
 ```{r, eval=FALSE}
 library(icdb)
 ## The next line may take a little while to run, due to the way the library works.
-srv <- Databases("XSW")
+srv <- Server("XSW")
 ```
 
 The `srv` object behaves like a list of lists. The first level contains databases on the server, and the next level contains tables in that database. Database and table names tab complete (in RStudio and Emacs ESS), to make it easier to find what you are looking for. After running the code above, try typing `srv$` to see the list of database names. Then type `srv$dbname$` to get the list of tables in the database called *dbname*.
 
-
 # Connecting to a MySQL server
 
-You can connect to a MySQL server using a configuration file formatted in [JSON](https://en.wikipedia.org/wiki/JSON). The file must have the following structure:
+You can connect to a MySQL server using a configuration file formatted in [YAML](https://en.wikipedia.org/wiki/YAML). The file must have the following structure:
 
-```{json}
-{
-	"driver":"mysql",
-    "host": "mysql_server_hostname",
-    "user": "test_mysql_user",
-    "password": "Test_User%Password9",
-    "testdata": false
-}
+```{yaml}
+---
+"driver": "mysql" # Make sure you put a space after the colon
+"host": "mysql_server_hostname"
+"user": "test_mysql_user"
+"password": "Test_User%Password9"
 ```
 
 Replace the fields with information specific to your own server, as follows:
@@ -64,12 +61,11 @@ Replace the fields with information specific to your own server, as follows:
 - **driver**: This must be set to "mysql" to connect to a MySQL server
 - **host**: The hostname of the MySQL server. This is a name that will resolve to the IP address of the server. If you have a server running locally on your personal computer, then set this field to "localhost".
 - **user**/**password**: You need to specify your username and password credentials for accessing the server. Th
-- **testdata**: You must leave this field as *false*. There is an internal requirement for this field that will be removed in future versions of the library.
 
-Save the contents above in a file, for example *mysql.json*, and put it somewhere accessible from your R script. Then run the following command
+Save the contents above in a file, for example *mysql.yaml*, and put it somewhere which is accessible from your R script. Then run the following command
 
 ```{r, eval=FALSE}
-srv <- Databases(config = "path/to/mysql.json")
+srv <- Server(config = "path/to/mysql.yaml")
 ```
 
 Database names and table names should now tab complete on typing srv\$ and srv\$dbname.
@@ -78,20 +74,29 @@ TOCHECK: It is also possible to connect to a MySQL server using a data source na
 
 # Connecting to an SQLite database file
 
-You can connect to an SQLite database file. Use a configuration file (e.g. *sqlite.json*) with the following structure:
+You can connect to an SQLite database file. Use a configuration file (e.g. *sqlite.yaml*) with the following structure:
 
-```{json}
-{
-    "driver":"sqlite",
-    "dbname":"path/to/file.db",
-    "testdata": false
-}
+```{yaml}
+--- 
+"driver": "sqlite"
+"dbfile": "database-file.db"
 ```
+
+Replace the fields with information specific to your own server, as follows:
+
+- **driver**: This must be set to "sqlite" to connect to a SQLite database
+- **dbfile**: This is the path to the file containing the SQLite database. The path is relative to the working directory of the R script where you create the connection.
 
 Then run the following command to make the connection:
 
 ```{r, eval=FALSE}
-srv <- Databases(config = "path/to/mysql.json")
+## You can view the working directory of the script like this. You need
+## to set the dbfile field path relative to whatever directory is printed
+## here
+getwd()
+
+## Make the connection
+srv <- Server(config = "path/to/sqlite.yaml")
 ```
 
 
