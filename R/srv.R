@@ -263,13 +263,8 @@ Server <- function(data_source_name = NULL,
     if (!is.null(data_source_name))
     {
         message("Connecting using data source name (DSN): ", data_source_name)
-        ## db <- new(
-        ##     "Server",
-        ##     ## Note the bigint argument, see comment below
-        ##     con = DBI::dbConnect(odbc::odbc(), data_source_name,
-        ##                                 bigint = "character"),
-        ##     dsn = data_source_name
-        ## )
+        ## Make sure to pass bigint = character to avoid using 64-bit ints
+        ## in R. 
         con <- DBI::dbConnect(odbc::odbc(), data_source_name,
                              bigint = "character")
 
@@ -289,7 +284,7 @@ Server <- function(data_source_name = NULL,
                      config,
                      "' supplied to Databases()", call.=FALSE)
             },
-            conf <- rjson::fromJSON(file = config)
+            conf <- yaml::read_yaml(config)
         )
 
         ## Create the mapping from strings to drivers
@@ -301,7 +296,7 @@ Server <- function(data_source_name = NULL,
         )
 
         ## Duplicate the config file to use as arguments in DBI::dbConnect
-        conf_args <- conf
+        conf_args <- list()
         drv <- drv_map[[conf$driver]]
         if (!is.null(drv))
         {
@@ -317,7 +312,7 @@ Server <- function(data_source_name = NULL,
         ## This parameter is really important for getting bigints
         ## (often used in ID columns) in a format that will work
         ## with dplyr (storing the bigint as a character string)
-        conf$bigint <- "character"
+        con_args$bigint <- "character"
 
         ## If the testdata flag is true, then replace the dbname with
         ## the correct path to the database
