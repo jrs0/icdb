@@ -77,7 +77,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
                 ## is the function name and the subsequent elements are
                 ## the arguments
                 tbl <- do.call(paste0("strategy_", strategy[1]),
-                               list(tbl, logical_column_name, strategy[[-1]]))
+                               list(tbl, logical_column_name, strategy[-1]))
             }
         }
         

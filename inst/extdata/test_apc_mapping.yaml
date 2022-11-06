@@ -20,6 +20,6 @@ tables:
         docs: "The main diagnosis for this episode? The field is an ICD 10 code."
         source_columns:
           "DiagnosisICD": ""
-        strategy: ["codes_from", "acs_codes.yaml"]
+        strategy: ["codes_from", "acs_codes.yaml", "bleeding_codes.yaml"]
 
         

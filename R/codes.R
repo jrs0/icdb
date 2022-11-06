@@ -2,6 +2,35 @@
 ##'
 NULL
 
+##' Parse multiple codes files and combine the result
+##'
+##' @title Parse multiple codes files
+##' @param codes_files A list of filenames to parse
+##' @return A named list suitable for gen_code_map()
+##' 
+get_codes <- function(codes_files)
+{
+    codes <- list()
+    for (filename in codes_files)
+    {
+        ## Read the codes file from the current directory, or
+        ## try from extdata
+        if (file.exists(filename))
+        {
+            codes_yaml <- yaml::read_yaml(filename)
+        }
+        else
+        {
+            codes_yaml <- yaml::read_yaml(system.file("extdata", filename,
+                                                      package="icdb"))
+        }
+        
+        ## Parse the codes file
+        codes <- c(codes, parse_codes(codes_yaml))
+    }
+    codes
+}
+
 ##' Get all the codes in a codes definition yaml file as a list.
 ##'
 ##' A codes definition file is a yaml with a tree-like structure

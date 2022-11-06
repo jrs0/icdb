@@ -73,10 +73,10 @@ strategy_coalesce_exclude_null <- function(tbl, name)
 ##' @title Remap a column of codes to hierarchy of strings
 ##' @param tbl The tbl to process
 ##' @param name The logical column name
-##' @param codes_file The name of the codes configuration file
+##' @param codes_files A list of the names of codes configuration files
 ##' @return The tbl after reducing
 ##'
-strategy_codes_from <- function(tbl, name, codes_file)
+strategy_codes_from <- function(tbl, name, codes_files)
 {
     ## Check there is only one source column
     regx <- paste0(name,"_\\d+")
@@ -88,20 +88,9 @@ strategy_codes_from <- function(tbl, name, codes_file)
     {
         stop("Strategy 'codes_from' currently only works with one source_column.")
     }
-    
-    ## Read the codes file from the current directory, or
-    ## try from extdata
-    if (file.exists(codes_file))
-    {
-        codes_yaml <- yaml::read_yaml(codes_file)
-    }
-    else
-    {
-        codes_yaml <- yaml::read_yaml(system.file("extdata", codes_file, package="icdb"))
-    }
-        
-    ## Parse the codes file
-    codes <- parse_codes(codes_yaml)
+
+    ## Get the codes from multiple files
+    codes <- get_codes(codes_files)
 
     ## Generate the codes map
     code_map <- gen_code_map(codes)
