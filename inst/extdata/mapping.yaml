@@ -59,8 +59,31 @@ databases:
             related_columns:
               "HospitalProviderSpellDischargeReadyDate": "probably not the end date, but maybe related."
             strategy: "coalesce"
-              
+
       ae:
         docs: "The A&E HES data"
         source_table: "vw_AE_SEM_001"
         columns: []
+
+  swd:
+    docs: "The MODELLING_SQL_AREA database contains the System Wide Dataset tables (activity, attributes, measurements), which bring together data from primary care (GPs), secondary care (hsopitals), mental health, and community care services."
+    source_database: "MODELLING_SQL_AREA"
+    tables:
+      activity:
+        docs: "The SWD activity table contains records of healthcare encounters (e.g. a GP appointment) from  primary care (GPs), secondary care (hsopitals), mental health, and community care services."
+        source_table: "test___test"
+        columns:
+          nhs_number:
+            docs: "The NHS number identifies the patient. The field is anonymised."
+            source_columns:
+              "nhs_number": ""
+            strategy: "coalesce_exclude_null"
+      attributes:
+        docs: "The SWD attributes table contains records of patient attributes at snapshots through the year (monthly updates)."
+        source_table: "primary_care_attributes"
+        columns:
+          nhs_number:
+            docs: "The NHS number identifies the patient. The field is anonymised."
+            source_columns:
+              "nhs_number": ""
+            strategy: "coalesce_exclude_null"
