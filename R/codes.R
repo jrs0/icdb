@@ -20,6 +20,38 @@ parse_codes <- function(codes)
 {
     if ("categories" %in% names(codes))
     {
+        ## It is important that the categories field is
+        ## parsed before the codes field, in order to
+        ## preserve the precedence of the code matching,
+        ## as described below.
+        ##
+        ## When this function parses the codes in the file,
+        ## it pushes codes it finds to a list in the order
+        ## that the for category for loop executes, and
+        ## it processes categories before codes. This means
+        ## that the categories will end up in the SQL case
+        ## when statement before the codes on the same
+        ## level as the category tag. As a result, more
+        ## specific codes will be matched before the codes
+        ## specified at the top level, which act as fall
+        ## back categories.
+        ##
+        ## The functioning of this mechanism rests on the
+        ## guarantee that the SQL case-when statement
+        ## evaluates matches in the order they are listed.
+        ## This appears to be the case (as it should be):
+        ## "https://stackoverflow.com/questions/22640981/
+        ## sql-case-does-the-order-of-the-when-statements-matter". 
+        ##
+        ## Note that it is not necessary to use a particular
+        ## order for the items in the YAML file itself --
+        ## putting the codes field in front of the
+        ## categories field will also work.
+        ##
+        ## However, it is very important not to move the
+        ## else statement for the codes name above this
+        ## if statement body for categories.
+
         ## Create a list that will hold all the results
         results <- list()
         
@@ -53,10 +85,11 @@ parse_codes <- function(codes)
         results
 
     }
-    else if ("code" %in% names(codes))
+    else if ("codes" %in% names(codes))
     {
-        ## Return the code
-        list(codes$code)
+        ## Return the code. Even if the codes only contains
+        ## one item, it is still treated as a list
+        list(codes$codes)
     }
     else
     {
