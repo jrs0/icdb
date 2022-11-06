@@ -2,9 +2,10 @@
 ##' 
 NULL
 
+setOldClass("Node")
 setClass(
     "MappedSrv",
-    contains = "list",
+    contains = "Node",
     slots = representation(
         mapping = "list"
     ),
@@ -12,6 +13,10 @@ setClass(
         mapping = list()
     )    
 )
+
+setMethod("show", "MappedSrv", function(object) {
+    print(object)
+})
 
 make_mapped_table_getter <- function(srv, source_database, source_table, table)
 {
@@ -102,12 +107,10 @@ MappedSrv <- function(..., mapping = system.file("extdata", "mapping.yaml", pack
     ## Read the yaml mapping file
     m <- yaml::read_yaml(mapping)
 
-    mdb <- new("MappedSrv", mapping = m)
-
     ## Write the parsed config file tree to the object
-    mdb@.Data <- parse_mapping(m, srv)
+    node <- parse_mapping(m, srv)
     
-    mdb
+    mdb <- new("MappedSrv", node, mapping = m)
 }
 
 new_MappedTable <- function(tbl, mapping)

@@ -620,26 +620,7 @@ setMethod("sqlFromFile", c("Server", "character"), function(db, file) {
 ##' @param object The object to be printed
 ##' @export
 setMethod("show", "Server", function(object) {
-    ## if (!is.na(object@dsn) || grepl("SQL Server", object@config$driver))
-    ## {
-    ##     message("Database connection (Microsoft SQL Server)")
-    ##     message("Databases name: ", object@con@info$dbname)
-    ##     if (!is.na(object@dsn))
-    ##     {
-    ##         message("Database server connection via data source name (DSN): ", object@dsn)
-    ##     }
-    ##     else
-    ##     {
-    ##         message("Database server connection via config file")
-    ##     }
-    ## }
-    ## else
-    ## {
-    ##     message("Database connection (Other database)")
-    ##     message("Database: ", object@con@dbname)
-    ## }
     print(object)
-
 })
 
 ##' This function is a replacement for the dplyr::collect() function
