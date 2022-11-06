@@ -7,14 +7,34 @@
 
 <!-- badges: end -->
 
+ICDB is a library for connecting to health care databases, with features
+designed to make data analysis using these databases easier.
+
+**The library is not fully developed yet. Expect the interface and other
+features to change**
+
+## Obtaining the documentation
+
+The first step to using the library is to find a copy of the
+documentation. To generate the documentation, download this repository,
+and open the ICDB project in RStudio. Then run the following command:
+
+``` r
+# You may need to install devtools first 
+devtools::build_site()
+```
+
+Once the documentation has finished building, a web page should open
+with the package documentation. Look in the *Articles* tab for
+information about getting started, and other usage guides.
+
+# Older readme below…
+
 The goal of ICDB is to wrap the dplyr DBI library and make it easier to
 use NHS databases hosted on Microsoft SQL Servers. The library features
 a connection that autocompletes database and table names, automatically
 generates SQL queries from familiar dplyr functions, and caches results
 to make speed up prototyping and development.
-
-**This library is not fully developed yet – expect the interface and
-other features to change**
 
 *NOTE: If you have been using the library, and you download the latest
 version, be aware that table names must now be followed with brackets,
