@@ -2,62 +2,14 @@
 # can be one of: "databases", "tables", "columns", or "strategy", which determines whether the level refers to a
 # list of databases, tables, or columns, respectively.
 databases:
-  sus:
-    docs: "Test database"
-    source_database: "ABI"
-    tables:
-      apc:
-        docs: "Test admitted patient care table"
-        source_table: "APC_SYNTH"
-        columns:
-          nhs_number:
-            docs: "The NHS number identifies the patient. The field is anonymised."
-            source_columns:
-              "AIMTC_Pseudo_NHS": ""
-              "NHSnumber": "This one looks like it is NULL everywhere. Also, this is an INT column"
-            strategy: "coalesce_exclude_null"
-          episode_start:
-            docs: "A datetime field that is the time when the episode began."
-            source_columns:
-              "StartDate_ConsultantEpisode": "something"
-              "StartDate1": "something"
-              "StartTime_Episode": "something"
-            strategy: "coalesce"
-          episode_end:
-            docs: "A datetime field that is the time when the episode finished."
-            source_columns:
-              "EndDate_ConsultantEpisode": "something"
-              "EndDate1": "something"
-              "EndTime_Episode": "something"
-            strategy: "coalesce"
-          primary_diagnosis:
-            docs: "The main diagnosis for this episode? The field is an ICD 10 code."
-            source_columns:
-              "DiagnosisPrimary_ICD": ""
-            strategy: ["codes_from", "acs_codes.yaml"]
-          spell_id:
-            docs: "The ID field linking episodes that form part of the same spell (a continuous hospital visit). "
-            source_columns:
-              "PBRspellID": ""
-            strategy: "coalesce"
-          spell_start:
-            docs: "A datetime field that is the time when the associated spell for this episode began."
-            source_columns:
-              "AIMTC_ProviderSpell_Start_Date": ""
-              "StartDate_HospitalProviderSpell": ""
-              "StartTime_HospitalProviderSpell": ""
-            strategy: "coalesce"
-          spell_end:
-            docs: "A datetime field that is the time when the associated spell for this episode ended."
-            source_columns:
-              "AIMTC_ProviderSpell_End_Date": ""
-              "DischargeDate_FromHospitalProviderSpell": ""
-              "DischargeTime_HospitalProviderSpell": ""
-            related_columns:
-              "HospitalProviderSpellDischargeReadyDate": "probably not the end date, but maybe related."
-            strategy: "coalesce"
-              
-      ae:
-        docs: "The A&E HES data"
-        source_table: "vw_AE_SEM_001"
-        columns: []
+  tables:
+    apc:
+      docs: "Test admitted patient care table"
+      source_table: "APC_SYNTH"
+      columns:
+        nhs_number:
+          docs: "The NHS number identifies the patient. The field is anonymised."
+          source_columns:
+            "AIMTC_Pseudo_NHS": ""
+            "NHSnumber": "This one looks like it is NULL everywhere. Also, this is an INT column"
+          strategy: "coalesce_exclude_null"

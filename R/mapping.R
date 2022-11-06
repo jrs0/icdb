@@ -94,10 +94,10 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 ##' @return A new MappedDB object
 ##'
 ##' @export
-MappedSrv <- function(dsn, mapping = system.file("extdata", "mapping.yaml", package="icdb"))
+MappedSrv <- function(..., mapping = system.file("extdata", "mapping.yaml", package="icdb"))
 {
     ## Connect to the server
-    srv <- Server(dsn, interactive = FALSE)
+    srv <- Server(..., interactive = FALSE)
 
     ## Read the yaml mapping file
     m <- yaml::read_yaml(mapping)
