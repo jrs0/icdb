@@ -257,6 +257,7 @@ setClass(
 ##' @export
 Server <- function(data_source_name = NULL,
                    config = NULL,
+                   path = NULL,
                    interactive = TRUE)
 {
     ## If the data source name argument was passed, connect using that
@@ -295,14 +296,25 @@ Server <- function(data_source_name = NULL,
             "sqlite" = RSQLite::SQLite()
         )
 
-        ## Duplicate the config file to use as arguments in DBI::dbConnect
-        conf_args <- list()
-        drv <- drv_map[[conf$driver]]
-        if (!is.null(drv))
+        ## Check if the database is specified as a file or as a name.
+        ## If a file is used, expand to the path of the file
+        if (!is.null(conf$dbfile))
         {
-            conf_args$drv <- drv
-        }
-        else
+            if (file.exists(conf$dbfile))
+            {
+                ## Use the file in the current directory
+                conf$dbname <- conf$dbfile
+            }
+
+            ## Remove the dbfile name from the conf
+            conf$dbfile <- NULL
+        }        
+        
+        ## The conf file will be used as arguments in DBI::dbConnect.
+        ## First, replace the driver element with the drv object
+        conf$drv <- drv_map[[conf$driver]]
+        conf$driver <- NULL
+        if (is.null(conf$drv))
         {
             stop("Unrecognised driver '", conf$driver,
                  "' specified in config file '", config,
@@ -312,19 +324,13 @@ Server <- function(data_source_name = NULL,
         ## This parameter is really important for getting bigints
         ## (often used in ID columns) in a format that will work
         ## with dplyr (storing the bigint as a character string)
-        con_args$bigint <- "character"
+        conf$bigint <- "character"
 
         ## If the testdata flag is true, then replace the dbname with
         ## the correct path to the database
-        if (conf$testdata == TRUE)
-        {
-            conf_args$dbname <- system.file("testdata", conf_args$dbname, package="icdb")
-        }
         
         ## Open the database connection
-        con <- do.call(DBI::dbConnect, conf_args)
-
-        ##db <- new("Server", con = con, config = conf)
+        con <- do.call(DBI::dbConnect, conf)
     }
     else
     {
