@@ -18,6 +18,9 @@ NULL
 ##' @export
 parse_codes <- function(codes)
 {
+    ## Create a list that will hold all the results
+    results <- list()
+    
     if ("categories" %in% names(codes))
     {
         ## It is important that the categories field is
@@ -51,9 +54,6 @@ parse_codes <- function(codes)
         ## However, it is very important not to move the
         ## else statement for the codes name above this
         ## if statement body for categories.
-
-        ## Create a list that will hold all the results
-        results <- list()
         
         ## Loop over the items in the category field,
         ## and call parse_codes at each level. parse_codes
@@ -80,17 +80,13 @@ parse_codes <- function(codes)
             ## for this category level
             results <- c(results, res)
         }
-
-        ## Return the results for this category level
-        results
-
     }
 
     if ("codes" %in% names(codes))
     {
         ## Return the code. Even if the codes only contains
         ## one item, it is still treated as a list
-        list(codes$codes)
+        results <- c(results, list(codes$codes))
     }
 
     ## Find a more elegant way to do this
@@ -98,6 +94,10 @@ parse_codes <- function(codes)
     {
         stop("Each level of the codes structure must contains 'categories' or 'codes'")
     }
+
+    ## Return the results, which is either a list of codes (for a codes
+    ## object) or a nested list of code-lists 
+    results
 }
 
 ##' This function reverses the names and values of the parsed ICD codes from
