@@ -1,5 +1,0 @@
-{
-    "driver":"sqlite",
-    "dbname":"minimal.db",
-    "testdata": true
-}

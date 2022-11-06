@@ -1,5 +1,0 @@
-{
-  "driver": "SQL Server",
-  "server": "xsw-00-ash01",
-  "database": "ABI"
-}
