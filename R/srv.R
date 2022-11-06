@@ -302,14 +302,15 @@ Server <- function(data_source_name = NULL,
         ## If a file is used, expand to the path of the file
         if (!is.null(conf$dbfile))
         {
-            if (file.exists(conf$dbfile))
+            print(conf)
+            if (fs::is_file(conf$dbfile))
             {
                 ## Use the file in the current directory
                 conf$dbname <- conf$dbfile
             }
             else
             {
-                stop("Did not find database file '", conf$dbfile,
+                stop("Could not find database file '", conf$dbfile,
                      "' in the current working directory")
             }
             

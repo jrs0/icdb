@@ -13,6 +13,7 @@ Imports:
     DBI,
     dbplyr (>= 2.2.1),
     dplyr,
+    fs,
     lubridate,
     magrittr,
     methods,

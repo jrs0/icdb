@@ -1,4 +1,3 @@
 --- 
 "driver": "sqlite"
-"dbfile": "gendata/test.tb"
-
+"dbfile": "gendata/test.db"
