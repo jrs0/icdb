@@ -93,7 +93,7 @@ parse_codes <- function(codes)
     }
     else
     {
-        stop("Each level of the codes structure must contains 'categories' or 'code'")
+        stop("Each level of the codes structure must contains 'categories' or 'codes'")
     }
 }
 
