@@ -65,7 +65,7 @@ gen_apc <- function(filename, seed = 1, nspells = 10)
     spell_starts_col <- rep(spell_starts, neps)
     
     ## Make the data frame with the episode data
-    tbl <- tibble::tibble(NHSNnmber = nhs_num_col,
+    tbl <- tibble::tibble(NHSNumber = nhs_num_col,
                          DiagnosisICD = diagnosis_col,
                          SpellID = spell_id_col,
                          SpellStartDate = spell_starts_col)
