@@ -85,13 +85,16 @@ parse_codes <- function(codes)
         results
 
     }
-    else if ("codes" %in% names(codes))
+
+    if ("codes" %in% names(codes))
     {
         ## Return the code. Even if the codes only contains
         ## one item, it is still treated as a list
         list(codes$codes)
     }
-    else
+
+    ## Find a more elegant way to do this
+    if (!("codes" %in% names(codes)) && !("categories" %in% names(codes))) 
     {
         stop("Each level of the codes structure must contains 'categories' or 'codes'")
     }
