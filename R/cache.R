@@ -19,7 +19,8 @@ pkg_env$cache <- list(
                   max_size = 2,
                   objects = list()),
     path = "cache/",
-    use_cache = FALSE
+    use_cache = FALSE,
+    lifetime = lubridate::dhours(24)
 )
 
 ##' Use this function to turn the cache on or off. If the cache is
@@ -43,14 +44,24 @@ pkg_env$cache <- list(
 ##'
 ##' The cache is disabled by default. This is to ensure that, by
 ##' default, queries always return up-to-date results.
+##'
+##' When the cache is enabled, cached results will automatically
+##' expire after a certain amount of time, which can be specified
+##' using the lifetime parameter. The default cache lifetime is
+##' 24 hours.
 ##' 
 ##' @title Turn the cache on or off
 ##' @param state TRUE to turn the cache on, FALSE to turn it off
+##' @param lifetime The default amount of time that cache results
+##' will remain valid. Specified as a lubridate duration (e.g.
+##' lubridate::dhours(24)), with default value 24 hours. 
+##' 
 ##' @export
 ##' 
-use_cache <- function(state)
+use_cache <- function(state, lifetime = lubridate::dhours(24))
 {
     pkg_env$cache$use_cache <- state
+    pkg_env$cache$lifetime <- lifetime
 }
 
 record_hit <- function(metadata)
