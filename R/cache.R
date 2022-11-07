@@ -262,6 +262,8 @@ read_cache <- function(data, lifetime = NULL)
         }
         if (now - metadata$write_time >= lifetime)
         {
+            message("Cached object has expired, removing from the cache")
+
             ## Cached object has expired, delete it from
             ## the level 1 cache
             pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
@@ -282,7 +284,7 @@ read_cache <- function(data, lifetime = NULL)
                     file.remove(c(obj_file, meta_file))
                 }
             }
-            
+
             return(NULL)
         }
        
@@ -321,8 +323,24 @@ read_cache <- function(data, lifetime = NULL)
     {
         if (file.exists(obj_file))
         {
-            ## Open the meta file and increment the update values
+            ## Open the meta file and check for expiry
             metadata <- readRDS(meta_file)
+            now <- lubridate::now()
+            if (is.null(lifetime))
+            {
+                lifetime <- pkg_env$cache$lifetime
+            }
+            if (now - metadata$write_time >= lifetime)
+            {
+                message("Cached object has expired, removing from the cache")
+
+                ## Cached object has expired, delete the
+                ## entry from the level 2 cache and return NULL
+                file.remove(c(obj_file, meta_file))
+                return(NULL)
+
+            }
+            
             metadata <- record_hit(metadata)
             saveRDS(metadata, file = meta_file)
 
@@ -345,6 +363,7 @@ read_cache <- function(data, lifetime = NULL)
         NULL
     }
 }
+
 ##' Show the contents of the cache as a dataframe
 ##'
 ##' @title Summarise the cache
