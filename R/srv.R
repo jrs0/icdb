@@ -131,6 +131,9 @@ Table <- function(tbl, ..., class=character())
 ##' @title Node object for intermediate positions in the object tree.
 ##' @return A new Node S3 object
 ##' 
+##' @param subobjects The list of Nodes or Tables in this Node
+##' @param ... Other parameters for derived classes
+##' @param class The class parameter for derived class
 new_Node <- function(subobjects, ..., class=character())
 {
     structure(subobjects,
@@ -187,9 +190,7 @@ setOldClass("Node")
 ##' Server class wrapping an SQL server connection
 ##'
 ##' @slot con Microsoft SQL Server.
-##' @slot config list. Server connection information as a named list
-##' @slot dsn Domain source name (Windows only)
-##' @slot .Data From the contained list
+##' @slot .S3Class The inherited Node object
 ##'
 ##' @export
 ##' 
@@ -483,7 +484,7 @@ get_tbl <- function(srv, database, table)
 ##' information_schema, which contains JSON columns).
 ##' 
 ##' @title Get a function which returns a table object
-##' @param srv The database connection to use
+##' @param con The database connection (from Server)
 ##' @param database The database name
 ##' @param table_schema The table schema name
 ##' @param table_name The table name

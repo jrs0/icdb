@@ -12,10 +12,6 @@ Server class wrapping an SQL server connection
 \describe{
 \item{\code{con}}{Microsoft SQL Server.}
 
-\item{\code{config}}{list. Server connection information as a named list}
-
-\item{\code{dsn}}{Domain source name (Windows only)}
-
-\item{\code{.Data}}{From the contained list}
+\item{\code{.S3Class}}{The inherited Node object}
 }}
 

@@ -14,6 +14,9 @@ setClass(
     )
 )
 
+##' @title Print the MappedSrv object 
+##' @param object MappedSrv to print
+##' @export
 setMethod("show", "MappedSrv", function(object) {
     print(object)
 })
@@ -94,7 +97,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 ##' along with a mapping.yaml file.
 ##'
 ##' @title Create a mapped databases (logical database object)
-##' @param dsn Data source name
+##' @param ... Any arguments required by Server (see ?Server)
 ##' @param mapping the path to a mapping.yaml file
 ##' @return A new MappedDB object
 ##'
@@ -112,6 +115,7 @@ MappedSrv <- function(..., mapping = system.file("extdata", "mapping.yaml", pack
 
     mdb <- new("MappedSrv", node, mapping = m)
 }
+
 
 new_MappedTable <- function(tbl, mapping)
 {

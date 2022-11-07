@@ -6,6 +6,13 @@
 \usage{
 new_Node(subobjects, ..., class = character())
 }
+\arguments{
+\item{subobjects}{The list of Nodes or Tables in this Node}
+
+\item{...}{Other parameters for derived classes}
+
+\item{class}{The class parameter for derived class}
+}
 \value{
 A new Node S3 object
 }

@@ -180,7 +180,8 @@ gen_code_map <- function(parsed_codes)
 ##' for use in a dplyr query to filter a diagnosis column by codes
 ##'
 ##' @title Generate the case-when list to use in the dplyr query
-##' @param code_map The map from gen_code_map
+##' @param code_map The result of calling gen_code_map()
+##' @param colname The name of the column to use in the case-when statement
 ##' @return A list of case when statements (expand with !!! in case_when)
 ##' 
 gen_casewhen <- function(code_map, colname)

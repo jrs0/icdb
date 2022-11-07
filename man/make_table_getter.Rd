@@ -7,6 +7,8 @@
 make_table_getter(con, database, table_schema, table_name, id = NULL)
 }
 \arguments{
+\item{con}{The database connection (from Server)}
+
 \item{database}{The database name}
 
 \item{table_schema}{The table schema name}
@@ -14,8 +16,6 @@ make_table_getter(con, database, table_schema, table_name, id = NULL)
 \item{table_name}{The table name}
 
 \item{id}{You can also pass the complete Id, if it is available}
-
-\item{srv}{The database connection to use}
 }
 \description{
 Make a function that returns a table getter. The function which

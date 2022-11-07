@@ -7,7 +7,9 @@
 gen_casewhen(code_map, colname)
 }
 \arguments{
-\item{code_map}{The map from gen_code_map}
+\item{code_map}{The result of calling gen_code_map()}
+
+\item{colname}{The name of the column to use in the case-when statement}
 }
 \value{
 A list of case when statements (expand with !!! in case_when)
