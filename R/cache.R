@@ -403,47 +403,63 @@ show_cache <-function()
 }
 
 
-##' Clear the cache
-##'
-##' Delete all the cached results in the cache folder.
-##'
-##' @export
-clear_cache <- function()
-{
-    ## Clear the level 1 cache
-    pkg_env$cache$level1$meta = dplyr::tibble(hash=character(),
-                                              data = character(),
-                                              hits = numeric(),
-                                              write_time = as.Date(character()),
-                                              last_access = as.Date(character()),
-                                              time = as.difftime(1, units="hours"))
-    pkg_env$cache$level1$objects = list()
-    
-    ## Check if directory exists
-    if (dir.exists(pkg_env$cache$path) && length(list.files(pkg_env$cache$path)) > 0)
-    {
-        list.files(pkg_env$cache$path) %>%
-            stringr::str_c(pkg_env$cache$path,.) %>%
-            purrr::map(file.remove)
-    }
-    message("Cleared cache.")
-    invisible(pkg_env$cache)
-}
-
 ##' Use this function to delete entries from the cache based on a
 ##' tibble returned by show_cache(). You can filter the tibble
 ##' prior to using the function to delete based on specific
 ##' criteria.
 ##'
-##' @title 
-##' @param tbl 
-##' @return 
-##' @author 
-rm_cache <- function(tbl)
+##' @param tbl An optional tbl specifying which objects in the
+##' cache should be deleted. If this parameter is set to NULL
+##' (the default if the tbl argument is not specified), then
+##' everything in the cache is deleted
+##'
+##' @export
+clear_cache <- function(tbl = NULL)
 {
-    ## Clear results from level1 cache
-    pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
-        dplyr::filter(!(hash %in% tbl$hash))
-    pkg_env$cache$level1$objects <-
-        pkg_env$cache$level1$objects[!(names(pkg_env$cache$level1$objects) %in% tbl$hash)]    
+    if (is.null(tbl))
+    {
+        ## Delete everything in the cache
+
+        ## Clear the level 1 cache
+        pkg_env$cache$level1$meta = dplyr::tibble(hash=character(),
+                                                  data = character(),
+                                                  hits = numeric(),
+                                                  write_time = as.Date(character()),
+                                                  last_access = as.Date(character()),
+                                                  time = as.difftime(1, units="hours"))
+        pkg_env$cache$level1$objects = list()
+        
+        ## Check if directory exists
+        if (dir.exists(pkg_env$cache$path) && length(list.files(pkg_env$cache$path)) > 0)
+        {
+            list.files(pkg_env$cache$path) %>%
+                stringr::str_c(pkg_env$cache$path,.) %>%
+                purrr::map(file.remove)
+        }
+        message("Cleared cache.")
+        invisible(pkg_env$cache)
+    }
+    else
+    {
+        ## Delete the elements listed in tbl
+
+        ## Clear results from level1 cache
+        pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+            dplyr::filter(!(hash %in% tbl$hash))
+        pkg_env$cache$level1$objects <-
+            pkg_env$cache$level1$objects[!(names(pkg_env$cache$level1$objects) %in% tbl$hash)]
+
+        ## Clear the results from the level2 cache
+        if (dir.exists(pkg_env$cache$path))
+        {
+            for (hash in tbl$hash)
+            {
+                ## Create the object filename and the metadata filename
+                obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
+                meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
+
+                file.remove(c(obj_file, meta_file))
+            }
+        }
+    }
 }
