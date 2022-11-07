@@ -92,6 +92,17 @@ parse_codes <- function(codes)
         ## the values are the lists of ICD codes.
         for (category_name in names(codes$categories))
         {
+            
+            ## First, check whether the exclude flag is
+            ## present and set to true, ignore this category.
+            ## The codes in excluded fields will not be part
+            ## of the resulting code map.
+            category <- codes$categories[[category_name]]
+            if (!is.null(category$exclude) && category$exclude)
+            {
+                next
+            }
+            
             ## Looping over categories here. Each category
             ## uses parse_codes to get a flat list, and the
             ## the category name is prepended to the names

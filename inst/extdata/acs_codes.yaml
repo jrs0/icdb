@@ -4,6 +4,10 @@ categories:
     docs: "Acute coronary syndromes"
     categories:
       stemi:
+        ## At any name which is a category (i.e. directly underneath the category:
+        ## key in the YAML file), you can include an exclude key. Set to true to
+        ## ignore this subtree of codes.
+        exclude: false
         docs: "ST-elevation (raised ST-segment on an ECG) is present"
         categories:
           myocardial-infarction:
@@ -17,7 +21,6 @@ categories:
                 docs: "Across the full myocardium, involving right coronary artery"
                 codes: "I211"
                 tag: "another"
-                exclude: true
               other-transmural:
                 docs: "Across the full myocardium, not inferior or anterior"
                 codes: "I212"
@@ -75,6 +78,3 @@ categories:
       unstable-angina:
         docs: "No ST-elevation, and also no presence of troponin, but patient presents with MI-like symptomns"
         codes: "I200"
-  # _default:
-  #   # A special area that will catch anything
-  #   exclude: true
