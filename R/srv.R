@@ -355,7 +355,7 @@ Server <- function(data_source_name = NULL,
     if (!is.null(data_source_name) || grepl("SQL Server", driver_name))
     {
         ## Create a top level Node object
-        node <- Node()
+        node <- Node(list())
         
         ## Copy the list of databases into a list, ready to store in the object
         databases <- con %>%
