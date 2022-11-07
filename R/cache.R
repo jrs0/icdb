@@ -16,7 +16,7 @@ pkg_env$cache <- list(
                                        last_access = as.Date(character()), # When the entry was last accessed
                                        time = as.difftime(1, units="hours") # How long did the original computation take
                                        ),
-                  max_size = 2,
+                  max_size = 5,
                   objects = list()),
     path = "cache/",
     use_cache = FALSE,
@@ -60,10 +60,14 @@ pkg_env$cache <- list(
 ##' @param lifetime The default amount of time that cache results
 ##' will remain valid. Specified as a lubridate duration (e.g.
 ##' lubridate::dhours(24)), with default value 24 hours. 
+##' @param size Use this parameter to set the size of the level 1
+##' (memory) cache, which is the maximum number of cached queries
+##' that can be stored before older queries get flushed to the disk
+##' The default size is 5.
 ##' 
 ##' @export
 ##' 
-use_cache <- function(state, lifetime = lubridate::dhours(24))
+use_cache <- function(state, lifetime = lubridate::dhours(24), size = 5)
 {
     pkg_env$cache$use_cache <- state
     pkg_env$cache$lifetime <- lifetime

@@ -4,14 +4,24 @@
 \alias{read_cache}
 \title{Read an object from the cache}
 \usage{
-read_cache(data)
+read_cache(data, lifetime = NULL)
 }
 \arguments{
 \item{data}{The same data object passed to the writeCache function}
+
+\item{lifetime}{You can specify a custom lifetime here which will
+override the default lifetime specified in use_cache.}
 }
 \value{
 Returns the object associated with the data. NULL if not found.
 }
 \description{
-Use this function to get an object from
+Use this function to get an object from the cache. If the object
+is found, then it will be returned. If the object is not found,
+then NULL is returned. If the object is present in the cache, but
+it has expired (see the use_cache function documentation), then
+the object will be deleted from the cache and NULL will be returned.
+}
+\details{
+If the cache is disabled, then NULL is always returned.
 }

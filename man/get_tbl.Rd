@@ -24,5 +24,5 @@ it is necessary to recheck the database server for the schema name each
 time a table is requested. This does not add too much overhead.
 }
 \details{
-Currently, this function only supports Microsoft SQL Server
+Currently, this function only supports Microsoft SQL Server.
 }

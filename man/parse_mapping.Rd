@@ -5,6 +5,10 @@
 \title{Mapping-tree parser}
 \usage{
 parse_mapping(mapping, srv, source_database = NULL, source_table = NULL)
+
+parse_mapping(mapping, srv, source_database = NULL, source_table = NULL)
+
+parse_mapping(mapping, srv, source_database = NULL, source_table = NULL)
 }
 \arguments{
 \item{mapping}{A named list storing a level of the yaml config file}
@@ -18,8 +22,24 @@ level}
 }
 \value{
 A named list containing the results of parsing the file
+
+A named list containing the results of parsing the file
+
+A named list containing the results of parsing the file
 }
 \description{
+This function parses the tree returned by reading the yaml mapping
+file, and returns a named list of the contents of the current level
+passed as the argument. The function is recursive, and will descend
+through the configuration, generating a tree of documentation,
+database and table information that acts like a logical database.
+
+This function parses the tree returned by reading the yaml mapping
+file, and returns a named list of the contents of the current level
+passed as the argument. The function is recursive, and will descend
+through the configuration, generating a tree of documentation,
+database and table information that acts like a logical database.
+
 This function parses the tree returned by reading the yaml mapping
 file, and returns a named list of the contents of the current level
 passed as the argument. The function is recursive, and will descend

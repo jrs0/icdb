@@ -5,16 +5,30 @@
 \title{Create a mapped databases (logical database object)}
 \usage{
 MappedSrv(
-  dsn,
+  ...,
+  mapping = system.file("extdata", "mapping.yaml", package = "icdb")
+)
+
+MappedSrv(
+  ...,
+  mapping = system.file("extdata", "mapping.yaml", package = "icdb")
+)
+
+MappedSrv(
+  ...,
   mapping = system.file("extdata", "mapping.yaml", package = "icdb")
 )
 }
 \arguments{
-\item{dsn}{Data source name}
-
 \item{mapping}{the path to a mapping.yaml file}
+
+\item{dsn}{Data source name}
 }
 \value{
+A new MappedDB object
+
+A new MappedDB object
+
 A new MappedDB object
 }
 \description{
@@ -22,8 +36,24 @@ Create a new mapped database object. A mapped database is an object that contain
 logical databases, logical tables and logical column names, with documentation.
 The structure of the database is defined by a mapping.yaml file, which describes
 how to obtain the fields from an underlying data source.
+
+Create a new mapped database object. A mapped database is an object that contains
+logical databases, logical tables and logical column names, with documentation.
+The structure of the database is defined by a mapping.yaml file, which describes
+how to obtain the fields from an underlying data source.
+
+Create a new mapped database object. A mapped database is an object that contains
+logical databases, logical tables and logical column names, with documentation.
+The structure of the database is defined by a mapping.yaml file, which describes
+how to obtain the fields from an underlying data source.
 }
 \details{
+To make a mapped database, pass the Data Source Name (see Databases documentation)
+along with a mapping.yaml file.
+
+To make a mapped database, pass the Data Source Name (see Databases documentation)
+along with a mapping.yaml file.
+
 To make a mapped database, pass the Data Source Name (see Databases documentation)
 along with a mapping.yaml file.
 }

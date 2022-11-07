@@ -2,10 +2,22 @@
 % Please edit documentation in R/cache.R
 \name{clear_cache}
 \alias{clear_cache}
-\title{Clear the cache}
+\title{Use this function to delete entries from the cache based on a
+tibble returned by show_cache(). You can filter the tibble
+prior to using the function to delete based on specific
+criteria.}
 \usage{
-clear_cache()
+clear_cache(tbl = NULL)
+}
+\arguments{
+\item{tbl}{An optional tbl specifying which objects in the
+cache should be deleted. If this parameter is set to NULL
+(the default if the tbl argument is not specified), then
+everything in the cache is deleted}
 }
 \description{
-Delete all the cached results in the cache folder.
+Use this function to delete entries from the cache based on a
+tibble returned by show_cache(). You can filter the tibble
+prior to using the function to delete based on specific
+criteria.
 }

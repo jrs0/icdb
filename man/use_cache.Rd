@@ -4,10 +4,19 @@
 \alias{use_cache}
 \title{Turn the cache on or off}
 \usage{
-use_cache(state)
+use_cache(state, lifetime = lubridate::dhours(24), size = 5)
 }
 \arguments{
 \item{state}{TRUE to turn the cache on, FALSE to turn it off}
+
+\item{lifetime}{The default amount of time that cache results
+will remain valid. Specified as a lubridate duration (e.g.
+lubridate::dhours(24)), with default value 24 hours.}
+
+\item{size}{Use this parameter to set the size of the level 1
+(memory) cache, which is the maximum number of cached queries
+that can be stored before older queries get flushed to the disk
+The default size is 5.}
 }
 \description{
 Use this function to turn the cache on or off. If the cache is
@@ -32,4 +41,14 @@ always guarantee that results are up to date.
 
 The cache is disabled by default. This is to ensure that, by
 default, queries always return up-to-date results.
+
+When the cache is enabled, cached results will automatically
+expire after a certain amount of time, which can be specified
+using the lifetime parameter. The default cache lifetime is
+24 hours. Cached values that have expired are automatically
+deleted from the cache when an attempt is made to fetch them.
+The expiry time is based on the time when the cached results
+were stored, not when the cached result was last accessed.
+The purpose of the expiry is to ensure that data in the
+cache is refreshed at least as often as the lifetime.
 }

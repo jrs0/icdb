@@ -4,14 +4,14 @@
 \alias{strategy_codes_from}
 \title{Remap a column of codes to hierarchy of strings}
 \usage{
-strategy_codes_from(tbl, name, codes_file)
+strategy_codes_from(tbl, name, codes_files)
 }
 \arguments{
 \item{tbl}{The tbl to process}
 
 \item{name}{The logical column name}
 
-\item{codes_file}{The name of the codes configuration file}
+\item{codes_files}{A list of the names of codes configuration files}
 }
 \value{
 The tbl after reducing

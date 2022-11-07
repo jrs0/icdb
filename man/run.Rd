@@ -4,10 +4,14 @@
 \alias{run}
 \title{Collect and cache SQL query results}
 \usage{
-run(x, ...)
+run(x, lifetime = NULL, ...)
 }
 \arguments{
 \item{x}{The dplyr SQL query to collect}
+
+\item{lifetime}{The default amount of time that cache results
+will remain valid. Specified as a lubridate duration (e.g.
+lubridate::dhours(24)), with default value 24 hours.}
 
 \item{...}{Other arguments for dplyr::collect()}
 }
@@ -22,7 +26,9 @@ the query behind the scenes, so that the next time the query is
 fetched, the results are available quicker.
 }
 \details{
-In order to avoid ambiguity caused by the order in which icdb and
-dplyr are loaded, this function is not called collect. You can still
-use collect, but
+The cache is disabled by default. Make sure you call use_cache
+(see the documentation) if you want to use the cache.
+
+You can use the lifetime parameter to overwrite the cache lifetime
+specified in the arguments to use_cache().
 }
