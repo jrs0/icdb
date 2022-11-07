@@ -108,13 +108,21 @@ parse_codes <- function(codes)
             ## the category name is prepended to the names
             ## of that list. This list is then added onto the
             ## end of the main results list
-            res <- parse_codes(codes$categories[[category_name]])
+            res <- parse_codes(category)
 
+            ## Generate the category name, along with any tags
+            ## for this level (stored as trailing elements of
+            ## the form <tagname>
+            tags <- category$tags %>%
+                purrr::map(~ paste0("<",.,">")) %>%
+                purrr::reduce(paste0, .init = "")
+            prefix <- paste0(category_name, tags)
+            
             ## Add the category name onto the front of every
             ## item in the list
             ## TODO add check for final element here to surpress
             ## trailing dot. (Not very important).
-            names(res) <- paste0(category_name, ".", names(res))
+            names(res) <- paste0(prefix, ".", names(res))
 
             ## Finally, add these to the (flat) list of results
             ## for this category level

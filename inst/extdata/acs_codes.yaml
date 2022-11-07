@@ -16,11 +16,11 @@ categories:
               anterior-transmural:
                 docs: "Across the full myocardium, involving left anterior descending coronary artery"
                 codes: "I210"
-                tag: "something"
+                tags: "something"
               inferior-transmural:
                 docs: "Across the full myocardium, involving right coronary artery"
                 codes: "I211"
-                tag: "another"
+                tags: ["another", "yet-another"]
               other-transmural:
                 docs: "Across the full myocardium, not inferior or anterior"
                 codes: "I212"
@@ -28,7 +28,7 @@ categories:
                 docs: "Across the full myocardium, further detail not specified"
                 codes: "I213"
               subsequent:
-                tag: "catch-all-tag"
+                tags : "catch-all-tags"
                 docs: "Occuring within four weeks of another myocardial infarction"
                 categories: 
                   anterior-transmural:
