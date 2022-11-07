@@ -48,7 +48,12 @@ pkg_env$cache <- list(
 ##' When the cache is enabled, cached results will automatically
 ##' expire after a certain amount of time, which can be specified
 ##' using the lifetime parameter. The default cache lifetime is
-##' 24 hours.
+##' 24 hours. Cached values that have expired are automatically
+##' deleted from the cache when an attempt is made to fetch them.
+##' The expiry time is based on the time when the cached results
+##' were stored, not when the cached result was last accessed.
+##' The purpose of the expiry is to ensure that data in the
+##' cache is refreshed at least as often as the lifetime.
 ##' 
 ##' @title Turn the cache on or off
 ##' @param state TRUE to turn the cache on, FALSE to turn it off
@@ -210,11 +215,17 @@ prune_level1 <- function()
 
 ##' Read an object from the cache
 ##'
-##' Use this function to get an object from
+##' Use this function to get an object from the cache. If the object
+##' is found, then it will be returned. If the object is not found,
+##' then NULL is returned. If the object is present in the cache, but
+##' it has expired (see the use_cache function documentation), then
+##' the object will be deleted from the cache and NULL will be returned.
 ##'
+##' If the cache is disabled, then NULL is always returned.
+##' 
 ##' @param data The same data object passed to the writeCache function
-##'
 ##' @return Returns the object associated with the data. NULL if not found.
+##' 
 read_cache <- function(data)
 {
     ## If the cache is disabled, return NULL
@@ -225,12 +236,12 @@ read_cache <- function(data)
     
     ## Make the has out of the metadata
     hash <- rlang::hash(data)
-
     now <- lubridate::now()
     
     ## First, attempt to read the data from the level 1 cache here
     res <- pkg_env$cache$level1$meta %>%
         dplyr::filter(hash == !!hash)
+    
     if (nrow(res) == 1)
     {
         message("Found data in level 1 cache")
@@ -257,7 +268,7 @@ read_cache <- function(data)
     ## If data is not in the L1 pkg_env$cache, check if L2 directory exists
     if (!dir.exists(pkg_env$cache$path))
     {
-        NULL
+        return(NULL)
     }
 
     ## Create the object filename and the metadata filename
