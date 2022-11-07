@@ -200,6 +200,7 @@ Here is a list of improvements that need to be made:
 - Handle closing the database connection properly.
 - Probably better to use the syntax table(srv$$dbname$tabname) instead of srv$dbname$tabname(). Then you could do srv$dbname$tabname %>% get_table(). Also, maybe there is a way to implement the non-parentheses methods even when there is a nested list -- if the \$ method could be made to check for a list, and do something different for a function.
 - Found that the "SQL Server Native Client 11.0" works! Can update the documentation to reflect this.
+- Want to add a way to specify a custom cache expiry, 
 
 ### Problem reports
 

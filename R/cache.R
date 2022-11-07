@@ -430,4 +430,20 @@ clear_cache <- function()
     invisible(pkg_env$cache)
 }
 
-
+##' Use this function to delete entries from the cache based on a
+##' tibble returned by show_cache(). You can filter the tibble
+##' prior to using the function to delete based on specific
+##' criteria.
+##'
+##' @title 
+##' @param tbl 
+##' @return 
+##' @author 
+rm_cache <- function(tbl)
+{
+    ## Clear results from level1 cache
+    pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+        dplyr::filter(hash %in% tbl$hash)
+    pkg_env$cache$level1$objects <-
+        pkg_env$cache$level1$objects[!(names(pkg_env$cache$level1$objects) %in% tbl$hash)]    
+}
