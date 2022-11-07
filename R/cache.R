@@ -166,6 +166,7 @@ write_cache <- function(data, object, time)
 {
     ## If the cache is disabled, return without doing anything
     if (pkg_env$cache$use_cache == FALSE)
+
     {
         return(NULL)
     }
@@ -224,9 +225,11 @@ prune_level1 <- function()
 ##' If the cache is disabled, then NULL is always returned.
 ##' 
 ##' @param data The same data object passed to the writeCache function
+##' @param lifetime You can specify a custom lifetime here which will
+##' override the default lifetime specified in use_cache. 
 ##' @return Returns the object associated with the data. NULL if not found.
 ##' 
-read_cache <- function(data)
+read_cache <- function(data, lifetime = NULL)
 {
     ## If the cache is disabled, return NULL
     if (pkg_env$cache$use_cache == FALSE)
@@ -245,10 +248,44 @@ read_cache <- function(data)
     if (nrow(res) == 1)
     {
         message("Found data in level 1 cache")
-
+        
         ## Get the record as a list
-        metadata <- as.list(res)        
+        metadata <- as.list(res) 
 
+        ## Check whether the object in the cache has
+        ## expired. If it has, delete it from both the
+        ## level 1 and level 2 cache and return NULL
+        now <- lubridate::now()
+        if (is.null(lifetime))
+        {
+            lifetime <- pkg_env$cache$lifetime
+        }
+        if (now - metadata$write_time >= lifetime)
+        {
+            ## Cached object has expired, delete it from
+            ## the level 1 cache
+            pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+                dplyr::filter(hash != !!hash)
+            pkg_env$cache$level1$objects$hash <- NULL
+
+            ## Also delete the entry from the level 2 cache, if
+            ## it exists there
+            if (dir.exists(pkg_env$cache$path))
+            {
+                ## Create the object filename and the metadata filename
+                obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
+                meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
+
+                ## Now remove the files if they exist
+                if (fs::file_exists(obj_file))
+                {
+                    file.remove(c(obj_file, meta_file))
+                }
+            }
+            
+            return(NULL)
+        }
+       
         ## Update the metadata
         metadata <- record_hit(metadata)
         
@@ -263,7 +300,11 @@ read_cache <- function(data)
         ## Data present in level 1 cache
         return(pkg_env$cache$level1$objects[[hash]])
     }
-    
+    else if (nrow(res) != 0)
+    {
+        stop("Found multiple entries in the level 1 cache with the same hash, ",
+             "cache is corrupt (report bug).")
+    }
     
     ## If data is not in the L1 pkg_env$cache, check if L2 directory exists
     if (!dir.exists(pkg_env$cache$path))
