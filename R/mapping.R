@@ -1,5 +1,5 @@
 ##'
-##' 
+##'
 NULL
 
 setOldClass("Node")
@@ -11,7 +11,7 @@ setClass(
     ),
     prototype = prototype(
         mapping = list()
-    )    
+    )
 )
 
 setMethod("show", "MappedSrv", function(object) {
@@ -24,10 +24,10 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
     force(source_database)
     force(source_table)
     columns <- table$columns
-    
+
     ## Create the table documentation
     mapping <- table
-    
+
     function()
     {
         ## Get the name of the logical table and fetch the table
@@ -40,20 +40,20 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
             real_columns <- c(real_columns, names(logical_column$source_columns))
         }
         tbl <- tbl %>% dplyr::select(all_of(unlist(real_columns)))
-        
+
         ## Next, rename the columns according to names derived from the logical
         ## column name
         for (logical_column_name in names(columns))
         {
             logical_column <- columns[[logical_column_name]]
-            
+
             ## Loop over the constituent columns that make up the logical column
             count <- 1
             for (old_name in names(logical_column$source_columns))
             {
                 new_name <- paste0(logical_column_name,"_",count)
                 tbl <- tbl %>% dplyr::rename_with(~ new_name, old_name)
-                count <- count + 1 
+                count <- count + 1
             }
         }
 
@@ -80,8 +80,8 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
                                list(tbl, logical_column_name, strategy[-1]))
             }
         }
-        
-        MappedTable(tbl, mapping) 
+
+        MappedTable(tbl, mapping)
     }
 }
 
@@ -93,8 +93,8 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 ##' To make a mapped database, pass the Data Source Name (see Databases documentation)
 ##' along with a mapping.yaml file.
 ##'
-##' @title Create a mapped databases (logical database object) 
-##' @param dsn Data source name 
+##' @title Create a mapped databases (logical database object)
+##' @param dsn Data source name
 ##' @param mapping the path to a mapping.yaml file
 ##' @return A new MappedDB object
 ##'
@@ -109,7 +109,7 @@ MappedSrv <- function(..., mapping = system.file("extdata", "mapping.yaml", pack
 
     ## Write the parsed config file tree to the object
     node <- parse_mapping(m, srv)
-    
+
     mdb <- new("MappedSrv", node, mapping = m)
 }
 
@@ -130,7 +130,7 @@ print_mapping <- function(mapping, level = 0)
     ## First print the top level summary information
     cat(crayon::bold("\nSUMMARY\n"))
     cat(stringr::str_wrap(mapping$docs),"\n")
-    
+
     ## Next, print information about the logical columns
     cat(crayon::bold("\nMAPPED COLUMNS\n"))
     for (logical_column_name in names(mapping$columns))
@@ -172,7 +172,7 @@ print.MappedTable <- function(x,...)
 ##' level
 ##' @param source_table The name of the source table for the current level
 ##' @return A named list containing the results of parsing the file
-##' 
+##'
 parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL)
 {
     if ("databases" %in% names(mapping))
@@ -189,7 +189,7 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
     {
         ## If there is a tables field, then the current mapping is a logical
         ## database. Record the database name for the next function execution
-        ## environment. 
+        ## environment.
         source_database <- mapping$source_database
         t <- list()
         for (table in names(mapping$tables))
@@ -222,7 +222,7 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
     else if ("strategy" %in% names(mapping))
     {
         stop("This function does not parse the source_columns")
-        
+
         ## If there is a strategy field, then the current mapping element is
         ## a logical column. A logical column contains a list of source_columns,
         ## which are real columns in the database. The logical column also contains
@@ -234,7 +234,7 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         r <- names(mapping$source_column)
 
         ## Do something with the strategy
-        ##mapping$strategy  
+        ##mapping$strategy
 
         r
     }
