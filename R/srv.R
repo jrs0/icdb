@@ -11,7 +11,7 @@
 ## potentially large number of SQL queries for large databases, and
 ## also to avoid bugs (e.g. mysql) with some of the tables not working
 ## with DBI (the backend for this library).
-## 
+##
 ##
 ##
 
@@ -40,11 +40,11 @@ NULL
 ##'
 ##' It may be possible to set the default database prefix in the data source
 ##' setup (Windows).
-##' 
+##'
 ##' @title Build the tree of accessible database object
 ##' @param con The database connection object
 ##' @param prefix The starting prefix defining the root of the tree (ID type)
-##' 
+##'
 ##' @return Nested list structure containing the object tree
 build_object_tree <- function(con, prefix)
 {
@@ -73,7 +73,7 @@ build_object_tree <- function(con, prefix)
     ## solution can be left for another time (especially because
     ## there might not be any solution using DBI).
     ##
-    
+
     ## Create the sublists underneath the labels
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
                                          build_object_tree(con, .x)
@@ -99,14 +99,14 @@ new_Table <- function(tbl, ..., class=character())
 ##' Make a new Table object, which is the basic type used to
 ##' store tables in the library. This function should be
 ##' used in the table_getter to give a tibble object back
-##' to the user. 
+##' to the user.
 ##'
-##' @title Make a Table 
+##' @title Make a Table
 ##' @param tbl The underlying tbl to use
 ##' @param ... Further arguments from other constructors
 ##' @param class Other classes (used for subclasses)
 ##' @return The new Table object
-##' 
+##'
 Table <- function(tbl, ..., class=character())
 {
     new_Table(tbl, ..., class=class)
@@ -126,11 +126,11 @@ Table <- function(tbl, ..., class=character())
 ##' contents of that Node. If it is a Table, it automatically
 ##' fetches the dplyr::tbl.
 ##'
-##' The Node object is a named list of either Nodes or Tables. 
-##' 
+##' The Node object is a named list of either Nodes or Tables.
+##'
 ##' @title Node object for intermediate positions in the object tree.
 ##' @return A new Node S3 object
-##' 
+##'
 ##' @param subobjects The list of Nodes or Tables in this Node
 ##' @param ... Other parameters for derived classes
 ##' @param class The class parameter for derived class
@@ -193,7 +193,7 @@ setOldClass("Node")
 ##' @slot .S3Class The inherited Node object
 ##'
 ##' @export
-##' 
+##'
 setClass(
     "Server",
     contains = "Node",
@@ -237,7 +237,7 @@ setClass(
 ##' and tables is populated. This is used to make the MappedSrv object load
 ##' faster, by only fetching the tables specified in the mapping.
 ##' @return A new (S4) Server object
-##' 
+##'
 ##' @export
 Server <- function(data_source_name = NULL,
                    config = NULL,
@@ -248,7 +248,7 @@ Server <- function(data_source_name = NULL,
     {
         message("Connecting using data source name (DSN): ", data_source_name)
         ## Make sure to pass bigint = character to avoid using 64-bit ints
-        ## in R. 
+        ## in R.
         con <- DBI::dbConnect(odbc::odbc(), data_source_name,
                               bigint = "character")
     }
@@ -272,7 +272,7 @@ Server <- function(data_source_name = NULL,
 
         ## Store the driver name to use below
         driver_name <- conf$driver
-        
+
         ## Create the mapping from strings to drivers
         drv_map <- list(
             "SQL Server" = odbc::odbc(), ## For Microsoft
@@ -295,11 +295,11 @@ Server <- function(data_source_name = NULL,
                 stop("Could not find database file '", conf$dbfile,
                      "' in the current working directory")
             }
-            
+
             ## Remove the dbfile name from the conf
             conf$dbfile <- NULL
-        }        
-        
+        }
+
         ## The conf file will be used as arguments in DBI::dbConnect.
         ## First, replace the driver element with the drv object
         conf$drv <- drv_map[[conf$driver]]
@@ -310,7 +310,7 @@ Server <- function(data_source_name = NULL,
                  "' specified in config file '", config,
                  call.=FALSE)
         }
-        
+
         ## This parameter is really important for getting bigints
         ## (often used in ID columns) in a format that will work
         ## with dplyr (storing the bigint as a character string)
@@ -331,7 +331,7 @@ Server <- function(data_source_name = NULL,
     {
         return(new("Server", Node(list()), con = con))
     }
-    
+
     ## Most database drivers return the databases and tables as a tree of objects,
     ## via the dbListObjects function. SQL Server does not work like this, so treat
     ## it separately
@@ -339,28 +339,28 @@ Server <- function(data_source_name = NULL,
     {
         ## Create a top level Node object
         node <- Node(list())
-        
+
         ## Copy the list of databases into a list, ready to store in the object
         databases <- con %>%
             DBI::dbGetQuery("SELECT name FROM master.sys.databases")
-        
+
         ## This is the problem part of the code -- it really needs to store a
         ## function to return the table object, but that doesn't work (yet).
         for (d in databases$name)
         {
-            tryCatch (   
+            tryCatch (
             {
                 ## Get the list of tables associated with this database,
                 ## and their associated schemas
                 tables <- con %>%
                     DBI::dbGetQuery(paste0("SELECT table_schema,table_name FROM ", d,
                                            ".INFORMATION_SCHEMA.TABLES"))
-                
+
                 ## Put the tables in the database
                 node[[d]] <- tables %>%
                     purrr::pmap(~ TableWrapper(make_table_getter(con, d, .x, .y))) %>%
                     Node()
-                
+
                 names(node[[d]]) <- tables$table_name
             },
             error = function(cond)
@@ -373,7 +373,7 @@ Server <- function(data_source_name = NULL,
                 ## you are developing. Uncomment the line below if something is going wrong
                 ## and you want to see what.
                 ##print(cond)
-            }        
+            }
             )
         }
     }
@@ -386,7 +386,7 @@ Server <- function(data_source_name = NULL,
         ## TODO think up a method to make lazy evaluation of list items work here
         node <- build_object_tree(con, NULL)
     }
-    
+
     ## Now create and return the Server object
     new("Server", node, con = con)
 }
@@ -398,13 +398,13 @@ Server <- function(data_source_name = NULL,
 ##' time a table is requested. This does not add too much overhead.
 ##'
 ##' Currently, this function only supports Microsoft SQL Server.
-##' 
+##'
 ##' @title Get a dplyr::tbl corresponding to a table
 ##' @param srv The Databases object containing the server connection
 ##' @param database The name of the database
 ##' @param table The name of the table
 ##' @return The dplyr::tbl (shell) for the table
-##' 
+##'
 get_tbl <- function(srv, database, table)
 {
     ## Currently, this function just does a different thing for
@@ -425,16 +425,20 @@ get_tbl <- function(srv, database, table)
                      paste0("SELECT table_schema FROM ",
                             database,
                             ".INFORMATION_SCHEMA.TABLES WHERE table_name = '",
-                            table, "'"))        
+                            table, "'"))
 
         ## Pick the first schema in the list. This is potentially a bug
         ## TODO Come back and look at this
-        schema <- res$table_schema[[1]]   
-        
+        schema <- res$table_schema[[1]]
+
         ## Get the table
         tbl <- dplyr::tbl(srv@con, dbplyr::in_catalog(database,
                                                       schema,
-                                                      table))   
+                                                      table))
+    }
+    else if (grepl("MariaDBConnection", dbclass, ignore.case = TRUE))
+    {
+      tbl <- dplyr::tbl(srv@con, dbplyr::in_schema(database, table))
     }
     else
     {
@@ -464,14 +468,14 @@ get_tbl <- function(srv, database, table)
 ##' the tbl is only created when the user asks for it, removing some
 ##' edge cases with "bad" tables (like COLUMNS_EXTENSIONS in mysql
 ##' information_schema, which contains JSON columns).
-##' 
+##'
 ##' @title Get a function which returns a table object
 ##' @param con The database connection (from Server)
 ##' @param database The database name
 ##' @param table_schema The table schema name
 ##' @param table_name The table name
 ##' @param id You can also pass the complete Id, if it is available
-##' 
+##'
 make_table_getter <- function(con, database, table_schema, table_name, id = NULL)
 {
     force(con)
@@ -493,7 +497,7 @@ make_table_getter <- function(con, database, table_schema, table_name, id = NULL
         {
             id <- dbplyr::in_catalog(database, table_schema, table_name)
         }
-        
+
         ## Get the table shell object
         tbl <- dplyr::tbl(con, id)
 
@@ -530,7 +534,7 @@ setMethod("sqlQuery", c("Server", "character"), function(db, query) {
     {
         result <- read_cache(query)
     }
-    
+
     if (!is.null(result))
     {
         message("Found cached results for this query, using that")
@@ -542,7 +546,7 @@ setMethod("sqlQuery", c("Server", "character"), function(db, query) {
     {
         ## Record the start time
         start <- lubridate::now()
-        
+
         ## Submit the SQL query
         ##
         ## It appears there is a bug in odbc (or maybe somewhere else) relating
@@ -578,10 +582,10 @@ setMethod("sqlQuery", c("Server", "character"), function(db, query) {
         {
             write_cache(query, t, lubridate::now() - start)
         }
-        
+
         ## Return the dataframe of results as a tibble
         t
-    } 
+    }
 })
 
 ##' Submit an SQL query from a file and get the results
@@ -622,7 +626,7 @@ setMethod("sqlFromFile", c("Server", "character"), function(db, file) {
 ##'
 ##' TODO: This function needs improvement -- at the moment it is really just a
 ##' placeholder for something more useful.
-##' 
+##'
 ##' @param object The object to be printed
 ##' @export
 setMethod("show", "Server", function(object) {
@@ -637,15 +641,15 @@ setMethod("show", "Server", function(object) {
 ##'
 ##' The cache is disabled by default. Make sure you call use_cache
 ##' (see the documentation) if you want to use the cache.
-##' 
+##'
 ##' You can use the lifetime parameter to overwrite the cache lifetime
 ##' specified in the arguments to use_cache().
-##' 
+##'
 ##' @title Collect and cache SQL query results
 ##' @param x The dplyr SQL query to collect
 ##' @param lifetime The default amount of time that cache results
 ##' will remain valid. Specified as a lubridate duration (e.g.
-##' lubridate::dhours(24)), with default value 24 hours. 
+##' lubridate::dhours(24)), with default value 24 hours.
 ##' @param ... Other arguments for dplyr::collect()
 ##' @return The query results
 ##'
@@ -654,11 +658,11 @@ run <- function(x, lifetime = NULL, ...)
 {
     ## Generate an SQL string for the query
     output <- capture.output(x %>% dplyr::show_query())
-    query <- paste(tail(output, -1), collapse="")    
-    
+    query <- paste(tail(output, -1), collapse="")
+
     ## Search for the cached file
     result <- read_cache(query, lifetime)
-    
+
     if (!is.null(result))
     {
         message("Found cached results for this query, using that")
@@ -670,14 +674,14 @@ run <- function(x, lifetime = NULL, ...)
     {
         ## Record the start time
         start <- lubridate::now()
-        
+
         ## Get the results
         t <- x %>% dplyr::collect(...)
 
         ## Save the results in the cache
         write_cache(query, t, lubridate::now() - start)
-       
+
         ## Return the dataframe of results as a tibble
         t
-    } 
+    }
 }
