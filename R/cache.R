@@ -443,7 +443,7 @@ rm_cache <- function(tbl)
 {
     ## Clear results from level1 cache
     pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
-        dplyr::filter(hash %in% tbl$hash)
+        dplyr::filter(!(hash %in% tbl$hash))
     pkg_env$cache$level1$objects <-
         pkg_env$cache$level1$objects[!(names(pkg_env$cache$level1$objects) %in% tbl$hash)]    
 }
