@@ -20,7 +20,6 @@ Imports:
     odbc,
     purrr,
     readr,
-    rjson,
     rlang,
     RMariaDB,
     RSQLite,

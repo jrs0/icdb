@@ -32,10 +32,10 @@ NULL
 ##' TODO: consider replacing this function by the built-in coalesce function
 ##' which probably works. Secondly, it may be a good idea to put the default
 ##' statement of the case when to catch issues (like everything being null).
-##' 
+##'
 ##' @title Reduce by coalescing columns
 ##' @param tbl An input dplyr::tbl
-##' @param name The logical column name 
+##' @param name The logical column name
 ##' @return The tbl after reducing the columns
 strategy_coalesce <- function(tbl, name)
 {
@@ -53,7 +53,7 @@ strategy_coalesce <- function(tbl, name)
 ##' columns where a null result would render the entire row meaningless.
 ##'
 ##' This function excludes all undefined value
-##' 
+##'
 ##' @title Reduce by coalescing columns, excluding resulting null values
 ##' @param tbl The tbl to process
 ##' @param name The logical column name
@@ -89,6 +89,12 @@ strategy_codes_from <- function(tbl, name, codes_files)
         stop("Strategy 'codes_from' currently only works with one source_column.")
     }
 
+    ## If the codes_files is a directory
+    if(dir.exists(system.file("extdata", codes_files, package = "icdb")))
+    {
+        codes_files <- Sys.glob(paste0(system.file("", package = "icdb"), "/extdata/", codes_files, "/*.yaml"))
+    }
+
     ## Get the codes from multiple files
     codes <- get_codes(codes_files)
 
@@ -96,10 +102,10 @@ strategy_codes_from <- function(tbl, name, codes_files)
     code_map <- gen_code_map(codes)
 
     ## Generate the filter and casewhen statements
-    col <- paste0(name,"_1") 
+    col <- paste0(name,"_1")
     cases <- gen_casewhen(code_map, col)
     flt <- gen_filter(code_map, col)
-    
+
     ## Perform the selection and filtering operation on the column
     tbl %>% dplyr::filter(flt) %>%
         dplyr::mutate(!!name := case_when(!!!cases), .keep = "unused")

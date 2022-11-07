@@ -54,19 +54,19 @@ pkg_env$cache <- list(
 ##' were stored, not when the cached result was last accessed.
 ##' The purpose of the expiry is to ensure that data in the
 ##' cache is refreshed at least as often as the lifetime.
-##' 
+##'
 ##' @title Turn the cache on or off
 ##' @param state TRUE to turn the cache on, FALSE to turn it off
 ##' @param lifetime The default amount of time that cache results
 ##' will remain valid. Specified as a lubridate duration (e.g.
-##' lubridate::dhours(24)), with default value 24 hours. 
+##' lubridate::dhours(24)), with default value 24 hours.
 ##' @param size Use this parameter to set the size of the level 1
 ##' (memory) cache, which is the maximum number of cached queries
 ##' that can be stored before older queries get flushed to the disk.
 ##' The default size is 5.
-##' 
+##'
 ##' @export
-##' 
+##'
 use_cache <- function(state, lifetime = lubridate::dhours(24), size = 5)
 {
     pkg_env$cache$use_cache <- state
@@ -88,13 +88,13 @@ write_level2 <- function(metadata)
 {
     ## Get the hash key of the cache entry
     hash <- metadata$hash
-    
+
     ## Create the level 2 directory if it does not exist
     if (!dir.exists(pkg_env$cache$path))
     {
         dir.create(pkg_env$cache$path)
     }
-    
+
     ## Create the object filename and the metadata filename
     obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
     meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
@@ -137,7 +137,7 @@ get_metadata <- function(hash)
     tbl <- pkg_env$cache$level1$meta %>%
         dplyr::filter(hash == !!hash)
     stopifnot(nrow(tbl) == 1)
-    as.list(tbl[1,])   
+    as.list(tbl[1,])
 }
 
 ##' Write an element into the cache
@@ -157,7 +157,7 @@ get_metadata <- function(hash)
 ##'
 ##' The level 2 cache is not written directly -- instead, data is only written to
 ##' the disk when the object must be removed from the level 1 (memory) cache.
-##' 
+##'
 ##' This function will not check the cache before writing to it, so any duplicate
 ##' data will be overwritten. Only call this function after establish via
 ##' readCache that the data is not already present in the cache.
@@ -174,7 +174,7 @@ write_cache <- function(data, object, time)
     {
         return(NULL)
     }
-    
+
     ## Make the hash out of the metadata
     hash <- rlang::hash(data)
 
@@ -208,14 +208,14 @@ prune_level1 <- function()
         metadata <- pkg_env$cache$level1$meta %>%
             dplyr::filter(last_access == min(last_access)) %>%
             as.list()
-        
+
         ## Write the row to the level2 cache
         write_level2(metadata)
 
         ## Now delete the entry from the level1 cache
         pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
             dplyr::filter(hash != metadata$hash)
-    }    
+    }
 }
 
 ##' Read an object from the cache
@@ -227,12 +227,12 @@ prune_level1 <- function()
 ##' the object will be deleted from the cache and NULL will be returned.
 ##'
 ##' If the cache is disabled, then NULL is always returned.
-##' 
+##'
 ##' @param data The same data object passed to the writeCache function
 ##' @param lifetime You can specify a custom lifetime here which will
-##' override the default lifetime specified in use_cache. 
+##' override the default lifetime specified in use_cache.
 ##' @return Returns the object associated with the data. NULL if not found.
-##' 
+##'
 read_cache <- function(data, lifetime = NULL)
 {
     ## If the cache is disabled, return NULL
@@ -240,19 +240,19 @@ read_cache <- function(data, lifetime = NULL)
     {
         return(NULL)
     }
-    
+
     ## Make the has out of the metadata
     hash <- rlang::hash(data)
     now <- lubridate::now()
-    
+
     ## First, attempt to read the data from the level 1 cache here
     res <- pkg_env$cache$level1$meta %>%
         dplyr::filter(hash == !!hash)
-    
+
     if (nrow(res) == 1)
     {
         ## Get the record as a list
-        metadata <- as.list(res) 
+        metadata <- as.list(res)
 
         ## Check whether the object in the cache has
         ## expired. If it has, delete it from both the
@@ -289,10 +289,10 @@ read_cache <- function(data, lifetime = NULL)
 
             return(NULL)
         }
-       
+
         ## Update the metadata
         metadata <- record_hit(metadata)
-        
+
         ## Delete the entry from the level 1 cache
         pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
             dplyr::filter(hash != !!hash)
@@ -300,7 +300,7 @@ read_cache <- function(data, lifetime = NULL)
         ## Now re-add the entry from the list
         pkg_env$cache$level1$meta <-
             dplyr::bind_rows(pkg_env$cache$level1$meta, metadata)
-    
+
         ## Data present in level 1 cache
         return(pkg_env$cache$level1$objects[[hash]])
     }
@@ -309,7 +309,7 @@ read_cache <- function(data, lifetime = NULL)
         stop("Found multiple entries in the level 1 cache with the same hash, ",
              "cache is corrupt (report bug).")
     }
-    
+
     ## If data is not in the L1 pkg_env$cache, check if L2 directory exists
     if (!dir.exists(pkg_env$cache$path))
     {
@@ -342,13 +342,13 @@ read_cache <- function(data, lifetime = NULL)
                 return(NULL)
 
             }
-            
+
             metadata <- record_hit(metadata)
             saveRDS(metadata, file = meta_file)
 
             ## Now open and return the object
             object <- readRDS(obj_file)
-            
+
             ## Promote the entry to the level 1 cache
             write_level1(metadata, object)
 
@@ -381,7 +381,7 @@ show_cache <-function()
     tbl <- pkg_env$cache$level1$meta
 
     tbl <- tbl %>% tibble::add_column(in_memory = TRUE)
-    
+
     ## Next, get the level 2 files and remove those that are in level 1
     file_list <- list.files(pkg_env$cache$path, pattern = "meta\\.rds") %>%
         dplyr::as_tibble() %>%
@@ -394,7 +394,7 @@ show_cache <-function()
         meta_file <- paste0(pkg_env$cache$path, "/", file)
         readRDS(meta_file)
     }
-    
+
     res <- file_list[["value"]] %>%  purrr::map_dfr(fn)
     tbl <- dplyr::bind_rows(tbl, res)
 
@@ -430,7 +430,7 @@ clear_cache <- function(tbl = NULL)
                                                   last_access = as.Date(character()),
                                                   time = as.difftime(1, units="hours"))
         pkg_env$cache$level1$objects = list()
-        
+
         ## Check if directory exists
         if (dir.exists(pkg_env$cache$path) && length(list.files(pkg_env$cache$path)) > 0)
         {
