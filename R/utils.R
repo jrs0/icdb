@@ -13,7 +13,8 @@
 ##' parameters are equal (excluding filename), then using the
 ##' same seed is guaranteed to produce the same dataset.
 ##' @param nspells The number of spells to include in the dataset
-##' 
+##'
+##' @export
 gen_apc <- function(filename, seed = 1, nspells = 10)
 {
     stopifnot(nspells >= 1)

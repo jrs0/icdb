@@ -1,8 +1,8 @@
 ---
-title: "Database connection setup"
+title: "Connection setup"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Database connection setup}
+  %\VignetteIndexEntry{Connection setup}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -30,7 +30,7 @@ To set up the connection:
 
 1. Open the *ODBC Data Sources* program
 2. Click *Add* to start adding a new data source
-3. Select the *ODBC Driver 17 for SQL Server*. **Important: do not select the SQL Server driver.** Click *Finish*.
+3. Select the *ODBC Driver 17 for SQL Server*, or the *SQL Server Native Client 11.0*. **Important: do not select the SQL Server driver.** Click *Finish*.
 4. Choose an arbitrary name (e.g. *XSW*) for the connection -- this will be the *data source name*. Add an optional description. In the server field, specify the hostname of the server (see the *Server Name* field when you open *SQL Server Management Studio*)
 5. Step through the other pages of the wizard, leaving all other values as default. At the end, make sure you click *Test Data Source...* to ensure the connection is working. If this step causes errors, make sure they are fixed before moving on. After completing the wizard, the new data source should be listed in the *ODBC Data Sources* program.
 

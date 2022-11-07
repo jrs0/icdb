@@ -2,3 +2,11 @@ url: ~
 template:
   bootstrap: 5
   bootswatch: litera
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - getting-started
+  - connect
+  - caching
+  - devel

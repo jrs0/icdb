@@ -14,61 +14,61 @@ knitr::opts_chunk$set(
 )
 ```
 
-The goal of ICDB is to wrap the dplyr DBI library and make it easier to use NHS databases hosted on Microsoft SQL Servers. The library features a connection that autocompletes database and table names, automatically generates SQL queries from familiar dplyr functions, and caches results to make speed up prototyping and development. 
-
+The goal of ICDB is to provide a set of functions that makes it easier to interact with health care databases. This page describes how some of the functions work, and gives an overview of what the library can do.
 
 ## Connecting to a database
 
-The first step in using the library is connecting to a database server. The ICDB library connects to a server, not a particular database. This makes it possible to use the same connection across different databases on the same server.
+The first step in using the library is connecting to a database server. See the [Connection Setup](connect.html) page for detailed information about how to do this. This page will use an artificial admitted patient care database, that contains randomly generated data. You can run the examples here without needing a real database connection.
 
-The easiest and most secure way to connect to the database server is to use the Windows *ODBC Data Sources* application. This application stores a pre-configured connection under a particular name (the *data source name*), which can then be used in R code to connect to the database. By using this type of connection, you do not have to store config files with hard-coded database credentials. 
+First, generate the artificial data (an sqlite file), as follows:
 
-To set up the connection:
-
-1. Open the *ODBC Data Sources* program
-2. Click *Add* to start adding a new data source
-3. Select the *ODBC Driver 17 for SQL Server*. **Important: do not select the SQL Server driver.** Click *Finish*.
-4. Choose an arbitrary name (e.g. *XSW*) for the connection -- this will be the *data source name*. Add an optional description. In the server field, specify the hostname of the server (see the *Server Name* field when you open *SQL Server Management Studio*)
-5. Step through the other pages of the wizard, leaving all other values as default. At the end, make sure you click *Test Data Source...* to ensure the connection is working. If this step causes errors, make sure they are fixed before moving on. After completing the wizard, the new data source should be listed in the *ODBC Data Sources* program.
-
-After setting up a data source name, try executing the code below (replace *XSW* with whatever you used for the data source name):
-
-```{r, eval=FALSE}
+```{r}
 library(icdb)
-## The next line may take a little while to run, due to the way the library works.
-srv <- Databases("XSW")
+gen_apc("test.db")
 ```
 
-The `srv` object behaves like a list of lists. The first level contains databases on the server, and the next level contains tables in that database. Database and table names tab complete (in RStudio and Emacs ESS), to make it easier to find what you are looking for. After running the code above, try typing `srv$` to see the list of database names. Then type `srv$dbname$` to get the list of tables in the database called *dbname*.
+This will create a folder called *gendata* in your working directory, containing the database file *test.db*. Next, you can connect to this database using
+
+```{r}
+library(icdb)
+## The next line may take a little while to run for
+## large databases, due to the way the library works.
+srv <- Server(config = system.file("extdata", "sqlite.yaml", package="icdb"))
+```
+
+The `srv` object behaves like a nested named list. The first level contains databases on the server, and the next level contains tables in that database. Database and table names tab complete (in RStudio and Emacs ESS), to make it easier to find what you are looking for. In the example here, the database contains only a single table called *APC_SYNTH*:
+
+```{r}
+srv
+```
 
 ### Seeing a table summary
 
 The simplest use of ICDB is inspecting the structure of a table. Do this by running 
 
-```{r eval=FALSE}
-## Print the structure of the table `tabname' in the database `dbname'
-## You curently need to put brackets after the table name to get the tbl.
-## This may change in future.
-srv$dbname$tabname
+```{r}
+## Print the structure of the table APC_SYNTH
+srv$APC_SYNTH
 ```
 
 This expression returns the same tibble that you would get if you had run `dplyr::tbl` on a [DBI database connection](https://solutions.rstudio.com/db/r-packages/dplyr/). This object is not the full table -- it is just a shell object showing what columns and data types the table contains.
 
 ### Generating an SQL query
 
-The main advantage of using dplyr (the library that ICDB uses) is that SQL is often unnecessary, and can be replaced by familiar dplyr functions. You can pipe the `srv` object to dplyr functions like `filter` and `select` to get a tibble of data from the database. Try running a snippet like the following (replace with valid database, table and column names), which shows the SQL generated for a simple dplyr-based query:
+The main advantage of using dplyr (the library that ICDB uses) is that SQL is often unnecessary, and can be replaced by more familiar dplyr functions. You can pipe the `srv` object to dplyr functions like `filter` and `select` to get a tibble of data from the database. Try running a snippet like the following (replace with valid database, table and column names), which shows the SQL generated for a simple dplyr-based query:
 
-```{r eval=FALSE}
+```{r}
 library(tidyverse)
+library(lubridate)
 ## Assumes a database `dbname' contains a table `tabname', which has a numeric column `value'
-srv$dbname$tabname %>% filter(value != 0) %>% select(value) %>% show_query()
+srv$APC_SYNTH %>% filter(SpellStartDate > !!ymd("2019-1-1")) %>% select(NHSNumber, DiagnosisICD) %>% show_query()
 ```
 
 To actually run the query, replace `show_query()` with `run()`:
 
-```{r eval=FALSE}
+```{r}
 # This returns a tibble containing the results of the query
-results <- srv$dbname$tabname %>% filter(value != 0) %>% select(value) %>% run()
+srv$APC_SYNTH %>% filter(SpellStartDate > !!ymd("2019-1-1")) %>% select(NHSNumber, DiagnosisICD) %>% run()
 ```
 
 Once you have `results` (a tibble), you can do anything that you would normally do with a tibble (`filter`, `select`, `mutate`, etc.)
@@ -77,36 +77,42 @@ The `run()` function is a wrapper around the `dplyr::collect()`, which adds cach
 
 ### Caching for speeding up code development
 
-Large queries (those returning a lot of data, or requiring a lot of server-side processing) can take a long time to execute. This can make running scripts difficult, if each query in the script takes minutes to run. The ICDB library contains a simple query cache that helps speed up these queries for development purposes.
+Large queries (those returning a lot of data, or requiring a lot of server-side processing) can take a long time to execute. This can make running scripts difficult, if each query in the script takes minutes to run. The ICDB library contains a simple query cache that helps speed up these queries for development purposes. 
+
+The cache is disabled by default. To enable it, add the following line to the top of your script
+
+```{r}
+use_cache(TRUE)
+```
 
 When a query like
 
-```{r eval=FALSE}
-results <- srv$dbname$tabname %>% filter(value != 0) %>% select(value) %>% run()
+```{r}
+results <- srv$APC_SYNTH %>% filter(SpellStartDate > !!ymd("2019-1-1")) %>% select(NHSNumber, DiagnosisICD) %>% run()
 ```
 
 is run, it may take several minutes to execute. However, the second time it is run, the results are returned instantly. This is because the `run()` function stored the result behind the scenes, in case you need it again soon. 
 
 If you change any aspect of the query that changes the SQL, then the query will be rerun. For example, 
-```{r eval=FALSE}
-results <- srv$dbname$tabname %>% filter(value != 1) %>% select(value) %>% run()
+```{r}
+results <- srv$APC_SYNTH %>% filter(SpellStartDate > !!ymd("2019-1-1")) %>% select(NHSNumber, DiagnosisICD) %>% run()
 ```
 
 will run a new query, because the `filter` condition changed. However, if you go back to the old query, it will still be stored in the cache. The cache is automatically deleted when the R session is closed.
 
 You can view the current state of the cache by running
 
-```{r eval=FALSE}
+```{r}
 # Returns a tibble where each row is a stored query
 show_cache()
 ```
 
 This will return a tibble containing stored query metadata, including information such as the write time and the last access. To clear the cache (delete all stored queries), run
 
-```{r eval=FALSE}
+```{r}
 # Returns a tibble where each row is a stored query
 clear_cache()
 ```
 
+The cache uses a combination of memory and disk caching, and cached queries automatically expire (by default) after 24 hours. See the [Query Caching](caching.html) page for detailed information about how the cache works and how you can control it.
 
-TODO finish this section.
