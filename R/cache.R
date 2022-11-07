@@ -247,8 +247,6 @@ read_cache <- function(data, lifetime = NULL)
     
     if (nrow(res) == 1)
     {
-        message("Found data in level 1 cache")
-        
         ## Get the record as a list
         metadata <- as.list(res) 
 
