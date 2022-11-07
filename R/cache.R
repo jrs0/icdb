@@ -26,8 +26,8 @@ pkg_env$cache <- list(
 ##' Use this function to turn the cache on or off. If the cache is
 ##' on, then data will be written to and read from the cache. If
 ##' the cache is off, then the read_cache function will always
-##' return NULL and the write cache function will return without
-##' doing anything. Turning the cache off does not clear the
+##' return NULL and the write_cache function will do anything.
+##' Turning the cache off does not clear the
 ##' cache, and turning the cache back on later will make available
 ##' the same cache contents as before.
 ##'
@@ -62,7 +62,7 @@ pkg_env$cache <- list(
 ##' lubridate::dhours(24)), with default value 24 hours. 
 ##' @param size Use this parameter to set the size of the level 1
 ##' (memory) cache, which is the maximum number of cached queries
-##' that can be stored before older queries get flushed to the disk
+##' that can be stored before older queries get flushed to the disk.
 ##' The default size is 5.
 ##' 
 ##' @export
