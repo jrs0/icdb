@@ -75,6 +75,6 @@ categories:
       unstable-angina:
         docs: "No ST-elevation, and also no presence of troponin, but patient presents with MI-like symptomns"
         codes: "I200"
-  _default:
-    # A special area that will catch anything
-    exclude: true
+  # _default:
+  #   # A special area that will catch anything
+  #   exclude: true
