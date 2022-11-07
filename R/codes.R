@@ -7,24 +7,39 @@ NULL
 ##' @title Parse multiple codes files
 ##' @param codes_files A list of filenames to parse
 ##' @return A named list suitable for gen_code_map()
-##' 
+##'
 get_codes <- function(codes_files)
 {
+    ## Empty list for the codes
     codes <- list()
+
+    ## If 'codes_files' is a full directory path
+    if(dir.exists(codes_files))
+    {
+        codes_files <- list.files(codes_files, pattern = ".yaml", recursive = TRUE, full.names = TRUE)
+    }
+    ## If 'codes_files' is a directory within extdata
+    else if(dir.exists(system.file("extdata", codes_files, package = "icdb")))
+    {
+        dir <- system.file("extdata", codes_files, package = "icdb")
+        codes_files <- list.files(dir, pattern = ".yaml", recursive = TRUE, full.names = TRUE)
+    }
+
+    ## Read each yaml file to extract the codes
     for (filename in codes_files)
     {
         ## Read the codes file from the current directory, or
-        ## try from extdata
+        ## try from files and folders in extdata
         if (file.exists(filename))
         {
             codes_yaml <- yaml::read_yaml(filename)
         }
         else
         {
-            codes_yaml <- yaml::read_yaml(system.file("extdata", filename,
-                                                      package="icdb"))
+            f <- Sys.glob(file.path(system.file("extdata", package="icdb"), "*codes*", filename))
+            codes_yaml <- yaml::read_yaml(f)
         }
-        
+
         ## Parse the codes file
         codes <- c(codes, parse_codes(codes_yaml))
     }
@@ -39,7 +54,7 @@ get_codes <- function(codes_files)
 ##' a "categories" field (for a non-leaf) or a "code" field
 ##' (for a leaf). All levels in the structure contains a "docs"
 ##' field describing what the level means.
-##' 
+##'
 ##' @title Get a flat list of codes
 ##' @param codes The parsed codes definition list of lists
 ##' @return A named character vector containing the codes
@@ -49,7 +64,7 @@ parse_codes <- function(codes)
 {
     ## Create a list that will hold all the results
     results <- list()
-    
+
     if ("categories" %in% names(codes))
     {
         ## It is important that the categories field is
@@ -73,7 +88,7 @@ parse_codes <- function(codes)
         ## evaluates matches in the order they are listed.
         ## This appears to be the case (as it should be):
         ## "https://stackoverflow.com/questions/22640981/
-        ## sql-case-does-the-order-of-the-when-statements-matter". 
+        ## sql-case-does-the-order-of-the-when-statements-matter".
         ##
         ## Note that it is not necessary to use a particular
         ## order for the items in the YAML file itself --
@@ -83,7 +98,7 @@ parse_codes <- function(codes)
         ## However, it is very important not to move the
         ## else statement for the codes name above this
         ## if statement body for categories.
-        
+
         ## Loop over the items in the category field,
         ## and call parse_codes at each level. parse_codes
         ## should return a list of items, where each item
@@ -92,7 +107,7 @@ parse_codes <- function(codes)
         ## the values are the lists of ICD codes.
         for (category_name in names(codes$categories))
         {
-            
+
             ## First, check whether the exclude flag is
             ## present and set to true, ignore this category.
             ## The codes in excluded fields will not be part
@@ -102,7 +117,7 @@ parse_codes <- function(codes)
             {
                 next
             }
-            
+
             ## Looping over categories here. Each category
             ## uses parse_codes to get a flat list, and the
             ## the category name is prepended to the names
@@ -117,7 +132,7 @@ parse_codes <- function(codes)
                 purrr::map(~ paste0("<",.,">")) %>%
                 purrr::reduce(paste0, .init = "")
             prefix <- paste0(category_name, tags)
-            
+
             ## Add the category name onto the front of every
             ## item in the list
             ## TODO add check for final element here to surpress
@@ -138,13 +153,13 @@ parse_codes <- function(codes)
     }
 
     ## Find a more elegant way to do this
-    if (!("codes" %in% names(codes)) && !("categories" %in% names(codes))) 
+    if (!("codes" %in% names(codes)) && !("categories" %in% names(codes)))
     {
         stop("Each level of the codes structure must contains 'categories' or 'codes'")
     }
 
     ## Return the results, which is either a list of codes (for a codes
-    ## object) or a nested list of code-lists 
+    ## object) or a nested list of code-lists
     results
 }
 
@@ -161,7 +176,7 @@ parse_codes <- function(codes)
 ##' @title Generate ICD code mapping for SQL queries
 ##' @param parsed_codes The result of calling parse_codes
 ##' @return A named character vector from LIKE patterns to the string it represents
-##' 
+##'
 gen_code_map <- function(parsed_codes)
 {
     result <- character()
@@ -169,7 +184,7 @@ gen_code_map <- function(parsed_codes)
     {
         for (code in parsed_codes[[name]])
         {
-            ## Reverse the list and flatten codes 
+            ## Reverse the list and flatten codes
             result[[code]] <- name
         }
     }
@@ -183,7 +198,7 @@ gen_code_map <- function(parsed_codes)
 ##' @param code_map The result of calling gen_code_map()
 ##' @param colname The name of the column to use in the case-when statement
 ##' @return A list of case when statements (expand with !!! in case_when)
-##' 
+##'
 gen_casewhen <- function(code_map, colname)
 {
     code_map %>%

@@ -89,12 +89,6 @@ strategy_codes_from <- function(tbl, name, codes_files)
         stop("Strategy 'codes_from' currently only works with one source_column.")
     }
 
-    ## If the codes_files is a directory
-    if(dir.exists(system.file("extdata", codes_files, package = "icdb")))
-    {
-        codes_files <- Sys.glob(paste0(system.file("", package = "icdb"), "/extdata/", codes_files, "/*.yaml"))
-    }
-
     ## Get the codes from multiple files
     codes <- get_codes(codes_files)
 
