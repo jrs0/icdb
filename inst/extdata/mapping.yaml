@@ -101,7 +101,7 @@ databases:
         columns: []
 
       res:
-        docs: "The SWD results, or measurements, table now contains results from various tests. As there are many different types of measures all stored in a single column, this data is stored as character strings and needs to be parsed - e.g. blood pressure = as.character("123/80")."
+        docs: "The SWD results, or measurements, table now contains results from various tests. As there are many different types of measures all stored in a single column, this data is stored as character strings and needs to be parsed - e.g. blood pressure = as.character('123/80')."
         source_table: "test___test"
         columns: []
 
