@@ -212,48 +212,30 @@ setClass(
 ##' Construct a Server object
 ##'
 ##' This object manages a connection to a database server. The connection
-##' is configured using either a data source name, or a json file which stores
+##' is configured using either a data source name, or a YAML file which stores
 ##' configuration information and credentials. After this function has run
 ##' without errors, you should have a new Server object containing a valid
 ##' connection. The data source is specified by a data source name, which is
 ##' configured using a Windows program. This is the preferred connection method.
 ##'
 ##' A data source name (DNS) is a string that refers to a connection set
-##' using the "ODBC data sources" app on Windows (8). Open this app; in the
-##' "User DSN" tab, add a new data source using "Add". Select "ODBC Driver 17 for
-##' SQL Server", and then follow through the wizard. Choose a name for the data
-##' source, which is arbitrary -- this is the data source name. Set the "Server"
-##' field to the server name (the same as in SQL Management Studio). In one
-##' of the pages, make sure you pick a default database to connect to.
-##' Finally, at the end of the wizard, check the connection. If it fails,
-##' debug it before moving on to using this function.
+##' using the "ODBC data sources" app on Windows (8). See the package
+##' documentation for more information about how to set this up.
 ##'
 ##' If you cannot make the DSN work, you can also supply a configuration file,
-##' in JSON format. Three keys are required: "driver" must be set to the
+##' in YAML format. Three keys are required: "driver" must be set to the
 ##' database driver (potentially "SQL Server"); "server" must be set the to
 ##' server name; and "database" must be set to the name of the database to
-##' connect to. An example configuration file is in extdata/db_config.json.
-##'
-##' Note: it is very important to select the "ODBC Driver 17 for SQL Server",
-##' not the "SQL Server" driver, even though the latter may appear to work.
-##' The "SQL Server" driver will fail for certain tables with long columns;
-##' read here for more information: https://github.com/r-dbi/odbc/issues/309.
-##' If you get errors like "Invalid Descriptor Names" when you try to read
-##' tables and do queries, consider this problem.
-##'
-##' doneness 0
+##' connect to.
 ##'
 ##' @param data_source_name The data source name (DSN) for the database.  If
-##'   this argument is provided, it will be preferred to the config file.
-##'
-##' @param config The absolute path of a configuration file (csv format)
-##'   containing database connection information and credentials. The default
-##'   value is the credential file stored in the inst/ directory.
-##'
+##' this argument is provided, it will be preferred to the config file.
+##' @param config The path of a configuration file (YAML format)
+##' containing database connection information and credentials. The default
+##' value is the credential file stored in the inst/ directory.
 ##' @param interactive This parameter specifies whether the list of databases
 ##' and tables is populated. This is used to make the MappedSrv object load
 ##' faster, by only fetching the tables specified in the mapping.
-##' 
 ##' @return A new (S4) Server object
 ##' 
 ##' @export

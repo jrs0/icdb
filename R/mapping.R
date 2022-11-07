@@ -89,15 +89,23 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 }
 
 ##' Create a new mapped database object. A mapped database is an object that contains
-##' logical databases, logical tables and logical column names, with documentation.
+##' mapped databases, mapped tables and mapped column name. The mapping operation is a
+##' simple preprocessing operation, that performs tasks such as renaming and coalescing
+##' columns, and certain basic filtering and mutate operations. In addition, the mapped
+##' objects can store documentation about themselves, which provides an easy way to look
+##' up what a column is or where it came from. The MappedSrv uses an underlying Server
+##' object for the database connection.
+##' 
 ##' The structure of the database is defined by a mapping.yaml file, which describes
-##' how to obtain the fields from an underlying data source.
+##' how to obtain the fields from an underlying data source. See the package documentation
+##' for how to structure this file.
 ##'
-##' To make a mapped database, pass the Data Source Name (see Databases documentation)
-##' along with a mapping.yaml file.
+##' To make a mapped database, pass any arguments that are required for the underlying
+##' Server object (e.g. a data source name or a config file path), along with a
+##' mapping.yaml file.
 ##'
 ##' @title Create a mapped databases (logical database object)
-##' @param ... Any arguments required by Server (see ?Server)
+##' @param ... Any arguments that should be passed to the underlying Server function
 ##' @param mapping the path to a mapping.yaml file
 ##' @return A new MappedDB object
 ##'

@@ -10,7 +10,7 @@ MappedSrv(
 )
 }
 \arguments{
-\item{...}{Any arguments required by Server (see ?Server)}
+\item{...}{Any arguments that should be passed to the underlying Server function}
 
 \item{mapping}{the path to a mapping.yaml file}
 }
@@ -19,11 +19,19 @@ A new MappedDB object
 }
 \description{
 Create a new mapped database object. A mapped database is an object that contains
-logical databases, logical tables and logical column names, with documentation.
-The structure of the database is defined by a mapping.yaml file, which describes
-how to obtain the fields from an underlying data source.
+mapped databases, mapped tables and mapped column name. The mapping operation is a
+simple preprocessing operation, that performs tasks such as renaming and coalescing
+columns, and certain basic filtering and mutate operations. In addition, the mapped
+objects can store documentation about themselves, which provides an easy way to look
+up what a column is or where it came from. The MappedSrv uses an underlying Server
+object for the database connection.
 }
 \details{
-To make a mapped database, pass the Data Source Name (see Databases documentation)
-along with a mapping.yaml file.
+The structure of the database is defined by a mapping.yaml file, which describes
+how to obtain the fields from an underlying data source. See the package documentation
+for how to structure this file.
+
+To make a mapped database, pass any arguments that are required for the underlying
+Server object (e.g. a data source name or a config file path), along with a
+mapping.yaml file.
 }
