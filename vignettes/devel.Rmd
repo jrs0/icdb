@@ -71,6 +71,8 @@ This section contains a list of issues people had trying to use the library
 
 - Problem with parsing file paths that contain a directory component in the codes_from field of the mapping yaml file.
 
+- Need to double check that the catch all codes are really working properly, and not classing everything in their subcategories as a catch all category. This will be solved by testing (not done yet). 
+
 ## Notes
 
 This section contains notes about things that work or anything else that might be helpful later.
