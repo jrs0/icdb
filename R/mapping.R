@@ -84,7 +84,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
             }
         }
 
-        MappedTable(tbl, mapping)
+        mapped_table(tbl, mapping)
     }
 }
 
@@ -125,16 +125,16 @@ mapped_server <- function(..., mapping = system.file("extdata", "mapping.yaml", 
     mdb <- new("mapped_server", node, mapping = m)
 }
 
-new_MappedTable <- function(tbl, mapping)
+new_mapped_table <- function(tbl, mapping)
 {
-    mtab <- Table(tbl, class="MappedTable")
+    mtab <- Table(tbl, class="mapped_table")
     attr(mtab, "mapping") <- mapping
     mtab
 }
 
-MappedTable <- function(tbl, mapping)
+mapped_table <- function(tbl, mapping)
 {
-    new_MappedTable(tbl, mapping)
+    new_mapped_table(tbl, mapping)
 }
 
 print_mapping <- function(mapping, level = 0)
@@ -163,7 +163,7 @@ print_mapping <- function(mapping, level = 0)
 
 
 ##' @export
-print.MappedTable <- function(x,...)
+print.mapped_table <- function(x,...)
 {
     print_mapping(attr(x,"mapping"))
 
