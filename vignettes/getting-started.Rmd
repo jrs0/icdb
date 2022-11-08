@@ -60,7 +60,7 @@ The main advantage of using dplyr (the library that ICDB uses) is that SQL is of
 ```{r, message=FALSE}
 library(tidyverse)
 library(lubridate)
-## Assumes a database `dbname' contains a table `tabname', which has a numeric column `value'
+
 srv$APC_SYNTH %>% filter(SpellStartDate > !!ymd("2019-1-1")) %>% select(NHSNumber, DiagnosisICD) %>% show_query()
 ```
 

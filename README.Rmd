@@ -22,6 +22,8 @@ ICDB is a library for connecting to health care databases, with features designe
 
 **The library is not fully developed yet. Expect the interface and other features to change**
 
+**_NOTE:_**  'Server' has been renamed to 'server', and 'MappedSrv' is now 'mapped_srv'.
+
 ## Obtaining the documentation
 
 The first step to using the library is to find a copy of the documentation. To generate the documentation, clone or download this repository, and open the ICDB project in RStudio. Then run the following command:
