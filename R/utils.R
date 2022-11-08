@@ -81,10 +81,9 @@ gen_apc <- function(filename, seed = 1, nspells = 10)
                          SpellID = spell_id_col,
                          SpellStartDate = spell_starts_col)
 
-    print(tbl)
-    
     ## Create the database
-    con <- DBI::dbConnect(RSQLite::SQLite(), paste0("gendata/",filename))
+    path <- paste0("gendata/", filename)
+    con <- DBI::dbConnect(RSQLite::SQLite(), path)
 
     ## In case the file already exists and the table exists, remove the table
     if (DBI::dbExistsTable(con, "APC_SYNTH")) {
@@ -97,4 +96,5 @@ gen_apc <- function(filename, seed = 1, nspells = 10)
 
     
     DBI::dbDisconnect(con)
+    message("Written generated data to '", path, "'")
 }
