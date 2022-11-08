@@ -595,7 +595,7 @@ setMethod("sql_query", c("server", "character"), function(db, query) {
 ##'
 ##' @return A tibble containing the results
 ##' @export
-setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
+setGeneric("sql_from_file", function(db, file) standardGeneric("sql_from_file"))
 
 ##' Perform a SQL query from a file
 ##'
@@ -610,7 +610,7 @@ setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
 ##' @param file The file containing the query to submit
 ##'
 ##' @export
-setMethod("sqlFromFile", c("server", "character"), function(db, file) {
+setMethod("sql_from_file", c("server", "character"), function(db, file) {
 
     ## Read the query as a string
     str <- readr::read_file(file)
