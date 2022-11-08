@@ -4,7 +4,7 @@ NULL
 
 setOldClass("node")
 setClass(
-    "MappedSrv",
+    "mapped_server",
     contains = "node",
     slots = representation(
         mapping = "list"
@@ -14,10 +14,10 @@ setClass(
     )
 )
 
-##' @title Print the MappedSrv object 
-##' @param object MappedSrv to print
+##' @title Print the mapped_server object 
+##' @param object mapped_server to print
 ##' @export
-setMethod("show", "MappedSrv", function(object) {
+setMethod("show", "mapped_server", function(object) {
     print(object)
 })
 
@@ -93,7 +93,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 ##' simple preprocessing operation, that performs tasks such as renaming and coalescing
 ##' columns, and certain basic filtering and mutate operations. In addition, the mapped
 ##' objects can store documentation about themselves, which provides an easy way to look
-##' up what a column is or where it came from. The MappedSrv uses an underlying server
+##' up what a column is or where it came from. The mapped_server uses an underlying server
 ##' object for the database connection.
 ##' 
 ##' The structure of the database is defined by a mapping.yaml file, which describes
@@ -111,7 +111,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 ##'
 ##' @export
 ##' 
-MappedSrv <- function(..., mapping = system.file("extdata", "mapping.yaml", package="icdb"))
+mapped_server <- function(..., mapping = system.file("extdata", "mapping.yaml", package="icdb"))
 {
     ## Connect to the server
     srv <- server(..., interactive = FALSE)
@@ -122,7 +122,7 @@ MappedSrv <- function(..., mapping = system.file("extdata", "mapping.yaml", pack
     ## Write the parsed config file tree to the object
     node <- parse_mapping(m, srv)
 
-    mdb <- new("MappedSrv", node, mapping = m)
+    mdb <- new("mapped_server", node, mapping = m)
 }
 
 new_MappedTable <- function(tbl, mapping)
