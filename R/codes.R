@@ -22,7 +22,7 @@ get_codes <- function(codes_files)
         if (fs::file_exists(element))
         {
             ## Read the codes from this file
-            x <- yaml::read_yaml(filename)
+            x <- yaml::read_yaml(element)
             codes <- c(codes, parse_codes(x))
         }
         else if (fs::dir_exists(element))
