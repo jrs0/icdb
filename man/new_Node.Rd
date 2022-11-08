@@ -7,7 +7,7 @@
 new_node(subobjects, ..., class = character())
 }
 \arguments{
-\item{subobjects}{The list of nodes or Tables in this node}
+\item{subobjects}{The list of nodes or table_nodes in this node}
 
 \item{...}{Other parameters for derived classes}
 
@@ -26,11 +26,11 @@ The one job of the node is to correctly handle the \code{$}
 overload for the object being accessed in the object
 tree. For the server, \code{$} is overloaded to list the top
 level objects. All other objects in the tree are either
-nodes or Tables. The \code{$} operator for a node is overloaded
+nodes or table_nodes. The \code{$} operator for a node is overloaded
 in such a way that it checks whether the node below it is
-a node or a Table. If it is a node, it prints a list of the
-contents of that node. If it is a Table, it automatically
+a node or a table_node. If it is a node, it prints a list of the
+contents of that node. If it is a table_node, it automatically
 fetches the dplyr::tbl.
 
-The node object is a named list of either nodes or Tables.
+The node object is a named list of either nodes or table_nodes.
 }

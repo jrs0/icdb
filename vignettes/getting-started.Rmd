@@ -33,7 +33,7 @@ This will create a folder called *gendata* in your working directory, containing
 library(icdb)
 ## The next line may take a little while to run for
 ## large databases, due to the way the library works.
-srv <- Server(config = system.file("extdata", "sqlite.yaml", package="icdb"))
+srv <- server(config = system.file("extdata", "sqlite.yaml", package="icdb"))
 ```
 
 The `srv` object behaves like a nested named list. The first level contains databases on the server, and the next level contains tables in that database. Database and table names tab complete (in RStudio and Emacs ESS), to make it easier to find what you are looking for. In the example here, the database contains only a single table called *APC_SYNTH*:

@@ -16,30 +16,30 @@ knitr::opts_chunk$set(
 
 The first step in using ICDB is connecting to a database server. The ICDB library connects to a server, not a particular database. This makes it possible to use the same connection across different databases on the same server.
 
-ICDB is designed to connect to Microsoft SQL Server, MySQL or SQLite. This page describes how to connect to each type of database. Before executing the code snippets in the sections below, make sure you load the library using:
+ICDB is designed to connect to Microsoft SQL server, MySQL or SQLite. This page describes how to connect to each type of database. Before executing the code snippets in the sections below, make sure you load the library using:
 
 ```{r setup}
 library(icdb)
 ```
 
-# Connecting to a Microsoft SQL Server
+# Connecting to a Microsoft SQL server
 
-The easiest and most secure way to connect to the database server hosting Microsoft SQL Server is to use the Windows *ODBC Data Sources* application. This application stores a pre-configured connection under a particular name (the *data source name*), which can then be used in R code to connect to the database. By using this type of connection, you do not have to store config files with hard-coded database credentials. 
+The easiest and most secure way to connect to the database server hosting Microsoft SQL server is to use the Windows *ODBC Data Sources* application. This application stores a pre-configured connection under a particular name (the *data source name*), which can then be used in R code to connect to the database. By using this type of connection, you do not have to store config files with hard-coded database credentials. 
 
 To set up the connection:
 
 1. Open the *ODBC Data Sources* program
 2. Click *Add* to start adding a new data source
-3. Select the *ODBC Driver 17 for SQL Server*, or the *SQL Server Native Client 11.0*. **Important: do not select the SQL Server driver.** Click *Finish*.
-4. Choose an arbitrary name (e.g. *XSW*) for the connection -- this will be the *data source name*. Add an optional description. In the server field, specify the hostname of the server (see the *Server Name* field when you open *SQL Server Management Studio*)
+3. Select the *ODBC Driver 17 for SQL server*, or the *SQL server Native Client 11.0*. **Important: do not select the SQL server driver.** Click *Finish*.
+4. Choose an arbitrary name (e.g. *xsw*) for the connection -- this will be the *data source name*. Add an optional description. In the server field, specify the hostname of the server (see the *server Name* field when you open *SQL server Management Studio*)
 5. Step through the other pages of the wizard, leaving all other values as default. At the end, make sure you click *Test Data Source...* to ensure the connection is working. If this step causes errors, make sure they are fixed before moving on. After completing the wizard, the new data source should be listed in the *ODBC Data Sources* program.
 
-After setting up a data source name, try executing the code below (replace *XSW* with whatever you used for the data source name):
+After setting up a data source name, try executing the code below (replace *xsw* with whatever you used for the data source name):
 
 ```{r, eval=FALSE}
 library(icdb)
 ## The next line may take a little while to run, due to the way the library works.
-srv <- Server("XSW")
+srv <- server("xsw")
 ```
 
 The `srv` object behaves like a list of lists. The first level contains databases on the server, and the next level contains tables in that database. Database and table names tab complete (in RStudio and Emacs ESS), to make it easier to find what you are looking for. After running the code above, try typing `srv$` to see the list of database names. Then type `srv$dbname$` to get the list of tables in the database called *dbname*.
@@ -65,7 +65,7 @@ Replace the fields with information specific to your own server, as follows:
 Save the contents above in a file, for example *mysql.yaml*, and put it somewhere which is accessible from your R script. Then run the following command
 
 ```{r, eval=FALSE}
-srv <- Server(config = "path/to/mysql.yaml")
+srv <- server(config = "path/to/mysql.yaml")
 ```
 
 Database names and table names should now tab complete on typing srv\$ and srv\$dbname.
@@ -96,7 +96,7 @@ Then run the following command to make the connection:
 getwd()
 
 ## Make the connection
-srv <- Server(config = "path/to/sqlite.yaml")
+srv <- server(config = "path/to/sqlite.yaml")
 ```
 
 

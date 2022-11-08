@@ -19,7 +19,7 @@ make_table_getter(con, database, table_schema, table_name, id = NULL)
 }
 \description{
 Make a function that returns a table getter. The function which
-is returned can be called to produce a Table object.
+is returned can be called to produce a table_node object.
 }
 \details{
 This function is the way to associate a function with every table

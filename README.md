@@ -12,8 +12,9 @@ designed to make data analysis using these databases easier.
 **The library is not fully developed yet. Expect the interface and other
 features to change**
 
-*Note: The class class has changed from CamelCase to snake_case – Server
-is now server and MappedSrv is now mapped_server*
+*Note: The class naming convention has changed from CamelCase to
+snake_case. **Server** is now **server** and **MappedSrv** is now
+**mapped_server***
 
 ## Obtaining the documentation
 

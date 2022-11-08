@@ -127,7 +127,7 @@ mapped_server <- function(..., mapping = system.file("extdata", "mapping.yaml", 
 
 new_mapped_table <- function(tbl, mapping)
 {
-    mtab <- Table(tbl, class="mapped_table")
+    mtab <- table_node(tbl, class="mapped_table")
     attr(mtab, "mapping") <- mapping
     mtab
 }
@@ -229,7 +229,7 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
 
         ## Next, create the function which will return the the Mapped object
         ## corresponding to this logical table
-        tab <- TableWrapper(make_mapped_table_getter(srv, source_database, source_table, mapping))
+        tab <- table_wrapper(make_mapped_table_getter(srv, source_database, source_table, mapping))
     }
     else if ("strategy" %in% names(mapping))
     {

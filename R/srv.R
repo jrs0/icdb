@@ -4,7 +4,7 @@
 ## file. The server is a nested list of list, where each level corresponds
 ## to an object in the database (first databases, then tables -- schemas
 ## are omitted for now). The innermost list contains functions which
-## return Table objects. These objects inherit from dplyr::tbl, and
+## return table_node objects. These objects inherit from dplyr::tbl, and
 ## form the base for other classes that contain additional information.
 ##
 ## The need to store functions in the nested list is to prevent a
@@ -78,8 +78,8 @@ build_object_tree <- function(con, prefix)
     values <- objs %>% purrr::pmap(~ if(.y == TRUE) {
                                          build_object_tree(con, .x)
                                      } else {
-                                         TableWrapper(make_table_getter(con,
-                                                                        id = .x))
+                                         table_wrapper(make_table_getter(con,
+                                                                         id = .x))
                                      })
 
     ## Bind the labels and values into a named list and return it
@@ -89,27 +89,27 @@ build_object_tree <- function(con, prefix)
     node(values)
 }
 
-new_Table <- function(tbl, ..., class=character())
+new_table_node <- function(tbl, ..., class=character())
 {
     structure(tbl,
-              class=c("Table", class, class(tbl))
+              class=c("table_node", class, class(tbl))
               )
 }
 
-##' Make a new Table object, which is the basic type used to
+##' Make a new table_node object, which is the basic type used to
 ##' store tables in the library. This function should be
 ##' used in the table_getter to give a tibble object back
 ##' to the user.
 ##'
-##' @title Make a Table
+##' @title Make a table_node
 ##' @param tbl The underlying tbl to use
 ##' @param ... Further arguments from other constructors
 ##' @param class Other classes (used for subclasses)
-##' @return The new Table object
+##' @return The new table_node object
 ##'
-Table <- function(tbl, ..., class=character())
+table_node <- function(tbl, ..., class=character())
 {
-    new_Table(tbl, ..., class=class)
+    new_table_node(tbl, ..., class=class)
 }
 
 ##' The server object is a nested list of nodes, which each
@@ -120,18 +120,18 @@ Table <- function(tbl, ..., class=character())
 ##' overload for the object being accessed in the object
 ##' tree. For the server, `$` is overloaded to list the top
 ##' level objects. All other objects in the tree are either
-##' nodes or Tables. The `$` operator for a node is overloaded
+##' nodes or table_nodes. The `$` operator for a node is overloaded
 ##' in such a way that it checks whether the node below it is
-##' a node or a Table. If it is a node, it prints a list of the
-##' contents of that node. If it is a Table, it automatically
+##' a node or a table_node. If it is a node, it prints a list of the
+##' contents of that node. If it is a table_node, it automatically
 ##' fetches the dplyr::tbl.
 ##'
-##' The node object is a named list of either nodes or Tables.
+##' The node object is a named list of either nodes or table_nodes.
 ##'
 ##' @title node object for intermediate positions in the object tree.
 ##' @return A new node S3 object
 ##'
-##' @param subobjects The list of nodes or Tables in this node
+##' @param subobjects The list of nodes or table_nodes in this node
 ##' @param ... Other parameters for derived classes
 ##' @param class The class parameter for derived class
 new_node <- function(subobjects, ..., class=character())
@@ -162,7 +162,7 @@ print.node <- function(x, ...)
         ## Return for printing or otherwise
         obj
     }
-    else if (class(obj) == "TableWrapper")
+    else if (class(obj) == "table_wrapper")
     {
         ## Call the object, which returns a table, and
         ## return the result
@@ -175,14 +175,14 @@ print.node <- function(x, ...)
 }
 
 
-new_TableWrapper <- function(table_getter)
+new_table_wrapper <- function(table_getter)
 {
-    structure(table_getter, class = "TableWrapper")
+    structure(table_getter, class = "table_wrapper")
 }
 
-TableWrapper <- function(table_getter)
+table_wrapper <- function(table_getter)
 {
-    new_TableWrapper(table_getter)
+    new_table_wrapper(table_getter)
 }
 
 setOldClass("node")
@@ -358,7 +358,7 @@ server <- function(data_source_name = NULL,
 
                 ## Put the tables in the database
                 node[[d]] <- tables %>%
-                    purrr::pmap(~ TableWrapper(make_table_getter(con, d, .x, .y))) %>%
+                    purrr::pmap(~ table_wrapper(make_table_getter(con, d, .x, .y))) %>%
                     node()
 
                 names(node[[d]]) <- tables$table_name
@@ -451,7 +451,7 @@ get_tbl <- function(srv, database, table)
 }
 
 ##' Make a function that returns a table getter. The function which
-##' is returned can be called to produce a Table object.
+##' is returned can be called to produce a table_node object.
 ##'
 ##' This function is the way to associate a function with every table
 ##' object in the db list, and replaces the need to overload `$`, while
@@ -501,8 +501,8 @@ make_table_getter <- function(con, database, table_schema, table_name, id = NULL
         ## Get the table shell object
         tbl <- dplyr::tbl(con, id)
 
-        ## Return th Table object wrapping the tbl
-        Table(tbl)
+        ## Return th table_node object wrapping the tbl
+        table_node(tbl)
     }
 }
 
