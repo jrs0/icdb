@@ -37,7 +37,7 @@ databases:
             docs: "The main diagnosis for this episode? The field is an ICD 10 code."
             source_columns:
               "DiagnosisPrimary_ICD": ""
-            strategy: ["codes_from", "icd10_codes/bleeding.yam"]
+            strategy: ["codes_from", "icd10_codes"]
           spell_id:
             docs: "The ID field linking episodes that form part of the same spell (a continuous hospital visit). "
             source_columns:
