@@ -1,8 +1,10 @@
 Package: icdb
 Title: An R interface for ICB databases
 Version: 0.0.0.9001
-Authors@R: 
-    person("John", "Scott", , "john.scott17@nhs.net", role = c("aut", "cre"))
+Authors@R: c(
+    person("John", "Scott", , "john.scott17@nhs.net", role = c("aut", "cre")),
+    person("Nick", "Sunderland", role = c("ctb"))
+    )
 Description: A library for making database access and processing easier in R. The main features include a tab-completing list of database and table names, ability to cache large queries for development purposes, and the ability to remap and document columns in databases to provide a consistent R interface. The package is currently under development.
 License: MIT + file LICENSE
 Encoding: UTF-8
