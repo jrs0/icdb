@@ -75,8 +75,8 @@ get_codes <- function(codes_files)
             else
             {
                 ## If you get here, then the file or directory was not found. Issue a warning
-                warning("Did not find codes definition file ", element, ". ",
-                        "Double check that the directory or file name is correct")
+                warning("Did not find codes definition file '", element, "'. ",
+                        "Double check that the directory or file name is correct.")
             }
         }
     }
@@ -249,6 +249,6 @@ gen_filter <- function(code_map,colname)
     ## Map reduce to generate the OR list for dplyr filtering
     flt <- names(code_map) %>%
         purrr::map(~ rlang::expr(!!as.name(colname) %like% !!.)) %>%
-        purrr::reduce(~ rlang::expr(!!.x || !!.y))
+        purrr::reduce(~ rlang::expr(!!.x || !!.y), .init = FALSE)
 }
 
