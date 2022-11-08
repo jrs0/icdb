@@ -4,7 +4,14 @@ NULL
 
 ##' Parse multiple codes files and combine the result
 ##'
-##'
+##' This function takes a list of files containing
+##' code definitions, or directories in which to search
+##' for code definition files. The current working directory
+##' is searched first for each element. If the file or
+##' directory is not found there, then the package extdata is
+##' searched. If a folder is specified, then it is recursively
+##' searched for .yaml files, which are assumed to contain
+##' code definition files.
 ##' 
 ##' @title Parse multiple codes files
 ##' @param codes_files A list of filenames or folders to parse
@@ -34,6 +41,42 @@ get_codes <- function(codes_files)
             {
                 x <- yaml::read_yaml(f)                
                 codes <- c(codes, parse_codes(x))
+            }
+        }
+        ## Check if the file exists relative to extdata
+        else
+        {
+            ## If you get here, then the element is not a file
+            ## or directory relative to the current working
+            ## directory. Now search relative to the base of
+            ## the extdata directory
+
+            ## If this returns a non-empty string, then element
+            ## is either a file or a directory in extdata
+            y <- system.file("extdata", element, package="icdb")
+
+            if (fs::is_file(y))
+            {
+                ## Read the codes from this file
+                x <- yaml::read_yaml(y)
+                codes <- c(codes, parse_codes(x))
+            }
+            else if (fs::dir_exists(y))
+            {
+                ## For a directory, read all of the codes files
+                ## present in the directory
+                files <- list.files(y, pattern = ".yaml", recursive = TRUE, full.names = TRUE)
+                for (f in files)
+                {
+                    x <- yaml::read_yaml(f)                
+                    codes <- c(codes, parse_codes(x))
+                }
+            }
+            else
+            {
+                ## If you get here, then the file or directory was not found. Issue a warning
+                warning("Did not find codes definition file ", element, ". ",
+                        "Double check that the directory or file name is correct")
             }
         }
     }
