@@ -91,7 +91,7 @@ When a query like
 results <- srv$APC_SYNTH %>% filter(SpellStartDate > !!ymd("2019-1-1")) %>% select(NHSNumber, DiagnosisICD) %>% run()
 ```
 
-is run, it may take several minutes to execute. However, the second time it is run, the results are returned instantly. This is because the `run()` function stored the result behind the scenes, in case you need it again soon. 
+is run, it may take several minutes to execute. However, the second time it is run, the results are returned instantly. This is because the `run()` function stores the result behind the scenes, in case you need it again soon. 
 
 If you change any aspect of the query that changes the SQL, then the query will be rerun. For example, 
 ```{r}
