@@ -19,6 +19,7 @@ categories:
                   carotid:
                     docs: "Nontraumatic subarachnoid haemorrhage from carotid siphon and bifurcation"
                     codes: "I600"
+                    tags: "example"
                   middle-cerebral-artery:
                     docs: "Nontraumatic subarachnoid haemorrhage from middle cerebral artery"
                     codes: "I601"

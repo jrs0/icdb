@@ -252,3 +252,25 @@ gen_filter <- function(code_map,colname)
         purrr::reduce(~ rlang::expr(!!.x || !!.y))
 }
 
+##' Use this function to set the level of detail for diagnosis code
+##' columns. Codes columns contain strings of the form foo.bar.some.
+##' This function can be used to truncate this value at an arbitrary
+##' level of detail, so that foo.bar.some because foo.bar (for level
+##' 2).
+##'
+##' This function can be used as part of a mutate call to create a
+##' new column with more coarse-grained information about diagnosis
+##' codes; for example: mutate(new_col = drop_detail(diagnosis, 2)).
+##'
+##' Dropping detail makes it easy to get rid of "noise" in the diagnosis
+##' codes, and group together related codes into the hierarchy defined
+##' by the codes mapping file.
+##' 
+##' @title Drop detail from a clinical codes column
+##' @param value A list (such as a dataframe column) to drop detail from
+##' @param level At which level to truncate the codes  
+##' @return 
+drop_detail <- function(value, level = 1)
+{
+    strsplit(value, "\\.") %>% purrr::map(~ paste(head(., level), collapse = '.')) %>% unlist()
+}
