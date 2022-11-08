@@ -126,7 +126,7 @@ When a query is fetched for the first time, the results are placed in the memory
 
 Currently, when you close the R session, the contents of the memory cache is not flushed to the disk. This means that you may see some queries fetched when you were expecting to see them in the cache. This behaviour will be fixed in a future library version.
 
-
+More details coming soon...
 
 
 

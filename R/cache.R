@@ -406,6 +406,7 @@ show_cache <-function()
 ##' prior to using the function to delete based on specific
 ##' criteria.
 ##'
+##' @title Clear the cache
 ##' @param tbl An optional tbl specifying which objects in the
 ##' cache should be deleted. If this parameter is set to NULL
 ##' (the default if the tbl argument is not specified), then
