@@ -86,7 +86,7 @@ build_object_tree <- function(con, prefix)
     names(values) <- labels
 
     ## Return the list
-    Node(values)
+    node(values)
 }
 
 new_Table <- function(tbl, ..., class=character())
@@ -112,52 +112,52 @@ Table <- function(tbl, ..., class=character())
     new_Table(tbl, ..., class=class)
 }
 
-##' The server object is a nested list of Nodes, which each
+##' The server object is a nested list of nodes, which each
 ##' represent an object in the database. This is the S3 class
-##' for a Node.
+##' for a node.
 ##'
-##' The one job of the Node is to correctly handle the `$`
+##' The one job of the node is to correctly handle the `$`
 ##' overload for the object being accessed in the object
 ##' tree. For the server, `$` is overloaded to list the top
 ##' level objects. All other objects in the tree are either
-##' Nodes or Tables. The `$` operator for a Node is overloaded
+##' nodes or Tables. The `$` operator for a node is overloaded
 ##' in such a way that it checks whether the node below it is
-##' a Node or a Table. If it is a Node, it prints a list of the
-##' contents of that Node. If it is a Table, it automatically
+##' a node or a Table. If it is a node, it prints a list of the
+##' contents of that node. If it is a Table, it automatically
 ##' fetches the dplyr::tbl.
 ##'
-##' The Node object is a named list of either Nodes or Tables.
+##' The node object is a named list of either nodes or Tables.
 ##'
-##' @title Node object for intermediate positions in the object tree.
-##' @return A new Node S3 object
+##' @title node object for intermediate positions in the object tree.
+##' @return A new node S3 object
 ##'
-##' @param subobjects The list of Nodes or Tables in this Node
+##' @param subobjects The list of nodes or Tables in this node
 ##' @param ... Other parameters for derived classes
 ##' @param class The class parameter for derived class
-new_Node <- function(subobjects, ..., class=character())
+new_node <- function(subobjects, ..., class=character())
 {
     structure(subobjects,
-              class=c("Node", class)
+              class=c("node", class)
               )
 }
 
-Node <- function(subobjects, ..., class=character())
+node <- function(subobjects, ..., class=character())
 {
-    new_Node(subobjects, ..., class=class)
+    new_node(subobjects, ..., class=class)
 }
 
 
 ##' @export
-print.Node <- function(x, ...)
+print.node <- function(x, ...)
 {
     print(names(x))
 }
 
 ##' @export
-`$.Node` <- function(x,i)
+`$.node` <- function(x,i)
 {
     obj <- NextMethod()
-    if (class(obj) == "Node")
+    if (class(obj) == "node")
     {
         ## Return for printing or otherwise
         obj
@@ -170,7 +170,7 @@ print.Node <- function(x, ...)
     }
     else
     {
-        stop("Unexpected object class in Node while calling `$`")
+        stop("Unexpected object class in node while calling `$`")
     }
 }
 
@@ -185,18 +185,18 @@ TableWrapper <- function(table_getter)
     new_TableWrapper(table_getter)
 }
 
-setOldClass("Node")
+setOldClass("node")
 
 ##' server class wrapping an SQL server connection
 ##'
 ##' @slot con Microsoft SQL server.
-##' @slot .S3Class The inherited Node object
+##' @slot .S3Class The inherited node object
 ##'
 ##' @export
 ##'
 setClass(
     "server",
-    contains = "Node",
+    contains = "node",
     slots = representation(
         con = "DBIConnection"
         ## config = "list",
@@ -329,7 +329,7 @@ server <- function(data_source_name = NULL,
     ## which constructs the nested list
     if (interactive == FALSE)
     {
-        return(new("server", Node(list()), con = con))
+        return(new("server", node(list()), con = con))
     }
 
     ## Most database drivers return the databases and tables as a tree of objects,
@@ -337,8 +337,8 @@ server <- function(data_source_name = NULL,
     ## it separately
     if (!is.null(data_source_name) || grepl("SQL server", driver_name))
     {
-        ## Create a top level Node object
-        node <- Node(list())
+        ## Create a top level node object
+        node <- node(list())
 
         ## Copy the list of databases into a list, ready to store in the object
         databases <- con %>%
@@ -359,7 +359,7 @@ server <- function(data_source_name = NULL,
                 ## Put the tables in the database
                 node[[d]] <- tables %>%
                     purrr::pmap(~ TableWrapper(make_table_getter(con, d, .x, .y))) %>%
-                    Node()
+                    node()
 
                 names(node[[d]]) <- tables$table_name
             },
