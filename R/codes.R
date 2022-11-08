@@ -267,14 +267,30 @@ gen_filter <- function(code_map,colname)
 ##' by the codes mapping file.
 ##' 
 ##' @title Drop detail from a clinical codes column
-##' @param value A list (such as a dataframe column) to drop detail from
+##' @param codes A list (such as a dataframe column) to drop detail from
 ##' @param level At which level to truncate the codes
 ##' @return The list after dropping detail past the specified level
 ##' 
 ##' @export
-drop_detail <- function(value, level = 1)
+drop_detail <- function(codes, level = 1)
 {
-    strsplit(value, "\\.") %>% purrr::map(~ paste(head(., level), collapse = '.')) %>% unlist()
+    strsplit(codes, "\\.") %>% purrr::map(~ paste(head(., level), collapse = '.')) %>% unlist()
+}
+
+##' Drop tags from a list of clinical code strings. A general code string
+##' is of the form foo.bar<tag>.some, where a tag can appear anywhere.
+##' After calling this function, all the <tag> elements are removed.
+##'
+##' This function can be used as part of a mutate call, such as
+##' mutate(new_col = drop_tags(codes_column))
+##'
+##' @title Remove tags from a clinical codes column
+##' @param codes A list of code strings to drop tags from 
+##' @return The list of codes without the tags
+##' @author 
+drop_tags <- function(codes)
+{
+    codes %>% stringr::str_replace("<.*>", "")
 }
 
 ##' Function to filter by the presence of a tag in a clinical code
