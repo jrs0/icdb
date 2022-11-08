@@ -10,7 +10,7 @@ MappedSrv(
 )
 }
 \arguments{
-\item{...}{Any arguments that should be passed to the underlying Server function}
+\item{...}{Any arguments that should be passed to the underlying server function}
 
 \item{mapping}{the path to a mapping.yaml file}
 }
@@ -23,7 +23,7 @@ mapped databases, mapped tables and mapped column name. The mapping operation is
 simple preprocessing operation, that performs tasks such as renaming and coalescing
 columns, and certain basic filtering and mutate operations. In addition, the mapped
 objects can store documentation about themselves, which provides an easy way to look
-up what a column is or where it came from. The MappedSrv uses an underlying Server
+up what a column is or where it came from. The MappedSrv uses an underlying server
 object for the database connection.
 }
 \details{
@@ -32,6 +32,6 @@ how to obtain the fields from an underlying data source. See the package documen
 for how to structure this file.
 
 To make a mapped database, pass any arguments that are required for the underlying
-Server object (e.g. a data source name or a config file path), along with a
+server object (e.g. a data source name or a config file path), along with a
 mapping.yaml file.
 }
