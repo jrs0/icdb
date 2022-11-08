@@ -1,5 +1,7 @@
 # icdb (development version)
 
+* Started adding functions to filter clinical code strings with tags
+
 # icdb 0.0.0.9001
 
 * Added a `NEWS.md` file to track changes to the package.

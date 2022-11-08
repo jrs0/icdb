@@ -287,7 +287,8 @@ drop_detail <- function(codes, level = 1)
 ##' @title Remove tags from a clinical codes column
 ##' @param codes A list of code strings to drop tags from 
 ##' @return The list of codes without the tags
-##' @author 
+##'
+##' @export
 drop_tags <- function(codes)
 {
     codes %>% stringr::str_replace("<.*>", "")
