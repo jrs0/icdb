@@ -514,7 +514,7 @@ make_table_getter <- function(con, database, table_schema, table_name, id = NULL
 ##' @return A tibble containing the results
 ##' @export
 ##'
-setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
+setGeneric("sql_query", function(db, query) standardGeneric("sql_query"))
 
 ##' Perform an SQL query by directly passing the SQL string
 ##'
@@ -526,7 +526,7 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 ##' @param query The query to submit (character string)
 ##'
 ##' @export
-setMethod("sqlQuery", c("server", "character"), function(db, query) {
+setMethod("sql_query", c("server", "character"), function(db, query) {
 
     ## Search for the cached file, if caching is enabled
     result <- NULL
@@ -600,11 +600,11 @@ setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
 ##' Perform a SQL query from a file
 ##'
 ##' If you have a file of SQL, submit it as a query to the database using this
-##' function. It reads the file into a string and passes it to the sqlQuery
+##' function. It reads the file into a string and passes it to the sql_query
 ##' function. This function also caches the results of the query in a file
 ##' so that next time the function is called, the query will attempt to use
 ##' the cached file before using the SQL server. See the documentation for
-##' sqlQuery for more information about how this works.
+##' sql_query for more information about how this works.
 ##'
 ##' @param db The Databases to submit to query to
 ##' @param file The file containing the query to submit
@@ -616,7 +616,7 @@ setMethod("sqlFromFile", c("server", "character"), function(db, file) {
     str <- readr::read_file(file)
 
     ## Do the query
-    sqlQuery(db, str)
+    sql_query(db, str)
 })
 
 ##' Print out the Databases object
