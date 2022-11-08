@@ -4,44 +4,38 @@ NULL
 
 ##' Parse multiple codes files and combine the result
 ##'
+##'
+##' 
 ##' @title Parse multiple codes files
-##' @param codes_files A list of filenames to parse
+##' @param codes_files A list of filenames or folders to parse
 ##' @return A named list suitable for gen_code_map()
 ##'
 get_codes <- function(codes_files)
 {
     ## Empty list for the codes
     codes <- list()
-
-    ## If 'codes_files' is a full directory path
-    if(dir.exists(codes_files))
+    
+    ## Read each listed argument to extract the codes
+    for (element in codes_files)
     {
-        codes_files <- list.files(codes_files, pattern = ".yaml", recursive = TRUE, full.names = TRUE)
-    }
-    ## If 'codes_files' is a directory within extdata
-    else if(dir.exists(system.file("extdata", codes_files, package = "icdb")))
-    {
-        dir <- system.file("extdata", codes_files, package = "icdb")
-        codes_files <- list.files(dir, pattern = ".yaml", recursive = TRUE, full.names = TRUE)
-    }
-
-    ## Read each yaml file to extract the codes
-    for (filename in codes_files)
-    {
-        ## Read the codes file from the current directory, or
-        ## try from files and folders in extdata
-        if (file.exists(filename))
+        ## Each element could be a filename or a directory
+        if (fs::file_exists(element))
         {
-            codes_yaml <- yaml::read_yaml(filename)
+            ## Read the codes from this file
+            x <- yaml::read_yaml(filename)
+            codes <- c(codes, parse_codes(x))
         }
-        else
+        else if (fs::dir_exists(element))
         {
-            f <- Sys.glob(file.path(system.file("extdata", package="icdb"), "*codes*", filename))
-            codes_yaml <- yaml::read_yaml(f)
+            ## For a directory, read all of the codes files
+            ## present in the directory
+            files <- list.files(element, pattern = ".yaml", recursive = TRUE, full.names = TRUE)
+            for (f in files)
+            {
+                x <- yaml::read_yaml(f)                
+                codes <- c(codes, parse_codes(x))
+            }
         }
-
-        ## Parse the codes file
-        codes <- c(codes, parse_codes(codes_yaml))
     }
     codes
 }
