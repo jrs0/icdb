@@ -1,7 +1,7 @@
 ## Information for developers:
 ##
-## The structure of the Server object is the most important part of this
-## file. The Server is a nested list of list, where each level corresponds
+## The structure of the server object is the most important part of this
+## file. The server is a nested list of list, where each level corresponds
 ## to an object in the database (first databases, then tables -- schemas
 ## are omitted for now). The innermost list contains functions which
 ## return Table objects. These objects inherit from dplyr::tbl, and
@@ -112,13 +112,13 @@ Table <- function(tbl, ..., class=character())
     new_Table(tbl, ..., class=class)
 }
 
-##' The Server object is a nested list of Nodes, which each
+##' The server object is a nested list of Nodes, which each
 ##' represent an object in the database. This is the S3 class
 ##' for a Node.
 ##'
 ##' The one job of the Node is to correctly handle the `$`
 ##' overload for the object being accessed in the object
-##' tree. For the Server, `$` is overloaded to list the top
+##' tree. For the server, `$` is overloaded to list the top
 ##' level objects. All other objects in the tree are either
 ##' Nodes or Tables. The `$` operator for a Node is overloaded
 ##' in such a way that it checks whether the node below it is
@@ -187,15 +187,15 @@ TableWrapper <- function(table_getter)
 
 setOldClass("Node")
 
-##' Server class wrapping an SQL server connection
+##' server class wrapping an SQL server connection
 ##'
-##' @slot con Microsoft SQL Server.
+##' @slot con Microsoft SQL server.
 ##' @slot .S3Class The inherited Node object
 ##'
 ##' @export
 ##'
 setClass(
-    "Server",
+    "server",
     contains = "Node",
     slots = representation(
         con = "DBIConnection"
@@ -209,12 +209,12 @@ setClass(
     )
 )
 
-##' Construct a Server object
+##' Construct a server object
 ##'
 ##' This object manages a connection to a database server. The connection
 ##' is configured using either a data source name, or a YAML file which stores
 ##' configuration information and credentials. After this function has run
-##' without errors, you should have a new Server object containing a valid
+##' without errors, you should have a new server object containing a valid
 ##' connection. The data source is specified by a data source name, which is
 ##' configured using a Windows program. This is the preferred connection method.
 ##'
@@ -224,7 +224,7 @@ setClass(
 ##'
 ##' If you cannot make the DSN work, you can also supply a configuration file,
 ##' in YAML format. Three keys are required: "driver" must be set to the
-##' database driver (potentially "SQL Server"); "server" must be set the to
+##' database driver (potentially "SQL server"); "server" must be set the to
 ##' server name; and "database" must be set to the name of the database to
 ##' connect to.
 ##'
@@ -236,10 +236,10 @@ setClass(
 ##' @param interactive This parameter specifies whether the list of databases
 ##' and tables is populated. This is used to make the MappedSrv object load
 ##' faster, by only fetching the tables specified in the mapping.
-##' @return A new (S4) Server object
+##' @return A new (S4) server object
 ##'
 ##' @export
-Server <- function(data_source_name = NULL,
+server <- function(data_source_name = NULL,
                    config = NULL,
                    interactive = TRUE)
 {
@@ -264,7 +264,7 @@ Server <- function(data_source_name = NULL,
             error = function(cnd)
             {
                 message(cnd$message)
-                stop("Could not connect to Server because of the YAML ",
+                stop("Could not connect to server because of the YAML ",
                      "parsing error above", call.=FALSE)
             },
             conf <- yaml::read_yaml(config)
@@ -275,7 +275,7 @@ Server <- function(data_source_name = NULL,
 
         ## Create the mapping from strings to drivers
         drv_map <- list(
-            "SQL Server" = odbc::odbc(), ## For Microsoft
+            "SQL server" = odbc::odbc(), ## For Microsoft
             "mysql" = RMariaDB::MariaDB(), ## Both mysql and mariadb using RMariaDB
             "mariadb" = RMariaDB::MariaDB(),
             "sqlite" = RSQLite::SQLite()
@@ -329,13 +329,13 @@ Server <- function(data_source_name = NULL,
     ## which constructs the nested list
     if (interactive == FALSE)
     {
-        return(new("Server", Node(list()), con = con))
+        return(new("server", Node(list()), con = con))
     }
 
     ## Most database drivers return the databases and tables as a tree of objects,
-    ## via the dbListObjects function. SQL Server does not work like this, so treat
+    ## via the dbListObjects function. SQL server does not work like this, so treat
     ## it separately
-    if (!is.null(data_source_name) || grepl("SQL Server", driver_name))
+    if (!is.null(data_source_name) || grepl("SQL server", driver_name))
     {
         ## Create a top level Node object
         node <- Node(list())
@@ -387,8 +387,8 @@ Server <- function(data_source_name = NULL,
         node <- build_object_tree(con, NULL)
     }
 
-    ## Now create and return the Server object
-    new("Server", node, con = con)
+    ## Now create and return the server object
+    new("server", node, con = con)
 }
 
 ##' This is the function for obtaining a table in non-interactive Databases mode.
@@ -397,7 +397,7 @@ Server <- function(data_source_name = NULL,
 ##' it is necessary to recheck the database server for the schema name each
 ##' time a table is requested. This does not add too much overhead.
 ##'
-##' Currently, this function only supports Microsoft SQL Server.
+##' Currently, this function only supports Microsoft SQL server.
 ##'
 ##' @title Get a dplyr::tbl corresponding to a table
 ##' @param srv The Databases object containing the server connection
@@ -470,7 +470,7 @@ get_tbl <- function(srv, database, table)
 ##' information_schema, which contains JSON columns).
 ##'
 ##' @title Get a function which returns a table object
-##' @param con The database connection (from Server)
+##' @param con The database connection (from server)
 ##' @param database The database name
 ##' @param table_schema The table schema name
 ##' @param table_name The table name
@@ -526,7 +526,7 @@ setGeneric("sqlQuery", function(db, query) standardGeneric("sqlQuery"))
 ##' @param query The query to submit (character string)
 ##'
 ##' @export
-setMethod("sqlQuery", c("Server", "character"), function(db, query) {
+setMethod("sqlQuery", c("server", "character"), function(db, query) {
 
     ## Search for the cached file, if caching is enabled
     result <- NULL
@@ -610,7 +610,7 @@ setGeneric("sqlFromFile", function(db, file) standardGeneric("sqlFromFile"))
 ##' @param file The file containing the query to submit
 ##'
 ##' @export
-setMethod("sqlFromFile", c("Server", "character"), function(db, file) {
+setMethod("sqlFromFile", c("server", "character"), function(db, file) {
 
     ## Read the query as a string
     str <- readr::read_file(file)
@@ -629,7 +629,7 @@ setMethod("sqlFromFile", c("Server", "character"), function(db, file) {
 ##'
 ##' @param object The object to be printed
 ##' @export
-setMethod("show", "Server", function(object) {
+setMethod("show", "server", function(object) {
     print(object)
 })
 

@@ -7,7 +7,7 @@
 make_table_getter(con, database, table_schema, table_name, id = NULL)
 }
 \arguments{
-\item{con}{The database connection (from Server)}
+\item{con}{The database connection (from server)}
 
 \item{database}{The database name}
 

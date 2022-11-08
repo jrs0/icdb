@@ -7,11 +7,21 @@
 get_codes(codes_files)
 }
 \arguments{
-\item{codes_files}{A list of filenames to parse}
+\item{codes_files}{A list of filenames or folders to parse}
 }
 \value{
 A named list suitable for gen_code_map()
 }
 \description{
 Parse multiple codes files and combine the result
+}
+\details{
+This function takes a list of files containing
+code definitions, or directories in which to search
+for code definition files. The current working directory
+is searched first for each element. If the file or
+directory is not found there, then the package extdata is
+searched. If a folder is specified, then it is recursively
+searched for .yaml files, which are assumed to contain
+code definition files.
 }

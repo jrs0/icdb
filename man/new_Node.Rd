@@ -17,14 +17,14 @@ new_Node(subobjects, ..., class = character())
 A new Node S3 object
 }
 \description{
-The Server object is a nested list of Nodes, which each
+The server object is a nested list of Nodes, which each
 represent an object in the database. This is the S3 class
 for a Node.
 }
 \details{
 The one job of the Node is to correctly handle the \code{$}
 overload for the object being accessed in the object
-tree. For the Server, \code{$} is overloaded to list the top
+tree. For the server, \code{$} is overloaded to list the top
 level objects. All other objects in the tree are either
 Nodes or Tables. The \code{$} operator for a Node is overloaded
 in such a way that it checks whether the node below it is
