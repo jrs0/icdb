@@ -249,6 +249,6 @@ gen_filter <- function(code_map,colname)
     ## Map reduce to generate the OR list for dplyr filtering
     flt <- names(code_map) %>%
         purrr::map(~ rlang::expr(!!as.name(colname) %like% !!.)) %>%
-        purrr::reduce(~ rlang::expr(!!.x || !!.y), .init = FALSE)
+        purrr::reduce(~ rlang::expr(!!.x || !!.y))
 }
 
