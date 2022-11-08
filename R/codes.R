@@ -19,7 +19,7 @@ get_codes <- function(codes_files)
     for (element in codes_files)
     {
         ## Each element could be a filename or a directory
-        if (fs::file_exists(element))
+        if (fs::is_file(element))
         {
             ## Read the codes from this file
             x <- yaml::read_yaml(element)
