@@ -268,9 +268,30 @@ gen_filter <- function(code_map,colname)
 ##' 
 ##' @title Drop detail from a clinical codes column
 ##' @param value A list (such as a dataframe column) to drop detail from
-##' @param level At which level to truncate the codes  
-##' @return 
+##' @param level At which level to truncate the codes
+##' @return The list after dropping detail past the specified level
+##' 
+##' @export
 drop_detail <- function(value, level = 1)
 {
     strsplit(value, "\\.") %>% purrr::map(~ paste(head(., level), collapse = '.')) %>% unlist()
+}
+
+##' Function to filter by the presence of a tag in a clinical code
+##' column. Suitable for use as the data masking argument in dplyr
+##' filter.
+##'
+##' Clinical codes have the form foo.bar<tag>.some, where the token
+##' inside the <> is called a tag string. This function returns TRUE if
+##' <tag> is present in the code, otherwise it returns FALSE.
+##' 
+##' @title Filter by tag 
+##' @param value A code string of the form foo.bar<tag>.some
+##' @param tag A tag string, defined by a codes definition file
+##' @return TRUE if tag is present, false otherwise
+##'
+##' @export
+has_tag <- function(value, tag)
+{
+    grepl(paste0("<",tag,">"), value)
 }
