@@ -67,6 +67,10 @@ This section contains a list of issues people had trying to use the library
 
 - On MAC, attempt to connect to mysql via config file gave an error like: "Error: Unimplemented MAX\_NO\_FIELD\_TYPES". [https://www.rapids.science/1.9/common-errors/](This page) says that the error is due to having a JSON column type in the table, and RMariaDB cannot handle JSON types. However, there did not seem to be any JSON types. Needs further investigation. **SOLVED** for now by reintroducing lazy evaluation of the dplyr::tbl in the object tree for the database. See the comments in the build\_object\_tree() function. This issue needs a bit more thinking about.
 
+- If a query fails (because it is invalid), the query looks like it might still getting written to the cache, so that next time you run the query, it thinks it has done it. This requires a bit of work to reproduce. Might need to look at the cache writing code order.
+
+- Problem with parsing file paths that contain a directory component in the codes_from field of the mapping yaml file.
+
 ## Notes
 
 This section contains notes about things that work or anything else that might be helpful later.
