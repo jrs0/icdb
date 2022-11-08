@@ -14,4 +14,125 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Coming soon...
+Complicated SQL queries can often take a long time to execute. This can be inconvenient for developing scripts, where it is necessary to rerun the same code over and over again while debugging it.
+
+In order to speed up deveopment of code containing SQL queries, it is possible to download the results of the SQL query first, and store them locally in a file or R object. Then, when development of the script is finished, the code to read from the local object can be replaced with the true SQL query.
+
+ICDB automates this mechanism by using a query cache. A [cache](https://en.wikipedia.org/wiki/Cache_(computing)) is a system which speeds up repeated long-running tasks by saving the results of the task the first time it is performed, and reusing the saved results when the task is performed again.
+
+In the context of SQL queries, the first time the query is executed (when `run()` is called), the results are fetched and saved. If the same query is run again, then the saved results are used, instead of querying the server for a second time.
+
+The sections below describe how to turn on and use the cache, how to manage the objects stored in the cache, and some detailed information about how the cache works, which may help you understand any odd behaviour you encounter. 
+
+## Cache usage and object lifetimes
+
+The cache is disabled by default. Using the cache enables you to speed up code development, at the expense of sometimes using out-of-date data (if you are not careful). Correctness is preferred by default.
+
+However, it can be significantly faster to use the cache, especially if you have long-running queries embedded in your scripts. The cache is controlled by the `use_cache` function, which you should call when you load icdb:
+
+```{r, message=FALSE}
+library(tidyverse)
+library(icdb)
+use_cache(TRUE, lifetime = lubridate::dhours(24))
+```
+
+The first argument to `use_cache` is either TRUE (to turn on the cache) or FALSE (to turn it off). The second argument, which is optional, specifies the default lifetime of objects in the cache.
+
+The cache lifetime is the amount of time an object (a query result) will be allowed to remain in the cache, before it is deleted and the database server is queried again. This is to ensure that data is updated at least sometimes. You can set the lifetime to an lubridate duration; it is set to 24 hours by default, meaning cached objects will expire after one day. You can tailor the lifetime to a value appropriate for your database.
+
+If the cache is enabled, then calls to `run()` will automatically store the query results behind the scenes:
+
+```{r}
+## Generate artificial data
+gen_apc("test.db")
+
+## Connect to the artifical database
+srv <- server(config = system.file("extdata", "sqlite.yaml", package="icdb"))
+
+## Show the cache contents -- before you do anything, it will be empty
+show_cache()
+                                       
+## Perform a query (this will write results to the cache) 
+srv$APC_SYNTH %>% select(NHSNumber, SpellID) %>% run()
+
+## Look at the cache again -- now there is one entry
+show_cache()
+```
+
+When you run the same query again, the server will not be queried. Instead, the cached results will be used. You can tell that the cache has been used by looking at the *hits* column in the cache tibble -- each time you use the cached results, the hits will increment by one.
+
+```{r}
+## Do the same query again
+srv$APC_SYNTH %>% select(NHSNumber, SpellID) %>% run()
+
+## Look at the hits column
+show_cache()
+```
+
+In addition to storing the number of hits, various other pieces of information are stored, including the last time you used the query, the original write time, and the amount of time the query took to execute (the first time). 
+
+How does the cache know whether or not the query you are doing is in the cache? The `run()` function uses `show_query()` to get the SQL query as a string. It then hashes this string, to produce the value shown in the *hash* column of the cache tibble. Every time you run a query, the cache is checked to see if this query has already been performed.
+
+**It is important to realise that cached results are used even if the data on the server has changed**. For example, if you performed the SQL query `SELECT foo FROM bar` twice, then the second query will use cached results even if new values have been added to the column foo in the database. This is because the query itself has not changed, and that is all the cache can look at to see if a cached result should be used. It is therefore important to manage the lifetime of cached objects appropriately, in order to prevent use of out-of-date results in your scripts.
+
+The mechanism used to prevent out-of-date results is the cache lifetime. The default cache lifetime is 24 hours, but you can set it to anything you like. In the example below, a lifetime of 5 seconds is used. This means that cached results will only remain valid fo 5 seconds; after that, any attempt to use them will result in their removal from the cache, as shown below:
+
+```{r}
+## Set a new default lifetime
+use_cache(TRUE, lifetime = lubridate::dseconds(5))
+
+## Perform a query
+srv$APC_SYNTH %>% select(NHSNumber, SpellID) %>% run()
+
+## Wait for longer than 5 seconds
+Sys.sleep(10)
+
+## Do the same query again -- the cached result will not be used
+srv$APC_SYNTH %>% select(NHSNumber, SpellID) %>% run()
+```
+
+You should set the cache lifetime to a timescale that is as short as possible, while still allowing you to conveniently develop your scripts. If you are not sure, leave the default setting of 24 hours. This means that your will need to refetch results at the start of each day, but the results will remain valid throughout the day.
+
+You cannot disable the cache lifetime entirely -- if you want to do that, set a very large lifetime (e.g. 1 year), which should achieve the same effect.
+
+The cache creates a folder called `cache/` in your working directory. Some of the cached results will be stored in that folder. You can delete it at any time -- all that will happen is those results will need to be refetched.
+
+## Managing cached objects
+
+Although the cache automatically manages its contents based on the lifetime, it is also possible to manually remove elements from the cache, using the `clear_cache()` function.
+
+The simplest thing you can do is delete everything in the cache:
+
+```{r}
+clear_cache()
+show_cache()
+```
+
+Clearing the cache is sometimes helpful, because calling `use_cache(FALSE)` does not automatically clear the cache. This is because the may want to temporarily turn off the cache for some reason, but not delete all your large cached queries.
+
+It is also possible to clear particular objects in the cache, according to criteria you specify yourself. To do this, pass a cache tibble of objects you wish to delete to `clear_cache()`; you can get the cache tibble from `show_cache()`. For example, the following code removes all the elements of the cache which have only had one hit:
+
+```{r}
+show_cache() %>% filter(hits == 1) %>% clear_cache()
+```
+
+You may use any dplyr filter functions to reduce the cache tibble; just make sure the result has the same column names, and its rows are a strict subset of the tibble returned by `show_cache()`.
+
+## Cache policy
+
+This section describes in detail how the cache behaves. The cache is formed from two parts: a memory cache; and a disk cache. The memory cache is faster (query results load very quickly), whereas the disk cache persists across restarts of R. The disk cache is stored in the `cache/` directory in the R working directory, so you should ensure you use the same working directory if you want the cache to persist across R sessions. You can see which cached objects are in the memory cache or the disk cache by looking at the `in_memory` column of the cache tibble.
+
+When a query is fetched for the first time, the results are placed in the memory cache. As more and more queries are fetched, the number of queries in the memory cache increases. When it exceeds a predefined size, results from the memory cache are demoted to the disk cache. The query that is demoted first is the one that was accessed last.
+
+Currently, when you close the R session, the contents of the memory cache is not flushed to the disk. This means that you may see some queries fetched when you were expecting to see them in the cache. This behaviour will be fixed in a future library version.
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 # icdb (development version)
 
 * Started adding functions to filter clinical code strings with tags
+* Continued working on documentation
 
 # icdb 0.0.0.9001
 

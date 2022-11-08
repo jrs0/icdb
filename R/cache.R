@@ -374,10 +374,6 @@ read_cache <- function(data, lifetime = NULL)
 ##' @export
 show_cache <-function()
 {
-    message("The cache is stored in the folder: ", pkg_env$cache$path)
-
-    ## Print the level 1 cache metadata
-    message("Level 1 cache metadata:")
     tbl <- pkg_env$cache$level1$meta
 
     tbl <- tbl %>% tibble::add_column(in_memory = TRUE)
