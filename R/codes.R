@@ -278,8 +278,8 @@ drop_detail <- function(codes, level = 1)
 }
 
 ##' Drop tags from a list of clinical code strings. A general code string
-##' is of the form foo.bar<tag>.some, where a tag can appear anywhere.
-##' After calling this function, all the <tag> elements are removed.
+##' is of the form foo.bar\<tag\>.some, where a tag can appear anywhere.
+##' After calling this function, all the \<tag\> elements are removed.
 ##'
 ##' This function can be used as part of a mutate call, such as
 ##' mutate(new_col = drop_tags(codes_column))
@@ -298,12 +298,12 @@ drop_tags <- function(codes)
 ##' column. Suitable for use as the data masking argument in dplyr
 ##' filter.
 ##'
-##' Clinical codes have the form foo.bar<tag>.some, where the token
-##' inside the <> is called a tag string. This function returns TRUE if
-##' <tag> is present in the code, otherwise it returns FALSE.
+##' Clinical codes have the form foo.bar\<tag\>.some, where the token
+##' inside the \<\> is called a tag string. This function returns TRUE if
+##' \<tag\> is present in the code, otherwise it returns FALSE.
 ##' 
 ##' @title Filter by tag 
-##' @param value A code string of the form foo.bar<tag>.some
+##' @param value A code string of the form foo.bar\<tag\>.some
 ##' @param tag A tag string, defined by a codes definition file
 ##' @return TRUE if tag is present, false otherwise
 ##'
