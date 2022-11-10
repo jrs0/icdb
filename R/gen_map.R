@@ -12,9 +12,6 @@ NULL
 ##' function, along with the name of the sheet containing the
 ##' specification you want to parse.
 ##'
-##' The function works by opening the sheet specified, which
-##' 
-##'
 ##' @title Parse CDS technical output specification
 ##' @param tos The path to the technical output specification file
 ##' @param sheet The sheet name (corresponding to a database) to use
