@@ -4,6 +4,9 @@
 # ICB Database Library
 
 <!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/jrs0/icdb/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jrs0/icdb?branch=main)
 <!-- badges: end -->
 
 ICDB is a library for connecting to health care databases, with features
@@ -13,7 +16,7 @@ designed to make data analysis using these databases easier.
 features to change**
 
 ***NOTE:*** ‘Server’ has been renamed to ‘server’, and ‘MappedSrv’ is
-now ‘mapped_srv’.
+now ‘mapped\_srv’.
 
 ## Obtaining the documentation
 
