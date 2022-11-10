@@ -94,12 +94,12 @@ test_that("queries are flushed to the level 2 cache", {
 
     ## Check that the previous queries are now in the level 2
     ## cache
-    ## tbl2 <- show_cache()
-    ## expect_equal(tbl2 %>% nrow(), 6)
-    ## expect_equal(tbl1 %>%
-    ##              dplyr::filter(hash %in% !!tbl1$hash, !in_memory) %>%
-    ##              nrow(),
-    ##              3)
+    tbl2 <- show_cache()
+    expect_equal(tbl2 %>% nrow(), 6)
+    expect_equal(tbl2 %>%
+                 dplyr::filter(hash %in% !!tbl1$hash, !in_memory) %>%
+                 nrow(),
+                 3)
 
     
     

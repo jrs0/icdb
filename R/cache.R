@@ -71,6 +71,7 @@ use_cache <- function(state, lifetime = lubridate::dhours(24), size = 5)
 {
     pkg_env$cache$use_cache <- state
     pkg_env$cache$lifetime <- lifetime
+    pkg_env$cache$max_size <- size
 }
 
 record_hit <- function(metadata)
