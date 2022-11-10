@@ -81,10 +81,10 @@ gen_clean_apc <- function(filename, seed = 1, nspells = 10)
     
     ## Make the data frame with the episode data
     tbl <- tibble::tibble(NHSNumber = nhs_num_col,
-                         DiagnosisICD = diagnosis_col,
-                         SpellID = spell_id_col,
-                         SpellStartDate = spell_starts_col)
-
+                          PrimaryDiagnosis_ICD = diagnosis_col,
+                          HospitalProviderSpellIdentifier = spell_id_col,
+                          StartTime_HospitalProviderSpell = spell_starts_col)
+    
     ## Create the database
     path <- paste0("gendata/", filename)
     con <- DBI::dbConnect(RSQLite::SQLite(), path)
@@ -100,5 +100,5 @@ gen_clean_apc <- function(filename, seed = 1, nspells = 10)
 
     
     DBI::dbDisconnect(con)
-    message("Written generated data to '", path, "'")
+    message("Written generated APC data to '", path, "'")
 }
