@@ -21,7 +21,7 @@ test_that("server throws error when a config file contains an invalid driver nam
 test_that("server connects to sqlite database without errors", {
 
     ## Generate test data (put the result in "gendata/test.db")
-    gen_apc("test.db")
+    gen_clean_apc("apc.db")
     
     srv <- server(config=system.file("extdata", "sqlite.yaml", package="icdb"))
     expect_true(DBI::dbIsValid(srv@con))
