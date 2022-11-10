@@ -22,20 +22,3 @@ test_that("correct columns are returned in mapped APC", {
     ## Needs some looking into
     expect_true(all(nn %in% colnames(msrv$apc)))
 })
-
-## test_that("all NHS numbers in the artificial database are invalid", {
-
-##     ## Generate test data (put the result in "gendata/test.db")
-##     gen_clean_apc("apc.db")
-
-##     ## Connect to the database
-##     srv <- server(config=system.file("extdata", "sqlite.yaml", package="icdb"))
-
-##     ## Check validity (expect all invalid)
-##     num_valid <- srv$APC_SYNTH %>%
-##         run() %>%
-##         dplyr::filter(nhs_number_valid(NHSNumber) == TRUE) %>%
-##         nrow()
-##     expect_equal(num_valid, 0)
-## })
-
