@@ -33,20 +33,52 @@ gen_map <- function(tos, sheet, output)
     ## Drop all columns except the xml schema name
     ## and the documentation column
     xx <- xx %>%
-        dplyr::rename(source_columns = ...3, docs = ...4) %>%
-        dplyr::select(source_columns, docs)
+        dplyr::rename(source_column = ...3, docs = ...4) %>%
+        dplyr::select(source_column, docs)
 
     ## The next line removes the merged cells (the ones
     ## containing "-/-". The validity of this makes the
     ## assumption that the documentation is all contained
     ## in the same row as the identifier name, and not
     ## split over multiple rows downwards (to check).
-    xx <- xx %>% dplyr::filter(!grepl("-/-", name))
+    xx <- xx %>% dplyr::filter(!grepl("-/-", source_column))
 
-    ## Generate 
+    ## Generate logical column names from the source
+    ## column names
+    xx <- xx %>% dplyr::mutate(column = janitor::make_clean_names(source_column))
     
     ## At this point, there is enough minimal information
-    ## to create the mapping file. Create a minimal
-    ## structure ready to to add the columns
+    ## to create the mapping file. Create the columns
+    ## structure in the right format for the mapping
+    fn <- function(source_column, docs, column)
+    {
+        list(
+            docs = docs,
+            source_columns = list(source_column = "")
+        )
+    }
+    cc <- xx %>% purrr::pmap(fn)
+    names(cc) <- xx$column
+    return(cc)
+    
+    ## Create the mapping file structure
+    mapping = list(
+        databases = list(
+            dbname = list(
+                docs = "WRITE ME",
+                source_table = "WRITE ME",
+                tables = list(
+                    tabname = list(
+                        docs = "WRITE ME",
+                        source_table = "WRITE ME",
+                        columns = 
+                        
+                        
+                    )
+                )
+            )
+        ))
+
+    xx
     
 }
