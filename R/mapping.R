@@ -81,7 +81,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 
             ## If the logical column is not marked with use: TRUE, then
             ## ignore this logical column
-            if (!is.null(logical_column$use) && !logical_column$use)
+            if (!is.null(logical_column$use) && !column$use)
             {
                 next
             }
