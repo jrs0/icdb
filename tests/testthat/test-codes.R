@@ -41,3 +41,37 @@ test_that("parsing a codes definition file works", {
     ## The correct result of this parse is as follows. You can execute
     ## this command and manually inspect the printed "correct" variable
     ## to see that the result corresponds to the definition file.
+    ##
+    ## The important feature of this parse is that the Catch All codes
+    ## for foo come after the more specific codes .bar and .some
+    correct_codes <- list(foo.bar. = c("B", "BB"),
+                          foo.some. = "S",
+                          foo. = c("Catch", "All"),
+                          next. = "N")
+
+    ## Check the parse is correct
+    expect_equal(codes, correct_codes)
+})
+
+### Testing the code map
+
+test_that("isolated test of the code map", {
+
+    ## Example data for input to code map
+    data <- list(foo = c("b", "c"),
+                 bar = c("d"),
+                 some = c("e"))
+    map <- gen_code_map(data)
+
+    ## The correct result flattens and reverses the
+    ## list so that values in data point to keys in
+    ## data.
+    correct_map <- c(b = "foo",
+                     c = "foo",
+                     d = "bar",
+                     e = "some")
+    
+    ## Check the parse is correct
+    expect_equal(map, correct_map)
+})
+

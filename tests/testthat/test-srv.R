@@ -61,3 +61,22 @@ test_that("all NHS numbers in the artificial database are invalid", {
     expect_equal(num_valid, 0)
 })
 
+### Test raw SQL queries
+
+test_that("check raw SQL string", {
+
+    ## Generate test data (put the result in "gendata/test.db")
+    gen_clean_apc("apc.db")
+
+    ## Connect to the database
+    srv <- server(config = system.file("extdata", "sqlite.yaml", package="icdb"))
+
+    ## Perform a raw SQL query
+    xx <- srv %>% sql_query("SELECT NHSNumber FROM APC_SYNTH
+                             WHERE PrimaryDiagnosis_ICD LIKE 'K25%'")
+    xx_true <- c("8490675123", "8653479103", "0465972383", "0465972383")
+    
+    expect_equal(xx$NHSNumber, xx_true)
+    
+    
+})
