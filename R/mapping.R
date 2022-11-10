@@ -40,7 +40,12 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
         real_columns <- list()
         for (logical_column in columns)
         {
-            real_columns <- c(real_columns, names(logical_column$source_columns))
+            ## Only include the columns if the use key is set to TRUE
+            ## in the logical column
+            if (logical_column$use)
+            {
+                real_columns <- c(real_columns, names(logical_column$source_columns))
+            }
         }
         tbl <- tbl %>% dplyr::select(all_of(unlist(real_columns)))
 
@@ -50,6 +55,13 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
         {
             logical_column <- columns[[logical_column_name]]
 
+            ## If the logical column is not marked with use: TRUE, then
+            ## ignore this logical column
+            if (!logical_column$use)
+            {
+                next
+            }
+            
             ## Loop over the constituent columns that make up the logical column
             count <- 1
             for (old_name in names(logical_column$source_columns))
@@ -67,6 +79,13 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
             column <- columns[[logical_column_name]]
             strategy <- column$strategy
 
+            ## If the logical column is not marked with use: TRUE, then
+            ## ignore this logical column
+            if (!logical_column$use)
+            {
+                next
+            }
+            
             ## If the item is not a list, then it is a simple function
             ## which can be called to process the item
             if (length(strategy) == 1)
@@ -221,7 +240,7 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
         ## Check if there is a source_database key -- if there is, it must
         ## overwrite the value inherited from the calling environment, to
         ## support the possibility that tables in the same logical database
-        ## in fact originate from separate source databases.
+        ## originate from separate source databases.
         if (!is.null(mapping$source_database))
         {
             source_database <- mapping$source_database
