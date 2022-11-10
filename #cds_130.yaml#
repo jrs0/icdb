@@ -1,11 +1,11 @@
 databases:
   dbname:
     docs: WRITE ME
-    source_database: ABI
+    source_table: ABI
     tables:
       tabname:
         docs: WRITE ME
-        source_table: vw_APC_SEM_001
+        source_table: WRITE ME
         columns:
           unique_booking_reference_number_converted:
             docs: "The unique booking reference number assigned by the Choose and
