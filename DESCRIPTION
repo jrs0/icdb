@@ -29,6 +29,7 @@ Imports:
     RSQLite,
     stringr,
     tibble,
+    tidyselect,
     utils,
     yaml
 Suggests: 
