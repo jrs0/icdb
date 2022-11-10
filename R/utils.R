@@ -46,6 +46,14 @@ random_nhs_number <- function()
     paste0(c(digits, as.character(check)), collapse = "")
 }
 
+##' Check whether an NHS number, expressed as a character,
+##' is valid.
+##'
+##' @title Check NHS number validity
+##' @param nhs_number The NHS number (character) to check
+##' @return TRUE for a valid number, false otherwise
+##'
+##' @export
 nhs_number_valid <- function(nhs_number)
 {
     digits <- as.numeric(strsplit(as.character(nhs_number), "")[[1]])
