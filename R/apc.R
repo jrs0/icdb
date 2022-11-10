@@ -40,7 +40,7 @@ gen_clean_apc <- function(filename, seed = 1, nspells = 10)
     N <- sum(neps)
     
     ## Generate a random NHS number (not the real format)
-    nhs_numbers <- as.character(as.integer(900000000 + runif(nspells, min=0, max=100000)))
+    nhs_numbers <- replicate(nspells, random_nhs_number())
 
     ## Create the NHS number columns
     nhs_num_col <- rep(nhs_numbers, neps)

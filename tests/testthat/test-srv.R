@@ -27,3 +27,37 @@ test_that("server connects to sqlite database without errors", {
     expect_true(DBI::dbIsValid(srv@con))
 })
 
+### Tests using the artificial clean APC (CDS v6.3) database
+
+test_that("correct columns are returned in artificial APC database", {
+
+    ## Generate test data (put the result in "gendata/test.db")
+    gen_clean_apc("apc.db")
+
+    ## Connect to the database
+    srv <- server(config=system.file("extdata", "sqlite.yaml", package="icdb"))
+
+    ## Expected column names (the test will check that at least
+    ## these are present in the srv table
+    nn <- c("NHSNumber", "PrimaryDiagnosis_ICD",
+            "HospitalProviderSpellIdentifier", 
+            "StartTime_HospitalProviderSpell")
+    expect_true(all(nn %in% colnames(srv$APC_SYNTH)))
+})
+
+test_that("all NHS numbers in the artificial database are invalid", {
+
+    ## Generate test data (put the result in "gendata/test.db")
+    gen_clean_apc("apc.db")
+
+    ## Connect to the database
+    srv <- server(config=system.file("extdata", "sqlite.yaml", package="icdb"))
+
+    ## Check validity (expect all invalid)
+    num_valid <- srv$APC_SYNTH %>%
+        run() %>%
+        dplyr::filter(nhs_number_valid(NHSNumber) == TRUE) %>%
+        nrow()
+    expect_equal(num_valid, 0)
+})
+
