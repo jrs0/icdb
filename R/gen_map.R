@@ -2,15 +2,51 @@
 ##' 
 NULL
 
-##' .. content for \description{} (no empty lines) ..
+##' This function parses the technical output specification for a
+##' CDS dataset into a mapping.yaml file suitable for use
+##' in mapped_server.
 ##'
-##' .. content for \details{} ..
-##' @title 
-##' @param tos 
-##' @param sheet 
-##' @return 
-##' @author 
-gen_map <- function(tos, sheet)
+##' The technical output specification (TOS) is a document that
+##' lists information about databases, such as column names and
+##' documentation. Pass this file (and excel document) to this
+##' function, along with the name of the sheet containing the
+##' specification you want to parse.
+##'
+##' The function works by opening the sheet specified, which
+##' 
+##'
+##' @title Parse CDS technical output specification
+##' @param tos The path to the technical output specification file
+##' @param sheet The sheet name (corresponding to a database) to use
+##' @param output The path to an output file for the generated mapping.yaml
+##' 
+##' @export
+gen_map <- function(tos, sheet, output)
 {
-    readxl::read_xls("tos")
+    ## Read the excel sheet into a variable 
+    xx <- readxl::read_xlsx(tos, sheet)
+
+    ## Extract only the rows that begin with a valid
+    ## UID (the code beginning with CDS)
+    xx <- xx %>% dplyr::filter(grepl("^CDS", .[[1]]))
+
+    ## Drop all columns except the xml schema name
+    ## and the documentation column
+    xx <- xx %>%
+        dplyr::rename(source_columns = ...3, docs = ...4) %>%
+        dplyr::select(source_columns, docs)
+
+    ## The next line removes the merged cells (the ones
+    ## containing "-/-". The validity of this makes the
+    ## assumption that the documentation is all contained
+    ## in the same row as the identifier name, and not
+    ## split over multiple rows downwards (to check).
+    xx <- xx %>% dplyr::filter(!grepl("-/-", name))
+
+    ## Generate 
+    
+    ## At this point, there is enough minimal information
+    ## to create the mapping file. Create a minimal
+    ## structure ready to to add the columns
+    
 }
