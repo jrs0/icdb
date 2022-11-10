@@ -15,6 +15,11 @@ test_that("correct columns are returned in mapped APC", {
     nn <- c("nhs_number", "primary_diagnosis_icd",
             "hospital_provider_spell_identifier", 
             "start_time_hospital_provider_spell")
+
+    ## TODO: This line produces a warning here, from tidyselect,
+    ## saying all is deprecated. Not sure why -- it does
+    ## not happen for the server object version of this test.
+    ## Needs some looking into
     expect_true(all(nn %in% colnames(msrv$apc)))
 })
 
