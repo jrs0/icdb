@@ -36,7 +36,7 @@ get_codes <- function(codes_files)
         {
             ## For a directory, read all of the codes files
             ## present in the directory
-            files <- list.files(element, pattern = ".yaml", recursive = TRUE, full.names = TRUE)
+            files <- list.files(element, pattern = ".yaml$", recursive = TRUE, full.names = TRUE)
             for (f in files)
             {
                 x <- yaml::read_yaml(f)                

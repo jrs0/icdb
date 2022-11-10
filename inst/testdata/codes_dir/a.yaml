@@ -1,0 +1,12 @@
+---
+categories:
+  foo:
+    docs: "Foo"
+    codes: ["Catch", "All"]
+    categories:
+      bar:
+        docs: "Bar"
+        codes: ["B", "BB"]
+      some:
+        docs: "Some"
+        codes: "S"

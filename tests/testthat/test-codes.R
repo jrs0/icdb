@@ -30,3 +30,14 @@ test_that("parsing a codes definition file works", {
     ## Check that the cache is still empty
     expect_equal(parsed_codes, correct_codes)
 })
+
+## Check that parsing a directory of codes works
+
+test_that("parsing a codes definition file works", {
+
+    ## Load the codes file
+    codes <- get_codes(system.file("testdata", "codes_dir", package = "icdb"))
+
+    ## The correct result of this parse is as follows. You can execute
+    ## this command and manually inspect the printed "correct" variable
+    ## to see that the result corresponds to the definition file.
