@@ -24,7 +24,7 @@ First, generate the artificial data (an sqlite file), as follows:
 
 ```{r}
 library(icdb)
-gen_apc("test.db")
+icdb_example()
 ```
 
 This will create a folder called *gendata* in your working directory, containing the database file *test.db*. Next, you can connect to this database using

@@ -44,7 +44,7 @@ If the cache is enabled, then calls to `run()` will automatically store the quer
 
 ```{r}
 ## Generate artificial data
-gen_apc("test.db")
+icdb_example()
 
 ## Connect to the artifical database
 srv <- server(config = system.file("extdata", "sqlite.yaml", package="icdb"))

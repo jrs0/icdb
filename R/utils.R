@@ -15,7 +15,7 @@
 ##' @param nspells The number of spells to include in the dataset
 ##'
 ##' @export
-gen_apc <- function(filename, seed = 1, nspells = 10)
+gen_clean_apc <- function(filename, seed = 1, nspells = 10)
 {
     stopifnot(nspells >= 1)
     
