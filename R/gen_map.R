@@ -12,10 +12,16 @@ NULL
 ##' function, along with the name of the sheet containing the
 ##' specification you want to parse.
 ##'
+##' In the generated output file, you will need to specify the
+##' source database and tables names in order to map the file
+##' to a particular database.
+##' 
 ##' @title Parse CDS technical output specification
 ##' @param tos The path to the technical output specification file
 ##' @param sheet The sheet name (corresponding to a database) to use
 ##' @param output The path to an output file for the generated mapping.yaml
+##' This parameter is optional. If it is not specified, it will be
+##' generated automatically based on the sheet name.
 ##' 
 ##' @export
 gen_map <- function(tos, sheet, output = filename)
