@@ -27,16 +27,19 @@ random_nhs_number <- function()
 
     check <- check_digit(digits)
 
-    ## If the check digit is one, use zero. Otherwise
-    ## use one. This will always result in an invalid
+    ## If the check digit is three, use four. Otherwise
+    ## use three. This will always result in an invalid
+    ## NHS number (do not use zero, which will be valid
+    ## if the check comes out 11). The choice here is
+    ## arbitrary -- there are many ways to make an invalid
     ## NHS number
-    if (check == 00)
+    if (check == 3)
     {
-        check <- 1
+        check <- 4
     }
     else
     {
-        check <- 0
+        check <- 3
     }
 
     ## Generate and return the number
