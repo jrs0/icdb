@@ -59,7 +59,6 @@ gen_map <- function(tos, sheet, output)
     }
     cc <- xx %>% purrr::pmap(fn)
     names(cc) <- xx$column
-    return(cc)
     
     ## Create the mapping file structure
     mapping = list(
@@ -71,14 +70,12 @@ gen_map <- function(tos, sheet, output)
                     tabname = list(
                         docs = "WRITE ME",
                         source_table = "WRITE ME",
-                        columns = 
-                        
-                        
+                        columns = cc
                     )
                 )
             )
         ))
 
-    xx
-    
+    ## Write the output file
+    yaml::write_yaml(mapping, file = output)
 }
