@@ -19,6 +19,7 @@ databases:
               "AIMTC_Pseudo_NHS": ""
               "NHSnumber": "This one looks like it is NULL everywhere. Also, this is an INT column"
             strategy: "coalesce_exclude_null"
+            use: yes
           episode_start:
             docs: "A datetime field that is the time when the episode began."
             source_columns:
@@ -26,6 +27,7 @@ databases:
               "StartDate1": "something"
               "StartTime_Episode": "something"
             strategy: "coalesce"
+            use: yes
           episode_end:
             docs: "A datetime field that is the time when the episode finished."
             source_columns:
@@ -33,16 +35,19 @@ databases:
               "EndDate1": "something"
               "EndTime_Episode": "something"
             strategy: "coalesce"
+            use: yes
           primary_diagnosis:
             docs: "The main diagnosis for this episode? The field is an ICD 10 code."
             source_columns:
               "DiagnosisPrimary_ICD": ""
             strategy: ["codes_from", "icd10"]
+            use: yes
           spell_id:
             docs: "The ID field linking episodes that form part of the same spell (a continuous hospital visit). "
             source_columns:
               "PBRspellID": ""
             strategy: "coalesce"
+            use: yes
           spell_start:
             docs: "A datetime field that is the time when the associated spell for this episode began."
             source_columns:
@@ -50,6 +55,7 @@ databases:
               "StartDate_HospitalProviderSpell": ""
               "StartTime_HospitalProviderSpell": ""
             strategy: "coalesce"
+            use: yes
           spell_end:
             docs: "A datetime field that is the time when the associated spell for this episode ended."
             source_columns:
@@ -59,7 +65,7 @@ databases:
             related_columns:
               "HospitalProviderSpellDischargeReadyDate": "probably not the end date, but maybe related."
             strategy: "coalesce"
-
+            use: yes
       ae:
         docs: "The A&E HES data"
         source_table: "vw_AE_SEM_001"

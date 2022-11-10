@@ -42,7 +42,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
         {
             ## Only include the columns if the use key is set to TRUE
             ## in the logical column
-            if (logical_column$use)
+            if (!is.null(logical_column$use) && logical_column$use)
             {
                 real_columns <- c(real_columns, names(logical_column$source_columns))
             }
@@ -57,7 +57,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 
             ## If the logical column is not marked with use: TRUE, then
             ## ignore this logical column
-            if (!logical_column$use)
+            if (!is.null(logical_column$use) && !logical_column$use)
             {
                 next
             }
@@ -81,7 +81,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 
             ## If the logical column is not marked with use: TRUE, then
             ## ignore this logical column
-            if (!logical_column$use)
+            if (!is.null(logical_column$use) && !logical_column$use)
             {
                 next
             }
