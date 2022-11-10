@@ -1,9 +1,9 @@
 databases:
-  dbname:
+  sus:
     docs: WRITE ME
     source_database: ABI
     tables:
-      tabname:
+      apc:
         docs: WRITE ME
         source_table: vw_APC_SEM_001
         columns:
