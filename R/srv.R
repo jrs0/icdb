@@ -134,17 +134,16 @@ table_node <- function(tbl, ..., class=character())
 ##' @param subobjects The list of nodes or table_nodes in this node
 ##' @param ... Other parameters for derived classes
 ##' @param class The class parameter for derived class
-new_node <- function(subobjects, parent = NULL, ..., class=character())
+new_node <- function(subobjects, ..., class=character())
 {
     structure(subobjects,
-              parent = parent,
-              class = c("node", class)
+              class=c("node", class)
               )
 }
 
-node <- function(subobjects, parent = NULL, ..., class=character())
+node <- function(subobjects, ..., class=character())
 {
-    new_node(subobjects, parent, ..., class=class)
+    new_node(subobjects, ..., class=class)
 }
 
 
@@ -360,7 +359,7 @@ server <- function(data_source_name = NULL,
                 ## Put the tables in the database
                 node[[d]] <- tables %>%
                     purrr::pmap(~ table_wrapper(make_table_getter(con, d, .x, .y))) %>%
-                    node(parent = d)
+                    node()
 
                 names(node[[d]]) <- tables$table_name
             },
@@ -677,9 +676,4 @@ run <- function(x, lifetime = NULL, ...)
         ## Return the dataframe of results as a tibble
         t
     }
-}
-
-write_table <- function(channel)
-{
-
 }
