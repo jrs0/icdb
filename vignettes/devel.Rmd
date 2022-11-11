@@ -73,6 +73,10 @@ This section contains a list of issues people had trying to use the library
 
 - Need to double check that the catch all codes are really working properly, and not classing everything in their subcategories as a catch all category. This will be solved by testing (not done yet). 
 
+- install.packages complains about needing Rtools to build the package. Might be solved by making a binary package instead?
+
+- Update the documentation to wrap pipe statements so you don't have to scroll horizontally.
+
 ## Notes
 
 This section contains notes about things that work or anything else that might be helpful later.
