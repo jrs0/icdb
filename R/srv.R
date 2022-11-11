@@ -134,24 +134,24 @@ table_node <- function(tbl, ..., class=character())
 ##' @param subobjects The list of nodes or table_nodes in this node
 ##' @param ... Other parameters for derived classes
 ##' @param class The class parameter for derived class
-new_node <- function(subobjects, parent = NULL, ..., class=character())
+new_node <- function(subobjects, con, parent = NULL, ..., class=character())
 {
-    structure(subobjects,
+    structure(list(sub = subobjects, con = con),
               parent = parent,
               class = c("node", class)
               )
 }
 
-node <- function(subobjects, parent = NULL, ..., class=character())
+node <- function(subobjects, con, parent = NULL, ..., class=character())
 {
-    new_node(subobjects, parent, ..., class=class)
+    new_node(subobjects, con, parent, ..., class=class)
 }
 
 
 ##' @export
 print.node <- function(x, ...)
 {
-    print(names(x))
+    print(names(x[["sub"]]))
 }
 
 ##' @export
@@ -339,7 +339,7 @@ server <- function(data_source_name = NULL,
     if (!is.null(data_source_name) || grepl("SQL server", driver_name))
     {
         ## Create a top level node object
-        node <- node(list())
+        node <- node(list(), con = con)
 
         ## Copy the list of databases into a list, ready to store in the object
         databases <- con %>%
@@ -360,7 +360,7 @@ server <- function(data_source_name = NULL,
                 ## Put the tables in the database
                 node[[d]] <- tables %>%
                     purrr::pmap(~ table_wrapper(make_table_getter(con, d, .x, .y))) %>%
-                    node(parent = d)
+                    node(parent = d, con = con)
 
                 names(node[[d]]) <- tables$table_name
             },
@@ -679,7 +679,20 @@ run <- function(x, lifetime = NULL, ...)
     }
 }
 
-write_table <- function(channel)
+write_table <- function(target)
 {
+    ## Check if a node object is specified
+    if (!("node" %in% class(target)))
+    {
+        stop("Invalid target object specified. Make sure you pass an
+             object that can store tables (e.g. a database)")
+    } 
+    else
+    {
+        ## TODO: Fix - currently uses hard-coded dbo schema
+        db
+        
 
+    }
+        print(class(target))
 }
