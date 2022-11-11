@@ -203,7 +203,7 @@ categories:
       ## Nick: I started adding codes below here, sorry if I have
       ## messed up the categories. I have left everything at the bottom so
       ## you have a reference to go back to if there are problems
-      blood-disorders:
+      blood-disease:
         docs: "Added as a rough category for D--- codes"
         categories:
           acute-posthemorrhagic-anaemia:
@@ -212,14 +212,34 @@ categories:
           anticoagulant-haemorrhage:
             docs: "Haemorrhage due to long term use of anti-coagulants"
             codes: "D683"
+          other-specified:
+            docs: "Other specified haemorrhagic conditions"
+            codes: "D698"
+          unspecified:
+            docs: "Haemorrhagic condition, unspecified"
+            codes: "D699"
+      eye-disease:
+        docs: "Added as a category for H--- codes"
+        categories:
+          conjunctival-hemorrhage:
+            docs: "Conjunctival (relating to conjunctiva -- protects and cleans the eye)"
+            codes: ["H113", "H113%"]
+            categories:
+              right:
+                docs: "Right eye"
+                codes: "H1131"
+              left:
+                docs: "Left eye"
+                codes: "H1132"
+              bilateral:
+                docs: "Both eyes?"
+                codes: "H1133"
+              unspecified:
+                docs: "Eye unspecified"
+                codes: "H1130"
+
+                
             
-# D698	Other specified haemorrhagic conditions
-# D699	Haemorrhagic condition, unspecified
-# H113	Conjunctival hemorrhage
-# H1130	Conjunctival hemorrhage unspcified
-# H1131	Conjunctival hemorrhage right
-# H1132	Conjunctival hemorrhage left
-# H1133	Conjunctival hemorrhage bilateral
 # H210	Hyphaema
 # H313	Choroidal haemorrhage and rupture
 # H356	Retinal hemorrhage
