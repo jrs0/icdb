@@ -101,7 +101,7 @@ strategy_codes_from <- function(tbl, name, codes_files)
     flt <- gen_filter(code_map, col)
 
     ## Perform the selection and filtering operation on the column
-    tbl %>% dplyr::filter(flt) %>%
+    tbl %>% ##dplyr::filter(flt) %>%
         dplyr::mutate(!!name := case_when(!!!cases), .keep = "unused")
 }
 
