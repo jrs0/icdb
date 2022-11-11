@@ -200,9 +200,17 @@ categories:
             rectum-anus:
               docs: "Hemorrhage of anus and rectum"
               codes: "K625"
-      ## Nick: I started adding codes below here, sorry if I have
-      ## messed up the categories. I have left everything at the bottom so
-      ## you have a reference to go back to if there are problems
+              
+          ## Nick: I started adding codes below here, sorry if I have
+          ## messed up the categories. I have left everything at the bottom so
+          ## you have a reference to go back to if there are problems
+          peritoneum:
+            docs: "Bleeding relating to the peritoneum"
+            codes: "K661"
+          liver:
+            docs: "Central haemorrhagic necrosis of liver" 
+            codes: "K762" 
+            
       blood-disease:
         docs: "Added as a rough category for D--- codes"
         categories:
@@ -237,59 +245,141 @@ categories:
               unspecified:
                 docs: "Eye unspecified"
                 codes: "H1130"
+          hyphaema:
+            docs: "Accumulation of red blood cells within the anterior chamber"
+            codes: "H210"
+          choroidal-haemorrhage:
+            docs: "Choroidal haemorrhage and rupture"
+            codes: "H313"
+          retinal-haemorrhage:
+            docs: "Bleeding from the blood vessels in the retina"
+            codes: ["H356", "H356%"]
+            categories:
+              right:
+                docs: "Right eye"
+                codes: "H3561"
+              left:
+                docs: "Left eye"
+                codes: "H3562"
+              bilateral:
+                docs: "Both eyes?"
+                codes: "H3563"
+              unspecified:
+                docs: "Eye unspecified"
+                codes: "H3560"
+          vitreous-haemorrhage:
+            docs: "Bleeding into the vitreous gel"
+            codes: ["H431", "H431%"]
+            categories:
+              right:
+                docs: "Right eye"
+                codes: "H4311"
+              left:
+                docs: "Left eye"
+                codes: "H4312"
+              bilateral:
+                docs: "Both eyes?"
+                codes: "H4313"
+              unspecified:
+                docs: "Eye unspecified"
+                codes: "H4310"
+              classified-elsewhere:
+                docs: "Vitreous hemorrhage in disease classified elsewhere"
+                codes: "H450"
+      ear-disease:
+        docs: "Added for codes H---"
+        categories:
+          otorrhagia:
+            docs: "Bleeding from the ear"
+            codes: ["H922", "H922%"]
+            categories:
+              right:
+                docs: "Right ear"
+                codes: "H9221"
+              left:
+                docs: "Left ear"
+                codes: "H9222"
+              bilateral:
+                docs: "Both ears?"
+                codes: "H9223"
+              unspecified:
+                docs: "Ear unspecified"
+                codes: "H9220"
+        respiratory-disease:
+          docs: "Codes for J---"
+          categories:
+            heamothorax:
+              docs: "Bleeding/blood in the chest cavity"
+              codes: "J942"
+              categories:
+                traumatic:
+                  docs: "Hemothorax caused by traumatic event (e.g. gunshot)"
+                  codes: "S271"
+                  ## We probably want to exclude things like this?
+                  use: no
 
-                
+        ischaemic-heart-disease:
+          docs: "Bleeding relating to ischaemic heart diseases"
+          categories:
+            haemopericardium:
+              docs: "Bleading relating to the pericardium"
+              categories:
+                following-mi:
+                  docs: "Haemopericardium as current complication following acute myocardial infarction"
+                  codes: "I230"
+                heart-injury:
+                  docs: "Haemopericardium as current complication following acute myocardial infarction"
+                  codes: "S260"
+                other:
+                  docs: "Haemopericardium, not elsewhere classified"
+                  codes: "I312"
+        other:
+          docs: "Other codes not categorised elsewhere"
+          codes: "T972"
+
+      musculoskeletal:
+        docs: "Bleeding relating to the musculoskeletal system"
+        categories:
+          haemarthrosis:
+            docs: "Bleeding into a joint"
+            codes: "M250"
+
+      genitourinary:
+        docs: "For codes N---"
+        categories:
+          persistent-hematuria:
+            docs: "Recurrent and persistent hematuria (blood in unrine)"
+            codes: ["N02", "N02-", "N020", "N021", "N022", "N023", "N024",
+            "N025", "N026", "N027", "N028", "N029"]
+          prostate-haemorrhage:
+            docs: "Congestion and haemorrhage of prostate"
+            codes: "N421"
+          excessive-menstruation:
+            docs: "Excessive and frequent menstruation"
+            codes: ["N920", "N291"]
+          ovulation:
+            docs: "Ovulation bleeding"
+            codes: "N923"
+          premenopausal:
+            docs: "Excessive bleeding in the premenopausal period"
+            codes: "N924"
+          postmenopausal:
+            docs: "Postmenopausal bleeding"
+            codes: "N950
+          abnormal-uterine:
+            docs: "Other abnormal uterine and vaginal bleeding"
+            codes: ["N93", "N93-"]
+            categories:
+              other-specified:
+                docs: "Other specified abnormal uterine and vaginal bleeding"
+                codes: "N938"
+              unspecified:
+                docs: "Abnormal uterine and vaginal bleeding, unspecified"
+                codes: "N939"
+          postcoital:
+            docs: "Postcoital and contact bleeding"
+            codes: "N930"
             
-# H210	Hyphaema
-# H313	Choroidal haemorrhage and rupture
-# H356	Retinal hemorrhage
-# H3560	Retinal hemorrhage unspecified
-# H3561	Retinal hemorrhage right
-# H3562	Retinal hemorrhage left
-# H3563	Retinal hemorrhage bilateral
-# H431	Vitreous hemorrhage
-# H4310	Vitreous hemorrhage unspecified
-# H4311	Vitreous hemorrhage right
-# H4312	Vitreous hemorrhage left
-# H4313	Vitreous hemorrhage bilateral
-# H450	Vitreous hemorrhage in disease classified elsewhere
-# H922	Otorrhagia
-# H9220	Otorrhagia unspecified
-# H9221	Otorrhagia right
-# H9222	Otorrhagia left
-# H9223	Otorrhagia bilateral
-# J942	Hemothorax
-# S271	Traumatic hemothorax
-# T792
-# K661	Hemoperitoneum
-# I230	Haemopericardium as current complication following acute myocardial infarction
-# S260	Injury of heart with haemopericardium
-# I312	Haemopericardium, not elsewhere classified
-# M250	Hemarthrosis
-# K762	Central haemorrhagic necrosis of liver
-# N02	Recurrent and persistent hematuria
-# N02-	Recurrent and persistent hematuria
-# N020	Recurrent and persistent hematuria
-# N021	Recurrent and persistent hematuria
-# N022	Recurrent and persistent hematuria
-# N023	Recurrent and persistent hematuria
-# N024	Recurrent and persistent hematuria
-# N025	Recurrent and persistent hematuria
-# N026	Recurrent and persistent hematuria
-# N027	Recurrent and persistent hematuria
-# N028	Recurrent and persistent hematuria
-# N029	Recurrent and persistent hematuria
-# N421	Congestion and haemorrhage of prostate
-# N920	Excessive and frequent menstruation
-# N921	Excessive and frequent menstruation
-# N923	Ovulation bleeding
-# N924	Excessive bleeding in the premenopausal period
-# N93	Other abnormal uterine and vaginal bleeding
-# N93-	Other abnormal uterine and vaginal bleeding
-# N930	Postcoital and contact bleeding
-# N938	Other specified abnormal uterine and vaginal bleeding
-# N939	Abnormal uterine and vaginal bleeding, unspecified
-# N950	Postmenopausal bleeding
 # R040	Epistaxis
 # R041	Hemorrhage from throat
 # R042	Hemoptysis
