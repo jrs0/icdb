@@ -305,37 +305,34 @@ categories:
               unspecified:
                 docs: "Ear unspecified"
                 codes: "H9220"
-        respiratory-disease:
-          docs: "Codes for J---"
-          categories:
-            heamothorax:
-              docs: "Bleeding/blood in the chest cavity"
-              codes: "J942"
-              categories:
-                traumatic:
-                  docs: "Hemothorax caused by traumatic event (e.g. gunshot)"
-                  codes: "S271"
-                  ## We probably want to exclude things like this?
-                  use: no
+      respiratory-disease:
+        docs: "Codes for J---"
+        categories:
+          heamothorax:
+            docs: "Bleeding/blood in the chest cavity"
+            codes: "J942"
+            categories:
+              traumatic:
+                docs: "Hemothorax caused by traumatic event (e.g. gunshot)"
+                codes: "S271"
+                ## We probably want to exclude things like this?
+                use: no
 
-        ischaemic-heart-disease:
-          docs: "Bleeding relating to ischaemic heart diseases"
-          categories:
-            haemopericardium:
-              docs: "Bleading relating to the pericardium"
-              categories:
-                following-mi:
-                  docs: "Haemopericardium as current complication following acute myocardial infarction"
-                  codes: "I230"
-                heart-injury:
-                  docs: "Haemopericardium as current complication following acute myocardial infarction"
-                  codes: "S260"
-                other:
-                  docs: "Haemopericardium, not elsewhere classified"
-                  codes: "I312"
-        other:
-          docs: "Other codes not categorised elsewhere"
-          codes: "T972"
+      ischaemic-heart-disease:
+        docs: "Bleeding relating to ischaemic heart diseases"
+        categories:
+          haemopericardium:
+            docs: "Bleading relating to the pericardium"
+            categories:
+              following-mi:
+                docs: "Haemopericardium as current complication following acute myocardial infarction"
+                codes: "I230"
+              heart-injury:
+                docs: "Haemopericardium as current complication following acute myocardial infarction"
+                codes: "S260"
+              other:
+                docs: "Haemopericardium, not elsewhere classified"
+                codes: "I312"
 
       musculoskeletal:
         docs: "Bleeding relating to the musculoskeletal system"
@@ -379,20 +376,42 @@ categories:
           postcoital:
             docs: "Postcoital and contact bleeding"
             codes: "N930"
-            
-# R040	Epistaxis
-# R041	Hemorrhage from throat
-# R042	Hemoptysis
-# R048	Hemorrhage from other sites in respiratory passages
-# R049	Hemorrhage from respiratory passages, unspecified
-# R31	Hematuria
-# R31-	Hematuria
-# R310	Hematuria
-# R58	Hemorrhage, not elsewhere classified
-# R58-	Hemorrhage, not elsewhere classified
-# R580	Hemorrhage, not elsewhere classified
-# T810	Haemorrhage and haematoma complicating a procedure, not elsewhere classified
 
+      symptoms:
+        docs: "For R--- codes"
+        categories:
+          haemorrhage:
+            docs: "Bleeding as a symptom"
+            codes:
+            categories:
+              respiratory-passages:
+                docs: "Bleeding from respiratory passages"
+                categories:
+                  nose:
+                    docs: "From nose (nosebleed, epistaxis)"
+                    codes: "R040"
+                  throat:
+                    docs: "From throat"
+                    codes: "R041"
+                  haemoptysis:
+                    docs: "Blood-stained sputum/cough with haemorrhage"
+                    codes: "R042"
+                  other:
+                    docs: "Haemorrhage from other site in respiratory passage"
+                    codes: "R048"
+                  unspecified:
+                    docs: "Hemorrhage from respiratory passages, unspecified"
+                    codes: "R049"
+              unclassified:
+                docs: "Hemorrhage, not elsewhere classified"
+                codes: ["R58", "R58-", "R580"]
+          hematuria:
+            docs: "Blood in urine"
+            codes: ["R31", "R31-", "R310"]
+            
+      other:
+        docs: "Other codes not categorised elsewhere"
+        codes: ["T972", "T810"]
           
 ## Nick:
 ## --------- Preserved from before in case of error. Delete if the stuff above is OK          
