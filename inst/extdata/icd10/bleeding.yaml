@@ -362,7 +362,7 @@ categories:
             codes: "N924"
           postmenopausal:
             docs: "Postmenopausal bleeding"
-            codes: "N950
+            codes: "N950"
           abnormal-uterine:
             docs: "Other abnormal uterine and vaginal bleeding"
             codes: ["N93", "N93-"]
