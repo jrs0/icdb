@@ -200,7 +200,93 @@ categories:
             rectum-anus:
               docs: "Hemorrhage of anus and rectum"
               codes: "K625"
+      ## Nick: I started adding codes below here, sorry if I have
+      ## messed up the categories. I have left everything at the bottom so
+      ## you have a reference to go back to if there are problems
+      blood-disorders:
+        docs: "Added as a rough category for D--- codes"
+        categories:
+          acute-posthemorrhagic-anaemia:
+            docs: "Anaemia due to sudden loss of a large amount of blood"
+            codes: ["D62", "D62-", "D629"]
+          anticoagulant-haemorrhage:
+            docs: "Haemorrhage due to long term use of anti-coagulants"
+            codes: "D683"
+            
+# D698	Other specified haemorrhagic conditions
+# D699	Haemorrhagic condition, unspecified
+# H113	Conjunctival hemorrhage
+# H1130	Conjunctival hemorrhage unspcified
+# H1131	Conjunctival hemorrhage right
+# H1132	Conjunctival hemorrhage left
+# H1133	Conjunctival hemorrhage bilateral
+# H210	Hyphaema
+# H313	Choroidal haemorrhage and rupture
+# H356	Retinal hemorrhage
+# H3560	Retinal hemorrhage unspecified
+# H3561	Retinal hemorrhage right
+# H3562	Retinal hemorrhage left
+# H3563	Retinal hemorrhage bilateral
+# H431	Vitreous hemorrhage
+# H4310	Vitreous hemorrhage unspecified
+# H4311	Vitreous hemorrhage right
+# H4312	Vitreous hemorrhage left
+# H4313	Vitreous hemorrhage bilateral
+# H450	Vitreous hemorrhage in disease classified elsewhere
+# H922	Otorrhagia
+# H9220	Otorrhagia unspecified
+# H9221	Otorrhagia right
+# H9222	Otorrhagia left
+# H9223	Otorrhagia bilateral
+# J942	Hemothorax
+# S271	Traumatic hemothorax
+# T792
+# K661	Hemoperitoneum
+# I230	Haemopericardium as current complication following acute myocardial infarction
+# S260	Injury of heart with haemopericardium
+# I312	Haemopericardium, not elsewhere classified
+# M250	Hemarthrosis
+# K762	Central haemorrhagic necrosis of liver
+# N02	Recurrent and persistent hematuria
+# N02-	Recurrent and persistent hematuria
+# N020	Recurrent and persistent hematuria
+# N021	Recurrent and persistent hematuria
+# N022	Recurrent and persistent hematuria
+# N023	Recurrent and persistent hematuria
+# N024	Recurrent and persistent hematuria
+# N025	Recurrent and persistent hematuria
+# N026	Recurrent and persistent hematuria
+# N027	Recurrent and persistent hematuria
+# N028	Recurrent and persistent hematuria
+# N029	Recurrent and persistent hematuria
+# N421	Congestion and haemorrhage of prostate
+# N920	Excessive and frequent menstruation
+# N921	Excessive and frequent menstruation
+# N923	Ovulation bleeding
+# N924	Excessive bleeding in the premenopausal period
+# N93	Other abnormal uterine and vaginal bleeding
+# N93-	Other abnormal uterine and vaginal bleeding
+# N930	Postcoital and contact bleeding
+# N938	Other specified abnormal uterine and vaginal bleeding
+# N939	Abnormal uterine and vaginal bleeding, unspecified
+# N950	Postmenopausal bleeding
+# R040	Epistaxis
+# R041	Hemorrhage from throat
+# R042	Hemoptysis
+# R048	Hemorrhage from other sites in respiratory passages
+# R049	Hemorrhage from respiratory passages, unspecified
+# R31	Hematuria
+# R31-	Hematuria
+# R310	Hematuria
+# R58	Hemorrhage, not elsewhere classified
+# R58-	Hemorrhage, not elsewhere classified
+# R580	Hemorrhage, not elsewhere classified
+# T810	Haemorrhage and haematoma complicating a procedure, not elsewhere classified
 
+          
+## Nick:
+## --------- Preserved from before in case of error. Delete if the stuff above is OK          
+              
 # D62	Acute posthemorrhagic anemia
 # D62-	Acute posthemorrhagic anemia
 # D620	Acute posthemorrhagic anemia
