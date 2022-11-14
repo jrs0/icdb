@@ -428,6 +428,11 @@ get_tbl <- function(srv, database, table)
 
         ## Pick the first schema in the list. This is potentially a bug
         ## TODO Come back and look at this
+        if(length(res$table_schema) == 0)
+        {
+            stop("Could not find the table schema for table ", table,
+                 " in database ", database, ". Double check that the table exists.")
+        }
         schema <- res$table_schema[[1]]
 
         ## Get the table
