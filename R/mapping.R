@@ -36,6 +36,13 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
         ## Get the name of the logical table and fetch the table
         tbl <- get_tbl(srv, source_database, source_table)
 
+        ## If the table is marked as raw, return the entire table
+        ## unmodified
+        if (mapping$raw == TRUE)
+        {
+            return(tbl)
+        }
+        
         ## The first step is to select the relevant real columns
         real_columns <- list()
         for (logical_column in columns)

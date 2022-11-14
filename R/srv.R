@@ -420,12 +420,11 @@ get_tbl <- function(srv, database, table)
     }
     else if (grepl("sql server", dbclass, ignore.case = TRUE))
     {
-        res <- srv@con %>%
-            DBI::dbGetQuery(
-                     paste0("SELECT table_schema FROM ",
-                            database,
-                            ".INFORMATION_SCHEMA.TABLES WHERE table_name = '",
-                            table, "'"))
+        query <- paste0("SELECT table_schema FROM ",
+                database,
+                ".INFORMATION_SCHEMA.TABLES WHERE table_name = '",
+                table, "'")
+        res <- srv@con %>% DBI::dbGetQuery(query)
 
         ## Pick the first schema in the list. This is potentially a bug
         ## TODO Come back and look at this
