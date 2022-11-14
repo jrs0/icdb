@@ -38,7 +38,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 
         ## If the table is marked as raw, return the entire table
         ## unmodified
-        if (mapping$raw == TRUE)
+        if (!is.null(mapping$raw) && mapping$raw == TRUE)
         {
             return(tbl)
         }
