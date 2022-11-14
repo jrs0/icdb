@@ -95,7 +95,7 @@ databases:
     tables:
       act:
         docs: "The SWD activity table contains records of healthcare encounters (e.g. a GP appointment) from  primary care (GPs), secondary care (hsopitals), mental health, and community care services."
-        source_table: "test___test"
+        source_table: "swd_activity"
         raw: yes
         columns: []
 
@@ -105,20 +105,20 @@ databases:
         raw: yes
         columns: []
 
-      att-h:
+      att_h:
         docs: "The SWD attributes-history table contains every monthly snapshot of patient attributes going back to inception of the swd attributes table in 201X(?when, look this up)."
         source_table: "primary_care_attributes"
         raw: yes
         columns: []
 
-      res:
+      meas:
         docs: "The SWD results, or measurements, table now contains results from various tests. As there are many different types of measures all stored in a single column, this data is stored as character strings and needs to be parsed - e.g. blood pressure = as.character('123/80')."
-        source_table: "test___test"
+        source_table: "swd_measurement"
         raw: yes
         columns: []
 
       lsoa:
-        docs: "The LSOA (Lower Super Output Area) table contains details about the local areas in Bristol. We need this as it provides the key for matching patients to the various local 'regions' - in order of size: 'wards', 'LSOAs' and 'MSOAs' (Middle Super Output Areas)"
-        source_table: "test___test"
+        docs: "The LSOA (Lower Super Output Area) table contains details about the local areas in Bristol. We need this as it provides the key for matching patients to the various local 'regions' - in order of size: 'wards', 'LSOAs' and 'MSOAs' (Middle Super Output Areas). TODO: there are quite a few of these tables, find the right one"
+        source_table: "swd_LSOA_descriptions"
         raw: yes
         columns: []
