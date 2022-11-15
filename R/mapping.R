@@ -93,8 +93,6 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
             {
                 next
             }
-
-            print(strategies)
             
             ## Loop over the strategies, applying one-by-one
             for (strategy in strategies)

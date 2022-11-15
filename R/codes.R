@@ -242,7 +242,7 @@ gen_casewhen <- function(code_map, colname)
 {
     code_map %>%
         list(names(.), .) %>%
-        purrr::pmap(~ rlang::expr(!!as.name(colname) %like% !!.x ~ !!.y)) %>%
+        purrr::pmap(~ rlang::expr(!!colname %like% !!.x ~ !!.y)) %>%
         unname()
 }
 
@@ -250,7 +250,7 @@ gen_filter <- function(code_map,colname)
 {
     ## Map reduce to generate the OR list for dplyr filtering
     flt <- names(code_map) %>%
-        purrr::map(~ rlang::expr(!!as.name(colname) %like% !!.)) %>%
+        purrr::map(~ rlang::expr(!!colname %like% !!.)) %>%
         purrr::reduce(~ rlang::expr(!!.x || !!.y))
 }
 

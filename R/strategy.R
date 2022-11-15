@@ -76,7 +76,7 @@ coalesce_exclude_null <- function(tbl, name)
 ##'
 ##' @title Remap a column of codes to hierarchy of strings
 ##' @param tbl The tbl to process
-##' @param name The logical column name
+##' @param name The logical column name (unquoted, like in dplyr filter etc.)
 ##' @param codes_files A list of the names of codes configuration files
 ##' @return The tbl after reducing
 ##'
@@ -90,8 +90,8 @@ codes_from <- function(tbl, codes_files, name)
     code_map <- gen_code_map(codes)
 
     ## Generate the filter and casewhen statements
-    cases <- gen_casewhen(code_map, name)
-    flt <- gen_filter(code_map, name)
+    cases <- gen_casewhen(code_map, rlang::enexpr(name))
+    flt <- gen_filter(code_map, rlang::enexpr(name))
 
     ## Perform the selection and filtering operation on the column
     tbl %>% dplyr::filter(flt) %>%
