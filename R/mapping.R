@@ -94,15 +94,13 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
                 next
             }
 
-            str(strategies)
-            
             ## Loop over the strategies, applying one-by-one
             for (strategy in strategies)
             {
                 
                 ## If the item is not a list, then it is a simple function
                 ## which can be called to process the item
-                if (length(strategy) == 1)
+                if (is.null(names(strategy)))
                 {
                     tbl <- do.call(strategy, list(tbl=tbl,
                                                   name=logical_column_name))
@@ -112,7 +110,10 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
                     ## If the strategy is a list, then the first element
                     ## is the function name and the subsequent elements are
                     ## the arguments
-                    tbl <- do.call(strategy[[1]], c(tbl=tbl, strategy[-1]))
+                    tbl <- do.call(names(strategy),
+                                   list(tbl=tbl,
+                                        name=logical_column_name,
+                                        strategy[[1]]))
                 }
             }
         }
