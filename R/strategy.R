@@ -95,6 +95,6 @@ codes_from <- function(tbl, codes_files, name)
 
     ## Perform the selection and filtering operation on the column
     tbl %>% dplyr::filter(flt) %>%
-        dplyr::mutate(!!name := case_when(!!!cases), .keep = "unused")
+        dplyr::mutate(name = case_when(!!!cases), .keep = "unused")
 }
 
