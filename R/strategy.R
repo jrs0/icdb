@@ -90,11 +90,13 @@ codes_from <- function(tbl, codes_files, name)
     code_map <- gen_code_map(codes)
 
     ## Generate the filter and casewhen statements
-    cases <- gen_casewhen(code_map, rlang::enexpr(name))
-    flt <- gen_filter(code_map, rlang::enexpr(name))
+    cases <- gen_casewhen(code_map, rlang::ensym(name))
+    flt <- gen_filter(code_map, rlang::ensym(name))
 
     ## Perform the selection and filtering operation on the column
+    ## The line for setting the name needs some work, but it works
+    ## so I'm leaving it for now.
     tbl %>% dplyr::filter(flt) %>%
-        dplyr::mutate(name = case_when(!!!cases), .keep = "unused")
+        dplyr::mutate(!!as.name(rlang::ensym(name)) := case_when(!!!cases), .keep = "unused")
 }
 
