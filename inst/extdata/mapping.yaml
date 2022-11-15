@@ -42,7 +42,9 @@ databases:
               "DiagnosisPrimary_ICD": ""
             strategy:
               - "coalesce"
-              #- ["codes_from", "icd10"]
+              - "codes_from":
+                  codes_files: "icd10"
+                  
             use: yes
           spell_id:
             docs: "The ID field linking episodes that form part of the same spell (a continuous hospital visit). "
