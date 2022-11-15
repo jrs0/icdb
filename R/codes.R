@@ -192,7 +192,9 @@ parse_codes <- function(codes)
     ## Find a more elegant way to do this
     if (!("codes" %in% names(codes)) && !("categories" %in% names(codes)))
     {
-        stop("Each level of the codes structure must contains 'categories' or 'codes'")
+        
+        stop("Each level of the codes structure must contains 'categories' or 'codes', ",
+             "in ", codes)
     }
 
     ## Return the results, which is either a list of codes (for a codes
