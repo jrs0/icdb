@@ -81,7 +81,7 @@ coalesce_exclude_null <- function(tbl, name)
 ##' @return The tbl after reducing
 ##'
 ##' @export
-codes_from <- function(tbl, name, codes_files)
+codes_from <- function(tbl, codes_files, name)
 {
     ## Get the codes from multiple files
     codes <- get_codes(codes_files)
