@@ -42,8 +42,8 @@ databases:
               "DiagnosisPrimary_ICD": ""
             strategy:
               - "coalesce"
-              - "codes_from":
-                  codes_files: "icd10"
+              #- "codes_from":
+              #    codes_files: "icd10"
                   
             use: yes
           spell_id:
