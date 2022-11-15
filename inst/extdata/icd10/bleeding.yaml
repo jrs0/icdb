@@ -416,7 +416,5 @@ categories:
                 
       other:
         docs: "Other codes not categorised elsewhere"
-        unclassified:
-          docs: "Hemorrhage, not elsewhere classified"
-          codes: ["R58", "R58-", "R580"]
+        codes: ["R58", "R58-", "R580"]
           
