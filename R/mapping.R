@@ -198,9 +198,14 @@ print_mapping <- function(mapping, level = 0)
             cat(paste0(" - ", real_column_name, "\n"))
         }
 
-        cat("Reduce strategy: ", logical_column$strategy, "\n\n")
-
+        cat("Reduce strategy: ")
+        for (strategy in logical_column$strategy)
+        {
+            cat(paste0(strategy, ", "))
+        }
+        cat("\n\n")
     }
+        
 }
 
 

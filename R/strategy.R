@@ -37,8 +37,6 @@ NULL
 ##' @param tbl An input dplyr::tbl
 ##' @param name The logical column name
 ##' @return The tbl after reducing the columns
-##'
-##' @export
 coalesce <- function(tbl, name)
 {
     ## Get the member column names
@@ -60,8 +58,6 @@ coalesce <- function(tbl, name)
 ##' @param tbl The tbl to process
 ##' @param name The logical column name
 ##' @return The tbl after reducing
-##'
-##' @export
 coalesce_exclude_null <- function(tbl, name)
 {
     tbl %>% coalesce(name) %>%
@@ -74,6 +70,10 @@ coalesce_exclude_null <- function(tbl, name)
 ##' Note that this function only currently works on logical columns with
 ##' only one source column.
 ##'
+##' Note that this function is a second layer strategy, meaning it must be
+##' applied only on the resulting logical column (not the column names
+##' which have a trailing _N).
+##'
 ##' @title Remap a column of codes to hierarchy of strings
 ##' @param tbl The tbl to process
 ##' @param name The logical column name
@@ -83,17 +83,6 @@ coalesce_exclude_null <- function(tbl, name)
 ##' @export
 codes_from <- function(tbl, name, codes_files)
 {
-    ## Check there is only one source column
-    regx <- paste0(name,"_\\d+")
-    num_cols <- tbl %>%
-        dplyr::select(dplyr::matches(regx)) %>%
-        colnames() %>%
-        length()
-    if (num_cols > 1)
-    {
-        stop("Strategy 'codes_from' currently only works with one source_column.")
-    }
-
     ## Get the codes from multiple files
     codes <- get_codes(codes_files)
 
@@ -101,9 +90,8 @@ codes_from <- function(tbl, name, codes_files)
     code_map <- gen_code_map(codes)
 
     ## Generate the filter and casewhen statements
-    col <- paste0(name,"_1")
-    cases <- gen_casewhen(code_map, col)
-    flt <- gen_filter(code_map, col)
+    cases <- gen_casewhen(code_map, name)
+    flt <- gen_filter(code_map, name)
 
     ## Perform the selection and filtering operation on the column
     tbl %>% dplyr::filter(flt) %>%
