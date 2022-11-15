@@ -37,7 +37,9 @@ NULL
 ##' @param tbl An input dplyr::tbl
 ##' @param name The logical column name
 ##' @return The tbl after reducing the columns
-strategy_coalesce <- function(tbl, name)
+##'
+##' @export
+coalesce <- function(tbl, name)
 {
     ## Get the member column names
     regx <- paste0(name,"_\\d+")
@@ -58,9 +60,11 @@ strategy_coalesce <- function(tbl, name)
 ##' @param tbl The tbl to process
 ##' @param name The logical column name
 ##' @return The tbl after reducing
-strategy_coalesce_exclude_null <- function(tbl, name)
+##'
+##' @export
+coalesce_exclude_null <- function(tbl, name)
 {
-    tbl %>% strategy_coalesce(name) %>%
+    tbl %>% coalesce(name) %>%
         dplyr::filter(!is.na(!!as.name(name)))
 }
 
@@ -76,7 +80,8 @@ strategy_coalesce_exclude_null <- function(tbl, name)
 ##' @param codes_files A list of the names of codes configuration files
 ##' @return The tbl after reducing
 ##'
-strategy_codes_from <- function(tbl, name, codes_files)
+##' @export
+codes_from <- function(tbl, name, codes_files)
 {
     ## Check there is only one source column
     regx <- paste0(name,"_\\d+")
