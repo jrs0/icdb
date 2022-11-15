@@ -197,9 +197,9 @@ categories:
               unspecified:
                 docs: "Diverticular or diverticulitis of unspecified bowel with with bleeding"
                 codes: ["K5781", "K5791", "K5793"]
-            rectum-anus:
-              docs: "Hemorrhage of anus and rectum"
-              codes: "K625"
+          rectum-anus:
+            docs: "Hemorrhage of anus and rectum"
+            codes: "K625"
               
           ## Nick: I started adding codes below here, sorry if I have
           ## messed up the categories. I have left everything at the bottom so
@@ -313,26 +313,41 @@ categories:
             codes: "J942"
             categories:
               traumatic:
-                docs: "Hemothorax caused by traumatic event (e.g. gunshot)"
+                docs: "Hemothorax caused by traumatic event (e.g. fall, etc.)"
                 codes: "S271"
-                ## We probably want to exclude things like this?
-                use: no
-
-      ischaemic-heart-disease:
-        docs: "Bleeding relating to ischaemic heart diseases"
-        categories:
-          haemopericardium:
-            docs: "Bleading relating to the pericardium"
+          respiratory-tract:
+            docs: "Bleeding from the respiratory tract"
             categories:
-              following-mi:
-                docs: "Haemopericardium as current complication following acute myocardial infarction"
-                codes: "I230"
-              heart-injury:
-                docs: "Haemopericardium as current complication following acute myocardial infarction"
-                codes: "S260"
+              nose:
+                docs: "From nose (nosebleed, epistaxis)"
+                codes: "R040"
+              throat:
+                docs: "From throat"
+                codes: "R041"
+              haemoptysis:
+                docs: "Blood-stained sputum/cough with haemorrhage"
+                codes: "R042"
               other:
-                docs: "Haemopericardium, not elsewhere classified"
-                codes: "I312"
+                docs: "Haemorrhage from other site in respiratory passage"
+                codes: "R048"
+              unspecified:
+                docs: "Hemorrhage from respiratory passages, unspecified"
+                codes: "R049"
+
+
+                
+      haemopericardium:
+        docs: "Bleading relating to the pericardium"
+        categories:
+          following-mi:
+            docs: "Haemopericardium as current complication following acute myocardial infarction"
+            codes: "I230"
+          heart-injury:
+            docs: "Haemopericardium as current complication following acute myocardial infarction"
+            codes: "S260"
+          other:
+            docs: "Haemopericardium, not elsewhere classified"
+            codes: "I312"
 
       musculoskeletal:
         docs: "Bleeding relating to the musculoskeletal system"
@@ -341,9 +356,12 @@ categories:
             docs: "Bleeding into a joint"
             codes: "M250"
 
-      genitourinary:
+      urinary:
         docs: "For codes N---"
         categories:
+          hematuria:
+            docs: "Symptom of blood in urine"
+            codes: ["R31", "R31-", "R310"]
           persistent-hematuria:
             docs: "Recurrent and persistent hematuria (blood in unrine)"
             codes: ["N02", "N02-", "N020", "N021", "N022", "N023", "N024",
@@ -351,6 +369,10 @@ categories:
           prostate-haemorrhage:
             docs: "Congestion and haemorrhage of prostate"
             codes: "N421"
+
+      gynaecological:
+        docs: "Bleeding from the uterus, cervix or genital tract"
+        categories:
           excessive-menstruation:
             docs: "Excessive and frequent menstruation"
             codes: ["N920", "N291"]
@@ -376,7 +398,7 @@ categories:
           postcoital:
             docs: "Postcoital and contact bleeding"
             codes: "N930"
-
+          
       symptoms:
         docs: "For R--- codes"
         categories:
@@ -384,108 +406,17 @@ categories:
             docs: "Bleeding as a symptom"
             codes:
             categories:
-              respiratory-passages:
-                docs: "Bleeding from respiratory passages"
-                categories:
-                  nose:
-                    docs: "From nose (nosebleed, epistaxis)"
-                    codes: "R040"
-                  throat:
-                    docs: "From throat"
-                    codes: "R041"
-                  haemoptysis:
-                    docs: "Blood-stained sputum/cough with haemorrhage"
-                    codes: "R042"
-                  other:
-                    docs: "Haemorrhage from other site in respiratory passage"
-                    codes: "R048"
-                  unspecified:
-                    docs: "Hemorrhage from respiratory passages, unspecified"
-                    codes: "R049"
               unclassified:
                 docs: "Hemorrhage, not elsewhere classified"
                 codes: ["R58", "R58-", "R580"]
-          hematuria:
-            docs: "Blood in urine"
-            codes: ["R31", "R31-", "R310"]
-            
+
+      procedural:
+        docs: "Relating to a medical intervention/procedure"
+        codes: ["T810"]   
+                
       other:
         docs: "Other codes not categorised elsewhere"
-        codes: ["T972", "T810"]
+        unclassified:
+          docs: "Hemorrhage, not elsewhere classified"
+          codes: ["R58", "R58-", "R580"]
           
-## Nick:
-## --------- Preserved from before in case of error. Delete if the stuff above is OK          
-              
-# D62	Acute posthemorrhagic anemia
-# D62-	Acute posthemorrhagic anemia
-# D620	Acute posthemorrhagic anemia
-# D683	Haemorrhagic disorder due to circulating anticoagulants
-# D698	Other specified haemorrhagic conditions
-# D699	Haemorrhagic condition, unspecified
-# H113	Conjunctival hemorrhage
-# H1130	Conjunctival hemorrhage unspcified
-# H1131	Conjunctival hemorrhage right
-# H1132	Conjunctival hemorrhage left
-# H1133	Conjunctival hemorrhage bilateral
-# H210	Hyphaema
-# H313	Choroidal haemorrhage and rupture
-# H356	Retinal hemorrhage
-# H3560	Retinal hemorrhage unspecified
-# H3561	Retinal hemorrhage right
-# H3562	Retinal hemorrhage left
-# H3563	Retinal hemorrhage bilateral
-# H431	Vitreous hemorrhage
-# H4310	Vitreous hemorrhage unspecified
-# H4311	Vitreous hemorrhage right
-# H4312	Vitreous hemorrhage left
-# H4313	Vitreous hemorrhage bilateral
-# H450	Vitreous hemorrhage in disease classified elsewhere
-# H922	Otorrhagia
-# H9220	Otorrhagia unspecified
-# H9221	Otorrhagia right
-# H9222	Otorrhagia left
-# H9223	Otorrhagia bilateral
-# J942	Hemothorax
-# S271	Traumatic hemothorax
-# T792
-# K661	Hemoperitoneum
-# I230	Haemopericardium as current complication following acute myocardial infarction
-# S260	Injury of heart with haemopericardium
-# I312	Haemopericardium, not elsewhere classified
-# M250	Hemarthrosis
-# K762	Central haemorrhagic necrosis of liver
-# N02	Recurrent and persistent hematuria
-# N02-	Recurrent and persistent hematuria
-# N020	Recurrent and persistent hematuria
-# N021	Recurrent and persistent hematuria
-# N022	Recurrent and persistent hematuria
-# N023	Recurrent and persistent hematuria
-# N024	Recurrent and persistent hematuria
-# N025	Recurrent and persistent hematuria
-# N026	Recurrent and persistent hematuria
-# N027	Recurrent and persistent hematuria
-# N028	Recurrent and persistent hematuria
-# N029	Recurrent and persistent hematuria
-# N421	Congestion and haemorrhage of prostate
-# N920	Excessive and frequent menstruation
-# N921	Excessive and frequent menstruation
-# N923	Ovulation bleeding
-# N924	Excessive bleeding in the premenopausal period
-# N93	Other abnormal uterine and vaginal bleeding
-# N93-	Other abnormal uterine and vaginal bleeding
-# N930	Postcoital and contact bleeding
-# N938	Other specified abnormal uterine and vaginal bleeding
-# N939	Abnormal uterine and vaginal bleeding, unspecified
-# N950	Postmenopausal bleeding
-# R040	Epistaxis
-# R041	Hemorrhage from throat
-# R042	Hemoptysis
-# R048	Hemorrhage from other sites in respiratory passages
-# R049	Hemorrhage from respiratory passages, unspecified
-# R31	Hematuria
-# R31-	Hematuria
-# R310	Hematuria
-# R58	Hemorrhage, not elsewhere classified
-# R58-	Hemorrhage, not elsewhere classified
-# R580	Hemorrhage, not elsewhere classified
-# T810	Haemorrhage and haematoma complicating a procedure, not elsewhere classified
