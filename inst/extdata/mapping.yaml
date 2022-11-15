@@ -70,7 +70,11 @@ databases:
         docs: "The A&E HES data"
         source_table: "vw_AE_SEM_001"
         columns: []
-
+      post_acs_bleed:
+        logical_source_table: "apc"
+        columns:
+          nhs_number: 
+        
 
   mort:
     docs: "There are two main tables containing death information....."
