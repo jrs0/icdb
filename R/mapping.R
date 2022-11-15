@@ -80,11 +80,12 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
         }
 
         ## Loop over all the logical columns, reducing by the specified
-        ## strategy
+        ## strategies. The strategies are presented as a list -- the order
+        ## in the yaml file specifies the order in which they are executed.
         for (logical_column_name in names(columns))
         {
             logical_column <- columns[[logical_column_name]]
-            strategy <- logical_column$strategy
+            strategies <- list(logical_column$strategy)
 
             ## If the logical column is not marked with use: TRUE, then
             ## ignore this logical column
@@ -92,24 +93,28 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
             {
                 next
             }
-            
-            ## If the item is not a list, then it is a simple function
-            ## which can be called to process the item
-            if (length(strategy) == 1)
-            {
-                tbl <- do.call(paste0("strategy_", strategy),
-                               list(tbl, logical_column_name))
-            }
-            else
-            {
-                ## If the strategy is a list, then the first element
-                ## is the function name and the subsequent elements are
-                ## the arguments
-                tbl <- do.call(paste0("strategy_", strategy[1]),
-                               list(tbl, logical_column_name, strategy[-1]))
+
+            ## Loop over the strategies, applying one-by-one
+            for (strategy in strategies)
+            {       
+                ## If the item is not a list, then it is a simple function
+                ## which can be called to process the item
+                if (length(strategy) == 1)
+                {
+                    tbl <- do.call(paste0("strategy_", strategy),
+                                   list(tbl, logical_column_name))
+                }
+                else
+                {
+                    ## If the strategy is a list, then the first element
+                    ## is the function name and the subsequent elements are
+                    ## the arguments
+                    tbl <- do.call(paste0("strategy_", strategy[1]),
+                                   list(tbl, logical_column_name, strategy[-1]))
+                }
             }
         }
-
+            
         mapped_table(tbl, mapping)
     }
 }
