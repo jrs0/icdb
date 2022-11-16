@@ -1,8 +1,14 @@
 icd_api <- function()
 {
+    ## Authenticate the endpoint
     secret <- yaml::read_yaml(system.file("extdata", "icd-api.secret.yaml", package = "icdb"))
 
-
+    print(secret)
+    stop()
+    
+    r <- httr::POST('https://icdaccessmanagement.who.int/connect/token',
+                    body = secret)
+    
     ##url <- conf$token_endpoint
     ##payload <- conf[-token_endpoint]
     
@@ -14,9 +20,7 @@ icd_api <- function()
 
 
     ## access ICD API
-
-    url = 'http://localhost/icd/release/10'
-    r <- httr::GET(url = url, httr::add_headers(`Accept` = "application/json",`Accept-Language` = "en",`API-Version` = "v2"))
+    
     
     ## make request           
     #r = requests.get(uri, headers=headers, verify=False)
