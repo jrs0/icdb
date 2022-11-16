@@ -1,0 +1,9 @@
+token_endpoint: 'https://icdaccessmanagement.who.int/connect/token'
+scope: 'icdapi_access'
+grant_type: 'client_credentials'
+
+## Complete the fields below
+client_id: '...'
+client_secret: '...'
+
+ 

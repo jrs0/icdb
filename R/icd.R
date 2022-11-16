@@ -1,40 +1,30 @@
 
 icd_apc <- function()
 {
-
-    token_endpoint = 'https://icdaccessmanagement.who.int/connect/token'
-    client_id = '...'
-    client_secret = '...'
-    scope = 'icdapi_access'
-    grant_type = 'client_credentials'
-
-
-                                        # get the OAUTH2 token
-
-                                        # set data to post
-    payload = {'client_id': client_id, 
-        'client_secret': client_secret, 
-        'scope': scope, 
-        'grant_type': grant_type}
+    conf <- yaml::read_yaml(system.file("extdata", "cred.secret.yaml", package = "icdb"))
+    url <- conf$token_endpoint
+    payload <- conf[-token_endpoint]
     
-                                        # make request
+    ## get the OAUTH2 token
+    r <- httr::POST(url = url, quer
+    
     r = requests.post(token_endpoint, data=payload, verify=False).json()
     token = r['access_token']
 
 
-                                        # access ICD API
+    ## access ICD API
 
     uri = 'https://id.who.int/icd/entity'
 
-                                        # HTTP header fields to set
+    ## HTTP header fields to set
     headers = {'Authorization':  'Bearer '+token, 
         'Accept': 'application/json', 
         'Accept-Language': 'en',
         'API-Version': 'v2'}
     
-                                        # make request           
+    ## make request           
     r = requests.get(uri, headers=headers, verify=False)
 
-                                        # print the result
+    ## print the result
     print (r.text)
 }
