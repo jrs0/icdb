@@ -18,4 +18,6 @@ knitr::opts_chunk$set(
 library(icdb)
 ```
 
-Test
+International classification of diseases (ICD) codes are used to identify different medical conditions in the database. ICDB has a number of utilities for automatically processing ICD codes, which are described on this page.
+
+
