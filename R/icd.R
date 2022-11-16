@@ -10,15 +10,19 @@ parse_icd11 <- function(endpoint = "http://localhost/icd/entity")
                                                 `Accept-Language` = "en"))
     rr <- httr::content(xx, "parsed")
 
+    print(rr)
+    
     ## Get documentation
     pp <- list(docs = rr$title$`@value`)
     
     ## Parse all the child entities
+    ss <- list()
     for (url in rr$child)
     {
         ## URLs use the remote host, replace this with localhost
         url <- stringr::str_replace(url, pattern = "id.who.int", replacement = "localhost")
-        print(url)
+
+        ##ss[[janitor::make_clean_names
     }
 }
 
