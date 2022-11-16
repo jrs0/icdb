@@ -53,7 +53,7 @@ srv <- server(config = system.file("extdata", "sqlite.yaml", package="icdb"))
 show_cache()
                                        
 ## Perform a query (this will write results to the cache) 
-srv$APC_SYNTH %>% select(NHSNumber, SpellID) %>% run()
+srv$APC_SYNTH %>% select(NHSNumber, HospitalProviderSpellIdentifier) %>% run()
 
 ## Look at the cache again -- now there is one entry
 show_cache()
@@ -63,7 +63,7 @@ When you run the same query again, the server will not be queried. Instead, the 
 
 ```{r}
 ## Do the same query again
-srv$APC_SYNTH %>% select(NHSNumber, SpellID) %>% run()
+srv$APC_SYNTH %>% select(NHSNumber, HospitalProviderSpellIdentifier) %>% run()
 
 ## Look at the hits column
 show_cache()
@@ -82,13 +82,13 @@ The mechanism used to prevent out-of-date results is the cache lifetime. The def
 use_cache(TRUE, lifetime = lubridate::dseconds(5))
 
 ## Perform a query
-srv$APC_SYNTH %>% select(NHSNumber, SpellID) %>% run()
+srv$APC_SYNTH %>% select(NHSNumber, HospitalProviderSpellIdentifier) %>% run()
 
 ## Wait for longer than 5 seconds
 Sys.sleep(10)
 
 ## Do the same query again -- the cached result will not be used
-srv$APC_SYNTH %>% select(NHSNumber, SpellID) %>% run()
+srv$APC_SYNTH %>% select(NHSNumber, HospitalProviderSpellIdentifier) %>% run()
 ```
 
 You should set the cache lifetime to a timescale that is as short as possible, while still allowing you to conveniently develop your scripts. If you are not sure, leave the default setting of 24 hours. This means that your will need to refetch results at the start of each day, but the results will remain valid throughout the day.
