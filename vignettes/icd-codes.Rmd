@@ -41,3 +41,6 @@ The file is defined by a set of nested "categories" blocks. Each of these blocks
 
 ## Generating ICD mapping files
 
+The ICDB library contains utilities for automatically generating codes mapping files for ICD codes. This section describes how to set up a local copy of the [https://icd.who.int/icdapi](ICD API) as a docker image, and then shows how to use this source to generate a mapping file containing all the ICD codes.
+
+### 
