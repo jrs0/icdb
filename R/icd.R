@@ -1,6 +1,8 @@
 icd_api <- function()
 {
-    conf <- yaml::read_yaml(system.file("extdata", "icd-api.yaml", package = "icdb"))
+    secret <- yaml::read_yaml(system.file("extdata", "icd-api.secret.yaml", package = "icdb"))
+
+
     ##url <- conf$token_endpoint
     ##payload <- conf[-token_endpoint]
     
