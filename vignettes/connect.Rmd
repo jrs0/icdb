@@ -48,7 +48,7 @@ The `srv` object behaves like a list of lists. The first level contains database
 
 You can connect to a MySQL server using a configuration file formatted in [YAML](https://en.wikipedia.org/wiki/YAML). The file must have the following structure:
 
-```{yaml}
+```
 ---
 "driver": "mysql" # Make sure you put a space after the colon
 "host": "mysql_server_hostname"
@@ -76,7 +76,7 @@ TOCHECK: It is also possible to connect to a MySQL server using a data source na
 
 You can connect to an SQLite database file. Use a configuration file (e.g. *sqlite.yaml*) with the following structure:
 
-```{yaml}
+```
 --- 
 "driver": "sqlite"
 "dbfile": "database-file.db"
