@@ -14,10 +14,30 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(icdb)
-```
-
 International classification of diseases (ICD) codes are used to identify different medical conditions in the database. ICDB has a number of utilities for automatically processing ICD codes, which are described on this page.
 
+## ICD Code Mapping Files
+
+The input to the ICDB library, which controls the parsing and interpretation of ICD codes, is a _codes mapping file_, which has the following format:
+
+```
+categories:
+  cond-1::
+    docs: "This is condition 1"
+	codes: ["I2%","I3%"]
+    categories:
+	  sub-cond-1:
+	    docs: "A subcondition"
+		codes: "I233"
+	  sub-cond-2:
+	    docs: "Another condition"
+		codes: ["I234", "I245"]
+  cond-2:
+    docs: "Something else"
+	codes: "I444"
+```
+
+The file is defined by a set of nested "categories" blocks. Each of these blocks defines a set of codes, contains documentation describing what the category is, and may contain further categories block. The codes mapping file is in YAML format.
+
+## Generating ICD mapping files
 
