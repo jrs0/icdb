@@ -17,5 +17,3 @@ be updated with time.
 ## Important pages
 
 You can find the current state of library development in *Internals -> Status*.
-
-You can

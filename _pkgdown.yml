@@ -41,6 +41,8 @@ navbar:
         - text: "Library Design"
         - text: "Overview"
           href: articles/design-overview.html
+        - text: "Status"
+          href: articles/status.html
         - text: "Cache Design"
           href: articles/cache-design.html
         - text: "Data Preprocessing"
