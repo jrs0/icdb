@@ -1,8 +1,8 @@
 ---
-title: "Query Caching"
+title: "Using the Cache"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Query Caching}
+  %\VignetteIndexEntry{Using the Cache}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
