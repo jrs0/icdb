@@ -13,5 +13,16 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+New code should conform with the rules listed in this file. The current code does not currently conform to all the points. This will be fixed with time.
+
+## Choice of object-oriented systems
+
+* Classes should use the S3 system. R6 is to be used in only two cases: the implementation of the server class; and the implementation of the cache. Any other cases must be listed explicitly here. Do not use S4. 
+
+## Naming conventions
+
+* Use lower-case words separated by underscores for functions and classes.
+
+## Package-related
 
 * Do not use tidyverse in documentation pages. Package should not depend on tidyverse.
