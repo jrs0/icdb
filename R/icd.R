@@ -1,8 +1,6 @@
 ##' Read the ICD 11 codes into a codes mapping file from localhost
 ##'
 ##' @title Parse all ICD-11 codes
-##' @return 
-##' @author 
 parse_icd11 <- function(endpoint = "http://localhost/icd/entity")
 {
     xx <- httr::GET(url = endpoint, httr::add_headers(accept = "application/json",

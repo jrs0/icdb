@@ -1,8 +1,8 @@
 ---
-title: "Getting Started"
+title: "Query Caching"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting Started}
+  %\VignetteIndexEntry{Query Caching}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,106 +13,4 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-
-The goal of ICDB is to provide a set of functions that makes it easier to interact with health care databases. This page describes how some of the functions work, and gives an overview of what the library can do.
-
-## Connecting to a database
-
-The first step in using the library is connecting to a database server. See the [Connection Setup](connect.html) page for detailed information about how to do this. This page will use an artificial admitted patient care database, that contains randomly generated data. You can run the examples here without needing a real database connection.
-
-First, generate the artificial data (an sqlite file), as follows:
-
-```{r}
-library(icdb)
-icdb_example()
-```
-
-This will create a folder called *gendata* in your working directory, containing the database file *test.db*. Next, you can connect to this database using
-
-```{r}
-library(icdb)
-## The next line may take a little while to run for
-## large databases, due to the way the library works.
-srv <- server(config = system.file("extdata", "sqlite.yaml", package="icdb"))
-```
-
-The `srv` object behaves like a nested named list. The first level contains databases on the server, and the next level contains tables in that database. Database and table names tab complete (in RStudio and Emacs ESS), to make it easier to find what you are looking for. In the example here, the database contains only a single table called *APC_SYNTH*:
-
-```{r}
-srv
-```
-
-### Seeing a table summary
-
-The simplest use of ICDB is inspecting the structure of a table. Do this by running 
-
-```{r}
-## Print the structure of the table APC_SYNTH
-srv$APC_SYNTH
-```
-
-This expression returns the same tibble that you would get if you had run `dplyr::tbl` on a [DBI database connection](https://solutions.rstudio.com/db/r-packages/dplyr/). This object is not the full table -- it is just a shell object showing what columns and data types the table contains.
-
-### Generating an SQL query
-
-The main advantage of using dplyr (the library that ICDB uses) is that SQL is often unnecessary, and can be replaced by more familiar dplyr functions. You can pipe the `srv` object to dplyr functions like `filter` and `select` to get a tibble of data from the database. Try running a snippet like the following (replace with valid database, table and column names), which shows the SQL generated for a simple dplyr-based query:
-
-```{r, message=FALSE}
-library(tidyverse)
-library(lubridate)
-
-srv$APC_SYNTH %>% filter(StartTime_HospitalProviderSpell > !!ymd("2019-1-1")) %>% select(NHSNumber, PrimaryDiagnosis_ICD) %>% show_query()
-```
-
-To actually run the query, replace `show_query()` with `run()`:
-
-```{r}
-# This returns a tibble containing the results of the query
-srv$APC_SYNTH %>% filter(StartTime_HospitalProviderSpell > !!ymd("2019-1-1")) %>% select(NHSNumber, PrimaryDiagnosis_ICD) %>% run()
-```
-
-Once you have `results` (a tibble), you can do anything that you would normally do with a tibble (`filter`, `select`, `mutate`, etc.)
-
-The `run()` function is a wrapper around the `dplyr::collect()`, which adds caching functionality to the query. This is described in the next section.
-
-### Caching for speeding up code development
-
-Large queries (those returning a lot of data, or requiring a lot of server-side processing) can take a long time to execute. This can make running scripts difficult, if each query in the script takes minutes to run. The ICDB library contains a simple query cache that helps speed up these queries for development purposes. 
-
-The cache is disabled by default. To enable it, add the following line to the top of your script
-
-```{r}
-use_cache(TRUE)
-```
-
-When a query like
-
-```{r}
-results <- srv$APC_SYNTH %>% filter(StartTime_HospitalProviderSpell > !!ymd("2019-1-1")) %>% select(NHSNumber, PrimaryDiagnosis_ICD) %>% run()
-```
-
-is run, it may take several minutes to execute. However, the second time it is run, the results are returned instantly. This is because the `run()` function stores the result behind the scenes, in case you need it again soon. 
-
-If you change any aspect of the query that changes the SQL, then the query will be rerun. For example, 
-```{r}
-results <- srv$APC_SYNTH %>% filter(StartTime_HospitalProviderSpell > !!ymd("2019-1-1")) %>% select(NHSNumber, PrimaryDiagnosis_ICD) %>% run()
-```
-
-will run a new query, because the `filter` condition changed. However, if you go back to the old query, it will still be stored in the cache. The cache is automatically deleted when the R session is closed.
-
-You can view the current state of the cache by running
-
-```{r}
-# Returns a tibble where each row is a stored query
-show_cache()
-```
-
-This will return a tibble containing stored query metadata, including information such as the write time and the last access. To clear the cache (delete all stored queries), run
-
-```{r}
-# Returns a tibble where each row is a stored query
-clear_cache()
-```
-
-The cache uses a combination of memory and disk caching, and cached queries automatically expire (by default) after 24 hours. See the [Query Caching](caching.html) page for detailed information about how the cache works and how you can control it.
-
+Write me...
