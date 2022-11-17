@@ -31,7 +31,7 @@ The cache is disabled by default. Using the cache enables you to speed up code d
 However, it can be significantly faster to use the cache, especially if you have long-running queries embedded in your scripts. The cache is controlled by the `use_cache` function, which you should call when you load icdb:
 
 ```{r, message=FALSE}
-library(tidyverse)
+library(dplyr)
 library(icdb)
 use_cache(TRUE, lifetime = lubridate::dhours(24))
 ```

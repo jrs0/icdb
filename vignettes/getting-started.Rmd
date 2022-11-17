@@ -58,7 +58,7 @@ This expression returns the same tibble that you would get if you had run `dplyr
 The main advantage of using dplyr (the library that ICDB uses) is that SQL is often unnecessary, and can be replaced by more familiar dplyr functions. You can pipe the `srv` object to dplyr functions like `filter` and `select` to get a tibble of data from the database. Try running a snippet like the following (replace with valid database, table and column names), which shows the SQL generated for a simple dplyr-based query:
 
 ```{r, message=FALSE}
-library(tidyverse)
+library(dplyr)
 library(lubridate)
 
 srv$APC_SYNTH %>% filter(StartTime_HospitalProviderSpell > !!ymd("2019-1-1")) %>% select(NHSNumber, PrimaryDiagnosis_ICD) %>% show_query()

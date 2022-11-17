@@ -13,4 +13,5 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-Write me...
+
+* Do not use tidyverse in documentation pages. Package should not depend on tidyverse.
