@@ -1,8 +1,8 @@
 ---
-title: "CI/CD Information"
+title: "Style Guide"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{CI/CD Information}
+  %\VignetteIndexEntry{Style Guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
