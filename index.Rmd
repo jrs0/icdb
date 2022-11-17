@@ -1,5 +1,5 @@
 ---
-output: github_document
+output: md_document
 ---
 
 <!-- index.md is generated from index.Rmd. Please edit that file -->
