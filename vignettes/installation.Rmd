@@ -1,0 +1,29 @@
+---
+title: "Installation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Installation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+First clone or download the repository. Open the package in RStudio and run the following command
+
+```{r eval=FALSE}
+devtools::install()
+```
+
+Once you have installed the library, you should be able to load the ICDB package in any other script or project to try out the features:
+
+```{r eval=FALSE}
+library(icdb)
+```
+
+See the main documentation for how to use the library.
