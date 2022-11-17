@@ -1,5 +1,5 @@
 ---
-title: "design-overview"
+title: "Design Overview"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Design Overview}
@@ -13,5 +13,4 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-
-The pages here are all about the design of ICDB. 
+Write me...

@@ -1,8 +1,8 @@
 ---
-title: "Preprocessing Design"
+title: "Cache Design"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Preprocessing Design}
+  %\VignetteIndexEntry{Cache Design}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
