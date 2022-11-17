@@ -2,13 +2,49 @@ url: ~
 template:
   bootstrap: 5
   bootswatch: litera
-articles:
-- title: Articles
-  navbar: ~
-  contents:
-  - getting-started
-  - connect
-  - caching
-  - icd-codes
-  - devel
+navbar:
+  structure:
+    right: [search]
+    left: [design, guides, reference, devel, news]
+  components:
+    design:
+      text: "Concepts"
+      menu:
+        - text: "Server layer"
+          href: articles/server-layer.html
+        - text: "Mapped layer"
+          href: articles/mapped-layer.html
+
+    guides:
+      text: "Guides"
+      menu:
+        - text: "Getting Started"
+          href: articles/getting-started.html
+        - text: "Connection Setup"
+          href: articles/connect.html
+        - text: "Query Caching"
+          href: articles/caching.html
+
+    devel:
+      text: "Development"
+      menu:
+        - text: "Design"
+        - text: "Overview"
+          href: articles/design-overview.html
+        - text: "Testing"
+        - text: "Problems"
+        - text: "Todo list"
+        - text: "Changelog"
+          href: news/index.html
+      
+# articles:
+# - title: Articles
+#   navbar:
+#     structure:
+#   contents:
+#   - getting-started
+#   - connect
+#   - caching
+#   - icd-codes
+#   - devel
   
