@@ -1,8 +1,8 @@
 ---
-output: md_document
+output: github_document
 ---
 
-<!-- index.md is generated from index.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -13,11 +13,12 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 <!-- badges: start -->
 [![codecov](https://codecov.io/gh/jrs0/icdb/branch/main/graph/badge.svg?token=VXGD77WTZI)](https://codecov.io/gh/jrs0/icdb)
 <!-- badges: end -->
 
-## Welcome to the documentation for ICDB!
+# Welcome to ICDB!
 
 This website contains all the information you need to understand what the library is, how to use it, and how it is designed and tested. 
 
