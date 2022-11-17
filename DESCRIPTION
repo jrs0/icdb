@@ -16,6 +16,7 @@ Imports:
     dbplyr (>= 2.2.1),
     dplyr,
     fs,
+    httr,
     janitor,
     lubridate,
     magrittr,

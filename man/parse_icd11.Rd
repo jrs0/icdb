@@ -6,6 +6,9 @@
 \usage{
 parse_icd11(endpoint = "http://localhost/icd/entity")
 }
+\arguments{
+\item{endpoint}{The top-level endpoint to start the search}
+}
 \description{
 Read the ICD 11 codes into a codes mapping file from localhost
 }
