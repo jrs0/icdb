@@ -25,4 +25,4 @@ New code should conform with the rules listed in this file. The current code doe
 
 ## Package-related
 
-* Do not use tidyverse in documentation pages. Package should not depend on tidyverse.
+* Do not use tidyverse in documentation pages. The package should not depend on tidyverse (do not call use_package("tidyverse")).
