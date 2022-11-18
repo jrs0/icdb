@@ -32,3 +32,5 @@ status <- tibble::tribble(
 
 kableExtra::kable(status)
 ```
+
+More detail coming soon about what all the above means...
