@@ -174,8 +174,6 @@ parse_codes <- function(codes)
             ## item in the list
             ## TODO add check for final element here to surpress
             ## trailing dot. (Not very important).
-            print(res)
-            print(prefix)
             names(res) <- paste0(prefix, ".", names(res))
 
             ## Finally, add these to the (flat) list of results

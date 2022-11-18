@@ -40,7 +40,8 @@ parse_icd10 <- function(path, output = "icd10.yaml")
         
         ## Make the categories
         res <- list(
-            docs = description
+            docs = description,
+            codes = list(code)
         )
 
         ## If the categories is populated, add it
