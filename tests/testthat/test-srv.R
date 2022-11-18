@@ -1,10 +1,5 @@
 ### Tests for invalid database connection attempts
 
-test_that("Example failing test", {
-    expect_false(TRUE)
-})
-
-
 test_that("server throws an error when no connection information is provided", {
     expect_error(server())
 })
