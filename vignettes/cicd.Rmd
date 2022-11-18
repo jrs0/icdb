@@ -13,4 +13,13 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-Write me...
+
+The page describes the general plan for ensuring that the main branch does not break. Currently, the repository is in a very early development stage, so breaking changes will not matter too much, but over time more tests and checks will be added to keep everything working.
+
+## The main branch
+
+The idea is that the main branch always works. The branch is protected, meaning it is not possible to directly push to it. Instead, you must create a pull request, meeting the requirements below:
+
+* The R CMD Check must pass (devtools::check())
+
+
