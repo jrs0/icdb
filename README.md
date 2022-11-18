@@ -5,6 +5,7 @@
 
 <!-- badges: start -->
 
+[![pkgdown](https://github.com/jrs0/icdb/actions/workflows/pkgdown.yaml/badge.svg)](https://jrs0.github.io/icdb)
 [![codecov](https://codecov.io/gh/jrs0/icdb/branch/main/graph/badge.svg?token=VXGD77WTZI)](https://codecov.io/gh/jrs0/icdb)
 [![R-CMD-check](https://github.com/jrs0/icdb/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jrs0/icdb/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
