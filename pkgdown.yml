@@ -9,8 +9,8 @@ articles:
   connect: connect.html
   design-overview: design-overview.html
   devel: devel.html
-  getting-started: getting-started.html
   icd-codes: icd-codes.html
+  icdb: icdb.html
   installation: installation.html
   mapped-layer: mapped-layer.html
   preprocess-design: preprocess-design.html
@@ -21,7 +21,7 @@ articles:
   style-guide: style-guide.html
   testing-data: testing-data.html
   testing-strategy: testing-strategy.html
-last_built: 2022-11-18T12:01Z
+last_built: 2022-11-18T17:14Z
 urls:
   reference: https://jrs0.github.io/icdb/reference
   article: https://jrs0.github.io/icdb/articles

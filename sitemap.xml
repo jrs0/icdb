@@ -31,10 +31,10 @@
     <loc>https://jrs0.github.io/icdb/articles/devel.html</loc>
   </url>
   <url>
-    <loc>https://jrs0.github.io/icdb/articles/getting-started.html</loc>
+    <loc>https://jrs0.github.io/icdb/articles/icd-codes.html</loc>
   </url>
   <url>
-    <loc>https://jrs0.github.io/icdb/articles/icd-codes.html</loc>
+    <loc>https://jrs0.github.io/icdb/articles/icdb.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/articles/index.html</loc>
@@ -143,6 +143,9 @@
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/parse_codes.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/parse_icd10.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/parse_icd11.html</loc>

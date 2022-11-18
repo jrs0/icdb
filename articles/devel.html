@@ -35,6 +35,9 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../articles/icdb.html">Get started</a>
+</li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-concepts">Concepts</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-concepts">
@@ -51,7 +54,6 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-guides">Guides</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-guides">
     <a class="dropdown-item" href="../articles/installation.html">Installing ICDB</a>
-    <a class="dropdown-item" href="../articles/getting-started.html">Getting Started</a>
     <a class="dropdown-item" href="../articles/connect.html">Connection Setup</a>
     <a class="dropdown-item" href="../articles/caching.html">Using the Cache</a>
   </div>
@@ -71,7 +73,7 @@
     <a class="dropdown-item" href="../articles/testing-strategy.html">Testing Strategy</a>
     <a class="dropdown-item" href="../articles/testing-data.html">Testing Data</a>
     <h6 class="dropdown-header" data-toc-skip>Development</h6>
-    <a class="dropdown-item" href="../articles/cicd.html">CI/CD</a>
+    <a class="dropdown-item" href="../articles/cicd.html">Contributing</a>
     <a class="dropdown-item" href="../articles/style-guide.html">Style Guide</a>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -159,28 +161,7 @@ documentation to reflect this.</li>
 <div class="section level3">
 <h3 id="problem-reports">Problem reports<a class="anchor" aria-label="anchor" href="#problem-reports"></a>
 </h3>
-<p>This section contains a list of issues people had trying to use the
-library</p>
 <ul>
-<li><p>After fresh install, getting an error with dbplyr (no function
-in_catalog in namespace:dbplyr). The issue was trying to use dbplyr
-2.1.1, when icdb requires 2.2.1. Need to specify library versions in
-DESCRIPTION file). <strong>SOLVED</strong> by adding the dependency
-version to the DESCRIPTION file.</p></li>
-<li><p>After fresh install, getting error “no applicable method for
-‘tbl’ applied to an object of class Microsoft SQL Server”. This error
-may have been caused by a dplyr minor version (1.0.9 -&gt; 1.0.10), but
-more likely was just an issue with a corrupt Databases object from the
-old dbplyr version above. Note that tidyverse may encode the versions of
-its constituent packages.</p></li>
-<li><p>On MAC, attempt to connect to mysql via config file gave an error
-like: “Error: Unimplemented MAX_NO_FIELD_TYPES”. <a href="This%20page">https://www.rapids.science/1.9/common-errors/</a>
-says that the error is due to having a JSON column type in the table,
-and RMariaDB cannot handle JSON types. However, there did not seem to be
-any JSON types. Needs further investigation. <strong>SOLVED</strong> for
-now by reintroducing lazy evaluation of the dplyr::tbl in the object
-tree for the database. See the comments in the build_object_tree()
-function. This issue needs a bit more thinking about.</p></li>
 <li><p>If a query fails (because it is invalid), the query looks like it
 might still getting written to the cache, so that next time you run the
 query, it thinks it has done it. This requires a bit of work to
