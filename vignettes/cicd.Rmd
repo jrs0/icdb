@@ -1,5 +1,5 @@
 ---
-title: "CI/CD Information"
+title: "Contributing"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{CI/CD Information}
@@ -15,6 +15,12 @@ knitr::opts_chunk$set(
 ```
 
 The page describes the general plan for ensuring that the main branch does not break. Currently, the repository is in a very early development stage, so breaking changes will not matter too much, but over time more tests and checks will be added to keep everything working.
+
+**This repository is in a very early stage, so things may change substantially here. Please get in touch if you would like to contribute, or have any suggestions regarding anything.**
+
+## Issues
+
+If you have any issues with using the package, please log them on the GitHub [Issues Page](https://github.com/jrs0/icdb/issues). You are currently extremely likely to have issues: the vast majority of the package is very underdeveloped and mostly untested. However, if you feel brave enough to try to use it, we would greatly value your feedback/suggestions.
 
 ## The main branch
 
@@ -33,3 +39,4 @@ Follow the steps below to make changes to the repository:
 * Run `devtools::check()` and `devtools::build_site()` to ensure that the code passes the checks and the documentation works. If these fail, the pull request will not succeed.
 * When you have finished making changes, open a pull request on GitHub. Once the automatic checks have passed, you should be able to merge the changes into main.
 * Note that if you spend quite a while on your branch, consider periodically pulling main into your branch and performing any required merges, so that your branch remains close to main.
+

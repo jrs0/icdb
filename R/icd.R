@@ -1,3 +1,67 @@
+##'
+##'
+NULL
+
+##' Parse an ICD-10 codes file from the NHS Digital (TRUD) from the
+##' "NHS ICD-10 5th Edition data files" item. The function converts the
+##' codes to a codes definition file suitable for use in a mapped
+##' server.
+##'
+##' @title Parse ICD-10 codes 
+##' @param path The input file path (tab separated)
+##' @param output The filename of the output definition file
+parse_icd10 <- function(path, output = "icd10.yaml")
+{
+    ## Read the file, and split the code based on the .
+    tbl <- readr::read_tsv(path) %>%
+        tidyr::separate(CODE, into = c("code0", "code1"), sep = "\\.") 
+
+    ## Top level
+    top <- tbl %>%
+        dplyr::filter(is.na(code1))
+        
+    ## Create the top level codes
+    codes <- list(categories = list())
+    
+    fn <- function(code, description)
+    {
+        ## Make the next level down
+        bottom <- tbl %>%
+            dplyr::filter(code0 == code,
+                          !is.na(code1)) %>%
+            dplyr::select(code1, DESCRIPTION, ALT_CODE)
+
+        categories <- bottom %>%
+            purrr::pmap(~ list(docs = ..2,
+                               codes = list(paste0(code,".",..1),
+                                            ..3)))
+        names(categories) <- bottom$code1
+        
+        ## Make the categories
+        res <- list(
+            docs = description,
+            codes = list(code)
+        )
+
+        ## If the categories is populated, add it
+        if (length(categories) > 0)
+        {
+            res$categories <- categories
+        }
+
+        res
+    }
+    
+    codes$categories <- top %>%
+        dplyr::select(code0, DESCRIPTION) %>%
+        purrr::pmap(~ fn(.x, .y))
+    names(codes$categories) <- top$code0
+
+    ## Write the output file
+    yaml::write_yaml(codes, file = output)
+
+}
+
 ##' Read the ICD 11 codes into a codes mapping file from localhost
 ##'
 ##' @title Parse all ICD-11 codes

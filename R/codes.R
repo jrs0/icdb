@@ -93,7 +93,7 @@ get_codes <- function(codes_files)
 ##' field describing what the level means.
 ##'
 ##' @title Get a flat list of codes
-##' @param codes The parsed codes definition list of lists
+##' @param codes The input codes definition list of lists
 ##' @return A named character vector containing the codes
 ##'
 ##' @export
@@ -101,7 +101,7 @@ parse_codes <- function(codes)
 {
     ## Create a list that will hold all the results
     results <- list()
-
+    
     if ("categories" %in% names(codes))
     {
         ## It is important that the categories field is

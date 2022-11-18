@@ -6,6 +6,7 @@ navbar:
   structure:
     right: search
     left:
+    - intro
     - design
     - guides
     - reference
@@ -31,8 +32,6 @@ navbar:
       menu:
       - text: Installing ICDB
         href: articles/installation.html
-      - text: Getting Started
-        href: articles/getting-started.html
       - text: Connection Setup
         href: articles/connect.html
       - text: Using the Cache
@@ -55,7 +54,7 @@ navbar:
       - text: Testing Data
         href: articles/testing-data.html
       - text: Development
-      - text: CI/CD
+      - text: Contributing
         href: articles/cicd.html
       - text: Style Guide
         href: articles/style-guide.html
