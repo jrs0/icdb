@@ -9,7 +9,7 @@ NULL
 ##'
 ##' @title Parse ICD-10 codes 
 ##' @param path The input file path (tab separated)
-##' @param out The filename of the output definition file
+##' @param output The filename of the output definition file
 parse_icd10 <- function(path, output = "icd10.yaml")
 {
     ## Read the file, and split the code based on the .

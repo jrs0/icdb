@@ -7,7 +7,7 @@
 parse_codes(codes)
 }
 \arguments{
-\item{codes}{The parsed codes definition list of lists}
+\item{codes}{The input codes definition list of lists}
 }
 \value{
 A named character vector containing the codes

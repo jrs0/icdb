@@ -30,7 +30,7 @@ Imports:
     RSQLite,
     stringr,
     tibble,
-    tidyselect,
+    tidyr,
     utils,
     yaml
 Suggests: 
