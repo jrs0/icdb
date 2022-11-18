@@ -21,9 +21,6 @@ setMethod("show", "mapped_server", function(object) {
     print(object)
 })
 
-## Deliberate mistake
-function
-
 make_mapped_table_getter <- function(srv, source_database, source_table, table)
 {
     force(srv)
