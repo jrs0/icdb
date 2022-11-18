@@ -894,13 +894,10 @@ categories:
         - A329
   A33:
     docs: Tetanus neonatorum
-    categories: {}
   A34:
     docs: Obstetrical tetanus
-    categories: {}
   A35:
     docs: Other tetanus
-    categories: {}
   A36:
     docs: Diphtheria
     categories:
@@ -959,7 +956,6 @@ categories:
         - A379
   A38:
     docs: Scarlet fever
-    categories: {}
   A39:
     docs: Meningococcal infection
     categories:
@@ -1160,7 +1156,6 @@ categories:
         - A449
   A46:
     docs: Erysipelas
-    categories: {}
   A48:
     docs: Other bacterial diseases, not elsewhere classified
     categories:
@@ -1416,7 +1411,6 @@ categories:
         - A549
   A55:
     docs: Chlamydial lymphogranuloma (venereum)
-    categories: {}
   A56:
     docs: Other sexually transmitted chlamydial diseases
     categories:
@@ -1452,10 +1446,8 @@ categories:
         - A568
   A57:
     docs: Chancroid
-    categories: {}
   A58:
     docs: Granuloma inguinale
-    categories: {}
   A59:
     docs: Trichomoniasis
     categories:
@@ -1507,10 +1499,8 @@ categories:
         - A638
   A64:
     docs: Unspecified sexually transmitted disease
-    categories: {}
   A65:
     docs: Nonvenereal syphilis
-    categories: {}
   A66:
     docs: Yaws
     categories:
@@ -1640,7 +1630,6 @@ categories:
         - A699
   A70:
     docs: Chlamydia psittaci infection
-    categories: {}
   A71:
     docs: Trachoma
     categories:
@@ -1740,7 +1729,6 @@ categories:
         - A779
   A78:
     docs: Q fever
-    categories: {}
   A79:
     docs: Other rickettsioses
     categories:
@@ -1939,7 +1927,6 @@ categories:
         - A858
   A86:
     docs: Unspecified viral encephalitis
-    categories: {}
   A87:
     docs: Viral meningitis
     categories:
@@ -1988,7 +1975,6 @@ categories:
         - A888
   A89:
     docs: Unspecified viral infection of central nervous system
-    categories: {}
   A92:
     docs: Other mosquito-borne viral fevers
     categories:
@@ -2052,7 +2038,6 @@ categories:
         - A938
   A94:
     docs: Unspecified arthropod-borne viral fever
-    categories: {}
   A95:
     docs: Yellow fever
     categories:
@@ -2162,7 +2147,6 @@ categories:
         - A988
   A99:
     docs: Unspecified viral haemorrhagic fever
-    categories: {}
   B00:
     docs: Herpesviral [herpes simplex] infections
     categories:
@@ -2279,10 +2263,8 @@ categories:
         - B029
   B03:
     docs: Smallpox
-    categories: {}
   B04:
     docs: Monkeypox
-    categories: {}
   B05:
     docs: Measles
     categories:
@@ -2341,7 +2323,6 @@ categories:
         - B069
   B07:
     docs: Viral warts
-    categories: {}
   B08:
     docs: Other viral infections characterized by skin and mucous membrane lesions,
       not elsewhere classified
@@ -2384,7 +2365,6 @@ categories:
         - B088
   B09:
     docs: Unspecified viral infection characterized by skin and mucous membrane lesions
-    categories: {}
   B15:
     docs: Acute hepatitis A
     categories:
@@ -2633,7 +2613,6 @@ categories:
         - B238
   B24:
     docs: Unspecified human immunodeficiency virus [HIV] disease
-    categories: {}
   B25:
     docs: Cytomegaloviral disease
     categories:
@@ -3326,7 +3305,6 @@ categories:
         - B488
   B49:
     docs: Unspecified mycosis
-    categories: {}
   B50:
     docs: Plasmodium falciparum malaria
     categories:
@@ -3401,7 +3379,6 @@ categories:
         - B538
   B54:
     docs: Unspecified malaria
-    categories: {}
   B55:
     docs: Leishmaniasis
     categories:
@@ -3511,7 +3488,6 @@ categories:
         - B589
   B59:
     docs: Pneumocystosis
-    categories: {}
   B60:
     docs: Other protozoal diseases, not elsewhere classified
     categories:
@@ -3537,7 +3513,6 @@ categories:
         - B608
   B64:
     docs: Unspecified protozoal disease
-    categories: {}
   B65:
     docs: Schistosomiasis [bilharziasis]
     categories:
@@ -3746,10 +3721,8 @@ categories:
         - B719
   B72:
     docs: Dracunculiasis
-    categories: {}
   B73:
     docs: Onchocerciasis
-    categories: {}
   B74:
     docs: Filariasis
     categories:
@@ -3790,7 +3763,6 @@ categories:
         - B749
   B75:
     docs: Trichinellosis
-    categories: {}
   B76:
     docs: Hookworm diseases
     categories:
@@ -3857,10 +3829,8 @@ categories:
         - B789
   B79:
     docs: Trichuriasis
-    categories: {}
   B80:
     docs: Enterobiasis
-    categories: {}
   B81:
     docs: Other intestinal helminthiases, not elsewhere classified
     categories:
@@ -3975,7 +3945,6 @@ categories:
         - B854
   B86:
     docs: Scabies
-    categories: {}
   B87:
     docs: Myiasis
     categories:
@@ -4049,7 +4018,6 @@ categories:
         - B889
   B89:
     docs: Unspecified parasitic disease
-    categories: {}
   B90:
     docs: Sequelae of tuberculosis
     categories:
@@ -4080,10 +4048,8 @@ categories:
         - B909
   B91:
     docs: Sequelae of poliomyelitis
-    categories: {}
   B92:
     docs: Sequelae of leprosy
-    categories: {}
   B94:
     docs: Sequelae of other and unspecified infectious and parasitic diseases
     categories:
@@ -4291,7 +4257,6 @@ categories:
         - B981
   B99:
     docs: Other and unspecified infectious diseases
-    categories: {}
   C00:
     docs: Malignant neoplasm of lip
     categories:
@@ -4342,7 +4307,6 @@ categories:
         - C009
   C01:
     docs: Malignant neoplasm of base of tongue
-    categories: {}
   C02:
     docs: Malignant neoplasm of other and unspecified parts of tongue
     categories:
@@ -4481,7 +4445,6 @@ categories:
         - C069
   C07:
     docs: Malignant neoplasm of parotid gland
-    categories: {}
   C08:
     docs: Malignant neoplasm of other and unspecified major salivary glands
     categories:
@@ -4601,7 +4564,6 @@ categories:
         - C119
   C12:
     docs: Malignant neoplasm of piriform sinus
-    categories: {}
   C13:
     docs: Malignant neoplasm of hypopharynx
     categories:
@@ -4828,10 +4790,8 @@ categories:
         - C189
   C19:
     docs: Malignant neoplasm of rectosigmoid junction
-    categories: {}
   C20:
     docs: Malignant neoplasm of rectum
-    categories: {}
   C21:
     docs: Malignant neoplasm of anus and anal canal
     categories:
@@ -4895,7 +4855,6 @@ categories:
         - C229
   C23:
     docs: Malignant neoplasm of gallbladder
-    categories: {}
   C24:
     docs: Malignant neoplasm of other and unspecified parts of biliary tract
     categories:
@@ -5066,7 +5025,6 @@ categories:
         - C329
   C33:
     docs: Malignant neoplasm of trachea
-    categories: {}
   C34:
     docs: Malignant neoplasm of bronchus and lung
     categories:
@@ -5102,7 +5060,6 @@ categories:
         - C349
   C37:
     docs: Malignant neoplasm of thymus
-    categories: {}
   C38:
     docs: Malignant neoplasm of heart, mediastinum and pleura
     categories:
@@ -5604,7 +5561,6 @@ categories:
         - C519
   C52:
     docs: Malignant neoplasm of vagina
-    categories: {}
   C53:
     docs: Malignant neoplasm of cervix uteri
     categories:
@@ -5663,10 +5619,8 @@ categories:
         - C549
   C55:
     docs: Malignant neoplasm of uterus, part unspecified
-    categories: {}
   C56:
     docs: Malignant neoplasm of ovary
-    categories: {}
   C57:
     docs: Malignant neoplasm of other and unspecified female genital organs
     categories:
@@ -5712,7 +5666,6 @@ categories:
         - C579
   C58:
     docs: Malignant neoplasm of placenta
-    categories: {}
   C60:
     docs: Malignant neoplasm of penis
     categories:
@@ -5743,7 +5696,6 @@ categories:
         - C609
   C61:
     docs: Malignant neoplasm of prostate
-    categories: {}
   C62:
     docs: Malignant neoplasm of testis
     categories:
@@ -5797,13 +5749,10 @@ categories:
         - C639
   C64:
     docs: Malignant neoplasm of kidney, except renal pelvis
-    categories: {}
   C65:
     docs: Malignant neoplasm of renal pelvis
-    categories: {}
   C66:
     docs: Malignant neoplasm of ureter
-    categories: {}
   C67:
     docs: Malignant neoplasm of bladder
     categories:
@@ -6046,7 +5995,6 @@ categories:
         - C729
   C73:
     docs: Malignant neoplasm of thyroid gland
-    categories: {}
   C74:
     docs: Malignant neoplasm of adrenal gland
     categories:
@@ -6835,7 +6783,6 @@ categories:
         - C969
   C97:
     docs: Malignant neoplasms of independent (primary) multiple sites
-    categories: {}
   D00:
     docs: Carcinoma in situ of oral cavity, oesophagus and stomach
     categories:
@@ -7667,7 +7614,6 @@ categories:
         - D239
   D24:
     docs: Benign neoplasm of breast
-    categories: {}
   D25:
     docs: Leiomyoma of uterus
     categories:
@@ -7716,7 +7662,6 @@ categories:
         - D269
   D27:
     docs: Benign neoplasm of ovary
-    categories: {}
   D28:
     docs: Benign neoplasm of other and unspecified female genital organs
     categories:
@@ -7922,7 +7867,6 @@ categories:
         - D339
   D34:
     docs: Benign neoplasm of thyroid gland
-    categories: {}
   D35:
     docs: Benign neoplasm of other and unspecified endocrine glands
     categories:
@@ -8291,7 +8235,6 @@ categories:
         - D449
   D45:
     docs: Polycythaemia vera
-    categories: {}
   D46:
     docs: Myelodysplastic syndromes
     categories:
@@ -8773,7 +8716,6 @@ categories:
         - D619
   D62:
     docs: Acute posthaemorrhagic anaemia
-    categories: {}
   D63:
     docs: Anaemia in chronic diseases classified elsewhere
     categories:
@@ -8827,13 +8769,10 @@ categories:
         - D649
   D65:
     docs: Disseminated intravascular coagulation [defibrination syndrome]
-    categories: {}
   D66:
     docs: Hereditary factor VIII deficiency
-    categories: {}
   D67:
     docs: Hereditary factor IX deficiency
-    categories: {}
   D68:
     docs: Other coagulation defects
     categories:
@@ -8932,10 +8871,8 @@ categories:
         - D699
   D70:
     docs: Agranulocytosis
-    categories: {}
   D71:
     docs: Functional disorders of polymorphonuclear neutrophils
-    categories: {}
   D72:
     docs: Other disorders of white blood cells
     categories:
@@ -9065,7 +9002,6 @@ categories:
   D77:
     docs: Other disorders of blood and blood-forming organs in diseases classified
       elsewhere
-    categories: {}
   D80:
     docs: Immunodeficiency with predominantly antibody defects
     categories:
@@ -9379,7 +9315,6 @@ categories:
         - E018
   E02:
     docs: Subclinical iodine-deficiency hypothyroidism
-    categories: {}
   E03:
     docs: Other hypothyroidism
     categories:
@@ -9822,7 +9757,6 @@ categories:
         - E149
   E15:
     docs: Nondiabetic hypoglycaemic coma
-    categories: {}
   E16:
     docs: Other disorders of pancreatic internal secretion
     categories:
@@ -10288,16 +10222,12 @@ categories:
         - E358
   E40:
     docs: Kwashiorkor
-    categories: {}
   E41:
     docs: Nutritional marasmus
-    categories: {}
   E42:
     docs: Marasmic kwashiorkor
-    categories: {}
   E43:
     docs: Unspecified severe protein-energy malnutrition
-    categories: {}
   E44:
     docs: Protein-energy malnutrition of moderate and mild degree
     categories:
@@ -10313,10 +10243,8 @@ categories:
         - E441
   E45:
     docs: Retarded development following protein-energy malnutrition
-    categories: {}
   E46:
     docs: Unspecified protein-energy malnutrition
-    categories: {}
   E50:
     docs: Vitamin A deficiency
     categories:
@@ -10395,7 +10323,6 @@ categories:
         - E519
   E52:
     docs: Niacin deficiency [pellagra]
-    categories: {}
   E53:
     docs: Deficiency of other B group vitamins
     categories:
@@ -10421,7 +10348,6 @@ categories:
         - E539
   E54:
     docs: Ascorbic acid deficiency
-    categories: {}
   E55:
     docs: Vitamin D deficiency
     categories:
@@ -10460,13 +10386,10 @@ categories:
         - E569
   E58:
     docs: Dietary calcium deficiency
-    categories: {}
   E59:
     docs: Dietary selenium deficiency
-    categories: {}
   E60:
     docs: Dietary zinc deficiency
-    categories: {}
   E61:
     docs: Deficiency of other nutrient elements
     categories:
@@ -10578,7 +10501,6 @@ categories:
         - E649
   E65:
     docs: Localized adiposity
-    categories: {}
   E66:
     docs: Obesity
     categories:
@@ -10637,7 +10559,6 @@ categories:
         - E678
   E68:
     docs: Sequelae of hyperalimentation
-    categories: {}
   E70:
     docs: Disorders of aromatic amino-acid metabolism
     categories:
@@ -11113,7 +11034,6 @@ categories:
         - E859
   E86:
     docs: Volume depletion
-    categories: {}
   E87:
     docs: Other disorders of fluid, electrolyte and acid-base balance
     categories:
@@ -11245,7 +11165,6 @@ categories:
         - E899
   E90:
     docs: Nutritional and metabolic disorders in diseases classified elsewhere
-    categories: {}
   F00:
     docs: Dementia in Alzheimer disease
     categories:
@@ -11337,11 +11256,9 @@ categories:
         - F028
   F03:
     docs: Unspecified dementia
-    categories: {}
   F04:
     docs: Organic amnesic syndrome, not induced by alcohol and other psychoactive
       substances
-    categories: {}
   F05:
     docs: Delirium, not induced by alcohol and other psychoactive substances
     categories:
@@ -11453,7 +11370,6 @@ categories:
         - F079
   F09:
     docs: Unspecified organic or symptomatic mental disorder
-    categories: {}
   F10:
     docs: Mental and behavioural disorders due to use of alcohol
     categories:
@@ -12056,7 +11972,6 @@ categories:
         - F209
   F21:
     docs: Schizotypal disorder
-    categories: {}
   F22:
     docs: Persistent delusional disorders
     categories:
@@ -12110,7 +12025,6 @@ categories:
         - F239
   F24:
     docs: Induced delusional disorder
-    categories: {}
   F25:
     docs: Schizoaffective disorders
     categories:
@@ -12141,10 +12055,8 @@ categories:
         - F259
   F28:
     docs: Other nonorganic psychotic disorders
-    categories: {}
   F29:
     docs: Unspecified nonorganic psychosis
-    categories: {}
   F30:
     docs: Manic episode
     categories:
@@ -12345,7 +12257,6 @@ categories:
         - F388
   F39:
     docs: Unspecified mood [affective] disorder
-    categories: {}
   F40:
     docs: Phobic anxiety disorders
     categories:
@@ -12746,14 +12657,11 @@ categories:
   F54:
     docs: Psychological and behavioural factors associated with disorders or diseases
       classified elsewhere
-    categories: {}
   F55:
     docs: Abuse of non-dependence-producing substances
-    categories: {}
   F59:
     docs: Unspecified behavioural syndromes associated with physiological disturbances
       and physical factors
-    categories: {}
   F60:
     docs: Specific personality disorders
     categories:
@@ -12809,7 +12717,6 @@ categories:
         - F609
   F61:
     docs: Mixed and other personality disorders
-    categories: {}
   F62:
     docs: Enduring personality changes, not attributable to brain damage and disease
     categories:
@@ -12992,7 +12899,6 @@ categories:
         - F688
   F69:
     docs: Unspecified disorder of adult personality and behaviour
-    categories: {}
   F70:
     docs: Mild mental retardation
     categories:
@@ -13199,10 +13105,8 @@ categories:
         - F819
   F82:
     docs: Specific developmental disorder of motor function
-    categories: {}
   F83:
     docs: Mixed specific developmental disorders
-    categories: {}
   F84:
     docs: Pervasive developmental disorders
     categories:
@@ -13249,10 +13153,8 @@ categories:
         - F849
   F88:
     docs: Other disorders of psychological development
-    categories: {}
   F89:
     docs: Unspecified disorder of psychological development
-    categories: {}
   F90:
     docs: Hyperkinetic disorders
     categories:
@@ -13469,7 +13371,6 @@ categories:
         - F989
   F99:
     docs: Mental disorder, not otherwise specified
-    categories: {}
   G00:
     docs: Bacterial meningitis, not elsewhere classified
     categories:
@@ -13505,7 +13406,6 @@ categories:
         - G009
   G01:
     docs: Meningitis in bacterial diseases classified elsewhere
-    categories: {}
   G02:
     docs: Meningitis in other infectious and parasitic diseases classified elsewhere
     categories:
@@ -13629,16 +13529,12 @@ categories:
   G07:
     docs: Intracranial and intraspinal abscess and granuloma in diseases classified
       elsewhere
-    categories: {}
   G08:
     docs: Intracranial and intraspinal phlebitis and thrombophlebitis
-    categories: {}
   G09:
     docs: Sequelae of inflammatory diseases of central nervous system
-    categories: {}
   G10:
     docs: Huntington disease
-    categories: {}
   G11:
     docs: Hereditary ataxia
     categories:
@@ -13733,10 +13629,8 @@ categories:
         - G138
   G14:
     docs: Postpolio syndrome
-    categories: {}
   G20:
     docs: Parkinson disease
-    categories: {}
   G21:
     docs: Secondary parkinsonism
     categories:
@@ -13777,7 +13671,6 @@ categories:
         - G219
   G22:
     docs: Parkinsonism in diseases classified elsewhere
-    categories: {}
   G23:
     docs: Other degenerative diseases of basal ganglia
     categories:
@@ -13904,7 +13797,6 @@ categories:
         - G259
   G26:
     docs: Extrapyramidal and movement disorders in diseases classified elsewhere
-    categories: {}
   G30:
     docs: Alzheimer disease
     categories:
@@ -13973,7 +13865,6 @@ categories:
         - G328
   G35:
     docs: Multiple sclerosis
-    categories: {}
   G36:
     docs: Other acute disseminated demyelination
     categories:
@@ -14775,7 +14666,6 @@ categories:
         - G638
   G64:
     docs: Other disorders of peripheral nervous system
-    categories: {}
   G70:
     docs: Myasthenia gravis and other myoneural disorders
     categories:
@@ -15118,7 +15008,6 @@ categories:
         - G919
   G92:
     docs: Toxic encephalopathy
-    categories: {}
   G93:
     docs: Other disorders of brain
     categories:
@@ -15276,7 +15165,6 @@ categories:
         - G979
   G98:
     docs: Other disorders of nervous system, not elsewhere classified
-    categories: {}
   G99:
     docs: Other disorders of nervous system in diseases classified elsewhere
     categories:
@@ -16372,7 +16260,6 @@ categories:
         - H458
   H46:
     docs: Optic neuritis
-    categories: {}
   H47:
     docs: Other disorders of optic [2nd] nerve and visual pathways
     categories:
@@ -16686,7 +16573,6 @@ categories:
         - H549
   H55:
     docs: Nystagmus and other irregular eye movements
-    categories: {}
   H57:
     docs: Other disorders of eye and adnexa
     categories:
@@ -17001,7 +16887,6 @@ categories:
         - H709
   H71:
     docs: Cholesteatoma of middle ear
-    categories: {}
   H72:
     docs: Perforation of tympanic membrane
     categories:
@@ -17173,7 +17058,6 @@ categories:
         - H819
   H82:
     docs: Vertiginous syndromes in diseases classified elsewhere
-    categories: {}
   H83:
     docs: Other diseases of inner ear
     categories:
@@ -17380,7 +17264,6 @@ categories:
         - H959
   I00:
     docs: Rheumatic fever without mention of heart involvement
-    categories: {}
   I01:
     docs: Rheumatic fever with heart involvement
     categories:
@@ -17569,7 +17452,6 @@ categories:
         - I099
   I10:
     docs: Essential (primary) hypertension
-    categories: {}
   I11:
     docs: Hypertensive heart disease
     categories:
@@ -18113,7 +17995,6 @@ categories:
         - I379
   I38:
     docs: Endocarditis, valve unspecified
-    categories: {}
   I39:
     docs: Endocarditis and heart valve disorders in diseases classified elsewhere
     categories:
@@ -18738,7 +18619,6 @@ categories:
         - I639
   I64:
     docs: Stroke, not specified as haemorrhage or infarction
-    categories: {}
   I65:
     docs: Occlusion and stenosis of precerebral arteries, not resulting in cerebral
       infarction
@@ -19291,7 +19171,6 @@ categories:
         - I809
   I81:
     docs: Portal vein thrombosis
-    categories: {}
   I82:
     docs: Other venous embolism and thrombosis
     categories:
@@ -19558,10 +19437,8 @@ categories:
         - I988
   I99:
     docs: Other and unspecified disorders of circulatory system
-    categories: {}
   J00:
     docs: Acute nasopharyngitis [common cold]
-    categories: {}
   J01:
     docs: Acute sinusitis
     categories:
@@ -19687,7 +19564,6 @@ categories:
         - J069
   J09:
     docs: Influenza due to identified zoonotic or pandemic influenza virus
-    categories: {}
   J10:
     docs: Influenza due to identified seasonal influenza virus
     categories:
@@ -19760,10 +19636,8 @@ categories:
         - J129
   J13:
     docs: Pneumonia due to Streptococcus pneumoniae
-    categories: {}
   J14:
     docs: Pneumonia due to Haemophilus influenzae
-    categories: {}
   J15:
     docs: Bacterial pneumonia, not elsewhere classified
     categories:
@@ -19964,7 +19838,6 @@ categories:
         - J219
   J22:
     docs: Unspecified acute lower respiratory infection
-    categories: {}
   J30:
     docs: Vasomotor and allergic rhinitis
     categories:
@@ -20135,7 +20008,6 @@ categories:
         - J359
   J36:
     docs: Peritonsillar abscess
-    categories: {}
   J37:
     docs: Chronic laryngitis and laryngotracheitis
     categories:
@@ -20227,7 +20099,6 @@ categories:
         - J399
   J40:
     docs: Bronchitis, not specified as acute or chronic
-    categories: {}
   J41:
     docs: Simple and mucopurulent chronic bronchitis
     categories:
@@ -20248,7 +20119,6 @@ categories:
         - J418
   J42:
     docs: Unspecified chronic bronchitis
-    categories: {}
   J43:
     docs: Emphysema
     categories:
@@ -20325,16 +20195,12 @@ categories:
         - J459
   J46:
     docs: Status asthmaticus
-    categories: {}
   J47:
     docs: Bronchiectasis
-    categories: {}
   J60:
     docs: Coalworker pneumoconiosis
-    categories: {}
   J61:
     docs: Pneumoconiosis due to asbestos and other mineral fibres
-    categories: {}
   J62:
     docs: Pneumoconiosis due to dust containing silica
     categories:
@@ -20388,10 +20254,8 @@ categories:
         - J638
   J64:
     docs: Unspecified pneumoconiosis
-    categories: {}
   J65:
     docs: Pneumoconiosis associated with tuberculosis
-    categories: {}
   J66:
     docs: Airway disease due to specific organic dust
     categories:
@@ -20568,13 +20432,10 @@ categories:
         - J709
   J80:
     docs: Adult respiratory distress syndrome
-    categories: {}
   J81:
     docs: Pulmonary oedema
-    categories: {}
   J82:
     docs: Pulmonary eosinophilia, not elsewhere classified
-    categories: {}
   J84:
     docs: Other interstitial pulmonary diseases
     categories:
@@ -20636,10 +20497,8 @@ categories:
         - J869
   J90:
     docs: Pleural effusion, not elsewhere classified
-    categories: {}
   J91:
     docs: Pleural effusion in conditions classified elsewhere
-    categories: {}
   J92:
     docs: Pleural plaque
     categories:
@@ -21468,7 +21327,6 @@ categories:
         - K149
   K20:
     docs: Oesophagitis
-    categories: {}
   K21:
     docs: Gastro-oesophageal reflux disease
     categories:
@@ -21800,7 +21658,6 @@ categories:
         - K299
   K30:
     docs: Functional dyspepsia
-    categories: {}
   K31:
     docs: Other diseases of stomach and duodenum
     categories:
@@ -21874,10 +21731,8 @@ categories:
         - K358
   K36:
     docs: Other appendicitis
-    categories: {}
   K37:
     docs: Unspecified appendicitis
-    categories: {}
   K38:
     docs: Other diseases of appendix
     categories:
@@ -23257,7 +23112,6 @@ categories:
         - K938
   L00:
     docs: Staphylococcal scalded skin syndrome
-    categories: {}
   L01:
     docs: Impetigo
     categories:
@@ -23535,7 +23389,6 @@ categories:
         - L139
   L14:
     docs: Bullous disorders in diseases classified elsewhere
-    categories: {}
   L20:
     docs: Atopic dermatitis
     categories:
@@ -23579,7 +23432,6 @@ categories:
         - L219
   L22:
     docs: Diaper [napkin] dermatitis
-    categories: {}
   L23:
     docs: Allergic contact dermatitis
     categories:
@@ -23731,7 +23583,6 @@ categories:
         - L259
   L26:
     docs: Exfoliative dermatitis
-    categories: {}
   L27:
     docs: Dermatitis due to substances taken internally
     categories:
@@ -23937,7 +23788,6 @@ categories:
         - L419
   L42:
     docs: Pityriasis rosea
-    categories: {}
   L43:
     docs: Lichen planus
     categories:
@@ -24011,7 +23861,6 @@ categories:
         - L449
   L45:
     docs: Papulosquamous disorders in diseases classified elsewhere
-    categories: {}
   L50:
     docs: Urticaria
     categories:
@@ -24090,7 +23939,6 @@ categories:
         - L519
   L52:
     docs: Erythema nodosum
-    categories: {}
   L53:
     docs: Other erythematous conditions
     categories:
@@ -24697,7 +24545,6 @@ categories:
         - L759
   L80:
     docs: Vitiligo
-    categories: {}
   L81:
     docs: Other disorders of pigmentation
     categories:
@@ -24753,13 +24600,10 @@ categories:
         - L819
   L82:
     docs: Seborrhoeic keratosis
-    categories: {}
   L83:
     docs: Acanthosis nigricans
-    categories: {}
   L84:
     docs: Corns and callosities
-    categories: {}
   L85:
     docs: Other epidermal thickening
     categories:
@@ -24795,7 +24639,6 @@ categories:
         - L859
   L86:
     docs: Keratoderma in diseases classified elsewhere
-    categories: {}
   L87:
     docs: Transepidermal elimination disorders
     categories:
@@ -24826,7 +24669,6 @@ categories:
         - L879
   L88:
     docs: Pyoderma gangrenosum
-    categories: {}
   L89:
     docs: Decubitus ulcer and pressure area
     categories:
@@ -25045,7 +24887,6 @@ categories:
         - L959
   L97:
     docs: Ulcer of lower limb, not elsewhere classified
-    categories: {}
   L98:
     docs: Other disorders of skin and subcutaneous tissue, not elsewhere classified
     categories:
@@ -44915,7 +44756,6 @@ categories:
         - N088
   N10:
     docs: Acute tubulo-interstitial nephritis
-    categories: {}
   N11:
     docs: Chronic tubulo-interstitial nephritis
     categories:
@@ -44941,7 +44781,6 @@ categories:
         - N119
   N12:
     docs: Tubulo-interstitial nephritis, not specified as acute or chronic
-    categories: {}
   N13:
     docs: Obstructive and reflux uropathy
     categories:
@@ -45149,7 +44988,6 @@ categories:
         - N189
   N19:
     docs: Unspecified kidney failure
-    categories: {}
   N20:
     docs: Calculus of kidney and ureter
     categories:
@@ -45211,7 +45049,6 @@ categories:
         - N228
   N23:
     docs: Unspecified renal colic
-    categories: {}
   N25:
     docs: Disorders resulting from impaired renal tubular function
     categories:
@@ -45237,7 +45074,6 @@ categories:
         - N259
   N26:
     docs: Unspecified contracted kidney
-    categories: {}
   N27:
     docs: Small kidney of unknown cause
     categories:
@@ -45547,7 +45383,6 @@ categories:
         - N399
   N40:
     docs: Hyperplasia of prostate
-    categories: {}
   N41:
     docs: Inflammatory diseases of prostate
     categories:
@@ -45644,7 +45479,6 @@ categories:
         - N434
   N44:
     docs: Torsion of testis
-    categories: {}
   N45:
     docs: Orchitis and epididymitis
     categories:
@@ -45660,10 +45494,8 @@ categories:
         - N459
   N46:
     docs: Male infertility
-    categories: {}
   N47:
     docs: Redundant prepuce, phimosis and paraphimosis
-    categories: {}
   N48:
     docs: Other disorders of penis
     categories:
@@ -45826,13 +45658,10 @@ categories:
         - N609
   N61:
     docs: Inflammatory disorders of breast
-    categories: {}
   N62:
     docs: Hypertrophy of breast
-    categories: {}
   N63:
     docs: Unspecified lump in breast
-    categories: {}
   N64:
     docs: Other disorders of breast
     categories:
@@ -45914,7 +45743,6 @@ categories:
         - N719
   N72:
     docs: Inflammatory disease of cervix uteri
-    categories: {}
   N73:
     docs: Other female pelvic inflammatory diseases
     categories:
@@ -46364,7 +46192,6 @@ categories:
         - N859
   N86:
     docs: Erosion and ectropion of cervix uteri
-    categories: {}
   N87:
     docs: Dysplasia of cervix uteri
     categories:
@@ -46707,7 +46534,6 @@ categories:
         - N959
   N96:
     docs: Habitual aborter
-    categories: {}
   N97:
     docs: Female infertility
     categories:
@@ -47258,7 +47084,6 @@ categories:
         - O109
   O11:
     docs: Pre-eclampsia superimposed on chronic hypertension
-    categories: {}
   O12:
     docs: Gestational [pregnancy-induced] oedema and proteinuria without hypertension
     categories:
@@ -47279,7 +47104,6 @@ categories:
         - O122
   O13:
     docs: Gestational [pregnancy-induced] hypertension
-    categories: {}
   O14:
     docs: Pre-eclampsia
     categories:
@@ -47328,7 +47152,6 @@ categories:
         - O159
   O16:
     docs: Unspecified maternal hypertension
-    categories: {}
   O20:
     docs: Haemorrhage in early pregnancy
     categories:
@@ -47492,7 +47315,6 @@ categories:
         - O249
   O25:
     docs: Malnutrition in pregnancy
-    categories: {}
   O26:
     docs: Maternal care for other conditions predominantly related to pregnancy
     categories:
@@ -47954,7 +47776,6 @@ categories:
         - O369
   O40:
     docs: Polyhydramnios
-    categories: {}
   O41:
     docs: Other disorders of amniotic fluid and membranes
     categories:
@@ -48098,7 +47919,6 @@ categories:
         - O479
   O48:
     docs: Prolonged pregnancy
-    categories: {}
   O60:
     docs: Preterm labour and delivery
     categories:
@@ -48808,7 +48628,6 @@ categories:
         - O849
   O85:
     docs: Puerperal sepsis
-    categories: {}
   O86:
     docs: Other puerperal infections
     categories:
@@ -49057,10 +48876,8 @@ categories:
         - O927
   O94:
     docs: Sequelae of complication of pregnancy, childbirth and the puerperium
-    categories: {}
   O95:
     docs: Obstetric death of unspecified cause
-    categories: {}
   O96:
     docs: Death from any obstetric cause occurring more than 42 days but less than
       one year after delivery
@@ -50201,7 +50018,6 @@ categories:
         - P379
   P38:
     docs: Omphalitis of newborn with or without mild haemorrhage
-    categories: {}
   P39:
     docs: Other infections specific to the perinatal period
     categories:
@@ -50354,7 +50170,6 @@ categories:
         - P529
   P53:
     docs: Haemorrhagic disease of fetus and newborn
-    categories: {}
   P54:
     docs: Other neonatal haemorrhages
     categories:
@@ -50536,7 +50351,6 @@ categories:
         - P599
   P60:
     docs: Disseminated intravascular coagulation of fetus and newborn
-    categories: {}
   P61:
     docs: Other perinatal haematological disorders
     categories:
@@ -50736,7 +50550,6 @@ categories:
         - P749
   P75:
     docs: Meconium ileus in cystic fibrosis
-    categories: {}
   P76:
     docs: Other intestinal obstruction of newborn
     categories:
@@ -50767,7 +50580,6 @@ categories:
         - P769
   P77:
     docs: Necrotizing enterocolitis of fetus and newborn
-    categories: {}
   P78:
     docs: Other perinatal digestive system disorders
     categories:
@@ -50887,7 +50699,6 @@ categories:
         - P839
   P90:
     docs: Convulsions of newborn
-    categories: {}
   P91:
     docs: Other disturbances of cerebral status of newborn
     categories:
@@ -50986,7 +50797,6 @@ categories:
         - P929
   P93:
     docs: Reactions and intoxications due to drugs administered to fetus and newborn
-    categories: {}
   P94:
     docs: Disorders of muscle tone of newborn
     categories:
@@ -51017,7 +50827,6 @@ categories:
         - P949
   P95:
     docs: Fetal death of unspecified cause
-    categories: {}
   P96:
     docs: Other conditions originating in the perinatal period
     categories:
@@ -51109,7 +50918,6 @@ categories:
         - Q019
   Q02:
     docs: Microcephaly
-    categories: {}
   Q03:
     docs: Congenital hydrocephalus
     categories:
@@ -54463,7 +54271,6 @@ categories:
         - R012
   R02:
     docs: Gangrene, not elsewhere classified
-    categories: {}
   R03:
     docs: Abnormal blood-pressure reading, without diagnosis
     categories:
@@ -54507,7 +54314,6 @@ categories:
         - R049
   R05:
     docs: Cough
-    categories: {}
   R06:
     docs: Abnormalities of breathing
     categories:
@@ -54643,19 +54449,14 @@ categories:
         - R104
   R11:
     docs: Nausea and vomiting
-    categories: {}
   R12:
     docs: Heartburn
-    categories: {}
   R13:
     docs: Dysphagia
-    categories: {}
   R14:
     docs: Flatulence and related conditions
-    categories: {}
   R15:
     docs: Faecal incontinence
-    categories: {}
   R16:
     docs: Hepatomegaly and splenomegaly, not elsewhere classified
     categories:
@@ -54676,10 +54477,8 @@ categories:
         - R162
   R17:
     docs: Unspecified jaundice
-    categories: {}
   R18:
     docs: Ascites
-    categories: {}
   R19:
     docs: Other symptoms and signs involving the digestive system and abdomen
     categories:
@@ -54754,7 +54553,6 @@ categories:
         - R208
   R21:
     docs: Rash and other nonspecific skin eruption
-    categories: {}
   R22:
     docs: Localized swelling, mass and lump of skin and subcutaneous tissue
     categories:
@@ -54954,22 +54752,16 @@ categories:
         - R309
   R31:
     docs: Unspecified haematuria
-    categories: {}
   R32:
     docs: Unspecified urinary incontinence
-    categories: {}
   R33:
     docs: Retention of urine
-    categories: {}
   R34:
     docs: Anuria and oliguria
-    categories: {}
   R35:
     docs: Polyuria
-    categories: {}
   R36:
     docs: Urethral discharge
-    categories: {}
   R39:
     docs: Other symptoms and signs involving the urinary system
     categories:
@@ -55042,7 +54834,6 @@ categories:
         - R418
   R42:
     docs: Dizziness and giddiness
-    categories: {}
   R43:
     docs: Disturbances of smell and taste
     categories:
@@ -55275,7 +55066,6 @@ categories:
         - R509
   R51:
     docs: Headache
-    categories: {}
   R52:
     docs: Pain, not elsewhere classified
     categories:
@@ -55301,13 +55091,10 @@ categories:
         - R529
   R53:
     docs: Malaise and fatigue
-    categories: {}
   R54:
     docs: Senility
-    categories: {}
   R55:
     docs: Syncope and collapse
-    categories: {}
   R56:
     docs: Convulsions, not elsewhere classified
     categories:
@@ -55351,7 +55138,6 @@ categories:
         - R579
   R58:
     docs: Haemorrhage, not elsewhere classified
-    categories: {}
   R59:
     docs: Enlarged lymph nodes
     categories:
@@ -55469,7 +55255,6 @@ categories:
         - R638
   R64:
     docs: Cachexia
-    categories: {}
   R65:
     docs: Systemic Inflammatory Response Syndrome [SIRS]
     categories:
@@ -55532,7 +55317,6 @@ categories:
         - R688
   R69:
     docs: Unknown and unspecified causes of morbidity
-    categories: {}
   R70:
     docs: Elevated erythrocyte sedimentation rate and abnormality of plasma viscosity
     categories:
@@ -55548,10 +55332,8 @@ categories:
         - R701
   R71:
     docs: Abnormality of red blood cells
-    categories: {}
   R72:
     docs: Abnormality of white blood cells, not elsewhere classified
-    categories: {}
   R73:
     docs: Elevated blood glucose level
     categories:
@@ -55585,7 +55367,6 @@ categories:
         - R749
   R75:
     docs: Laboratory evidence of human immunodeficiency virus [HIV]
-    categories: {}
   R76:
     docs: Other abnormal immunological findings in serum
     categories:
@@ -55715,10 +55496,8 @@ categories:
         - R799
   R80:
     docs: Isolated proteinuria
-    categories: {}
   R81:
     docs: Glycosuria
-    categories: {}
   R82:
     docs: Other abnormal findings in urine
     categories:
@@ -56105,10 +55884,8 @@ categories:
         - R908
   R91:
     docs: Abnormal findings on diagnostic imaging of lung
-    categories: {}
   R92:
     docs: Abnormal findings on diagnostic imaging of breast
-    categories: {}
   R93:
     docs: Abnormal findings on diagnostic imaging of other body structures
     categories:
@@ -56239,10 +56016,8 @@ categories:
         - R961
   R98:
     docs: Unattended death
-    categories: {}
   R99:
     docs: Other ill-defined and unspecified causes of mortality
-    categories: {}
   S00:
     docs: Superficial injury of head
     categories:
@@ -57136,7 +56911,6 @@ categories:
         - S159
   S16:
     docs: Injury of muscle and tendon at neck level
-    categories: {}
   S17:
     docs: Crushing injury of neck
     categories:
@@ -57157,7 +56931,6 @@ categories:
         - S179
   S18:
     docs: Traumatic amputation at neck level
-    categories: {}
   S19:
     docs: Other and unspecified injuries of neck
     categories:
@@ -58762,7 +58535,6 @@ categories:
         - S469
   S47:
     docs: Crushing injury of shoulder and upper arm
-    categories: {}
   S48:
     docs: Traumatic amputation of shoulder and upper arm
     categories:
@@ -61228,7 +61000,6 @@ categories:
         - T068
   T07:
     docs: Unspecified multiple injuries
-    categories: {}
   T08:
     docs: Fracture of spine, level unspecified
     categories:
@@ -61503,7 +61274,6 @@ categories:
         - T159
   T16:
     docs: Foreign body in ear
-    categories: {}
   T17:
     docs: Foreign body in respiratory tract
     categories:
@@ -63278,7 +63048,6 @@ categories:
         - T549
   T55:
     docs: Toxic effect of soaps and detergents
-    categories: {}
   T56:
     docs: Toxic effect of metals
     categories:
@@ -63367,7 +63136,6 @@ categories:
         - T579
   T58:
     docs: Toxic effect of carbon monoxide
-    categories: {}
   T59:
     docs: Toxic effect of other gases, fumes and vapours
     categories:
@@ -63565,7 +63333,6 @@ categories:
         - T639
   T64:
     docs: Toxic effect of aflatoxin and other mycotoxin food contaminants
-    categories: {}
   T65:
     docs: Toxic effect of other and unspecified substances
     categories:
@@ -63617,7 +63384,6 @@ categories:
         - T659
   T66:
     docs: Unspecified effects of radiation
-    categories: {}
   T67:
     docs: Effects of heat and light
     categories:
@@ -63673,7 +63439,6 @@ categories:
         - T679
   T68:
     docs: Hypothermia
-    categories: {}
   T69:
     docs: Other effects of reduced temperature
     categories:
@@ -63737,7 +63502,6 @@ categories:
         - T709
   T71:
     docs: Asphyxiation
-    categories: {}
   T73:
     docs: Effects of other deprivation
     categories:
@@ -64629,10 +64393,8 @@ categories:
         - T959
   T96:
     docs: Sequelae of poisoning by drugs, medicaments and biological substances
-    categories: {}
   T97:
     docs: Sequelae of toxic effects of substances chiefly nonmedicinal as to source
-    categories: {}
   T98:
     docs: Sequelae of other and unspecified effects of external causes
     categories:
@@ -69228,10 +68990,8 @@ categories:
         - V978
   V98:
     docs: Other specified transport accidents
-    categories: {}
   V99:
     docs: Unspecified transport accident
-    categories: {}
   W00:
     docs: Fall on same level involving ice and snow
     categories:
@@ -82428,10 +82188,8 @@ categories:
         - Y658
   Y66:
     docs: Nonadministration of surgical and medical care
-    categories: {}
   Y69:
     docs: Unspecified misadventure during surgical and medical care
-    categories: {}
   Y70:
     docs: Anaesthesiology devices associated with adverse incidents
     categories:
@@ -82916,7 +82674,6 @@ categories:
         - Y859
   Y86:
     docs: Sequelae of other accidents
-    categories: {}
   Y87:
     docs: Sequelae of intentional self-harm, assault and events of undetermined intent
     categories:
@@ -83063,16 +82820,12 @@ categories:
         - Y919
   Y95:
     docs: Nosocomial condition
-    categories: {}
   Y96:
     docs: Work-related condition
-    categories: {}
   Y97:
     docs: Environmental-pollution-related condition
-    categories: {}
   Y98:
     docs: Lifestyle-related condition
-    categories: {}
   Z00:
     docs: General examination and investigation of persons without complaint and reported
       diagnosis
@@ -83635,7 +83388,6 @@ categories:
         - Z209
   Z21:
     docs: Asymptomatic human immunodeficiency virus [HIV] infection status
-    categories: {}
   Z22:
     docs: Carrier of infectious disease
     categories:
@@ -84008,7 +83760,6 @@ categories:
         - Z321
   Z33:
     docs: Pregnant state, incidental
-    categories: {}
   Z34:
     docs: Supervision of normal pregnancy
     categories:
@@ -86724,4 +86475,3 @@ categories:
         - U849
   U85:
     docs: Resistance to antineoplastic drugs
-    categories: {}

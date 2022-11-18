@@ -39,10 +39,17 @@ parse_icd10 <- function(path, output = "icd10.yaml")
         names(categories) <- bottom$code1
         
         ## Make the categories
-        categories <- list(
-            docs = description,
-            categories = categories
+        res <- list(
+            docs = description
         )
+
+        ## If the categories is populated, add it
+        if (length(categories) > 0)
+        {
+            res$categories <- categories
+        }
+
+        res
     }
     
     codes$categories <- top %>%
