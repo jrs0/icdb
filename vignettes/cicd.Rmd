@@ -21,7 +21,7 @@ The page describes the general plan for ensuring that the main branch does not b
 The idea is that the main branch always works. The branch is protected, meaning it is not possible to directly push to it. Instead, you must create a pull request, meeting the requirements below:
 
 * The R CMD Check must pass (devtools::check())
-* Test coverage must exceed 60% (this number will increase with time)
+* Tests pass, and test coverage must exceed 60% (this number will increase with time)
 * The documentation must build successfully
 
 ## How to get code into main
