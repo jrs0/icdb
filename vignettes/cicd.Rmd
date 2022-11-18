@@ -20,7 +20,7 @@ The page describes the general plan for ensuring that the main branch does not b
 
 ## Issues
 
-If you have any issues with using the package, please log them on the GitHub [Issues Page](https://github.com/jrs0/icdb/issues). **You are currently extremely likely to have issues: the vast majority of the package is very underdeveloped and mostly untested**. However, if you feel brave enough to try to use it, we would greatly value your feedback/suggestions.
+If you have any issues with using the package, please log them on the GitHub [Issues Page](https://github.com/jrs0/icdb/issues). You are currently extremely likely to have issues: the vast majority of the package is very underdeveloped and mostly untested. However, if you feel brave enough to try to use it, we would greatly value your feedback/suggestions.
 
 ## The main branch
 
