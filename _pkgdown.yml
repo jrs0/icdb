@@ -54,7 +54,7 @@ navbar:
       - text: Testing Data
         href: articles/testing-data.html
       - text: Development
-      - text: CI/CD
+      - text: Contributing
         href: articles/cicd.html
       - text: Style Guide
         href: articles/style-guide.html
