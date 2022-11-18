@@ -16,7 +16,7 @@ designed to make data analysis using these databases easier.
 features to change**
 
 ***NOTE:*** ‘Server’ has been renamed to ‘server’, and ‘MappedSrv’ is
-now ‘mapped\_srv’.
+now ‘mapped_srv’.
 
 ## Obtaining the documentation
 
