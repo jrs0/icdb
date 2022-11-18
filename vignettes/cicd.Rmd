@@ -28,4 +28,8 @@ The idea is that the main branch always works. The branch is protected, meaning 
 
 Follow the steps below to make changes to the repository:
 
-* Create a new branch, from an up to date copy of main (or pull the current state of main into a pre-existing branch, if you already have it).
+* Create a new branch, from an up to date copy of main (or pull the current state of main into a pre-existing branch, if you already have it). By making sure your branch is as up to date as possible with main, you will make the subsequent pull request easier (as your new branch will be similar to main)
+* Make changes to your local branch
+* Run `devtools::check()` and `devtools::build_site()` to ensure that the code passes the checks and the documentation works. If these fail, the pull request will not succeed.
+* When you have finished making changes, open a pull request on GitHub. Once the automatic checks have passed, you should be able to merge the changes into main.
+* Note that if you spend quite a while on your branch, consider periodically pulling main into your branch and performing any required merges, so that your branch remains close to main.
