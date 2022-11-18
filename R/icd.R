@@ -10,7 +10,7 @@ NULL
 ##' @title Parse ICD-10 codes 
 ##' @param path The input file path (tab separated)
 ##' @param out The filename of the output definition file
-parse_icd10 <- function(path, out = "icd10.yaml")
+parse_icd10 <- function(path, output = "icd10.yaml")
 {
     ## Read the file, and split the code based on the .
     tbl <- readr::read_tsv(path) %>%
@@ -24,22 +24,35 @@ parse_icd10 <- function(path, out = "icd10.yaml")
     ## Create the top level codes
     codes <- list(categories = list())
     
-    fn <- function(code)
+    fn <- function(code, description)
     {
         ## Make the next level down
-        tbl %>% dplyr::filter(code0 == code,
-                              !is.na(code1))
+        bottom <- tbl %>%
+            dplyr::filter(code0 == code,
+                          !is.na(code1)) %>%
+            dplyr::select(code1, DESCRIPTION, ALT_CODE)
+
+        categories <- bottom %>%
+            purrr::pmap(~ list(docs = ..2,
+                               codes = list(paste0(code,".",..1),
+                                            ..3)))
+        names(categories) <- bottom$code1
         
-        list(docs = "thing")
+        ## Make the categories
+        categories <- list(
+            docs = description,
+            categories = categories
+        )
     }
     
-    codes$categories <- purrr::map(top$code0, fn)
+    codes$categories <- top %>%
+        dplyr::select(code0, DESCRIPTION) %>%
+        purrr::pmap(~ fn(.x, .y))
     names(codes$categories) <- top$code0
-    
-    #codes <- top$DESCRIPTION
-    #names(codes) <- top$
 
-    codes
+    ## Write the output file
+    yaml::write_yaml(codes, file = output)
+
 }
 
 ##' Read the ICD 11 codes into a codes mapping file from localhost
