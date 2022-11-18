@@ -1,3 +1,12 @@
+##'
+##'
+NULL
+
+parse_icd10 <- function(path)
+{
+    tbl <- readr::read_tsv(path)
+}
+
 ##' Read the ICD 11 codes into a codes mapping file from localhost
 ##'
 ##' @title Parse all ICD-11 codes

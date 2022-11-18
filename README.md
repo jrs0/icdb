@@ -5,9 +5,9 @@
 
 <!-- badges: start -->
 
-[![pkgdown](https://github.com/jrs0/icdb/actions/workflows/pkgdown.yaml/badge.svg)](https://jrs0.github.io/icdb)
-[![codecov](https://codecov.io/gh/jrs0/icdb/branch/main/graph/badge.svg?token=VXGD77WTZI)](https://codecov.io/gh/jrs0/icdb)
+[![Docs](https://github.com/jrs0/icdb/actions/workflows/pkgdown.yaml/badge.svg)](https://jrs0.github.io/icdb)
 [![R-CMD-check](https://github.com/jrs0/icdb/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jrs0/icdb/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/jrs0/icdb/branch/main/graph/badge.svg?token=VXGD77WTZI)](https://codecov.io/gh/jrs0/icdb)
 <!-- badges: end -->
 
 ICDB is a library for connecting to health care databases, with features
@@ -17,7 +17,7 @@ designed to make data analysis using these databases easier.
 features to change**
 
 ***NOTE:*** ‘Server’ has been renamed to ‘server’, and ‘MappedSrv’ is
-now ‘mapped_srv’.
+now ‘mapped\_srv’.
 
 ## Obtaining the documentation
 
