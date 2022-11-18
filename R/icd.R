@@ -34,11 +34,12 @@ parse_icd10 <- function(path, out = "icd10.yaml")
     }
     
     codes$categories <- purrr::map(top$code0, fn)
+    names(codes$categories) <- top$code0
     
     #codes <- top$DESCRIPTION
     #names(codes) <- top$
 
-    tbl
+    codes
 }
 
 ##' Read the ICD 11 codes into a codes mapping file from localhost
