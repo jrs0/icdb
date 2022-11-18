@@ -18,6 +18,7 @@ Imports:
     fs,
     httr,
     janitor,
+    kableExtra,
     lubridate,
     magrittr,
     methods,

@@ -44,14 +44,6 @@ Here is a list of other improvements that need to be made:
 
 ### Problem reports
 
-This section contains a list of issues people had trying to use the library
-
-- After fresh install, getting an error with dbplyr (no function in_catalog in namespace:dbplyr). The issue was trying to use dbplyr 2.1.1, when icdb requires 2.2.1. Need to specify library versions in DESCRIPTION file). **SOLVED** by adding the dependency version to the DESCRIPTION file.
-
-- After fresh install, getting error "no applicable method for 'tbl' applied to an object of class Microsoft SQL Server". This error may have been caused by a dplyr minor version (1.0.9 -> 1.0.10), but more likely was just an issue with a corrupt Databases object from the old dbplyr version above. Note that tidyverse may encode the versions of its constituent packages.
-
-- On MAC, attempt to connect to mysql via config file gave an error like: "Error: Unimplemented MAX\_NO\_FIELD\_TYPES". [https://www.rapids.science/1.9/common-errors/](This page) says that the error is due to having a JSON column type in the table, and RMariaDB cannot handle JSON types. However, there did not seem to be any JSON types. Needs further investigation. **SOLVED** for now by reintroducing lazy evaluation of the dplyr::tbl in the object tree for the database. See the comments in the build\_object\_tree() function. This issue needs a bit more thinking about.
-
 - If a query fails (because it is invalid), the query looks like it might still getting written to the cache, so that next time you run the query, it thinks it has done it. This requires a bit of work to reproduce. Might need to look at the cache writing code order.
 
 - Problem with parsing file paths that contain a directory component in the codes_from field of the mapping yaml file.
