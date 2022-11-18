@@ -2,9 +2,43 @@
 ##'
 NULL
 
-parse_icd10 <- function(path)
+##' Parse an ICD-10 codes file from the NHS Digital (TRUD) from the
+##' "NHS ICD-10 5th Edition data files" item. The function converts the
+##' codes to a codes definition file suitable for use in a mapped
+##' server.
+##'
+##' @title Parse ICD-10 codes 
+##' @param path The input file path (tab separated)
+##' @param out The filename of the output definition file
+parse_icd10 <- function(path, out = "icd10.yaml")
 {
-    tbl <- readr::read_tsv(path)
+    ## Read the file, and split the code based on the .
+    tbl <- readr::read_tsv(path) %>%
+        tidyr::separate(CODE, into = c("code0", "code1"), sep = "\\.") 
+    
+
+    ## Top level
+    top <- tbl %>%
+        dplyr::filter(is.na(code1))
+        
+    ## Create the top level codes
+    codes <- list(categories = list())
+    
+    fn <- function(code)
+    {
+        ## Make the next level down
+        tbl %>% dplyr::filter(code0 == code,
+                              !is.na(code1))
+        
+        list(docs = "thing")
+    }
+    
+    codes$categories <- purrr::map(top$code0, fn)
+    
+    #codes <- top$DESCRIPTION
+    #names(codes) <- top$
+
+    tbl
 }
 
 ##' Read the ICD 11 codes into a codes mapping file from localhost
