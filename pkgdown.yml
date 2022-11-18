@@ -1,0 +1,28 @@
+pandoc: 2.19.2
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  cache-design: cache-design.html
+  caching: caching.html
+  cicd: cicd.html
+  config-generation: config-generation.html
+  connect: connect.html
+  design-overview: design-overview.html
+  devel: devel.html
+  getting-started: getting-started.html
+  icd-codes: icd-codes.html
+  installation: installation.html
+  mapped-layer: mapped-layer.html
+  preprocess-design: preprocess-design.html
+  purpose: purpose.html
+  query-caching: query-caching.html
+  server-layer: server-layer.html
+  status: status.html
+  style-guide: style-guide.html
+  testing-data: testing-data.html
+  testing-strategy: testing-strategy.html
+last_built: 2022-11-18T12:01Z
+urls:
+  reference: https://jrs0.github.io/icdb/reference
+  article: https://jrs0.github.io/icdb/articles
+
