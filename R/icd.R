@@ -15,7 +15,6 @@ parse_icd10 <- function(path, output = "icd10.yaml")
     ## Read the file, and split the code based on the .
     tbl <- readr::read_tsv(path) %>%
         tidyr::separate(CODE, into = c("code0", "code1"), sep = "\\.") 
-    
 
     ## Top level
     top <- tbl %>%

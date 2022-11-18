@@ -13,4 +13,22 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-Write me...
+
+This page contains a summary of the current state of library development.
+
+```{r, echo = FALSE}
+status <- tibble::tribble(
+  ~Feature,                        ~Planned, ~Prototyped, ~Experimental, ~Stable, ~Tested,
+  "Query cache",                   "Yes",    "Yes",       "Yes",         "No",    "No",
+  "Database layer",                "Yes",    "Yes",       "Yes",         "No",    "No",
+  "Mapping layer",                 "Yes",    "Yes",       "Yes",         "No",    "No",
+  "Clinical code parsing/utils",   "Yes",    "Partial",   "No",          "No",    "No",
+  "Support for national databases","Yes",    "No",        "No",          "No",    "No",
+  "Dataset definition",            "Yes",    "No",        "No",          "No",    "No",
+  "Common analysis support",       "Yes",    "No",        "No",          "No",    "No",
+  "CI/CD",                         "Yes",    "Yes",       "No",          "No",    "No",
+  "Testing",                       "Yes",    "Yes",       "No",          "No",    "No",
+  )
+
+kableExtra::kable(status)
+```
