@@ -278,7 +278,8 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
     ## with no warning -- consider adding a function to check for other keys
     if ("include" %in% names(mapping))
     {
-        parse_mapping(read_include(mapping$include), srv)
+        parse_mapping(read_include(mapping$include),
+                      srv, source_database, source_table)
     }    
     else if ("databases" %in% names(mapping))
     {
