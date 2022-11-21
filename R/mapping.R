@@ -220,6 +220,34 @@ print.mapped_table <- function(x,...)
     NextMethod()
 }
 
+##' Read an included configuration file. The search path is the
+##' current working directory first, followed by the extdata
+##' folder.
+##'
+##' This is used for the include key in the config files. 
+##' 
+##' @title Read an included config file.
+##' @param include_file The path to the config file
+##' @return The nested list for the data stored in the included file
+##' 
+read_include <- function(include_file)
+{
+    if (fs::is_file(include_file))
+    {
+        ## Return the contents of the file in working directory
+        yaml::read_yaml(include_file)
+    }
+    else if (fs::is_file(system.file("extdata", include_file, package="icdb")))
+    {
+        ## Return the contents of the file in extdata
+        yaml::read_yaml(system.file("extdata", include_file, package="icdb"))
+    }
+    else
+    {
+        stop("Could not find include config file '", include_file, "'")
+    }
+}
+
 ##' This function parses the tree returned by reading the yaml mapping
 ##' file, and returns a named list of the contents of the current level
 ##' passed as the argument. The function is recursive, and will descend
@@ -237,7 +265,8 @@ print.mapped_table <- function(x,...)
 parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL)
 {
     ## Need to add something here to parse include files. Might want to refactor
-    ## this function completely and/or the file format.
+    ## this function completely and/or the file format. Currently, the include
+    ## file reading needs to go 
     
     if ("databases" %in% names(mapping))
     {
