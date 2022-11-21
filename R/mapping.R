@@ -224,7 +224,13 @@ print.mapped_table <- function(x,...)
 ##' current working directory first, followed by the extdata
 ##' folder.
 ##'
-##' This is used for the include key in the config files. 
+##' This is used for the include key in the config files. This function
+##' represents a generic approach to opening files, which will
+##' search the working directory first and then extdata. All files
+##' will be found this way. May want to consider modifying this
+##' mechanism later, in which case it will be good to isolate it in
+##' a few functions like this (the other one is currently get_codes,
+##' which doesn't quite work like this and needs changing).
 ##' 
 ##' @title Read an included config file.
 ##' @param include_file The path to the config file
