@@ -220,6 +220,40 @@ print.mapped_table <- function(x,...)
     NextMethod()
 }
 
+##' Read an included configuration file. The search path is the
+##' current working directory first, followed by the extdata
+##' folder.
+##'
+##' This is used for the include key in the config files. This function
+##' represents a generic approach to opening files, which will
+##' search the working directory first and then extdata. All files
+##' will be found this way. May want to consider modifying this
+##' mechanism later, in which case it will be good to isolate it in
+##' a few functions like this (the other one is currently get_codes,
+##' which doesn't quite work like this and needs changing).
+##' 
+##' @title Read an included config file.
+##' @param include_file The path to the config file
+##' @return The nested list for the data stored in the included file
+##' 
+read_include <- function(include_file)
+{
+    if (fs::is_file(include_file))
+    {
+        ## Return the contents of the file in working directory
+        yaml::read_yaml(include_file)
+    }
+    else if (fs::is_file(system.file("extdata", include_file, package="icdb")))
+    {
+        ## Return the contents of the file in extdata
+        yaml::read_yaml(system.file("extdata", include_file, package="icdb"))
+    }
+    else
+    {
+        stop("Could not find include config file '", include_file, "'")
+    }
+}
+
 ##' This function parses the tree returned by reading the yaml mapping
 ##' file, and returns a named list of the contents of the current level
 ##' passed as the argument. The function is recursive, and will descend
@@ -236,9 +270,20 @@ print.mapped_table <- function(x,...)
 ##'
 parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL)
 {
-    if ("databases" %in% names(mapping))
+    ## Need to add something here to parse include files. Might want to refactor
+    ## this function completely and/or the file format.
+    ##
+    ## If an include key is found at this level of the mapping, then all other keys
+    ## are ignored, because the include is treated first. This currently happens
+    ## with no warning -- consider adding a function to check for other keys
+    if ("include" %in% names(mapping))
     {
-        ## When you get to a list of databases, parse each database is turn
+        parse_mapping(read_include(mapping$include),
+                      srv, source_database, source_table)
+    }    
+    else if ("databases" %in% names(mapping))
+    {
+        ## When you get to a list of databases, parse each database in turn
         d <- list()
         for (database in names(mapping$databases))
         {
@@ -263,6 +308,8 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
     }
     else if ("columns" %in% names(mapping))
     {
+        ## This is never used? This function needs an overhaul.
+        
         ## If there is a columns field, then the current mapping is a table.
         ## Record the source table name for the next execution environment
         source_table <- mapping$source_table
