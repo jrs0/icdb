@@ -271,12 +271,18 @@ read_include <- function(include_file)
 parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL)
 {
     ## Need to add something here to parse include files. Might want to refactor
-    ## this function completely and/or the file format. Currently, the include
-    ## file reading needs to go 
-    
-    if ("databases" %in% names(mapping))
+    ## this function completely and/or the file format.
+    ##
+    ## If an include key is found at this level of the mapping, then all other keys
+    ## are ignored, because the include is treated first. This currently happens
+    ## with no warning -- consider adding a function to check for other keys
+    if ("include" %in% names(mapping))
     {
-        ## When you get to a list of databases, parse each database is turn
+        read_include(mapping$include)
+    }    
+    else if ("databases" %in% names(mapping))
+    {
+        ## When you get to a list of databases, parse each database in turn
         d <- list()
         for (database in names(mapping$databases))
         {
