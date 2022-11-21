@@ -278,7 +278,7 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
     ## with no warning -- consider adding a function to check for other keys
     if ("include" %in% names(mapping))
     {
-        read_include(mapping$include)
+        parse_mapping(read_include(mapping$include), srv)
     }    
     else if ("databases" %in% names(mapping))
     {
@@ -307,6 +307,8 @@ parse_mapping <- function(mapping, srv, source_database = NULL, source_table = N
     }
     else if ("columns" %in% names(mapping))
     {
+        ## This is never used? This function needs an overhaul.
+        
         ## If there is a columns field, then the current mapping is a table.
         ## Record the source table name for the next execution environment
         source_table <- mapping$source_table
