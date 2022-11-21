@@ -236,6 +236,9 @@ print.mapped_table <- function(x,...)
 ##'
 parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL)
 {
+    ## Need to add something here to parse include files. Might want to refactor
+    ## this function completely and/or the file format.
+    
     if ("databases" %in% names(mapping))
     {
         ## When you get to a list of databases, parse each database is turn
