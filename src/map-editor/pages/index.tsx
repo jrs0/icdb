@@ -30,7 +30,6 @@ function Table({ tab }) {
                     </li>
                 ))}
             </ul>
-
         </div>
     )
 }
