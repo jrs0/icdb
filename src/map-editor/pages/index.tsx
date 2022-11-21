@@ -61,7 +61,6 @@ export default function Home() {
             <ul>
                 {def.map((tab) => (
                     <li key={tab.name}>
-
                         {tab.name}
 
                     </li>
