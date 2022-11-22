@@ -401,13 +401,36 @@ server <- function(data_source_name = NULL,
 ##'
 ##' @title Get a dplyr::tbl corresponding to a table
 ##' @param srv The Databases object containing the server connection
-##' @param source The fully qualified table name to get
+##' @param source A named list containing a table, optionally a schema, and
+##' optionally a database. 
 ##' @return The dplyr::tbl (shell) for the table
 ##'
 get_tbl <- function(srv, source)
 {
     print(source)
-    dplyr::tbl(srv@con, source)
+
+    if (!("table" %in% names(source)))
+    {
+        stop("You must specify at least 'table' in source (get_tbl)")
+    }
+
+    if ("schema" %in% names(source))
+    {
+        ## e.g., for Microsoft
+        id <- rlang::exec(dbplyr::in_catalog, !!!source)
+    }
+    else if ("catalog" %in% names(source))
+    {
+        ## e.g., for mysql
+        id <- rlang::exec(dbplyr::in_schema, !!!source)
+    }
+    else
+    {
+        ## e.g., for sqlite
+        id <- source$table        
+    }
+    
+    dplyr::tbl(srv@con, id)
     
     ## ## Currently, this function just does a different thing for
     ## ## each database type.
