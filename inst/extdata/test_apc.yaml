@@ -1,0 +1,4 @@
+- database: "synth"
+  docs: "An artificial admitted patient care database conforming to the CDS v6.3 for testing purposes"
+  tables:
+  - include: "clean_apc.yaml"
