@@ -22,7 +22,6 @@
       source: "test_lookup_test"
       # Raw is used to import all the columns as-is. This overrides the columns key. Mapping the columns properly is preferred.
       raw: yes
-      columns: []
 
     - table: "nhais"
       docs: "NHAIS Deaths table...."
@@ -34,30 +33,15 @@
   docs: "The MODELLING_SQL_AREA database contains the System Wide Dataset tables (activity, attributes, measurements), which bring together data from primary care (GPs), secondary care (hsopitals), mental health, and community care services."
   source: "MODELLING_SQL_AREA"
   tables:
-    include: "swd.yaml"
-    
-    - table: "act"
+    ## This will paste a list at the current level. (If there were a leading dash, the list would be nested) 
+    - include: "swd.yaml"
+    - table: "attr_h"
+      docs: "The SWD attributes-history table contains every monthly snapshot of patient attributes going back to inception of the swd attributes table in 201X(?when, look this up)."
+      source: "MODELLING_SQL_AREA.dbo.primary_care_attributes"
       raw: yes
-      columns: []
 
-   - table: "att"
-        raw: yes
-        columns: []
-
-      attr_h:
-        docs: "The SWD attributes-history table contains every monthly snapshot of patient attributes going back to inception of the swd attributes table in 201X(?when, look this up)."
-        source_table: "primary_care_attributes"
-        raw: yes
-        columns: []
-
-      meas:
-        docs: "The SWD results, or measurements, table now contains results from various tests. As there are many different types of measures all stored in a single column, this data is stored as character strings and needs to be parsed - e.g. blood pressure = as.character('123/80')."
-        source_table: "swd_measurement"
-        raw: yes
-        columns: []
-
-      lsoa:
-        docs: "The LSOA (Lower Super Output Area) table contains details about the local areas in Bristol. We need this as it provides the key for matching patients to the various local 'regions' - in order of size: 'wards', 'LSOAs' and 'MSOAs' (Middle Super Output Areas). TODO: there are quite a few of these tables, find the right one"
-        source_table: "swd_LSOA_descriptions"
+    - table: "lsoa"
+      docs: "The LSOA (Lower Super Output Area) table contains details about the local areas in Bristol. We need this as it provides the key for matching patients to the various local 'regions' - in order of size: 'wards', 'LSOAs' and 'MSOAs' (Middle Super Output Areas). TODO: there are quite a few of these tables, find the right one"
+      source_table: "swd_LSOA_descriptions"
         raw: yes
         columns: []

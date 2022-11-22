@@ -1502,9 +1502,9 @@
     docs: current version of attributes dataset
     source: version
     strategy: coalesce
-- table: swd_measurement
-  source: WRITE_ME
-  docs: WRITE ME
+- table: measurement
+  docs: "The SWD results, or measurements, table now contains results from various tests. As there are many different types of measures all stored in a single column, this data is stored as character strings and needs to be parsed - e.g. blood pressure = as.character('123/80')."
+  source: "swd_measurement"
   columns:
   - column: nhs_number
     docs: Pseudo NHS number
