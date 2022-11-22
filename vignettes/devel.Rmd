@@ -20,7 +20,13 @@ This section contains notes about development, such as todo lists, etc.
 
 ### Development environment
 
-Write me...
+To set up the R environment, install R 
+
+```
+## For Tauri/next.js
+cargo install tauri-cli
+
+```
 
 ### Todo list
 
