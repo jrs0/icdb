@@ -1,17 +1,13 @@
 # Each level of this file has the same structure: a docs, source, and <contents> field. The <contents> field
 # can be one of: "databases", "tables", "columns", or "strategy", which determines whether the level refers to a
 # list of databases, tables, or columns, respectively.
-databases:
-  sus:
-    docs: "The SUS database contains hospital episode statistics, which contain records of patient care activities that take place in a hospital visit."
-    source_database: "ABI"
-    tables:
-      # Start and end dates and times were obtained by greping column
-      # names for "(D|d)ate" and "(T|t)ime". Note that all occurances
-      # of "Date" and "Time" used capital start letters.
-      apc:
-        include: "apc_default.yaml"
-      apc_spells:
+- database: "sus"
+  docs: "The SUS database contains hospital episode statistics, which contain records of patient care activities that take place in a hospital visit."
+  source: "ABI"
+  tables:
+    - include: "apc_episodes.yaml"
+    - include: "apc_spells.yaml"
+    - table: "apc_spells"
         docs: "The admitted patient care spells table collates the APC episodes into spells. I'm not sure who creates this table and how they derive the spell data (e.g. the primary diagnosis for the spell)"
         source_table: "vw_APC_SEM_Spell_001"
         columns:

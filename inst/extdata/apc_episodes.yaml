@@ -1,5 +1,6 @@
+table: "apc"
 docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital."
-source_table: "vw_APC_SEM_001"
+source: "ABI.dbo.vw_APC_SEM_001"
 columns:
   nhs_number:
     docs: "The NHS number identifies the patient. The field is anonymised."
