@@ -1,6 +1,6 @@
-- table: swd_activity
-  source: WRITE_ME
-  docs: WRITE ME
+- table: activity
+  docs: "The SWD activity table contains records of healthcare encounters (e.g. a GP appointment) from  primary care (GPs), secondary care (hsopitals), mental health, and community care services."
+  source: "MODELLING_SQL_AREA.dbo.swd_activity"
   columns:
   - column: arr_date
     docs: Arrival date and time - when time is unavailable, the time component takes
@@ -103,9 +103,9 @@
     docs: Current version of activity dataset
     source: version
     strategy: coalesce
-- table: swd_attribute
-  source: WRITE_ME
-  docs: WRITE ME
+- table: attribute
+  docs: "The SWD attributes table contains records of patient attributes at the latest snapshot through the year (monthly updates), PLUS a few other measures such as 'air quality' that is NOT present in the activity history table (these additional measures is the only reason to keep a separate reference to this table, otherwise we could have just filter the activity history table by most recent)."
+  source_table: "MODELLING_SQL_AREA.dbo.swd_attribute"
   columns:
   - column: abortion
     docs: Termination of pregnancy - ever had

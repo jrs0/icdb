@@ -5,103 +5,46 @@
   docs: "The SUS database contains hospital episode statistics, which contain records of patient care activities that take place in a hospital visit."
   source: "ABI"
   tables:
+    ## When you use the include key, all the information in the specified file will be pasted as-is at
+    ## the level where the include key is written. Here, where there is a dash in front of the include,
+    ## this means that the entire contents of the include is one dictionary which is stored inside this
+    ## list element. Compare with the includes below which do not use a dash (those include files themselves
+    ## are lists.
     - include: "apc_episodes.yaml"
     - include: "apc_spells.yaml"
-    - table: "apc_spells"
-        docs: "The admitted patient care spells table collates the APC episodes into spells. I'm not sure who creates this table and how they derive the spell data (e.g. the primary diagnosis for the spell)"
-        source_table: "vw_APC_SEM_Spell_001"
-        columns:
-          nhs_number:
-            docs: "The NHS number identifies the patient. The field is anonymised."
-            source_columns:
-              "AIMTC_Pseudo_NHS": ""
-              "NHSnumber": "This one looks like it is NULL everywhere. Also, this is an INT column"
-            strategy: "coalesce_exclude_null"
-            use: yes
-          # age:
-          #   docs: "Derived age (anonymised somehow, because it comes from the AIMTC folumn)"
-          #   source_columns:
-          #     "AIMTC_Age"
-          #   strategy: "coalesce"
-          #   use: yes
-          primary_diagnosis:
-            docs: "The main diagnosis for this episode? The field is an ICD 10 code."
-            source_columns:
-              "DiagnosisPrimary_ICD": ""
-            strategy:
-              - "coalesce"
-              - "codes_from":
-                 codes_files: "icd10/"      
-            use: yes
-          spell_id:
-            docs: "The ID field linking episodes that form part of the same spell (a continuous hospital visit). "
-            source_columns:
-              "PBRspellID": ""
-            strategy: "coalesce"
-            use: yes
-          spell_start:
-            docs: "A datetime field that is the time when the associated spell for this episode began."
-            source_columns:
-              "AIMTC_ProviderSpell_Start_Date": ""
-              "StartDate_HospitalProviderSpell": ""
-              "StartTime_HospitalProviderSpell": ""
-            strategy: "coalesce"
-            use: yes
-          spell_end:
-            docs: "A datetime field that is the time when the associated spell for this episode ended."
-            source_columns:
-              "AIMTC_ProviderSpell_End_Date": ""
-              "DischargeDate_FromHospitalProviderSpell": ""
-              "DischargeTime_HospitalProviderSpell": ""
-            related_columns:
-              "HospitalProviderSpellDischargeReadyDate": "probably not the end date, but maybe related."
-            strategy: "coalesce"
-            use: yes
 
-      ae:
-        docs: "The A&E HES data"
-        source_table: "vw_AE_SEM_001"
-        columns: []
-      post_acs_bleed:
-        logical_source_table: "apc"
-        columns:
-          nhs_number: 
-        
+- database: "mort"
+  docs: "There are two main tables containing death information....."
+  source: "ABI"
+  tables:
+    - table: "civ-reg"
+      docs: "The Civil Registry Mortality table contains information about when a person died and what they died of, listed as ICD10 diagnosis codes. It also has lots of other information, such as where they died."
+      source: "test_lookup_test"
+      # Raw is used to import all the columns as-is. This overrides the columns key. Mapping the columns properly is preferred.
+      raw: yes
+      columns: []
 
-  mort:
-    docs: "There are two main tables containing death information....."
-    source_database: "ABI"
-    tables:
-      civ-reg:
-        docs: "The Civil Registry Mortality table contains information about when a person died and what they died of, listed as ICD10 diagnosis codes. It also has lots of other information, such as where they died."
-        source_table: "test_lookup_test"
-        # Raw is used to import all the columns as-is. This overrides the column key. Mapping the columns properly is preferred.
+    - table: "nhais"
+      docs: "NHAIS Deaths table...."
+      source: "test_lookup_test"
+      columns: []
+
+
+- database: "swd"
+  docs: "The MODELLING_SQL_AREA database contains the System Wide Dataset tables (activity, attributes, measurements), which bring together data from primary care (GPs), secondary care (hsopitals), mental health, and community care services."
+  source: "MODELLING_SQL_AREA"
+  tables:
+    include: "swd.yaml"
+    
+    - table: "act"
+      raw: yes
+      columns: []
+
+   - table: "att"
         raw: yes
         columns: []
 
-      nhais:
-        docs: "NHAIS Deaths table...."
-        source_table: "test_lookup_test"
-        columns: []
-
-
-  swd:
-    docs: "The MODELLING_SQL_AREA database contains the System Wide Dataset tables (activity, attributes, measurements), which bring together data from primary care (GPs), secondary care (hsopitals), mental health, and community care services."
-    source_database: "MODELLING_SQL_AREA"
-    tables:
-      act:
-        docs: "The SWD activity table contains records of healthcare encounters (e.g. a GP appointment) from  primary care (GPs), secondary care (hsopitals), mental health, and community care services."
-        source_table: "swd_activity"
-        raw: yes
-        columns: []
-
-      att:
-        docs: "The SWD attributes table contains records of patient attributes at the latest snapshot through the year (monthly updates), PLUS a few other measures such as 'air quality' that is NOT present in the activity history table (these additional measures is the only reason to keep a separate reference to this table, otherwise we could have just filter the activity history table by most recent)."
-        source_table: "swd_attribute"
-        raw: yes
-        columns: []
-
-      att_h:
+      attr_h:
         docs: "The SWD attributes-history table contains every monthly snapshot of patient attributes going back to inception of the swd attributes table in 201X(?when, look this up)."
         source_table: "primary_care_attributes"
         raw: yes
