@@ -4,20 +4,15 @@
 \alias{parse_mapping}
 \title{Mapping-tree parser}
 \usage{
-parse_mapping(mapping, srv, source_database = NULL, source_table = NULL)
+parse_mapping(mapping, srv)
 }
 \arguments{
-\item{mapping}{A named list storing a level of the yaml config file}
+\item{mapping}{A list storing a level of the yaml config file}
 
 \item{srv}{The Databases object with the underlying connection}
-
-\item{source_database}{The name of the source database for the current
-level}
-
-\item{source_table}{The name of the source table for the current level}
 }
 \value{
-A named list containing the results of parsing the file
+A node object containing the results of parsing the file
 }
 \description{
 This function parses the tree returned by reading the yaml mapping

@@ -4,14 +4,13 @@
 \alias{get_tbl}
 \title{Get a dplyr::tbl corresponding to a table}
 \usage{
-get_tbl(srv, database, table)
+get_tbl(srv, source)
 }
 \arguments{
 \item{srv}{The Databases object containing the server connection}
 
-\item{database}{The name of the database}
-
-\item{table}{The name of the table}
+\item{source}{A named list containing a table, optionally a schema, and
+optionally a database.}
 }
 \value{
 The dplyr::tbl (shell) for the table

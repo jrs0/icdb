@@ -4,14 +4,14 @@
 \alias{gen_swd_map}
 \title{Read SWD guide}
 \usage{
-gen_swd_map(spec, sheet, output = filename)
+gen_swd_map(spec, output = filename)
 }
 \arguments{
 \item{spec}{The SWD guide document (.xlsx)}
 
-\item{sheet}{The name of the sheet to read}
-
 \item{output}{The file path to write the output}
+
+\item{sheet}{The name of the sheet to read}
 }
 \description{
 Read the BNSSG system-wide dataset guide document into a mapping file.

@@ -19,7 +19,7 @@ A new MappedDB object
 }
 \description{
 Create a new mapped database object. A mapped database is an object that contains
-mapped databases, mapped tables and mapped column name. The mapping operation is a
+mapped databases, mapped tables and mapped column names. The mapping operation is a
 simple preprocessing operation, that performs tasks such as renaming and coalescing
 columns, and certain basic filtering and mutate operations. In addition, the mapped
 objects can store documentation about themselves, which provides an easy way to look
@@ -27,7 +27,7 @@ up what a column is or where it came from. The mapped_server uses an underlying 
 object for the database connection.
 }
 \details{
-The structure of the database is defined by a mapping.yaml file, which describes
+The structure of the database is defined by a .yaml file, which describes
 how to obtain the fields from an underlying data source. See the package documentation
 for how to structure this file.
 
