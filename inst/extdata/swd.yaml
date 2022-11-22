@@ -1,4 +1,5 @@
 - table: swd_activity
+  source: WRITE_ME
   docs: WRITE ME
   columns:
   - column: arr_date
@@ -103,6 +104,7 @@
     source: version
     strategy: coalesce
 - table: swd_attribute
+  source: WRITE_ME
   docs: WRITE ME
   columns:
   - column: abortion
@@ -1203,6 +1205,7 @@
     source: asylum_seeker_refugee
     strategy: coalesce
 - table: swd_supplemental
+  source: WRITE_ME
   docs: WRITE ME
   columns:
   - column: cc_AIDS
@@ -1500,6 +1503,7 @@
     source: version
     strategy: coalesce
 - table: swd_measurement
+  source: WRITE_ME
   docs: WRITE ME
   columns:
   - column: nhs_number

@@ -40,6 +40,7 @@ gen_swd_map <- function(spec, sheet, output = filename)
         
         tt <- c(tt, list(list(
                         table = tab,
+                        source = "WRITE_ME",
                         docs = "WRITE ME",
                         columns = cc
                     )
