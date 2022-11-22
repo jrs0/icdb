@@ -105,7 +105,7 @@
     strategy: coalesce
 - table: attribute
   docs: "The SWD attributes table contains records of patient attributes at the latest snapshot through the year (monthly updates), PLUS a few other measures such as 'air quality' that is NOT present in the activity history table (these additional measures is the only reason to keep a separate reference to this table, otherwise we could have just filter the activity history table by most recent)."
-  source_table: "MODELLING_SQL_AREA.dbo.swd_attribute"
+  source: "MODELLING_SQL_AREA.dbo.swd_attribute"
   columns:
   - column: abortion
     docs: Termination of pregnancy - ever had
