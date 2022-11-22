@@ -283,7 +283,7 @@ parse_mapping <- function(mapping, srv)
             mapping <- c(mapping, read_include(object$include))
         }     
     }
-    
+
     ## The mapping argument is a list of object -- loop over them
     ## recursively processing the contents
     for (object in mapping)
