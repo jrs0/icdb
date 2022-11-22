@@ -18,6 +18,10 @@ knitr::opts_chunk$set(
 
 This section contains notes about development, such as todo lists, etc.
 
+### Development environment
+
+Write me...
+
 ### Todo list
 
 This is the list of most important things:
