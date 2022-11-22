@@ -21,11 +21,10 @@ setMethod("show", "mapped_server", function(object) {
     print(object)
 })
 
-make_mapped_table_getter <- function(srv, source_database, source_table, table)
+make_mapped_table_getter <- function(srv, source, table)
 {
     force(srv)
-    force(source_database)
-    force(source_table)
+    force(source)
     columns <- table$columns
 
     ## Create the table documentation
@@ -34,7 +33,7 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
     function()
     {
         ## Get the name of the logical table and fetch the table
-        tbl <- get_tbl(srv, source_database, source_table)
+        tbl <- get_tbl(srv, source)
 
         ## If the table is marked as raw, return the entire table
         ## unmodified
@@ -299,7 +298,7 @@ parse_mapping <- function(mapping, srv)
             ## Check validity
             if("tables" %in% names(object))
             {
-                node(parse_mapping(object$tables)) 
+                node(parse_mapping(object$tables, srv)) 
             }
             else
             {
@@ -321,20 +320,12 @@ parse_mapping <- function(mapping, srv)
 
             ## If there is a columns field, then the current mapping is a table.
             ## Record the source table name for the next execution environment
-            source_table <- mapping$source_table
+            source <- mapping$source
             
-            ## Check if there is a source_database key -- if there is, it must
-            ## overwrite the value inherited from the calling environment, to
-            ## support the possibility that tables in the same logical database
-            ## originate from separate source databases.
-            if (!is.null(mapping$source_database))
-            {
-                source_database <- mapping$source_database
-            }
-            
-            ## Next, create the function which will return the the Mapped object
             ## corresponding to this logical table
-            tab <- table_wrapper(make_mapped_table_getter(srv, source_database, source_table, mapping))
+            tab <- table_wrapper(make_mapped_table_getter(srv,
+                                                          source,
+                                                          mapping))
             
             ## source_database <- mapping$source_database
             ## t <- list()
@@ -464,5 +455,3 @@ parse_mapping <- function(mapping, srv)
 ##              "present at each level")
 ##     }
 ## }
-
-a = (b = 4)
