@@ -21,35 +21,55 @@ gen_swd_map <- function(spec, sheet, output = filename)
     ## Read the excel sheet into a variable 
     xx <- readxl::read_xlsx(spec, sheet, skip = 3)
     
-    tables <- xx$`Table Name` %>% unique()
+    tables <- xx$`Table Name` %>%
+        unique()
 
     tt <- list()
     for (tab in tables)
     {
-        ## Get the columns and docs
-        cc <- xx %>%
-            dplyr::filter(`Table Name` == tab) %>%
-            dplyr::select(`Column Name`, `Description`) %>%
-            purrr::pmap(~ list(
-                            docs = .y,
-                            strategy = "coalesce",
-                            source_columns = list(
-                                .x = ""
-                            )
-                        )
-                        )
-        names(cc) <-  xx %>%
-            dplyr::filter(`Table Name` == tab) %>%
-            dplyr::select(`Column Name`)
-        
-        
-        tt[[tab]] <- list(
-            docs = "Test",
-            source_table = tab,
-            columns = cc
-        )
-        
+        tt <- c(tt,
+                xx %>%
+                dplyr::filter(`Table Name` == tab) %>%
+                dplyr::select(`Column Name`, `Description`) %>%
+                purrr::pmap(~ list(
+                                name = .x,
+                                docs = .y,
+                                source_columns = list(.x),
+                                strategy = "coalesce"
+                            ))
+                )
     }
+     
+    return(tt)
+    
+    
+    ## for (tab in tables)
+    ## {
+    ##     ## Get the columns and docs
+    ##     cc <- xx %>%
+    ##         dplyr::filter(`Table Name` == tab) %>%
+    ##         dplyr::select(`Column Name`, `Description`) %>%
+    ##         purrr::pmap(~ list(
+    ##                         docs = .y,
+    ##                         strategy = "coalesce",
+    ##                         source_columns = list(
+    ##                             .x = ""
+    ##                         )
+    ##                     )
+    ##                     )
+    ##     names(cc) <-  xx %>%
+    ##         dplyr::filter(`Table Name` == tab) %>%
+    ##         dplyr::select(`Column Name`)
+        
+        
+    ##     tt <- list(
+    ##         name = tab
+    ##         docs = "Test",
+    ##         source_table = tab,
+    ##         columns = cc
+    ##     )
+        
+    ## }
 
     mapping <- list(
         swd = list(
