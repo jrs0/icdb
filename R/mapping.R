@@ -32,9 +32,13 @@ make_mapped_table_getter <- function(srv, source, table)
 
     function()
     {
+        
         ## Get the name of the logical table and fetch the table
         tbl <- get_tbl(srv, source)
 
+        print("here")
+        return(2)
+        
         ## If the table is marked as raw, return the entire table
         ## unmodified
         if (!is.null(mapping$raw) && mapping$raw == TRUE)
