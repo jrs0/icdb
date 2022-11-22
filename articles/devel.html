@@ -110,6 +110,39 @@
 <p>This section contains notes about development, such as todo lists,
 etc.</p>
 <div class="section level3">
+<h3 id="development-environment">Development environment<a class="anchor" aria-label="anchor" href="#development-environment"></a>
+</h3>
+<p>The development environment is compatible with Windows, Linux and Mac
+(todo check Mac). To set up the R environment, install R and install the
+devtools package. You can use R studio or any other editor/IDE. The top
+level directory is an R package, compatible with
+devtools::load_all().</p>
+<p>For Tauri/Next.js development, you need to install some dependencies.
+First, install the <a href="https://www.rust-lang.org/tools/install" class="external-link">Rust</a> programming
+language for your operating system; this will give you the Rust compiler
+and the cargo package manager. On Windows, install Node.js from <a href="https://nodejs.org/en/download/" class="external-link">here</a>. On Linux and Mac,
+install the Node Version Manager (NVM) instead, by running:</p>
+<pre><code># Pick the latest version
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash</code></pre>
+<p>and use that to install Node as follows:</p>
+<pre><code>nvm install latest</code></pre>
+<p>When you have Node.js installed, you should have the <code>npm</code>
+command; check by running <code>npm -v</code>.</p>
+<p>After you have cloned the repository, change into the map-editor
+directory and run</p>
+<pre><code># Install node dependencies
+npm install
+
+# Install cargo tauri command
+cargo install tauri-cli
+
+# Build and run
+cargo tauri dev
+</code></pre>
+<p>The installation of dependencies and first-time compilation may take
+a bit of time.</p>
+</div>
+<div class="section level3">
 <h3 id="todo-list">Todo list<a class="anchor" aria-label="anchor" href="#todo-list"></a>
 </h3>
 <p>This is the list of most important things:</p>
@@ -193,7 +226,7 @@ that might be helpful later.</p>
 <h3 id="renaming-with-janitor">Renaming with janitor<a class="anchor" aria-label="anchor" href="#renaming-with-janitor"></a>
 </h3>
 <p>This is a quick way to make good column names.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename_with</a></span><span class="op">(</span>.fn <span class="op">=</span> <span class="fu">janitor</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/janitor/man/make_clean_names.html" class="external-link">make_clean_names</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>

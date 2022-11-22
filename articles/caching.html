@@ -187,7 +187,7 @@ automatically store the query results behind the scenes:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 7</span></span></span>
 <span><span class="co">#&gt;   hash         data   hits write_time          last_access         time  in_me…¹</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;drt&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> a7e17be4bcf… <span style="color: #949494;">"</span>\u0…     1 2022-11-21 <span style="color: #949494;">23:42:23</span> 2022-11-21 <span style="color: #949494;">23:42:23</span> 0.01… TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> a7e17be4bcf… <span style="color: #949494;">"</span>\u0…     1 2022-11-22 <span style="color: #949494;">12:26:07</span> 2022-11-22 <span style="color: #949494;">12:26:07</span> 0.01… TRUE   </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable name ¹​in_memory</span></span></span></code></pre></div>
 <p>When you run the same query again, the server will not be queried.
 Instead, the cached results will be used. You can tell that the cache
@@ -218,7 +218,7 @@ one.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 7</span></span></span>
 <span><span class="co">#&gt;   hash         data   hits write_time          last_access         time  in_me…¹</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;drt&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> a7e17be4bcf… <span style="color: #949494;">"</span>\u0…     2 2022-11-21 <span style="color: #949494;">23:42:23</span> 2022-11-21 <span style="color: #949494;">23:42:23</span> 0.01… TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> a7e17be4bcf… <span style="color: #949494;">"</span>\u0…     2 2022-11-22 <span style="color: #949494;">12:26:07</span> 2022-11-22 <span style="color: #949494;">12:26:07</span> 0.01… TRUE   </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable name ¹​in_memory</span></span></span></code></pre></div>
 <p>In addition to storing the number of hits, various other pieces of
 information are stored, including the last time you used the query, the
