@@ -26,19 +26,15 @@ make_mapped_table_getter <- function(srv, source, table)
     force(srv)
     force(source)
     columns <- table$columns
-
+    
     ## Create the table documentation
     mapping <- table
 
     function()
     {
-
-        print(mapping)
-
-        return()
         ## Get the name of the logical table and fetch the table
         tbl <- get_tbl(srv, source)
-
+        print(tbl)
         ## If the table is marked as raw, return the entire table
         ## unmodified
         if (!is.null(mapping$raw) && mapping$raw == TRUE)
@@ -57,6 +53,8 @@ make_mapped_table_getter <- function(srv, source, table)
                 real_columns <- c(real_columns, logical_column$source)
             }
         }
+        print(real_columns)
+        return()
         tbl <- tbl %>% dplyr::select(all_of(unlist(real_columns)))
 
         ## Next, rename the columns according to names derived from the logical
@@ -119,7 +117,8 @@ make_mapped_table_getter <- function(srv, source, table)
                 }
             }
         }
-            
+
+#        tbl %>% dplyr::show_query()
         mapped_table(tbl, mapping)
     }
 }
@@ -340,9 +339,7 @@ parse_mapping <- function(mapping, srv)
             
             ## corresponding to this logical table
             result[[object$table]] <-
-                table_wrapper(make_mapped_table_getter(srv,
-                                                       source,
-                                                       mapping))
+                table_wrapper(make_mapped_table_getter(srv, source, object))
         }
         else
         {
