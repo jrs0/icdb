@@ -267,21 +267,28 @@ read_include <- function(include_file)
 ##'
 parse_mapping <- function(mapping, srv)
 {
-    
-    ## The mapping argument is a list of object -- loop over them
-    ## recursively processing the contents
-    for (object in mapping)
+    ## For now, process all the includes first, so as to form the
+    ## full list of objects at this level. This does require two
+    ## passes over mapping, but there's likely no efficiency concern
+    ## with this.
+    copy <- mapping
+    for (object in copy)
     {
-        ## Check which of the four valid objects are 
         if ("include" %in% names(object))
         {
             ## If the current object is an include, then read the
             ## contents of the included file and put them in the current
             ## list level 
-            included_contents <- read_include(object$include)
-            
-        }    
-        else if ("database" %in% names(object))
+            mapping <- c(mapping, read_include(object$include))
+        }     
+    }
+    
+    ## The mapping argument is a list of object -- loop over them
+    ## recursively processing the contents
+    for (object in mapping)
+    {
+        ## Check which of the three valid objects are 
+        if ("database" %in% names(object))
         {
             ## When you get to a list of databases, parse each database in turn
             d <- list()
