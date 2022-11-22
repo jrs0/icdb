@@ -32,14 +32,14 @@ gen_swd_map <- function(spec, sheet, output = filename)
             dplyr::filter(`Table Name` == tab) %>%
             dplyr::select(`Column Name`, `Description`) %>%
             purrr::pmap(~ list(
-                            name = .x,
+                            column = .x,
                             docs = .y,
-                            source_columns = c(.x),
+                            source = c(.x),
                             strategy = "coalesce"
                         ))
         
         tt <- c(tt, list(list(
-                        name = tab,
+                        table = tab,
                         docs = "WRITE ME",
                         columns = cc
                     )
@@ -47,16 +47,9 @@ gen_swd_map <- function(spec, sheet, output = filename)
                 )
     }
 
-    mapping <- list(
-        swd = list(
-            docs = "WRITE ME",
-            source_database = "WRITE ME",
-            tables = tt
-        ))
-
     ## Write the output file
     filename <- paste0(janitor::make_clean_names(sheet), ".yaml")
-    yaml::write_yaml(mapping, file = output)
+    yaml::write_yaml(tt, file = output)
 }
 
 ##' This function parses the technical output specification for a
