@@ -406,6 +406,7 @@ server <- function(data_source_name = NULL,
 ##'
 get_tbl <- function(srv, source)
 {
+    print(source)
     dplyr::tbl(srv@con, source)
     
     ## ## Currently, this function just does a different thing for

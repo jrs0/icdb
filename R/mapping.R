@@ -322,16 +322,22 @@ parse_mapping <- function(mapping, srv)
             message("Parsing table ", object$table)
             
             ## Check validity
-            if(!("columns" %in% names(object)) &&
+            if (!("columns" %in% names(object)) &&
                !("raw" %in% names(object)))
             {
                 stop("Expected 'columns' or 'raw' key in table object ",
                      object$table)
             }
 
-            ## If there is a columns field, then the current mapping is a table.
+            ## Check validity
+            if (!("source" %in% names(object)))
+            {
+                stop("Expected required or 'source' key in table object ",
+                     object$table)
+            }
+            
             ## Record the source table name for the next execution environment
-            source <- mapping$source
+            source <- object$source
             
             ## corresponding to this logical table
             result[[object$table]] <-
