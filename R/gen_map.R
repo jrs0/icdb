@@ -11,7 +11,6 @@ NULL
 ##' 
 ##' @title Read SWD guide
 ##' @param spec The SWD guide document (.xlsx)
-##' @param sheet The name of the sheet to read
 ##' @param output The file path to write the output
 ##' 
 gen_swd_map <- function(spec, output = filename)

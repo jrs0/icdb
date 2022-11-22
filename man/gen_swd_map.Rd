@@ -10,8 +10,6 @@ gen_swd_map(spec, output = filename)
 \item{spec}{The SWD guide document (.xlsx)}
 
 \item{output}{The file path to write the output}
-
-\item{sheet}{The name of the sheet to read}
 }
 \description{
 Read the BNSSG system-wide dataset guide document into a mapping file.
