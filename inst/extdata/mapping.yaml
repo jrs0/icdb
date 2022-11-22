@@ -11,6 +11,8 @@ databases:
       # of "Date" and "Time" used capital start letters.
       apc:
         include: "apc_default.yaml"
+
+
       apc_spells:
         docs: "The admitted patient care spells table collates the APC episodes into spells. I'm not sure who creates this table and how they derive the spell data (e.g. the primary diagnosis for the spell)"
         source_table: "vw_APC_SEM_Spell_001"
