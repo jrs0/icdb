@@ -261,7 +261,7 @@ read_include <- function(include_file)
 ##' @title Mapping-tree parser
 ##' @param mapping A list storing a level of the yaml config file
 ##' @param srv The Databases object with the underlying connection
-##' @return A named list containing the results of parsing the file
+##' @return A node object containing the results of parsing the file
 ##'
 parse_mapping <- function(mapping, srv)
 {
@@ -289,7 +289,11 @@ parse_mapping <- function(mapping, srv)
     ]
     
     ## The mapping argument is a list of object -- loop over them
-    ## recursively processing the contents
+    ## recursively processing the contents. The results will be
+    ## put in this named list, which will be returned as a node
+    ## type at the end
+    result <- list()
+    
     for (object in mapping)
     {
         ## Check which of the three valid objects is being processed
@@ -300,20 +304,18 @@ parse_mapping <- function(mapping, srv)
             ## Check validity
             if("tables" %in% names(object))
             {
-                parse_mapping(object$tables, srv)
+                result[[object$database]] <-
+                    parse_mapping(object$tables, srv)
             }
             else
             {
                 stop("Expected 'tables' key in database object ",
                      object$database)
             }  
-
-            ## Parse the list of tables            
-            parse_mapping(object$tables, srv)
         }
         else if ("table" %in% names(object))
         {
-            print("Parsing database")
+            message("Parsing table ", object$table)
             
             ## Check validity
             if(!("columns" %in% names(object)) &&
@@ -328,15 +330,19 @@ parse_mapping <- function(mapping, srv)
             source <- mapping$source
             
             ## corresponding to this logical table
-            tab <- table_wrapper(make_mapped_table_getter(srv,
-                                                          source,
-                                                          mapping))
+            result[[object$table]] <-
+                table_wrapper(make_mapped_table_getter(srv,
+                                                       source,
+                                                       mapping))
         }
         else
         {
             stop("Error in config file: expected a database, table, column, or include key.")
         }
     }
+
+    ## Return the results as a node
+    node(result)
 }
 
 
