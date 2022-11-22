@@ -9,4 +9,4 @@
 ^Meta$
 ^codecov\.yml$
 ^\.github$
-^map-editor$
+^map-editor
