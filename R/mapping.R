@@ -261,95 +261,162 @@ read_include <- function(include_file)
 ##' database and table information that acts like a logical database.
 ##'
 ##' @title Mapping-tree parser
-##' @param mapping A named list storing a level of the yaml config file
+##' @param mapping A list storing a level of the yaml config file
 ##' @param srv The Databases object with the underlying connection
-##' @param source_database The name of the source database for the current
-##' level
-##' @param source_table The name of the source table for the current level
 ##' @return A named list containing the results of parsing the file
 ##'
-parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL)
+parse_mapping <- function(mapping, srv)
 {
-    ## Need to add something here to parse include files. Might want to refactor
-    ## this function completely and/or the file format.
-    ##
-    ## If an include key is found at this level of the mapping, then all other keys
-    ## are ignored, because the include is treated first. This currently happens
-    ## with no warning -- consider adding a function to check for other keys
-    if ("include" %in% names(mapping))
+    
+    ## The mapping argument is a list of object -- loop over them
+    ## recursively processing the contents
+    for (object in mapping)
     {
-        parse_mapping(read_include(mapping$include),
-                      srv, source_database, source_table)
-    }    
-    else if ("databases" %in% names(mapping))
-    {
-        ## When you get to a list of databases, parse each database in turn
-        d <- list()
-        for (database in names(mapping$databases))
+        ## Check which of the four valid objects are 
+        if ("include" %in% names(object))
         {
-            d[[database]] <- parse_mapping(mapping$databases[[database]], srv)
+            ## If the current object is an include, then read the
+            ## contents of the included file and put them in the current
+            ## list level 
+            included_contents <- read_include(object$include)
+            
+        }    
+        else if ("database" %in% names(object))
+        {
+            ## When you get to a list of databases, parse each database in turn
+            d <- list()
+            for (database in names(mapping$databases))
+            {
+                d[[database]] <- parse_mapping(mapping$databases[[database]], srv)
+            }
+            node(d)
         }
-        node(d)
-    }
-    else if ("tables" %in% names(mapping))
-    {
-        ## If there is a tables field, then the current mapping is a logical
-        ## database. Record the database name for the next function execution
-        ## environment.
-        source_database <- mapping$source_database
-        t <- list()
-        for (table in names(mapping$tables))
+        else if ("table" %in% names(object))
         {
-            t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
-                                        source_database = source_database)
-        }
-        ## Return the list of tables
-        node(t)
-    }
-    else if ("columns" %in% names(mapping))
-    {
-        ## This is never used? This function needs an overhaul.
-        
-        ## If there is a columns field, then the current mapping is a table.
-        ## Record the source table name for the next execution environment
-        source_table <- mapping$source_table
-
-        ## Check if there is a source_database key -- if there is, it must
-        ## overwrite the value inherited from the calling environment, to
-        ## support the possibility that tables in the same logical database
-        ## originate from separate source databases.
-        if (!is.null(mapping$source_database))
-        {
+            ## If there is a tables field, then the current mapping is a logical
+            ## database. Record the database name for the next function execution
+            ## environment.
             source_database <- mapping$source_database
+            t <- list()
+            for (table in names(mapping$tables))
+            {
+                t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
+                                            source_database = source_database)
+            }
+            ## Return the list of tables
+            node(t)
         }
+        else if ("column" %in% names(object))
+        {
+            ## This is never used? This function needs an overhaul.
+            
+            ## If there is a columns field, then the current mapping is a table.
+            ## Record the source table name for the next execution environment
+            source_table <- mapping$source_table
 
-        ## Next, create the function which will return the the Mapped object
-        ## corresponding to this logical table
-        tab <- table_wrapper(make_mapped_table_getter(srv, source_database, source_table, mapping))
-    }
-    else if ("strategy" %in% names(mapping))
-    {
-        stop("This function does not parse the source_columns")
+            ## Check if there is a source_database key -- if there is, it must
+            ## overwrite the value inherited from the calling environment, to
+            ## support the possibility that tables in the same logical database
+            ## originate from separate source databases.
+            if (!is.null(mapping$source_database))
+            {
+                source_database <- mapping$source_database
+            }
 
-        ## If there is a strategy field, then the current mapping element is
-        ## a logical column. A logical column contains a list of source_columns,
-        ## which are real columns in the database. The logical column also contains
-        ## a strategy field, which informs higher levels of the program how the
-        ## columns should be reduced to one column.
-
-        ## Get the list of source columns (names are column names, values are
-        ## documentation strings)
-        r <- names(mapping$source_column)
-
-        ## Do something with the strategy
-        ##mapping$strategy
-
-        r
-    }
-    else
-    {
-        stop("Error in config file: at least one of tables, columns, or strategy must be ",
-             "present at each level")
-    }
+            ## Next, create the function which will return the the Mapped object
+            ## corresponding to this logical table
+            tab <- table_wrapper(make_mapped_table_getter(srv, source_database, source_table, mapping))
+        }
+        else
+        {
+            stop("Error in config file: expected a database, table, column, or include key.")
+        }
 }
+
+
+
+## parse_mapping <- function(mapping, srv, source_database = NULL, source_table = NULL)
+## {
+##     ## Need to add something here to parse include files. Might want to refactor
+##     ## this function completely and/or the file format.
+##     ##
+##     ## If an include key is found at this level of the mapping, then all other keys
+##     ## are ignored, because the include is treated first. This currently happens
+##     ## with no warning -- consider adding a function to check for other keys
+##     if ("include" %in% names(mapping))
+##     {
+##         parse_mapping(read_include(mapping$include),
+##                       srv, source_database, source_table)
+##     }    
+##     else if ("databases" %in% names(mapping))
+##     {
+##         ## When you get to a list of databases, parse each database in turn
+##         d <- list()
+##         for (database in names(mapping$databases))
+##         {
+##             d[[database]] <- parse_mapping(mapping$databases[[database]], srv)
+##         }
+##         node(d)
+##     }
+##     else if ("tables" %in% names(mapping))
+##     {
+##         ## If there is a tables field, then the current mapping is a logical
+##         ## database. Record the database name for the next function execution
+##         ## environment.
+##         source_database <- mapping$source_database
+##         t <- list()
+##         for (table in names(mapping$tables))
+##         {
+##             t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
+##                                         source_database = source_database)
+##         }
+##         ## Return the list of tables
+##         node(t)
+##     }
+##     else if ("columns" %in% names(mapping))
+##     {
+##         ## This is never used? This function needs an overhaul.
+        
+##         ## If there is a columns field, then the current mapping is a table.
+##         ## Record the source table name for the next execution environment
+##         source_table <- mapping$source_table
+
+##         ## Check if there is a source_database key -- if there is, it must
+##         ## overwrite the value inherited from the calling environment, to
+##         ## support the possibility that tables in the same logical database
+##         ## originate from separate source databases.
+##         if (!is.null(mapping$source_database))
+##         {
+##             source_database <- mapping$source_database
+##         }
+
+##         ## Next, create the function which will return the the Mapped object
+##         ## corresponding to this logical table
+##         tab <- table_wrapper(make_mapped_table_getter(srv, source_database, source_table, mapping))
+##     }
+##     else if ("strategy" %in% names(mapping))
+##     {
+##         stop("This function does not parse the source_columns")
+
+##         ## If there is a strategy field, then the current mapping element is
+##         ## a logical column. A logical column contains a list of source_columns,
+##         ## which are real columns in the database. The logical column also contains
+##         ## a strategy field, which informs higher levels of the program how the
+##         ## columns should be reduced to one column.
+
+##         ## Get the list of source columns (names are column names, values are
+##         ## documentation strings)
+##         r <- names(mapping$source_column)
+
+##         ## Do something with the strategy
+##         ##mapping$strategy
+
+##         r
+##     }
+##     else
+##     {
+##         stop("Error in config file: at least one of tables, columns, or strategy must be ",
+##              "present at each level")
+##     }
+## }
 
