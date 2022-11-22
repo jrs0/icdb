@@ -296,7 +296,7 @@ parse_mapping <- function(mapping, srv)
             ## Check validity
             if("tables" %in% names(object))
             {
-                node(parse_mapping(object$columns)) 
+                node(parse_mapping(object$tables)) 
             }
             else
             {
