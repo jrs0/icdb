@@ -20,13 +20,38 @@ This section contains notes about development, such as todo lists, etc.
 
 ### Development environment
 
-To set up the R environment, install R 
+The development environment is compatible with Windows, Linux and Mac (todo check Mac). To set up the R environment, install R and install the devtools package. You can use R studio or any other editor/IDE. The top level directory is an R package, compatible with devtools::load_all().
+
+For Tauri/Next.js development, you need to install some dependencies. First, install the [Rust](https://www.rust-lang.org/tools/install) programming language for your operating system; this will give you the Rust compiler and the cargo package manager. On Windows, install Node.js from [here](https://nodejs.org/en/download/). On Linux and Mac, install the Node Version Manager (NVM) instead, by running:
 
 ```
-## For Tauri/next.js
+# Pick the latest version
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```
+
+and use that to install Node as follows:
+
+```
+nvm install latest
+```
+
+When you have Node.js installed, you should have the `npm` command; check by running `npm -v`.
+
+After you have cloned the repository, change into the map-editor directory and run
+
+```
+# Install node dependencies
+npm install
+
+# Install cargo tauri command
 cargo install tauri-cli
 
+# Build and run
+cargo tauri dev
+
 ```
+
+The installation of dependencies and first-time compilation may take a bit of time.
 
 ### Todo list
 
