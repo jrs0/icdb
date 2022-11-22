@@ -128,7 +128,7 @@ gen_cds_map <- function(tos, sheet, output = filename)
         list(
             table = tabname,
             docs = "WRITE ME",
-            source_table = "WRITE ME",
+            source = "WRITE ME",
             columns = cc
         )
     )

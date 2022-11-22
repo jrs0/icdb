@@ -8,7 +8,8 @@ test_that("correct columns are returned in mapped APC", {
     ## Connect to the database
     msrv <- mapped_server(
         config = system.file("extdata", "sqlite.yaml", package="icdb"),
-        mapping = system.file("extdata", "clean_apc.yaml", package="icdb"))
+        mapping = system.file("extdata", "test_apc.yaml", package="icdb")
+    )
 
     ## Expected column names (the test will check that at least
     ## these are present in the srv table
@@ -20,5 +21,6 @@ test_that("correct columns are returned in mapped APC", {
     ## saying all is deprecated. Not sure why -- it does
     ## not happen for the server object version of this test.
     ## Needs some looking into
-    expect_true(all(nn %in% colnames(msrv$apc)))
+    expect_true(all(nn %in% colnames(msrv$synth$cds_130)))
 })
+
