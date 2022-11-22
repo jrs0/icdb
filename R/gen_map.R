@@ -27,49 +27,24 @@ gen_swd_map <- function(spec, sheet, output = filename)
     tt <- list()
     for (tab in tables)
     {
-        tt <- c(tt,
-                xx %>%
-                dplyr::filter(`Table Name` == tab) %>%
-                dplyr::select(`Column Name`, `Description`) %>%
-                purrr::pmap(~ list(
-                                name = .x,
-                                docs = .y,
-                                source_columns = list(.x),
-                                strategy = "coalesce"
-                            ))
+        ## Get the source columns
+        cc <- xx %>%
+            dplyr::filter(`Table Name` == tab) %>%
+            dplyr::select(`Column Name`, `Description`) %>%
+            purrr::pmap(~ list(
+                            name = .x,
+                            docs = .y,
+                            source_columns = c(.x),
+                            strategy = "coalesce"
+                        ))
+        
+        tt <- c(tt, list(
+                        name = tab,
+                        docs = "WRITE ME",
+                        columns = cc
+                    )
                 )
     }
-     
-    return(tt)
-    
-    
-    ## for (tab in tables)
-    ## {
-    ##     ## Get the columns and docs
-    ##     cc <- xx %>%
-    ##         dplyr::filter(`Table Name` == tab) %>%
-    ##         dplyr::select(`Column Name`, `Description`) %>%
-    ##         purrr::pmap(~ list(
-    ##                         docs = .y,
-    ##                         strategy = "coalesce",
-    ##                         source_columns = list(
-    ##                             .x = ""
-    ##                         )
-    ##                     )
-    ##                     )
-    ##     names(cc) <-  xx %>%
-    ##         dplyr::filter(`Table Name` == tab) %>%
-    ##         dplyr::select(`Column Name`)
-        
-        
-    ##     tt <- list(
-    ##         name = tab
-    ##         docs = "Test",
-    ##         source_table = tab,
-    ##         columns = cc
-    ##     )
-        
-    ## }
 
     mapping <- list(
         swd = list(

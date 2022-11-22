@@ -2,1998 +2,1533 @@ swd:
   docs: WRITE ME
   source_database: WRITE ME
   tables:
-    swd_activity:
-      docs: Test
-      source_table: swd_activity
-      columns:
-        ? c("arr_date", "attend_code", "cost1", "cost1_type", "cost2", "cost2_type",
-          "dep_date", "fy", "nhs_number", "pod_l1", "pod_l2a", "pod_l2b", "pod_l2c",
-          "pod_l3", "pod_l4", "prov_code", "spec_l1a", "spec_l1b", "spec_l2a", "spec_l2b",
-          "source_id", "source_id_name", "version")
-        : docs: Arrival date and time - when time is unavailable, the time component
-            takes the value 00:00
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Follows NHS data dictionary definitions
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cost of activity - details of derivation logic to be added
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Description of cost type in cost1 column
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Spare cost field to represent different cost type - not currently
-            populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Spare cost field to represent different cost type description - not
-            currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Departure date and time - when departure time not specified, it is
-            taken to be the same as ‘arr_date’ field
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: The financial year of the ‘arr_date’ field
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Pseudo NHS number
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Principal descriptor for point of delivery - see POD Mapping worksheet
-            for more details
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Medial descriptor for point of delivery - see POD Mapping worksheet
-            for more details
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Medial descriptor for point of delivery - see POD Mapping worksheet
-            for more details
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Medial descriptor for point of delivery - see POD Mapping worksheet
-            for more details
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Minor descriptor for point of delivery, used to indicate appointment
-            medium - see POD Mapping worksheet for more details
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Minor descriptor for point of delivery  - see POD Mapping worksheet
-            for more details
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Standard ODS provider code
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Further information pertaining to the clinical nature of the contact
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Further information pertaining to the clinical nature of the contact
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Further information pertaining to the clinical nature of the contact
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Further information pertaining to the clinical nature of the contact
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Unique ID allowing linkage back to source data when wider data items
-            required
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Description of the source ID type
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Current version of activity dataset
-          strategy: coalesce
-          source_columns:
-            .x: ''
-    swd_attribute:
-      docs: Test
-      source_table: swd_attribute
-      columns:
-        ? "c(\"abortion\", \"adhd\", \"af\", \"age\", \"alcohol_cscore\", \"alcohol_units\",
-          \"amputations\", \"anaemia_iron\", \"anaemia_other\", \"angio_anaph\", \"arrhythmia_other\",
-          \"asthma\", \"autism\", \"back_pain\", \"bmi\", \"bp_date\", \"bp_reading\",
-          \"cancer_bladder\", \"cancer_bladder_year\", \"cancer_bowel\", \"cancer_bowel_year\",
-          \"cancer_breast\", \"cancer_breast_year\", \"cancer_cervical\", \"cancer_cervical_year\",
-          \"cancer_giliver\", \"cancer_giliver_year\", \"cancer_headneck\", \"cancer_headneck_year\",
-          \"cancer_kidney\", \"cancer_kidney_year\", \n\"cancer_leuklymph\", \"cancer_leuklymph_year\",
-          \"cancer_lung\", \"cancer_lung_year\", \"cancer_melanoma\", \"cancer_melanoma_year\",
-          \"cancer_metase\", \"cancer_metase_year\", \"cancer_nonmaligskin\", \"cancer_nonmaligskin_year\",
-          \"cancer_other\", \"cancer_other_year\", \"cancer_ovarian\", \"cancer_ovarian_year\",
-          \"cancer_prostate\", \"cancer_prostate_year\", \"cardio_other\", \"cataracts\",
-          \"ckd\", \"coag\", \"coeliac\", \"contraception\", \"copd\", \"cystic_fibrosis\",
-          \"dementia\", \"dep_alcohol\", \"dep_benzo\", \"dep_cannabis\", \"dep_cocaine\",
-          \n\"dep_opioid\", \"dep_other\", \"depression\", \"diabetes_1\", \"diabetes_2\",
-          \"diabetes_gest\", \"diabetes_retina\", \"disorder_eating\", \"disorder_pers\",
-          \"dna_cpr\", \"eczema\", \"efi_category\", \"egfr\", \"endocrine_other\",
-          \"endometriosis\", \"eol_plan\", \"epaccs\", \"epilepsy\", \"ethnicity\",
-          \"fatigue\", \"fev1\", \"fragility\", \"gender_identity\", \"gout\", \"gppaq\",
-          \"has_carer\", \"health_check\", \"hearing_impair\", \"hep_b\", \"hep_c\",
-          \"hf\", \"hiv\", \"homeless\", \"housebound\", \"ht\", \"ibd\", \"ibs\",
-          \"ihd_mi\", \"ihd_nonmi\", \"incont_urinary\", \n\"infant_feeding\", \"inflam_arthritic\",
-          \"is_carer\", \"learning_diff\", \"learning_dis\", \"live_birth\", \"liver_alcohol\",
-          \"liver_nafl\", \"liver_other\", \"lsoa\", \"lung_restrict\", \"macular_degen\",
-          \"marital\", \"measles_mumps\", \"migraine\", \"miscarriage\", \"mmr1\",
-          \"mmr2\", \"mnd\", \"mrc_dyspnoea\", \"ms\", \"neuro_pain\", \"neuro_various\",
-          \"newborn_check\", \"newborn_weight\", \"nh_rh\", \"nhs_number\", \"nose\",
-          \"obesity\", \"organ_transplant\", \"osteoarthritis\", \"osteoporosis\",
-          \"parkinsons\", \"pelvic\", \"phys_disability\", \"poly_ovary\", \n\"polypharmacy_acute\",
-          \"polypharmacy_repeat\", \"practice_code\", \"pre_diabetes\", \"pref_death\",
-          \"pregnancy\", \"prim_language\", \"psoriasis\", \"ptsd\", \"qof_af\", \"qof_asthma\",
-          \"qof_cancer\", \"qof_chd\", \"qof_ckd\", \"qof_copd\", \"qof_dementia\",
-          \"qof_depression\", \"qof_diabetes\", \"qof_epilepsy\", \"qof_hf\", \"qof_ht\",
-          \"qof_learndis\", \"qof_mental\", \"qof_obesity\", \"qof_osteoporosis\",
-          \"qof_pad\", \"qof_pall\", \"qof_rheumarth\", \"qof_stroke\", \"qrisk2_3\",
-          \"religion\", \"ricketts\", \"sad\", \"screen_aaa\", \"screen_bowel\", \"screen_breast\",
-          \n\"screen_cervical\", \"screen_eye\", \"self_harm\", \"sex\", \"sexual_orient\",
-          \"sickle\", \"smi\", \"smoking\", \"stomach\", \"stroke\", \"tb\", \"thyroid\",
-          \"uterine\", \"vasc_dis\", \"veteran\", \"visual_impair\", \"primary_care_network\",
-          \"locality_name\", \"wd_local_authority\", \"wd_mye_population_2018\", \"wd_mye_population_2017\",
-          \"wd_mye_population_2016\", \"wd_derived_registered_patients\", \"wd_derived_registered_patients_over_64\",
-          \"wd_derived_registered_patients_under_18\", \"wd_derived_trust_catchment\",
-          \"wd_people_per_sq_km\", \"wd_rural_urban_classification\", \n\"wd_imd_decile_19\",
-          \"wd_health_deprivation_and_disability_decile\", \"wd_years_of_potential_life_lost_indicator\",
-          \"wd_comparative_illness_and_disability_ratio_indicator\", \"wd_acute_morbidity_indicator\",
-          \"wd_mood_and_anxiety_disorders_indicator\", \"wd_fsa_takeaway_sandwich_bar_count\",
-          \"wd_education_skills_and_training_decile\", \"wd_adult_skills_sub_domain_decile\",
-          \"wd_children_and_young_people_sub_domain_decile\", \"wd_staying_on_in_education_post_16_indicator\",
-          \"wd_entry_to_higher_education_indicator\", \n\"wd_adult_skills_and_english_language_proficiency_indicator\",
-          \"wd_employment_decile\", \"wd_geographical_barriers_sub_domain_decile\",
-          \"wd_road_distance_to_a_gp_surgery_indicator\", \"wd_road_distance_to_a_post_office_indicator\",
-          \"wd_road_distance_to_a_primary_school_indicator\", \"wd_road_distance_to_general_store_or_supermarket_indicator\",
-          \"wd_travel_time_to_ae\", \"wd_travel_time_to_miu\", \"wd_barriers_to_housing_and_services_decile\",
-          \"wd_household_overcrowding_indicator\", \"wd_homelessness_indicator_rate_per_1000_households\",
-          \n\"wd_owner_occupation_affordability\", \"wd_private_rental_affordability\",
-          \"wd_housing_affordability_indicator\", \"wd_estimated_number_of_fuel_poor_households\",
-          \"wd_income_deprivation_affecting_children_index_decile\", \"wd_income_deprivation_affecting_older_people_decile\",
-          \"wd_income_decile\", \"wd_housing_in_poor_condition_indicator\", \"wd_houses_without_central_heating_indicator\",
-          \"wd_living_environment_decile\", \"wd_outdoors_sub_domain_decile\", \"wd_indoors_sub_domain_decile\",
-          \"wd_road_traffic_accidents_indicator\", \n\"wd_nitrogen_dioxide_component_of_air_quality_indicator\",
-          \"wd_benzene_component_of_air_quality_indicator\", \"wd_sulphur_dioxide_component_of_air_quality_indicator\",
-          \"wd_particulates_component_of_air_quality_indicator\", \"wd_air_quality_indicator\",
-          \"wd_wider_barriers_sub_domain_decile\", \"wd_crime_decile\", \"wd_asb_per_1000\",
-          \"wd_burglary_per_1000\", \"wd_robbery_per_1000\", \"wd_violence_and_sexual_offences_per_1000\",
-          \"wd_child_benefit_receipt_all_children\", \"wd_child_benefit_receipt_children_under_5\",
-          \"wd_child_benefit_receipt_children_5_to_10\", \n\"wd_child_benefit_receipt_children_11_to_15\",
-          \"wd_child_benefit_receipt_children_16_to_19\", \"wd_child_benefit_receipt_all_families\",
-          \"wd_child_benefit_receipt_family_size_one_child\", \"wd_child_benefit_receipt_family_size_two_children\",
-          \"wd_child_benefit_receipt_family_size_three_or_more_children\", \"wd_townsend_score\",
-          \"version\", \"mh_plus_associated_condition\", \"mh_multi_diagnoses\", \"mh_plus_dependency\",
-          \"mh_plus_social_risk\", \"asylum_seeker_refugee\")"
-        : docs: Termination of pregnancy - ever had
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: ADHD
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Atrial fibrillation
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Patient age
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Alcohol - Audit-C score, most recent record within the past 2 years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Alcohol - units consumption, most recent record if within past 2 years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Amputations
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Iron Deficiency anaemia
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Anaemia - any other
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Angioedema, anaphylaxis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Other cardiac arrhythmias
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Asthma
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Autism, ASD and Asperger's
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Low back pain
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: BMI score
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: BP date reading taken
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: BP reading value
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Bladder Cancer
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Bladder Cancer - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Bowel Cancer
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Bowel Cancer - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Breast Cancer
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Breast Cancer - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cervical
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cervical - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Upper GI/liver
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Upper GI/liver - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Head and neck
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Head and neck - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Kidney Cancer
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Kidney Cancer  - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Leukaemia/Lymphoma
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Leukaemia/Lymphoma - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Lung Cancer
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Lung Cancer - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Melanoma
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Melanoma - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Metastatic cancer
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Metastatic cancer - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Other cancers
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Other cancers - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Ovarian
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Ovarian - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Prostate Cancer
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Prostate Cancer - within last five years
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Other significant cardiovascular conditions including grown up congenital
-            heart conditions (GUCH)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cataracts
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Chronic kidney disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Haemophilia and other coagulation disorders
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Coeliac disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Use of long acting reversible contraception - if ever, if not in episodes
-            DS
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Chronic obstructive pulmonary disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cystic Fibrosis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Dementia
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Alcohol Dependence
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Drug Dependence - benzodiazepines
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Drug Dependence - cannabis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Drug Dependence - cocaine
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Drug Dependence - opioid
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Drug Dependence - other
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Severe depression
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: 'Diabetes: Type I'
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: 'Diabetes: Type II'
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Gestational diabetes
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Diabetic retinopathy
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Eating disorders
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Personality disorders
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: DNA CPR in Place
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Eczema
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Electronic Frailty Index Category
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: latest eGFR score
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Other significant Endocrine disorders
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Endometriosis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: End of Life Care Plan
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Electronic Palliative Care Co-ordination Systems
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Epilepsy
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Ethnicity
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Chronic fatigue syndrome/ME/post-viral fatigue
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: latest FEV1 score
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Fragility fractures
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Gender Identity
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Gout
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: GPPAQ score
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Has a carer
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: NHS Health check - ever had
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Hearing impairment
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Hepatitis B
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Hepatitis C
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Heart failure
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: HIV
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Homelessness
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Housebound
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Hypertension
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Inflammatory bowel disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Irritable bowel syndrome
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Myocardial Infarction ischaemic heart disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Non-myocardial infarct ischaemic heart disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Urinary Incontinence
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Infant feeding status
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Inflammatory Arthritis, ankylosing spondylitis, systemic lupus erythematous
-            and other systemic autoimmune conditions
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Is a carer
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Learning difficulties - dyslexia or dyspraxia
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Learning disabilities IQ < 70
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Ever had a live birth
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Alcoholic Liver Disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Non-alcoholic fatty liver disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Other liver disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Lower Super Output Area
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Restrictive lung disease including lung fibrosis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Macular Degeneration
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Marital Status
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Ever had measles or mumps
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Migraine + other headache disorders
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Miscarriage
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Vaccines - MMR1
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Vaccines - MMR2
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Motor neurone disease & other degenerative
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: latest MRC dyspnoea grading scale
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Multiple sclerosis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Chronic pain/ Fibromyalgia/Neuralgias
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Neurological impairments - Ataxias, Amnesia, Aphasia, Cerebral Palsy,
-            Brain Injuries
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Infant newborn check (6-8 weeks)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Infant weight at newborn check
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Lives in a Nursing or Residential Home
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Pseudo NHS number
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Allergic rhinitis/rhinitis/sinusitis/rhinosinusitis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Obesity
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Organ transplant
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Osteoarthritis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Osteoporosis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Parkinson’s disease/ Progressive supranuclear palsy/Multisystem atrophy
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Chronic pelvic pain
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Physical disabilities
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Polycystic ovary disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: "Polypharmacy\r\n(Count of acute medication issued within the past
-            month)"
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: "Polypharmacy\r\n(Count of Current repeat Medications)"
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Registered GP practice code
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: pre-diabetes and related codes, nd-hyperglycaemia, and risk of diabetes,
-            impaired glucose tolerance
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Preferred place of death
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Pregnancy
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Primary Language
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Psoriasis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: PTSD
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Atrial Fibrillation
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Asthma
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Coronary Heart Disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Chronic Kidney Disease (18+)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Chronic Obstructive Pulmonary Disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Dementia
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Depression (18+)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Diabetes mellitus (17+)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Epilepsy (18+)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Heart Failure
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Hypertension
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Learning Disabilities
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Mental Health
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Obesity (18+)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Osteoporosis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Peripheral Arterial Disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Palliative care
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Rheumatoid Arthritis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: QOF_Stroke and Transient Ischaemic Attack
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Most up to date QRisk2 or 3 score
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Religious Belief
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Stress, anxiety, mild-mod depression, mixed anxiety/depressive disorder
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: NHS abdominal aortic aneurysm (AAA) programme
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: NHS bowel cancer screening (BCSP) programme
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: NHS breast screening (BSP) programme
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: NHS cervical screening (CSP) programme
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: NHS diabetic eye screening (DES) programme
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Ever had self harm problems
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Patient sex at birth
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Sexual Orientation
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Sickle cell disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Serious Mental Health, including bipolar affective disorder
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Smoking status
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Stomach ulcers, oesophageal reflux, gord
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cerebrovascular disease - stroke
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Tuberculosis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Thyroid Disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Dysfunctional uterine bleeding including oligo- and amenorrhoea
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Peripheral vascular disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Veteran
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Visual impairment
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Primary care network of registered GP practice code
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Locality name of registered GP practice code
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: local authority name of LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: annual population estimate (mid-2018) of LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: annual population estimate (mid-2017) of LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: annual population estimate (mid-2016) of LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: derived count of current registered patients (all ages) in LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: derived count of current registered patients (65+) in LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: derived count of current registered patients (under 18) in LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: derived trust catchment of LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: population density of LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: official statistic used to distinguish LSOA as rural or urban area
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: relative deprivation of LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: measures the risk of premature death and the impairment of quality
-            of life through poor physical or mental health within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: measures ‘premature death’, defined as death before the age of 75
-            from any cause (the commonly used measure of premature death) within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: work limiting morbidity and disability, based on those receiving benefits
-            due to inability to work through ill health within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: level of emergency admissions to hospital within LSOA, based on administrative
-            records of inpatient admissions
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: broad measure of levels of mental ill health within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: count of locations within LSOA registered with the food standards
-            agency where the description is 'takeaway of sandwich bar'
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: the lack of attainment and skills within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: education, skills and training deprivation within LSOA - working age
-            adults
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: education, skills and training deprivation within LSOA - children
-            & young people
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: proportion of young people within LSOA not staying on in school or
-            non-advanced education above age 16, based on receipt of child benefit
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: proportion of young people aged under 21 within LSOA not entering
-            higher education
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: proportion of working-age adults within LSOA (women aged 25 to 59
-            and men aged 25 to 64) with no or low qualifications combined with the
-            proportion of the working-age population who cannot speak english or cannot
-            speak english ‘well’
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: employment deprivation within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: physical proximity of local services within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: average road distance within LSOA to GP surgery measured in kilometres
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: average road distance within LSOA to post office measured in kilometres
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: average road distance within LSOA to primary school measured in kilometres
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: average road distance within LSOA to general store or supermarket
-            measured in kilometres
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: approximate travel time by car from lsoa population weighted centre
-            to closest type 1 ae department
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: approximate travel time by car from lsoa population weighted centre
-            to closest type 3 miu department
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: barriers to housing indicator - measures the physical and financial
-            accessibility of housing and local services within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: the proportion of households within LSOA that are classed as overcrowded
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: the rate of acceptances for housing assistance under the homelessness
-            provisions of housing legislation within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: measure of the inability to afford to enter owner-occupation with
-            LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: measure of the inability to afford to enter the private rental market
-            within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: inability to afford to enter owner-occupation or the private rental
-            market within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: estimated number of households in fuel poverty in LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: proportion of all children aged 0 to 15 living in income deprived
-            families within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: proportion of all those aged 60 or over living in income deprived
-            families within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: income deprivation within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: a modelled estimate of the proportion of social and private homes
-            that fail to meet the decent homes standard within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: housing which is expensive to heat within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: quality of the local environment within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: air quality and road traffic accidents within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: measures the quality of housing within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: reported accidents that involve death or personal injury to a pedestrian
-            or cyclist within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: estimate of concentration of nitrogen dioxide within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: estimate of concentration of benzene within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: estimate of concentration of sulphur dioxide within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: estimate of concentration of particulates within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: estimate of the concentration of the four pollutants nitrogen dioxide,
-            benzene, sulphur dioxide and particulates within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: issues relating to access to housing (such as affordability) within
-            LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: the risk of personal and material victimisation within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: anti-social behaviour incidents reported to the police per 1000 residents
-            within LSOA in a 12mth period
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: burglary incidents reported to the police per 1000 residents within
-            LSOA in a 12mth period
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: robbery incidents reported to the police per 1000 residents within
-            LSOA in a 12mth period
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: violence and sexual offence incidents reported to the police per 1000
-            residents within LSOA in a 12mth period
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: count of children within LSOA in receipt of child benefit as at 31
-            august 2019
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: count of children under 5 years within LSOA old in receipt of child
-            benefit as at 31 august 2019
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: count of children aged 5 to 10 years old within LSOA in receipt of
-            child benefit as at 31 august 2019
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: count of children aged 11 to 15 years old within LSOA in receipt of
-            child benefit as at 31 august 2019
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: count of children aged 16 to 19 years old within LSOA in receipt of
-            child benefit as at 31 august 2019
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: count of families within LSOA in receipt of child benefit as at 31
-            august 2019
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: count of families within LSOA with one child in receipt of child benefit
-            as at 31 august 2019
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: count of families within LSOA with two children in receipt of child
-            benefit as at 31 august 2019
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: count of families within LSOA with three or more  children in receipt
-            of child benefit as at 31 august 2019
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: townsend deprivation measure of material deprivation within LSOA
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: current version of attributes dataset
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Mental health and associated condition
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Multiple mental health diagnoses
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Mental health and drug or alcohol dependency
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Mental health and social risk
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Refugee/Asylum seeker
-          strategy: coalesce
-          source_columns:
-            .x: ''
-    swd_supplemental:
-      docs: Test
-      source_table: swd_supplemental
-      columns:
-        ? "c(\"cc_AIDS\", \"cc_asthma\", \"cc_bronchiectasis\", \"cc_copd\", \"cc_cystic_fibrosis\",
-          \"cc_dementia\", \"cc_diabetes_end_complications\", \"cc_diabetes_no_complications\",
-          \"cc_egfr\", \"cc_heart_failure\", \"cc_hemiplegia\", \"cc_mild_liver_disease\",
-          \"cc_moderate_or_severe_liver_disease\", \"cc_myocardial_infarction\", \"cc_peptic_ulcer\",
-          \"cc_periph_vasc\", \"cc_pulmonary_fibrosis\", \"cc_stroke\", \"confirmed_2019_nCoV\",
-          \"Covid_higher_risk_CMO\", \"Covid_increased_risk_CMO\", \"down_syndrome_chrom\",
-          \"home_oxygen\", \"nhs_number\", \n\"hba1c_reading\", \"hba1c_date\", \"charlson_score\",
-          \"charlson_cc_no_aids_hemi\", \"alama_age\", \"alama_underlying_hc\", \"alama_risk_cat_full_age\",
-          \"sup_metric_1\", \"sup_metric_2\", \"sup_metric_3\", \"sup_metric_4\",
-          \"sup_metric_5\", \"sup_metric_6\", \"sup_metric_7\", \"sup_metric_8\",
-          \"sup_metric_9\", \"sup_metric_10\", \"sup_metric_11\", \"sup_metric_12\",
-          \"sup_metric_13\", \"sup_metric_14\", \"sup_metric_15\", \"sup_metric_16\",
-          \"sup_metric_17\", \"sup_metric_18\", \"sup_metric_19\", \"sup_metric_20\",
-          \"sup_metric_21\", \"sup_metric_22\", \n\"sup_metric_23\", \"sup_metric_24\",
-          \"sup_metric_25\", \"sup_metric_26\", \"sup_metric_27\", \"sup_metric_28\",
-          \"sup_metric_29\", \"sup_metric_30\", \"sup_metric_31\", \"sup_metric_32\",
-          \"sup_metric_33\", \"sup_metric_34\", \"sup_metric_35\", \"sup_metric_36\",
-          \"sup_metric_37\", \"sup_metric_38\", \"sup_metric_39\", \"sup_metric_40\",
-          \"version\")"
-        : docs: Cambridge Charlson - AIDS
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Multimorbidity - Asthma (currently treated)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Multimorbidity - Bronchiectasis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Charlson - Chronic Obstructive Pulmonary Disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Charlson - Cystic Fibrosis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Multimorbidity - Dementia
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Charlson - Diabetes with end stage complications
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Charlson - Diabetes with no complications
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Highest of two latest eGFR scores
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Multimorbidity - Heart failure
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Charlson - Hemiplegia
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Charlson - Mild Chronic Liver Disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Charlson - Moderate or Severe Chronic Liver Disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Charlson - Myocardial Infarction
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Multimorbidity - Peptic Ulcer Disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Multimorbidity - Peripheral vascular disease
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Charlson - Pulmonary Fibrosis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Cambridge Multimorbidity - Stroke & transient ischaemic attack
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Confirmed Covid-19
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: High risk of severe Covid-19 complications
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Increased risk of severe Covid-19 complications
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Down's Syndrome
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Receiving Home Oxygen Therapy
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Pseudo NHS number
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Haemoglobin A1C level
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Date haemoglobin A1C reading taken
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Charlson Comorbidity Index score for patient
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Charlson Comorbidity Index score for patient excluding factors relating
-            to aids and hemiplaegia
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Alama Covid-Age - summarises vulnerability for combinations of risk
-            factors including age, sex and ethnicity and various health problems
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Indicates whether patient has an underlying health condition as defined
-            in the Alama criteria
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Risk category where 'a' indicates lowest risk/COVID age and 'i' =
-            highest risk/age
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Earliest date of suspected Covid-19
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Date of Covid-19 positive antigen test
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Date of Covid-19 negative antigen test
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Diverticulitis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Sinusitis
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Date first COVID vaccine dose administered
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Date second COVID vaccine dose administered
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Date unspecified version of vaccine dose administered - to be updated
-            by EMIS so first or second is specified
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Prostate conditions
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Last 4 dates a diagnosis of post viral syndrome/fatigue has been indicated
-            - to help identify potential long COVID
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Covid-19 vaccine cohort 6 eligibility
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Psychoactive substance misuse (NOT ALCOHOL) indicator
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Pervasive developmental disorder indicator
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Date that social prescribing referral made
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Date that social prescribing offered
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Date that social prescribing declined
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Refugee/Asylum seeker
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Spare field - not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Spare field - not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Spare field - not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Spare field - not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Spare field - not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: ReSPECT form completed (Earliest)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: ReSPECT form completed (Latest)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Patients reSPECT form done was in primary care setting (Earliest)?
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Patients reSPECT form was done in primary care setting (Latest)?
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Clinical Priorities
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Clinical Recommendations
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Preferred place of death
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Spare field - not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Preferred place of death disucssed with family
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Hospice Involvement
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Patient has capacity to participate in ReSPECT discussion? (Earliest)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Patient has capacity to participate in ReSPECT discussion? (Latest)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: If lacking capacity was the form discussed with LPA or represenative?
-            (Earliest)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: If lacking capacity was the form discussed with LPA or represenative?
-            (Latest)
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Consent for sharing EOL Record
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Does the patient have a decision for DNACPR
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Spare field - not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Spare field - not currently populated
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: current version of attributes dataset
-          strategy: coalesce
-          source_columns:
-            .x: ''
-    swd_measurement:
-      docs: Test
-      source_table: swd_measurement
-      columns:
-        c("nhs_number", "practice_code", "measurement_name", "measurement_value", "measurement_date", "measurement_group"):
-          docs: Pseudo NHS number
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Registered GP practice code
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Name of measurement recorded
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Value of the measurement recorded
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: Date the measurement was recorded
-          strategy: coalesce
-          source_columns:
-            .x: ''
-        NA:
-          docs: derived measurement classification groupings
-          strategy: coalesce
-          source_columns:
-            .x: ''
+    name: swd_activity
+    docs: WRITE ME
+    columns:
+    - name: arr_date
+      docs: Arrival date and time - when time is unavailable, the time component takes
+        the value 00:00
+      source_columns: arr_date
+      strategy: coalesce
+    - name: attend_code
+      docs: Follows NHS data dictionary definitions
+      source_columns: attend_code
+      strategy: coalesce
+    - name: cost1
+      docs: Cost of activity - details of derivation logic to be added
+      source_columns: cost1
+      strategy: coalesce
+    - name: cost1_type
+      docs: Description of cost type in cost1 column
+      source_columns: cost1_type
+      strategy: coalesce
+    - name: cost2
+      docs: Spare cost field to represent different cost type - not currently populated
+      source_columns: cost2
+      strategy: coalesce
+    - name: cost2_type
+      docs: Spare cost field to represent different cost type description - not currently
+        populated
+      source_columns: cost2_type
+      strategy: coalesce
+    - name: dep_date
+      docs: Departure date and time - when departure time not specified, it is taken
+        to be the same as ‘arr_date’ field
+      source_columns: dep_date
+      strategy: coalesce
+    - name: fy
+      docs: The financial year of the ‘arr_date’ field
+      source_columns: fy
+      strategy: coalesce
+    - name: nhs_number
+      docs: Pseudo NHS number
+      source_columns: nhs_number
+      strategy: coalesce
+    - name: pod_l1
+      docs: Principal descriptor for point of delivery - see POD Mapping worksheet
+        for more details
+      source_columns: pod_l1
+      strategy: coalesce
+    - name: pod_l2a
+      docs: Medial descriptor for point of delivery - see POD Mapping worksheet for
+        more details
+      source_columns: pod_l2a
+      strategy: coalesce
+    - name: pod_l2b
+      docs: Medial descriptor for point of delivery - see POD Mapping worksheet for
+        more details
+      source_columns: pod_l2b
+      strategy: coalesce
+    - name: pod_l2c
+      docs: Medial descriptor for point of delivery - see POD Mapping worksheet for
+        more details
+      source_columns: pod_l2c
+      strategy: coalesce
+    - name: pod_l3
+      docs: Minor descriptor for point of delivery, used to indicate appointment medium
+        - see POD Mapping worksheet for more details
+      source_columns: pod_l3
+      strategy: coalesce
+    - name: pod_l4
+      docs: Minor descriptor for point of delivery  - see POD Mapping worksheet for
+        more details
+      source_columns: pod_l4
+      strategy: coalesce
+    - name: prov_code
+      docs: Standard ODS provider code
+      source_columns: prov_code
+      strategy: coalesce
+    - name: spec_l1a
+      docs: Further information pertaining to the clinical nature of the contact
+      source_columns: spec_l1a
+      strategy: coalesce
+    - name: spec_l1b
+      docs: Further information pertaining to the clinical nature of the contact
+      source_columns: spec_l1b
+      strategy: coalesce
+    - name: spec_l2a
+      docs: Further information pertaining to the clinical nature of the contact
+      source_columns: spec_l2a
+      strategy: coalesce
+    - name: spec_l2b
+      docs: Further information pertaining to the clinical nature of the contact
+      source_columns: spec_l2b
+      strategy: coalesce
+    - name: source_id
+      docs: Unique ID allowing linkage back to source data when wider data items required
+      source_columns: source_id
+      strategy: coalesce
+    - name: source_id_name
+      docs: Description of the source ID type
+      source_columns: source_id_name
+      strategy: coalesce
+    - name: version
+      docs: Current version of activity dataset
+      source_columns: version
+      strategy: coalesce
+    name: swd_attribute
+    docs: WRITE ME
+    columns:
+    - name: abortion
+      docs: Termination of pregnancy - ever had
+      source_columns: abortion
+      strategy: coalesce
+    - name: adhd
+      docs: ADHD
+      source_columns: adhd
+      strategy: coalesce
+    - name: af
+      docs: Atrial fibrillation
+      source_columns: af
+      strategy: coalesce
+    - name: age
+      docs: Patient age
+      source_columns: age
+      strategy: coalesce
+    - name: alcohol_cscore
+      docs: Alcohol - Audit-C score, most recent record within the past 2 years
+      source_columns: alcohol_cscore
+      strategy: coalesce
+    - name: alcohol_units
+      docs: Alcohol - units consumption, most recent record if within past 2 years
+      source_columns: alcohol_units
+      strategy: coalesce
+    - name: amputations
+      docs: Amputations
+      source_columns: amputations
+      strategy: coalesce
+    - name: anaemia_iron
+      docs: Iron Deficiency anaemia
+      source_columns: anaemia_iron
+      strategy: coalesce
+    - name: anaemia_other
+      docs: Anaemia - any other
+      source_columns: anaemia_other
+      strategy: coalesce
+    - name: angio_anaph
+      docs: Angioedema, anaphylaxis
+      source_columns: angio_anaph
+      strategy: coalesce
+    - name: arrhythmia_other
+      docs: Other cardiac arrhythmias
+      source_columns: arrhythmia_other
+      strategy: coalesce
+    - name: asthma
+      docs: Asthma
+      source_columns: asthma
+      strategy: coalesce
+    - name: autism
+      docs: Autism, ASD and Asperger's
+      source_columns: autism
+      strategy: coalesce
+    - name: back_pain
+      docs: Low back pain
+      source_columns: back_pain
+      strategy: coalesce
+    - name: bmi
+      docs: BMI score
+      source_columns: bmi
+      strategy: coalesce
+    - name: bp_date
+      docs: BP date reading taken
+      source_columns: bp_date
+      strategy: coalesce
+    - name: bp_reading
+      docs: BP reading value
+      source_columns: bp_reading
+      strategy: coalesce
+    - name: cancer_bladder
+      docs: Bladder Cancer
+      source_columns: cancer_bladder
+      strategy: coalesce
+    - name: cancer_bladder_year
+      docs: Bladder Cancer - within last five years
+      source_columns: cancer_bladder_year
+      strategy: coalesce
+    - name: cancer_bowel
+      docs: Bowel Cancer
+      source_columns: cancer_bowel
+      strategy: coalesce
+    - name: cancer_bowel_year
+      docs: Bowel Cancer - within last five years
+      source_columns: cancer_bowel_year
+      strategy: coalesce
+    - name: cancer_breast
+      docs: Breast Cancer
+      source_columns: cancer_breast
+      strategy: coalesce
+    - name: cancer_breast_year
+      docs: Breast Cancer - within last five years
+      source_columns: cancer_breast_year
+      strategy: coalesce
+    - name: cancer_cervical
+      docs: Cervical
+      source_columns: cancer_cervical
+      strategy: coalesce
+    - name: cancer_cervical_year
+      docs: Cervical - within last five years
+      source_columns: cancer_cervical_year
+      strategy: coalesce
+    - name: cancer_giliver
+      docs: Upper GI/liver
+      source_columns: cancer_giliver
+      strategy: coalesce
+    - name: cancer_giliver_year
+      docs: Upper GI/liver - within last five years
+      source_columns: cancer_giliver_year
+      strategy: coalesce
+    - name: cancer_headneck
+      docs: Head and neck
+      source_columns: cancer_headneck
+      strategy: coalesce
+    - name: cancer_headneck_year
+      docs: Head and neck - within last five years
+      source_columns: cancer_headneck_year
+      strategy: coalesce
+    - name: cancer_kidney
+      docs: Kidney Cancer
+      source_columns: cancer_kidney
+      strategy: coalesce
+    - name: cancer_kidney_year
+      docs: Kidney Cancer  - within last five years
+      source_columns: cancer_kidney_year
+      strategy: coalesce
+    - name: cancer_leuklymph
+      docs: Leukaemia/Lymphoma
+      source_columns: cancer_leuklymph
+      strategy: coalesce
+    - name: cancer_leuklymph_year
+      docs: Leukaemia/Lymphoma - within last five years
+      source_columns: cancer_leuklymph_year
+      strategy: coalesce
+    - name: cancer_lung
+      docs: Lung Cancer
+      source_columns: cancer_lung
+      strategy: coalesce
+    - name: cancer_lung_year
+      docs: Lung Cancer - within last five years
+      source_columns: cancer_lung_year
+      strategy: coalesce
+    - name: cancer_melanoma
+      docs: Melanoma
+      source_columns: cancer_melanoma
+      strategy: coalesce
+    - name: cancer_melanoma_year
+      docs: Melanoma - within last five years
+      source_columns: cancer_melanoma_year
+      strategy: coalesce
+    - name: cancer_metase
+      docs: Metastatic cancer
+      source_columns: cancer_metase
+      strategy: coalesce
+    - name: cancer_metase_year
+      docs: Metastatic cancer - within last five years
+      source_columns: cancer_metase_year
+      strategy: coalesce
+    - name: cancer_nonmaligskin
+      docs: Not currently populated
+      source_columns: cancer_nonmaligskin
+      strategy: coalesce
+    - name: cancer_nonmaligskin_year
+      docs: Not currently populated
+      source_columns: cancer_nonmaligskin_year
+      strategy: coalesce
+    - name: cancer_other
+      docs: Other cancers
+      source_columns: cancer_other
+      strategy: coalesce
+    - name: cancer_other_year
+      docs: Other cancers - within last five years
+      source_columns: cancer_other_year
+      strategy: coalesce
+    - name: cancer_ovarian
+      docs: Ovarian
+      source_columns: cancer_ovarian
+      strategy: coalesce
+    - name: cancer_ovarian_year
+      docs: Ovarian - within last five years
+      source_columns: cancer_ovarian_year
+      strategy: coalesce
+    - name: cancer_prostate
+      docs: Prostate Cancer
+      source_columns: cancer_prostate
+      strategy: coalesce
+    - name: cancer_prostate_year
+      docs: Prostate Cancer - within last five years
+      source_columns: cancer_prostate_year
+      strategy: coalesce
+    - name: cardio_other
+      docs: Other significant cardiovascular conditions including grown up congenital
+        heart conditions (GUCH)
+      source_columns: cardio_other
+      strategy: coalesce
+    - name: cataracts
+      docs: Cataracts
+      source_columns: cataracts
+      strategy: coalesce
+    - name: ckd
+      docs: Chronic kidney disease
+      source_columns: ckd
+      strategy: coalesce
+    - name: coag
+      docs: Haemophilia and other coagulation disorders
+      source_columns: coag
+      strategy: coalesce
+    - name: coeliac
+      docs: Coeliac disease
+      source_columns: coeliac
+      strategy: coalesce
+    - name: contraception
+      docs: Use of long acting reversible contraception - if ever, if not in episodes
+        DS
+      source_columns: contraception
+      strategy: coalesce
+    - name: copd
+      docs: Chronic obstructive pulmonary disease
+      source_columns: copd
+      strategy: coalesce
+    - name: cystic_fibrosis
+      docs: Cystic Fibrosis
+      source_columns: cystic_fibrosis
+      strategy: coalesce
+    - name: dementia
+      docs: Dementia
+      source_columns: dementia
+      strategy: coalesce
+    - name: dep_alcohol
+      docs: Alcohol Dependence
+      source_columns: dep_alcohol
+      strategy: coalesce
+    - name: dep_benzo
+      docs: Drug Dependence - benzodiazepines
+      source_columns: dep_benzo
+      strategy: coalesce
+    - name: dep_cannabis
+      docs: Drug Dependence - cannabis
+      source_columns: dep_cannabis
+      strategy: coalesce
+    - name: dep_cocaine
+      docs: Drug Dependence - cocaine
+      source_columns: dep_cocaine
+      strategy: coalesce
+    - name: dep_opioid
+      docs: Drug Dependence - opioid
+      source_columns: dep_opioid
+      strategy: coalesce
+    - name: dep_other
+      docs: Drug Dependence - other
+      source_columns: dep_other
+      strategy: coalesce
+    - name: depression
+      docs: Severe depression
+      source_columns: depression
+      strategy: coalesce
+    - name: diabetes_1
+      docs: 'Diabetes: Type I'
+      source_columns: diabetes_1
+      strategy: coalesce
+    - name: diabetes_2
+      docs: 'Diabetes: Type II'
+      source_columns: diabetes_2
+      strategy: coalesce
+    - name: diabetes_gest
+      docs: Gestational diabetes
+      source_columns: diabetes_gest
+      strategy: coalesce
+    - name: diabetes_retina
+      docs: Diabetic retinopathy
+      source_columns: diabetes_retina
+      strategy: coalesce
+    - name: disorder_eating
+      docs: Eating disorders
+      source_columns: disorder_eating
+      strategy: coalesce
+    - name: disorder_pers
+      docs: Personality disorders
+      source_columns: disorder_pers
+      strategy: coalesce
+    - name: dna_cpr
+      docs: DNA CPR in Place
+      source_columns: dna_cpr
+      strategy: coalesce
+    - name: eczema
+      docs: Eczema
+      source_columns: eczema
+      strategy: coalesce
+    - name: efi_category
+      docs: Electronic Frailty Index Category
+      source_columns: efi_category
+      strategy: coalesce
+    - name: egfr
+      docs: latest eGFR score
+      source_columns: egfr
+      strategy: coalesce
+    - name: endocrine_other
+      docs: Other significant Endocrine disorders
+      source_columns: endocrine_other
+      strategy: coalesce
+    - name: endometriosis
+      docs: Endometriosis
+      source_columns: endometriosis
+      strategy: coalesce
+    - name: eol_plan
+      docs: End of Life Care Plan
+      source_columns: eol_plan
+      strategy: coalesce
+    - name: epaccs
+      docs: Electronic Palliative Care Co-ordination Systems
+      source_columns: epaccs
+      strategy: coalesce
+    - name: epilepsy
+      docs: Epilepsy
+      source_columns: epilepsy
+      strategy: coalesce
+    - name: ethnicity
+      docs: Ethnicity
+      source_columns: ethnicity
+      strategy: coalesce
+    - name: fatigue
+      docs: Chronic fatigue syndrome/ME/post-viral fatigue
+      source_columns: fatigue
+      strategy: coalesce
+    - name: fev1
+      docs: latest FEV1 score
+      source_columns: fev1
+      strategy: coalesce
+    - name: fragility
+      docs: Fragility fractures
+      source_columns: fragility
+      strategy: coalesce
+    - name: gender_identity
+      docs: Gender Identity
+      source_columns: gender_identity
+      strategy: coalesce
+    - name: gout
+      docs: Gout
+      source_columns: gout
+      strategy: coalesce
+    - name: gppaq
+      docs: GPPAQ score
+      source_columns: gppaq
+      strategy: coalesce
+    - name: has_carer
+      docs: Has a carer
+      source_columns: has_carer
+      strategy: coalesce
+    - name: health_check
+      docs: NHS Health check - ever had
+      source_columns: health_check
+      strategy: coalesce
+    - name: hearing_impair
+      docs: Hearing impairment
+      source_columns: hearing_impair
+      strategy: coalesce
+    - name: hep_b
+      docs: Hepatitis B
+      source_columns: hep_b
+      strategy: coalesce
+    - name: hep_c
+      docs: Hepatitis C
+      source_columns: hep_c
+      strategy: coalesce
+    - name: hf
+      docs: Heart failure
+      source_columns: hf
+      strategy: coalesce
+    - name: hiv
+      docs: HIV
+      source_columns: hiv
+      strategy: coalesce
+    - name: homeless
+      docs: Homelessness
+      source_columns: homeless
+      strategy: coalesce
+    - name: housebound
+      docs: Housebound
+      source_columns: housebound
+      strategy: coalesce
+    - name: ht
+      docs: Hypertension
+      source_columns: ht
+      strategy: coalesce
+    - name: ibd
+      docs: Inflammatory bowel disease
+      source_columns: ibd
+      strategy: coalesce
+    - name: ibs
+      docs: Irritable bowel syndrome
+      source_columns: ibs
+      strategy: coalesce
+    - name: ihd_mi
+      docs: Myocardial Infarction ischaemic heart disease
+      source_columns: ihd_mi
+      strategy: coalesce
+    - name: ihd_nonmi
+      docs: Non-myocardial infarct ischaemic heart disease
+      source_columns: ihd_nonmi
+      strategy: coalesce
+    - name: incont_urinary
+      docs: Urinary Incontinence
+      source_columns: incont_urinary
+      strategy: coalesce
+    - name: infant_feeding
+      docs: Infant feeding status
+      source_columns: infant_feeding
+      strategy: coalesce
+    - name: inflam_arthritic
+      docs: Inflammatory Arthritis, ankylosing spondylitis, systemic lupus erythematous
+        and other systemic autoimmune conditions
+      source_columns: inflam_arthritic
+      strategy: coalesce
+    - name: is_carer
+      docs: Is a carer
+      source_columns: is_carer
+      strategy: coalesce
+    - name: learning_diff
+      docs: Learning difficulties - dyslexia or dyspraxia
+      source_columns: learning_diff
+      strategy: coalesce
+    - name: learning_dis
+      docs: Learning disabilities IQ < 70
+      source_columns: learning_dis
+      strategy: coalesce
+    - name: live_birth
+      docs: Ever had a live birth
+      source_columns: live_birth
+      strategy: coalesce
+    - name: liver_alcohol
+      docs: Alcoholic Liver Disease
+      source_columns: liver_alcohol
+      strategy: coalesce
+    - name: liver_nafl
+      docs: Non-alcoholic fatty liver disease
+      source_columns: liver_nafl
+      strategy: coalesce
+    - name: liver_other
+      docs: Other liver disease
+      source_columns: liver_other
+      strategy: coalesce
+    - name: lsoa
+      docs: Lower Super Output Area
+      source_columns: lsoa
+      strategy: coalesce
+    - name: lung_restrict
+      docs: Restrictive lung disease including lung fibrosis
+      source_columns: lung_restrict
+      strategy: coalesce
+    - name: macular_degen
+      docs: Macular Degeneration
+      source_columns: macular_degen
+      strategy: coalesce
+    - name: marital
+      docs: Marital Status
+      source_columns: marital
+      strategy: coalesce
+    - name: measles_mumps
+      docs: Ever had measles or mumps
+      source_columns: measles_mumps
+      strategy: coalesce
+    - name: migraine
+      docs: Migraine + other headache disorders
+      source_columns: migraine
+      strategy: coalesce
+    - name: miscarriage
+      docs: Miscarriage
+      source_columns: miscarriage
+      strategy: coalesce
+    - name: mmr1
+      docs: Vaccines - MMR1
+      source_columns: mmr1
+      strategy: coalesce
+    - name: mmr2
+      docs: Vaccines - MMR2
+      source_columns: mmr2
+      strategy: coalesce
+    - name: mnd
+      docs: Motor neurone disease & other degenerative
+      source_columns: mnd
+      strategy: coalesce
+    - name: mrc_dyspnoea
+      docs: latest MRC dyspnoea grading scale
+      source_columns: mrc_dyspnoea
+      strategy: coalesce
+    - name: ms
+      docs: Multiple sclerosis
+      source_columns: ms
+      strategy: coalesce
+    - name: neuro_pain
+      docs: Chronic pain/ Fibromyalgia/Neuralgias
+      source_columns: neuro_pain
+      strategy: coalesce
+    - name: neuro_various
+      docs: Neurological impairments - Ataxias, Amnesia, Aphasia, Cerebral Palsy,
+        Brain Injuries
+      source_columns: neuro_various
+      strategy: coalesce
+    - name: newborn_check
+      docs: Infant newborn check (6-8 weeks)
+      source_columns: newborn_check
+      strategy: coalesce
+    - name: newborn_weight
+      docs: Infant weight at newborn check
+      source_columns: newborn_weight
+      strategy: coalesce
+    - name: nh_rh
+      docs: Lives in a Nursing or Residential Home
+      source_columns: nh_rh
+      strategy: coalesce
+    - name: nhs_number
+      docs: Pseudo NHS number
+      source_columns: nhs_number
+      strategy: coalesce
+    - name: nose
+      docs: Allergic rhinitis/rhinitis/sinusitis/rhinosinusitis
+      source_columns: nose
+      strategy: coalesce
+    - name: obesity
+      docs: Obesity
+      source_columns: obesity
+      strategy: coalesce
+    - name: organ_transplant
+      docs: Organ transplant
+      source_columns: organ_transplant
+      strategy: coalesce
+    - name: osteoarthritis
+      docs: Osteoarthritis
+      source_columns: osteoarthritis
+      strategy: coalesce
+    - name: osteoporosis
+      docs: Osteoporosis
+      source_columns: osteoporosis
+      strategy: coalesce
+    - name: parkinsons
+      docs: Parkinson’s disease/ Progressive supranuclear palsy/Multisystem atrophy
+      source_columns: parkinsons
+      strategy: coalesce
+    - name: pelvic
+      docs: Chronic pelvic pain
+      source_columns: pelvic
+      strategy: coalesce
+    - name: phys_disability
+      docs: Physical disabilities
+      source_columns: phys_disability
+      strategy: coalesce
+    - name: poly_ovary
+      docs: Polycystic ovary disease
+      source_columns: poly_ovary
+      strategy: coalesce
+    - name: polypharmacy_acute
+      docs: "Polypharmacy\r\n(Count of acute medication issued within the past month)"
+      source_columns: polypharmacy_acute
+      strategy: coalesce
+    - name: polypharmacy_repeat
+      docs: "Polypharmacy\r\n(Count of Current repeat Medications)"
+      source_columns: polypharmacy_repeat
+      strategy: coalesce
+    - name: practice_code
+      docs: Registered GP practice code
+      source_columns: practice_code
+      strategy: coalesce
+    - name: pre_diabetes
+      docs: pre-diabetes and related codes, nd-hyperglycaemia, and risk of diabetes,
+        impaired glucose tolerance
+      source_columns: pre_diabetes
+      strategy: coalesce
+    - name: pref_death
+      docs: Preferred place of death
+      source_columns: pref_death
+      strategy: coalesce
+    - name: pregnancy
+      docs: Pregnancy
+      source_columns: pregnancy
+      strategy: coalesce
+    - name: prim_language
+      docs: Primary Language
+      source_columns: prim_language
+      strategy: coalesce
+    - name: psoriasis
+      docs: Psoriasis
+      source_columns: psoriasis
+      strategy: coalesce
+    - name: ptsd
+      docs: PTSD
+      source_columns: ptsd
+      strategy: coalesce
+    - name: qof_af
+      docs: QOF_Atrial Fibrillation
+      source_columns: qof_af
+      strategy: coalesce
+    - name: qof_asthma
+      docs: QOF_Asthma
+      source_columns: qof_asthma
+      strategy: coalesce
+    - name: qof_cancer
+      docs: Not currently populated
+      source_columns: qof_cancer
+      strategy: coalesce
+    - name: qof_chd
+      docs: QOF_Coronary Heart Disease
+      source_columns: qof_chd
+      strategy: coalesce
+    - name: qof_ckd
+      docs: QOF_Chronic Kidney Disease (18+)
+      source_columns: qof_ckd
+      strategy: coalesce
+    - name: qof_copd
+      docs: QOF_Chronic Obstructive Pulmonary Disease
+      source_columns: qof_copd
+      strategy: coalesce
+    - name: qof_dementia
+      docs: QOF_Dementia
+      source_columns: qof_dementia
+      strategy: coalesce
+    - name: qof_depression
+      docs: QOF_Depression (18+)
+      source_columns: qof_depression
+      strategy: coalesce
+    - name: qof_diabetes
+      docs: QOF_Diabetes mellitus (17+)
+      source_columns: qof_diabetes
+      strategy: coalesce
+    - name: qof_epilepsy
+      docs: QOF_Epilepsy (18+)
+      source_columns: qof_epilepsy
+      strategy: coalesce
+    - name: qof_hf
+      docs: QOF_Heart Failure
+      source_columns: qof_hf
+      strategy: coalesce
+    - name: qof_ht
+      docs: QOF_Hypertension
+      source_columns: qof_ht
+      strategy: coalesce
+    - name: qof_learndis
+      docs: QOF_Learning Disabilities
+      source_columns: qof_learndis
+      strategy: coalesce
+    - name: qof_mental
+      docs: QOF_Mental Health
+      source_columns: qof_mental
+      strategy: coalesce
+    - name: qof_obesity
+      docs: QOF_Obesity (18+)
+      source_columns: qof_obesity
+      strategy: coalesce
+    - name: qof_osteoporosis
+      docs: QOF_Osteoporosis
+      source_columns: qof_osteoporosis
+      strategy: coalesce
+    - name: qof_pad
+      docs: QOF_Peripheral Arterial Disease
+      source_columns: qof_pad
+      strategy: coalesce
+    - name: qof_pall
+      docs: QOF_Palliative care
+      source_columns: qof_pall
+      strategy: coalesce
+    - name: qof_rheumarth
+      docs: QOF_Rheumatoid Arthritis
+      source_columns: qof_rheumarth
+      strategy: coalesce
+    - name: qof_stroke
+      docs: QOF_Stroke and Transient Ischaemic Attack
+      source_columns: qof_stroke
+      strategy: coalesce
+    - name: qrisk2_3
+      docs: Most up to date QRisk2 or 3 score
+      source_columns: qrisk2_3
+      strategy: coalesce
+    - name: religion
+      docs: Religious Belief
+      source_columns: religion
+      strategy: coalesce
+    - name: ricketts
+      docs: Not currently populated
+      source_columns: ricketts
+      strategy: coalesce
+    - name: sad
+      docs: Stress, anxiety, mild-mod depression, mixed anxiety/depressive disorder
+      source_columns: sad
+      strategy: coalesce
+    - name: screen_aaa
+      docs: NHS abdominal aortic aneurysm (AAA) programme
+      source_columns: screen_aaa
+      strategy: coalesce
+    - name: screen_bowel
+      docs: NHS bowel cancer screening (BCSP) programme
+      source_columns: screen_bowel
+      strategy: coalesce
+    - name: screen_breast
+      docs: NHS breast screening (BSP) programme
+      source_columns: screen_breast
+      strategy: coalesce
+    - name: screen_cervical
+      docs: NHS cervical screening (CSP) programme
+      source_columns: screen_cervical
+      strategy: coalesce
+    - name: screen_eye
+      docs: NHS diabetic eye screening (DES) programme
+      source_columns: screen_eye
+      strategy: coalesce
+    - name: self_harm
+      docs: Ever had self harm problems
+      source_columns: self_harm
+      strategy: coalesce
+    - name: sex
+      docs: Patient sex at birth
+      source_columns: sex
+      strategy: coalesce
+    - name: sexual_orient
+      docs: Sexual Orientation
+      source_columns: sexual_orient
+      strategy: coalesce
+    - name: sickle
+      docs: Sickle cell disease
+      source_columns: sickle
+      strategy: coalesce
+    - name: smi
+      docs: Serious Mental Health, including bipolar affective disorder
+      source_columns: smi
+      strategy: coalesce
+    - name: smoking
+      docs: Smoking status
+      source_columns: smoking
+      strategy: coalesce
+    - name: stomach
+      docs: Stomach ulcers, oesophageal reflux, gord
+      source_columns: stomach
+      strategy: coalesce
+    - name: stroke
+      docs: Cerebrovascular disease - stroke
+      source_columns: stroke
+      strategy: coalesce
+    - name: tb
+      docs: Tuberculosis
+      source_columns: tb
+      strategy: coalesce
+    - name: thyroid
+      docs: Thyroid Disease
+      source_columns: thyroid
+      strategy: coalesce
+    - name: uterine
+      docs: Dysfunctional uterine bleeding including oligo- and amenorrhoea
+      source_columns: uterine
+      strategy: coalesce
+    - name: vasc_dis
+      docs: Peripheral vascular disease
+      source_columns: vasc_dis
+      strategy: coalesce
+    - name: veteran
+      docs: Veteran
+      source_columns: veteran
+      strategy: coalesce
+    - name: visual_impair
+      docs: Visual impairment
+      source_columns: visual_impair
+      strategy: coalesce
+    - name: primary_care_network
+      docs: Primary care network of registered GP practice code
+      source_columns: primary_care_network
+      strategy: coalesce
+    - name: locality_name
+      docs: Locality name of registered GP practice code
+      source_columns: locality_name
+      strategy: coalesce
+    - name: wd_local_authority
+      docs: local authority name of LSOA
+      source_columns: wd_local_authority
+      strategy: coalesce
+    - name: wd_mye_population_2018
+      docs: annual population estimate (mid-2018) of LSOA
+      source_columns: wd_mye_population_2018
+      strategy: coalesce
+    - name: wd_mye_population_2017
+      docs: annual population estimate (mid-2017) of LSOA
+      source_columns: wd_mye_population_2017
+      strategy: coalesce
+    - name: wd_mye_population_2016
+      docs: annual population estimate (mid-2016) of LSOA
+      source_columns: wd_mye_population_2016
+      strategy: coalesce
+    - name: wd_derived_registered_patients
+      docs: derived count of current registered patients (all ages) in LSOA
+      source_columns: wd_derived_registered_patients
+      strategy: coalesce
+    - name: wd_derived_registered_patients_over_64
+      docs: derived count of current registered patients (65+) in LSOA
+      source_columns: wd_derived_registered_patients_over_64
+      strategy: coalesce
+    - name: wd_derived_registered_patients_under_18
+      docs: derived count of current registered patients (under 18) in LSOA
+      source_columns: wd_derived_registered_patients_under_18
+      strategy: coalesce
+    - name: wd_derived_trust_catchment
+      docs: derived trust catchment of LSOA
+      source_columns: wd_derived_trust_catchment
+      strategy: coalesce
+    - name: wd_people_per_sq_km
+      docs: population density of LSOA
+      source_columns: wd_people_per_sq_km
+      strategy: coalesce
+    - name: wd_rural_urban_classification
+      docs: official statistic used to distinguish LSOA as rural or urban area
+      source_columns: wd_rural_urban_classification
+      strategy: coalesce
+    - name: wd_imd_decile_19
+      docs: relative deprivation of LSOA
+      source_columns: wd_imd_decile_19
+      strategy: coalesce
+    - name: wd_health_deprivation_and_disability_decile
+      docs: measures the risk of premature death and the impairment of quality of
+        life through poor physical or mental health within LSOA
+      source_columns: wd_health_deprivation_and_disability_decile
+      strategy: coalesce
+    - name: wd_years_of_potential_life_lost_indicator
+      docs: measures ‘premature death’, defined as death before the age of 75 from
+        any cause (the commonly used measure of premature death) within LSOA
+      source_columns: wd_years_of_potential_life_lost_indicator
+      strategy: coalesce
+    - name: wd_comparative_illness_and_disability_ratio_indicator
+      docs: work limiting morbidity and disability, based on those receiving benefits
+        due to inability to work through ill health within LSOA
+      source_columns: wd_comparative_illness_and_disability_ratio_indicator
+      strategy: coalesce
+    - name: wd_acute_morbidity_indicator
+      docs: level of emergency admissions to hospital within LSOA, based on administrative
+        records of inpatient admissions
+      source_columns: wd_acute_morbidity_indicator
+      strategy: coalesce
+    - name: wd_mood_and_anxiety_disorders_indicator
+      docs: broad measure of levels of mental ill health within LSOA
+      source_columns: wd_mood_and_anxiety_disorders_indicator
+      strategy: coalesce
+    - name: wd_fsa_takeaway_sandwich_bar_count
+      docs: count of locations within LSOA registered with the food standards agency
+        where the description is 'takeaway of sandwich bar'
+      source_columns: wd_fsa_takeaway_sandwich_bar_count
+      strategy: coalesce
+    - name: wd_education_skills_and_training_decile
+      docs: the lack of attainment and skills within LSOA
+      source_columns: wd_education_skills_and_training_decile
+      strategy: coalesce
+    - name: wd_adult_skills_sub_domain_decile
+      docs: education, skills and training deprivation within LSOA - working age adults
+      source_columns: wd_adult_skills_sub_domain_decile
+      strategy: coalesce
+    - name: wd_children_and_young_people_sub_domain_decile
+      docs: education, skills and training deprivation within LSOA - children & young
+        people
+      source_columns: wd_children_and_young_people_sub_domain_decile
+      strategy: coalesce
+    - name: wd_staying_on_in_education_post_16_indicator
+      docs: proportion of young people within LSOA not staying on in school or non-advanced
+        education above age 16, based on receipt of child benefit
+      source_columns: wd_staying_on_in_education_post_16_indicator
+      strategy: coalesce
+    - name: wd_entry_to_higher_education_indicator
+      docs: proportion of young people aged under 21 within LSOA not entering higher
+        education
+      source_columns: wd_entry_to_higher_education_indicator
+      strategy: coalesce
+    - name: wd_adult_skills_and_english_language_proficiency_indicator
+      docs: proportion of working-age adults within LSOA (women aged 25 to 59 and
+        men aged 25 to 64) with no or low qualifications combined with the proportion
+        of the working-age population who cannot speak english or cannot speak english
+        ‘well’
+      source_columns: wd_adult_skills_and_english_language_proficiency_indicator
+      strategy: coalesce
+    - name: wd_employment_decile
+      docs: employment deprivation within LSOA
+      source_columns: wd_employment_decile
+      strategy: coalesce
+    - name: wd_geographical_barriers_sub_domain_decile
+      docs: physical proximity of local services within LSOA
+      source_columns: wd_geographical_barriers_sub_domain_decile
+      strategy: coalesce
+    - name: wd_road_distance_to_a_gp_surgery_indicator
+      docs: average road distance within LSOA to GP surgery measured in kilometres
+      source_columns: wd_road_distance_to_a_gp_surgery_indicator
+      strategy: coalesce
+    - name: wd_road_distance_to_a_post_office_indicator
+      docs: average road distance within LSOA to post office measured in kilometres
+      source_columns: wd_road_distance_to_a_post_office_indicator
+      strategy: coalesce
+    - name: wd_road_distance_to_a_primary_school_indicator
+      docs: average road distance within LSOA to primary school measured in kilometres
+      source_columns: wd_road_distance_to_a_primary_school_indicator
+      strategy: coalesce
+    - name: wd_road_distance_to_general_store_or_supermarket_indicator
+      docs: average road distance within LSOA to general store or supermarket measured
+        in kilometres
+      source_columns: wd_road_distance_to_general_store_or_supermarket_indicator
+      strategy: coalesce
+    - name: wd_travel_time_to_ae
+      docs: approximate travel time by car from lsoa population weighted centre to
+        closest type 1 ae department
+      source_columns: wd_travel_time_to_ae
+      strategy: coalesce
+    - name: wd_travel_time_to_miu
+      docs: approximate travel time by car from lsoa population weighted centre to
+        closest type 3 miu department
+      source_columns: wd_travel_time_to_miu
+      strategy: coalesce
+    - name: wd_barriers_to_housing_and_services_decile
+      docs: barriers to housing indicator - measures the physical and financial accessibility
+        of housing and local services within LSOA
+      source_columns: wd_barriers_to_housing_and_services_decile
+      strategy: coalesce
+    - name: wd_household_overcrowding_indicator
+      docs: the proportion of households within LSOA that are classed as overcrowded
+      source_columns: wd_household_overcrowding_indicator
+      strategy: coalesce
+    - name: wd_homelessness_indicator_rate_per_1000_households
+      docs: the rate of acceptances for housing assistance under the homelessness
+        provisions of housing legislation within LSOA
+      source_columns: wd_homelessness_indicator_rate_per_1000_households
+      strategy: coalesce
+    - name: wd_owner_occupation_affordability
+      docs: measure of the inability to afford to enter owner-occupation with LSOA
+      source_columns: wd_owner_occupation_affordability
+      strategy: coalesce
+    - name: wd_private_rental_affordability
+      docs: measure of the inability to afford to enter the private rental market
+        within LSOA
+      source_columns: wd_private_rental_affordability
+      strategy: coalesce
+    - name: wd_housing_affordability_indicator
+      docs: inability to afford to enter owner-occupation or the private rental market
+        within LSOA
+      source_columns: wd_housing_affordability_indicator
+      strategy: coalesce
+    - name: wd_estimated_number_of_fuel_poor_households
+      docs: estimated number of households in fuel poverty in LSOA
+      source_columns: wd_estimated_number_of_fuel_poor_households
+      strategy: coalesce
+    - name: wd_income_deprivation_affecting_children_index_decile
+      docs: proportion of all children aged 0 to 15 living in income deprived families
+        within LSOA
+      source_columns: wd_income_deprivation_affecting_children_index_decile
+      strategy: coalesce
+    - name: wd_income_deprivation_affecting_older_people_decile
+      docs: proportion of all those aged 60 or over living in income deprived families
+        within LSOA
+      source_columns: wd_income_deprivation_affecting_older_people_decile
+      strategy: coalesce
+    - name: wd_income_decile
+      docs: income deprivation within LSOA
+      source_columns: wd_income_decile
+      strategy: coalesce
+    - name: wd_housing_in_poor_condition_indicator
+      docs: a modelled estimate of the proportion of social and private homes that
+        fail to meet the decent homes standard within LSOA
+      source_columns: wd_housing_in_poor_condition_indicator
+      strategy: coalesce
+    - name: wd_houses_without_central_heating_indicator
+      docs: housing which is expensive to heat within LSOA
+      source_columns: wd_houses_without_central_heating_indicator
+      strategy: coalesce
+    - name: wd_living_environment_decile
+      docs: quality of the local environment within LSOA
+      source_columns: wd_living_environment_decile
+      strategy: coalesce
+    - name: wd_outdoors_sub_domain_decile
+      docs: air quality and road traffic accidents within LSOA
+      source_columns: wd_outdoors_sub_domain_decile
+      strategy: coalesce
+    - name: wd_indoors_sub_domain_decile
+      docs: measures the quality of housing within LSOA
+      source_columns: wd_indoors_sub_domain_decile
+      strategy: coalesce
+    - name: wd_road_traffic_accidents_indicator
+      docs: reported accidents that involve death or personal injury to a pedestrian
+        or cyclist within LSOA
+      source_columns: wd_road_traffic_accidents_indicator
+      strategy: coalesce
+    - name: wd_nitrogen_dioxide_component_of_air_quality_indicator
+      docs: estimate of concentration of nitrogen dioxide within LSOA
+      source_columns: wd_nitrogen_dioxide_component_of_air_quality_indicator
+      strategy: coalesce
+    - name: wd_benzene_component_of_air_quality_indicator
+      docs: estimate of concentration of benzene within LSOA
+      source_columns: wd_benzene_component_of_air_quality_indicator
+      strategy: coalesce
+    - name: wd_sulphur_dioxide_component_of_air_quality_indicator
+      docs: estimate of concentration of sulphur dioxide within LSOA
+      source_columns: wd_sulphur_dioxide_component_of_air_quality_indicator
+      strategy: coalesce
+    - name: wd_particulates_component_of_air_quality_indicator
+      docs: estimate of concentration of particulates within LSOA
+      source_columns: wd_particulates_component_of_air_quality_indicator
+      strategy: coalesce
+    - name: wd_air_quality_indicator
+      docs: estimate of the concentration of the four pollutants nitrogen dioxide,
+        benzene, sulphur dioxide and particulates within LSOA
+      source_columns: wd_air_quality_indicator
+      strategy: coalesce
+    - name: wd_wider_barriers_sub_domain_decile
+      docs: issues relating to access to housing (such as affordability) within LSOA
+      source_columns: wd_wider_barriers_sub_domain_decile
+      strategy: coalesce
+    - name: wd_crime_decile
+      docs: the risk of personal and material victimisation within LSOA
+      source_columns: wd_crime_decile
+      strategy: coalesce
+    - name: wd_asb_per_1000
+      docs: anti-social behaviour incidents reported to the police per 1000 residents
+        within LSOA in a 12mth period
+      source_columns: wd_asb_per_1000
+      strategy: coalesce
+    - name: wd_burglary_per_1000
+      docs: burglary incidents reported to the police per 1000 residents within LSOA
+        in a 12mth period
+      source_columns: wd_burglary_per_1000
+      strategy: coalesce
+    - name: wd_robbery_per_1000
+      docs: robbery incidents reported to the police per 1000 residents within LSOA
+        in a 12mth period
+      source_columns: wd_robbery_per_1000
+      strategy: coalesce
+    - name: wd_violence_and_sexual_offences_per_1000
+      docs: violence and sexual offence incidents reported to the police per 1000
+        residents within LSOA in a 12mth period
+      source_columns: wd_violence_and_sexual_offences_per_1000
+      strategy: coalesce
+    - name: wd_child_benefit_receipt_all_children
+      docs: count of children within LSOA in receipt of child benefit as at 31 august
+        2019
+      source_columns: wd_child_benefit_receipt_all_children
+      strategy: coalesce
+    - name: wd_child_benefit_receipt_children_under_5
+      docs: count of children under 5 years within LSOA old in receipt of child benefit
+        as at 31 august 2019
+      source_columns: wd_child_benefit_receipt_children_under_5
+      strategy: coalesce
+    - name: wd_child_benefit_receipt_children_5_to_10
+      docs: count of children aged 5 to 10 years old within LSOA in receipt of child
+        benefit as at 31 august 2019
+      source_columns: wd_child_benefit_receipt_children_5_to_10
+      strategy: coalesce
+    - name: wd_child_benefit_receipt_children_11_to_15
+      docs: count of children aged 11 to 15 years old within LSOA in receipt of child
+        benefit as at 31 august 2019
+      source_columns: wd_child_benefit_receipt_children_11_to_15
+      strategy: coalesce
+    - name: wd_child_benefit_receipt_children_16_to_19
+      docs: count of children aged 16 to 19 years old within LSOA in receipt of child
+        benefit as at 31 august 2019
+      source_columns: wd_child_benefit_receipt_children_16_to_19
+      strategy: coalesce
+    - name: wd_child_benefit_receipt_all_families
+      docs: count of families within LSOA in receipt of child benefit as at 31 august
+        2019
+      source_columns: wd_child_benefit_receipt_all_families
+      strategy: coalesce
+    - name: wd_child_benefit_receipt_family_size_one_child
+      docs: count of families within LSOA with one child in receipt of child benefit
+        as at 31 august 2019
+      source_columns: wd_child_benefit_receipt_family_size_one_child
+      strategy: coalesce
+    - name: wd_child_benefit_receipt_family_size_two_children
+      docs: count of families within LSOA with two children in receipt of child benefit
+        as at 31 august 2019
+      source_columns: wd_child_benefit_receipt_family_size_two_children
+      strategy: coalesce
+    - name: wd_child_benefit_receipt_family_size_three_or_more_children
+      docs: count of families within LSOA with three or more  children in receipt
+        of child benefit as at 31 august 2019
+      source_columns: wd_child_benefit_receipt_family_size_three_or_more_children
+      strategy: coalesce
+    - name: wd_townsend_score
+      docs: townsend deprivation measure of material deprivation within LSOA
+      source_columns: wd_townsend_score
+      strategy: coalesce
+    - name: version
+      docs: current version of attributes dataset
+      source_columns: version
+      strategy: coalesce
+    - name: mh_plus_associated_condition
+      docs: Mental health and associated condition
+      source_columns: mh_plus_associated_condition
+      strategy: coalesce
+    - name: mh_multi_diagnoses
+      docs: Multiple mental health diagnoses
+      source_columns: mh_multi_diagnoses
+      strategy: coalesce
+    - name: mh_plus_dependency
+      docs: Mental health and drug or alcohol dependency
+      source_columns: mh_plus_dependency
+      strategy: coalesce
+    - name: mh_plus_social_risk
+      docs: Mental health and social risk
+      source_columns: mh_plus_social_risk
+      strategy: coalesce
+    - name: asylum_seeker_refugee
+      docs: Refugee/Asylum seeker
+      source_columns: asylum_seeker_refugee
+      strategy: coalesce
+    name: swd_supplemental
+    docs: WRITE ME
+    columns:
+    - name: cc_AIDS
+      docs: Cambridge Charlson - AIDS
+      source_columns: cc_AIDS
+      strategy: coalesce
+    - name: cc_asthma
+      docs: Cambridge Multimorbidity - Asthma (currently treated)
+      source_columns: cc_asthma
+      strategy: coalesce
+    - name: cc_bronchiectasis
+      docs: Cambridge Multimorbidity - Bronchiectasis
+      source_columns: cc_bronchiectasis
+      strategy: coalesce
+    - name: cc_copd
+      docs: Cambridge Charlson - Chronic Obstructive Pulmonary Disease
+      source_columns: cc_copd
+      strategy: coalesce
+    - name: cc_cystic_fibrosis
+      docs: Cambridge Charlson - Cystic Fibrosis
+      source_columns: cc_cystic_fibrosis
+      strategy: coalesce
+    - name: cc_dementia
+      docs: Cambridge Multimorbidity - Dementia
+      source_columns: cc_dementia
+      strategy: coalesce
+    - name: cc_diabetes_end_complications
+      docs: Cambridge Charlson - Diabetes with end stage complications
+      source_columns: cc_diabetes_end_complications
+      strategy: coalesce
+    - name: cc_diabetes_no_complications
+      docs: Cambridge Charlson - Diabetes with no complications
+      source_columns: cc_diabetes_no_complications
+      strategy: coalesce
+    - name: cc_egfr
+      docs: Highest of two latest eGFR scores
+      source_columns: cc_egfr
+      strategy: coalesce
+    - name: cc_heart_failure
+      docs: Cambridge Multimorbidity - Heart failure
+      source_columns: cc_heart_failure
+      strategy: coalesce
+    - name: cc_hemiplegia
+      docs: Cambridge Charlson - Hemiplegia
+      source_columns: cc_hemiplegia
+      strategy: coalesce
+    - name: cc_mild_liver_disease
+      docs: Cambridge Charlson - Mild Chronic Liver Disease
+      source_columns: cc_mild_liver_disease
+      strategy: coalesce
+    - name: cc_moderate_or_severe_liver_disease
+      docs: Cambridge Charlson - Moderate or Severe Chronic Liver Disease
+      source_columns: cc_moderate_or_severe_liver_disease
+      strategy: coalesce
+    - name: cc_myocardial_infarction
+      docs: Cambridge Charlson - Myocardial Infarction
+      source_columns: cc_myocardial_infarction
+      strategy: coalesce
+    - name: cc_peptic_ulcer
+      docs: Cambridge Multimorbidity - Peptic Ulcer Disease
+      source_columns: cc_peptic_ulcer
+      strategy: coalesce
+    - name: cc_periph_vasc
+      docs: Cambridge Multimorbidity - Peripheral vascular disease
+      source_columns: cc_periph_vasc
+      strategy: coalesce
+    - name: cc_pulmonary_fibrosis
+      docs: Cambridge Charlson - Pulmonary Fibrosis
+      source_columns: cc_pulmonary_fibrosis
+      strategy: coalesce
+    - name: cc_stroke
+      docs: Cambridge Multimorbidity - Stroke & transient ischaemic attack
+      source_columns: cc_stroke
+      strategy: coalesce
+    - name: confirmed_2019_nCoV
+      docs: Confirmed Covid-19
+      source_columns: confirmed_2019_nCoV
+      strategy: coalesce
+    - name: Covid_higher_risk_CMO
+      docs: High risk of severe Covid-19 complications
+      source_columns: Covid_higher_risk_CMO
+      strategy: coalesce
+    - name: Covid_increased_risk_CMO
+      docs: Increased risk of severe Covid-19 complications
+      source_columns: Covid_increased_risk_CMO
+      strategy: coalesce
+    - name: down_syndrome_chrom
+      docs: Down's Syndrome
+      source_columns: down_syndrome_chrom
+      strategy: coalesce
+    - name: home_oxygen
+      docs: Receiving Home Oxygen Therapy
+      source_columns: home_oxygen
+      strategy: coalesce
+    - name: nhs_number
+      docs: Pseudo NHS number
+      source_columns: nhs_number
+      strategy: coalesce
+    - name: hba1c_reading
+      docs: Haemoglobin A1C level
+      source_columns: hba1c_reading
+      strategy: coalesce
+    - name: hba1c_date
+      docs: Date haemoglobin A1C reading taken
+      source_columns: hba1c_date
+      strategy: coalesce
+    - name: charlson_score
+      docs: Charlson Comorbidity Index score for patient
+      source_columns: charlson_score
+      strategy: coalesce
+    - name: charlson_cc_no_aids_hemi
+      docs: Charlson Comorbidity Index score for patient excluding factors relating
+        to aids and hemiplaegia
+      source_columns: charlson_cc_no_aids_hemi
+      strategy: coalesce
+    - name: alama_age
+      docs: Alama Covid-Age - summarises vulnerability for combinations of risk factors
+        including age, sex and ethnicity and various health problems
+      source_columns: alama_age
+      strategy: coalesce
+    - name: alama_underlying_hc
+      docs: Indicates whether patient has an underlying health condition as defined
+        in the Alama criteria
+      source_columns: alama_underlying_hc
+      strategy: coalesce
+    - name: alama_risk_cat_full_age
+      docs: Risk category where 'a' indicates lowest risk/COVID age and 'i' = highest
+        risk/age
+      source_columns: alama_risk_cat_full_age
+      strategy: coalesce
+    - name: sup_metric_1
+      docs: Earliest date of suspected Covid-19
+      source_columns: sup_metric_1
+      strategy: coalesce
+    - name: sup_metric_2
+      docs: Date of Covid-19 positive antigen test
+      source_columns: sup_metric_2
+      strategy: coalesce
+    - name: sup_metric_3
+      docs: Date of Covid-19 negative antigen test
+      source_columns: sup_metric_3
+      strategy: coalesce
+    - name: sup_metric_4
+      docs: Diverticulitis
+      source_columns: sup_metric_4
+      strategy: coalesce
+    - name: sup_metric_5
+      docs: Sinusitis
+      source_columns: sup_metric_5
+      strategy: coalesce
+    - name: sup_metric_6
+      docs: Date first COVID vaccine dose administered
+      source_columns: sup_metric_6
+      strategy: coalesce
+    - name: sup_metric_7
+      docs: Date second COVID vaccine dose administered
+      source_columns: sup_metric_7
+      strategy: coalesce
+    - name: sup_metric_8
+      docs: Date unspecified version of vaccine dose administered - to be updated
+        by EMIS so first or second is specified
+      source_columns: sup_metric_8
+      strategy: coalesce
+    - name: sup_metric_9
+      docs: Prostate conditions
+      source_columns: sup_metric_9
+      strategy: coalesce
+    - name: sup_metric_10
+      docs: Last 4 dates a diagnosis of post viral syndrome/fatigue has been indicated
+        - to help identify potential long COVID
+      source_columns: sup_metric_10
+      strategy: coalesce
+    - name: sup_metric_11
+      docs: Covid-19 vaccine cohort 6 eligibility
+      source_columns: sup_metric_11
+      strategy: coalesce
+    - name: sup_metric_12
+      docs: Psychoactive substance misuse (NOT ALCOHOL) indicator
+      source_columns: sup_metric_12
+      strategy: coalesce
+    - name: sup_metric_13
+      docs: Pervasive developmental disorder indicator
+      source_columns: sup_metric_13
+      strategy: coalesce
+    - name: sup_metric_14
+      docs: Date that social prescribing referral made
+      source_columns: sup_metric_14
+      strategy: coalesce
+    - name: sup_metric_15
+      docs: Date that social prescribing offered
+      source_columns: sup_metric_15
+      strategy: coalesce
+    - name: sup_metric_16
+      docs: Date that social prescribing declined
+      source_columns: sup_metric_16
+      strategy: coalesce
+    - name: sup_metric_17
+      docs: Refugee/Asylum seeker
+      source_columns: sup_metric_17
+      strategy: coalesce
+    - name: sup_metric_18
+      docs: Spare field - not currently populated
+      source_columns: sup_metric_18
+      strategy: coalesce
+    - name: sup_metric_19
+      docs: Spare field - not currently populated
+      source_columns: sup_metric_19
+      strategy: coalesce
+    - name: sup_metric_20
+      docs: Spare field - not currently populated
+      source_columns: sup_metric_20
+      strategy: coalesce
+    - name: sup_metric_21
+      docs: Spare field - not currently populated
+      source_columns: sup_metric_21
+      strategy: coalesce
+    - name: sup_metric_22
+      docs: Spare field - not currently populated
+      source_columns: sup_metric_22
+      strategy: coalesce
+    - name: sup_metric_23
+      docs: ReSPECT form completed (Earliest)
+      source_columns: sup_metric_23
+      strategy: coalesce
+    - name: sup_metric_24
+      docs: ReSPECT form completed (Latest)
+      source_columns: sup_metric_24
+      strategy: coalesce
+    - name: sup_metric_25
+      docs: Patients reSPECT form done was in primary care setting (Earliest)?
+      source_columns: sup_metric_25
+      strategy: coalesce
+    - name: sup_metric_26
+      docs: Patients reSPECT form was done in primary care setting (Latest)?
+      source_columns: sup_metric_26
+      strategy: coalesce
+    - name: sup_metric_27
+      docs: Clinical Priorities
+      source_columns: sup_metric_27
+      strategy: coalesce
+    - name: sup_metric_28
+      docs: Clinical Recommendations
+      source_columns: sup_metric_28
+      strategy: coalesce
+    - name: sup_metric_29
+      docs: Preferred place of death
+      source_columns: sup_metric_29
+      strategy: coalesce
+    - name: sup_metric_30
+      docs: Spare field - not currently populated
+      source_columns: sup_metric_30
+      strategy: coalesce
+    - name: sup_metric_31
+      docs: Preferred place of death disucssed with family
+      source_columns: sup_metric_31
+      strategy: coalesce
+    - name: sup_metric_32
+      docs: Hospice Involvement
+      source_columns: sup_metric_32
+      strategy: coalesce
+    - name: sup_metric_33
+      docs: Patient has capacity to participate in ReSPECT discussion? (Earliest)
+      source_columns: sup_metric_33
+      strategy: coalesce
+    - name: sup_metric_34
+      docs: Patient has capacity to participate in ReSPECT discussion? (Latest)
+      source_columns: sup_metric_34
+      strategy: coalesce
+    - name: sup_metric_35
+      docs: If lacking capacity was the form discussed with LPA or represenative?
+        (Earliest)
+      source_columns: sup_metric_35
+      strategy: coalesce
+    - name: sup_metric_36
+      docs: If lacking capacity was the form discussed with LPA or represenative?
+        (Latest)
+      source_columns: sup_metric_36
+      strategy: coalesce
+    - name: sup_metric_37
+      docs: Consent for sharing EOL Record
+      source_columns: sup_metric_37
+      strategy: coalesce
+    - name: sup_metric_38
+      docs: Does the patient have a decision for DNACPR
+      source_columns: sup_metric_38
+      strategy: coalesce
+    - name: sup_metric_39
+      docs: Spare field - not currently populated
+      source_columns: sup_metric_39
+      strategy: coalesce
+    - name: sup_metric_40
+      docs: Spare field - not currently populated
+      source_columns: sup_metric_40
+      strategy: coalesce
+    - name: version
+      docs: current version of attributes dataset
+      source_columns: version
+      strategy: coalesce
+    name: swd_measurement
+    docs: WRITE ME
+    columns:
+    - name: nhs_number
+      docs: Pseudo NHS number
+      source_columns: nhs_number
+      strategy: coalesce
+    - name: practice_code
+      docs: Registered GP practice code
+      source_columns: practice_code
+      strategy: coalesce
+    - name: measurement_name
+      docs: Name of measurement recorded
+      source_columns: measurement_name
+      strategy: coalesce
+    - name: measurement_value
+      docs: Value of the measurement recorded
+      source_columns: measurement_value
+      strategy: coalesce
+    - name: measurement_date
+      docs: Date the measurement was recorded
+      source_columns: measurement_date
+      strategy: coalesce
+    - name: measurement_group
+      docs: derived measurement classification groupings
+      source_columns: measurement_group
+      strategy: coalesce
