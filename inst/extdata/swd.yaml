@@ -1,6 +1,6 @@
 - table: activity
   docs: "The SWD activity table contains records of healthcare encounters (e.g. a GP appointment) from  primary care (GPs), secondary care (hsopitals), mental health, and community care services."
-  source: "MODELLING_SQL_AREA.dbo.swd_activity"
+  source: "[MODELLING_SQL_AREA].[dbo].[swd_activity]"
   columns:
   - column: arr_date
     docs: Arrival date and time - when time is unavailable, the time component takes
