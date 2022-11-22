@@ -18,7 +18,7 @@
 ##' @importFrom methods new show
 ##' @importFrom magrittr %>%
 ##' @importFrom utils capture.output tail
-##' @importClassesFrom DBI DBIConnection
+##' @importClassesFrom DBI DBIConnection 
 ##' @export
 NULL
 

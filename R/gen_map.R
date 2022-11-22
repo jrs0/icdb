@@ -2,12 +2,46 @@
 ##' 
 NULL
 
+##' Read the BNSSG system-wide dataset guide document into a mapping file.
+##'
+##' This function expects to find a sheet called "Data Tables and Fields",
+##' containing a table of column names in the tables with documentation.
+##' The table should have four columns: `Table Name`, `Column Name`,
+##' `Data Type` and `Description`.
+##' 
+##' @title Read SWD guide
+##' @param spec The SWD guide document (.xlsx)
+##' @param sheet The name of the sheet to read
+##' @param output The file path to write the output
+##' 
 gen_swd_map <- function(spec, sheet, output = filename)
 {
+    sheet <- "Data Tables and Fields"
+    
     ## Read the excel sheet into a variable 
     xx <- readxl::read_xlsx(spec, sheet, skip = 3)
     
-    xx
+    tables <- xx$`Table Name` %>% unique()
+
+    tables <- list()
+    for (tab in tables)
+    {
+        tables[[tab]] <- list(
+            docs = "Test",
+            source_table = tab,
+            columns = list()
+        )
+        
+    }
+
+    mapping <- list(
+        swd = list(
+            docs = "WRITE ME",
+            source_database = "WRITE ME",
+            tables = tables
+        ))
+
+    mapping
 }
 
 ##' This function parses the technical output specification for a
@@ -76,7 +110,7 @@ gen_cds_map <- function(tos, sheet, output = filename)
     names(cc) <- xx$column
     
     ## Create the mapping file structure
-    mapping = list(
+    mapping <- list(
         databases = list(
             dbname = list(
                 docs = "WRITE ME",
