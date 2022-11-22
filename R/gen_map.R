@@ -2,10 +2,12 @@
 ##' 
 NULL
 
-gen_swd_map <- function(docs, sheet, output = filename)
+gen_swd_map <- function(spec, sheet, output = filename)
 {
-
-
+    ## Read the excel sheet into a variable 
+    xx <- readxl::read_xlsx(spec, sheet, skip = 3)
+    
+    xx
 }
 
 ##' This function parses the technical output specification for a
