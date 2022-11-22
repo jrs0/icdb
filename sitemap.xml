@@ -103,13 +103,16 @@
     <loc>https://jrs0.github.io/icdb/reference/gen_casewhen.html</loc>
   </url>
   <url>
+    <loc>https://jrs0.github.io/icdb/reference/gen_cds_map.html</loc>
+  </url>
+  <url>
     <loc>https://jrs0.github.io/icdb/reference/gen_clean_apc.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/gen_code_map.html</loc>
   </url>
   <url>
-    <loc>https://jrs0.github.io/icdb/reference/gen_map.html</loc>
+    <loc>https://jrs0.github.io/icdb/reference/gen_swd_map.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/get_codes.html</loc>
