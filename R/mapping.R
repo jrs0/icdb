@@ -290,19 +290,13 @@ parse_mapping <- function(mapping, srv)
         ## Check which of the three valid objects are 
         if ("database" %in% names(object))
         {
-            ## When you get to a list of databases, parse each database in turn
-            d <- list()
-            for (database in names(mapping$databases))
-            {
-                d[[database]] <- parse_mapping(mapping$databases[[database]], srv)
-            }
-            node(d)
+            ## Parse the list of tables
+            stopifnot("tables" %in% names(object),
+                      "Expected 'tables' key in database object")
+            parse_mapping(objects$tables, srv)
         }
         else if ("table" %in% names(object))
         {
-            ## If there is a tables field, then the current mapping is a logical
-            ## database. Record the database name for the next function execution
-            ## environment.
             source_database <- mapping$source_database
             t <- list()
             for (table in names(mapping$tables))
