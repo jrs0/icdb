@@ -1,8 +1,11 @@
-# Each level of this file has the same structure: a docs, source, and <contents> field. The <contents> field
-## A configuration file is a list of objects. The objects are dictionaries (structures with keys mapped to values). There are four kinds of objects,
-## determined by which of the following keys is present in the object: "database", "table", or "column", or "include"  Configuration files can be
-## included, but the top level of the included file must always be a list (meaning the top level elements begin with a dash). The include line itself
-## is always prefixed by a dash, making the include key an element of a list. The effect of the include is to copy all the contents of the included
+## A configuration file is a list of objects. The objects are dictionaries
+## (structures with keys mapped to values). There are four kinds of objects,
+## determined by which of the following keys is present in the object:
+## "database", "table", or "column", or "include"  Configuration files can be
+## included, but the top level of the included file must always be a list
+## (meaning the top level elements begin with a dash). The include line itself
+## is always prefixed by a dash, making the include key an element of a list.
+## The effect of the include is to copy all the contents of the included
 ## file into the list which contained the original include.
 ##
 ## The valid keys in each of the object are as follows:
@@ -48,8 +51,6 @@
     - table: "nhais"
       docs: "NHAIS Deaths table...."
       source: "test_lookup_test"
-      columns: []
-
 
 - database: "swd"
   docs: "The MODELLING_SQL_AREA database contains the System Wide Dataset tables (activity, attributes, measurements), which bring together data from primary care (GPs), secondary care (hsopitals), mental health, and community care services."

@@ -283,8 +283,10 @@ parse_mapping <- function(mapping, srv)
         }     
     }
 
-    ## Drop the include elements
-    mapping <- mapping[!sapply(mapping, function(x) {"include" %in% names(x)})]
+    ## Drop the include objects
+    mapping <- mapping[
+        !sapply(mapping, function(x) {"include" %in% names(x)})
+    ]
     
     ## The mapping argument is a list of object -- loop over them
     ## recursively processing the contents
@@ -298,7 +300,7 @@ parse_mapping <- function(mapping, srv)
             ## Check validity
             if("tables" %in% names(object))
             {
-                node(parse_mapping(object$tables, srv)) 
+                parse_mapping(object$tables, srv)
             }
             else
             {
@@ -306,7 +308,7 @@ parse_mapping <- function(mapping, srv)
             }  
 
             ## Parse the list of tables            
-            parse_mapping(objects$tables, srv)
+            parse_mapping(object$tables, srv)
         }
         else if ("table" %in% names(object))
         {
@@ -326,42 +328,7 @@ parse_mapping <- function(mapping, srv)
             tab <- table_wrapper(make_mapped_table_getter(srv,
                                                           source,
                                                           mapping))
-            
-            ## source_database <- mapping$source_database
-            ## t <- list()
-            ## for (table in names(mapping$tables))
-            ## {
-            ##     t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
-            ##                                 source_database = source_database)
-            ## }
-            ## ## Return the list of tables
-            ## node(t)
         }
-        ## else if ("column" %in% names(object))
-        ## {
-        ##     print("Parsing database")
-
-            
-        ##     ## This is never used? This function needs an overhaul.
-            
-        ##     ## If there is a columns field, then the current mapping is a table.
-        ##     ## Record the source table name for the next execution environment
-        ##     source_table <- mapping$source_table
-
-        ##     ## Check if there is a source_database key -- if there is, it must
-        ##     ## overwrite the value inherited from the calling environment, to
-        ##     ## support the possibility that tables in the same logical database
-        ##     ## originate from separate source databases.
-        ##     if (!is.null(mapping$source_database))
-        ##     {
-        ##         source_database <- mapping$source_database
-        ##     }
-
-        ##     ## Next, create the function which will return the the Mapped object
-        ##     ## corresponding to this logical table
-        ##     ##tab <- table_wrapper(make_mapped_table_getter(srv, source_database, source_table, mapping))
-        ##     "hello"
-        ## }
         else
         {
             stop("Error in config file: expected a database, table, column, or include key.")
