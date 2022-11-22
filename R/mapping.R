@@ -123,14 +123,14 @@ make_mapped_table_getter <- function(srv, source_database, source_table, table)
 }
 
 ##' Create a new mapped database object. A mapped database is an object that contains
-##' mapped databases, mapped tables and mapped column name. The mapping operation is a
+##' mapped databases, mapped tables and mapped column names. The mapping operation is a
 ##' simple preprocessing operation, that performs tasks such as renaming and coalescing
 ##' columns, and certain basic filtering and mutate operations. In addition, the mapped
 ##' objects can store documentation about themselves, which provides an easy way to look
 ##' up what a column is or where it came from. The mapped_server uses an underlying server
 ##' object for the database connection.
 ##' 
-##' The structure of the database is defined by a mapping.yaml file, which describes
+##' The structure of the database is defined by a .yaml file, which describes
 ##' how to obtain the fields from an underlying data source. See the package documentation
 ##' for how to structure this file.
 ##'
@@ -287,25 +287,43 @@ parse_mapping <- function(mapping, srv)
     ## recursively processing the contents
     for (object in mapping)
     {
-        ## Check which of the three valid objects are 
+        ## Check which of the three valid objects is being processed
         if ("database" %in% names(object))
         {
-            ## Parse the list of tables
-            stopifnot("tables" %in% names(object),
-                      "Expected 'tables' key in database object")
-            parse_mapping(objects$tables, srv)
+            ## Check validity
+            if("tables" %in% names(object))
+            {
+                node(parse_mapping(object$columns)) 
+            }
+            else
+            {
+                stop("Expected 'tables' key in database object")
+            }  
+
+            ## Parse the list of tables            
+            node(parse_mapping(objects$tables, srv))
         }
         else if ("table" %in% names(object))
         {
-            source_database <- mapping$source_database
-            t <- list()
-            for (table in names(mapping$tables))
+            ## Check validity
+            if("columns" %in% names(object))
             {
-                t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
-                                            source_database = source_database)
+                node(parse_mapping(object$columns)) 
             }
-            ## Return the list of tables
-            node(t)
+            else
+            {
+                stop("Expected 'columns' key in table object")
+            }  
+            
+            ## source_database <- mapping$source_database
+            ## t <- list()
+            ## for (table in names(mapping$tables))
+            ## {
+            ##     t[[table]] <- parse_mapping(mapping$tables[[table]], srv,
+            ##                                 source_database = source_database)
+            ## }
+            ## ## Return the list of tables
+            ## node(t)
         }
         else if ("column" %in% names(object))
         {
@@ -332,6 +350,7 @@ parse_mapping <- function(mapping, srv)
         {
             stop("Error in config file: expected a database, table, column, or include key.")
         }
+    }
 }
 
 
@@ -420,4 +439,3 @@ parse_mapping <- function(mapping, srv)
 ##              "present at each level")
 ##     }
 ## }
-
