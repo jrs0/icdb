@@ -38,10 +38,11 @@ gen_swd_map <- function(spec, sheet, output = filename)
                             strategy = "coalesce"
                         ))
         
-        tt <- c(tt, list(
+        tt <- c(tt, list(list(
                         name = tab,
                         docs = "WRITE ME",
                         columns = cc
+                    )
                     )
                 )
     }

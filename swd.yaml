@@ -2,7 +2,7 @@ swd:
   docs: WRITE ME
   source_database: WRITE ME
   tables:
-    name: swd_activity
+  - name: swd_activity
     docs: WRITE ME
     columns:
     - name: arr_date
@@ -106,7 +106,7 @@ swd:
       docs: Current version of activity dataset
       source_columns: version
       strategy: coalesce
-    name: swd_attribute
+  - name: swd_attribute
     docs: WRITE ME
     columns:
     - name: abortion
@@ -1206,7 +1206,7 @@ swd:
       docs: Refugee/Asylum seeker
       source_columns: asylum_seeker_refugee
       strategy: coalesce
-    name: swd_supplemental
+  - name: swd_supplemental
     docs: WRITE ME
     columns:
     - name: cc_AIDS
@@ -1505,7 +1505,7 @@ swd:
       docs: current version of attributes dataset
       source_columns: version
       strategy: coalesce
-    name: swd_measurement
+  - name: swd_measurement
     docs: WRITE ME
     columns:
     - name: nhs_number
