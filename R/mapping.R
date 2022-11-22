@@ -78,9 +78,6 @@ make_mapped_table_getter <- function(srv, source, table)
                 count <- count + 1
             }
         }
-
-        print(real_columns)
-        return()
         
         ## Loop over all the logical columns, reducing by the specified
         ## strategies. The strategies are presented as a list -- the order
@@ -119,7 +116,6 @@ make_mapped_table_getter <- function(srv, source, table)
             }
         }
 
-#        tbl %>% dplyr::show_query()
         mapped_table(tbl, mapping)
     }
 }
