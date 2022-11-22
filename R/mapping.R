@@ -304,7 +304,8 @@ parse_mapping <- function(mapping, srv)
             }
             else
             {
-                stop("Expected 'tables' key in database object")
+                stop("Expected 'tables' key in database object ",
+                     object$database)
             }  
 
             ## Parse the list of tables            
@@ -315,10 +316,12 @@ parse_mapping <- function(mapping, srv)
             print("Parsing database")
             
             ## Check validity
-            if(!("columns" %in% names(object)))
+            if(!("columns" %in% names(object)) &&
+               !("raw" %in% names(object)))
             {
-                stop("Expected 'columns' key in table object")
-            }  
+                stop("Expected 'columns' or 'raw' key in table object ",
+                     object$table)
+            }
 
             ## If there is a columns field, then the current mapping is a table.
             ## Record the source table name for the next execution environment
