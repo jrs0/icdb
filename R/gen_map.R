@@ -14,7 +14,7 @@ NULL
 ##' @param sheet The name of the sheet to read
 ##' @param output The file path to write the output
 ##' 
-gen_swd_map <- function(spec, sheet, output = filename)
+gen_swd_map <- function(spec, output = filename)
 {
     sheet <- "Data Tables and Fields"
     
@@ -35,7 +35,9 @@ gen_swd_map <- function(spec, sheet, output = filename)
                             column = .x,
                             docs = .y,
                             source = c(.x),
-                            strategy = "coalesce"
+                            strategy = "coalesce",
+                            use = TRUE
+                            
                         ))
         
         tt <- c(tt, list(list(

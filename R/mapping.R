@@ -53,8 +53,6 @@ make_mapped_table_getter <- function(srv, source, table)
                 real_columns <- c(real_columns, logical_column$source)
             }
         }
-        print(real_columns)
-        return()
         tbl <- tbl %>% dplyr::select(all_of(unlist(real_columns)))
 
         ## Next, rename the columns according to names derived from the logical
@@ -81,6 +79,9 @@ make_mapped_table_getter <- function(srv, source, table)
             }
         }
 
+        print(real_columns)
+        return()
+        
         ## Loop over all the logical columns, reducing by the specified
         ## strategies. The strategies are presented as a list -- the order
         ## in the yaml file specifies the order in which they are executed.
