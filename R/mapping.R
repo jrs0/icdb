@@ -284,6 +284,9 @@ parse_mapping <- function(mapping, srv)
         }     
     }
 
+    ## Drop the include elements
+    mapping <- mapping[sapply(mapping, function(x) {"include" %in% x})]
+    
     ## The mapping argument is a list of object -- loop over them
     ## recursively processing the contents
     for (object in mapping)
