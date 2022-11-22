@@ -2,6 +2,12 @@
 ##' 
 NULL
 
+gen_swd_map <- function(docs, sheet, output = filename)
+{
+
+
+}
+
 ##' This function parses the technical output specification for a
 ##' CDS dataset into a mapping.yaml file suitable for use
 ##' in mapped_server.
@@ -24,7 +30,7 @@ NULL
 ##' generated automatically based on the sheet name.
 ##' 
 ##' @export
-gen_map <- function(tos, sheet, output = filename)
+gen_cds_map <- function(tos, sheet, output = filename)
 {
     ## Read the excel sheet into a variable 
     xx <- readxl::read_xlsx(tos, sheet)
