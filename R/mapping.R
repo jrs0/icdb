@@ -32,13 +32,13 @@ make_mapped_table_getter <- function(srv, source, table)
 
     function()
     {
-        
+
+        print(mapping)
+
+        return()
         ## Get the name of the logical table and fetch the table
         tbl <- get_tbl(srv, source)
 
-        print("here")
-        return(2)
-        
         ## If the table is marked as raw, return the entire table
         ## unmodified
         if (!is.null(mapping$raw) && mapping$raw == TRUE)
@@ -54,17 +54,17 @@ make_mapped_table_getter <- function(srv, source, table)
             ## in the logical column
             if (!is.null(logical_column$use) && logical_column$use)
             {
-                real_columns <- c(real_columns, names(logical_column$source_columns))
+                real_columns <- c(real_columns, logical_column$source)
             }
         }
         tbl <- tbl %>% dplyr::select(all_of(unlist(real_columns)))
 
         ## Next, rename the columns according to names derived from the logical
         ## column name
-        for (logical_column_name in names(columns))
+        for (logical_column in columns)
         {
-            logical_column <- columns[[logical_column_name]]
-
+            logical_column_name <- logical_column$column
+            
             ## If the logical column is not marked with use: TRUE, then
             ## ignore this logical column
             if (!is.null(logical_column$use) && !logical_column$use)
@@ -72,9 +72,10 @@ make_mapped_table_getter <- function(srv, source, table)
                 next
             }
             
-            ## Loop over the constituent columns that make up the logical column
+            ## Loop over the constituent columns that make
+            ## up the logical column
             count <- 1
-            for (old_name in names(logical_column$source_columns))
+            for (old_name in logical_column$source)
             {
                 new_name <- paste0(logical_column_name,"_",count)
                 tbl <- tbl %>% dplyr::rename_with(~ new_name, old_name)
@@ -85,9 +86,9 @@ make_mapped_table_getter <- function(srv, source, table)
         ## Loop over all the logical columns, reducing by the specified
         ## strategies. The strategies are presented as a list -- the order
         ## in the yaml file specifies the order in which they are executed.
-        for (logical_column_name in names(columns))
+        for (logical_column in columns)
         {
-            logical_column <- columns[[logical_column_name]]
+            logical_column_name <- logical_column$column
             strategies <- logical_column$strategy
 
             ## If the logical column is not marked with use: TRUE, then
@@ -99,24 +100,22 @@ make_mapped_table_getter <- function(srv, source, table)
 
             ## Loop over the strategies, applying one-by-one
             for (strategy in strategies)
-            {
-                
+            {    
                 ## If the item is not a list, then it is a simple function
                 ## which can be called to process the item
                 if (is.null(names(strategy)))
                 {
-                    tbl <- do.call(strategy, list(tbl=tbl,
-                                                  name=logical_column_name))
+                    tbl <- rlang::exec(strategy, tbl = tbl,
+                                       name = logical_column_name)
                 }
                 else
                 {
                     ## If the strategy is a list, then the first element
                     ## is the function name and the subsequent elements are
                     ## the arguments
-                    tbl <- do.call(names(strategy),
-                                   list(tbl=tbl,
-                                        name=logical_column_name,
-                                        strategy[[1]]))
+                    tbl <- rlang::exec(names(strategy), tbl=tbl,
+                                        name = logical_column_name,
+                                        !!!strategy[[1]])
                 }
             }
         }
