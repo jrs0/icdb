@@ -131,7 +131,10 @@
     use: yes
 - table: swd_attribute
   docs: "The SWD attributes table contains records of patient attributes at the latest snapshot through the year (monthly updates), PLUS a few other measures such as 'air quality' that is NOT present in the activity history table (these additional measures is the only reason to keep a separate reference to this table, otherwise we could have just filter the activity history table by most recent)."
-  source: "MODELLING_SQL_AREA.dbo.swd_attribute"
+  source:
+    catalog: MODELLING_SQL_AREA
+    schema: dbo
+    table: swd_attribute
   columns:
   - column: abortion
     docs: Termination of pregnancy - ever had
@@ -1083,11 +1086,11 @@
     source: primary_care_network
     strategy: coalesce
     use: yes
-  - column: locality_name
-    docs: Locality name of registered GP practice code
-    source: locality_name
-    strategy: coalesce
-    use: yes
+  # - column: locality_name
+  #   docs: Locality name of registered GP practice code
+  #   source: locality_name
+  #   strategy: coalesce
+  #   use: yes
   - column: wd_local_authority
     docs: local authority name of LSOA
     source: wd_local_authority

@@ -61,10 +61,16 @@
     - include: "bnssg/swd.yaml"
     - table: "attr_h"
       docs: "The SWD attributes-history table contains every monthly snapshot of patient attributes going back to inception of the swd attributes table in 201X(?when, look this up)."
-      source: "MODELLING_SQL_AREA.dbo.primary_care_attributes"
+      source:
+        catalog: "MODELLING_SQL_AREA"
+        schema: "dbo"
+        table: "primary_care_attributes"
       raw: yes
 
     - table: "lsoa"
       docs: "The LSOA (Lower Super Output Area) table contains details about the local areas in Bristol. We need this as it provides the key for matching patients to the various local 'regions' - in order of size: 'wards', 'LSOAs' and 'MSOAs' (Middle Super Output Areas). TODO: there are quite a few of these tables, find the right one"
-      source: "swd_LSOA_descriptions"
+      source:
+        catalog: "MODELLING_SQL_AREA"
+        schema: "dbo"
+        table: "swd_LSOA_descriptions"
       raw: yes
