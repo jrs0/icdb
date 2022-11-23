@@ -89,11 +89,11 @@ parse_icd11 <- function(endpoint = "http://localhost/icd/entity")
     }
 }
 
-icd_api <- function()
+icd10_api <- function()
 {
     ## Authenticate the endpoint
-    secret <- yaml::read_yaml(system.file("extdata", "icd-api.secret.yaml", package = "icdb"))
-
+    secret <- yaml::read_yaml(system.file("extdata", "secret/icd10-cred.yaml", package = "icdb"))
+    
     print(secret)
     stop()
     

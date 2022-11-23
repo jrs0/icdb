@@ -15,3 +15,6 @@ gendata
 
 ## Ignore sensitive files
 *.secret.*
+
+## Any file or folder called secret
+secret
