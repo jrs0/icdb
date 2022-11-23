@@ -257,6 +257,19 @@ icd_api_fetch_all <- function(token, release = "2016")
 ##' @export
 icd_combine_files <- function()
 {
-    
+    files <- list.files(system.file("extdata", "icd10/", package="icdb"),
+                        pattern = "^icd10_(.)*.yaml$", full.names = TRUE)
 
+    xx <- list(category = "ICD-10",
+               docs = "ICD-10 codes, 2016 release",
+               child = list())
+    for (f in files)
+    {     
+        yy <- yaml::read_yaml(f)
+        xx$child <- c(xx$child, list(yy))
+    }
+
+    ## Write output file
+    yaml::write_yaml(xx, "icd10.yaml")
+    
 }
