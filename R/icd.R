@@ -164,7 +164,8 @@ icd_api_request <- function(token, endpoint, data = list())
 ##' "2016", "2010", "2008") 
 ##' @param item The item to retrieve; a string appended to the end of the
 ##' endpoint URL. This can be a chapter or a lower level item. 
-##' @param endpoint 
+##' @param endpoint The endpoint URL to request. Generated from other arguments
+##' if the endpoint is not provided.
 ##' @return A leaf or category object (named list)
 ##' @export
 icd_api_get_codes <- function(token, release = "2016", item = "I",
