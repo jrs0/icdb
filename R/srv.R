@@ -431,6 +431,7 @@ get_tbl <- function(srv, source)
     dplyr::tbl(srv@con, id)
 }
 
+
 ##' Make a function that returns a table getter. The function which
 ##' is returned can be called to produce a table_node object.
 ##'
