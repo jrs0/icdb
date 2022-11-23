@@ -127,6 +127,21 @@
     <loc>https://jrs0.github.io/icdb/reference/has_tag.html</loc>
   </url>
   <url>
+    <loc>https://jrs0.github.io/icdb/reference/icd_api_fetch_all.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/icd_api_get_codes.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/icd_api_request.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/icd_api_token.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/icd_combine_files.html</loc>
+  </url>
+  <url>
     <loc>https://jrs0.github.io/icdb/reference/icdb_example.html</loc>
   </url>
   <url>

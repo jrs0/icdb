@@ -104,8 +104,36 @@
 
     
     
-<p>Write me…</p>
-  </main>
+<p>This page contains all the details for how ICDB is tested.</p>
+<div class="section level2">
+<h2 id="connection-layer">Connection layer<a class="anchor" aria-label="anchor" href="#connection-layer"></a>
+</h2>
+</div>
+<div class="section level2">
+<h2 id="mapping-layer">Mapping layer<a class="anchor" aria-label="anchor" href="#mapping-layer"></a>
+</h2>
+</div>
+<div class="section level2">
+<h2 id="dataset-layer">Dataset layer<a class="anchor" aria-label="anchor" href="#dataset-layer"></a>
+</h2>
+</div>
+<div class="section level2">
+<h2 id="icd-api-access">ICD API access<a class="anchor" aria-label="anchor" href="#icd-api-access"></a>
+</h2>
+<p>ICDB uses the <a href="https://icd.who.int/icdapi" class="external-link">WHO ICD API</a> to
+generate configuration files for parsing diagnosis columns in the
+database. To check that this works, two functions are mocked:</p>
+<ul>
+<li>The authentication function, which gets an access token for making
+API requests.</li>
+<li>The request function itself, which returns endpoint data</li>
+</ul>
+<p>The mock functions are made to return data using the same format as
+the API, and then the tests are written to ensure that this fictional
+response is processed correctly.</p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
