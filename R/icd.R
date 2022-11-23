@@ -89,33 +89,58 @@ parse_icd11 <- function(endpoint = "http://localhost/icd/entity")
     }
 }
 
-icd10_api <- function()
+##' Get the authentication token for the WHO ICD API
+##'
+##' Call this function once to get the token, and then use it
+##' in the icd10_api calls
+##' 
+##' Note: this function can be mocked for testing.
+##' 
+##' @title Get the API token
+##' @return The token (named list) 
+get_icd_api_token <- function()
 {
     ## Authenticate the endpoint
     secret <- yaml::read_yaml(system.file("extdata", "secret/icd10-cred.yaml", package = "icdb"))
+
+    token_endpoint = 'https://icdaccessmanagement.who.int/connect/token'
+    payload <- c(secret, list
+    (
+        scope = 'icdapi_access',
+        grant_type = 'client_credentials'
+    ))  
+    token <- httr::POST(token_endpoint, body = payload)
+    httr::content(token)
+}
+
+icd10_api <- function(token, endpoint = "https://id.who.int/icd/entity")
+{    
+    xx <- httr::GET(url = endpoint, httr::add_headers(
+                                              Authorization = paste0("Bearer ",token$access_token),
+                                              accept = "application/json",
+                                              `API-Version` = "v2",
+                                              `Accept-Language` = "en"))
     
-    print(secret)
+    print(xx)
+    stop()
+    rr <- httr::content(xx, "parsed")
+
+    print(rr)
     stop()
     
-    r <- httr::POST('https://icdaccessmanagement.who.int/connect/token',
-                    body = secret)
+    ## Get documentation
+    pp <- list(docs = rr$title$`@value`)
     
-    ##url <- conf$token_endpoint
-    ##payload <- conf[-token_endpoint]
-    
-    ## ## get the OAUTH2 token
-    ## r <- httr::POST(url = url, quer
-    
-    ## r = requests.post(token_endpoint, data=payload, verify=False).json()
-    ## token = r['access_token']
+    ## Parse all the child entities
+    ss <- list()
+    for (url in rr$child)
+    {
+        ## URLs use the remote host, replace this with localhost
+        url <- stringr::str_replace(url, pattern = "id.who.int", replacement = "localhost")
 
+        ##ss[[janitor::make_clean_names
+    }
 
-    ## access ICD API
     
     
-    ## make request           
-    #r = requests.get(uri, headers=headers, verify=False)
-
-    ## print the result
-    r
 }
