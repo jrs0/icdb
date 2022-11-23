@@ -41,7 +41,6 @@ make_mapped_table_getter <- function(srv, source, table)
         {
             return(tbl)
         }
-        
         ## The first step is to select the relevant real columns
         real_columns <- list()
         for (logical_column in columns)
@@ -68,8 +67,6 @@ make_mapped_table_getter <- function(srv, source, table)
                 next
             }
             
-            ## Loop over the constituent columns that make
-            ## up the logical column
             count <- 1
             for (old_name in logical_column$source)
             {
