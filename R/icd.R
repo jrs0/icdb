@@ -153,15 +153,21 @@ icd_api_request <- function(token, endpoint, data = list())
 ##' a codes definition file that can be used to process diagnosis code columns.
 ##' This function uses the 2016 release of ICD-10.
 ##'
+##' Use this function to get each chapter of the ICD codes, as a nested list
+##' object. For now, getting each chapter separately is a better way to avoid
+##' the token timing out. The results can be combined to form a full ICD-10
+##' file.
+##'
 ##' @title Generate a codes file from the ICD-10 API 
 ##' @param token The access token obtained from icd_api_token
 ##' @param release The release year (default "2016"; Options "2019",
 ##' "2016", "2010", "2008") 
 ##' @param item The item to retrieve; a string appended to the end of the
 ##' endpoint URL. This can be a chapter or a lower level item. 
+##' @param endpoint 
 ##' @return A leaf or category object (named list)
 ##' @export
-icd10_api_gen_codes <- function(token, release = "2016", item = "I",
+icd_api_get_codes <- function(token, release = "2016", item = "I",
                                 endpoint = paste(root, release, item, sep = "/"))
 {
     ## This is the base API url
@@ -204,8 +210,32 @@ icd10_api_gen_codes <- function(token, release = "2016", item = "I",
             docs = res$title$`@value`,
             child = res$child %>%
                 sapply(function(ep) {  
-                    list(icd10_api_gen_codes(token, endpoint = ep))
+                    list(icd_api_get_codes(token, endpoint = ep))
                 })
         )
     }
+}
+
+icd_api_fetch_all <- function(token, release = "2016")
+{
+    ## This is the base API url
+    endpoint <- paste("https://id.who.int/icd/release/10",
+                      release, sep="/")
+    
+    ## Fetch the chapter endpoints
+    ch_ep <- icd_api_request(token, endpoint)$child
+    ch_names <- ch_ep %>%
+        purrr::map(~ strsplit(., "/") %>% unlist() %>% tail(n=1))
+    
+    ch_names %>%
+        purrr::map(function(ch) {
+            
+            ep <- paste("https://id.who.int/icd/release/10",
+                        release, ch, sep="/")
+            val <- icd_api_get_codes(token, endpoint = ep)
+
+            message("Writing codes to output file")
+            yaml::write_yaml(paste0("icd10_", ch, ".yaml"))
+        })
+
 }
