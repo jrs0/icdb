@@ -133,7 +133,12 @@ icd_api_request <- function(token, endpoint, data = list())
                           `Accept-Language` = "en")
     
     xx <- httr::GET(url = endpoint, headers)
+    if (xx$status == 401)
+    {
+        stop("401 returned; token invalid or expired")
+    }
     httr::content(xx)
+    
 }
 
 ##' Use this function to automatically process the ICD-10 classifications into
@@ -145,7 +150,6 @@ icd_api_request <- function(token, endpoint, data = list())
 ##' @param endpoint The root endpoint (defaults to the chapter level)
 icd10_api_gen_codes <- function(token, endpoint = "https://id.who.int/icd/release/10/2016")
 {    
-    
     res <- icd_api_request(token, endpoint)
     ##print(res)
 
