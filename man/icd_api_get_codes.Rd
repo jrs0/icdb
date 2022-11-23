@@ -20,7 +20,8 @@ icd_api_get_codes(
 \item{item}{The item to retrieve; a string appended to the end of the
 endpoint URL. This can be a chapter or a lower level item.}
 
-\item{endpoint}{}
+\item{endpoint}{The endpoint URL to request. Generated from other arguments
+if the endpoint is not provided.}
 }
 \value{
 A leaf or category object (named list)
