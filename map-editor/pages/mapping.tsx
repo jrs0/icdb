@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 function Column({ col }) {
     return (
         <div>
@@ -87,6 +89,7 @@ export default function Home() {
 
     return (
         <div>
+            <Link href="/">Back</Link>
             <ul>
                 {def.map((tab) => (
                     <li>
