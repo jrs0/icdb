@@ -98,7 +98,7 @@ parse_icd11 <- function(endpoint = "http://localhost/icd/entity")
 ##' 
 ##' @title Get the API token
 ##' @return The token (named list) 
-icd_api_get_token <- function()
+icd_api_token <- function()
 {
     ## Authenticate the endpoint
     secret <- yaml::read_yaml(system.file("extdata", "secret/icd10-cred.yaml", package = "icdb"))
@@ -136,29 +136,63 @@ icd_api_request <- function(token, endpoint, data = list())
     httr::content(xx)
 }
 
-icd10_api <- function(token, endpoint = "https://id.who.int/icd/entity")
+##' Use this function to automatically process the ICD-10 classifications into
+##' a codes definition file that can be used to process diagnosis code columns.
+##' This function uses the 2016 release of ICD-10.
+##'
+##' @title Generate a codes file from the ICD-10 API 
+##' @param token The access token obtained from icd_api_token
+##' @param endpoint The root endpoint (defaults to the chapter level)
+icd10_api_gen_codes <- function(token, endpoint = "https://id.who.int/icd/release/10/2016")
 {    
     
     res <- icd_api_request(token, endpoint)
-    print(res)
-    stop()
-    rr <- httr::content(xx, "parsed")
+    ##print(res)
 
-    print(rr)
-    stop()
+    ## Each request returns a named list containing the contents of this
+    ## level of the ICD hierarchy. The two most important fields are `@value`,
+    ## (which is inside a key called `title`),
+    ## which contains the text description of this level; and `child`, which
+    ## is a list of ICD objects directly beneath this node in the tree. Each
+    ## element of `child` is a URL endpoint, which can be used in another call
+    ## to this function.
+    ##
+    ## At leaf nodes, the `child` key is missing. This signifies that the lowest
+    ## level (a particular code) has been reached.
+    ##
+    ## If there is a code field, then it contains either a code range
+    ## (e.g. I20-I25) for a non-leaf node, or it contains an ICD code
+    ## (e.g. I22.0).
+    ##
+    ## Two other important keys, which are not currently used for anything,
+    ## are the `inclusion` and `exclusion` lists for a particular node.
     
-    ## Get documentation
-    pp <- list(docs = rr$title$`@value`)
-    
-    ## Parse all the child entities
-    ss <- list()
-    for (url in rr$child)
+    if (is.null(res$child))
     {
-        ## URLs use the remote host, replace this with localhost
-        url <- stringr::str_replace(url, pattern = "id.who.int", replacement = "localhost")
-
-        ##ss[[janitor::make_clean_names
+        ## Then the current node is a leaf node
+        message("Leaf: ", res$code)
     }
+    else
+    {
+        ## Else, loop over the child nodes
+        for (ep in res$child)
+        {
+            icd10_api_gen_codes(token, ep)
+        }
+    }
+    
+    ## ## Get documentation
+    ## pp <- list(docs = rr$title$`@value`)
+    
+    ## ## Parse all the child entities
+    ## ss <- list()
+    ## for (url in rr$child)
+    ## {
+    ##     ## URLs use the remote host, replace this with localhost
+    ##     url <- stringr::str_replace(url, pattern = "id.who.int", replacement = "localhost")
+
+    ##     ##ss[[janitor::make_clean_names
+    ## }
 
     
     
