@@ -1,0 +1,2077 @@
+category: I
+docs: Certain infectious and parasitic diseases
+child:
+- category: A00-A09
+  docs: Intestinal infectious diseases
+  child:
+  - category: A00
+    docs: Cholera
+    child:
+    - code: A00.0
+      docs: Cholera due to Vibrio cholerae 01, biovar cholerae
+    - code: A00.1
+      docs: Cholera due to Vibrio cholerae 01, biovar eltor
+    - code: A00.9
+      docs: Cholera, unspecified
+  - category: A01
+    docs: Typhoid and paratyphoid fevers
+    child:
+    - code: A01.0
+      docs: Typhoid fever
+    - code: A01.1
+      docs: Paratyphoid fever A
+    - code: A01.2
+      docs: Paratyphoid fever B
+    - code: A01.3
+      docs: Paratyphoid fever C
+    - code: A01.4
+      docs: Paratyphoid fever, unspecified
+  - category: A02
+    docs: Other salmonella infections
+    child:
+    - code: A02.0
+      docs: Salmonella enteritis
+    - code: A02.1
+      docs: Salmonella sepsis
+    - code: A02.2
+      docs: Localized salmonella infections
+    - code: A02.8
+      docs: Other specified salmonella infections
+    - code: A02.9
+      docs: Salmonella infection, unspecified
+  - category: A03
+    docs: Shigellosis
+    child:
+    - code: A03.0
+      docs: Shigellosis due to Shigella dysenteriae
+    - code: A03.1
+      docs: Shigellosis due to Shigella flexneri
+    - code: A03.2
+      docs: Shigellosis due to Shigella boydii
+    - code: A03.3
+      docs: Shigellosis due to Shigella sonnei
+    - code: A03.8
+      docs: Other shigellosis
+    - code: A03.9
+      docs: Shigellosis, unspecified
+  - category: A04
+    docs: Other bacterial intestinal infections
+    child:
+    - code: A04.0
+      docs: Enteropathogenic Escherichia coli infection
+    - code: A04.1
+      docs: Enterotoxigenic Escherichia coli infection
+    - code: A04.2
+      docs: Enteroinvasive Escherichia coli infection
+    - code: A04.3
+      docs: Enterohaemorrhagic Escherichia coli infection
+    - code: A04.4
+      docs: Other intestinal Escherichia coli infections
+    - code: A04.5
+      docs: Campylobacter enteritis
+    - code: A04.6
+      docs: Enteritis due to Yersinia enterocolitica
+    - code: A04.7
+      docs: Enterocolitis due to Clostridium difficile
+    - code: A04.8
+      docs: Other specified bacterial intestinal infections
+    - code: A04.9
+      docs: Bacterial intestinal infection, unspecified
+  - category: A05
+    docs: Other bacterial foodborne intoxications, not elsewhere classified
+    child:
+    - code: A05.0
+      docs: Foodborne staphylococcal intoxication
+    - code: A05.1
+      docs: Botulism
+    - code: A05.2
+      docs: Foodborne Clostridium perfringens [Clostridium welchii] intoxication
+    - code: A05.3
+      docs: Foodborne Vibrio parahaemolyticus intoxication
+    - code: A05.4
+      docs: Foodborne Bacillus cereus intoxication
+    - code: A05.8
+      docs: Other specified bacterial foodborne intoxications
+    - code: A05.9
+      docs: Bacterial foodborne intoxication, unspecified
+  - category: A06
+    docs: Amoebiasis
+    child:
+    - code: A06.0
+      docs: Acute amoebic dysentery
+    - code: A06.1
+      docs: Chronic intestinal amoebiasis
+    - code: A06.2
+      docs: Amoebic nondysenteric colitis
+    - code: A06.3
+      docs: Amoeboma of intestine
+    - code: A06.4
+      docs: Amoebic liver abscess
+    - code: A06.5
+      docs: Amoebic lung abscess
+    - code: A06.6
+      docs: Amoebic brain abscess
+    - code: A06.7
+      docs: Cutaneous amoebiasis
+    - code: A06.8
+      docs: Amoebic infection of other sites
+    - code: A06.9
+      docs: Amoebiasis, unspecified
+  - category: A07
+    docs: Other protozoal intestinal diseases
+    child:
+    - code: A07.0
+      docs: Balantidiasis
+    - code: A07.1
+      docs: Giardiasis [lambliasis]
+    - code: A07.2
+      docs: Cryptosporidiosis
+    - code: A07.3
+      docs: Isosporiasis
+    - code: A07.8
+      docs: Other specified protozoal intestinal diseases
+    - code: A07.9
+      docs: Protozoal intestinal disease, unspecified
+  - category: A08
+    docs: Viral and other specified intestinal infections
+    child:
+    - code: A08.0
+      docs: Rotaviral enteritis
+    - code: A08.1
+      docs: Acute gastroenteropathy due to Norwalk agent
+    - code: A08.2
+      docs: Adenoviral enteritis
+    - code: A08.3
+      docs: Other viral enteritis
+    - code: A08.4
+      docs: Viral intestinal infection, unspecified
+    - code: A08.5
+      docs: Other specified intestinal infections
+  - category: A09
+    docs: Other gastroenteritis and colitis of infectious and unspecified origin
+    child:
+    - code: A09.0
+      docs: Other and unspecified gastroenteritis and colitis of infectious origin
+    - code: A09.9
+      docs: Gastroenteritis and colitis of unspecified origin
+- category: A15-A19
+  docs: Tuberculosis
+  child:
+  - category: A15
+    docs: Respiratory tuberculosis, bacteriologically and histologically confirmed
+    child:
+    - code: A15.0
+      docs: Tuberculosis of lung, confirmed by sputum microscopy with or without culture
+    - code: A15.1
+      docs: Tuberculosis of lung, confirmed by culture only
+    - code: A15.2
+      docs: Tuberculosis of lung, confirmed histologically
+    - code: A15.3
+      docs: Tuberculosis of lung, confirmed by unspecified means
+    - code: A15.4
+      docs: Tuberculosis of intrathoracic lymph nodes, confirmed bacteriologically
+        and histologically
+    - code: A15.5
+      docs: Tuberculosis of larynx, trachea and bronchus, confirmed bacteriologically
+        and histologically
+    - code: A15.6
+      docs: Tuberculous pleurisy, confirmed bacteriologically and histologically
+    - code: A15.7
+      docs: Primary respiratory tuberculosis, confirmed bacteriologically and histologically
+    - code: A15.8
+      docs: Other respiratory tuberculosis, confirmed bacteriologically and histologically
+    - code: A15.9
+      docs: Respiratory tuberculosis unspecified, confirmed bacteriologically and
+        histologically
+  - category: A16
+    docs: Respiratory tuberculosis, not confirmed bacteriologically or histologically
+    child:
+    - code: A16.0
+      docs: Tuberculosis of lung, bacteriologically and histologically negative
+    - code: A16.1
+      docs: Tuberculosis of lung, bacteriological and histological examination not
+        done
+    - code: A16.2
+      docs: Tuberculosis of lung, without mention of bacteriological or histological
+        confirmation
+    - code: A16.3
+      docs: Tuberculosis of intrathoracic lymph nodes, without mention of bacteriological
+        or histological confirmation
+    - code: A16.4
+      docs: Tuberculosis of larynx, trachea and bronchus, without mention of bacteriological
+        or histological confirmation
+    - code: A16.5
+      docs: Tuberculous pleurisy, without mention of bacteriological or histological
+        confirmation
+    - code: A16.7
+      docs: Primary respiratory tuberculosis without mention of bacteriological or
+        histological confirmation
+    - code: A16.8
+      docs: Other respiratory tuberculosis, without mention of bacteriological or
+        histological confirmation
+    - code: A16.9
+      docs: Respiratory tuberculosis unspecified, without mention of bacteriological
+        or histological confirmation
+  - category: A17
+    docs: Tuberculosis of nervous system
+    child:
+    - code: A17.0
+      docs: Tuberculous meningitis
+    - code: A17.1
+      docs: Meningeal tuberculoma
+    - code: A17.8
+      docs: Other tuberculosis of nervous system
+    - code: A17.9
+      docs: Tuberculosis of nervous system, unspecified
+  - category: A18
+    docs: Tuberculosis of other organs
+    child:
+    - code: A18.0
+      docs: Tuberculosis of bones and joints
+    - code: A18.1
+      docs: Tuberculosis of genitourinary system
+    - code: A18.2
+      docs: Tuberculous peripheral lymphadenopathy
+    - code: A18.3
+      docs: Tuberculosis of intestines, peritoneum and mesenteric glands
+    - code: A18.4
+      docs: Tuberculosis of skin and subcutaneous tissue
+    - code: A18.5
+      docs: Tuberculosis of eye
+    - code: A18.6
+      docs: Tuberculosis of ear
+    - code: A18.7
+      docs: Tuberculosis of adrenal glands
+    - code: A18.8
+      docs: Tuberculosis of other specified organs
+  - category: A19
+    docs: Miliary tuberculosis
+    child:
+    - code: A19.0
+      docs: Acute miliary tuberculosis of a single specified site
+    - code: A19.1
+      docs: Acute miliary tuberculosis of multiple sites
+    - code: A19.2
+      docs: Acute miliary tuberculosis, unspecified
+    - code: A19.8
+      docs: Other miliary tuberculosis
+    - code: A19.9
+      docs: Miliary tuberculosis, unspecified
+- category: A20-A28
+  docs: Certain zoonotic bacterial diseases
+  child:
+  - category: A20
+    docs: Plague
+    child:
+    - code: A20.0
+      docs: Bubonic plague
+    - code: A20.1
+      docs: Cellulocutaneous plague
+    - code: A20.2
+      docs: Pneumonic plague
+    - code: A20.3
+      docs: Plague meningitis
+    - code: A20.7
+      docs: Septicaemic plague
+    - code: A20.8
+      docs: Other forms of plague
+    - code: A20.9
+      docs: Plague, unspecified
+  - category: A21
+    docs: Tularaemia
+    child:
+    - code: A21.0
+      docs: Ulceroglandular tularaemia
+    - code: A21.1
+      docs: Oculoglandular tularaemia
+    - code: A21.2
+      docs: Pulmonary tularaemia
+    - code: A21.3
+      docs: Gastrointestinal tularaemia
+    - code: A21.7
+      docs: Generalized tularaemia
+    - code: A21.8
+      docs: Other forms of tularaemia
+    - code: A21.9
+      docs: Tularaemia, unspecified
+  - category: A22
+    docs: Anthrax
+    child:
+    - code: A22.0
+      docs: Cutaneous anthrax
+    - code: A22.1
+      docs: Pulmonary anthrax
+    - code: A22.2
+      docs: Gastrointestinal anthrax
+    - code: A22.7
+      docs: Anthrax sepsis
+    - code: A22.8
+      docs: Other forms of anthrax
+    - code: A22.9
+      docs: Anthrax, unspecified
+  - category: A23
+    docs: Brucellosis
+    child:
+    - code: A23.0
+      docs: Brucellosis due to Brucella melitensis
+    - code: A23.1
+      docs: Brucellosis due to Brucella abortus
+    - code: A23.2
+      docs: Brucellosis due to Brucella suis
+    - code: A23.3
+      docs: Brucellosis due to Brucella canis
+    - code: A23.8
+      docs: Other brucellosis
+    - code: A23.9
+      docs: Brucellosis, unspecified
+  - category: A24
+    docs: Glanders and melioidosis
+    child:
+    - code: A24.0
+      docs: Glanders
+    - code: A24.1
+      docs: Acute and fulminating melioidosis
+    - code: A24.2
+      docs: Subacute and chronic melioidosis
+    - code: A24.3
+      docs: Other melioidosis
+    - code: A24.4
+      docs: Melioidosis, unspecified
+  - category: A25
+    docs: Rat-bite fevers
+    child:
+    - code: A25.0
+      docs: Spirillosis
+    - code: A25.1
+      docs: Streptobacillosis
+    - code: A25.9
+      docs: Rat-bite fever, unspecified
+  - category: A26
+    docs: Erysipeloid
+    child:
+    - code: A26.0
+      docs: Cutaneous erysipeloid
+    - code: A26.7
+      docs: Erysipelothrix sepsis
+    - code: A26.8
+      docs: Other forms of erysipeloid
+    - code: A26.9
+      docs: Erysipeloid, unspecified
+  - category: A27
+    docs: Leptospirosis
+    child:
+    - code: A27.0
+      docs: Leptospirosis icterohaemorrhagica
+    - code: A27.8
+      docs: Other forms of leptospirosis
+    - code: A27.9
+      docs: Leptospirosis, unspecified
+  - category: A28
+    docs: Other zoonotic bacterial diseases, not elsewhere classified
+    child:
+    - code: A28.0
+      docs: Pasteurellosis
+    - code: A28.1
+      docs: Cat-scratch disease
+    - code: A28.2
+      docs: Extraintestinal yersiniosis
+    - code: A28.8
+      docs: Other specified zoonotic bacterial diseases, not elsewhere classified
+    - code: A28.9
+      docs: Zoonotic bacterial disease, unspecified
+- category: A30-A49
+  docs: Other bacterial diseases
+  child:
+  - category: A30
+    docs: Leprosy [Hansen disease]
+    child:
+    - code: A30.0
+      docs: Indeterminate leprosy
+    - code: A30.1
+      docs: Tuberculoid leprosy
+    - code: A30.2
+      docs: Borderline tuberculoid leprosy
+    - code: A30.3
+      docs: Borderline leprosy
+    - code: A30.4
+      docs: Borderline lepromatous leprosy
+    - code: A30.5
+      docs: Lepromatous leprosy
+    - code: A30.8
+      docs: Other forms of leprosy
+    - code: A30.9
+      docs: Leprosy, unspecified
+  - category: A31
+    docs: Infection due to other mycobacteria
+    child:
+    - code: A31.0
+      docs: Pulmonary mycobacterial infection
+    - code: A31.1
+      docs: Cutaneous mycobacterial infection
+    - code: A31.8
+      docs: Other mycobacterial infections
+    - code: A31.9
+      docs: Mycobacterial infection, unspecified
+  - category: A32
+    docs: Listeriosis
+    child:
+    - code: A32.0
+      docs: Cutaneous listeriosis
+    - code: A32.1
+      docs: Listerial meningitis and meningoencephalitis
+    - code: A32.7
+      docs: Listerial sepsis
+    - code: A32.8
+      docs: Other forms of listeriosis
+    - code: A32.9
+      docs: Listeriosis, unspecified
+  - code: A33
+    docs: Tetanus neonatorum
+  - code: A34
+    docs: Obstetrical tetanus
+  - code: A35
+    docs: Other tetanus
+  - category: A36
+    docs: Diphtheria
+    child:
+    - code: A36.0
+      docs: Pharyngeal diphtheria
+    - code: A36.1
+      docs: Nasopharyngeal diphtheria
+    - code: A36.2
+      docs: Laryngeal diphtheria
+    - code: A36.3
+      docs: Cutaneous diphtheria
+    - code: A36.8
+      docs: Other diphtheria
+    - code: A36.9
+      docs: Diphtheria, unspecified
+  - category: A37
+    docs: Whooping cough
+    child:
+    - code: A37.0
+      docs: Whooping cough due to Bordetella pertussis
+    - code: A37.1
+      docs: Whooping cough due to Bordetella parapertussis
+    - code: A37.8
+      docs: Whooping cough due to other Bordetella species
+    - code: A37.9
+      docs: Whooping cough, unspecified
+  - code: A38
+    docs: Scarlet fever
+  - category: A39
+    docs: Meningococcal infection
+    child:
+    - code: A39.0
+      docs: Meningococcal meningitis
+    - code: A39.1
+      docs: Waterhouse-Friderichsen syndrome
+    - code: A39.2
+      docs: Acute meningococcaemia
+    - code: A39.3
+      docs: Chronic meningococcaemia
+    - code: A39.4
+      docs: Meningococcaemia, unspecified
+    - code: A39.5
+      docs: Meningococcal heart disease
+    - code: A39.8
+      docs: Other meningococcal infections
+    - code: A39.9
+      docs: Meningococcal infection, unspecified
+  - category: A40
+    docs: Streptococcal sepsis
+    child:
+    - code: A40.0
+      docs: Sepsis due to streptococcus, group A
+    - code: A40.1
+      docs: Sepsis due to streptococcus, group B
+    - code: A40.2
+      docs: Sepsis due to streptococcus, group D
+    - code: A40.3
+      docs: Sepsis due to Streptococcus pneumoniae
+    - code: A40.8
+      docs: Other streptococcal sepsis
+    - code: A40.9
+      docs: Streptococcal sepsis, unspecified
+  - category: A41
+    docs: Other sepsis
+    child:
+    - code: A41.0
+      docs: Sepsis due to Staphylococcus aureus
+    - code: A41.1
+      docs: Sepsis due to other specified staphylococcus
+    - code: A41.2
+      docs: Sepsis due to unspecified staphylococcus
+    - code: A41.3
+      docs: Sepsis due to Haemophilus influenzae
+    - code: A41.4
+      docs: Sepsis due to anaerobes
+    - code: A41.5
+      docs: Sepsis due to other Gram-negative organisms
+    - code: A41.8
+      docs: Other specified sepsis
+    - code: A41.9
+      docs: Sepsis, unspecified
+  - category: A42
+    docs: Actinomycosis
+    child:
+    - code: A42.0
+      docs: Pulmonary actinomycosis
+    - code: A42.1
+      docs: Abdominal actinomycosis
+    - code: A42.2
+      docs: Cervicofacial actinomycosis
+    - code: A42.7
+      docs: Actinomycotic sepsis
+    - code: A42.8
+      docs: Other forms of actinomycosis
+    - code: A42.9
+      docs: Actinomycosis, unspecified
+  - category: A43
+    docs: Nocardiosis
+    child:
+    - code: A43.0
+      docs: Pulmonary nocardiosis
+    - code: A43.1
+      docs: Cutaneous nocardiosis
+    - code: A43.8
+      docs: Other forms of nocardiosis
+    - code: A43.9
+      docs: Nocardiosis, unspecified
+  - category: A44
+    docs: Bartonellosis
+    child:
+    - code: A44.0
+      docs: Systemic bartonellosis
+    - code: A44.1
+      docs: Cutaneous and mucocutaneous bartonellosis
+    - code: A44.8
+      docs: Other forms of bartonellosis
+    - code: A44.9
+      docs: Bartonellosis, unspecified
+  - code: A46
+    docs: Erysipelas
+  - category: A48
+    docs: Other bacterial diseases, not elsewhere classified
+    child:
+    - code: A48.0
+      docs: Gas gangrene
+    - code: A48.1
+      docs: Legionnaires disease
+    - code: A48.2
+      docs: Nonpneumonic Legionnaires disease [Pontiac fever]
+    - code: A48.3
+      docs: Toxic shock syndrome
+    - code: A48.4
+      docs: Brazilian purpuric fever
+    - code: A48.8
+      docs: Other specified bacterial diseases
+  - category: A49
+    docs: Bacterial infection of unspecified site
+    child:
+    - code: A49.0
+      docs: Staphylococcal infection, unspecified site
+    - code: A49.1
+      docs: Streptococcal and enterococcal infection, unspecified site
+    - code: A49.2
+      docs: Haemophilus influenzae infection, unspecified site
+    - code: A49.3
+      docs: Mycoplasma infection, unspecified site
+    - code: A49.8
+      docs: Other bacterial infections of unspecified site
+    - code: A49.9
+      docs: Bacterial infection, unspecified
+- category: A50-A64
+  docs: Infections with a predominantly sexual mode of transmission
+  child:
+  - category: A50
+    docs: Congenital syphilis
+    child:
+    - code: A50.0
+      docs: Early congenital syphilis, symptomatic
+    - code: A50.1
+      docs: Early congenital syphilis, latent
+    - code: A50.2
+      docs: Early congenital syphilis, unspecified
+    - code: A50.3
+      docs: Late congenital syphilitic oculopathy
+    - code: A50.4
+      docs: Late congenital neurosyphilis [juvenile neurosyphilis]
+    - code: A50.5
+      docs: Other late congenital syphilis, symptomatic
+    - code: A50.6
+      docs: Late congenital syphilis, latent
+    - code: A50.7
+      docs: Late congenital syphilis, unspecified
+    - code: A50.9
+      docs: Congenital syphilis, unspecified
+  - category: A51
+    docs: Early syphilis
+    child:
+    - code: A51.0
+      docs: Primary genital syphilis
+    - code: A51.1
+      docs: Primary anal syphilis
+    - code: A51.2
+      docs: Primary syphilis of other sites
+    - code: A51.3
+      docs: Secondary syphilis of skin and mucous membranes
+    - code: A51.4
+      docs: Other secondary syphilis
+    - code: A51.5
+      docs: Early syphilis, latent
+    - code: A51.9
+      docs: Early syphilis, unspecified
+  - category: A52
+    docs: Late syphilis
+    child:
+    - code: A52.0
+      docs: Cardiovascular syphilis
+    - code: A52.1
+      docs: Symptomatic neurosyphilis
+    - code: A52.2
+      docs: Asymptomatic neurosyphilis
+    - code: A52.3
+      docs: Neurosyphilis, unspecified
+    - code: A52.7
+      docs: Other symptomatic late syphilis
+    - code: A52.8
+      docs: Late syphilis, latent
+    - code: A52.9
+      docs: Late syphilis, unspecified
+  - category: A53
+    docs: Other and unspecified syphilis
+    child:
+    - code: A53.0
+      docs: Latent syphilis, unspecified as early or late
+    - code: A53.9
+      docs: Syphilis, unspecified
+  - category: A54
+    docs: Gonococcal infection
+    child:
+    - code: A54.0
+      docs: Gonococcal infection of lower genitourinary tract without periurethral
+        or accessory gland abscess
+    - code: A54.1
+      docs: Gonococcal infection of lower genitourinary tract with periurethral and
+        accessory gland abscess
+    - code: A54.2
+      docs: Gonococcal pelviperitonitis and other gonococcal genitourinary infections
+    - code: A54.3
+      docs: Gonococcal infection of eye
+    - code: A54.4
+      docs: Gonococcal infection of musculoskeletal system
+    - code: A54.5
+      docs: Gonococcal pharyngitis
+    - code: A54.6
+      docs: Gonococcal infection of anus and rectum
+    - code: A54.8
+      docs: Other gonococcal infections
+    - code: A54.9
+      docs: Gonococcal infection, unspecified
+  - code: A55
+    docs: Chlamydial lymphogranuloma (venereum)
+  - category: A56
+    docs: Other sexually transmitted chlamydial diseases
+    child:
+    - code: A56.0
+      docs: Chlamydial infection of lower genitourinary tract
+    - code: A56.1
+      docs: Chlamydial infection of pelviperitoneum and other genitourinary organs
+    - code: A56.2
+      docs: Chlamydial infection of genitourinary tract, unspecified
+    - code: A56.3
+      docs: Chlamydial infection of anus and rectum
+    - code: A56.4
+      docs: Chlamydial infection of pharynx
+    - code: A56.8
+      docs: Sexually transmitted chlamydial infection of other sites
+  - code: A57
+    docs: Chancroid
+  - code: A58
+    docs: Granuloma inguinale
+  - category: A59
+    docs: Trichomoniasis
+    child:
+    - code: A59.0
+      docs: Urogenital trichomoniasis
+    - code: A59.8
+      docs: Trichomoniasis of other sites
+    - code: A59.9
+      docs: Trichomoniasis, unspecified
+  - category: A60
+    docs: Anogenital herpesviral [herpes simplex] infection
+    child:
+    - code: A60.0
+      docs: Herpesviral infection of genitalia and urogenital tract
+    - code: A60.1
+      docs: Herpesviral infection of perianal skin and rectum
+    - code: A60.9
+      docs: Anogenital herpesviral infection, unspecified
+  - category: A63
+    docs: Other predominantly sexually transmitted diseases, not elsewhere classified
+    child:
+    - code: A63.0
+      docs: Anogenital (venereal) warts
+    - code: A63.8
+      docs: Other specified predominantly sexually transmitted diseases
+  - code: A64
+    docs: Unspecified sexually transmitted disease
+- category: A65-A69
+  docs: Other spirochaetal diseases
+  child:
+  - code: A65
+    docs: Nonvenereal syphilis
+  - category: A66
+    docs: Yaws
+    child:
+    - code: A66.0
+      docs: Initial lesions of yaws
+    - code: A66.1
+      docs: Multiple papillomata and wet crab yaws
+    - code: A66.2
+      docs: Other early skin lesions of yaws
+    - code: A66.3
+      docs: Hyperkeratosis of yaws
+    - code: A66.4
+      docs: Gummata and ulcers of yaws
+    - code: A66.5
+      docs: Gangosa
+    - code: A66.6
+      docs: Bone and joint lesions of yaws
+    - code: A66.7
+      docs: Other manifestations of yaws
+    - code: A66.8
+      docs: Latent yaws
+    - code: A66.9
+      docs: Yaws, unspecified
+  - category: A67
+    docs: Pinta [carate]
+    child:
+    - code: A67.0
+      docs: Primary lesions of pinta
+    - code: A67.1
+      docs: Intermediate lesions of pinta
+    - code: A67.2
+      docs: Late lesions of pinta
+    - code: A67.3
+      docs: Mixed lesions of pinta
+    - code: A67.9
+      docs: Pinta, unspecified
+  - category: A68
+    docs: Relapsing fevers
+    child:
+    - code: A68.0
+      docs: Louse-borne relapsing fever
+    - code: A68.1
+      docs: Tick-borne relapsing fever
+    - code: A68.9
+      docs: Relapsing fever, unspecified
+  - category: A69
+    docs: Other spirochaetal infections
+    child:
+    - code: A69.0
+      docs: Necrotizing ulcerative stomatitis
+    - code: A69.1
+      docs: Other Vincent infections
+    - code: A69.2
+      docs: Lyme disease
+    - code: A69.8
+      docs: Other specified spirochaetal infections
+    - code: A69.9
+      docs: Spirochaetal infection, unspecified
+- category: A70-A74
+  docs: Other diseases caused by chlamydiae
+  child:
+  - code: A70
+    docs: Chlamydia psittaci infection
+  - category: A71
+    docs: Trachoma
+    child:
+    - code: A71.0
+      docs: Initial stage of trachoma
+    - code: A71.1
+      docs: Active stage of trachoma
+    - code: A71.9
+      docs: Trachoma, unspecified
+  - category: A74
+    docs: Other diseases caused by chlamydiae
+    child:
+    - code: A74.0
+      docs: Chlamydial conjunctivitis
+    - code: A74.8
+      docs: Other chlamydial diseases
+    - code: A74.9
+      docs: Chlamydial infection, unspecified
+- category: A75-A79
+  docs: Rickettsioses
+  child:
+  - category: A75
+    docs: Typhus fever
+    child:
+    - code: A75.0
+      docs: Epidemic louse-borne typhus fever due to Rickettsia prowazekii
+    - code: A75.1
+      docs: Recrudescent typhus [Brill disease]
+    - code: A75.2
+      docs: Typhus fever due to Rickettsia typhi
+    - code: A75.3
+      docs: Typhus fever due to Rickettsia tsutsugamushi
+    - code: A75.9
+      docs: Typhus fever, unspecified
+  - category: A77
+    docs: Spotted fever [tick-borne rickettsioses]
+    child:
+    - code: A77.0
+      docs: Spotted fever due to Rickettsia rickettsii
+    - code: A77.1
+      docs: Spotted fever due to Rickettsia conorii
+    - code: A77.2
+      docs: Spotted fever due to Rickettsia sibirica
+    - code: A77.3
+      docs: Spotted fever due to Rickettsia australis
+    - code: A77.8
+      docs: Other spotted fevers
+    - code: A77.9
+      docs: Spotted fever, unspecified
+  - code: A78
+    docs: Q fever
+  - category: A79
+    docs: Other rickettsioses
+    child:
+    - code: A79.0
+      docs: Trench fever
+    - code: A79.1
+      docs: Rickettsialpox due to Rickettsia akari
+    - code: A79.8
+      docs: Other specified rickettsioses
+    - code: A79.9
+      docs: Rickettsiosis, unspecified
+- category: A80-A89
+  docs: Viral infections of the central nervous system
+  child:
+  - category: A80
+    docs: Acute poliomyelitis
+    child:
+    - code: A80.0
+      docs: Acute paralytic poliomyelitis, vaccine-associated
+    - code: A80.1
+      docs: Acute paralytic poliomyelitis, wild virus, imported
+    - code: A80.2
+      docs: Acute paralytic poliomyelitis, wild virus, indigenous
+    - code: A80.3
+      docs: Acute paralytic poliomyelitis, other and unspecified
+    - code: A80.4
+      docs: Acute nonparalytic poliomyelitis
+    - code: A80.9
+      docs: Acute poliomyelitis, unspecified
+  - category: A81
+    docs: Atypical virus infections of central nervous system
+    child:
+    - code: A81.0
+      docs: Creutzfeldt-Jakob disease
+    - code: A81.1
+      docs: Subacute sclerosing panencephalitis
+    - code: A81.2
+      docs: Progressive multifocal leukoencephalopathy
+    - code: A81.8
+      docs: Other atypical virus infections of central nervous system
+    - code: A81.9
+      docs: Atypical virus infection of central nervous system, unspecified
+  - category: A82
+    docs: Rabies
+    child:
+    - code: A82.0
+      docs: Sylvatic rabies
+    - code: A82.1
+      docs: Urban rabies
+    - code: A82.9
+      docs: Rabies, unspecified
+  - category: A83
+    docs: Mosquito-borne viral encephalitis
+    child:
+    - code: A83.0
+      docs: Japanese encephalitis
+    - code: A83.1
+      docs: Western equine encephalitis
+    - code: A83.2
+      docs: Eastern equine encephalitis
+    - code: A83.3
+      docs: St Louis encephalitis
+    - code: A83.4
+      docs: Australian encephalitis
+    - code: A83.5
+      docs: California encephalitis
+    - code: A83.6
+      docs: Rocio virus disease
+    - code: A83.8
+      docs: Other mosquito-borne viral encephalitis
+    - code: A83.9
+      docs: Mosquito-borne viral encephalitis, unspecified
+  - category: A84
+    docs: Tick-borne viral encephalitis
+    child:
+    - code: A84.0
+      docs: Far Eastern tick-borne encephalitis [Russian spring-summer encephalitis]
+    - code: A84.1
+      docs: Central European tick-borne encephalitis
+    - code: A84.8
+      docs: Other tick-borne viral encephalitis
+    - code: A84.9
+      docs: Tick-borne viral encephalitis, unspecified
+  - category: A85
+    docs: Other viral encephalitis, not elsewhere classified
+    child:
+    - code: A85.0
+      docs: Enteroviral encephalitis
+    - code: A85.1
+      docs: Adenoviral encephalitis
+    - code: A85.2
+      docs: Arthropod-borne viral encephalitis, unspecified
+    - code: A85.8
+      docs: Other specified viral encephalitis
+  - code: A86
+    docs: Unspecified viral encephalitis
+  - category: A87
+    docs: Viral meningitis
+    child:
+    - code: A87.0
+      docs: Enteroviral meningitis
+    - code: A87.1
+      docs: Adenoviral meningitis
+    - code: A87.2
+      docs: Lymphocytic choriomeningitis
+    - code: A87.8
+      docs: Other viral meningitis
+    - code: A87.9
+      docs: Viral meningitis, unspecified
+  - category: A88
+    docs: Other viral infections of central nervous system, not elsewhere classified
+    child:
+    - code: A88.0
+      docs: Enteroviral exanthematous fever [Boston exanthem]
+    - code: A88.1
+      docs: Epidemic vertigo
+    - code: A88.8
+      docs: Other specified viral infections of central nervous system
+  - code: A89
+    docs: Unspecified viral infection of central nervous system
+- category: A92-A99
+  docs: Arthropod-borne viral fevers and viral haemorrhagic fevers
+  child:
+  - category: A92
+    docs: Other mosquito-borne viral fevers
+    child:
+    - code: A92.0
+      docs: Chikungunya virus disease
+    - code: A92.1
+      docs: O'nyong-nyong fever
+    - code: A92.2
+      docs: Venezuelan equine fever
+    - code: A92.3
+      docs: West Nile virus infection
+    - code: A92.4
+      docs: Rift Valley fever
+    - code: A92.8
+      docs: Other specified mosquito-borne viral fevers
+    - code: A92.9
+      docs: Mosquito-borne viral fever, unspecified
+  - category: A93
+    docs: Other arthropod-borne viral fevers, not elsewhere classified
+    child:
+    - code: A93.0
+      docs: Oropouche virus disease
+    - code: A93.1
+      docs: Sandfly fever
+    - code: A93.2
+      docs: Colorado tick fever
+    - code: A93.8
+      docs: Other specified arthropod-borne viral fevers
+  - code: A94
+    docs: Unspecified arthropod-borne viral fever
+  - category: A95
+    docs: Yellow fever
+    child:
+    - code: A95.0
+      docs: Sylvatic yellow fever
+    - code: A95.1
+      docs: Urban yellow fever
+    - code: A95.9
+      docs: Yellow fever, unspecified
+  - category: A96
+    docs: Arenaviral haemorrhagic fever
+    child:
+    - code: A96.0
+      docs: Junin haemorrhagic fever
+    - code: A96.1
+      docs: Machupo haemorrhagic fever
+    - code: A96.2
+      docs: Lassa fever
+    - code: A96.8
+      docs: Other arenaviral haemorrhagic fevers
+    - code: A96.9
+      docs: Arenaviral haemorrhagic fever, unspecified
+  - category: A97
+    docs: Dengue
+    child:
+    - code: A97.0
+      docs: Dengue without warning signs
+    - code: A97.1
+      docs: Dengue with warning signs
+    - code: A97.2
+      docs: Severe Dengue
+    - code: A97.9
+      docs: Dengue, unspecified
+  - category: A98
+    docs: Other viral haemorrhagic fevers, not elsewhere classified
+    child:
+    - code: A98.0
+      docs: Crimean-Congo haemorrhagic fever
+    - code: A98.1
+      docs: Omsk haemorrhagic fever
+    - code: A98.2
+      docs: Kyasanur Forest disease
+    - code: A98.3
+      docs: Marburg virus disease
+    - code: A98.4
+      docs: Ebola virus disease
+    - code: A98.5
+      docs: Haemorrhagic fever with renal syndrome
+    - code: A98.8
+      docs: Other specified viral haemorrhagic fevers
+  - code: A99
+    docs: Unspecified viral haemorrhagic fever
+- category: B00-B09
+  docs: Viral infections characterized by skin and mucous membrane lesions
+  child:
+  - category: B00
+    docs: Herpesviral [herpes simplex] infections
+    child:
+    - code: B00.0
+      docs: Eczema herpeticum
+    - code: B00.1
+      docs: Herpesviral vesicular dermatitis
+    - code: B00.2
+      docs: Herpesviral gingivostomatitis and pharyngotonsillitis
+    - code: B00.3
+      docs: Herpesviral meningitis
+    - code: B00.4
+      docs: Herpesviral encephalitis
+    - code: B00.5
+      docs: Herpesviral ocular disease
+    - code: B00.7
+      docs: Disseminated herpesviral disease
+    - code: B00.8
+      docs: Other forms of herpesviral infection
+    - code: B00.9
+      docs: Herpesviral infection, unspecified
+  - category: B01
+    docs: Varicella [chickenpox]
+    child:
+    - code: B01.0
+      docs: Varicella meningitis
+    - code: B01.1
+      docs: Varicella encephalitis
+    - code: B01.2
+      docs: Varicella pneumonia
+    - code: B01.8
+      docs: Varicella with other complications
+    - code: B01.9
+      docs: Varicella without complication
+  - category: B02
+    docs: Zoster [herpes zoster]
+    child:
+    - code: B02.0
+      docs: Zoster encephalitis
+    - code: B02.1
+      docs: Zoster meningitis
+    - code: B02.2
+      docs: Zoster with other nervous system involvement
+    - code: B02.3
+      docs: Zoster ocular disease
+    - code: B02.7
+      docs: Disseminated zoster
+    - code: B02.8
+      docs: Zoster with other complications
+    - code: B02.9
+      docs: Zoster without complication
+  - code: B03
+    docs: Smallpox
+  - code: B04
+    docs: Monkeypox
+  - category: B05
+    docs: Measles
+    child:
+    - code: B05.0
+      docs: Measles complicated by encephalitis
+    - code: B05.1
+      docs: Measles complicated by meningitis
+    - code: B05.2
+      docs: Measles complicated by pneumonia
+    - code: B05.3
+      docs: Measles complicated by otitis media
+    - code: B05.4
+      docs: Measles with intestinal complications
+    - code: B05.8
+      docs: Measles with other complications
+    - code: B05.9
+      docs: Measles without complication
+  - category: B06
+    docs: Rubella [German measles]
+    child:
+    - code: B06.0
+      docs: Rubella with neurological complications
+    - code: B06.8
+      docs: Rubella with other complications
+    - code: B06.9
+      docs: Rubella without complication
+  - code: B07
+    docs: Viral warts
+  - category: B08
+    docs: Other viral infections characterized by skin and mucous membrane lesions,
+      not elsewhere classified
+    child:
+    - code: B08.0
+      docs: Other orthopoxvirus infections
+    - code: B08.1
+      docs: Molluscum contagiosum
+    - code: B08.2
+      docs: Exanthema subitum [sixth disease]
+    - code: B08.3
+      docs: Erythema infectiosum [fifth disease]
+    - code: B08.4
+      docs: Enteroviral vesicular stomatitis with exanthem
+    - code: B08.5
+      docs: Enteroviral vesicular pharyngitis
+    - code: B08.8
+      docs: Other specified viral infections characterized by skin and mucous membrane
+        lesions
+  - code: B09
+    docs: Unspecified viral infection characterized by skin and mucous membrane lesions
+- category: B15-B19
+  docs: Viral hepatitis
+  child:
+  - category: B15
+    docs: Acute hepatitis A
+    child:
+    - code: B15.0
+      docs: Hepatitis A with hepatic coma
+    - code: B15.9
+      docs: Hepatitis A without hepatic coma
+  - category: B16
+    docs: Acute hepatitis B
+    child:
+    - code: B16.0
+      docs: Acute hepatitis B with delta-agent (coinfection) with hepatic coma
+    - code: B16.1
+      docs: Acute hepatitis B with delta-agent (coinfection) without hepatic coma
+    - code: B16.2
+      docs: Acute hepatitis B without delta-agent with hepatic coma
+    - code: B16.9
+      docs: Acute hepatitis B without delta-agent and without hepatic coma
+  - category: B17
+    docs: Other acute viral hepatitis
+    child:
+    - code: B17.0
+      docs: Acute delta-(super)infection of hepatitis B carrier
+    - code: B17.1
+      docs: Acute hepatitis C
+    - code: B17.2
+      docs: Acute hepatitis E
+    - code: B17.8
+      docs: Other specified acute viral hepatitis
+    - code: B17.9
+      docs: Acute viral hepatitis, unspecified
+  - category: B18
+    docs: Chronic viral hepatitis
+    child:
+    - code: B18.0
+      docs: Chronic viral hepatitis B with delta-agent
+    - code: B18.1
+      docs: Chronic viral hepatitis B without delta-agent
+    - code: B18.2
+      docs: Chronic viral hepatitis C
+    - code: B18.8
+      docs: Other chronic viral hepatitis
+    - code: B18.9
+      docs: Chronic viral hepatitis, unspecified
+  - category: B19
+    docs: Unspecified viral hepatitis
+    child:
+    - code: B19.0
+      docs: Unspecified viral hepatitis with hepatic coma
+    - code: B19.9
+      docs: Unspecified viral hepatitis without hepatic coma
+- category: B20-B24
+  docs: Human immunodeficiency virus [HIV] disease
+  child:
+  - category: B20
+    docs: Human immunodeficiency virus [HIV] disease resulting in infectious and parasitic
+      diseases
+    child:
+    - code: B20.0
+      docs: HIV disease resulting in mycobacterial infection
+    - code: B20.1
+      docs: HIV disease resulting in other bacterial infections
+    - code: B20.2
+      docs: HIV disease resulting in cytomegaloviral disease
+    - code: B20.3
+      docs: HIV disease resulting in other viral infections
+    - code: B20.4
+      docs: HIV disease resulting in candidiasis
+    - code: B20.5
+      docs: HIV disease resulting in other mycoses
+    - code: B20.6
+      docs: HIV disease resulting in Pneumocystis jirovecii pneumonia
+    - code: B20.7
+      docs: HIV disease resulting in multiple infections
+    - code: B20.8
+      docs: HIV disease resulting in other infectious and parasitic diseases
+    - code: B20.9
+      docs: HIV disease resulting in unspecified infectious or parasitic disease
+  - category: B21
+    docs: Human immunodeficiency virus [HIV] disease resulting in malignant neoplasms
+    child:
+    - code: B21.0
+      docs: HIV disease resulting in Kaposi sarcoma
+    - code: B21.1
+      docs: HIV disease resulting in Burkitt lymphoma
+    - code: B21.2
+      docs: HIV disease resulting in other types of non-Hodgkin lymphoma
+    - code: B21.3
+      docs: HIV disease resulting in other malignant neoplasms of lymphoid, haematopoietic
+        and related tissue
+    - code: B21.7
+      docs: HIV disease resulting in multiple malignant neoplasms
+    - code: B21.8
+      docs: HIV disease resulting in other malignant neoplasms
+    - code: B21.9
+      docs: HIV disease resulting in unspecified malignant neoplasm
+  - category: B22
+    docs: Human immunodeficiency virus [HIV] disease resulting in other specified
+      diseases
+    child:
+    - code: B22.0
+      docs: HIV disease resulting in encephalopathy
+    - code: B22.1
+      docs: HIV disease resulting in lymphoid interstitial pneumonitis
+    - code: B22.2
+      docs: HIV disease resulting in wasting syndrome
+    - code: B22.7
+      docs: HIV disease resulting in multiple diseases classified elsewhere
+  - category: B23
+    docs: Human immunodeficiency virus [HIV] disease resulting in other conditions
+    child:
+    - code: B23.0
+      docs: Acute HIV infection syndrome
+    - code: B23.1
+      docs: HIV disease resulting in (persistent) generalized lymphadenopathy
+    - code: B23.2
+      docs: HIV disease resulting in haematological and immunological abnormalities,
+        not elsewhere classified
+    - code: B23.8
+      docs: HIV disease resulting in other specified conditions
+  - code: B24
+    docs: Unspecified human immunodeficiency virus [HIV] disease
+- category: B25-B34
+  docs: Other viral diseases
+  child:
+  - category: B25
+    docs: Cytomegaloviral disease
+    child:
+    - code: B25.0
+      docs: Cytomegaloviral pneumonitis
+    - code: B25.1
+      docs: Cytomegaloviral hepatitis
+    - code: B25.2
+      docs: Cytomegaloviral pancreatitis
+    - code: B25.8
+      docs: Other cytomegaloviral diseases
+    - code: B25.9
+      docs: Cytomegaloviral disease, unspecified
+  - category: B26
+    docs: Mumps
+    child:
+    - code: B26.0
+      docs: Mumps orchitis
+    - code: B26.1
+      docs: Mumps meningitis
+    - code: B26.2
+      docs: Mumps encephalitis
+    - code: B26.3
+      docs: Mumps pancreatitis
+    - code: B26.8
+      docs: Mumps with other complications
+    - code: B26.9
+      docs: Mumps without complication
+  - category: B27
+    docs: Infectious mononucleosis
+    child:
+    - code: B27.0
+      docs: Gammaherpesviral mononucleosis
+    - code: B27.1
+      docs: Cytomegaloviral mononucleosis
+    - code: B27.8
+      docs: Other infectious mononucleosis
+    - code: B27.9
+      docs: Infectious mononucleosis, unspecified
+  - category: B30
+    docs: Viral conjunctivitis
+    child:
+    - code: B30.0
+      docs: Keratoconjunctivitis due to adenovirus
+    - code: B30.1
+      docs: Conjunctivitis due to adenovirus
+    - code: B30.2
+      docs: Viral pharyngoconjunctivitis
+    - code: B30.3
+      docs: Acute epidemic haemorrhagic conjunctivitis (enteroviral)
+    - code: B30.8
+      docs: Other viral conjunctivitis
+    - code: B30.9
+      docs: Viral conjunctivitis, unspecified
+  - category: B33
+    docs: Other viral diseases, not elsewhere classified
+    child:
+    - code: B33.0
+      docs: Epidemic myalgia
+    - code: B33.1
+      docs: Ross River disease
+    - code: B33.2
+      docs: Viral carditis
+    - code: B33.3
+      docs: Retrovirus infections, not elsewhere classified
+    - code: B33.4
+      docs: Hantavirus (cardio-)pulmonary syndrome [HPS] [HCPS]
+    - code: B33.8
+      docs: Other specified viral diseases
+  - category: B34
+    docs: Viral infection of unspecified site
+    child:
+    - code: B34.0
+      docs: Adenovirus infection, unspecified site
+    - code: B34.1
+      docs: Enterovirus infection, unspecified site
+    - code: B34.2
+      docs: Coronavirus infection, unspecified site
+    - code: B34.3
+      docs: Parvovirus infection, unspecified site
+    - code: B34.4
+      docs: Papovavirus infection, unspecified site
+    - code: B34.8
+      docs: Other viral infections of unspecified site
+    - code: B34.9
+      docs: Viral infection, unspecified
+- category: B35-B49
+  docs: Mycoses
+  child:
+  - category: B35
+    docs: Dermatophytosis
+    child:
+    - code: B35.0
+      docs: Tinea barbae and tinea capitis
+    - code: B35.1
+      docs: Tinea unguium
+    - code: B35.2
+      docs: Tinea manuum
+    - code: B35.3
+      docs: Tinea pedis
+    - code: B35.4
+      docs: Tinea corporis
+    - code: B35.5
+      docs: Tinea imbricata
+    - code: B35.6
+      docs: Tinea inguinalis [Tinea cruris]
+    - code: B35.8
+      docs: Other dermatophytoses
+    - code: B35.9
+      docs: Dermatophytosis, unspecified
+  - category: B36
+    docs: Other superficial mycoses
+    child:
+    - code: B36.0
+      docs: Pityriasis versicolor
+    - code: B36.1
+      docs: Tinea nigra
+    - code: B36.2
+      docs: White piedra
+    - code: B36.3
+      docs: Black piedra
+    - code: B36.8
+      docs: Other specified superficial mycoses
+    - code: B36.9
+      docs: Superficial mycosis, unspecified
+  - category: B37
+    docs: Candidiasis
+    child:
+    - code: B37.0
+      docs: Candidal stomatitis
+    - code: B37.1
+      docs: Pulmonary candidiasis
+    - code: B37.2
+      docs: Candidiasis of skin and nail
+    - code: B37.3
+      docs: Candidiasis of vulva and vagina
+    - code: B37.4
+      docs: Candidiasis of other urogenital sites
+    - code: B37.5
+      docs: Candidal meningitis
+    - code: B37.6
+      docs: Candidal endocarditis
+    - code: B37.7
+      docs: Candidal sepsis
+    - code: B37.8
+      docs: Candidiasis of other sites
+    - code: B37.9
+      docs: Candidiasis, unspecified
+  - category: B38
+    docs: Coccidioidomycosis
+    child:
+    - code: B38.0
+      docs: Acute pulmonary coccidioidomycosis
+    - code: B38.1
+      docs: Chronic pulmonary coccidioidomycosis
+    - code: B38.2
+      docs: Pulmonary coccidioidomycosis, unspecified
+    - code: B38.3
+      docs: Cutaneous coccidioidomycosis
+    - code: B38.4
+      docs: Coccidioidomycosis meningitis
+    - code: B38.7
+      docs: Disseminated coccidioidomycosis
+    - code: B38.8
+      docs: Other forms of coccidioidomycosis
+    - code: B38.9
+      docs: Coccidioidomycosis, unspecified
+  - category: B39
+    docs: Histoplasmosis
+    child:
+    - code: B39.0
+      docs: Acute pulmonary histoplasmosis capsulati
+    - code: B39.1
+      docs: Chronic pulmonary histoplasmosis capsulati
+    - code: B39.2
+      docs: Pulmonary histoplasmosis capsulati, unspecified
+    - code: B39.3
+      docs: Disseminated histoplasmosis capsulati
+    - code: B39.4
+      docs: Histoplasmosis capsulati, unspecified
+    - code: B39.5
+      docs: Histoplasmosis duboisii
+    - code: B39.9
+      docs: Histoplasmosis, unspecified
+  - category: B40
+    docs: Blastomycosis
+    child:
+    - code: B40.0
+      docs: Acute pulmonary blastomycosis
+    - code: B40.1
+      docs: Chronic pulmonary blastomycosis
+    - code: B40.2
+      docs: Pulmonary blastomycosis, unspecified
+    - code: B40.3
+      docs: Cutaneous blastomycosis
+    - code: B40.7
+      docs: Disseminated blastomycosis
+    - code: B40.8
+      docs: Other forms of blastomycosis
+    - code: B40.9
+      docs: Blastomycosis, unspecified
+  - category: B41
+    docs: Paracoccidioidomycosis
+    child:
+    - code: B41.0
+      docs: Pulmonary paracoccidioidomycosis
+    - code: B41.7
+      docs: Disseminated paracoccidioidomycosis
+    - code: B41.8
+      docs: Other forms of paracoccidioidomycosis
+    - code: B41.9
+      docs: Paracoccidioidomycosis, unspecified
+  - category: B42
+    docs: Sporotrichosis
+    child:
+    - code: B42.0
+      docs: Pulmonary sporotrichosis
+    - code: B42.1
+      docs: Lymphocutaneous sporotrichosis
+    - code: B42.7
+      docs: Disseminated sporotrichosis
+    - code: B42.8
+      docs: Other forms of sporotrichosis
+    - code: B42.9
+      docs: Sporotrichosis, unspecified
+  - category: B43
+    docs: Chromomycosis and phaeomycotic abscess
+    child:
+    - code: B43.0
+      docs: Cutaneous chromomycosis
+    - code: B43.1
+      docs: Phaeomycotic brain abscess
+    - code: B43.2
+      docs: Subcutaneous phaeomycotic abscess and cyst
+    - code: B43.8
+      docs: Other forms of chromomycosis
+    - code: B43.9
+      docs: Chromomycosis, unspecified
+  - category: B44
+    docs: Aspergillosis
+    child:
+    - code: B44.0
+      docs: Invasive pulmonary aspergillosis
+    - code: B44.1
+      docs: Other pulmonary aspergillosis
+    - code: B44.2
+      docs: Tonsillar aspergillosis
+    - code: B44.7
+      docs: Disseminated aspergillosis
+    - code: B44.8
+      docs: Other forms of aspergillosis
+    - code: B44.9
+      docs: Aspergillosis, unspecified
+  - category: B45
+    docs: Cryptococcosis
+    child:
+    - code: B45.0
+      docs: Pulmonary cryptococcosis
+    - code: B45.1
+      docs: Cerebral cryptococcosis
+    - code: B45.2
+      docs: Cutaneous cryptococcosis
+    - code: B45.3
+      docs: Osseous cryptococcosis
+    - code: B45.7
+      docs: Disseminated cryptococcosis
+    - code: B45.8
+      docs: Other forms of cryptococcosis
+    - code: B45.9
+      docs: Cryptococcosis, unspecified
+  - category: B46
+    docs: Zygomycosis
+    child:
+    - code: B46.0
+      docs: Pulmonary mucormycosis
+    - code: B46.1
+      docs: Rhinocerebral mucormycosis
+    - code: B46.2
+      docs: Gastrointestinal mucormycosis
+    - code: B46.3
+      docs: Cutaneous mucormycosis
+    - code: B46.4
+      docs: Disseminated mucormycosis
+    - code: B46.5
+      docs: Mucormycosis, unspecified
+    - code: B46.8
+      docs: Other zygomycoses
+    - code: B46.9
+      docs: Zygomycosis, unspecified
+  - category: B47
+    docs: Mycetoma
+    child:
+    - code: B47.0
+      docs: Eumycetoma
+    - code: B47.1
+      docs: Actinomycetoma
+    - code: B47.9
+      docs: Mycetoma, unspecified
+  - category: B48
+    docs: Other mycoses, not elsewhere classified
+    child:
+    - code: B48.0
+      docs: Lobomycosis
+    - code: B48.1
+      docs: Rhinosporidiosis
+    - code: B48.2
+      docs: Allescheriasis
+    - code: B48.3
+      docs: Geotrichosis
+    - code: B48.4
+      docs: Penicillosis
+    - code: B48.7
+      docs: Opportunistic mycoses
+    - code: B48.8
+      docs: Other specified mycoses
+  - code: B49
+    docs: Unspecified mycosis
+- category: B50-B64
+  docs: Protozoal diseases
+  child:
+  - category: B50
+    docs: Plasmodium falciparum malaria
+    child:
+    - code: B50.0
+      docs: Plasmodium falciparum malaria with cerebral complications
+    - code: B50.8
+      docs: Other severe and complicated Plasmodium falciparum malaria
+    - code: B50.9
+      docs: Plasmodium falciparum malaria, unspecified
+  - category: B51
+    docs: Plasmodium vivax malaria
+    child:
+    - code: B51.0
+      docs: Plasmodium vivax malaria with rupture of spleen
+    - code: B51.8
+      docs: Plasmodium vivax malaria with other complications
+    - code: B51.9
+      docs: Plasmodium vivax malaria without complication
+  - category: B52
+    docs: Plasmodium malariae malaria
+    child:
+    - code: B52.0
+      docs: Plasmodium malariae malaria with nephropathy
+    - code: B52.8
+      docs: Plasmodium malariae malaria with other complications
+    - code: B52.9
+      docs: Plasmodium malariae malaria without complication
+  - category: B53
+    docs: Other parasitologically confirmed malaria
+    child:
+    - code: B53.0
+      docs: Plasmodium ovale malaria
+    - code: B53.1
+      docs: Malaria due to simian plasmodia
+    - code: B53.8
+      docs: Other parasitologically confirmed malaria, not elsewhere classified
+  - code: B54
+    docs: Unspecified malaria
+  - category: B55
+    docs: Leishmaniasis
+    child:
+    - code: B55.0
+      docs: Visceral leishmaniasis
+    - code: B55.1
+      docs: Cutaneous leishmaniasis
+    - code: B55.2
+      docs: Mucocutaneous leishmaniasis
+    - code: B55.9
+      docs: Leishmaniasis, unspecified
+  - category: B56
+    docs: African trypanosomiasis
+    child:
+    - code: B56.0
+      docs: Gambiense trypanosomiasis
+    - code: B56.1
+      docs: Rhodesiense trypanosomiasis
+    - code: B56.9
+      docs: African trypanosomiasis, unspecified
+  - category: B57
+    docs: Chagas disease
+    child:
+    - code: B57.0
+      docs: Acute Chagas disease with heart involvement
+    - code: B57.1
+      docs: Acute Chagas disease without heart involvement
+    - code: B57.2
+      docs: Chagas disease (chronic) with heart involvement
+    - code: B57.3
+      docs: Chagas disease (chronic) with digestive system involvement
+    - code: B57.4
+      docs: Chagas disease (chronic) with nervous system involvement
+    - code: B57.5
+      docs: Chagas disease (chronic) with other organ involvement
+  - category: B58
+    docs: Toxoplasmosis
+    child:
+    - code: B58.0
+      docs: Toxoplasma oculopathy
+    - code: B58.1
+      docs: Toxoplasma hepatitis
+    - code: B58.2
+      docs: Toxoplasma meningoencephalitis
+    - code: B58.3
+      docs: Pulmonary toxoplasmosis
+    - code: B58.8
+      docs: Toxoplasmosis with other organ involvement
+    - code: B58.9
+      docs: Toxoplasmosis, unspecified
+  - code: B59
+    docs: Pneumocystosis
+  - category: B60
+    docs: Other protozoal diseases, not elsewhere classified
+    child:
+    - code: B60.0
+      docs: Babesiosis
+    - code: B60.1
+      docs: Acanthamoebiasis
+    - code: B60.2
+      docs: Naegleriasis
+    - code: B60.8
+      docs: Other specified protozoal diseases
+  - code: B64
+    docs: Unspecified protozoal disease
+- category: B65-B83
+  docs: Helminthiases
+  child:
+  - category: B65
+    docs: Schistosomiasis [bilharziasis]
+    child:
+    - code: B65.0
+      docs: Schistosomiasis due to Schistosoma haematobium [urinary schistosomiasis]
+    - code: B65.1
+      docs: Schistosomiasis due to Schistosoma mansoni [intestinal schistosomiasis]
+    - code: B65.2
+      docs: Schistosomiasis due to Schistosoma japonicum
+    - code: B65.3
+      docs: Cercarial dermatitis
+    - code: B65.8
+      docs: Other schistosomiases
+    - code: B65.9
+      docs: Schistosomiasis, unspecified
+  - category: B66
+    docs: Other fluke infections
+    child:
+    - code: B66.0
+      docs: Opisthorchiasis
+    - code: B66.1
+      docs: Clonorchiasis
+    - code: B66.2
+      docs: Dicrocoeliasis
+    - code: B66.3
+      docs: Fascioliasis
+    - code: B66.4
+      docs: Paragonimiasis
+    - code: B66.5
+      docs: Fasciolopsiasis
+    - code: B66.8
+      docs: Other specified fluke infections
+    - code: B66.9
+      docs: Fluke infection, unspecified
+  - category: B67
+    docs: Echinococcosis
+    child:
+    - code: B67.0
+      docs: Echinococcus granulosus infection of liver
+    - code: B67.1
+      docs: Echinococcus granulosus infection of lung
+    - code: B67.2
+      docs: Echinococcus granulosus infection of bone
+    - code: B67.3
+      docs: Echinococcus granulosus infection, other and multiple sites
+    - code: B67.4
+      docs: Echinococcus granulosus infection, unspecified
+    - code: B67.5
+      docs: Echinococcus multilocularis infection of liver
+    - code: B67.6
+      docs: Echinococcus multilocularis infection, other and multiple sites
+    - code: B67.7
+      docs: Echinococcus multilocularis infection, unspecified
+    - code: B67.8
+      docs: Echinococcosis, unspecified, of liver
+    - code: B67.9
+      docs: Echinococcosis, other and unspecified
+  - category: B68
+    docs: Taeniasis
+    child:
+    - code: B68.0
+      docs: Taenia solium taeniasis
+    - code: B68.1
+      docs: Taenia saginata taeniasis
+    - code: B68.9
+      docs: Taeniasis, unspecified
+  - category: B69
+    docs: Cysticercosis
+    child:
+    - code: B69.0
+      docs: Cysticercosis of central nervous system
+    - code: B69.1
+      docs: Cysticercosis of eye
+    - code: B69.8
+      docs: Cysticercosis of other sites
+    - code: B69.9
+      docs: Cysticercosis, unspecified
+  - category: B70
+    docs: Diphyllobothriasis and sparganosis
+    child:
+    - code: B70.0
+      docs: Diphyllobothriasis
+    - code: B70.1
+      docs: Sparganosis
+  - category: B71
+    docs: Other cestode infections
+    child:
+    - code: B71.0
+      docs: Hymenolepiasis
+    - code: B71.1
+      docs: Dipylidiasis
+    - code: B71.8
+      docs: Other specified cestode infections
+    - code: B71.9
+      docs: Cestode infection, unspecified
+  - code: B72
+    docs: Dracunculiasis
+  - code: B73
+    docs: Onchocerciasis
+  - category: B74
+    docs: Filariasis
+    child:
+    - code: B74.0
+      docs: Filariasis due to Wuchereria bancrofti
+    - code: B74.1
+      docs: Filariasis due to Brugia malayi
+    - code: B74.2
+      docs: Filariasis due to Brugia timori
+    - code: B74.3
+      docs: Loiasis
+    - code: B74.4
+      docs: Mansonelliasis
+    - code: B74.8
+      docs: Other filariases
+    - code: B74.9
+      docs: Filariasis, unspecified
+  - code: B75
+    docs: Trichinellosis
+  - category: B76
+    docs: Hookworm diseases
+    child:
+    - code: B76.0
+      docs: Ancylostomiasis
+    - code: B76.1
+      docs: Necatoriasis
+    - code: B76.8
+      docs: Other hookworm diseases
+    - code: B76.9
+      docs: Hookworm disease, unspecified
+  - category: B77
+    docs: Ascariasis
+    child:
+    - code: B77.0
+      docs: Ascariasis with intestinal complications
+    - code: B77.8
+      docs: Ascariasis with other complications
+    - code: B77.9
+      docs: Ascariasis, unspecified
+  - category: B78
+    docs: Strongyloidiasis
+    child:
+    - code: B78.0
+      docs: Intestinal strongyloidiasis
+    - code: B78.1
+      docs: Cutaneous strongyloidiasis
+    - code: B78.7
+      docs: Disseminated strongyloidiasis
+    - code: B78.9
+      docs: Strongyloidiasis, unspecified
+  - code: B79
+    docs: Trichuriasis
+  - code: B80
+    docs: Enterobiasis
+  - category: B81
+    docs: Other intestinal helminthiases, not elsewhere classified
+    child:
+    - code: B81.0
+      docs: Anisakiasis
+    - code: B81.1
+      docs: Intestinal capillariasis
+    - code: B81.2
+      docs: Trichostrongyliasis
+    - code: B81.3
+      docs: Intestinal angiostrongyliasis
+    - code: B81.4
+      docs: Mixed intestinal helminthiases
+    - code: B81.8
+      docs: Other specified intestinal helminthiases
+  - category: B82
+    docs: Unspecified intestinal parasitism
+    child:
+    - code: B82.0
+      docs: Intestinal helminthiasis, unspecified
+    - code: B82.9
+      docs: Intestinal parasitism, unspecified
+  - category: B83
+    docs: Other helminthiases
+    child:
+    - code: B83.0
+      docs: Visceral larva migrans
+    - code: B83.1
+      docs: Gnathostomiasis
+    - code: B83.2
+      docs: Angiostrongyliasis due to Parastrongylus cantonensis
+    - code: B83.3
+      docs: Syngamiasis
+    - code: B83.4
+      docs: Internal hirudiniasis
+    - code: B83.8
+      docs: Other specified helminthiases
+    - code: B83.9
+      docs: Helminthiasis, unspecified
+- category: B85-B89
+  docs: Pediculosis, acariasis and other infestations
+  child:
+  - category: B85
+    docs: Pediculosis and phthiriasis
+    child:
+    - code: B85.0
+      docs: Pediculosis due to Pediculus humanus capitis
+    - code: B85.1
+      docs: Pediculosis due to Pediculus humanus corporis
+    - code: B85.2
+      docs: Pediculosis, unspecified
+    - code: B85.3
+      docs: Phthiriasis
+    - code: B85.4
+      docs: Mixed pediculosis and phthiriasis
+  - code: B86
+    docs: Scabies
+  - category: B87
+    docs: Myiasis
+    child:
+    - code: B87.0
+      docs: Cutaneous myiasis
+    - code: B87.1
+      docs: Wound myiasis
+    - code: B87.2
+      docs: Ocular myiasis
+    - code: B87.3
+      docs: Nasopharyngeal myiasis
+    - code: B87.4
+      docs: Aural myiasis
+    - code: B87.8
+      docs: Myiasis of other sites
+    - code: B87.9
+      docs: Myiasis, unspecified
+  - category: B88
+    docs: Other infestations
+    child:
+    - code: B88.0
+      docs: Other acariasis
+    - code: B88.1
+      docs: Tungiasis [sandflea infestation]
+    - code: B88.2
+      docs: Other arthropod infestations
+    - code: B88.3
+      docs: External hirudiniasis
+    - code: B88.8
+      docs: Other specified infestations
+    - code: B88.9
+      docs: Infestation, unspecified
+  - code: B89
+    docs: Unspecified parasitic disease
+- category: B90-B94
+  docs: Sequelae of infectious and parasitic diseases
+  child:
+  - category: B90
+    docs: Sequelae of tuberculosis
+    child:
+    - code: B90.0
+      docs: Sequelae of central nervous system tuberculosis
+    - code: B90.1
+      docs: Sequelae of genitourinary tuberculosis
+    - code: B90.2
+      docs: Sequelae of tuberculosis of bones and joints
+    - code: B90.8
+      docs: Sequelae of tuberculosis of other organs
+    - code: B90.9
+      docs: Sequelae of respiratory and unspecified tuberculosis
+  - code: B91
+    docs: Sequelae of poliomyelitis
+  - code: B92
+    docs: Sequelae of leprosy
+  - category: B94
+    docs: Sequelae of other and unspecified infectious and parasitic diseases
+    child:
+    - code: B94.0
+      docs: Sequelae of trachoma
+    - code: B94.1
+      docs: Sequelae of viral encephalitis
+    - code: B94.2
+      docs: Sequelae of viral hepatitis
+    - code: B94.8
+      docs: Sequelae of other specified infectious and parasitic diseases
+    - code: B94.9
+      docs: Sequelae of unspecified infectious or parasitic disease
+- category: B95-B98
+  docs: Bacterial, viral and other infectious agents
+  child:
+  - category: B95
+    docs: Streptococcus and staphylococcus as the cause of diseases classified to
+      other chapters
+    child:
+    - code: B95.0
+      docs: Streptococcus, group A, as the cause of diseases classified to other chapters
+    - code: B95.1
+      docs: Streptococcus, group B, as the cause of diseases classified to other chapters
+    - code: B95.2
+      docs: Streptococcus group D and enterococcus as the cause of diseases classified
+        to other chapters
+    - code: B95.3
+      docs: Streptococcus pneumoniae as the cause of diseases classified to other
+        chapters
+    - code: B95.4
+      docs: Other streptococcus as the cause of diseases classified to other chapters
+    - code: B95.5
+      docs: Unspecified streptococcus as the cause of diseases classified to other
+        chapters
+    - code: B95.6
+      docs: Staphylococcus aureus as the cause of diseases classified to other chapters
+    - code: B95.7
+      docs: Other staphylococcus as the cause of diseases classified to other chapters
+    - code: B95.8
+      docs: Unspecified staphylococcus as the cause of diseases classified to other
+        chapters
+  - category: B96
+    docs: Other specified bacterial agents as the cause of diseases classified to
+      other chapters
+    child:
+    - code: B96.0
+      docs: Mycoplasma pneumoniae [M. pneumoniae] as the cause of diseases classified
+        to other chapters
+    - code: B96.1
+      docs: Klebsiella pneumoniae [K. pneumoniae] as the cause of diseases classified
+        to other chapters
+    - code: B96.2
+      docs: Escherichia coli [E. coli] as the cause of diseases classified to other
+        chapters
+    - code: B96.3
+      docs: Haemophilus influenzae [H. influenzae] as the cause of diseases classified
+        to other chapters
+    - code: B96.4
+      docs: Proteus (mirabilis)(morganii) as the cause of diseases classified to other
+        chapters
+    - code: B96.5
+      docs: Pseudomonas (aeruginosa) as the cause of diseases classified to other
+        chapters
+    - code: B96.6
+      docs: Bacillus fragilis [B. fragilis] as the cause of diseases classified to
+        other chapters
+    - code: B96.7
+      docs: Clostridium perfringens [C. perfringens] as the cause of diseases classified
+        to other chapters
+    - code: B96.8
+      docs: Other specified bacterial agents as the cause of diseases classified to
+        other chapters
+  - category: B97
+    docs: Viral agents as the cause of diseases classified to other chapters
+    child:
+    - code: B97.0
+      docs: Adenovirus as the cause of diseases classified to other chapters
+    - code: B97.1
+      docs: Enterovirus as the cause of diseases classified to other chapters
+    - code: B97.2
+      docs: Coronavirus as the cause of diseases classified to other chapters
+    - code: B97.3
+      docs: Retrovirus as the cause of diseases classified to other chapters
+    - code: B97.4
+      docs: Respiratory syncytial virus as the cause of diseases classified to other
+        chapters
+    - code: B97.5
+      docs: Reovirus as the cause of diseases classified to other chapters
+    - code: B97.6
+      docs: Parvovirus as the cause of diseases classified to other chapters
+    - code: B97.7
+      docs: Papillomavirus as the cause of diseases classified to other chapters
+    - code: B97.8
+      docs: Other viral agents as the cause of diseases classified to other chapters
+  - category: B98
+    docs: Other specified infectious agents as the cause of diseases classified to
+      other chapters
+    child:
+    - code: B98.0
+      docs: Helicobacter pylori [H.pylori] as the cause of diseases classified to
+        other chapters
+    - code: B98.1
+      docs: Vibrio vulnificus as the cause of diseases classified to other chapters
+- category: B99-B99
+  docs: Other infectious diseases
+  child:
+  - code: B99
+    docs: Other and unspecified infectious diseases

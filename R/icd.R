@@ -161,7 +161,7 @@ icd_api_request <- function(token, endpoint, data = list())
 ##' endpoint URL. This can be a chapter or a lower level item. 
 ##' @return A leaf or category object (named list)
 ##' @export
-icd10_api_gen_codes <- function(token, release = "2016", item = "A00-A09",
+icd10_api_gen_codes <- function(token, release = "2016", item = "I",
                                 endpoint = paste(root, release, item, sep = "/"))
 {
     ## This is the base API url
@@ -208,5 +208,4 @@ icd10_api_gen_codes <- function(token, release = "2016", item = "A00-A09",
                 })
         )
     }
-    
 }
