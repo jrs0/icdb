@@ -135,7 +135,15 @@ icd_api_request <- function(token, endpoint, data = list())
     xx <- httr::GET(url = endpoint, headers)
     if (xx$status == 401)
     {
-        stop("401 returned; token invalid or expired")
+        stop("401 returned; token invalid or expired.")
+    }
+    else if (xx$status == 404)
+    {
+        stop(paste0(xx$status, " returned; the endpoint '", endpoint, "' does not exist"))
+    }
+    else if (xx$status != 200)
+    {
+        stop(paste0(xx$status, " returned; unknown error."))
     }
     httr::content(xx)
     
@@ -147,11 +155,19 @@ icd_api_request <- function(token, endpoint, data = list())
 ##'
 ##' @title Generate a codes file from the ICD-10 API 
 ##' @param token The access token obtained from icd_api_token
-##' @param endpoint The root endpoint (defaults to the chapter level)
-icd10_api_gen_codes <- function(token, endpoint = "https://id.who.int/icd/release/10/2016")
-{    
+##' @param release The release year (default "2016"; Options "2019",
+##' "2016", "2010", "2008") 
+##' @param item The item to retrieve; a string appended to the end of the
+##' endpoint URL. This can be a chapter or a lower level item. 
+##' @return A leaf or category object (named list)
+##' @export
+icd10_api_gen_codes <- function(token, release = "2016", item = "A00-A09",
+                                endpoint = paste(root, release, item, sep = "/"))
+{
+    ## This is the base API url
+    root <- "https://id.who.int/icd/release/10"
+    
     res <- icd_api_request(token, endpoint)
-    ##print(res)
 
     ## Each request returns a named list containing the contents of this
     ## level of the ICD hierarchy. The two most important fields are `@value`,
@@ -173,16 +189,25 @@ icd10_api_gen_codes <- function(token, endpoint = "https://id.who.int/icd/releas
     
     if (is.null(res$child))
     {
-        ## Then the current node is a leaf node
-        message("Leaf: ", res$code)
+        ## Then the current node is a leaf node. Return the map
+        ## to be stored at the leaf level
+        message("Fetched code '", res$code, "'")
+        list(code = res$code,
+             docs = res$title$`@value`)
     }
     else
     {
         ## Else, loop over the child nodes
-        for (ep in res$child)
-        {
-            icd10_api_gen_codes(token, ep)
-        }
+        message("Descending into category '", res$code, "'")
+        list(
+            category = res$code,
+            docs = res$title$`@value`,
+            child = res$child %>%
+                sapply(function(ep) {
+                    
+                    icd10_api_gen_codes(token, endpoint = ep)
+                })
+        )
     }
     
     ## ## Get documentation
