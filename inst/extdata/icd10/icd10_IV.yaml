@@ -1,0 +1,908 @@
+category: IV
+docs: Endocrine, nutritional and metabolic diseases
+child:
+- category: E00-E07
+  docs: Disorders of thyroid gland
+  child:
+  - category: E00
+    docs: Congenital iodine-deficiency syndrome
+    child:
+    - code: E00.0
+      docs: Congenital iodine-deficiency syndrome, neurological type
+    - code: E00.1
+      docs: Congenital iodine-deficiency syndrome, myxoedematous type
+    - code: E00.2
+      docs: Congenital iodine-deficiency syndrome, mixed type
+    - code: E00.9
+      docs: Congenital iodine-deficiency syndrome, unspecified
+  - category: E01
+    docs: Iodine-deficiency-related thyroid disorders and allied conditions
+    child:
+    - code: E01.0
+      docs: Iodine-deficiency-related diffuse (endemic) goitre
+    - code: E01.1
+      docs: Iodine-deficiency-related multinodular (endemic) goitre
+    - code: E01.2
+      docs: Iodine-deficiency-related (endemic) goitre, unspecified
+    - code: E01.8
+      docs: Other iodine-deficiency-related thyroid disorders and allied conditions
+  - code: E02
+    docs: Subclinical iodine-deficiency hypothyroidism
+  - category: E03
+    docs: Other hypothyroidism
+    child:
+    - code: E03.0
+      docs: Congenital hypothyroidism with diffuse goitre
+    - code: E03.1
+      docs: Congenital hypothyroidism without goitre
+    - code: E03.2
+      docs: Hypothyroidism due to medicaments and other exogenous substances
+    - code: E03.3
+      docs: Postinfectious hypothyroidism
+    - code: E03.4
+      docs: Atrophy of thyroid (acquired)
+    - code: E03.5
+      docs: Myxoedema coma
+    - code: E03.8
+      docs: Other specified hypothyroidism
+    - code: E03.9
+      docs: Hypothyroidism, unspecified
+  - category: E04
+    docs: Other nontoxic goitre
+    child:
+    - code: E04.0
+      docs: Nontoxic diffuse goitre
+    - code: E04.1
+      docs: Nontoxic single thyroid nodule
+    - code: E04.2
+      docs: Nontoxic multinodular goitre
+    - code: E04.8
+      docs: Other specified nontoxic goitre
+    - code: E04.9
+      docs: Nontoxic goitre, unspecified
+  - category: E05
+    docs: Thyrotoxicosis [hyperthyroidism]
+    child:
+    - code: E05.0
+      docs: Thyrotoxicosis with diffuse goitre
+    - code: E05.1
+      docs: Thyrotoxicosis with toxic single thyroid nodule
+    - code: E05.2
+      docs: Thyrotoxicosis with toxic multinodular goitre
+    - code: E05.3
+      docs: Thyrotoxicosis from ectopic thyroid tissue
+    - code: E05.4
+      docs: Thyrotoxicosis factitia
+    - code: E05.5
+      docs: Thyroid crisis or storm
+    - code: E05.8
+      docs: Other thyrotoxicosis
+    - code: E05.9
+      docs: Thyrotoxicosis, unspecified
+  - category: E06
+    docs: Thyroiditis
+    child:
+    - code: E06.0
+      docs: Acute thyroiditis
+    - code: E06.1
+      docs: Subacute thyroiditis
+    - code: E06.2
+      docs: Chronic thyroiditis with transient thyrotoxicosis
+    - code: E06.3
+      docs: Autoimmune thyroiditis
+    - code: E06.4
+      docs: Drug-induced thyroiditis
+    - code: E06.5
+      docs: Other chronic thyroiditis
+    - code: E06.9
+      docs: Thyroiditis, unspecified
+  - category: E07
+    docs: Other disorders of thyroid
+    child:
+    - code: E07.0
+      docs: Hypersecretion of calcitonin
+    - code: E07.1
+      docs: Dyshormogenetic goitre
+    - code: E07.8
+      docs: Other specified disorders of thyroid
+    - code: E07.9
+      docs: Disorder of thyroid, unspecified
+- category: E10-E14
+  docs: Diabetes mellitus
+  child:
+  - category: E10
+    docs: Type 1 diabetes mellitus
+    child:
+    - code: E10.0
+      docs: Type 1 diabetes mellitus with coma
+    - code: E10.1
+      docs: Type 1 diabetes mellitus with ketoacidosis
+    - code: E10.2
+      docs: Type 1 diabetes mellitus with renal complications
+    - code: E10.3
+      docs: Type 1 diabetes mellitus with ophthalmic complications
+    - code: E10.4
+      docs: Type 1 diabetes mellitus with neurological complications
+    - code: E10.5
+      docs: Type 1 diabetes mellitus with peripheral circulatory complications
+    - code: E10.6
+      docs: Type 1 diabetes mellitus with other specified complications
+    - code: E10.7
+      docs: Type 1 diabetes mellitus with multiple complications
+    - code: E10.8
+      docs: Type 1 diabetes mellitus with unspecified complications
+    - code: E10.9
+      docs: Type 1 diabetes mellitus without complications
+  - category: E11
+    docs: Type 2 diabetes mellitus
+    child:
+    - code: E11.0
+      docs: Type 2 diabetes mellitus with coma
+    - code: E11.1
+      docs: Type 2 diabetes mellitus with ketoacidosis
+    - code: E11.2
+      docs: Type 2 diabetes mellitus with renal complications
+    - code: E11.3
+      docs: Type 2 diabetes mellitus with ophthalmic complications
+    - code: E11.4
+      docs: Type 2 diabetes mellitus with neurological complications
+    - code: E11.5
+      docs: Type 2 diabetes mellitus with peripheral circulatory complications
+    - code: E11.6
+      docs: Type 2 diabetes mellitus with other specified complications
+    - code: E11.7
+      docs: Type 2 diabetes mellitus with multiple complications
+    - code: E11.8
+      docs: Type 2 diabetes mellitus with unspecified complications
+    - code: E11.9
+      docs: Type 2 diabetes mellitus without complications
+  - category: E12
+    docs: Malnutrition-related diabetes mellitus
+    child:
+    - code: E12.0
+      docs: Malnutrition-related diabetes mellitus with coma
+    - code: E12.1
+      docs: Malnutrition-related diabetes mellitus with ketoacidosis
+    - code: E12.2
+      docs: Malnutrition-related diabetes mellitus with renal complications
+    - code: E12.3
+      docs: Malnutrition-related diabetes mellitus with ophthalmic complications
+    - code: E12.4
+      docs: Malnutrition-related diabetes mellitus with neurological complications
+    - code: E12.5
+      docs: Malnutrition-related diabetes mellitus with peripheral circulatory complications
+    - code: E12.6
+      docs: Malnutrition-related diabetes mellitus with other specified complications
+    - code: E12.7
+      docs: Malnutrition-related diabetes mellitus with multiple complications
+    - code: E12.8
+      docs: Malnutrition-related diabetes mellitus with unspecified complications
+    - code: E12.9
+      docs: Malnutrition-related diabetes mellitus without complications
+  - category: E13
+    docs: Other specified diabetes mellitus
+    child:
+    - code: E13.0
+      docs: Other specified diabetes mellitus with coma
+    - code: E13.1
+      docs: Other specified diabetes mellitus with ketoacidosis
+    - code: E13.2
+      docs: Other specified diabetes mellitus with renal complications
+    - code: E13.3
+      docs: Other specified diabetes mellitus with ophthalmic complications
+    - code: E13.4
+      docs: Other specified diabetes mellitus with neurological complications
+    - code: E13.5
+      docs: Other specified diabetes mellitus with peripheral circulatory complications
+    - code: E13.6
+      docs: Other specified diabetes mellitus with other specified complications
+    - code: E13.7
+      docs: Other specified diabetes mellitus with multiple complications
+    - code: E13.8
+      docs: Other specified diabetes mellitus with unspecified complications
+    - code: E13.9
+      docs: Other specified diabetes mellitus without complications
+  - category: E14
+    docs: Unspecified diabetes mellitus
+    child:
+    - code: E14.0
+      docs: Unspecified diabetes mellitus with coma
+    - code: E14.1
+      docs: Unspecified diabetes mellitus with ketoacidosis
+    - code: E14.2
+      docs: Unspecified diabetes mellitus with renal complications
+    - code: E14.3
+      docs: Unspecified diabetes mellitus with ophthalmic complications
+    - code: E14.4
+      docs: Unspecified diabetes mellitus with neurological complications
+    - code: E14.5
+      docs: Unspecified diabetes mellitus with peripheral circulatory complications
+    - code: E14.6
+      docs: Unspecified diabetes mellitus with other specified complications
+    - code: E14.7
+      docs: Unspecified diabetes mellitus with multiple complications
+    - code: E14.8
+      docs: Unspecified diabetes mellitus with unspecified complications
+    - code: E14.9
+      docs: Unspecified diabetes mellitus without complications
+- category: E15-E16
+  docs: Other disorders of glucose regulation and pancreatic internal secretion
+  child:
+  - code: E15
+    docs: Nondiabetic hypoglycaemic coma
+  - category: E16
+    docs: Other disorders of pancreatic internal secretion
+    child:
+    - code: E16.0
+      docs: Drug-induced hypoglycaemia without coma
+    - code: E16.1
+      docs: Other hypoglycaemia
+    - code: E16.2
+      docs: Hypoglycaemia, unspecified
+    - code: E16.3
+      docs: Increased secretion of glucagon
+    - code: E16.4
+      docs: Abnormal secretion of gastrin
+    - code: E16.8
+      docs: Other specified disorders of pancreatic internal secretion
+    - code: E16.9
+      docs: Disorder of pancreatic internal secretion, unspecified
+- category: E20-E35
+  docs: Disorders of other endocrine glands
+  child:
+  - category: E20
+    docs: Hypoparathyroidism
+    child:
+    - code: E20.0
+      docs: Idiopathic hypoparathyroidism
+    - code: E20.1
+      docs: Pseudohypoparathyroidism
+    - code: E20.8
+      docs: Other hypoparathyroidism
+    - code: E20.9
+      docs: Hypoparathyroidism, unspecified
+  - category: E21
+    docs: Hyperparathyroidism and other disorders of parathyroid gland
+    child:
+    - code: E21.0
+      docs: Primary hyperparathyroidism
+    - code: E21.1
+      docs: Secondary hyperparathyroidism, not elsewhere classified
+    - code: E21.2
+      docs: Other hyperparathyroidism
+    - code: E21.3
+      docs: Hyperparathyroidism, unspecified
+    - code: E21.4
+      docs: Other specified disorders of parathyroid gland
+    - code: E21.5
+      docs: Disorder of parathyroid gland, unspecified
+  - category: E22
+    docs: Hyperfunction of pituitary gland
+    child:
+    - code: E22.0
+      docs: Acromegaly and pituitary gigantism
+    - code: E22.1
+      docs: Hyperprolactinaemia
+    - code: E22.2
+      docs: Syndrome of inappropriate secretion of antidiuretic hormone
+    - code: E22.8
+      docs: Other hyperfunction of pituitary gland
+    - code: E22.9
+      docs: Hyperfunction of pituitary gland, unspecified
+  - category: E23
+    docs: Hypofunction and other disorders of pituitary gland
+    child:
+    - code: E23.0
+      docs: Hypopituitarism
+    - code: E23.1
+      docs: Drug-induced hypopituitarism
+    - code: E23.2
+      docs: Diabetes insipidus
+    - code: E23.3
+      docs: Hypothalamic dysfunction, not elsewhere classified
+    - code: E23.6
+      docs: Other disorders of pituitary gland
+    - code: E23.7
+      docs: Disorder of pituitary gland, unspecified
+  - category: E24
+    docs: Cushing syndrome
+    child:
+    - code: E24.0
+      docs: Pituitary-dependent Cushing disease
+    - code: E24.1
+      docs: Nelson syndrome
+    - code: E24.2
+      docs: Drug-induced Cushing syndrome
+    - code: E24.3
+      docs: Ectopic ACTH syndrome
+    - code: E24.4
+      docs: Alcohol-induced pseudo-Cushing syndrome
+    - code: E24.8
+      docs: Other Cushing syndrome
+    - code: E24.9
+      docs: Cushing syndrome, unspecified
+  - category: E25
+    docs: Adrenogenital disorders
+    child:
+    - code: E25.0
+      docs: Congenital adrenogenital disorders associated with enzyme deficiency
+    - code: E25.8
+      docs: Other adrenogenital disorders
+    - code: E25.9
+      docs: Adrenogenital disorder, unspecified
+  - category: E26
+    docs: Hyperaldosteronism
+    child:
+    - code: E26.0
+      docs: Primary hyperaldosteronism
+    - code: E26.1
+      docs: Secondary hyperaldosteronism
+    - code: E26.8
+      docs: Other hyperaldosteronism
+    - code: E26.9
+      docs: Hyperaldosteronism, unspecified
+  - category: E27
+    docs: Other disorders of adrenal gland
+    child:
+    - code: E27.0
+      docs: Other adrenocortical overactivity
+    - code: E27.1
+      docs: Primary adrenocortical insufficiency
+    - code: E27.2
+      docs: Addisonian crisis
+    - code: E27.3
+      docs: Drug-induced adrenocortical insufficiency
+    - code: E27.4
+      docs: Other and unspecified adrenocortical insufficiency
+    - code: E27.5
+      docs: Adrenomedullary hyperfunction
+    - code: E27.8
+      docs: Other specified disorders of adrenal gland
+    - code: E27.9
+      docs: Disorder of adrenal gland, unspecified
+  - category: E28
+    docs: Ovarian dysfunction
+    child:
+    - code: E28.0
+      docs: 'Ovarian dysfunction: Estrogen excess'
+    - code: E28.1
+      docs: 'Ovarian dysfunction: Androgen excess'
+    - code: E28.2
+      docs: Polycystic ovarian syndrome
+    - code: E28.3
+      docs: Primary ovarian failure
+    - code: E28.8
+      docs: Other ovarian dysfunction
+    - code: E28.9
+      docs: Ovarian dysfunction, unspecified
+  - category: E29
+    docs: Testicular dysfunction
+    child:
+    - code: E29.0
+      docs: Testicular hyperfunction
+    - code: E29.1
+      docs: Testicular hypofunction
+    - code: E29.8
+      docs: Other testicular dysfunction
+    - code: E29.9
+      docs: Testicular dysfunction, unspecified
+  - category: E30
+    docs: Disorders of puberty, not elsewhere classified
+    child:
+    - code: E30.0
+      docs: Delayed puberty
+    - code: E30.1
+      docs: Precocious puberty
+    - code: E30.8
+      docs: Other disorders of puberty
+    - code: E30.9
+      docs: Disorder of puberty, unspecified
+  - category: E31
+    docs: Polyglandular dysfunction
+    child:
+    - code: E31.0
+      docs: Autoimmune polyglandular failure
+    - code: E31.1
+      docs: Polyglandular hyperfunction
+    - code: E31.8
+      docs: Other polyglandular dysfunction
+    - code: E31.9
+      docs: Polyglandular dysfunction, unspecified
+  - category: E32
+    docs: Diseases of thymus
+    child:
+    - code: E32.0
+      docs: Persistent hyperplasia of thymus
+    - code: E32.1
+      docs: Abscess of thymus
+    - code: E32.8
+      docs: Other diseases of thymus
+    - code: E32.9
+      docs: Disease of thymus, unspecified
+  - category: E34
+    docs: Other endocrine disorders
+    child:
+    - code: E34.0
+      docs: Carcinoid syndrome
+    - code: E34.1
+      docs: Other hypersecretion of intestinal hormones
+    - code: E34.2
+      docs: Ectopic hormone secretion, not elsewhere classified
+    - code: E34.3
+      docs: Short stature, not elsewhere classified
+    - code: E34.4
+      docs: Constitutional tall stature
+    - code: E34.5
+      docs: Androgen resistance syndrome
+    - code: E34.8
+      docs: Other specified endocrine disorders
+    - code: E34.9
+      docs: Endocrine disorder, unspecified
+  - category: E35
+    docs: Disorders of endocrine glands in diseases classified elsewhere
+    child:
+    - code: E35.0
+      docs: Disorders of thyroid gland in diseases classified elsewhere
+    - code: E35.1
+      docs: Disorders of adrenal glands in diseases classified elsewhere
+    - code: E35.8
+      docs: Disorders of other endocrine glands in diseases classified elsewhere
+- category: E40-E46
+  docs: Malnutrition
+  child:
+  - code: E40
+    docs: Kwashiorkor
+  - code: E41
+    docs: Nutritional marasmus
+  - code: E42
+    docs: Marasmic kwashiorkor
+  - code: E43
+    docs: Unspecified severe protein-energy malnutrition
+  - category: E44
+    docs: Protein-energy malnutrition of moderate and mild degree
+    child:
+    - code: E44.0
+      docs: Moderate protein-energy malnutrition
+    - code: E44.1
+      docs: Mild protein-energy malnutrition
+  - code: E45
+    docs: Retarded development following protein-energy malnutrition
+  - code: E46
+    docs: Unspecified protein-energy malnutrition
+- category: E50-E64
+  docs: Other nutritional deficiencies
+  child:
+  - category: E50
+    docs: Vitamin A deficiency
+    child:
+    - code: E50.0
+      docs: Vitamin A deficiency with conjunctival xerosis
+    - code: E50.1
+      docs: Vitamin A deficiency with Bitot spot and conjunctival xerosis
+    - code: E50.2
+      docs: Vitamin A deficiency with corneal xerosis
+    - code: E50.3
+      docs: Vitamin A deficiency with corneal ulceration and xerosis
+    - code: E50.4
+      docs: Vitamin A deficiency with keratomalacia
+    - code: E50.5
+      docs: Vitamin A deficiency with night blindness
+    - code: E50.6
+      docs: Vitamin A deficiency with xerophthalmic scars of cornea
+    - code: E50.7
+      docs: Other ocular manifestations of vitamin A deficiency
+    - code: E50.8
+      docs: Other manifestations of vitamin A deficiency
+    - code: E50.9
+      docs: Vitamin A deficiency, unspecified
+  - category: E51
+    docs: Thiamine deficiency
+    child:
+    - code: E51.1
+      docs: Beriberi
+    - code: E51.2
+      docs: Wernicke encephalopathy
+    - code: E51.8
+      docs: Other manifestations of thiamine deficiency
+    - code: E51.9
+      docs: Thiamine deficiency, unspecified
+  - code: E52
+    docs: Niacin deficiency [pellagra]
+  - category: E53
+    docs: Deficiency of other B group vitamins
+    child:
+    - code: E53.0
+      docs: Riboflavin deficiency
+    - code: E53.1
+      docs: Pyridoxine deficiency
+    - code: E53.8
+      docs: Deficiency of other specified B group vitamins
+    - code: E53.9
+      docs: Vitamin B deficiency, unspecified
+  - code: E54
+    docs: Ascorbic acid deficiency
+  - category: E55
+    docs: Vitamin D deficiency
+    child:
+    - code: E55.0
+      docs: Rickets, active
+    - code: E55.9
+      docs: Vitamin D deficiency, unspecified
+  - category: E56
+    docs: Other vitamin deficiencies
+    child:
+    - code: E56.0
+      docs: Deficiency of vitamin E
+    - code: E56.1
+      docs: Deficiency of vitamin K
+    - code: E56.8
+      docs: Deficiency of other vitamins
+    - code: E56.9
+      docs: Vitamin deficiency, unspecified
+  - code: E58
+    docs: Dietary calcium deficiency
+  - code: E59
+    docs: Dietary selenium deficiency
+  - code: E60
+    docs: Dietary zinc deficiency
+  - category: E61
+    docs: Deficiency of other nutrient elements
+    child:
+    - code: E61.0
+      docs: Copper deficiency
+    - code: E61.1
+      docs: Iron deficiency
+    - code: E61.2
+      docs: Magnesium deficiency
+    - code: E61.3
+      docs: Manganese deficiency
+    - code: E61.4
+      docs: Chromium deficiency
+    - code: E61.5
+      docs: Molybdenum deficiency
+    - code: E61.6
+      docs: Vanadium deficiency
+    - code: E61.7
+      docs: Deficiency of multiple nutrient elements
+    - code: E61.8
+      docs: Deficiency of other specified nutrient elements
+    - code: E61.9
+      docs: Deficiency of nutrient element, unspecified
+  - category: E63
+    docs: Other nutritional deficiencies
+    child:
+    - code: E63.0
+      docs: Essential fatty acid [EFA] deficiency
+    - code: E63.1
+      docs: Imbalance of constituents of food intake
+    - code: E63.8
+      docs: Other specified nutritional deficiencies
+    - code: E63.9
+      docs: Nutritional deficiency, unspecified
+  - category: E64
+    docs: Sequelae of malnutrition and other nutritional deficiencies
+    child:
+    - code: E64.0
+      docs: Sequelae of protein-energy malnutrition
+    - code: E64.1
+      docs: Sequelae of vitamin A deficiency
+    - code: E64.2
+      docs: Sequelae of vitamin C deficiency
+    - code: E64.3
+      docs: Sequelae of rickets
+    - code: E64.8
+      docs: Sequelae of other nutritional deficiencies
+    - code: E64.9
+      docs: Sequelae of unspecified nutritional deficiency
+- category: E65-E68
+  docs: Obesity and other hyperalimentation
+  child:
+  - code: E65
+    docs: Localized adiposity
+  - category: E66
+    docs: Obesity
+    child:
+    - code: E66.0
+      docs: Obesity due to excess calories
+    - code: E66.1
+      docs: Drug-induced obesity
+    - code: E66.2
+      docs: Extreme obesity with alveolar hypoventilation
+    - code: E66.8
+      docs: Other obesity
+    - code: E66.9
+      docs: Obesity, unspecified
+  - category: E67
+    docs: Other hyperalimentation
+    child:
+    - code: E67.0
+      docs: Hypervitaminosis A
+    - code: E67.1
+      docs: Hypercarotenaemia
+    - code: E67.2
+      docs: Megavitamin-B 6 syndrome
+    - code: E67.3
+      docs: Hypervitaminosis D
+    - code: E67.8
+      docs: Other specified hyperalimentation
+  - code: E68
+    docs: Sequelae of hyperalimentation
+- category: E70-E90
+  docs: Metabolic disorders
+  child:
+  - category: E70
+    docs: Disorders of aromatic amino-acid metabolism
+    child:
+    - code: E70.0
+      docs: Classical phenylketonuria
+    - code: E70.1
+      docs: Other hyperphenylalaninaemias
+    - code: E70.2
+      docs: Disorders of tyrosine metabolism
+    - code: E70.3
+      docs: Albinism
+    - code: E70.8
+      docs: Other disorders of aromatic amino-acid metabolism
+    - code: E70.9
+      docs: Disorder of aromatic amino-acid metabolism, unspecified
+  - category: E71
+    docs: Disorders of branched-chain amino-acid metabolism and fatty-acid metabolism
+    child:
+    - code: E71.0
+      docs: Maple-syrup-urine disease
+    - code: E71.1
+      docs: Other disorders of branched-chain amino-acid metabolism
+    - code: E71.2
+      docs: Disorder of branched-chain amino-acid metabolism, unspecified
+    - code: E71.3
+      docs: Disorders of fatty-acid metabolism
+  - category: E72
+    docs: Other disorders of amino-acid metabolism
+    child:
+    - code: E72.0
+      docs: Disorders of amino-acid transport
+    - code: E72.1
+      docs: Disorders of sulfur-bearing amino-acid metabolism
+    - code: E72.2
+      docs: Disorders of urea cycle metabolism
+    - code: E72.3
+      docs: Disorders of lysine and hydroxylysine metabolism
+    - code: E72.4
+      docs: Disorders of ornithine metabolism
+    - code: E72.5
+      docs: Disorders of glycine metabolism
+    - code: E72.8
+      docs: Other specified disorders of amino-acid metabolism
+    - code: E72.9
+      docs: Disorder of amino-acid metabolism, unspecified
+  - category: E73
+    docs: Lactose intolerance
+    child:
+    - code: E73.0
+      docs: Congenital lactase deficiency
+    - code: E73.1
+      docs: Secondary lactase deficiency
+    - code: E73.8
+      docs: Other lactose intolerance
+    - code: E73.9
+      docs: Lactose intolerance, unspecified
+  - category: E74
+    docs: Other disorders of carbohydrate metabolism
+    child:
+    - code: E74.0
+      docs: Glycogen storage disease
+    - code: E74.1
+      docs: Disorders of fructose metabolism
+    - code: E74.2
+      docs: Disorders of galactose metabolism
+    - code: E74.3
+      docs: Other disorders of intestinal carbohydrate absorption
+    - code: E74.4
+      docs: Disorders of pyruvate metabolism and gluconeogenesis
+    - code: E74.8
+      docs: Other specified disorders of carbohydrate metabolism
+    - code: E74.9
+      docs: Disorder of carbohydrate metabolism, unspecified
+  - category: E75
+    docs: Disorders of sphingolipid metabolism and other lipid storage disorders
+    child:
+    - code: E75.0
+      docs: GM 2 gangliosidosis
+    - code: E75.1
+      docs: Other gangliosidosis
+    - code: E75.2
+      docs: Other sphingolipidosis
+    - code: E75.3
+      docs: Sphingolipidosis, unspecified
+    - code: E75.4
+      docs: Neuronal ceroid lipofuscinosis
+    - code: E75.5
+      docs: Other lipid storage disorders
+    - code: E75.6
+      docs: Lipid storage disorder, unspecified
+  - category: E76
+    docs: Disorders of glycosaminoglycan metabolism
+    child:
+    - code: E76.0
+      docs: Mucopolysaccharidosis, type I
+    - code: E76.1
+      docs: Mucopolysaccharidosis, type II
+    - code: E76.2
+      docs: Other mucopolysaccharidoses
+    - code: E76.3
+      docs: Mucopolysaccharidosis, unspecified
+    - code: E76.8
+      docs: Other disorders of glucosaminoglycan metabolism
+    - code: E76.9
+      docs: Disorder of glucosaminoglycan metabolism, unspecified
+  - category: E77
+    docs: Disorders of glycoprotein metabolism
+    child:
+    - code: E77.0
+      docs: Defects in post-translational modification of lysosomal enzymes
+    - code: E77.1
+      docs: Defects in glycoprotein degradation
+    - code: E77.8
+      docs: Other disorders of glycoprotein metabolism
+    - code: E77.9
+      docs: Disorder of glycoprotein metabolism, unspecified
+  - category: E78
+    docs: Disorders of lipoprotein metabolism and other lipidaemias
+    child:
+    - code: E78.0
+      docs: Pure hypercholesterolaemia
+    - code: E78.1
+      docs: Pure hyperglyceridaemia
+    - code: E78.2
+      docs: Mixed hyperlipidaemia
+    - code: E78.3
+      docs: Hyperchylomicronaemia
+    - code: E78.4
+      docs: Other hyperlipidaemia
+    - code: E78.5
+      docs: Hyperlipidaemia, unspecified
+    - code: E78.6
+      docs: Lipoprotein deficiency
+    - code: E78.8
+      docs: Other disorders of lipoprotein metabolism
+    - code: E78.9
+      docs: Disorder of lipoprotein metabolism, unspecified
+  - category: E79
+    docs: Disorders of purine and pyrimidine metabolism
+    child:
+    - code: E79.0
+      docs: Hyperuricaemia without signs of inflammatory arthritis and tophaceous
+        disease
+    - code: E79.1
+      docs: Lesch-Nyhan syndrome
+    - code: E79.8
+      docs: Other disorders of purine and pyrimidine metabolism
+    - code: E79.9
+      docs: Disorder of purine and pyrimidine metabolism, unspecified
+  - category: E80
+    docs: Disorders of porphyrin and bilirubin metabolism
+    child:
+    - code: E80.0
+      docs: Hereditary erythropoietic porphyria
+    - code: E80.1
+      docs: Porphyria cutanea tarda
+    - code: E80.2
+      docs: Other porphyria
+    - code: E80.3
+      docs: Defects of catalase and peroxidase
+    - code: E80.4
+      docs: Gilbert syndrome
+    - code: E80.5
+      docs: Crigler-Najjar syndrome
+    - code: E80.6
+      docs: Other disorders of bilirubin metabolism
+    - code: E80.7
+      docs: Disorder of bilirubin metabolism, unspecified
+  - category: E83
+    docs: Disorders of mineral metabolism
+    child:
+    - code: E83.0
+      docs: Disorders of copper metabolism
+    - code: E83.1
+      docs: Disorders of iron metabolism
+    - code: E83.2
+      docs: Disorders of zinc metabolism
+    - code: E83.3
+      docs: Disorders of phosphorus metabolism and phosphatases
+    - code: E83.4
+      docs: Disorders of magnesium metabolism
+    - code: E83.5
+      docs: Disorders of calcium metabolism
+    - code: E83.8
+      docs: Other disorders of mineral metabolism
+    - code: E83.9
+      docs: Disorder of mineral metabolism, unspecified
+  - category: E84
+    docs: Cystic fibrosis
+    child:
+    - code: E84.0
+      docs: Cystic fibrosis with pulmonary manifestations
+    - code: E84.1
+      docs: Cystic fibrosis with intestinal manifestations
+    - code: E84.8
+      docs: Cystic fibrosis with other manifestations
+    - code: E84.9
+      docs: Cystic fibrosis, unspecified
+  - category: E85
+    docs: Amyloidosis
+    child:
+    - code: E85.0
+      docs: Non-neuropathic heredofamilial amyloidosis
+    - code: E85.1
+      docs: Neuropathic heredofamilial amyloidosis
+    - code: E85.2
+      docs: Heredofamilial amyloidosis, unspecified
+    - code: E85.3
+      docs: Secondary systemic amyloidosis
+    - code: E85.4
+      docs: Organ-limited amyloidosis
+    - code: E85.8
+      docs: Other amyloidosis
+    - code: E85.9
+      docs: Amyloidosis, unspecified
+  - code: E86
+    docs: Volume depletion
+  - category: E87
+    docs: Other disorders of fluid, electrolyte and acid-base balance
+    child:
+    - code: E87.0
+      docs: Hyperosmolality and hypernatraemia
+    - code: E87.1
+      docs: Hypo-osmolality and hyponatraemia
+    - code: E87.2
+      docs: Acidosis
+    - code: E87.3
+      docs: Alkalosis
+    - code: E87.4
+      docs: Mixed disorder of acid-base balance
+    - code: E87.5
+      docs: Hyperkalaemia
+    - code: E87.6
+      docs: Hypokalaemia
+    - code: E87.7
+      docs: Fluid overload
+    - code: E87.8
+      docs: Other disorders of electrolyte and fluid balance, not elsewhere classified
+  - category: E88
+    docs: Other metabolic disorders
+    child:
+    - code: E88.0
+      docs: Disorders of plasma-protein metabolism, not elsewhere classified
+    - code: E88.1
+      docs: Lipodystrophy, not elsewhere classified
+    - code: E88.2
+      docs: Lipomatosis, not elsewhere classified
+    - code: E88.3
+      docs: Tumour lysis syndrome
+    - code: E88.8
+      docs: Other specified metabolic disorders
+    - code: E88.9
+      docs: Metabolic disorder, unspecified
+  - category: E89
+    docs: Postprocedural endocrine and metabolic disorders, not elsewhere classified
+    child:
+    - code: E89.0
+      docs: Postprocedural hypothyroidism
+    - code: E89.1
+      docs: Postprocedural hypoinsulinaemia
+    - code: E89.2
+      docs: Postprocedural hypoparathyroidism
+    - code: E89.3
+      docs: Postprocedural hypopituitarism
+    - code: E89.4
+      docs: Postprocedural ovarian failure
+    - code: E89.5
+      docs: Postprocedural testicular hypofunction
+    - code: E89.6
+      docs: Postprocedural adrenocortical(-medullary) hypofunction
+    - code: E89.8
+      docs: Other postprocedural endocrine and metabolic disorders
+    - code: E89.9
+      docs: Postprocedural endocrine and metabolic disorder, unspecified
+  - code: E90
+    docs: Nutritional and metabolic disorders in diseases classified elsewhere

@@ -216,6 +216,16 @@ icd_api_get_codes <- function(token, release = "2016", item = "I",
     }
 }
 
+##' Fetch all the ICD10 code chapters into separate files.
+##'
+##' The function outputs files of the form icd10_I.yaml
+##' where I is replaced with the chapter number.
+##' 
+##' @title Fetch ICD-10 codes
+##' @param token The access token for the API 
+##' @param release The release year (see )
+##'
+##' @export
 icd_api_fetch_all <- function(token, release = "2016")
 {
     ## This is the base API url
@@ -235,7 +245,7 @@ icd_api_fetch_all <- function(token, release = "2016")
             val <- icd_api_get_codes(token, endpoint = ep)
 
             message("Writing codes to output file")
-            yaml::write_yaml(paste0("icd10_", ch, ".yaml"))
+            yaml::write_yaml(val, paste0("icd10_", ch, ".yaml"))
         })
 
 }

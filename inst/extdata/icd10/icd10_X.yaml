@@ -1,0 +1,640 @@
+category: X
+docs: Diseases of the respiratory system
+child:
+- category: J00-J06
+  docs: Acute upper respiratory infections
+  child:
+  - code: J00
+    docs: Acute nasopharyngitis [common cold]
+  - category: J01
+    docs: Acute sinusitis
+    child:
+    - code: J01.0
+      docs: Acute maxillary sinusitis
+    - code: J01.1
+      docs: Acute frontal sinusitis
+    - code: J01.2
+      docs: Acute ethmoidal sinusitis
+    - code: J01.3
+      docs: Acute sphenoidal sinusitis
+    - code: J01.4
+      docs: Acute pansinusitis
+    - code: J01.8
+      docs: Other acute sinusitis
+    - code: J01.9
+      docs: Acute sinusitis, unspecified
+  - category: J02
+    docs: Acute pharyngitis
+    child:
+    - code: J02.0
+      docs: Streptococcal pharyngitis
+    - code: J02.8
+      docs: Acute pharyngitis due to other specified organisms
+    - code: J02.9
+      docs: Acute pharyngitis, unspecified
+  - category: J03
+    docs: Acute tonsillitis
+    child:
+    - code: J03.0
+      docs: Streptococcal tonsillitis
+    - code: J03.8
+      docs: Acute tonsillitis due to other specified organisms
+    - code: J03.9
+      docs: Acute tonsillitis, unspecified
+  - category: J04
+    docs: Acute laryngitis and tracheitis
+    child:
+    - code: J04.0
+      docs: Acute laryngitis
+    - code: J04.1
+      docs: Acute tracheitis
+    - code: J04.2
+      docs: Acute laryngotracheitis
+  - category: J05
+    docs: Acute obstructive laryngitis [croup] and epiglottitis
+    child:
+    - code: J05.0
+      docs: Acute obstructive laryngitis [croup]
+    - code: J05.1
+      docs: Acute epiglottitis
+  - category: J06
+    docs: Acute upper respiratory infections of multiple and unspecified sites
+    child:
+    - code: J06.0
+      docs: Acute laryngopharyngitis
+    - code: J06.8
+      docs: Other acute upper respiratory infections of multiple sites
+    - code: J06.9
+      docs: Acute upper respiratory infection, unspecified
+- category: J09-J18
+  docs: Influenza and pneumonia
+  child:
+  - code: J09
+    docs: Influenza due to identified zoonotic or pandemic influenza virus
+  - category: J10
+    docs: influenza due to identified seasonal influenza virus
+    child:
+    - code: J10.0
+      docs: Influenza with pneumonia, seasonal influenza virus identified
+    - code: J10.1
+      docs: Influenza with other respiratory manifestations, seasonal influenza virus
+        identified
+    - code: J10.8
+      docs: Influenza with other manifestations, seasonal influenza virus identified
+  - category: J11
+    docs: Influenza, virus not identified
+    child:
+    - code: J11.0
+      docs: Influenza with pneumonia, virus not identified
+    - code: J11.1
+      docs: Influenza with other respiratory manifestations, virus not identified
+    - code: J11.8
+      docs: Influenza with other manifestations, virus not identified
+  - category: J12
+    docs: Viral pneumonia, not elsewhere classified
+    child:
+    - code: J12.0
+      docs: Adenoviral pneumonia
+    - code: J12.1
+      docs: Respiratory syncytial virus pneumonia
+    - code: J12.2
+      docs: Parainfluenza virus pneumonia
+    - code: J12.3
+      docs: Human metapneumovirus pneumonia
+    - code: J12.8
+      docs: Other viral pneumonia
+    - code: J12.9
+      docs: Viral pneumonia, unspecified
+  - code: J13
+    docs: Pneumonia due to Streptococcus pneumoniae
+  - code: J14
+    docs: Pneumonia due to Haemophilus influenzae
+  - category: J15
+    docs: Bacterial pneumonia, not elsewhere classified
+    child:
+    - code: J15.0
+      docs: Pneumonia due to Klebsiella pneumoniae
+    - code: J15.1
+      docs: Pneumonia due to Pseudomonas
+    - code: J15.2
+      docs: Pneumonia due to staphylococcus
+    - code: J15.3
+      docs: Pneumonia due to streptococcus, group B
+    - code: J15.4
+      docs: Pneumonia due to other streptococci
+    - code: J15.5
+      docs: Pneumonia due to Escherichia coli
+    - code: J15.6
+      docs: Pneumonia due to other Gram-negative bacteria
+    - code: J15.7
+      docs: Pneumonia due to Mycoplasma pneumoniae
+    - code: J15.8
+      docs: Other bacterial pneumonia
+    - code: J15.9
+      docs: Bacterial pneumonia, unspecified
+  - category: J16
+    docs: Pneumonia due to other infectious organisms, not elsewhere classified
+    child:
+    - code: J16.0
+      docs: Chlamydial pneumonia
+    - code: J16.8
+      docs: Pneumonia due to other specified infectious organisms
+  - category: J17
+    docs: Pneumonia in diseases classified elsewhere
+    child:
+    - code: J17.0
+      docs: Pneumonia in bacterial diseases classified elsewhere
+    - code: J17.1
+      docs: Pneumonia in viral diseases classified elsewhere
+    - code: J17.2
+      docs: Pneumonia in mycoses
+    - code: J17.3
+      docs: Pneumonia in parasitic diseases
+    - code: J17.8
+      docs: Pneumonia in other diseases classified elsewhere
+  - category: J18
+    docs: Pneumonia, organism unspecified
+    child:
+    - code: J18.0
+      docs: Bronchopneumonia, unspecified
+    - code: J18.1
+      docs: Lobar pneumonia, unspecified
+    - code: J18.2
+      docs: Hypostatic pneumonia, unspecified
+    - code: J18.8
+      docs: Other pneumonia, organism unspecified
+    - code: J18.9
+      docs: Pneumonia, unspecified
+- category: J20-J22
+  docs: Other acute lower respiratory infections
+  child:
+  - category: J20
+    docs: Acute bronchitis
+    child:
+    - code: J20.0
+      docs: Acute bronchitis due to Mycoplasma pneumoniae
+    - code: J20.1
+      docs: Acute bronchitis due to Haemophilus influenzae
+    - code: J20.2
+      docs: Acute bronchitis due to streptococcus
+    - code: J20.3
+      docs: Acute bronchitis due to coxsackievirus
+    - code: J20.4
+      docs: Acute bronchitis due to parainfluenza virus
+    - code: J20.5
+      docs: Acute bronchitis due to respiratory syncytial virus
+    - code: J20.6
+      docs: Acute bronchitis due to rhinovirus
+    - code: J20.7
+      docs: Acute bronchitis due to echovirus
+    - code: J20.8
+      docs: Acute bronchitis due to other specified organisms
+    - code: J20.9
+      docs: Acute bronchitis, unspecified
+  - category: J21
+    docs: Acute bronchiolitis
+    child:
+    - code: J21.0
+      docs: Acute bronchiolitis due to respiratory syncytial virus
+    - code: J21.1
+      docs: Acute bronchiolitis due to human metapneumovirus
+    - code: J21.8
+      docs: Acute bronchiolitis due to other specified organisms
+    - code: J21.9
+      docs: Acute bronchiolitis, unspecified
+  - code: J22
+    docs: Unspecified acute lower respiratory infection
+- category: J30-J39
+  docs: Other diseases of upper respiratory tract
+  child:
+  - category: J30
+    docs: Vasomotor and allergic rhinitis
+    child:
+    - code: J30.0
+      docs: Vasomotor rhinitis
+    - code: J30.1
+      docs: Allergic rhinitis due to pollen
+    - code: J30.2
+      docs: Other seasonal allergic rhinitis
+    - code: J30.3
+      docs: Other allergic rhinitis
+    - code: J30.4
+      docs: Allergic rhinitis, unspecified
+  - category: J31
+    docs: Chronic rhinitis, nasopharyngitis and pharyngitis
+    child:
+    - code: J31.0
+      docs: Chronic rhinitis
+    - code: J31.1
+      docs: Chronic nasopharyngitis
+    - code: J31.2
+      docs: Chronic pharyngitis
+  - category: J32
+    docs: Chronic sinusitis
+    child:
+    - code: J32.0
+      docs: Chronic maxillary sinusitis
+    - code: J32.1
+      docs: Chronic frontal sinusitis
+    - code: J32.2
+      docs: Chronic ethmoidal sinusitis
+    - code: J32.3
+      docs: Chronic sphenoidal sinusitis
+    - code: J32.4
+      docs: Chronic pansinusitis
+    - code: J32.8
+      docs: Other chronic sinusitis
+    - code: J32.9
+      docs: Chronic sinusitis, unspecified
+  - category: J33
+    docs: Nasal polyp
+    child:
+    - code: J33.0
+      docs: Polyp of nasal cavity
+    - code: J33.1
+      docs: Polypoid sinus degeneration
+    - code: J33.8
+      docs: Other polyp of sinus
+    - code: J33.9
+      docs: Nasal polyp, unspecified
+  - category: J34
+    docs: Other disorders of nose and nasal sinuses
+    child:
+    - code: J34.0
+      docs: Abscess, furuncle and carbuncle of nose
+    - code: J34.1
+      docs: Cyst and mucocele of nose and nasal sinus
+    - code: J34.2
+      docs: Deviated nasal septum
+    - code: J34.3
+      docs: Hypertrophy of nasal turbinates
+    - code: J34.8
+      docs: Other specified disorders of nose and nasal sinuses
+  - category: J35
+    docs: Chronic diseases of tonsils and adenoids
+    child:
+    - code: J35.0
+      docs: Chronic tonsillitis
+    - code: J35.1
+      docs: Hypertrophy of tonsils
+    - code: J35.2
+      docs: Hypertrophy of adenoids
+    - code: J35.3
+      docs: Hypertrophy of tonsils with hypertrophy of adenoids
+    - code: J35.8
+      docs: Other chronic diseases of tonsils and adenoids
+    - code: J35.9
+      docs: Chronic disease of tonsils and adenoids, unspecified
+  - code: J36
+    docs: Peritonsillar abscess
+  - category: J37
+    docs: Chronic laryngitis and laryngotracheitis
+    child:
+    - code: J37.0
+      docs: Chronic laryngitis
+    - code: J37.1
+      docs: Chronic laryngotracheitis
+  - category: J38
+    docs: Diseases of vocal cords and larynx, not elsewhere classified
+    child:
+    - code: J38.0
+      docs: Paralysis of vocal cords and larynx
+    - code: J38.1
+      docs: Polyp of vocal cord and larynx
+    - code: J38.2
+      docs: Nodules of vocal cords
+    - code: J38.3
+      docs: Other diseases of vocal cords
+    - code: J38.4
+      docs: Oedema of larynx
+    - code: J38.5
+      docs: Laryngeal spasm
+    - code: J38.6
+      docs: Stenosis of larynx
+    - code: J38.7
+      docs: Other diseases of larynx
+  - category: J39
+    docs: Other diseases of upper respiratory tract
+    child:
+    - code: J39.0
+      docs: Retropharyngeal and parapharyngeal abscess
+    - code: J39.1
+      docs: Other abscess of pharynx
+    - code: J39.2
+      docs: Other diseases of pharynx
+    - code: J39.3
+      docs: Upper respiratory tract hypersensitivity reaction, site unspecified
+    - code: J39.8
+      docs: Other specified diseases of upper respiratory tract
+    - code: J39.9
+      docs: Disease of upper respiratory tract, unspecified
+- category: J40-J47
+  docs: Chronic lower respiratory diseases
+  child:
+  - code: J40
+    docs: Bronchitis, not specified as acute or chronic
+  - category: J41
+    docs: Simple and mucopurulent chronic bronchitis
+    child:
+    - code: J41.0
+      docs: Simple chronic bronchitis
+    - code: J41.1
+      docs: Mucopurulent chronic bronchitis
+    - code: J41.8
+      docs: Mixed simple and mucopurulent chronic bronchitis
+  - code: J42
+    docs: Unspecified chronic bronchitis
+  - category: J43
+    docs: Emphysema
+    child:
+    - code: J43.0
+      docs: MacLeod syndrome
+    - code: J43.1
+      docs: Panlobular emphysema
+    - code: J43.2
+      docs: Centrilobular emphysema
+    - code: J43.8
+      docs: Other emphysema
+    - code: J43.9
+      docs: Emphysema, unspecified
+  - category: J44
+    docs: Other chronic obstructive pulmonary disease
+    child:
+    - code: J44.0
+      docs: Chronic obstructive pulmonary disease with acute lower respiratory infection
+    - code: J44.1
+      docs: Chronic obstructive pulmonary disease with acute exacerbation, unspecified
+    - code: J44.8
+      docs: Other specified chronic obstructive pulmonary disease
+    - code: J44.9
+      docs: Chronic obstructive pulmonary disease, unspecified
+  - category: J45
+    docs: Asthma
+    child:
+    - code: J45.0
+      docs: Predominantly allergic asthma
+    - code: J45.1
+      docs: Nonallergic asthma
+    - code: J45.8
+      docs: Mixed asthma
+    - code: J45.9
+      docs: Asthma, unspecified
+  - code: J46
+    docs: Status asthmaticus
+  - code: J47
+    docs: Bronchiectasis
+- category: J60-J70
+  docs: Lung diseases due to external agents
+  child:
+  - code: J60
+    docs: Coalworker pneumoconiosis
+  - code: J61
+    docs: Pneumoconiosis due to asbestos and other mineral fibres
+  - category: J62
+    docs: Pneumoconiosis due to dust containing silica
+    child:
+    - code: J62.0
+      docs: Pneumoconiosis due to talc dust
+    - code: J62.8
+      docs: Pneumoconiosis due to other dust containing silica
+  - category: J63
+    docs: Pneumoconiosis due to other inorganic dusts
+    child:
+    - code: J63.0
+      docs: Aluminosis (of lung)
+    - code: J63.1
+      docs: Bauxite fibrosis (of lung)
+    - code: J63.2
+      docs: Berylliosis
+    - code: J63.3
+      docs: Graphite fibrosis (of lung)
+    - code: J63.4
+      docs: Siderosis
+    - code: J63.5
+      docs: Stannosis
+    - code: J63.8
+      docs: Pneumoconiosis due to other specified inorganic dusts
+  - code: J64
+    docs: Unspecified pneumoconiosis
+  - code: J65
+    docs: Pneumoconiosis associated with tuberculosis
+  - category: J66
+    docs: Airway disease due to specific organic dust
+    child:
+    - code: J66.0
+      docs: Byssinosis
+    - code: J66.1
+      docs: Flax-dresser disease
+    - code: J66.2
+      docs: Cannabinosis
+    - code: J66.8
+      docs: Airway disease due to other specific organic dusts
+  - category: J67
+    docs: Hypersensitivity pneumonitis due to organic dust
+    child:
+    - code: J67.0
+      docs: Farmer lung
+    - code: J67.1
+      docs: Bagassosis
+    - code: J67.2
+      docs: Bird fancier lung
+    - code: J67.3
+      docs: Suberosis
+    - code: J67.4
+      docs: Maltworker lung
+    - code: J67.5
+      docs: Mushroom-worker lung
+    - code: J67.6
+      docs: Maple-bark-stripper lung
+    - code: J67.7
+      docs: Air-conditioner and humidifier lung
+    - code: J67.8
+      docs: Hypersensitivity pneumonitis due to other organic dusts
+    - code: J67.9
+      docs: Hypersensitivity pneumonitis due to unspecified organic dust
+  - category: J68
+    docs: Respiratory conditions due to inhalation of chemicals, gases, fumes and
+      vapours
+    child:
+    - code: J68.0
+      docs: Bronchitis and pneumonitis due to chemicals, gases, fumes and vapours
+    - code: J68.1
+      docs: Pulmonary oedema due to chemicals, gases, fumes and vapours
+    - code: J68.2
+      docs: Upper respiratory inflammation due to chemicals, gases, fumes and vapours,
+        not elsewhere classified
+    - code: J68.3
+      docs: Other acute and subacute respiratory conditions due to chemicals, gases,
+        fumes and vapours
+    - code: J68.4
+      docs: Chronic respiratory conditions due to chemicals, gases, fumes and vapours
+    - code: J68.8
+      docs: Other respiratory conditions due to chemicals, gases, fumes and vapours
+    - code: J68.9
+      docs: Unspecified respiratory condition due to chemicals, gases, fumes and vapours
+  - category: J69
+    docs: Pneumonitis due to solids and liquids
+    child:
+    - code: J69.0
+      docs: Pneumonitis due to food and vomit
+    - code: J69.1
+      docs: Pneumonitis due to oils and essences
+    - code: J69.8
+      docs: Pneumonitis due to other solids and liquids
+  - category: J70
+    docs: Respiratory conditions due to other external agents
+    child:
+    - code: J70.0
+      docs: Acute pulmonary manifestations due to radiation
+    - code: J70.1
+      docs: Chronic and other pulmonary manifestations due to radiation
+    - code: J70.2
+      docs: Acute drug-induced interstitial lung disorders
+    - code: J70.3
+      docs: Chronic drug-induced interstitial lung disorders
+    - code: J70.4
+      docs: Drug-induced interstitial lung disorders, unspecified
+    - code: J70.8
+      docs: Respiratory conditions due to other specified external agents
+    - code: J70.9
+      docs: Respiratory conditions due to unspecified external agent
+- category: J80-J84
+  docs: Other respiratory diseases principally affecting the interstitium
+  child:
+  - code: J80
+    docs: Adult respiratory distress syndrome
+  - code: J81
+    docs: Pulmonary oedema
+  - code: J82
+    docs: Pulmonary eosinophilia, not elsewhere classified
+  - category: J84
+    docs: Other interstitial pulmonary diseases
+    child:
+    - code: J84.0
+      docs: Alveolar and parietoalveolar conditions
+    - code: J84.1
+      docs: Other interstitial pulmonary diseases with fibrosis
+    - code: J84.8
+      docs: Other specified interstitial pulmonary diseases
+    - code: J84.9
+      docs: Interstitial pulmonary disease, unspecified
+- category: J85-J86
+  docs: Suppurative and necrotic conditions of lower respiratory tract
+  child:
+  - category: J85
+    docs: Abscess of lung and mediastinum
+    child:
+    - code: J85.0
+      docs: Gangrene and necrosis of lung
+    - code: J85.1
+      docs: Abscess of lung with pneumonia
+    - code: J85.2
+      docs: Abscess of lung without pneumonia
+    - code: J85.3
+      docs: Abscess of mediastinum
+  - category: J86
+    docs: Pyothorax
+    child:
+    - code: J86.0
+      docs: Pyothorax with fistula
+    - code: J86.9
+      docs: Pyothorax without fistula
+- category: J90-J94
+  docs: Other diseases of pleura
+  child:
+  - code: J90
+    docs: Pleural effusion, not elsewhere classified
+  - code: J91
+    docs: Pleural effusion in conditions classified elsewhere
+  - category: J92
+    docs: Pleural plaque
+    child:
+    - code: J92.0
+      docs: Pleural plaque with presence of asbestos
+    - code: J92.9
+      docs: Pleural plaque without asbestos
+  - category: J93
+    docs: Pneumothorax
+    child:
+    - code: J93.0
+      docs: Spontaneous tension pneumothorax
+    - code: J93.1
+      docs: Other spontaneous pneumothorax
+    - code: J93.8
+      docs: Other pneumothorax
+    - code: J93.9
+      docs: Pneumothorax, unspecified
+  - category: J94
+    docs: Other pleural conditions
+    child:
+    - code: J94.0
+      docs: Chylous effusion
+    - code: J94.1
+      docs: Fibrothorax
+    - code: J94.2
+      docs: Haemothorax
+    - code: J94.8
+      docs: Other specified pleural conditions
+    - code: J94.9
+      docs: Pleural condition, unspecified
+- category: J95-J99
+  docs: Other diseases of the respiratory system
+  child:
+  - category: J95
+    docs: Postprocedural respiratory disorders, not elsewhere classified
+    child:
+    - code: J95.0
+      docs: Tracheostomy malfunction
+    - code: J95.1
+      docs: Acute pulmonary insufficiency following thoracic surgery
+    - code: J95.2
+      docs: Acute pulmonary insufficiency following nonthoracic surgery
+    - code: J95.3
+      docs: Chronic pulmonary insufficiency following surgery
+    - code: J95.4
+      docs: Mendelson syndrome
+    - code: J95.5
+      docs: Postprocedural subglottic stenosis
+    - code: J95.8
+      docs: Other postprocedural respiratory disorders
+    - code: J95.9
+      docs: Postprocedural respiratory disorder, unspecified
+  - category: J96
+    docs: Respiratory failure, not elsewhere classified
+    child:
+    - code: J96.0
+      docs: Acute respiratory failure
+    - code: J96.1
+      docs: Chronic respiratory failure
+    - code: J96.9
+      docs: Respiratory failure, unspecified
+  - category: J98
+    docs: Other respiratory disorders
+    child:
+    - code: J98.0
+      docs: Diseases of bronchus, not elsewhere classified
+    - code: J98.1
+      docs: Pulmonary collapse
+    - code: J98.2
+      docs: Interstitial emphysema
+    - code: J98.3
+      docs: Compensatory emphysema
+    - code: J98.4
+      docs: Other disorders of lung
+    - code: J98.5
+      docs: Diseases of mediastinum, not elsewhere classified
+    - code: J98.6
+      docs: Disorders of diaphragm
+    - code: J98.8
+      docs: Other specified respiratory disorders
+    - code: J98.9
+      docs: Respiratory disorder, unspecified
+  - category: J99
+    docs: Respiratory disorders in diseases classified elsewhere
+    child:
+    - code: J99.0
+      docs: Rheumatoid lung disease
+    - code: J99.1
+      docs: Respiratory disorders in other diffuse connective tissue disorders
+    - code: J99.8
+      docs: Respiratory disorders in other diseases classified elsewhere

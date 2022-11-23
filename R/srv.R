@@ -18,7 +18,7 @@
 ##' @importFrom methods new show
 ##' @importFrom magrittr %>%
 ##' @importFrom utils capture.output tail
-##' @importClassesFrom DBI DBIConnection 
+##' @importClassesFrom DBI DBIConnection
 ##' @export
 NULL
 
@@ -438,7 +438,7 @@ get_tbl <- function(srv, source)
 ##' This function is the way to associate a function with every table
 ##' object in the db list, and replaces the need to overload `$`, while
 ##' also avoiding the problem of storing the table name and database
-##' name in the functions environment. This is the purpose of a function
+##' name in the functions environment. This is the purpose of a function
 ##' factory; to capture variables in the enclosing environment and allow
 ##' them to persist when the function is called. Read this page and the
 ##' associated environment sections for a full explanation:

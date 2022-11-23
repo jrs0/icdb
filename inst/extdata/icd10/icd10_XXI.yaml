@@ -1,0 +1,1572 @@
+category: XXI
+docs: Factors influencing health status and contact with health services
+child:
+- category: Z00-Z13
+  docs: Persons encountering health services for examination and investigation
+  child:
+  - category: Z00
+    docs: General examination and investigation of persons without complaint and reported
+      diagnosis
+    child:
+    - code: Z00.0
+      docs: General medical examination
+    - code: Z00.1
+      docs: Routine child health examination
+    - code: Z00.2
+      docs: Examination for period of rapid growth in childhood
+    - code: Z00.3
+      docs: Examination for adolescent development state
+    - code: Z00.4
+      docs: General psychiatric examination, not elsewhere classified
+    - code: Z00.5
+      docs: Examination of potential donor of organ and tissue
+    - code: Z00.6
+      docs: Examination for normal comparison and control in clinical research programme
+    - code: Z00.8
+      docs: Other general examinations
+  - category: Z01
+    docs: Other special examinations and investigations of persons without complaint
+      or reported diagnosis
+    child:
+    - code: Z01.0
+      docs: Examination of eyes and vision
+    - code: Z01.1
+      docs: Examination of ears and hearing
+    - code: Z01.2
+      docs: Dental examination
+    - code: Z01.3
+      docs: Examination of blood pressure
+    - code: Z01.4
+      docs: Gynaecological examination (general)(routine)
+    - code: Z01.5
+      docs: Diagnostic skin and sensitization tests
+    - code: Z01.6
+      docs: Radiological examination, not elsewhere classified
+    - code: Z01.7
+      docs: Laboratory examination
+    - code: Z01.8
+      docs: Other specified special examinations
+    - code: Z01.9
+      docs: Special examination, unspecified
+  - category: Z02
+    docs: Examination and encounter for administrative purposes
+    child:
+    - code: Z02.0
+      docs: Examination for admission to educational institution
+    - code: Z02.1
+      docs: Pre-employment examination
+    - code: Z02.2
+      docs: Examination for admission to residential institutions
+    - code: Z02.3
+      docs: Examination for recruitment to armed forces
+    - code: Z02.4
+      docs: Examination for driving licence
+    - code: Z02.5
+      docs: Examination for participation in sport
+    - code: Z02.6
+      docs: Examination for insurance purposes
+    - code: Z02.7
+      docs: Issue of medical certificate
+    - code: Z02.8
+      docs: Other examinations for administrative purposes
+    - code: Z02.9
+      docs: Examination for administrative purposes, unspecified
+  - category: Z03
+    docs: Medical observation and evaluation for suspected diseases and conditions
+    child:
+    - code: Z03.0
+      docs: Observation for suspected tuberculosis
+    - code: Z03.1
+      docs: Observation for suspected malignant neoplasm
+    - code: Z03.2
+      docs: Observation for suspected mental and behavioural disorders
+    - code: Z03.3
+      docs: Observation for suspected nervous system disorder
+    - code: Z03.4
+      docs: Observation for suspected myocardial infarction
+    - code: Z03.5
+      docs: Observation for other suspected cardiovascular diseases
+    - code: Z03.6
+      docs: Observation for suspected toxic effect from ingested substance
+    - code: Z03.8
+      docs: Observation for other suspected diseases and conditions
+    - code: Z03.9
+      docs: Observation for suspected disease or condition, unspecified
+  - category: Z04
+    docs: Examination and observation for other reasons
+    child:
+    - code: Z04.0
+      docs: Blood-alcohol and blood-drug test
+    - code: Z04.1
+      docs: Examination and observation following transport accident
+    - code: Z04.2
+      docs: Examination and observation following work accident
+    - code: Z04.3
+      docs: Examination and observation following other accident
+    - code: Z04.4
+      docs: Examination and observation following alleged rape and seduction
+    - code: Z04.5
+      docs: Examination and observation following other inflicted injury
+    - code: Z04.6
+      docs: General psychiatric examination, requested by authority
+    - code: Z04.8
+      docs: Examination and observation for other specified reasons
+    - code: Z04.9
+      docs: Examination and observation for unspecified reason
+  - category: Z08
+    docs: Follow-up examination after treatment for malignant neoplasms
+    child:
+    - code: Z08.0
+      docs: Follow-up examination after surgery for malignant neoplasm
+    - code: Z08.1
+      docs: Follow-up examination after radiotherapy for malignant neoplasm
+    - code: Z08.2
+      docs: Follow-up examination after chemotherapy for malignant neoplasm
+    - code: Z08.7
+      docs: Follow-up examination after combined treatment for malignant neoplasm
+    - code: Z08.8
+      docs: Follow-up examination after other treatment for malignant neoplasm
+    - code: Z08.9
+      docs: Follow-up examination after unspecified treatment for malignant neoplasm
+  - category: Z09
+    docs: Follow-up examination after treatment for conditions other than malignant
+      neoplasms
+    child:
+    - code: Z09.0
+      docs: Follow-up examination after surgery for other conditions
+    - code: Z09.1
+      docs: Follow-up examination after radiotherapy for other conditions
+    - code: Z09.2
+      docs: Follow-up examination after chemotherapy for other conditions
+    - code: Z09.3
+      docs: Follow-up examination after psychotherapy
+    - code: Z09.4
+      docs: Follow-up examination after treatment of fracture
+    - code: Z09.7
+      docs: Follow-up examination after combined treatment for other conditions
+    - code: Z09.8
+      docs: Follow-up examination after other treatment for other conditions
+    - code: Z09.9
+      docs: Follow-up examination after unspecified treatment for other conditions
+  - category: Z10
+    docs: Routine general health check-up of defined subpopulation
+    child:
+    - code: Z10.0
+      docs: Occupational health examination
+    - code: Z10.1
+      docs: Routine general health check-up of inhabitants of institutions
+    - code: Z10.2
+      docs: Routine general health check-up of armed forces
+    - code: Z10.3
+      docs: Routine general health check-up of sports teams
+    - code: Z10.8
+      docs: Routine general health check-up of other defined subpopulations
+  - category: Z11
+    docs: Special screening examination for infectious and parasitic diseases
+    child:
+    - code: Z11.0
+      docs: Special screening examination for intestinal infectious diseases
+    - code: Z11.1
+      docs: Special screening examination for respiratory tuberculosis
+    - code: Z11.2
+      docs: Special screening examination for other bacterial diseases
+    - code: Z11.3
+      docs: Special screening examination for infections with a predominantly sexual
+        mode of transmission
+    - code: Z11.4
+      docs: Special screening examination for human immunodeficiency virus [HIV]
+    - code: Z11.5
+      docs: Special screening examination for other viral diseases
+    - code: Z11.6
+      docs: Special screening examination for other protozoal diseases and helminthiases
+    - code: Z11.8
+      docs: Special screening examination for other infectious and parasitic diseases
+    - code: Z11.9
+      docs: Special screening examination for infectious and parasitic diseases, unspecified
+  - category: Z12
+    docs: Special screening examination for neoplasms
+    child:
+    - code: Z12.0
+      docs: Special screening examination for neoplasm of stomach
+    - code: Z12.1
+      docs: Special screening examination for neoplasm of intestinal tract
+    - code: Z12.2
+      docs: Special screening examination for neoplasm of respiratory organs
+    - code: Z12.3
+      docs: Special screening examination for neoplasm of breast
+    - code: Z12.4
+      docs: Special screening examination for neoplasm of cervix
+    - code: Z12.5
+      docs: Special screening examination for neoplasm of prostate
+    - code: Z12.6
+      docs: Special screening examination for neoplasm of bladder
+    - code: Z12.8
+      docs: Special screening examination for neoplasms of other sites
+    - code: Z12.9
+      docs: Special screening examination for neoplasm, unspecified
+  - category: Z13
+    docs: Special screening examination for other diseases and disorders
+    child:
+    - code: Z13.0
+      docs: Special screening examination for diseases of the blood and blood-forming
+        organs and certain disorders involving the immune mechanism
+    - code: Z13.1
+      docs: Special screening examination for diabetes mellitus
+    - code: Z13.2
+      docs: Special screening examination for nutritional disorders
+    - code: Z13.3
+      docs: Special screening examination for mental and behavioural disorders
+    - code: Z13.4
+      docs: Special screening examination for certain developmental disorders in childhood
+    - code: Z13.5
+      docs: Special screening examination for eye and ear disorders
+    - code: Z13.6
+      docs: Special screening examination for cardiovascular disorders
+    - code: Z13.7
+      docs: Special screening examination for congenital malformations, deformations
+        and chromosomal abnormalities
+    - code: Z13.8
+      docs: Special screening examination for other specified diseases and disorders
+    - code: Z13.9
+      docs: Special screening examination, unspecified
+- category: Z20-Z29
+  docs: Persons with potential health hazards related to communicable diseases
+  child:
+  - category: Z20
+    docs: Contact with and exposure to communicable diseases
+    child:
+    - code: Z20.0
+      docs: Contact with and exposure to intestinal infectious diseases
+    - code: Z20.1
+      docs: Contact with and exposure to tuberculosis
+    - code: Z20.2
+      docs: Contact with and exposure to infections with a predominantly sexual mode
+        of transmission
+    - code: Z20.3
+      docs: Contact with and exposure to rabies
+    - code: Z20.4
+      docs: Contact with and exposure to rubella
+    - code: Z20.5
+      docs: Contact with and exposure to viral hepatitis
+    - code: Z20.6
+      docs: Contact with and exposure to human immunodeficiency virus [HIV]
+    - code: Z20.7
+      docs: Contact with and exposure to pediculosis, acariasis and other infestations
+    - code: Z20.8
+      docs: Contact with and exposure to other communicable diseases
+    - code: Z20.9
+      docs: Contact with and exposure to unspecified communicable disease
+  - code: Z21
+    docs: Asymptomatic human immunodeficiency virus [HIV] infection status
+  - category: Z22
+    docs: Carrier of infectious disease
+    child:
+    - code: Z22.0
+      docs: Carrier of typhoid
+    - code: Z22.1
+      docs: Carrier of other intestinal infectious diseases
+    - code: Z22.2
+      docs: Carrier of diphtheria
+    - code: Z22.3
+      docs: Carrier of other specified bacterial diseases
+    - code: Z22.4
+      docs: Carrier of infections with a predominantly sexual mode of transmission
+    - code: Z22.6
+      docs: Carrier of human T-lymphotropic virus type- 1 [HTLV-1] infection
+    - code: Z22.8
+      docs: Carrier of other infectious diseases
+    - code: Z22.9
+      docs: Carrier of infectious disease, unspecified
+  - category: Z23
+    docs: Need for immunization against single bacterial diseases
+    child:
+    - code: Z23.0
+      docs: Need for immunization against cholera alone
+    - code: Z23.1
+      docs: Need for immunization against typhoid-paratyphoid alone [TAB]
+    - code: Z23.2
+      docs: Need for immunization against tuberculosis [BCG]
+    - code: Z23.3
+      docs: Need for immunization against plague
+    - code: Z23.4
+      docs: Need for immunization against tularaemia
+    - code: Z23.5
+      docs: Need for immunization against tetanus alone
+    - code: Z23.6
+      docs: Need for immunization against diphtheria alone
+    - code: Z23.7
+      docs: Need for immunization against pertussis alone
+    - code: Z23.8
+      docs: Need for immunization against other single bacterial diseases
+  - category: Z24
+    docs: Need for immunization against certain single viral diseases
+    child:
+    - code: Z24.0
+      docs: Need for immunization against poliomyelitis
+    - code: Z24.1
+      docs: Need for immunization against arthropod-borne viral encephalitis
+    - code: Z24.2
+      docs: Need for immunization against rabies
+    - code: Z24.3
+      docs: Need for immunization against yellow fever
+    - code: Z24.4
+      docs: Need for immunization against measles alone
+    - code: Z24.5
+      docs: Need for immunization against rubella alone
+    - code: Z24.6
+      docs: Need for immunization against viral hepatitis
+  - category: Z25
+    docs: Need for immunization against other single viral diseases
+    child:
+    - code: Z25.0
+      docs: Need for immunization against mumps alone
+    - code: Z25.1
+      docs: Need for immunization against influenza
+    - code: Z25.8
+      docs: Need for immunization against other specified single viral diseases
+  - category: Z26
+    docs: Need for immunization against other single infectious diseases
+    child:
+    - code: Z26.0
+      docs: Need for immunization against leishmaniasis
+    - code: Z26.8
+      docs: Need for immunization against other specified single infectious diseases
+    - code: Z26.9
+      docs: Need for immunization against unspecified infectious disease
+  - category: Z27
+    docs: Need for immunization against combinations of infectious diseases
+    child:
+    - code: Z27.0
+      docs: Need for immunization against cholera with typhoid-paratyphoid [cholera
+        + TAB]
+    - code: Z27.1
+      docs: Need for immunization against diphtheria-tetanus-pertussis, combined [DTP]
+    - code: Z27.2
+      docs: Need for immunization against diphtheria-tetanus-pertussis with typhoid-paratyphoid
+        [DTP + TAB]
+    - code: Z27.3
+      docs: Need for immunization against diphtheria-tetanus-pertussis with poliomyelitis
+        [DTP + polio]
+    - code: Z27.4
+      docs: Need for immunization against measles-mumps-rubella [MMR]
+    - code: Z27.8
+      docs: Need for immunization against other combinations of infectious diseases
+    - code: Z27.9
+      docs: Need for immunization against unspecified combinations of infectious diseases
+  - category: Z28
+    docs: Immunization not carried out
+    child:
+    - code: Z28.0
+      docs: Immunization not carried out because of contraindication
+    - code: Z28.1
+      docs: Immunization not carried out because of patient's decision for reasons
+        of belief or group pressure
+    - code: Z28.2
+      docs: Immunization not carried out because of patient's decision for other and
+        unspecified reasons
+    - code: Z28.8
+      docs: Immunization not carried out for other reasons
+    - code: Z28.9
+      docs: Immunization not carried out for unspecified reason
+  - category: Z29
+    docs: Need for other prophylactic measures
+    child:
+    - code: Z29.0
+      docs: Isolation
+    - code: Z29.1
+      docs: Prophylactic immunotherapy
+    - code: Z29.2
+      docs: Other prophylactic chemotherapy
+    - code: Z29.8
+      docs: Other specified prophylactic measures
+    - code: Z29.9
+      docs: Prophylactic measure, unspecified
+- category: Z30-Z39
+  docs: Persons encountering health services in circumstances related to reproduction
+  child:
+  - category: Z30
+    docs: Contraceptive management
+    child:
+    - code: Z30.0
+      docs: General counselling and advice on contraception
+    - code: Z30.1
+      docs: Insertion of (intrauterine) contraceptive device
+    - code: Z30.2
+      docs: Sterilization
+    - code: Z30.3
+      docs: Menstrual extraction
+    - code: Z30.4
+      docs: Surveillance of contraceptive drugs
+    - code: Z30.5
+      docs: Surveillance of (intrauterine) contraceptive device
+    - code: Z30.8
+      docs: Other contraceptive management
+    - code: Z30.9
+      docs: Contraceptive management, unspecified
+  - category: Z31
+    docs: Procreative management
+    child:
+    - code: Z31.0
+      docs: Tuboplasty or vasoplasty after previous sterilization
+    - code: Z31.1
+      docs: Artificial insemination
+    - code: Z31.2
+      docs: In vitro fertilization
+    - code: Z31.3
+      docs: Other assisted fertilization methods
+    - code: Z31.4
+      docs: Procreative investigation and testing
+    - code: Z31.5
+      docs: Genetic counselling
+    - code: Z31.6
+      docs: General counselling and advice on procreation
+    - code: Z31.8
+      docs: Other procreative management
+    - code: Z31.9
+      docs: Procreative management, unspecified
+  - category: Z32
+    docs: Pregnancy examination and test
+    child:
+    - code: Z32.0
+      docs: Pregnancy, not (yet) confirmed
+    - code: Z32.1
+      docs: Pregnancy confirmed
+  - code: Z33
+    docs: Pregnant state, incidental
+  - category: Z34
+    docs: Supervision of normal pregnancy
+    child:
+    - code: Z34.0
+      docs: Supervision of normal first pregnancy
+    - code: Z34.8
+      docs: Supervision of other normal pregnancy
+    - code: Z34.9
+      docs: Supervision of normal pregnancy, unspecified
+  - category: Z35
+    docs: Supervision of high-risk pregnancy
+    child:
+    - code: Z35.0
+      docs: Supervision of pregnancy with history of infertility
+    - code: Z35.1
+      docs: Supervision of pregnancy with history of abortive outcome
+    - code: Z35.2
+      docs: Supervision of pregnancy with other poor reproductive or obstetric history
+    - code: Z35.3
+      docs: Supervision of pregnancy with history of insufficient antenatal care
+    - code: Z35.4
+      docs: Supervision of pregnancy with grand multiparity
+    - code: Z35.5
+      docs: Supervision of elderly primigravida
+    - code: Z35.6
+      docs: Supervision of very young primigravida
+    - code: Z35.7
+      docs: Supervision of high-risk pregnancy due to social problems
+    - code: Z35.8
+      docs: Supervision of other high-risk pregnancies
+    - code: Z35.9
+      docs: Supervision of high-risk pregnancy, unspecified
+  - category: Z36
+    docs: Antenatal screening
+    child:
+    - code: Z36.0
+      docs: Antenatal screening for chromosomal anomalies
+    - code: Z36.1
+      docs: Antenatal screening for raised alphafetoprotein level
+    - code: Z36.2
+      docs: Other antenatal screening based on amniocentesis
+    - code: Z36.3
+      docs: Antenatal screening for malformations using ultrasound and other physical
+        methods
+    - code: Z36.4
+      docs: Antenatal screening for fetal growth retardation using ultrasound and
+        other physical methods
+    - code: Z36.5
+      docs: Antenatal screening for isoimmunization
+    - code: Z36.8
+      docs: Other antenatal screening
+    - code: Z36.9
+      docs: Antenatal screening, unspecified
+  - category: Z37
+    docs: Outcome of delivery
+    child:
+    - code: Z37.0
+      docs: Single live birth
+    - code: Z37.1
+      docs: Single stillbirth
+    - code: Z37.2
+      docs: Twins, both liveborn
+    - code: Z37.3
+      docs: Twins, one liveborn and one stillborn
+    - code: Z37.4
+      docs: Twins, both stillborn
+    - code: Z37.5
+      docs: Other multiple births, all liveborn
+    - code: Z37.6
+      docs: Other multiple births, some liveborn
+    - code: Z37.7
+      docs: Other multiple births, all stillborn
+    - code: Z37.9
+      docs: Outcome of delivery, unspecified
+  - category: Z38
+    docs: Liveborn infants according to place of birth
+    child:
+    - code: Z38.0
+      docs: Singleton, born in hospital
+    - code: Z38.1
+      docs: Singleton, born outside hospital
+    - code: Z38.2
+      docs: Singleton, unspecified as to place of birth
+    - code: Z38.3
+      docs: Twin, born in hospital
+    - code: Z38.4
+      docs: Twin, born outside hospital
+    - code: Z38.5
+      docs: Twin, unspecified as to place of birth
+    - code: Z38.6
+      docs: Other multiple, born in hospital
+    - code: Z38.7
+      docs: Other multiple, born outside hospital
+    - code: Z38.8
+      docs: Other multiple, unspecified as to place of birth
+  - category: Z39
+    docs: Postpartum care and examination
+    child:
+    - code: Z39.0
+      docs: Care and examination immediately after delivery
+    - code: Z39.1
+      docs: Care and examination of lactating mother
+    - code: Z39.2
+      docs: Routine postpartum follow-up
+- category: Z40-Z54
+  docs: Persons encountering health services for specific procedures and health care
+  child:
+  - category: Z40
+    docs: Prophylactic surgery
+    child:
+    - code: Z40.0
+      docs: Prophylactic surgery for risk-factors related to malignant neoplasms
+    - code: Z40.8
+      docs: Other prophylactic surgery
+    - code: Z40.9
+      docs: Prophylactic surgery, unspecified
+  - category: Z41
+    docs: Procedures for purposes other than remedying health state
+    child:
+    - code: Z41.0
+      docs: Hair transplant
+    - code: Z41.1
+      docs: Other plastic surgery for unacceptable cosmetic appearance
+    - code: Z41.2
+      docs: Routine and ritual circumcision
+    - code: Z41.3
+      docs: Ear piercing
+    - code: Z41.8
+      docs: Other procedures for purposes other than remedying health state
+    - code: Z41.9
+      docs: Procedure for purposes other than remedying health state, unspecified
+  - category: Z42
+    docs: Follow-up care involving plastic surgery
+    child:
+    - code: Z42.0
+      docs: Follow-up care involving plastic surgery of head and neck
+    - code: Z42.1
+      docs: Follow-up care involving plastic surgery of breast
+    - code: Z42.2
+      docs: Follow-up care involving plastic surgery of other parts of trunk
+    - code: Z42.3
+      docs: Follow-up care involving plastic surgery of upper extremity
+    - code: Z42.4
+      docs: Follow-up care involving plastic surgery of lower extremity
+    - code: Z42.8
+      docs: Follow-up care involving plastic surgery of other body part
+    - code: Z42.9
+      docs: Follow-up care involving plastic surgery, unspecified
+  - category: Z43
+    docs: Attention to artificial openings
+    child:
+    - code: Z43.0
+      docs: Attention to tracheostomy
+    - code: Z43.1
+      docs: Attention to gastrostomy
+    - code: Z43.2
+      docs: Attention to ileostomy
+    - code: Z43.3
+      docs: Attention to colostomy
+    - code: Z43.4
+      docs: Attention to other artificial openings of digestive tract
+    - code: Z43.5
+      docs: Attention to cystostomy
+    - code: Z43.6
+      docs: Attention to other artificial openings of urinary tract
+    - code: Z43.7
+      docs: Attention to artificial vagina
+    - code: Z43.8
+      docs: Attention to other artificial openings
+    - code: Z43.9
+      docs: Attention to unspecified artificial opening
+  - category: Z44
+    docs: Fitting and adjustment of external prosthetic device
+    child:
+    - code: Z44.0
+      docs: Fitting and adjustment of artificial arm (complete)(partial)
+    - code: Z44.1
+      docs: Fitting and adjustment of artificial leg (complete)(partial)
+    - code: Z44.2
+      docs: Fitting and adjustment of artificial eye
+    - code: Z44.3
+      docs: Fitting and adjustment of external breast prosthesis
+    - code: Z44.8
+      docs: Fitting and adjustment of other external prosthetic devices
+    - code: Z44.9
+      docs: Fitting and adjustment of unspecified external prosthetic device
+  - category: Z45
+    docs: Adjustment and management of implanted device
+    child:
+    - code: Z45.0
+      docs: Adjustment and management of cardiac devices
+    - code: Z45.1
+      docs: Adjustment and management of infusion pump
+    - code: Z45.2
+      docs: Adjustment and management of vascular access device
+    - code: Z45.3
+      docs: Adjustment and management of implanted hearing device
+    - code: Z45.8
+      docs: Adjustment and management of other implanted devices
+    - code: Z45.9
+      docs: Adjustment and management of unspecified implanted device
+  - category: Z46
+    docs: Fitting and adjustment of other devices
+    child:
+    - code: Z46.0
+      docs: Fitting and adjustment of spectacles and contact lenses
+    - code: Z46.1
+      docs: Fitting and adjustment of hearing aid
+    - code: Z46.2
+      docs: Fitting and adjustment of other devices related to nervous system and
+        special senses
+    - code: Z46.3
+      docs: Fitting and adjustment of dental prosthetic device
+    - code: Z46.4
+      docs: Fitting and adjustment of orthodontic device
+    - code: Z46.5
+      docs: Fitting and adjustment of ileostomy and other intestinal appliances
+    - code: Z46.6
+      docs: Fitting and adjustment of urinary device
+    - code: Z46.7
+      docs: Fitting and adjustment of orthopaedic device
+    - code: Z46.8
+      docs: Fitting and adjustment of other specified devices
+    - code: Z46.9
+      docs: Fitting and adjustment of unspecified device
+  - category: Z47
+    docs: Other orthopaedic follow-up care
+    child:
+    - code: Z47.0
+      docs: Follow-up care involving removal of fracture plate and other internal
+        fixation device
+    - code: Z47.8
+      docs: Other specified orthopaedic follow-up care
+    - code: Z47.9
+      docs: Orthopaedic follow-up care, unspecified
+  - category: Z48
+    docs: Other surgical follow-up care
+    child:
+    - code: Z48.0
+      docs: Attention to surgical dressings and sutures
+    - code: Z48.8
+      docs: Other specified surgical follow-up care
+    - code: Z48.9
+      docs: Surgical follow-up care, unspecified
+  - category: Z49
+    docs: Care involving dialysis
+    child:
+    - code: Z49.0
+      docs: Preparatory care for dialysis
+    - code: Z49.1
+      docs: Extracorporeal dialysis
+    - code: Z49.2
+      docs: Other dialysis
+  - category: Z50
+    docs: Care involving use of rehabilitation procedures
+    child:
+    - code: Z50.0
+      docs: Cardiac rehabilitation
+    - code: Z50.1
+      docs: Other physical therapy
+    - code: Z50.2
+      docs: Alcohol rehabilitation
+    - code: Z50.3
+      docs: Drug rehabilitation
+    - code: Z50.4
+      docs: Psychotherapy, not elsewhere classified
+    - code: Z50.5
+      docs: Speech therapy
+    - code: Z50.6
+      docs: Orthoptic training
+    - code: Z50.7
+      docs: Occupational therapy and vocational rehabilitation, not elsewhere classified
+    - code: Z50.8
+      docs: Care involving use of other rehabilitation procedures
+    - code: Z50.9
+      docs: Care involving use of rehabilitation procedure, unspecified
+  - category: Z51
+    docs: Other medical care
+    child:
+    - code: Z51.0
+      docs: Radiotherapy session
+    - code: Z51.1
+      docs: Chemotherapy session for neoplasm
+    - code: Z51.2
+      docs: Other chemotherapy
+    - code: Z51.3
+      docs: Blood transfusion (without reported diagnosis)
+    - code: Z51.4
+      docs: Preparatory care for subsequent treatment, not elsewhere classified
+    - code: Z51.5
+      docs: Palliative care
+    - code: Z51.6
+      docs: Desensitization to allergens
+    - code: Z51.8
+      docs: Other specified medical care
+    - code: Z51.9
+      docs: Medical care, unspecified
+  - category: Z52
+    docs: Donors of organs and tissues
+    child:
+    - code: Z52.0
+      docs: Blood donor
+    - code: Z52.1
+      docs: Skin donor
+    - code: Z52.2
+      docs: Bone donor
+    - code: Z52.3
+      docs: Bone marrow donor
+    - code: Z52.4
+      docs: Kidney donor
+    - code: Z52.5
+      docs: Cornea donor
+    - code: Z52.6
+      docs: Liver donor
+    - code: Z52.7
+      docs: Heart donor
+    - code: Z52.8
+      docs: Donor of other organs and tissues
+    - code: Z52.9
+      docs: Donor of unspecified organ or tissue
+  - category: Z53
+    docs: Persons encountering health services for specific procedures, not carried
+      out
+    child:
+    - code: Z53.0
+      docs: Procedure not carried out because of contraindication
+    - code: Z53.1
+      docs: Procedure not carried out because of patient's decision for reasons of
+        belief and group pressure
+    - code: Z53.2
+      docs: Procedure not carried out because of patient's decision for other and
+        unspecified reasons
+    - code: Z53.8
+      docs: Procedure not carried out for other reasons
+    - code: Z53.9
+      docs: Procedure not carried out, unspecified reason
+  - category: Z54
+    docs: Convalescence
+    child:
+    - code: Z54.0
+      docs: Convalescence following surgery
+    - code: Z54.1
+      docs: Convalescence following radiotherapy
+    - code: Z54.2
+      docs: Convalescence following chemotherapy
+    - code: Z54.3
+      docs: Convalescence following psychotherapy
+    - code: Z54.4
+      docs: Convalescence following treatment of fracture
+    - code: Z54.7
+      docs: Convalescence following combined treatment
+    - code: Z54.8
+      docs: Convalescence following other treatment
+    - code: Z54.9
+      docs: Convalescence following unspecified treatment
+- category: Z55-Z65
+  docs: Persons with potential health hazards related to socioeconomic and psychosocial
+    circumstances
+  child:
+  - category: Z55
+    docs: Problems related to education and literacy
+    child:
+    - code: Z55.0
+      docs: Illiteracy and low-level literacy
+    - code: Z55.1
+      docs: Schooling unavailable and unattainable
+    - code: Z55.2
+      docs: Failed examinations
+    - code: Z55.3
+      docs: Underachievement in school
+    - code: Z55.4
+      docs: Educational maladjustment and discord with teachers and classmates
+    - code: Z55.8
+      docs: Other problems related to education and literacy
+    - code: Z55.9
+      docs: Problem related to education and literacy, unspecified
+  - category: Z56
+    docs: Problems related to employment and unemployment
+    child:
+    - code: Z56.0
+      docs: Unemployment, unspecified
+    - code: Z56.1
+      docs: Change of job
+    - code: Z56.2
+      docs: Threat of job loss
+    - code: Z56.3
+      docs: Stressful work schedule
+    - code: Z56.4
+      docs: Discord with boss and workmates
+    - code: Z56.5
+      docs: Uncongenial work
+    - code: Z56.6
+      docs: Other physical and mental strain related to work
+    - code: Z56.7
+      docs: Other and unspecified problems related to employment
+  - category: Z57
+    docs: Occupational exposure to risk-factors
+    child:
+    - code: Z57.0
+      docs: Occupational exposure to noise
+    - code: Z57.1
+      docs: Occupational exposure to radiation
+    - code: Z57.2
+      docs: Occupational exposure to dust
+    - code: Z57.3
+      docs: Occupational exposure to other air contaminants
+    - code: Z57.4
+      docs: Occupational exposure to toxic agents in agriculture
+    - code: Z57.5
+      docs: Occupational exposure to toxic agents in other industries
+    - code: Z57.6
+      docs: Occupational exposure to extreme temperature
+    - code: Z57.7
+      docs: Occupational exposure to vibration
+    - code: Z57.8
+      docs: Occupational exposure to other risk-factors
+    - code: Z57.9
+      docs: Occupational exposure to unspecified risk-factor
+  - category: Z58
+    docs: Problems related to physical environment
+    child:
+    - code: Z58.0
+      docs: Exposure to noise
+    - code: Z58.1
+      docs: Exposure to air pollution
+    - code: Z58.2
+      docs: Exposure to water pollution
+    - code: Z58.3
+      docs: Exposure to soil pollution
+    - code: Z58.4
+      docs: Exposure to radiation
+    - code: Z58.5
+      docs: Exposure to other pollution
+    - code: Z58.6
+      docs: Inadequate drinking-water supply
+    - code: Z58.7
+      docs: Exposure to tobacco smoke
+    - code: Z58.8
+      docs: Other problems related to physical environment
+    - code: Z58.9
+      docs: Problem related to physical environment, unspecified
+  - category: Z59
+    docs: Problems related to housing and economic circumstances
+    child:
+    - code: Z59.0
+      docs: Homelessness
+    - code: Z59.1
+      docs: Inadequate housing
+    - code: Z59.2
+      docs: Discord with neighbours, lodgers and landlord
+    - code: Z59.3
+      docs: Problems related to living in residential institution
+    - code: Z59.4
+      docs: Lack of adequate food
+    - code: Z59.5
+      docs: Extreme poverty
+    - code: Z59.6
+      docs: Low income
+    - code: Z59.7
+      docs: Insufficient social insurance and welfare support
+    - code: Z59.8
+      docs: Other problems related to housing and economic circumstances
+    - code: Z59.9
+      docs: Problem related to housing and economic circumstances, unspecified
+  - category: Z60
+    docs: Problems related to social environment
+    child:
+    - code: Z60.0
+      docs: Problems of adjustment to life-cycle transitions
+    - code: Z60.1
+      docs: Atypical parenting situation
+    - code: Z60.2
+      docs: Living alone
+    - code: Z60.3
+      docs: Acculturation difficulty
+    - code: Z60.4
+      docs: Social exclusion and rejection
+    - code: Z60.5
+      docs: Target of perceived adverse discrimination and persecution
+    - code: Z60.8
+      docs: Other problems related to social environment
+    - code: Z60.9
+      docs: Problem related to social environment, unspecified
+  - category: Z61
+    docs: Problems related to negative life events in childhood
+    child:
+    - code: Z61.0
+      docs: Loss of love relationship in childhood
+    - code: Z61.1
+      docs: Removal from home in childhood
+    - code: Z61.2
+      docs: Altered pattern of family relationships in childhood
+    - code: Z61.3
+      docs: Events resulting in loss of self-esteem in childhood
+    - code: Z61.4
+      docs: Problems related to alleged sexual abuse of child by person within primary
+        support group
+    - code: Z61.5
+      docs: Problems related to alleged sexual abuse of child by person outside primary
+        support group
+    - code: Z61.6
+      docs: Problems related to alleged physical abuse of child
+    - code: Z61.7
+      docs: Personal frightening experience in childhood
+    - code: Z61.8
+      docs: Other negative life events in childhood
+    - code: Z61.9
+      docs: Negative life event in childhood, unspecified
+  - category: Z62
+    docs: Other problems related to upbringing
+    child:
+    - code: Z62.0
+      docs: Inadequate parental supervision and control
+    - code: Z62.1
+      docs: Parental overprotection
+    - code: Z62.2
+      docs: Institutional upbringing
+    - code: Z62.3
+      docs: Hostility towards and scapegoating of child
+    - code: Z62.4
+      docs: Emotional neglect of child
+    - code: Z62.5
+      docs: Other problems related to neglect in upbringing
+    - code: Z62.6
+      docs: Inappropriate parental pressure and other abnormal qualities of upbringing
+    - code: Z62.8
+      docs: Other specified problems related to upbringing
+    - code: Z62.9
+      docs: Problem related to upbringing, unspecified
+  - category: Z63
+    docs: Other problems related to primary support group, including family circumstances
+    child:
+    - code: Z63.0
+      docs: Problems in relationship with spouse or partner
+    - code: Z63.1
+      docs: Problems in relationship with parents and in-laws
+    - code: Z63.2
+      docs: Inadequate family support
+    - code: Z63.3
+      docs: Absence of family member
+    - code: Z63.4
+      docs: Disappearance and death of family member
+    - code: Z63.5
+      docs: Disruption of family by separation and divorce
+    - code: Z63.6
+      docs: Dependent relative needing care at home
+    - code: Z63.7
+      docs: Other stressful life events affecting family and household
+    - code: Z63.8
+      docs: Other specified problems related to primary support group
+    - code: Z63.9
+      docs: Problem related to primary support group, unspecified
+  - category: Z64
+    docs: Problems related to certain psychosocial circumstances
+    child:
+    - code: Z64.0
+      docs: Problems related to unwanted pregnancy
+    - code: Z64.1
+      docs: Problems related to multiparity
+    - code: Z64.2
+      docs: Seeking and accepting physical, nutritional and chemical interventions
+        known to be hazardous and harmful
+    - code: Z64.3
+      docs: Seeking and accepting behavioural and psychological interventions known
+        to be hazardous and harmful
+    - code: Z64.4
+      docs: Discord with counsellors
+  - category: Z65
+    docs: Problems related to other psychosocial circumstances
+    child:
+    - code: Z65.0
+      docs: Conviction in civil and criminal proceedings without imprisonment
+    - code: Z65.1
+      docs: Imprisonment and other incarceration
+    - code: Z65.2
+      docs: Problems related to release from prison
+    - code: Z65.3
+      docs: Problems related to other legal circumstances
+    - code: Z65.4
+      docs: Victim of crime and terrorism
+    - code: Z65.5
+      docs: Exposure to disaster, war and other hostilities
+    - code: Z65.8
+      docs: Other specified problems related to psychosocial circumstances
+    - code: Z65.9
+      docs: Problem related to unspecified psychosocial circumstances
+- category: Z70-Z76
+  docs: Persons encountering health services in other circumstances
+  child:
+  - category: Z70
+    docs: Counselling related to sexual attitude, behaviour and orientation
+    child:
+    - code: Z70.0
+      docs: Counselling related to sexual attitude
+    - code: Z70.1
+      docs: Counselling related to patient's sexual behaviour and orientation
+    - code: Z70.2
+      docs: Counselling related to sexual behaviour and orientation of third party
+    - code: Z70.3
+      docs: Counselling related to combined concerns regarding sexual attitude, behaviour
+        and orientation
+    - code: Z70.8
+      docs: Other sex counselling
+    - code: Z70.9
+      docs: Sex counselling, unspecified
+  - category: Z71
+    docs: Persons encountering health services for other counselling and medical advice,
+      not elsewhere classified
+    child:
+    - code: Z71.0
+      docs: Person consulting on behalf of another person
+    - code: Z71.1
+      docs: Person with feared complaint in whom no diagnosis is made
+    - code: Z71.2
+      docs: Person consulting for explanation of investigation findings
+    - code: Z71.3
+      docs: Dietary counselling and surveillance
+    - code: Z71.4
+      docs: Alcohol abuse counselling and surveillance
+    - code: Z71.5
+      docs: Drug abuse counselling and surveillance
+    - code: Z71.6
+      docs: Tobacco abuse counselling
+    - code: Z71.7
+      docs: Human immunodeficiency virus [HIV] counselling
+    - code: Z71.8
+      docs: Other specified counselling
+    - code: Z71.9
+      docs: Counselling, unspecified
+  - category: Z72
+    docs: Problems related to lifestyle
+    child:
+    - code: Z72.0
+      docs: Tobacco use
+    - code: Z72.1
+      docs: Alcohol use
+    - code: Z72.2
+      docs: Drug use
+    - code: Z72.3
+      docs: Lack of physical exercise
+    - code: Z72.4
+      docs: Inappropriate diet and eating habits
+    - code: Z72.5
+      docs: High-risk sexual behaviour
+    - code: Z72.6
+      docs: Gambling and betting
+    - code: Z72.8
+      docs: Other problems related to lifestyle
+    - code: Z72.9
+      docs: Problem related to lifestyle, unspecified
+  - category: Z73
+    docs: Problems related to life-management difficulty
+    child:
+    - code: Z73.0
+      docs: Burn-out
+    - code: Z73.1
+      docs: Accentuation of personality traits
+    - code: Z73.2
+      docs: Lack of relaxation and leisure
+    - code: Z73.3
+      docs: Stress, not elsewhere classified
+    - code: Z73.4
+      docs: Inadequate social skills, not elsewhere classified
+    - code: Z73.5
+      docs: Social role conflict, not elsewhere classified
+    - code: Z73.6
+      docs: Limitation of activities due to disability
+    - code: Z73.8
+      docs: Other problems related to life-management difficulty
+    - code: Z73.9
+      docs: Problem related to life-management difficulty, unspecified
+  - category: Z74
+    docs: Problems related to care-provider dependency
+    child:
+    - code: Z74.0
+      docs: Need for assistance due to reduced mobility
+    - code: Z74.1
+      docs: Need for assistance with personal care
+    - code: Z74.2
+      docs: Need for assistance at home and no other household member able to render
+        care
+    - code: Z74.3
+      docs: Need for continuous supervision
+    - code: Z74.8
+      docs: Other problems related to care-provider dependency
+    - code: Z74.9
+      docs: Problem related to care-provider dependency, unspecified
+  - category: Z75
+    docs: Problems related to medical facilities and other health care
+    child:
+    - code: Z75.0
+      docs: Medical services not available in home
+    - code: Z75.1
+      docs: Person awaiting admission to adequate facility elsewhere
+    - code: Z75.2
+      docs: Other waiting period for investigation and treatment
+    - code: Z75.3
+      docs: Unavailability and inaccessibility of health-care facilities
+    - code: Z75.4
+      docs: Unavailability and inaccessibility of other helping agencies
+    - code: Z75.5
+      docs: Holiday relief care
+    - code: Z75.8
+      docs: Other problems related to medical facilities and other health care
+    - code: Z75.9
+      docs: Unspecified problem related to medical facilities and other health care
+  - category: Z76
+    docs: Persons encountering health services in other circumstances
+    child:
+    - code: Z76.0
+      docs: Issue of repeat prescription
+    - code: Z76.1
+      docs: Health supervision and care of foundling
+    - code: Z76.2
+      docs: Health supervision and care of other healthy infant and child
+    - code: Z76.3
+      docs: Healthy person accompanying sick person
+    - code: Z76.4
+      docs: Other boarder in health-care facility
+    - code: Z76.5
+      docs: Malingerer [conscious simulation]
+    - code: Z76.8
+      docs: Persons encountering health services in other specified circumstances
+    - code: Z76.9
+      docs: Person encountering health services in unspecified circumstances
+- category: Z80-Z99
+  docs: Persons with potential health hazards related to family and personal history
+    and certain conditions influencing health status
+  child:
+  - category: Z80
+    docs: Family history of malignant neoplasm
+    child:
+    - code: Z80.0
+      docs: Family history of malignant neoplasm of digestive organs
+    - code: Z80.1
+      docs: Family history of malignant neoplasm of trachea, bronchus and lung
+    - code: Z80.2
+      docs: Family history of malignant neoplasm of other respiratory and intrathoracic
+        organs
+    - code: Z80.3
+      docs: Family history of malignant neoplasm of breast
+    - code: Z80.4
+      docs: Family history of malignant neoplasm of genital organs
+    - code: Z80.5
+      docs: Family history of malignant neoplasm of urinary tract
+    - code: Z80.6
+      docs: Family history of leukaemia
+    - code: Z80.7
+      docs: Family history of other malignant neoplasms of lymphoid, haematopoietic
+        and related tissues
+    - code: Z80.8
+      docs: Family history of malignant neoplasm of other organs or systems
+    - code: Z80.9
+      docs: Family history of malignant neoplasm, unspecified
+  - category: Z81
+    docs: Family history of mental and behavioural disorders
+    child:
+    - code: Z81.0
+      docs: Family history of mental retardation
+    - code: Z81.1
+      docs: Family history of alcohol abuse
+    - code: Z81.2
+      docs: Family history of tobacco abuse
+    - code: Z81.3
+      docs: Family history of other psychoactive substance abuse
+    - code: Z81.4
+      docs: Family history of other substance abuse
+    - code: Z81.8
+      docs: Family history of other mental and behavioural disorders
+  - category: Z82
+    docs: Family history of certain disabilities and chronic diseases leading to disablement
+    child:
+    - code: Z82.0
+      docs: Family history of epilepsy and other diseases of the nervous system
+    - code: Z82.1
+      docs: Family history of blindness and visual loss
+    - code: Z82.2
+      docs: Family history of deafness and hearing loss
+    - code: Z82.3
+      docs: Family history of stroke
+    - code: Z82.4
+      docs: Family history of ischaemic heart disease and other diseases of the circulatory
+        system
+    - code: Z82.5
+      docs: Family history of asthma and other chronic lower respiratory diseases
+    - code: Z82.6
+      docs: Family history of arthritis and other diseases of the musculoskeletal
+        system and connective tissue
+    - code: Z82.7
+      docs: Family history of congenital malformations, deformations and chromosomal
+        abnormalities
+    - code: Z82.8
+      docs: Family history of other disabilities and chronic diseases leading to disablement,
+        not elsewhere classified
+  - category: Z83
+    docs: Family history of other specific disorders
+    child:
+    - code: Z83.0
+      docs: Family history of human immunodeficiency virus [HIV] disease
+    - code: Z83.1
+      docs: Family history of other infectious and parasitic diseases
+    - code: Z83.2
+      docs: Family history of diseases of the blood and blood-forming organs and certain
+        disorders involving the immune mechanism
+    - code: Z83.3
+      docs: Family history of diabetes mellitus
+    - code: Z83.4
+      docs: Family history of other endocrine, nutritional and metabolic diseases
+    - code: Z83.5
+      docs: Family history of eye and ear disorders
+    - code: Z83.6
+      docs: Family history of diseases of the respiratory system
+    - code: Z83.7
+      docs: Family history of diseases of the digestive system
+  - category: Z84
+    docs: Family history of other conditions
+    child:
+    - code: Z84.0
+      docs: Family history of diseases of the skin and subcutaneous tissue
+    - code: Z84.1
+      docs: Family history of disorders of kidney and ureter
+    - code: Z84.2
+      docs: Family history of other diseases of the genitourinary system
+    - code: Z84.3
+      docs: Family history of consanguinity
+    - code: Z84.8
+      docs: Family history of other specified conditions
+  - category: Z85
+    docs: Personal history of malignant neoplasm
+    child:
+    - code: Z85.0
+      docs: Personal history of malignant neoplasm of digestive organs
+    - code: Z85.1
+      docs: Personal history of malignant neoplasm of trachea, bronchus and lung
+    - code: Z85.2
+      docs: Personal history of malignant neoplasm of other respiratory and intrathoracic
+        organs
+    - code: Z85.3
+      docs: Personal history of malignant neoplasm of breast
+    - code: Z85.4
+      docs: Personal history of malignant neoplasm of genital organs
+    - code: Z85.5
+      docs: Personal history of malignant neoplasm of urinary tract
+    - code: Z85.6
+      docs: Personal history of leukaemia
+    - code: Z85.7
+      docs: Personal history of other malignant neoplasms of lymphoid, haematopoietic
+        and related tissues
+    - code: Z85.8
+      docs: Personal history of malignant neoplasms of other organs and systems
+    - code: Z85.9
+      docs: Personal history of malignant neoplasm, unspecified
+  - category: Z86
+    docs: Personal history of certain other diseases
+    child:
+    - code: Z86.0
+      docs: Personal history of other neoplasms
+    - code: Z86.1
+      docs: Personal history of infectious and parasitic diseases
+    - code: Z86.2
+      docs: Personal history of diseases of the blood and blood-forming organs and
+        certain disorders involving the immune mechanism
+    - code: Z86.3
+      docs: Personal history of endocrine, nutritional and metabolic diseases
+    - code: Z86.4
+      docs: Personal history of psychoactive substance abuse
+    - code: Z86.5
+      docs: Personal history of other mental and behavioural disorders
+    - code: Z86.6
+      docs: Personal history of diseases of the nervous system and sense organs
+    - code: Z86.7
+      docs: Personal history of diseases of the circulatory system
+  - category: Z87
+    docs: Personal history of other diseases and conditions
+    child:
+    - code: Z87.0
+      docs: Personal history of diseases of the respiratory system
+    - code: Z87.1
+      docs: Personal history of diseases of the digestive system
+    - code: Z87.2
+      docs: Personal history of diseases of the skin and subcutaneous tissue
+    - code: Z87.3
+      docs: Personal history of diseases of the musculoskeletal system and connective
+        tissue
+    - code: Z87.4
+      docs: Personal history of diseases of the genitourinary system
+    - code: Z87.5
+      docs: Personal history of complications of pregnancy, childbirth and the puerperium
+    - code: Z87.6
+      docs: Personal history of certain conditions arising in the perinatal period
+    - code: Z87.7
+      docs: Personal history of congenital malformations, deformations and chromosomal
+        abnormalities
+    - code: Z87.8
+      docs: Personal history of other specified conditions
+  - category: Z88
+    docs: Personal history of allergy to drugs, medicaments and biological substances
+    child:
+    - code: Z88.0
+      docs: Personal history of allergy to penicillin
+    - code: Z88.1
+      docs: Personal history of allergy to other antibiotic agents
+    - code: Z88.2
+      docs: Personal history of allergy to sulfonamides
+    - code: Z88.3
+      docs: Personal history of allergy to other anti-infective agents
+    - code: Z88.4
+      docs: Personal history of allergy to anaesthetic agent
+    - code: Z88.5
+      docs: Personal history of allergy to narcotic agent
+    - code: Z88.6
+      docs: Personal history of allergy to analgesic agent
+    - code: Z88.7
+      docs: Personal history of allergy to serum and vaccine
+    - code: Z88.8
+      docs: Personal history of allergy to other drugs, medicaments and biological
+        substances
+    - code: Z88.9
+      docs: Personal history of allergy to unspecified drugs, medicaments and biological
+        substances
+  - category: Z89
+    docs: Acquired absence of limb
+    child:
+    - code: Z89.0
+      docs: Acquired absence of finger(s) [including thumb], unilateral
+    - code: Z89.1
+      docs: Acquired absence of hand and wrist
+    - code: Z89.2
+      docs: Acquired absence of upper limb above wrist
+    - code: Z89.3
+      docs: Acquired absence of both upper limbs [any level]
+    - code: Z89.4
+      docs: Acquired absence of foot and ankle
+    - code: Z89.5
+      docs: Acquired absence of leg at or below knee
+    - code: Z89.6
+      docs: Acquired absence of leg above knee
+    - code: Z89.7
+      docs: Acquired absence of both lower limbs [any level, except toes alone]
+    - code: Z89.8
+      docs: Acquired absence of upper and lower limbs [any level]
+    - code: Z89.9
+      docs: Acquired absence of limb, unspecified
+  - category: Z90
+    docs: Acquired absence of organs, not elsewhere classified
+    child:
+    - code: Z90.0
+      docs: Acquired absence of part of head and neck
+    - code: Z90.1
+      docs: Acquired absence of breast(s)
+    - code: Z90.2
+      docs: Acquired absence of lung [part of]
+    - code: Z90.3
+      docs: Acquired absence of part of stomach
+    - code: Z90.4
+      docs: Acquired absence of other parts of digestive tract
+    - code: Z90.5
+      docs: Acquired absence of kidney
+    - code: Z90.6
+      docs: Acquired absence of other organs of urinary tract
+    - code: Z90.7
+      docs: Acquired absence of genital organ(s)
+    - code: Z90.8
+      docs: Acquired absence of other organs
+  - category: Z91
+    docs: Personal history of risk-factors, not elsewhere classified
+    child:
+    - code: Z91.0
+      docs: Personal history of allergy, other than to drugs and biological substances
+    - code: Z91.1
+      docs: Personal history of noncompliance with medical treatment and regimen
+    - code: Z91.2
+      docs: Personal history of poor personal hygiene
+    - code: Z91.3
+      docs: Personal history of unhealthy sleep-wake schedule
+    - code: Z91.4
+      docs: Personal history of psychological trauma, not elsewhere classified
+    - code: Z91.5
+      docs: Personal history of self-harm
+    - code: Z91.6
+      docs: Personal history of other physical trauma
+    - code: Z91.7
+      docs: Personal history of female genital mutilation
+    - code: Z91.8
+      docs: Personal history of other specified risk-factors, not elsewhere classified
+  - category: Z92
+    docs: Personal history of medical treatment
+    child:
+    - code: Z92.0
+      docs: Personal history of contraception
+    - code: Z92.1
+      docs: Personal history of long-term (current) use of anticoagulants
+    - code: Z92.2
+      docs: Personal history of long-term (current) use of other medicaments
+    - code: Z92.3
+      docs: Personal history of irradiation
+    - code: Z92.4
+      docs: Personal history of major surgery, not elsewhere classified
+    - code: Z92.5
+      docs: Personal history of rehabilitation measures
+    - code: Z92.6
+      docs: Personal history of chemotherapy for neoplastic disease
+    - code: Z92.8
+      docs: Personal history of other medical treatment
+    - code: Z92.9
+      docs: Personal history of medical treatment, unspecified
+  - category: Z93
+    docs: Artificial opening status
+    child:
+    - code: Z93.0
+      docs: Tracheostomy status
+    - code: Z93.1
+      docs: Gastrostomy status
+    - code: Z93.2
+      docs: Ileostomy status
+    - code: Z93.3
+      docs: Colostomy status
+    - code: Z93.4
+      docs: Other artificial openings of gastrointestinal tract status
+    - code: Z93.5
+      docs: Cystostomy status
+    - code: Z93.6
+      docs: Other artificial openings of urinary tract status
+    - code: Z93.8
+      docs: Other artificial opening status
+    - code: Z93.9
+      docs: Artificial opening status, unspecified
+  - category: Z94
+    docs: Transplanted organ and tissue status
+    child:
+    - code: Z94.0
+      docs: Kidney transplant status
+    - code: Z94.1
+      docs: Heart transplant status
+    - code: Z94.2
+      docs: Lung transplant status
+    - code: Z94.3
+      docs: Heart and lungs transplant status
+    - code: Z94.4
+      docs: Liver transplant status
+    - code: Z94.5
+      docs: Skin transplant status
+    - code: Z94.6
+      docs: Bone transplant status
+    - code: Z94.7
+      docs: Corneal transplant status
+    - code: Z94.8
+      docs: Other transplanted organ and tissue status
+    - code: Z94.9
+      docs: Transplanted organ and tissue status, unspecified
+  - category: Z95
+    docs: Presence of cardiac and vascular implants and grafts
+    child:
+    - code: Z95.0
+      docs: Presence of electronic cardiac devices
+    - code: Z95.1
+      docs: Presence of aortocoronary bypass graft
+    - code: Z95.2
+      docs: Presence of prosthetic heart valve
+    - code: Z95.3
+      docs: Presence of xenogenic heart valve
+    - code: Z95.4
+      docs: Presence of other heart-valve replacement
+    - code: Z95.5
+      docs: Presence of coronary angioplasty implant and graft
+    - code: Z95.8
+      docs: Presence of other cardiac and vascular implants and grafts
+    - code: Z95.9
+      docs: Presence of cardiac and vascular implant and graft, unspecified
+  - category: Z96
+    docs: Presence of other functional implants
+    child:
+    - code: Z96.0
+      docs: Presence of urogenital implants
+    - code: Z96.1
+      docs: Presence of intraocular lens
+    - code: Z96.2
+      docs: Presence of otological and audiological implants
+    - code: Z96.3
+      docs: Presence of artificial larynx
+    - code: Z96.4
+      docs: Presence of endocrine implants
+    - code: Z96.5
+      docs: Presence of tooth-root and mandibular implants
+    - code: Z96.6
+      docs: Presence of orthopaedic joint implants
+    - code: Z96.7
+      docs: Presence of other bone and tendon implants
+    - code: Z96.8
+      docs: Presence of other specified functional implants
+    - code: Z96.9
+      docs: Presence of functional implant, unspecified
+  - category: Z97
+    docs: Presence of other devices
+    child:
+    - code: Z97.0
+      docs: Presence of artificial eye
+    - code: Z97.1
+      docs: Presence of artificial limb (complete)(partial)
+    - code: Z97.2
+      docs: Presence of dental prosthetic device (complete)(partial)
+    - code: Z97.3
+      docs: Presence of spectacles and contact lenses
+    - code: Z97.4
+      docs: Presence of external hearing-aid
+    - code: Z97.5
+      docs: Presence of (intrauterine) contraceptive device
+    - code: Z97.8
+      docs: Presence of other specified devices
+  - category: Z98
+    docs: Other postsurgical states
+    child:
+    - code: Z98.0
+      docs: Intestinal bypass and anastomosis status
+    - code: Z98.1
+      docs: Arthrodesis status
+    - code: Z98.2
+      docs: Presence of cerebrospinal fluid drainage device
+    - code: Z98.8
+      docs: Other specified postsurgical states
+  - category: Z99
+    docs: Dependence on enabling machines and devices, not elsewhere classified
+    child:
+    - code: Z99.0
+      docs: Dependence on aspirator
+    - code: Z99.1
+      docs: Dependence on respirator
+    - code: Z99.2
+      docs: Dependence on renal dialysis
+    - code: Z99.3
+      docs: Dependence on wheelchair
+    - code: Z99.4
+      docs: Dependence on artificial heart
+    - code: Z99.8
+      docs: Dependence on other enabling machines and devices
+    - code: Z99.9
+      docs: Dependence on unspecified enabling machine and device

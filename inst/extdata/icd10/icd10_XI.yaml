@@ -1,0 +1,1118 @@
+category: XI
+docs: Diseases of the digestive system
+child:
+- category: K00-K14
+  docs: Diseases of oral cavity, salivary glands and jaws
+  child:
+  - category: K00
+    docs: Disorders of tooth development and eruption
+    child:
+    - code: K00.0
+      docs: Anodontia
+    - code: K00.1
+      docs: Supernumerary teeth
+    - code: K00.2
+      docs: Abnormalities of size and form of teeth
+    - code: K00.3
+      docs: Mottled teeth
+    - code: K00.4
+      docs: Disturbances in tooth formation
+    - code: K00.5
+      docs: Hereditary disturbances in tooth structure, not elsewhere classified
+    - code: K00.6
+      docs: Disturbances in tooth eruption
+    - code: K00.7
+      docs: Teething syndrome
+    - code: K00.8
+      docs: Other disorders of tooth development
+    - code: K00.9
+      docs: Disorder of tooth development, unspecified
+  - category: K01
+    docs: Embedded and impacted teeth
+    child:
+    - code: K01.0
+      docs: Embedded teeth
+    - code: K01.1
+      docs: Impacted teeth
+  - category: K02
+    docs: Dental caries
+    child:
+    - code: K02.0
+      docs: Caries limited to enamel
+    - code: K02.1
+      docs: Caries of dentine
+    - code: K02.2
+      docs: Caries of cementum
+    - code: K02.3
+      docs: Arrested dental caries
+    - code: K02.4
+      docs: Odontoclasia
+    - code: K02.5
+      docs: Caries with pulp exposure
+    - code: K02.8
+      docs: Other dental caries
+    - code: K02.9
+      docs: Dental caries, unspecified
+  - category: K03
+    docs: Other diseases of hard tissues of teeth
+    child:
+    - code: K03.0
+      docs: Excessive attrition of teeth
+    - code: K03.1
+      docs: Abrasion of teeth
+    - code: K03.2
+      docs: Erosion of teeth
+    - code: K03.3
+      docs: Pathological resorption of teeth
+    - code: K03.4
+      docs: Hypercementosis
+    - code: K03.5
+      docs: Ankylosis of teeth
+    - code: K03.6
+      docs: Deposits [accretions] on teeth
+    - code: K03.7
+      docs: Posteruptive colour changes of dental hard tissues
+    - code: K03.8
+      docs: Other specified diseases of hard tissues of teeth
+    - code: K03.9
+      docs: Disease of hard tissues of teeth, unspecified
+  - category: K04
+    docs: Diseases of pulp and periapical tissues
+    child:
+    - code: K04.0
+      docs: Pulpitis
+    - code: K04.1
+      docs: Necrosis of pulp
+    - code: K04.2
+      docs: Pulp degeneration
+    - code: K04.3
+      docs: Abnormal hard tissue formation in pulp
+    - code: K04.4
+      docs: Acute apical periodontitis of pulpal origin
+    - code: K04.5
+      docs: Chronic apical periodontitis
+    - code: K04.6
+      docs: Periapical abscess with sinus
+    - code: K04.7
+      docs: Periapical abscess without sinus
+    - code: K04.8
+      docs: Radicular cyst
+    - code: K04.9
+      docs: Other and unspecified diseases of pulp and periapical tissues
+  - category: K05
+    docs: Gingivitis and periodontal diseases
+    child:
+    - code: K05.0
+      docs: Acute gingivitis
+    - code: K05.1
+      docs: Chronic gingivitis
+    - code: K05.2
+      docs: Acute periodontitis
+    - code: K05.3
+      docs: Chronic periodontitis
+    - code: K05.4
+      docs: Periodontosis
+    - code: K05.5
+      docs: Other periodontal diseases
+    - code: K05.6
+      docs: Periodontal disease, unspecified
+  - category: K06
+    docs: Other disorders of gingiva and edentulous alveolar ridge
+    child:
+    - code: K06.0
+      docs: Gingival recession
+    - code: K06.1
+      docs: Gingival enlargement
+    - code: K06.2
+      docs: Gingival and edentulous alveolar ridge lesions associated with trauma
+    - code: K06.8
+      docs: Other specified disorders of gingiva and edentulous alveolar ridge
+    - code: K06.9
+      docs: Disorder of gingiva and edentulous alveolar ridge, unspecified
+  - category: K07
+    docs: Dentofacial anomalies [including malocclusion]
+    child:
+    - code: K07.0
+      docs: Major anomalies of jaw size
+    - code: K07.1
+      docs: Anomalies of jaw-cranial base relationship
+    - code: K07.2
+      docs: Anomalies of dental arch relationship
+    - code: K07.3
+      docs: Anomalies of tooth position
+    - code: K07.4
+      docs: Malocclusion, unspecified
+    - code: K07.5
+      docs: Dentofacial functional abnormalities
+    - code: K07.6
+      docs: Temporomandibular joint disorders
+    - code: K07.8
+      docs: Other dentofacial anomalies
+    - code: K07.9
+      docs: Dentofacial anomaly, unspecified
+  - category: K08
+    docs: Other disorders of teeth and supporting structures
+    child:
+    - code: K08.0
+      docs: Exfoliation of teeth due to systemic causes
+    - code: K08.1
+      docs: Loss of teeth due to accident, extraction or local periodontal disease
+    - code: K08.2
+      docs: Atrophy of edentulous alveolar ridge
+    - code: K08.3
+      docs: Retained dental root
+    - code: K08.8
+      docs: Other specified disorders of teeth and supporting structures
+    - code: K08.9
+      docs: Disorder of teeth and supporting structures, unspecified
+  - category: K09
+    docs: Cysts of oral region, not elsewhere classified
+    child:
+    - code: K09.0
+      docs: Developmental odontogenic cysts
+    - code: K09.1
+      docs: Developmental (nonodontogenic) cysts of oral region
+    - code: K09.2
+      docs: Other cysts of jaw
+    - code: K09.8
+      docs: Other cysts of oral region, not elsewhere classified
+    - code: K09.9
+      docs: Cyst of oral region, unspecified
+  - category: K10
+    docs: Other diseases of jaws
+    child:
+    - code: K10.0
+      docs: Developmental disorders of jaws
+    - code: K10.1
+      docs: Giant cell granuloma, central
+    - code: K10.2
+      docs: Inflammatory conditions of jaws
+    - code: K10.3
+      docs: Alveolitis of jaws
+    - code: K10.8
+      docs: Other specified diseases of jaws
+    - code: K10.9
+      docs: Disease of jaws, unspecified
+  - category: K11
+    docs: Diseases of salivary glands
+    child:
+    - code: K11.0
+      docs: Atrophy of salivary gland
+    - code: K11.1
+      docs: Hypertrophy of salivary gland
+    - code: K11.2
+      docs: Sialoadenitis
+    - code: K11.3
+      docs: Abscess of salivary gland
+    - code: K11.4
+      docs: Fistula of salivary gland
+    - code: K11.5
+      docs: Sialolithiasis
+    - code: K11.6
+      docs: Mucocele of salivary gland
+    - code: K11.7
+      docs: Disturbances of salivary secretion
+    - code: K11.8
+      docs: Other diseases of salivary glands
+    - code: K11.9
+      docs: Disease of salivary gland, unspecified
+  - category: K12
+    docs: Stomatitis and related lesions
+    child:
+    - code: K12.0
+      docs: Recurrent oral aphthae
+    - code: K12.1
+      docs: Other forms of stomatitis
+    - code: K12.2
+      docs: Cellulitis and abscess of mouth
+    - code: K12.3
+      docs: Oral mucositis (ulcerative)
+  - category: K13
+    docs: Other diseases of lip and oral mucosa
+    child:
+    - code: K13.0
+      docs: Diseases of lips
+    - code: K13.1
+      docs: Cheek and lip biting
+    - code: K13.2
+      docs: Leukoplakia and other disturbances of oral epithelium, including tongue
+    - code: K13.3
+      docs: Hairy leukoplakia
+    - code: K13.4
+      docs: Granuloma and granuloma-like lesions of oral mucosa
+    - code: K13.5
+      docs: Oral submucous fibrosis
+    - code: K13.6
+      docs: Irritative hyperplasia of oral mucosa
+    - code: K13.7
+      docs: Other and unspecified lesions of oral mucosa
+  - category: K14
+    docs: Diseases of tongue
+    child:
+    - code: K14.0
+      docs: Glossitis
+    - code: K14.1
+      docs: Geographic tongue
+    - code: K14.2
+      docs: Median rhomboid glossitis
+    - code: K14.3
+      docs: Hypertrophy of tongue papillae
+    - code: K14.4
+      docs: Atrophy of tongue papillae
+    - code: K14.5
+      docs: Plicated tongue
+    - code: K14.6
+      docs: Glossodynia
+    - code: K14.8
+      docs: Other diseases of tongue
+    - code: K14.9
+      docs: Disease of tongue, unspecified
+- category: K20-K31
+  docs: Diseases of oesophagus, stomach and duodenum
+  child:
+  - code: K20
+    docs: Oesophagitis
+  - category: K21
+    docs: Gastro-oesophageal reflux disease
+    child:
+    - code: K21.0
+      docs: Gastro-oesophageal reflux disease with oesophagitis
+    - code: K21.9
+      docs: Gastro-oesophageal reflux disease without oesophagitis
+  - category: K22
+    docs: Other diseases of oesophagus
+    child:
+    - code: K22.0
+      docs: Achalasia of cardia
+    - code: K22.1
+      docs: Ulcer of oesophagus
+    - code: K22.2
+      docs: Oesophageal obstruction
+    - code: K22.3
+      docs: Perforation of oesophagus
+    - code: K22.4
+      docs: Dyskinesia of oesophagus
+    - code: K22.5
+      docs: Diverticulum of oesophagus, acquired
+    - code: K22.6
+      docs: Gastro-oesophageal laceration-haemorrhage syndrome
+    - code: K22.7
+      docs: Barrett oesophagus
+    - code: K22.8
+      docs: Other specified diseases of oesophagus
+    - code: K22.9
+      docs: Disease of oesophagus, unspecified
+  - category: K23
+    docs: Disorders of oesophagus in diseases classified elsewhere
+    child:
+    - code: K23.0
+      docs: Tuberculous oesophagitis
+    - code: K23.1
+      docs: Megaoesophagus in Chagas disease
+    - code: K23.8
+      docs: Disorders of oesophagus in other diseases classified elsewhere
+  - category: K25
+    docs: Gastric ulcer
+    child:
+    - code: K25.0
+      docs: 'Gastric ulcer : acute with haemorrhage'
+    - code: K25.1
+      docs: 'Gastric ulcer : acute with perforation'
+    - code: K25.2
+      docs: 'Gastric ulcer : acute with both haemorrhage and perforation'
+    - code: K25.3
+      docs: 'Gastric ulcer : acute without haemorrhage or perforation'
+    - code: K25.4
+      docs: 'Gastric ulcer : chronic or unspecified with haemorrhage'
+    - code: K25.5
+      docs: 'Gastric ulcer : chronic or unspecified with perforation'
+    - code: K25.6
+      docs: 'Gastric ulcer : chronic or unspecified with both haemorrhage and perforation'
+    - code: K25.7
+      docs: 'Gastric ulcer : chronic without haemorrhage or perforation'
+    - code: K25.9
+      docs: 'Gastric ulcer : unspecified as acute or chronic, without haemorrhage
+        or perforation'
+  - category: K26
+    docs: Duodenal ulcer
+    child:
+    - code: K26.0
+      docs: 'Duodenal ulcer : acute with haemorrhage'
+    - code: K26.1
+      docs: 'Duodenal ulcer : acute with perforation'
+    - code: K26.2
+      docs: 'Duodenal ulcer : acute with both haemorrhage and perforation'
+    - code: K26.3
+      docs: 'Duodenal ulcer : acute without haemorrhage or perforation'
+    - code: K26.4
+      docs: 'Duodenal ulcer : chronic or unspecified with haemorrhage'
+    - code: K26.5
+      docs: 'Duodenal ulcer : chronic or unspecified with perforation'
+    - code: K26.6
+      docs: 'Duodenal ulcer : chronic or unspecified with both haemorrhage and perforation'
+    - code: K26.7
+      docs: 'Duodenal ulcer : chronic without haemorrhage or perforation'
+    - code: K26.9
+      docs: 'Duodenal ulcer : unspecified as acute or chronic, without haemorrhage
+        or perforation'
+  - category: K27
+    docs: Peptic ulcer, site unspecified
+    child:
+    - code: K27.0
+      docs: 'Peptic ulcer, site unspecified : acute with haemorrhage'
+    - code: K27.1
+      docs: 'Peptic ulcer, site unspecified : acute with perforation'
+    - code: K27.2
+      docs: 'Peptic ulcer, site unspecified : acute with both haemorrhage and perforation'
+    - code: K27.3
+      docs: 'Peptic ulcer, site unspecified : acute without haemorrhage or perforation'
+    - code: K27.4
+      docs: 'Peptic ulcer, site unspecified : chronic or unspecified with haemorrhage'
+    - code: K27.5
+      docs: 'Peptic ulcer, site unspecified : chronic or unspecified with perforation'
+    - code: K27.6
+      docs: 'Peptic ulcer, site unspecified : chronic or unspecified with both haemorrhage
+        and perforation'
+    - code: K27.7
+      docs: 'Peptic ulcer, site unspecified : chronic without haemorrhage or perforation'
+    - code: K27.9
+      docs: 'Peptic ulcer, site unspecified : unspecified as acute or chronic, without
+        haemorrhage or perforation'
+  - category: K28
+    docs: Gastrojejunal ulcer
+    child:
+    - code: K28.0
+      docs: 'Gastrojejunal ulcer : acute with haemorrhage'
+    - code: K28.1
+      docs: 'Gastrojejunal ulcer : acute with perforation'
+    - code: K28.2
+      docs: 'Gastrojejunal ulcer : acute with both haemorrhage and perforation'
+    - code: K28.3
+      docs: 'Gastrojejunal ulcer : acute without haemorrhage or perforation'
+    - code: K28.4
+      docs: 'Gastrojejunal ulcer : chronic or unspecified with haemorrhage'
+    - code: K28.5
+      docs: 'Gastrojejunal ulcer : chronic or unspecified with perforation'
+    - code: K28.6
+      docs: 'Gastrojejunal ulcer : chronic or unspecified with both haemorrhage and
+        perforation'
+    - code: K28.7
+      docs: 'Gastrojejunal ulcer : chronic without haemorrhage or perforation'
+    - code: K28.9
+      docs: 'Gastrojejunal ulcer : unspecified as acute or chronic, without haemorrhage
+        or perforation'
+  - category: K29
+    docs: Gastritis and duodenitis
+    child:
+    - code: K29.0
+      docs: Acute haemorrhagic gastritis
+    - code: K29.1
+      docs: Other acute gastritis
+    - code: K29.2
+      docs: Alcoholic gastritis
+    - code: K29.3
+      docs: Chronic superficial gastritis
+    - code: K29.4
+      docs: Chronic atrophic gastritis
+    - code: K29.5
+      docs: Chronic gastritis, unspecified
+    - code: K29.6
+      docs: Other gastritis
+    - code: K29.7
+      docs: Gastritis, unspecified
+    - code: K29.8
+      docs: Duodenitis
+    - code: K29.9
+      docs: Gastroduodenitis, unspecified
+  - code: K30
+    docs: Functional dyspepsia
+  - category: K31
+    docs: Other diseases of stomach and duodenum
+    child:
+    - code: K31.0
+      docs: Acute dilatation of stomach
+    - code: K31.1
+      docs: Adult hypertrophic pyloric stenosis
+    - code: K31.2
+      docs: Hourglass stricture and stenosis of stomach
+    - code: K31.3
+      docs: Pylorospasm, not elsewhere classified
+    - code: K31.4
+      docs: Gastric diverticulum
+    - code: K31.5
+      docs: Obstruction of duodenum
+    - code: K31.6
+      docs: Fistula of stomach and duodenum
+    - code: K31.7
+      docs: Polyp of stomach and duodenum
+    - code: K31.8
+      docs: Other specified diseases of stomach and duodenum
+    - code: K31.9
+      docs: Disease of stomach and duodenum, unspecified
+- category: K35-K38
+  docs: Diseases of appendix
+  child:
+  - category: K35
+    docs: Acute appendicitis
+    child:
+    - code: K35.2
+      docs: Acute appendicitis with generalized peritonitis
+    - code: K35.3
+      docs: Acute appendicitis with localized peritonitis
+    - code: K35.8
+      docs: Acute appendicitis, other and unspecified
+  - code: K36
+    docs: Other appendicitis
+  - code: K37
+    docs: Unspecified appendicitis
+  - category: K38
+    docs: Other diseases of appendix
+    child:
+    - code: K38.0
+      docs: Hyperplasia of appendix
+    - code: K38.1
+      docs: Appendicular concretions
+    - code: K38.2
+      docs: Diverticulum of appendix
+    - code: K38.3
+      docs: Fistula of appendix
+    - code: K38.8
+      docs: Other specified diseases of appendix
+    - code: K38.9
+      docs: Disease of appendix, unspecified
+- category: K40-K46
+  docs: Hernia
+  child:
+  - category: K40
+    docs: Inguinal hernia
+    child:
+    - code: K40.0
+      docs: Bilateral inguinal hernia, with obstruction, without gangrene
+    - code: K40.1
+      docs: Bilateral inguinal hernia, with gangrene
+    - code: K40.2
+      docs: Bilateral inguinal hernia, without obstruction or gangrene
+    - code: K40.3
+      docs: Unilateral or unspecified inguinal hernia, with obstruction, without gangrene
+    - code: K40.4
+      docs: Unilateral or unspecified inguinal hernia, with gangrene
+    - code: K40.9
+      docs: Unilateral or unspecified inguinal hernia, without obstruction or gangrene
+  - category: K41
+    docs: Femoral hernia
+    child:
+    - code: K41.0
+      docs: Bilateral femoral hernia, with obstruction, without gangrene
+    - code: K41.1
+      docs: Bilateral femoral hernia, with gangrene
+    - code: K41.2
+      docs: Bilateral femoral hernia, without obstruction or gangrene
+    - code: K41.3
+      docs: Unilateral or unspecified femoral hernia, with obstruction, without gangrene
+    - code: K41.4
+      docs: Unilateral or unspecified femoral hernia, with gangrene
+    - code: K41.9
+      docs: Unilateral or unspecified femoral hernia, without obstruction or gangrene
+  - category: K42
+    docs: Umbilical hernia
+    child:
+    - code: K42.0
+      docs: Umbilical hernia with obstruction, without gangrene
+    - code: K42.1
+      docs: Umbilical hernia with gangrene
+    - code: K42.9
+      docs: Umbilical hernia without obstruction or gangrene
+  - category: K43
+    docs: Ventral hernia
+    child:
+    - code: K43.0
+      docs: Incisional hernia with obstruction, without gangrene
+    - code: K43.1
+      docs: Incisional hernia with gangrene
+    - code: K43.2
+      docs: Incisional hernia without obstruction or gangrene
+    - code: K43.3
+      docs: Parastomal hernia with obstruction, without gangrene
+    - code: K43.4
+      docs: Parastomal hernia with gangrene
+    - code: K43.5
+      docs: Parastomal hernia without obstruction or gangrene
+    - code: K43.6
+      docs: Other and unspecified ventral hernia with obstruction without gangrene
+    - code: K43.7
+      docs: Other and unspecified ventral hernia with gangrene
+    - code: K43.9
+      docs: Other and unspecified ventral hernia without obstruction or gangrene
+  - category: K44
+    docs: Diaphragmatic hernia
+    child:
+    - code: K44.0
+      docs: Diaphragmatic hernia with obstruction, without gangrene
+    - code: K44.1
+      docs: Diaphragmatic hernia with gangrene
+    - code: K44.9
+      docs: Diaphragmatic hernia without obstruction or gangrene
+  - category: K45
+    docs: Other abdominal hernia
+    child:
+    - code: K45.0
+      docs: Other specified abdominal hernia with obstruction, without gangrene
+    - code: K45.1
+      docs: Other specified abdominal hernia with gangrene
+    - code: K45.8
+      docs: Other specified abdominal hernia without obstruction or gangrene
+  - category: K46
+    docs: Unspecified abdominal hernia
+    child:
+    - code: K46.0
+      docs: Unspecified abdominal hernia with obstruction, without gangrene
+    - code: K46.1
+      docs: Unspecified abdominal hernia with gangrene
+    - code: K46.9
+      docs: Unspecified abdominal hernia without obstruction or gangrene
+- category: K50-K52
+  docs: Noninfective enteritis and colitis
+  child:
+  - category: K50
+    docs: Crohn disease [regional enteritis]
+    child:
+    - code: K50.0
+      docs: Crohn disease of small intestine
+    - code: K50.1
+      docs: Crohn disease of large intestine
+    - code: K50.8
+      docs: Other Crohn disease
+    - code: K50.9
+      docs: Crohn disease, unspecified
+  - category: K51
+    docs: Ulcerative colitis
+    child:
+    - code: K51.0
+      docs: Ulcerative (chronic) pancolitis
+    - code: K51.2
+      docs: Ulcerative (chronic) proctitis
+    - code: K51.3
+      docs: Ulcerative (chronic) rectosigmoiditis
+    - code: K51.4
+      docs: Inflammatory polyps
+    - code: K51.5
+      docs: Left sided colitis
+    - code: K51.8
+      docs: Other ulcerative colitis
+    - code: K51.9
+      docs: Ulcerative colitis, unspecified
+  - category: K52
+    docs: Other noninfective gastroenteritis and colitis
+    child:
+    - code: K52.0
+      docs: Gastroenteritis and colitis due to radiation
+    - code: K52.1
+      docs: Toxic gastroenteritis and colitis
+    - code: K52.2
+      docs: Allergic and dietetic gastroenteritis and colitis
+    - code: K52.3
+      docs: Indeterminate colitis
+    - code: K52.8
+      docs: Other specified noninfective gastroenteritis and colitis
+    - code: K52.9
+      docs: Noninfective gastroenteritis and colitis, unspecified
+- category: K55-K64
+  docs: Other diseases of intestines
+  child:
+  - category: K55
+    docs: Vascular disorders of intestine
+    child:
+    - code: K55.0
+      docs: Acute vascular disorders of intestine
+    - code: K55.1
+      docs: Chronic vascular disorders of intestine
+    - code: K55.2
+      docs: Angiodysplasia of colon
+    - code: K55.8
+      docs: Other vascular disorders of intestine
+    - code: K55.9
+      docs: Vascular disorder of intestine, unspecified
+  - category: K56
+    docs: Paralytic ileus and intestinal obstruction without hernia
+    child:
+    - code: K56.0
+      docs: Paralytic ileus
+    - code: K56.1
+      docs: Intussusception
+    - code: K56.2
+      docs: Volvulus
+    - code: K56.3
+      docs: Gallstone ileus
+    - code: K56.4
+      docs: Other impaction of intestine
+    - code: K56.5
+      docs: Intestinal adhesions [bands] with obstruction
+    - code: K56.6
+      docs: Other and unspecified intestinal obstruction
+    - code: K56.7
+      docs: Ileus, unspecified
+  - category: K57
+    docs: Diverticular disease of intestine
+    child:
+    - code: K57.0
+      docs: Diverticular disease of small intestine with perforation and abscess
+    - code: K57.1
+      docs: Diverticular disease of small intestine without perforation or abscess
+    - code: K57.2
+      docs: Diverticular disease of large intestine with perforation and abscess
+    - code: K57.3
+      docs: Diverticular disease of large intestine without perforation or abscess
+    - code: K57.4
+      docs: Diverticular disease of both small and large intestine with perforation
+        and abscess
+    - code: K57.5
+      docs: Diverticular disease of both small and large intestine without perforation
+        or abscess
+    - code: K57.8
+      docs: Diverticular disease of intestine, part unspecified, with perforation
+        and abscess
+    - code: K57.9
+      docs: Diverticular disease of intestine, part unspecified, without perforation
+        or abscess
+  - category: K58
+    docs: Irritable bowel syndrome
+    child:
+    - code: K58.0
+      docs: Irritable bowel syndrome with diarrhoea
+    - code: K58.9
+      docs: Irritable bowel syndrome without diarrhoea
+  - category: K59
+    docs: Other functional intestinal disorders
+    child:
+    - code: K59.0
+      docs: Constipation
+    - code: K59.1
+      docs: Functional diarrhoea
+    - code: K59.2
+      docs: Neurogenic bowel, not elsewhere classified
+    - code: K59.3
+      docs: Megacolon, not elsewhere classified
+    - code: K59.4
+      docs: Anal spasm
+    - code: K59.8
+      docs: Other specified functional intestinal disorders
+    - code: K59.9
+      docs: Functional intestinal disorder, unspecified
+  - category: K60
+    docs: Fissure and fistula of anal and rectal regions
+    child:
+    - code: K60.0
+      docs: Acute anal fissure
+    - code: K60.1
+      docs: Chronic anal fissure
+    - code: K60.2
+      docs: Anal fissure, unspecified
+    - code: K60.3
+      docs: Anal fistula
+    - code: K60.4
+      docs: Rectal fistula
+    - code: K60.5
+      docs: Anorectal fistula
+  - category: K61
+    docs: Abscess of anal and rectal regions
+    child:
+    - code: K61.0
+      docs: Anal abscess
+    - code: K61.1
+      docs: Rectal abscess
+    - code: K61.2
+      docs: Anorectal abscess
+    - code: K61.3
+      docs: Ischiorectal abscess
+    - code: K61.4
+      docs: Intrasphincteric abscess
+  - category: K62
+    docs: Other diseases of anus and rectum
+    child:
+    - code: K62.0
+      docs: Anal polyp
+    - code: K62.1
+      docs: Rectal polyp
+    - code: K62.2
+      docs: Anal prolapse
+    - code: K62.3
+      docs: Rectal prolapse
+    - code: K62.4
+      docs: Stenosis of anus and rectum
+    - code: K62.5
+      docs: Haemorrhage of anus and rectum
+    - code: K62.6
+      docs: Ulcer of anus and rectum
+    - code: K62.7
+      docs: Radiation proctitis
+    - code: K62.8
+      docs: Other specified diseases of anus and rectum
+    - code: K62.9
+      docs: Disease of anus and rectum, unspecified
+  - category: K63
+    docs: Other diseases of intestine
+    child:
+    - code: K63.0
+      docs: Abscess of intestine
+    - code: K63.1
+      docs: Perforation of intestine (nontraumatic)
+    - code: K63.2
+      docs: Fistula of intestine
+    - code: K63.3
+      docs: Ulcer of intestine
+    - code: K63.4
+      docs: Enteroptosis
+    - code: K63.5
+      docs: Polyp of colon
+    - code: K63.8
+      docs: Other specified diseases of intestine
+    - code: K63.9
+      docs: Disease of intestine, unspecified
+  - category: K64
+    docs: Haemorrhoids and perianal venous thrombosis
+    child:
+    - code: K64.0
+      docs: First degree haemorrhoids
+    - code: K64.1
+      docs: Second degree haemorrhoids
+    - code: K64.2
+      docs: Third degree haemorrhoids
+    - code: K64.3
+      docs: Fourth degree haemorrhoids
+    - code: K64.4
+      docs: Residual haemorrhoidal skin tags
+    - code: K64.5
+      docs: Perianal venous thrombosis
+    - code: K64.8
+      docs: Other specified haemorrhoids
+    - code: K64.9
+      docs: Haemorrhoids, unspecified
+- category: K65-K67
+  docs: Diseases of peritoneum
+  child:
+  - category: K65
+    docs: Peritonitis
+    child:
+    - code: K65.0
+      docs: Acute peritonitis
+    - code: K65.8
+      docs: Other peritonitis
+    - code: K65.9
+      docs: Peritonitis, unspecified
+  - category: K66
+    docs: Other disorders of peritoneum
+    child:
+    - code: K66.0
+      docs: Peritoneal adhesions
+    - code: K66.1
+      docs: Haemoperitoneum
+    - code: K66.8
+      docs: Other specified disorders of peritoneum
+    - code: K66.9
+      docs: Disorder of peritoneum, unspecified
+  - category: K67
+    docs: Disorders of peritoneum in infectious diseases classified elsewhere
+    child:
+    - code: K67.0
+      docs: Chlamydial peritonitis
+    - code: K67.1
+      docs: Gonococcal peritonitis
+    - code: K67.2
+      docs: Syphilitic peritonitis
+    - code: K67.3
+      docs: Tuberculous peritonitis
+    - code: K67.8
+      docs: Other disorders of peritoneum in infectious diseases classified elsewhere
+- category: K70-K77
+  docs: Diseases of liver
+  child:
+  - category: K70
+    docs: Alcoholic liver disease
+    child:
+    - code: K70.0
+      docs: Alcoholic fatty liver
+    - code: K70.1
+      docs: Alcoholic hepatitis
+    - code: K70.2
+      docs: Alcoholic fibrosis and sclerosis of liver
+    - code: K70.3
+      docs: Alcoholic cirrhosis of liver
+    - code: K70.4
+      docs: Alcoholic hepatic failure
+    - code: K70.9
+      docs: Alcoholic liver disease, unspecified
+  - category: K71
+    docs: Toxic liver disease
+    child:
+    - code: K71.0
+      docs: Toxic liver disease with cholestasis
+    - code: K71.1
+      docs: Toxic liver disease with hepatic necrosis
+    - code: K71.2
+      docs: Toxic liver disease with acute hepatitis
+    - code: K71.3
+      docs: Toxic liver disease with chronic persistent hepatitis
+    - code: K71.4
+      docs: Toxic liver disease with chronic lobular hepatitis
+    - code: K71.5
+      docs: Toxic liver disease with chronic active hepatitis
+    - code: K71.6
+      docs: Toxic liver disease with hepatitis, not elsewhere classified
+    - code: K71.7
+      docs: Toxic liver disease with fibrosis and cirrhosis of liver
+    - code: K71.8
+      docs: Toxic liver disease with other disorders of liver
+    - code: K71.9
+      docs: Toxic liver disease, unspecified
+  - category: K72
+    docs: Hepatic failure, not elsewhere classified
+    child:
+    - code: K72.0
+      docs: Acute and subacute hepatic failure
+    - code: K72.1
+      docs: Chronic hepatic failure
+    - code: K72.9
+      docs: Hepatic failure, unspecified
+  - category: K73
+    docs: Chronic hepatitis, not elsewhere classified
+    child:
+    - code: K73.0
+      docs: Chronic persistent hepatitis, not elsewhere classified
+    - code: K73.1
+      docs: Chronic lobular hepatitis, not elsewhere classified
+    - code: K73.2
+      docs: Chronic active hepatitis, not elsewhere classified
+    - code: K73.8
+      docs: Other chronic hepatitis, not elsewhere classified
+    - code: K73.9
+      docs: Chronic hepatitis, unspecified
+  - category: K74
+    docs: Fibrosis and cirrhosis of liver
+    child:
+    - code: K74.0
+      docs: Hepatic fibrosis
+    - code: K74.1
+      docs: Hepatic sclerosis
+    - code: K74.2
+      docs: Hepatic fibrosis with hepatic sclerosis
+    - code: K74.3
+      docs: Primary biliary cirrhosis
+    - code: K74.4
+      docs: Secondary biliary cirrhosis
+    - code: K74.5
+      docs: Biliary cirrhosis, unspecified
+    - code: K74.6
+      docs: Other and unspecified cirrhosis of liver
+  - category: K75
+    docs: Other inflammatory liver diseases
+    child:
+    - code: K75.0
+      docs: Abscess of liver
+    - code: K75.1
+      docs: Phlebitis of portal vein
+    - code: K75.2
+      docs: Nonspecific reactive hepatitis
+    - code: K75.3
+      docs: Granulomatous hepatitis, not elsewhere classified
+    - code: K75.4
+      docs: Autoimmune hepatitis
+    - code: K75.8
+      docs: Other specified inflammatory liver diseases
+    - code: K75.9
+      docs: Inflammatory liver disease, unspecified
+  - category: K76
+    docs: Other diseases of liver
+    child:
+    - code: K76.0
+      docs: Fatty (change of) liver, not elsewhere classified
+    - code: K76.1
+      docs: Chronic passive congestion of liver
+    - code: K76.2
+      docs: Central haemorrhagic necrosis of liver
+    - code: K76.3
+      docs: Infarction of liver
+    - code: K76.4
+      docs: Peliosis hepatis
+    - code: K76.5
+      docs: Hepatic veno-occlusive disease
+    - code: K76.6
+      docs: Portal hypertension
+    - code: K76.7
+      docs: Hepatorenal syndrome
+    - code: K76.8
+      docs: Other specified diseases of liver
+    - code: K76.9
+      docs: Liver disease, unspecified
+  - category: K77
+    docs: Liver disorders in diseases classified elsewhere
+    child:
+    - code: K77.0
+      docs: Liver disorders in infectious and parasitic diseases classified elsewhere
+    - code: K77.8
+      docs: Liver disorders in other diseases classified elsewhere
+- category: K80-K87
+  docs: Disorders of gallbladder, biliary tract and pancreas
+  child:
+  - category: K80
+    docs: Cholelithiasis
+    child:
+    - code: K80.0
+      docs: Calculus of gallbladder with acute cholecystitis
+    - code: K80.1
+      docs: Calculus of gallbladder with other cholecystitis
+    - code: K80.2
+      docs: Calculus of gallbladder without cholecystitis
+    - code: K80.3
+      docs: Calculus of bile duct with cholangitis
+    - code: K80.4
+      docs: Calculus of bile duct with cholecystitis
+    - code: K80.5
+      docs: Calculus of bile duct without cholangitis or cholecystitis
+    - code: K80.8
+      docs: Other cholelithiasis
+  - category: K81
+    docs: Cholecystitis
+    child:
+    - code: K81.0
+      docs: Acute cholecystitis
+    - code: K81.1
+      docs: Chronic cholecystitis
+    - code: K81.8
+      docs: Other cholecystitis
+    - code: K81.9
+      docs: Cholecystitis, unspecified
+  - category: K82
+    docs: Other diseases of gallbladder
+    child:
+    - code: K82.0
+      docs: Obstruction of gallbladder
+    - code: K82.1
+      docs: Hydrops of gallbladder
+    - code: K82.2
+      docs: Perforation of gallbladder
+    - code: K82.3
+      docs: Fistula of gallbladder
+    - code: K82.4
+      docs: Cholesterolosis of gallbladder
+    - code: K82.8
+      docs: Other specified diseases of gallbladder
+    - code: K82.9
+      docs: Disease of gallbladder, unspecified
+  - category: K83
+    docs: Other diseases of biliary tract
+    child:
+    - code: K83.0
+      docs: Cholangitis
+    - code: K83.1
+      docs: Obstruction of bile duct
+    - code: K83.2
+      docs: Perforation of bile duct
+    - code: K83.3
+      docs: Fistula of bile duct
+    - code: K83.4
+      docs: Spasm of sphincter of Oddi
+    - code: K83.5
+      docs: Biliary cyst
+    - code: K83.8
+      docs: Other specified diseases of biliary tract
+    - code: K83.9
+      docs: Disease of biliary tract, unspecified
+  - category: K85
+    docs: Acute pancreatitis
+    child:
+    - code: K85.0
+      docs: Idiopathic acute pancreatitis
+    - code: K85.1
+      docs: Biliary acute pancreatitis
+    - code: K85.2
+      docs: Alcohol-induced acute pancreatitis
+    - code: K85.3
+      docs: Drug-induced acute pancreatitis
+    - code: K85.8
+      docs: Other acute pancreatitis
+    - code: K85.9
+      docs: Acute pancreatitis, unspecified
+  - category: K86
+    docs: Other diseases of pancreas
+    child:
+    - code: K86.0
+      docs: Alcohol-induced chronic pancreatitis
+    - code: K86.1
+      docs: Other chronic pancreatitis
+    - code: K86.2
+      docs: Cyst of pancreas
+    - code: K86.3
+      docs: Pseudocyst of pancreas
+    - code: K86.8
+      docs: Other specified diseases of pancreas
+    - code: K86.9
+      docs: Disease of pancreas, unspecified
+  - category: K87
+    docs: Disorders of gallbladder, biliary tract and pancreas in diseases classified
+      elsewhere
+    child:
+    - code: K87.0
+      docs: Disorders of gallbladder and biliary tract in diseases classified elsewhere
+    - code: K87.1
+      docs: Disorders of pancreas in diseases classified elsewhere
+- category: K90-K93
+  docs: Other diseases of the digestive system
+  child:
+  - category: K90
+    docs: Intestinal malabsorption
+    child:
+    - code: K90.0
+      docs: Coeliac disease
+    - code: K90.1
+      docs: Tropical sprue
+    - code: K90.2
+      docs: Blind loop syndrome, not elsewhere classified
+    - code: K90.3
+      docs: Pancreatic steatorrhoea
+    - code: K90.4
+      docs: Malabsorption due to intolerance, not elsewhere classified
+    - code: K90.8
+      docs: Other intestinal malabsorption
+    - code: K90.9
+      docs: Intestinal malabsorption, unspecified
+  - category: K91
+    docs: Postprocedural disorders of digestive system, not elsewhere classified
+    child:
+    - code: K91.0
+      docs: Vomiting following gastrointestinal surgery
+    - code: K91.1
+      docs: Postgastric surgery syndromes
+    - code: K91.2
+      docs: Postsurgical malabsorption, not elsewhere classified
+    - code: K91.3
+      docs: Postoperative intestinal obstruction
+    - code: K91.4
+      docs: Colostomy and enterostomy malfunction
+    - code: K91.5
+      docs: Postcholecystectomy syndrome
+    - code: K91.8
+      docs: Other postprocedural disorders of digestive system, not elsewhere classified
+    - code: K91.9
+      docs: Postprocedural disorder of digestive system, unspecified
+  - category: K92
+    docs: Other diseases of digestive system
+    child:
+    - code: K92.0
+      docs: Haematemesis
+    - code: K92.1
+      docs: Melaena
+    - code: K92.2
+      docs: Gastrointestinal haemorrhage, unspecified
+    - code: K92.8
+      docs: Other specified diseases of digestive system
+    - code: K92.9
+      docs: Disease of digestive system, unspecified
+  - category: K93
+    docs: Disorders of other digestive organs in diseases classified elsewhere
+    child:
+    - code: K93.0
+      docs: Tuberculous disorders of intestines, peritoneum and mesenteric glands
+    - code: K93.1
+      docs: Megacolon in Chagas disease
+    - code: K93.8
+      docs: Disorders of other specified digestive organs in diseases classified elsewhere

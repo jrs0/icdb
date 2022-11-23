@@ -1,0 +1,108 @@
+category: XXII
+docs: Codes for special purposes
+child:
+- category: U00-U49
+  docs: Provisional assignment of new diseases of uncertain etiology or emergency
+    use
+  child:
+  - category: U04
+    docs: Severe acute respiratory syndrome [SARS]
+    child:
+    - code: U04.9
+      docs: Severe acute respiratory syndrome [SARS], unspecified
+  - category: U06
+    docs: Zika virus disease
+    child:
+    - code: U06.0
+      docs: Emergency use of U06.0
+    - code: U06.1
+      docs: Emergency use of U06.1
+    - code: U06.2
+      docs: Emergency use of U06.2
+    - code: U06.3
+      docs: Emergency use of U06.3
+    - code: U06.4
+      docs: Emergency use of U06.4
+    - code: U06.5
+      docs: Emergency use of U06.5
+    - code: U06.6
+      docs: Emergency use of U06.6
+    - code: U06.7
+      docs: Emergency use of U06.7
+    - code: U06.8
+      docs: Emergency use of U06.8
+    - code: U06.9
+      docs: Zika virus disease, unspecified
+  - category: U07
+    docs: Emergency use of U07
+    child:
+    - code: U07.0
+      docs: Emergency use of U07.0
+    - code: U07.1
+      docs: Emergency use of U07.1
+    - code: U07.2
+      docs: Emergency use of U07.2
+    - code: U07.3
+      docs: Emergency use of U07.3
+    - code: U07.4
+      docs: Emergency use of U07.4
+    - code: U07.5
+      docs: Emergency use of U07.5
+    - code: U07.6
+      docs: Emergency use of U07.6
+    - code: U07.7
+      docs: Emergency use of U07.7
+    - code: U07.8
+      docs: Emergency use of U07.8
+    - code: U07.9
+      docs: Emergency use of U07.9
+- category: U82-U85
+  docs: Resistance to antimicrobial and antineoplastic drugs
+  child:
+  - category: U82
+    docs: Resistance to betalactam antibiotics
+    child:
+    - code: U82.0
+      docs: Resistance to penicillin
+    - code: U82.1
+      docs: Resistance to methicillin
+    - code: U82.2
+      docs: Extended spectrum betalactamase (ESBL) resistance
+    - code: U82.8
+      docs: Resistance to other betalactam antibiotics
+    - code: U82.9
+      docs: Resistance to betalactam antibiotics, unspecified
+  - category: U83
+    docs: Resistance to other antibiotics
+    child:
+    - code: U83.0
+      docs: Resistance to vancomycin
+    - code: U83.1
+      docs: Resistance to other vancomycin related antibiotics
+    - code: U83.2
+      docs: Resistance to quinolones
+    - code: U83.7
+      docs: Resistance to multiple antibiotics
+    - code: U83.8
+      docs: Resistance to other single specified antibiotic
+    - code: U83.9
+      docs: Resistance to unspecified antibiotic
+  - category: U84
+    docs: Resistance to other antimicrobial drugs
+    child:
+    - code: U84.0
+      docs: Resistance to antiparasitic drug(s)
+    - code: U84.1
+      docs: Resistance to antifungal drug(s)
+    - code: U84.2
+      docs: Resistance to antiviral drug(s)
+    - code: U84.3
+      docs: Resistance to tuberculostatic drug(s)
+    - code: U84.7
+      docs: Resistance to multiple antimicrobial drugs
+    - code: U84.8
+      docs: Resistance to other specified antimicrobial drug
+    - code: U84.9
+      docs: Resistance to unspecified antimicrobial drugs
+  - code: U85
+    docs: Resistance to antineoplastic drugs

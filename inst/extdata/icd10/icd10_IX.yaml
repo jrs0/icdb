@@ -1,0 +1,1025 @@
+category: IX
+docs: Diseases of the circulatory system
+child:
+- category: I00-I02
+  docs: Acute rheumatic fever
+  child:
+  - code: I00
+    docs: Rheumatic fever without mention of heart involvement
+  - category: I01
+    docs: Rheumatic fever with heart involvement
+    child:
+    - code: I01.0
+      docs: Acute rheumatic pericarditis
+    - code: I01.1
+      docs: Acute rheumatic endocarditis
+    - code: I01.2
+      docs: Acute rheumatic myocarditis
+    - code: I01.8
+      docs: Other acute rheumatic heart disease
+    - code: I01.9
+      docs: Acute rheumatic heart disease, unspecified
+  - category: I02
+    docs: Rheumatic chorea
+    child:
+    - code: I02.0
+      docs: Rheumatic chorea with heart involvement
+    - code: I02.9
+      docs: Rheumatic chorea without heart involvement
+- category: I05-I09
+  docs: Chronic rheumatic heart diseases
+  child:
+  - category: I05
+    docs: Rheumatic mitral valve diseases
+    child:
+    - code: I05.0
+      docs: Mitral stenosis
+    - code: I05.1
+      docs: Rheumatic mitral insufficiency
+    - code: I05.2
+      docs: Mitral stenosis with insufficiency
+    - code: I05.8
+      docs: Other mitral valve diseases
+    - code: I05.9
+      docs: Mitral valve disease, unspecified
+  - category: I06
+    docs: Rheumatic aortic valve diseases
+    child:
+    - code: I06.0
+      docs: Rheumatic aortic stenosis
+    - code: I06.1
+      docs: Rheumatic aortic insufficiency
+    - code: I06.2
+      docs: Rheumatic aortic stenosis with insufficiency
+    - code: I06.8
+      docs: Other rheumatic aortic valve diseases
+    - code: I06.9
+      docs: Rheumatic aortic valve disease, unspecified
+  - category: I07
+    docs: Rheumatic tricuspid valve diseases
+    child:
+    - code: I07.0
+      docs: Tricuspid stenosis
+    - code: I07.1
+      docs: Tricuspid insufficiency
+    - code: I07.2
+      docs: Tricuspid stenosis with insufficiency
+    - code: I07.8
+      docs: Other tricuspid valve diseases
+    - code: I07.9
+      docs: Tricuspid valve disease, unspecified
+  - category: I08
+    docs: Multiple valve diseases
+    child:
+    - code: I08.0
+      docs: Disorders of both mitral and aortic valves
+    - code: I08.1
+      docs: Disorders of both mitral and tricuspid valves
+    - code: I08.2
+      docs: Disorders of both aortic and tricuspid valves
+    - code: I08.3
+      docs: Combined disorders of mitral, aortic and tricuspid valves
+    - code: I08.8
+      docs: Other multiple valve diseases
+    - code: I08.9
+      docs: Multiple valve disease, unspecified
+  - category: I09
+    docs: Other rheumatic heart diseases
+    child:
+    - code: I09.0
+      docs: Rheumatic myocarditis
+    - code: I09.1
+      docs: Rheumatic diseases of endocardium, valve unspecified
+    - code: I09.2
+      docs: Chronic rheumatic pericarditis
+    - code: I09.8
+      docs: Other specified rheumatic heart diseases
+    - code: I09.9
+      docs: Rheumatic heart disease, unspecified
+- category: I10-I15
+  docs: Hypertensive diseases
+  child:
+  - code: I10
+    docs: Essential (primary) hypertension
+  - category: I11
+    docs: Hypertensive heart disease
+    child:
+    - code: I11.0
+      docs: Hypertensive heart disease with (congestive) heart failure
+    - code: I11.9
+      docs: Hypertensive heart disease without (congestive) heart failure
+  - category: I12
+    docs: Hypertensive renal disease
+    child:
+    - code: I12.0
+      docs: Hypertensive renal disease with renal failure
+    - code: I12.9
+      docs: Hypertensive renal disease without renal failure
+  - category: I13
+    docs: Hypertensive heart and renal disease
+    child:
+    - code: I13.0
+      docs: Hypertensive heart and renal disease with (congestive) heart failure
+    - code: I13.1
+      docs: Hypertensive heart and renal disease with renal failure
+    - code: I13.2
+      docs: Hypertensive heart and renal disease with both (congestive) heart failure
+        and renal failure
+    - code: I13.9
+      docs: Hypertensive heart and renal disease, unspecified
+  - category: I15
+    docs: Secondary hypertension
+    child:
+    - code: I15.0
+      docs: Renovascular hypertension
+    - code: I15.1
+      docs: Hypertension secondary to other renal disorders
+    - code: I15.2
+      docs: Hypertension secondary to endocrine disorders
+    - code: I15.8
+      docs: Other secondary hypertension
+    - code: I15.9
+      docs: Secondary hypertension, unspecified
+- category: I20-I25
+  docs: Ischaemic heart diseases
+  child:
+  - category: I20
+    docs: Angina pectoris
+    child:
+    - code: I20.0
+      docs: Unstable angina
+    - code: I20.1
+      docs: Angina pectoris with documented spasm
+    - code: I20.8
+      docs: Other forms of angina pectoris
+    - code: I20.9
+      docs: Angina pectoris, unspecified
+  - category: I21
+    docs: Acute myocardial infarction
+    child:
+    - code: I21.0
+      docs: Acute transmural myocardial infarction of anterior wall
+    - code: I21.1
+      docs: Acute transmural myocardial infarction of inferior wall
+    - code: I21.2
+      docs: Acute transmural myocardial infarction of other sites
+    - code: I21.3
+      docs: Acute transmural myocardial infarction of unspecified site
+    - code: I21.4
+      docs: Acute subendocardial myocardial infarction
+    - code: I21.9
+      docs: Acute myocardial infarction, unspecified
+  - category: I22
+    docs: Subsequent myocardial infarction
+    child:
+    - code: I22.0
+      docs: Subsequent myocardial infarction of anterior wall
+    - code: I22.1
+      docs: Subsequent myocardial infarction of inferior wall
+    - code: I22.8
+      docs: Subsequent myocardial infarction of other sites
+    - code: I22.9
+      docs: Subsequent myocardial infarction of unspecified site
+  - category: I23
+    docs: Certain current complications following acute myocardial infarction
+    child:
+    - code: I23.0
+      docs: Haemopericardium as current complication following acute myocardial infarction
+    - code: I23.1
+      docs: Atrial septal defect as current complication following acute myocardial
+        infarction
+    - code: I23.2
+      docs: Ventricular septal defect as current complication following acute myocardial
+        infarction
+    - code: I23.3
+      docs: Rupture of cardiac wall without haemopericardium as current complication
+        following acute myocardial infarction
+    - code: I23.4
+      docs: Rupture of chordae tendineae as current complication following acute myocardial
+        infarction
+    - code: I23.5
+      docs: Rupture of papillary muscle as current complication following acute myocardial
+        infarction
+    - code: I23.6
+      docs: Thrombosis of atrium, auricular appendage, and ventricle as current complications
+        following acute myocardial infarction
+    - code: I23.8
+      docs: Other current complications following acute myocardial infarction
+  - category: I24
+    docs: Other acute ischaemic heart diseases
+    child:
+    - code: I24.0
+      docs: Coronary thrombosis not resulting in myocardial infarction
+    - code: I24.1
+      docs: Dressler syndrome
+    - code: I24.8
+      docs: Other forms of acute ischaemic heart disease
+    - code: I24.9
+      docs: Acute ischaemic heart disease, unspecified
+  - category: I25
+    docs: Chronic ischaemic heart disease
+    child:
+    - code: I25.0
+      docs: Atherosclerotic cardiovascular disease, so described
+    - code: I25.1
+      docs: Atherosclerotic heart disease
+    - code: I25.2
+      docs: Old myocardial infarction
+    - code: I25.3
+      docs: Aneurysm of heart
+    - code: I25.4
+      docs: Coronary artery aneurysm and dissection
+    - code: I25.5
+      docs: Ischaemic cardiomyopathy
+    - code: I25.6
+      docs: Silent myocardial ischaemia
+    - code: I25.8
+      docs: Other forms of chronic ischaemic heart disease
+    - code: I25.9
+      docs: Chronic ischaemic heart disease, unspecified
+- category: I26-I28
+  docs: Pulmonary heart disease and diseases of pulmonary circulation
+  child:
+  - category: I26
+    docs: Pulmonary embolism
+    child:
+    - code: I26.0
+      docs: Pulmonary embolism with mention of acute cor pulmonale
+    - code: I26.9
+      docs: Pulmonary embolism without mention of acute cor pulmonale
+  - category: I27
+    docs: Other pulmonary heart diseases
+    child:
+    - code: I27.0
+      docs: Primary pulmonary hypertension
+    - code: I27.1
+      docs: Kyphoscoliotic heart disease
+    - code: I27.2
+      docs: Other secondary pulmonary hypertension
+    - code: I27.8
+      docs: Other specified pulmonary heart diseases
+    - code: I27.9
+      docs: Pulmonary heart disease, unspecified
+  - category: I28
+    docs: Other diseases of pulmonary vessels
+    child:
+    - code: I28.0
+      docs: Arteriovenous fistula of pulmonary vessels
+    - code: I28.1
+      docs: Aneurysm of pulmonary artery
+    - code: I28.8
+      docs: Other specified diseases of pulmonary vessels
+    - code: I28.9
+      docs: Disease of pulmonary vessels, unspecified
+- category: I30-I52
+  docs: Other forms of heart disease
+  child:
+  - category: I30
+    docs: Acute pericarditis
+    child:
+    - code: I30.0
+      docs: Acute nonspecific idiopathic pericarditis
+    - code: I30.1
+      docs: Infective pericarditis
+    - code: I30.8
+      docs: Other forms of acute pericarditis
+    - code: I30.9
+      docs: Acute pericarditis, unspecified
+  - category: I31
+    docs: Other diseases of pericardium
+    child:
+    - code: I31.0
+      docs: Chronic adhesive pericarditis
+    - code: I31.1
+      docs: Chronic constrictive pericarditis
+    - code: I31.2
+      docs: Haemopericardium, not elsewhere classified
+    - code: I31.3
+      docs: Pericardial effusion (noninflammatory)
+    - code: I31.8
+      docs: Other specified diseases of pericardium
+    - code: I31.9
+      docs: Disease of pericardium, unspecified
+  - category: I32
+    docs: Pericarditis in diseases classified elsewhere
+    child:
+    - code: I32.0
+      docs: Pericarditis in bacterial diseases classified elsewhere
+    - code: I32.1
+      docs: Pericarditis in other infectious and parasitic diseases classified elsewhere
+    - code: I32.8
+      docs: Pericarditis in other diseases classified elsewhere
+  - category: I33
+    docs: Acute and subacute endocarditis
+    child:
+    - code: I33.0
+      docs: Acute and subacute infective endocarditis
+    - code: I33.9
+      docs: Acute endocarditis, unspecified
+  - category: I34
+    docs: Nonrheumatic mitral valve disorders
+    child:
+    - code: I34.0
+      docs: Mitral (valve) insufficiency
+    - code: I34.1
+      docs: Mitral (valve) prolapse
+    - code: I34.2
+      docs: Nonrheumatic mitral (valve) stenosis
+    - code: I34.8
+      docs: Other nonrheumatic mitral valve disorders
+    - code: I34.9
+      docs: Nonrheumatic mitral valve disorder, unspecified
+  - category: I35
+    docs: Nonrheumatic aortic valve disorders
+    child:
+    - code: I35.0
+      docs: Aortic (valve) stenosis
+    - code: I35.1
+      docs: Aortic (valve) insufficiency
+    - code: I35.2
+      docs: Aortic (valve) stenosis with insufficiency
+    - code: I35.8
+      docs: Other aortic valve disorders
+    - code: I35.9
+      docs: Aortic valve disorder, unspecified
+  - category: I36
+    docs: Nonrheumatic tricuspid valve disorders
+    child:
+    - code: I36.0
+      docs: Nonrheumatic tricuspid (valve) stenosis
+    - code: I36.1
+      docs: Nonrheumatic tricuspid (valve) insufficiency
+    - code: I36.2
+      docs: Nonrheumatic tricuspid (valve) stenosis with insufficiency
+    - code: I36.8
+      docs: Other nonrheumatic tricuspid valve disorders
+    - code: I36.9
+      docs: Nonrheumatic tricuspid valve disorder, unspecified
+  - category: I37
+    docs: Pulmonary valve disorders
+    child:
+    - code: I37.0
+      docs: Pulmonary valve stenosis
+    - code: I37.1
+      docs: Pulmonary valve insufficiency
+    - code: I37.2
+      docs: Pulmonary valve stenosis with insufficiency
+    - code: I37.8
+      docs: Other pulmonary valve disorders
+    - code: I37.9
+      docs: Pulmonary valve disorder, unspecified
+  - code: I38
+    docs: Endocarditis, valve unspecified
+  - category: I39
+    docs: Endocarditis and heart valve disorders in diseases classified elsewhere
+    child:
+    - code: I39.0
+      docs: Mitral valve disorders in diseases classified elsewhere
+    - code: I39.1
+      docs: Aortic valve disorders in diseases classified elsewhere
+    - code: I39.2
+      docs: Tricuspid valve disorders in diseases classified elsewhere
+    - code: I39.3
+      docs: Pulmonary valve disorders in diseases classified elsewhere
+    - code: I39.4
+      docs: Multiple valve disorders in diseases classified elsewhere
+    - code: I39.8
+      docs: Endocarditis, valve unspecified, in diseases classified elsewhere
+  - category: I40
+    docs: Acute myocarditis
+    child:
+    - code: I40.0
+      docs: Infective myocarditis
+    - code: I40.1
+      docs: Isolated myocarditis
+    - code: I40.8
+      docs: Other acute myocarditis
+    - code: I40.9
+      docs: Acute myocarditis, unspecified
+  - category: I41
+    docs: Myocarditis in diseases classified elsewhere
+    child:
+    - code: I41.0
+      docs: Myocarditis in bacterial diseases classified elsewhere
+    - code: I41.1
+      docs: Myocarditis in viral diseases classified elsewhere
+    - code: I41.2
+      docs: Myocarditis in other infectious and parasitic diseases classified elsewhere
+    - code: I41.8
+      docs: Myocarditis in other diseases classified elsewhere
+  - category: I42
+    docs: Cardiomyopathy
+    child:
+    - code: I42.0
+      docs: Dilated cardiomyopathy
+    - code: I42.1
+      docs: Obstructive hypertrophic cardiomyopathy
+    - code: I42.2
+      docs: Other hypertrophic cardiomyopathy
+    - code: I42.3
+      docs: Endomyocardial (eosinophilic) disease
+    - code: I42.4
+      docs: Endocardial fibroelastosis
+    - code: I42.5
+      docs: Other restrictive cardiomyopathy
+    - code: I42.6
+      docs: Alcoholic cardiomyopathy
+    - code: I42.7
+      docs: Cardiomyopathy due to drugs and other external agents
+    - code: I42.8
+      docs: Other cardiomyopathies
+    - code: I42.9
+      docs: Cardiomyopathy, unspecified
+  - category: I43
+    docs: Cardiomyopathy in diseases classified elsewhere
+    child:
+    - code: I43.0
+      docs: Cardiomyopathy in infectious and parasitic diseases classified elsewhere
+    - code: I43.1
+      docs: Cardiomyopathy in metabolic diseases
+    - code: I43.2
+      docs: Cardiomyopathy in nutritional diseases
+    - code: I43.8
+      docs: Cardiomyopathy in other diseases classified elsewhere
+  - category: I44
+    docs: Atrioventricular and left bundle-branch block
+    child:
+    - code: I44.0
+      docs: Atrioventricular block, first degree
+    - code: I44.1
+      docs: Atrioventricular block, second degree
+    - code: I44.2
+      docs: Atrioventricular block, complete
+    - code: I44.3
+      docs: Other and unspecified atrioventricular block
+    - code: I44.4
+      docs: Left anterior fascicular block
+    - code: I44.5
+      docs: Left posterior fascicular block
+    - code: I44.6
+      docs: Other and unspecified fascicular block
+    - code: I44.7
+      docs: Left bundle-branch block, unspecified
+  - category: I45
+    docs: Other conduction disorders
+    child:
+    - code: I45.0
+      docs: Right fascicular block
+    - code: I45.1
+      docs: Other and unspecified right bundle-branch block
+    - code: I45.2
+      docs: Bifascicular block
+    - code: I45.3
+      docs: Trifascicular block
+    - code: I45.4
+      docs: Nonspecific intraventricular block
+    - code: I45.5
+      docs: Other specified heart block
+    - code: I45.6
+      docs: Pre-excitation syndrome
+    - code: I45.8
+      docs: Other specified conduction disorders
+    - code: I45.9
+      docs: Conduction disorder, unspecified
+  - category: I46
+    docs: Cardiac arrest
+    child:
+    - code: I46.0
+      docs: Cardiac arrest with successful resuscitation
+    - code: I46.1
+      docs: Sudden cardiac death, so described
+    - code: I46.9
+      docs: Cardiac arrest, unspecified
+  - category: I47
+    docs: Paroxysmal tachycardia
+    child:
+    - code: I47.0
+      docs: Re-entry ventricular arrhythmia
+    - code: I47.1
+      docs: Supraventricular tachycardia
+    - code: I47.2
+      docs: Ventricular tachycardia
+    - code: I47.9
+      docs: Paroxysmal tachycardia, unspecified
+  - category: I48
+    docs: Atrial fibrillation and flutter
+    child:
+    - code: I48.0
+      docs: Paroxysmal atrial fibrillation
+    - code: I48.1
+      docs: Persistent atrial fibrillation
+    - code: I48.2
+      docs: Chronic atrial fibrillation
+    - code: I48.3
+      docs: Typical atrial flutter
+    - code: I48.4
+      docs: Atypical atrial flutter
+    - code: I48.9
+      docs: Atrial fibrillation and atrial flutter, unspecified
+  - category: I49
+    docs: Other cardiac arrhythmias
+    child:
+    - code: I49.0
+      docs: Ventricular fibrillation and flutter
+    - code: I49.1
+      docs: Atrial premature depolarization
+    - code: I49.2
+      docs: Junctional premature depolarization
+    - code: I49.3
+      docs: Ventricular premature depolarization
+    - code: I49.4
+      docs: Other and unspecified premature depolarization
+    - code: I49.5
+      docs: Sick sinus syndrome
+    - code: I49.8
+      docs: Other specified cardiac arrhythmias
+    - code: I49.9
+      docs: Cardiac arrhythmia, unspecified
+  - category: I50
+    docs: Heart failure
+    child:
+    - code: I50.0
+      docs: Congestive heart failure
+    - code: I50.1
+      docs: Left ventricular failure
+    - code: I50.9
+      docs: Heart failure, unspecified
+  - category: I51
+    docs: Complications and ill-defined descriptions of heart disease
+    child:
+    - code: I51.0
+      docs: Cardiac septal defect, acquired
+    - code: I51.1
+      docs: Rupture of chordae tendineae, not elsewhere classified
+    - code: I51.2
+      docs: Rupture of papillary muscle, not elsewhere classified
+    - code: I51.3
+      docs: Intracardiac thrombosis, not elsewhere classified
+    - code: I51.4
+      docs: Myocarditis, unspecified
+    - code: I51.5
+      docs: Myocardial degeneration
+    - code: I51.6
+      docs: Cardiovascular disease, unspecified
+    - code: I51.7
+      docs: Cardiomegaly
+    - code: I51.8
+      docs: Other ill-defined heart diseases
+    - code: I51.9
+      docs: Heart disease, unspecified
+  - category: I52
+    docs: Other heart disorders in diseases classified elsewhere
+    child:
+    - code: I52.0
+      docs: Other heart disorders in bacterial diseases classified elsewhere
+    - code: I52.1
+      docs: Other heart disorders in other infectious and parasitic diseases classified
+        elsewhere
+    - code: I52.8
+      docs: Other heart disorders in other diseases classified elsewhere
+- category: I60-I69
+  docs: Cerebrovascular diseases
+  child:
+  - category: I60
+    docs: Subarachnoid haemorrhage
+    child:
+    - code: I60.0
+      docs: Subarachnoid haemorrhage from carotid siphon and bifurcation
+    - code: I60.1
+      docs: Subarachnoid haemorrhage from middle cerebral artery
+    - code: I60.2
+      docs: Subarachnoid haemorrhage from anterior communicating artery
+    - code: I60.3
+      docs: Subarachnoid haemorrhage from posterior communicating artery
+    - code: I60.4
+      docs: Subarachnoid haemorrhage from basilar artery
+    - code: I60.5
+      docs: Subarachnoid haemorrhage from vertebral artery
+    - code: I60.6
+      docs: Subarachnoid haemorrhage from other intracranial arteries
+    - code: I60.7
+      docs: Subarachnoid haemorrhage from intracranial artery, unspecified
+    - code: I60.8
+      docs: Other subarachnoid haemorrhage
+    - code: I60.9
+      docs: Subarachnoid haemorrhage, unspecified
+  - category: I61
+    docs: Intracerebral haemorrhage
+    child:
+    - code: I61.0
+      docs: Intracerebral haemorrhage in hemisphere, subcortical
+    - code: I61.1
+      docs: Intracerebral haemorrhage in hemisphere, cortical
+    - code: I61.2
+      docs: Intracerebral haemorrhage in hemisphere, unspecified
+    - code: I61.3
+      docs: Intracerebral haemorrhage in brain stem
+    - code: I61.4
+      docs: Intracerebral haemorrhage in cerebellum
+    - code: I61.5
+      docs: Intracerebral haemorrhage, intraventricular
+    - code: I61.6
+      docs: Intracerebral haemorrhage, multiple localized
+    - code: I61.8
+      docs: Other intracerebral haemorrhage
+    - code: I61.9
+      docs: Intracerebral haemorrhage, unspecified
+  - category: I62
+    docs: Other nontraumatic intracranial haemorrhage
+    child:
+    - code: I62.0
+      docs: Subdural haemorrhage (acute)(nontraumatic)
+    - code: I62.1
+      docs: Nontraumatic extradural haemorrhage
+    - code: I62.9
+      docs: Intracranial haemorrhage (nontraumatic), unspecified
+  - category: I63
+    docs: Cerebral infarction
+    child:
+    - code: I63.0
+      docs: Cerebral infarction due to thrombosis of precerebral arteries
+    - code: I63.1
+      docs: Cerebral infarction due to embolism of precerebral arteries
+    - code: I63.2
+      docs: Cerebral infarction due to unspecified occlusion or stenosis of precerebral
+        arteries
+    - code: I63.3
+      docs: Cerebral infarction due to thrombosis of cerebral arteries
+    - code: I63.4
+      docs: Cerebral infarction due to embolism of cerebral arteries
+    - code: I63.5
+      docs: Cerebral infarction due to unspecified occlusion or stenosis of cerebral
+        arteries
+    - code: I63.6
+      docs: Cerebral infarction due to cerebral venous thrombosis, nonpyogenic
+    - code: I63.8
+      docs: Other cerebral infarction
+    - code: I63.9
+      docs: Cerebral infarction, unspecified
+  - code: I64
+    docs: Stroke, not specified as haemorrhage or infarction
+  - category: I65
+    docs: Occlusion and stenosis of precerebral arteries, not resulting in cerebral
+      infarction
+    child:
+    - code: I65.0
+      docs: Occlusion and stenosis of vertebral artery
+    - code: I65.1
+      docs: Occlusion and stenosis of basilar artery
+    - code: I65.2
+      docs: Occlusion and stenosis of carotid artery
+    - code: I65.3
+      docs: Occlusion and stenosis of multiple and bilateral precerebral arteries
+    - code: I65.8
+      docs: Occlusion and stenosis of other precerebral artery
+    - code: I65.9
+      docs: Occlusion and stenosis of unspecified precerebral artery
+  - category: I66
+    docs: Occlusion and stenosis of cerebral arteries, not resulting in cerebral infarction
+    child:
+    - code: I66.0
+      docs: Occlusion and stenosis of middle cerebral artery
+    - code: I66.1
+      docs: Occlusion and stenosis of anterior cerebral artery
+    - code: I66.2
+      docs: Occlusion and stenosis of posterior cerebral artery
+    - code: I66.3
+      docs: Occlusion and stenosis of cerebellar arteries
+    - code: I66.4
+      docs: Occlusion and stenosis of multiple and bilateral cerebral arteries
+    - code: I66.8
+      docs: Occlusion and stenosis of other cerebral artery
+    - code: I66.9
+      docs: Occlusion and stenosis of unspecified cerebral artery
+  - category: I67
+    docs: Other cerebrovascular diseases
+    child:
+    - code: I67.0
+      docs: Dissection of cerebral arteries, nonruptured
+    - code: I67.1
+      docs: Cerebral aneurysm, nonruptured
+    - code: I67.2
+      docs: Cerebral atherosclerosis
+    - code: I67.3
+      docs: Progressive vascular leukoencephalopathy
+    - code: I67.4
+      docs: Hypertensive encephalopathy
+    - code: I67.5
+      docs: Moyamoya disease
+    - code: I67.6
+      docs: Nonpyogenic thrombosis of intracranial venous system
+    - code: I67.7
+      docs: Cerebral arteritis, not elsewhere classified
+    - code: I67.8
+      docs: Other specified cerebrovascular diseases
+    - code: I67.9
+      docs: Cerebrovascular disease, unspecified
+  - category: I68
+    docs: Cerebrovascular disorders in diseases classified elsewhere
+    child:
+    - code: I68.0
+      docs: Cerebral amyloid angiopathy
+    - code: I68.1
+      docs: Cerebral arteritis in infectious and parasitic diseases classified elsewhere
+    - code: I68.2
+      docs: Cerebral arteritis in other diseases classified elsewhere
+    - code: I68.8
+      docs: Other cerebrovascular disorders in diseases classified elsewhere
+  - category: I69
+    docs: Sequelae of cerebrovascular disease
+    child:
+    - code: I69.0
+      docs: Sequelae of subarachnoid haemorrhage
+    - code: I69.1
+      docs: Sequelae of intracerebral haemorrhage
+    - code: I69.2
+      docs: Sequelae of other nontraumatic intracranial haemorrhage
+    - code: I69.3
+      docs: Sequelae of cerebral infarction
+    - code: I69.4
+      docs: Sequelae of stroke, not specified as haemorrhage or infarction
+    - code: I69.8
+      docs: Sequelae of other and unspecified cerebrovascular diseases
+- category: I70-I79
+  docs: Diseases of arteries, arterioles and capillaries
+  child:
+  - category: I70
+    docs: Atherosclerosis
+    child:
+    - code: I70.0
+      docs: Atherosclerosis of aorta
+    - code: I70.1
+      docs: Atherosclerosis of renal artery
+    - code: I70.2
+      docs: Atherosclerosis of arteries of extremities
+    - code: I70.8
+      docs: Atherosclerosis of other arteries
+    - code: I70.9
+      docs: Generalized and unspecified atherosclerosis
+  - category: I71
+    docs: Aortic aneurysm and dissection
+    child:
+    - code: I71.0
+      docs: Dissection of aorta [any part]
+    - code: I71.1
+      docs: Thoracic aortic aneurysm, ruptured
+    - code: I71.2
+      docs: Thoracic aortic aneurysm, without mention of rupture
+    - code: I71.3
+      docs: Abdominal aortic aneurysm, ruptured
+    - code: I71.4
+      docs: Abdominal aortic aneurysm, without mention of rupture
+    - code: I71.5
+      docs: Thoracoabdominal aortic aneurysm, ruptured
+    - code: I71.6
+      docs: Thoracoabdominal aortic aneurysm, without mention of rupture
+    - code: I71.8
+      docs: Aortic aneurysm of unspecified site, ruptured
+    - code: I71.9
+      docs: Aortic aneurysm of unspecified site, without mention of rupture
+  - category: I72
+    docs: Other aneurysm and dissection
+    child:
+    - code: I72.0
+      docs: Aneurysm and dissection of carotid artery
+    - code: I72.1
+      docs: Aneurysm and dissection of artery of upper extremity
+    - code: I72.2
+      docs: Aneurysm and dissection of renal artery
+    - code: I72.3
+      docs: Aneurysm and dissection of iliac artery
+    - code: I72.4
+      docs: Aneurysm and dissection of artery of lower extremity
+    - code: I72.5
+      docs: Aneurysm and dissection of other precerebral arteries
+    - code: I72.6
+      docs: Aneurysm and dissection of vertebral artery
+    - code: I72.8
+      docs: Aneurysm and dissection of other specified arteries
+    - code: I72.9
+      docs: Aneurysm and dissection of unspecified site
+  - category: I73
+    docs: Other peripheral vascular diseases
+    child:
+    - code: I73.0
+      docs: Raynaud syndrome
+    - code: I73.1
+      docs: Thromboangiitis obliterans [Buerger]
+    - code: I73.8
+      docs: Other specified peripheral vascular diseases
+    - code: I73.9
+      docs: Peripheral vascular disease, unspecified
+  - category: I74
+    docs: Arterial embolism and thrombosis
+    child:
+    - code: I74.0
+      docs: Embolism and thrombosis of abdominal aorta
+    - code: I74.1
+      docs: Embolism and thrombosis of other and unspecified parts of aorta
+    - code: I74.2
+      docs: Embolism and thrombosis of arteries of upper extremities
+    - code: I74.3
+      docs: Embolism and thrombosis of arteries of lower extremities
+    - code: I74.4
+      docs: Embolism and thrombosis of arteries of extremities, unspecified
+    - code: I74.5
+      docs: Embolism and thrombosis of iliac artery
+    - code: I74.8
+      docs: Embolism and thrombosis of other arteries
+    - code: I74.9
+      docs: Embolism and thrombosis of unspecified artery
+  - category: I77
+    docs: Other disorders of arteries and arterioles
+    child:
+    - code: I77.0
+      docs: Arteriovenous fistula, acquired
+    - code: I77.1
+      docs: Stricture of artery
+    - code: I77.2
+      docs: Rupture of artery
+    - code: I77.3
+      docs: Arterial fibromuscular dysplasia
+    - code: I77.4
+      docs: Coeliac artery compression syndrome
+    - code: I77.5
+      docs: Necrosis of artery
+    - code: I77.6
+      docs: Arteritis, unspecified
+    - code: I77.8
+      docs: Other specified disorders of arteries and arterioles
+    - code: I77.9
+      docs: Disorder of arteries and arterioles, unspecified
+  - category: I78
+    docs: Diseases of capillaries
+    child:
+    - code: I78.0
+      docs: Hereditary haemorrhagic telangiectasia
+    - code: I78.1
+      docs: Naevus, non-neoplastic
+    - code: I78.8
+      docs: Other diseases of capillaries
+    - code: I78.9
+      docs: Disease of capillaries, unspecified
+  - category: I79
+    docs: Disorders of arteries, arterioles and capillaries in diseases classified
+      elsewhere
+    child:
+    - code: I79.0
+      docs: Aneurysm of aorta in diseases classified elsewhere
+    - code: I79.1
+      docs: Aortitis in diseases classified elsewhere
+    - code: I79.2
+      docs: Peripheral angiopathy in diseases classified elsewhere
+    - code: I79.8
+      docs: Other disorders of arteries, arterioles and capillaries in diseases classified
+        elsewhere
+- category: I80-I89
+  docs: Diseases of veins, lymphatic vessels and lymph nodes, not elsewhere classified
+  child:
+  - category: I80
+    docs: Phlebitis and thrombophlebitis
+    child:
+    - code: I80.0
+      docs: Phlebitis and thrombophlebitis of superficial vessels of lower extremities
+    - code: I80.1
+      docs: Phlebitis and thrombophlebitis of femoral vein
+    - code: I80.2
+      docs: Phlebitis and thrombophlebitis of other deep vessels of lower extremities
+    - code: I80.3
+      docs: Phlebitis and thrombophlebitis of lower extremities, unspecified
+    - code: I80.8
+      docs: Phlebitis and thrombophlebitis of other sites
+    - code: I80.9
+      docs: Phlebitis and thrombophlebitis of unspecified site
+  - code: I81
+    docs: Portal vein thrombosis
+  - category: I82
+    docs: Other venous embolism and thrombosis
+    child:
+    - code: I82.0
+      docs: Budd-Chiari syndrome
+    - code: I82.1
+      docs: Thrombophlebitis migrans
+    - code: I82.2
+      docs: Embolism and thrombosis of vena cava
+    - code: I82.3
+      docs: Embolism and thrombosis of renal vein
+    - code: I82.8
+      docs: Embolism and thrombosis of other specified veins
+    - code: I82.9
+      docs: Embolism and thrombosis of unspecified vein
+  - category: I83
+    docs: Varicose veins of lower extremities
+    child:
+    - code: I83.0
+      docs: Varicose veins of lower extremities with ulcer
+    - code: I83.1
+      docs: Varicose veins of lower extremities with inflammation
+    - code: I83.2
+      docs: Varicose veins of lower extremities with both ulcer and inflammation
+    - code: I83.9
+      docs: Varicose veins of lower extremities without ulcer or inflammation
+  - category: I85
+    docs: Oesophageal varices
+    child:
+    - code: I85.0
+      docs: Oesophageal varices with bleeding
+    - code: I85.9
+      docs: Oesophageal varices without bleeding
+  - category: I86
+    docs: Varicose veins of other sites
+    child:
+    - code: I86.0
+      docs: Sublingual varices
+    - code: I86.1
+      docs: Scrotal varices
+    - code: I86.2
+      docs: Pelvic varices
+    - code: I86.3
+      docs: Vulval varices
+    - code: I86.4
+      docs: Gastric varices
+    - code: I86.8
+      docs: Varicose veins of other specified sites
+  - category: I87
+    docs: Other disorders of veins
+    child:
+    - code: I87.0
+      docs: Postthrombotic syndrome
+    - code: I87.1
+      docs: Compression of vein
+    - code: I87.2
+      docs: Venous insufficiency (chronic)(peripheral)
+    - code: I87.8
+      docs: Other specified disorders of veins
+    - code: I87.9
+      docs: Disorder of vein, unspecified
+  - category: I88
+    docs: Nonspecific lymphadenitis
+    child:
+    - code: I88.0
+      docs: Nonspecific mesenteric lymphadenitis
+    - code: I88.1
+      docs: Chronic lymphadenitis, except mesenteric
+    - code: I88.8
+      docs: Other nonspecific lymphadenitis
+    - code: I88.9
+      docs: Nonspecific lymphadenitis, unspecified
+  - category: I89
+    docs: Other noninfective disorders of lymphatic vessels and lymph nodes
+    child:
+    - code: I89.0
+      docs: Lymphoedema, not elsewhere classified
+    - code: I89.1
+      docs: Lymphangitis
+    - code: I89.8
+      docs: Other specified noninfective disorders of lymphatic vessels and lymph
+        nodes
+    - code: I89.9
+      docs: Noninfective disorder of lymphatic vessels and lymph nodes, unspecified
+- category: I95-I99
+  docs: Other and unspecified disorders of the circulatory system
+  child:
+  - category: I95
+    docs: Hypotension
+    child:
+    - code: I95.0
+      docs: Idiopathic hypotension
+    - code: I95.1
+      docs: Orthostatic hypotension
+    - code: I95.2
+      docs: Hypotension due to drugs
+    - code: I95.8
+      docs: Other hypotension
+    - code: I95.9
+      docs: Hypotension, unspecified
+  - category: I97
+    docs: Postprocedural disorders of circulatory system, not elsewhere classified
+    child:
+    - code: I97.0
+      docs: Postcardiotomy syndrome
+    - code: I97.1
+      docs: Other functional disturbances following cardiac surgery
+    - code: I97.2
+      docs: Postmastectomy lymphoedema syndrome
+    - code: I97.8
+      docs: Other postprocedural disorders of circulatory system, not elsewhere classified
+    - code: I97.9
+      docs: Postprocedural disorder of circulatory system, unspecified
+  - category: I98
+    docs: Other disorders of circulatory system in diseases classified elsewhere
+    child:
+    - code: I98.0
+      docs: Cardiovascular syphilis
+    - code: I98.1
+      docs: Cardiovascular disorders in other infectious and parasitic diseases classified
+        elsewhere
+    - code: I98.2
+      docs: Oesophageal varices without bleeding in diseases classified elsewhere
+    - code: I98.3
+      docs: Oesophageal varices with bleeding in diseases classified elsewhere
+    - code: I98.8
+      docs: Other specified disorders of circulatory system in diseases classified
+        elsewhere
+  - code: I99
+    docs: Other and unspecified disorders of circulatory system

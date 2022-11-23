@@ -1,0 +1,887 @@
+category: VI
+docs: Diseases of the nervous system
+child:
+- category: G00-G09
+  docs: Inflammatory diseases of the central nervous system
+  child:
+  - category: G00
+    docs: Bacterial meningitis, not elsewhere classified
+    child:
+    - code: G00.0
+      docs: Haemophilus meningitis
+    - code: G00.1
+      docs: Pneumococcal meningitis
+    - code: G00.2
+      docs: Streptococcal meningitis
+    - code: G00.3
+      docs: Staphylococcal meningitis
+    - code: G00.8
+      docs: Other bacterial meningitis
+    - code: G00.9
+      docs: Bacterial meningitis, unspecified
+  - code: G01
+    docs: Meningitis in bacterial diseases classified elsewhere
+  - category: G02
+    docs: Meningitis in other infectious and parasitic diseases classified elsewhere
+    child:
+    - code: G02.0
+      docs: Meningitis in viral diseases classified elsewhere
+    - code: G02.1
+      docs: Meningitis in mycoses
+    - code: G02.8
+      docs: Meningitis in other specified infectious and parasitic diseases classified
+        elsewhere
+  - category: G03
+    docs: Meningitis due to other and unspecified causes
+    child:
+    - code: G03.0
+      docs: Nonpyogenic meningitis
+    - code: G03.1
+      docs: Chronic meningitis
+    - code: G03.2
+      docs: Benign recurrent meningitis [Mollaret]
+    - code: G03.8
+      docs: Meningitis due to other specified causes
+    - code: G03.9
+      docs: Meningitis, unspecified
+  - category: G04
+    docs: Encephalitis, myelitis and encephalomyelitis
+    child:
+    - code: G04.0
+      docs: Acute disseminated encephalitis
+    - code: G04.1
+      docs: Tropical spastic paraplegia
+    - code: G04.2
+      docs: Bacterial meningoencephalitis and meningomyelitis, not elsewhere classified
+    - code: G04.8
+      docs: Other encephalitis, myelitis and encephalomyelitis
+    - code: G04.9
+      docs: Encephalitis, myelitis and encephalomyelitis, unspecified
+  - category: G05
+    docs: Encephalitis, myelitis and encephalomyelitis in diseases classified elsewhere
+    child:
+    - code: G05.0
+      docs: Encephalitis, myelitis and encephalomyelitis in bacterial diseases classified
+        elsewhere
+    - code: G05.1
+      docs: Encephalitis, myelitis and encephalomyelitis in viral diseases classified
+        elsewhere
+    - code: G05.2
+      docs: Encephalitis, myelitis and encephalomyelitis in other infectious and parasitic
+        diseases classified elsewhere
+    - code: G05.8
+      docs: Encephalitis, myelitis and encephalomyelitis in other diseases classified
+        elsewhere
+  - category: G06
+    docs: Intracranial and intraspinal abscess and granuloma
+    child:
+    - code: G06.0
+      docs: Intracranial abscess and granuloma
+    - code: G06.1
+      docs: Intraspinal abscess and granuloma
+    - code: G06.2
+      docs: Extradural and subdural abscess, unspecified
+  - code: G07
+    docs: Intracranial and intraspinal abscess and granuloma in diseases classified
+      elsewhere
+  - code: G08
+    docs: Intracranial and intraspinal phlebitis and thrombophlebitis
+  - code: G09
+    docs: Sequelae of inflammatory diseases of central nervous system
+- category: G10-G14
+  docs: Systemic atrophies primarily affecting the central nervous system
+  child:
+  - code: G10
+    docs: Huntington disease
+  - category: G11
+    docs: Hereditary ataxia
+    child:
+    - code: G11.0
+      docs: Congenital nonprogressive ataxia
+    - code: G11.1
+      docs: Early-onset cerebellar ataxia
+    - code: G11.2
+      docs: Late-onset cerebellar ataxia
+    - code: G11.3
+      docs: Cerebellar ataxia with defective DNA repair
+    - code: G11.4
+      docs: Hereditary spastic paraplegia
+    - code: G11.8
+      docs: Other hereditary ataxias
+    - code: G11.9
+      docs: Hereditary ataxia, unspecified
+  - category: G12
+    docs: Spinal muscular atrophy and related syndromes
+    child:
+    - code: G12.0
+      docs: Infantile spinal muscular atrophy, type I [Werdnig-Hoffman]
+    - code: G12.1
+      docs: Other inherited spinal muscular atrophy
+    - code: G12.2
+      docs: Motor neuron disease
+    - code: G12.8
+      docs: Other spinal muscular atrophies and related syndromes
+    - code: G12.9
+      docs: Spinal muscular atrophy, unspecified
+  - category: G13
+    docs: Systemic atrophies primarily affecting central nervous system in diseases
+      classified elsewhere
+    child:
+    - code: G13.0
+      docs: Paraneoplastic neuromyopathy and neuropathy
+    - code: G13.1
+      docs: Other systemic atrophy primarily affecting central nervous system in neoplastic
+        disease
+    - code: G13.2
+      docs: Systemic atrophy primarily affecting central nervous system in myxoedema
+    - code: G13.8
+      docs: Systemic atrophy primarily affecting central nervous system in other diseases
+        classified elsewhere
+  - code: G14
+    docs: Postpolio syndrome
+- category: G20-G26
+  docs: Extrapyramidal and movement disorders
+  child:
+  - code: G20
+    docs: Parkinson disease
+  - category: G21
+    docs: Secondary parkinsonism
+    child:
+    - code: G21.0
+      docs: Malignant neuroleptic syndrome
+    - code: G21.1
+      docs: Other drug-induced secondary parkinsonism
+    - code: G21.2
+      docs: Secondary parkinsonism due to other external agents
+    - code: G21.3
+      docs: Postencephalitic parkinsonism
+    - code: G21.4
+      docs: Vascular parkinsonism
+    - code: G21.8
+      docs: Other secondary parkinsonism
+    - code: G21.9
+      docs: Secondary parkinsonism, unspecified
+  - code: G22
+    docs: Parkinsonism in diseases classified elsewhere
+  - category: G23
+    docs: Other degenerative diseases of basal ganglia
+    child:
+    - code: G23.0
+      docs: Hallervorden-Spatz disease
+    - code: G23.1
+      docs: Progressive supranuclear ophthalmoplegia [Steele-Richardson-Olszewski]
+    - code: G23.2
+      docs: Multiple system atrophy, parkinsonian type [MSA-P]
+    - code: G23.3
+      docs: Multiple system atrophy, cerebellar type [MSA-C]
+    - code: G23.8
+      docs: Other specified degenerative diseases of basal ganglia
+    - code: G23.9
+      docs: Degenerative disease of basal ganglia, unspecified
+  - category: G24
+    docs: Dystonia
+    child:
+    - code: G24.0
+      docs: Drug-induced dystonia
+    - code: G24.1
+      docs: Idiopathic familial dystonia
+    - code: G24.2
+      docs: Idiopathic nonfamilial dystonia
+    - code: G24.3
+      docs: Spasmodic torticollis
+    - code: G24.4
+      docs: Idiopathic orofacial dystonia
+    - code: G24.5
+      docs: Blepharospasm
+    - code: G24.8
+      docs: Other dystonia
+    - code: G24.9
+      docs: Dystonia, unspecified
+  - category: G25
+    docs: Other extrapyramidal and movement disorders
+    child:
+    - code: G25.0
+      docs: Essential tremor
+    - code: G25.1
+      docs: Drug-induced tremor
+    - code: G25.2
+      docs: Other specified forms of tremor
+    - code: G25.3
+      docs: Myoclonus
+    - code: G25.4
+      docs: Drug-induced chorea
+    - code: G25.5
+      docs: Other chorea
+    - code: G25.6
+      docs: Drug-induced tics and other tics of organic origin
+    - code: G25.8
+      docs: Other specified extrapyramidal and movement disorders
+    - code: G25.9
+      docs: Extrapyramidal and movement disorder, unspecified
+  - code: G26
+    docs: Extrapyramidal and movement disorders in diseases classified elsewhere
+- category: G30-G32
+  docs: Other degenerative diseases of the nervous system
+  child:
+  - category: G30
+    docs: Alzheimer disease
+    child:
+    - code: G30.0
+      docs: Alzheimer disease with early onset
+    - code: G30.1
+      docs: Alzheimer disease with late onset
+    - code: G30.8
+      docs: Other Alzheimer disease
+    - code: G30.9
+      docs: Alzheimer disease, unspecified
+  - category: G31
+    docs: Other degenerative diseases of nervous system, not elsewhere classified
+    child:
+    - code: G31.0
+      docs: Circumscribed brain atrophy
+    - code: G31.1
+      docs: Senile degeneration of brain, not elsewhere classified
+    - code: G31.2
+      docs: Degeneration of nervous system due to alcohol
+    - code: G31.8
+      docs: Other specified degenerative diseases of nervous system
+    - code: G31.9
+      docs: Degenerative disease of nervous system, unspecified
+  - category: G32
+    docs: Other degenerative disorders of nervous system in diseases classified elsewhere
+    child:
+    - code: G32.0
+      docs: Subacute combined degeneration of spinal cord in diseases classified elsewhere
+    - code: G32.8
+      docs: Other specified degenerative disorders of nervous system in diseases classified
+        elsewhere
+- category: G35-G37
+  docs: Demyelinating diseases of the central nervous system
+  child:
+  - code: G35
+    docs: Multiple sclerosis
+  - category: G36
+    docs: Other acute disseminated demyelination
+    child:
+    - code: G36.0
+      docs: Neuromyelitis optica [Devic]
+    - code: G36.1
+      docs: Acute and subacute haemorrhagic leukoencephalitis [Hurst]
+    - code: G36.8
+      docs: Other specified acute disseminated demyelination
+    - code: G36.9
+      docs: Acute disseminated demyelination, unspecified
+  - category: G37
+    docs: Other demyelinating diseases of central nervous system
+    child:
+    - code: G37.0
+      docs: Diffuse sclerosis
+    - code: G37.1
+      docs: Central demyelination of corpus callosum
+    - code: G37.2
+      docs: Central pontine myelinolysis
+    - code: G37.3
+      docs: Acute transverse myelitis in demyelinating disease of central nervous
+        system
+    - code: G37.4
+      docs: Subacute necrotizing myelitis
+    - code: G37.5
+      docs: Concentric sclerosis [Baló]
+    - code: G37.8
+      docs: Other specified demyelinating diseases of central nervous system
+    - code: G37.9
+      docs: Demyelinating disease of central nervous system, unspecified
+- category: G40-G47
+  docs: Episodic and paroxysmal disorders
+  child:
+  - category: G40
+    docs: Epilepsy
+    child:
+    - code: G40.0
+      docs: Localization-related (focal)(partial) idiopathic epilepsy and epileptic
+        syndromes with seizures of localized onset
+    - code: G40.1
+      docs: Localization-related (focal)(partial) symptomatic epilepsy and epileptic
+        syndromes with simple partial seizures
+    - code: G40.2
+      docs: Localization-related (focal)(partial) symptomatic epilepsy and epileptic
+        syndromes with complex partial seizures
+    - code: G40.3
+      docs: Generalized idiopathic epilepsy and epileptic syndromes
+    - code: G40.4
+      docs: Other generalized epilepsy and epileptic syndromes
+    - code: G40.5
+      docs: Special epileptic syndromes
+    - code: G40.6
+      docs: Grand mal seizures, unspecified (with or without petit mal)
+    - code: G40.7
+      docs: Petit mal, unspecified, without grand mal seizures
+    - code: G40.8
+      docs: Other epilepsy
+    - code: G40.9
+      docs: Epilepsy, unspecified
+  - category: G41
+    docs: Status epilepticus
+    child:
+    - code: G41.0
+      docs: Grand mal status epilepticus
+    - code: G41.1
+      docs: Petit mal status epilepticus
+    - code: G41.2
+      docs: Complex partial status epilepticus
+    - code: G41.8
+      docs: Other status epilepticus
+    - code: G41.9
+      docs: Status epilepticus, unspecified
+  - category: G43
+    docs: Migraine
+    child:
+    - code: G43.0
+      docs: Migraine without aura [common migraine]
+    - code: G43.1
+      docs: Migraine with aura [classical migraine]
+    - code: G43.2
+      docs: Status migrainosus
+    - code: G43.3
+      docs: Complicated migraine
+    - code: G43.8
+      docs: Other migraine
+    - code: G43.9
+      docs: Migraine, unspecified
+  - category: G44
+    docs: Other headache syndromes
+    child:
+    - code: G44.0
+      docs: Cluster headache syndrome
+    - code: G44.1
+      docs: Vascular headache, not elsewhere classified
+    - code: G44.2
+      docs: Tension-type headache
+    - code: G44.3
+      docs: Chronic post-traumatic headache
+    - code: G44.4
+      docs: Drug-induced headache, not elsewhere classified
+    - code: G44.8
+      docs: Other specified headache syndromes
+  - category: G45
+    docs: Transient cerebral ischaemic attacks and related syndromes
+    child:
+    - code: G45.0
+      docs: Vertebro-basilar artery syndrome
+    - code: G45.1
+      docs: Carotid artery syndrome (hemispheric)
+    - code: G45.2
+      docs: Multiple and bilateral precerebral artery syndromes
+    - code: G45.3
+      docs: Amaurosis fugax
+    - code: G45.4
+      docs: Transient global amnesia
+    - code: G45.8
+      docs: Other transient cerebral ischaemic attacks and related syndromes
+    - code: G45.9
+      docs: Transient cerebral ischaemic attack, unspecified
+  - category: G46
+    docs: Vascular syndromes of brain in cerebrovascular diseases
+    child:
+    - code: G46.0
+      docs: Middle cerebral artery syndrome
+    - code: G46.1
+      docs: Anterior cerebral artery syndrome
+    - code: G46.2
+      docs: Posterior cerebral artery syndrome
+    - code: G46.3
+      docs: Brain stem stroke syndrome
+    - code: G46.4
+      docs: Cerebellar stroke syndrome
+    - code: G46.5
+      docs: Pure motor lacunar syndrome
+    - code: G46.6
+      docs: Pure sensory lacunar syndrome
+    - code: G46.7
+      docs: Other lacunar syndromes
+    - code: G46.8
+      docs: Other vascular syndromes of brain in cerebrovascular diseases
+  - category: G47
+    docs: Sleep disorders
+    child:
+    - code: G47.0
+      docs: Disorders of initiating and maintaining sleep [insomnias]
+    - code: G47.1
+      docs: Disorders of excessive somnolence [hypersomnias]
+    - code: G47.2
+      docs: Disorders of the sleep-wake schedule
+    - code: G47.3
+      docs: Sleep apnoea
+    - code: G47.4
+      docs: Narcolepsy and cataplexy
+    - code: G47.8
+      docs: Other sleep disorders
+    - code: G47.9
+      docs: Sleep disorder, unspecified
+- category: G50-G59
+  docs: Nerve, nerve root and plexus disorders
+  child:
+  - category: G50
+    docs: Disorders of trigeminal nerve
+    child:
+    - code: G50.0
+      docs: Trigeminal neuralgia
+    - code: G50.1
+      docs: Atypical facial pain
+    - code: G50.8
+      docs: Other disorders of trigeminal nerve
+    - code: G50.9
+      docs: Disorder of trigeminal nerve, unspecified
+  - category: G51
+    docs: Facial nerve disorders
+    child:
+    - code: G51.0
+      docs: Bell palsy
+    - code: G51.1
+      docs: Geniculate ganglionitis
+    - code: G51.2
+      docs: Melkersson syndrome
+    - code: G51.3
+      docs: Clonic hemifacial spasm
+    - code: G51.4
+      docs: Facial myokymia
+    - code: G51.8
+      docs: Other disorders of facial nerve
+    - code: G51.9
+      docs: Disorder of facial nerve, unspecified
+  - category: G52
+    docs: Disorders of other cranial nerves
+    child:
+    - code: G52.0
+      docs: Disorders of olfactory nerve
+    - code: G52.1
+      docs: Disorders of glossopharyngeal nerve
+    - code: G52.2
+      docs: Disorders of vagus nerve
+    - code: G52.3
+      docs: Disorders of hypoglossal nerve
+    - code: G52.7
+      docs: Disorders of multiple cranial nerves
+    - code: G52.8
+      docs: Disorders of other specified cranial nerves
+    - code: G52.9
+      docs: Cranial nerve disorder, unspecified
+  - category: G53
+    docs: Cranial nerve disorders in diseases classified elsewhere
+    child:
+    - code: G53.0
+      docs: Postzoster neuralgia
+    - code: G53.1
+      docs: Multiple cranial nerve palsies in infectious and parasitic diseases classified
+        elsewhere
+    - code: G53.2
+      docs: Multiple cranial nerve palsies in sarcoidosis
+    - code: G53.3
+      docs: Multiple cranial nerve palsies in neoplastic disease
+    - code: G53.8
+      docs: Other cranial nerve disorders in other diseases classified elsewhere
+  - category: G54
+    docs: Nerve root and plexus disorders
+    child:
+    - code: G54.0
+      docs: Brachial plexus disorders
+    - code: G54.1
+      docs: Lumbosacral plexus disorders
+    - code: G54.2
+      docs: Cervical root disorders, not elsewhere classified
+    - code: G54.3
+      docs: Thoracic root disorders, not elsewhere classified
+    - code: G54.4
+      docs: Lumbosacral root disorders, not elsewhere classified
+    - code: G54.5
+      docs: Neuralgic amyotrophy
+    - code: G54.6
+      docs: Phantom limb syndrome with pain
+    - code: G54.7
+      docs: Phantom limb syndrome without pain
+    - code: G54.8
+      docs: Other nerve root and plexus disorders
+    - code: G54.9
+      docs: Nerve root and plexus disorder, unspecified
+  - category: G55
+    docs: Nerve root and plexus compressions in diseases classified elsewhere
+    child:
+    - code: G55.0
+      docs: Nerve root and plexus compressions in neoplastic disease
+    - code: G55.1
+      docs: Nerve root and plexus compressions in intervertebral disc disorders
+    - code: G55.2
+      docs: Nerve root and plexus compressions in spondylosis
+    - code: G55.3
+      docs: Nerve root and plexus compressions in other dorsopathies
+    - code: G55.8
+      docs: Nerve root and plexus compressions in other diseases classified elsewhere
+  - category: G56
+    docs: Mononeuropathies of upper limb
+    child:
+    - code: G56.0
+      docs: Carpal tunnel syndrome
+    - code: G56.1
+      docs: Other lesions of median nerve
+    - code: G56.2
+      docs: Lesion of ulnar nerve
+    - code: G56.3
+      docs: Lesion of radial nerve
+    - code: G56.4
+      docs: Causalgia
+    - code: G56.8
+      docs: Other mononeuropathies of upper limb
+    - code: G56.9
+      docs: Mononeuropathy of upper limb, unspecified
+  - category: G57
+    docs: Mononeuropathies of lower limb
+    child:
+    - code: G57.0
+      docs: Lesion of sciatic nerve
+    - code: G57.1
+      docs: Meralgia paraesthetica
+    - code: G57.2
+      docs: Lesion of femoral nerve
+    - code: G57.3
+      docs: Lesion of lateral popliteal nerve
+    - code: G57.4
+      docs: Lesion of medial popliteal nerve
+    - code: G57.5
+      docs: Tarsal tunnel syndrome
+    - code: G57.6
+      docs: Lesion of plantar nerve
+    - code: G57.8
+      docs: Other mononeuropathies of lower limb
+    - code: G57.9
+      docs: Mononeuropathy of lower limb, unspecified
+  - category: G58
+    docs: Other mononeuropathies
+    child:
+    - code: G58.0
+      docs: Intercostal neuropathy
+    - code: G58.7
+      docs: Mononeuritis multiplex
+    - code: G58.8
+      docs: Other specified mononeuropathies
+    - code: G58.9
+      docs: Mononeuropathy, unspecified
+  - category: G59
+    docs: Mononeuropathy in diseases classified elsewhere
+    child:
+    - code: G59.0
+      docs: Diabetic mononeuropathy
+    - code: G59.8
+      docs: Other mononeuropathies in diseases classified elsewhere
+- category: G60-G64
+  docs: Polyneuropathies and other disorders of the peripheral nervous system
+  child:
+  - category: G60
+    docs: Hereditary and idiopathic neuropathy
+    child:
+    - code: G60.0
+      docs: Hereditary motor and sensory neuropathy
+    - code: G60.1
+      docs: Refsum disease
+    - code: G60.2
+      docs: Neuropathy in association with hereditary ataxia
+    - code: G60.3
+      docs: Idiopathic progressive neuropathy
+    - code: G60.8
+      docs: Other hereditary and idiopathic neuropathies
+    - code: G60.9
+      docs: Hereditary and idiopathic neuropathy, unspecified
+  - category: G61
+    docs: Inflammatory polyneuropathy
+    child:
+    - code: G61.0
+      docs: Guillain-Barré syndrome
+    - code: G61.1
+      docs: Serum neuropathy
+    - code: G61.8
+      docs: Other inflammatory polyneuropathies
+    - code: G61.9
+      docs: Inflammatory polyneuropathy, unspecified
+  - category: G62
+    docs: Other polyneuropathies
+    child:
+    - code: G62.0
+      docs: Drug-induced polyneuropathy
+    - code: G62.1
+      docs: Alcoholic polyneuropathy
+    - code: G62.2
+      docs: Polyneuropathy due to other toxic agents
+    - code: G62.8
+      docs: Other specified polyneuropathies
+    - code: G62.9
+      docs: Polyneuropathy, unspecified
+  - category: G63
+    docs: Polyneuropathy in diseases classified elsewhere
+    child:
+    - code: G63.0
+      docs: Polyneuropathy in infectious and parasitic diseases classified elsewhere
+    - code: G63.1
+      docs: Polyneuropathy in neoplastic disease
+    - code: G63.2
+      docs: Diabetic polyneuropathy
+    - code: G63.3
+      docs: Polyneuropathy in other endocrine and metabolic diseases
+    - code: G63.4
+      docs: Polyneuropathy in nutritional deficiency
+    - code: G63.5
+      docs: Polyneuropathy in systemic connective tissue disorders
+    - code: G63.6
+      docs: Polyneuropathy in other musculoskeletal disorders
+    - code: G63.8
+      docs: Polyneuropathy in other diseases classified elsewhere
+  - code: G64
+    docs: Other disorders of peripheral nervous system
+- category: G70-G73
+  docs: Diseases of myoneural junction and muscle
+  child:
+  - category: G70
+    docs: Myasthenia gravis and other myoneural disorders
+    child:
+    - code: G70.0
+      docs: Myasthenia gravis
+    - code: G70.1
+      docs: Toxic myoneural disorders
+    - code: G70.2
+      docs: Congenital and developmental myasthenia
+    - code: G70.8
+      docs: Other specified myoneural disorders
+    - code: G70.9
+      docs: Myoneural disorder, unspecified
+  - category: G71
+    docs: Primary disorders of muscles
+    child:
+    - code: G71.0
+      docs: Muscular dystrophy
+    - code: G71.1
+      docs: Myotonic disorders
+    - code: G71.2
+      docs: Congenital myopathies
+    - code: G71.3
+      docs: Mitochondrial myopathy, not elsewhere classified
+    - code: G71.8
+      docs: Other primary disorders of muscles
+    - code: G71.9
+      docs: Primary disorder of muscle, unspecified
+  - category: G72
+    docs: Other myopathies
+    child:
+    - code: G72.0
+      docs: Drug-induced myopathy
+    - code: G72.1
+      docs: Alcoholic myopathy
+    - code: G72.2
+      docs: Myopathy due to other toxic agents
+    - code: G72.3
+      docs: Periodic paralysis
+    - code: G72.4
+      docs: Inflammatory myopathy, not elsewhere classified
+    - code: G72.8
+      docs: Other specified myopathies
+    - code: G72.9
+      docs: Myopathy, unspecified
+  - category: G73
+    docs: Disorders of myoneural junction and muscle in diseases classified elsewhere
+    child:
+    - code: G73.0
+      docs: Myasthenic syndromes in endocrine diseases
+    - code: G73.1
+      docs: Lambert-Eaton syndrome
+    - code: G73.2
+      docs: Other myasthenic syndromes in neoplastic disease
+    - code: G73.3
+      docs: Myasthenic syndromes in other diseases classified elsewhere
+    - code: G73.4
+      docs: Myopathy in infectious and parasitic diseases classified elsewhere
+    - code: G73.5
+      docs: Myopathy in endocrine diseases
+    - code: G73.6
+      docs: Myopathy in metabolic diseases
+    - code: G73.7
+      docs: Myopathy in other diseases classified elsewhere
+- category: G80-G83
+  docs: Cerebral palsy and other paralytic syndromes
+  child:
+  - category: G80
+    docs: Cerebral palsy
+    child:
+    - code: G80.0
+      docs: Spastic quadriplegic cerebral palsy
+    - code: G80.1
+      docs: Spastic diplegic cerebral palsy
+    - code: G80.2
+      docs: Spastic hemiplegic cerebral palsy
+    - code: G80.3
+      docs: Dyskinetic cerebral palsy
+    - code: G80.4
+      docs: Ataxic cerebral palsy
+    - code: G80.8
+      docs: Other cerebral palsy
+    - code: G80.9
+      docs: Cerebral palsy, unspecified
+  - category: G81
+    docs: Hemiplegia
+    child:
+    - code: G81.0
+      docs: Flaccid hemiplegia
+    - code: G81.1
+      docs: Spastic hemiplegia
+    - code: G81.9
+      docs: Hemiplegia, unspecified
+  - category: G82
+    docs: Paraplegia and tetraplegia
+    child:
+    - code: G82.0
+      docs: Flaccid paraplegia
+    - code: G82.1
+      docs: Spastic paraplegia
+    - code: G82.2
+      docs: Paraplegia, unspecified
+    - code: G82.3
+      docs: Flaccid tetraplegia
+    - code: G82.4
+      docs: Spastic tetraplegia
+    - code: G82.5
+      docs: Tetraplegia, unspecified
+  - category: G83
+    docs: Other paralytic syndromes
+    child:
+    - code: G83.0
+      docs: Diplegia of upper limbs
+    - code: G83.1
+      docs: Monoplegia of lower limb
+    - code: G83.2
+      docs: Monoplegia of upper limb
+    - code: G83.3
+      docs: Monoplegia, unspecified
+    - code: G83.4
+      docs: Cauda equina syndrome
+    - code: G83.5
+      docs: Locked-in syndrome
+    - code: G83.8
+      docs: Other specified paralytic syndromes
+    - code: G83.9
+      docs: Paralytic syndrome, unspecified
+- category: G90-G99
+  docs: Other disorders of the nervous system
+  child:
+  - category: G90
+    docs: Disorders of autonomic nervous system
+    child:
+    - code: G90.0
+      docs: Idiopathic peripheral autonomic neuropathy
+    - code: G90.1
+      docs: Familial dysautonomia [Riley-Day]
+    - code: G90.2
+      docs: Horner syndrome
+    - code: G90.4
+      docs: Autonomic dysreflexia
+    - code: G90.8
+      docs: Other disorders of autonomic nervous system
+    - code: G90.9
+      docs: Disorder of autonomic nervous system, unspecified
+  - category: G91
+    docs: Hydrocephalus
+    child:
+    - code: G91.0
+      docs: Communicating hydrocephalus
+    - code: G91.1
+      docs: Obstructive hydrocephalus
+    - code: G91.2
+      docs: Normal-pressure hydrocephalus
+    - code: G91.3
+      docs: Post-traumatic hydrocephalus, unspecified
+    - code: G91.8
+      docs: Other hydrocephalus
+    - code: G91.9
+      docs: Hydrocephalus, unspecified
+  - code: G92
+    docs: Toxic encephalopathy
+  - category: G93
+    docs: Other disorders of brain
+    child:
+    - code: G93.0
+      docs: Cerebral cysts
+    - code: G93.1
+      docs: Anoxic brain damage, not elsewhere classified
+    - code: G93.2
+      docs: Benign intracranial hypertension
+    - code: G93.3
+      docs: Postviral fatigue syndrome
+    - code: G93.4
+      docs: Encephalopathy, unspecified
+    - code: G93.5
+      docs: Compression of brain
+    - code: G93.6
+      docs: Cerebral oedema
+    - code: G93.7
+      docs: Reye syndrome
+    - code: G93.8
+      docs: Other specified disorders of brain
+    - code: G93.9
+      docs: Disorder of brain, unspecified
+  - category: G94
+    docs: Other disorders of brain in diseases classified elsewhere
+    child:
+    - code: G94.0
+      docs: Hydrocephalus in infectious and parasitic diseases classified elsewhere
+    - code: G94.1
+      docs: Hydrocephalus in neoplastic disease
+    - code: G94.2
+      docs: Hydrocephalus in other diseases classified elsewhere
+    - code: G94.8
+      docs: Other specified disorders of brain in diseases classified elsewhere
+  - category: G95
+    docs: Other diseases of spinal cord
+    child:
+    - code: G95.0
+      docs: Syringomyelia and syringobulbia
+    - code: G95.1
+      docs: Vascular myelopathies
+    - code: G95.2
+      docs: Cord compression, unspecified
+    - code: G95.8
+      docs: Other specified diseases of spinal cord
+    - code: G95.9
+      docs: Disease of spinal cord, unspecified
+  - category: G96
+    docs: Other disorders of central nervous system
+    child:
+    - code: G96.0
+      docs: Cerebrospinal fluid leak
+    - code: G96.1
+      docs: Disorders of meninges, not elsewhere classified
+    - code: G96.8
+      docs: Other specified disorders of central nervous system
+    - code: G96.9
+      docs: Disorder of central nervous system, unspecified
+  - category: G97
+    docs: Postprocedural disorders of nervous system, not elsewhere classified
+    child:
+    - code: G97.0
+      docs: Cerebrospinal fluid leak from spinal puncture
+    - code: G97.1
+      docs: Other reaction to spinal and lumbar puncture
+    - code: G97.2
+      docs: Intracranial hypotension following ventricular shunting
+    - code: G97.8
+      docs: Other postprocedural disorders of nervous system
+    - code: G97.9
+      docs: Postprocedural disorder of nervous system, unspecified
+  - code: G98
+    docs: Other disorders of nervous system, not elsewhere classified
+  - category: G99
+    docs: Other disorders of nervous system in diseases classified elsewhere
+    child:
+    - code: G99.0
+      docs: Autonomic neuropathy in endocrine and metabolic diseases
+    - code: G99.1
+      docs: Other disorders of autonomic nervous system in other diseases classified
+        elsewhere
+    - code: G99.2
+      docs: Myelopathy in diseases classified elsewhere
+    - code: G99.8
+      docs: Other specified disorders of nervous system in diseases classified elsewhere

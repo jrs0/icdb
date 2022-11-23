@@ -1,0 +1,1145 @@
+category: XIV
+docs: Diseases of the genitourinary system
+child:
+- category: N00-N08
+  docs: Glomerular diseases
+  child:
+  - category: N00
+    docs: Acute nephritic syndrome
+    child:
+    - code: N00.0
+      docs: 'Acute nephritic syndrome : minor glomerular abnormality'
+    - code: N00.1
+      docs: 'Acute nephritic syndrome : focal and segmental glomerular lesions'
+    - code: N00.2
+      docs: 'Acute nephritic syndrome : diffuse membranous glomerulonephritis'
+    - code: N00.3
+      docs: 'Acute nephritic syndrome : diffuse mesangial proliferative glomerulonephritis'
+    - code: N00.4
+      docs: 'Acute nephritic syndrome : diffuse endocapillary proliferative glomerulonephritis'
+    - code: N00.5
+      docs: 'Acute nephritic syndrome : diffuse mesangiocapillary glomerulonephritis'
+    - code: N00.6
+      docs: 'Acute nephritic syndrome : dense deposit disease'
+    - code: N00.7
+      docs: 'Acute nephritic syndrome : diffuse crescentic glomerulonephritis'
+    - code: N00.8
+      docs: 'Acute nephritic syndrome : other'
+    - code: N00.9
+      docs: 'Acute nephritic syndrome : unspecified'
+  - category: N01
+    docs: Rapidly progressive nephritic syndrome
+    child:
+    - code: N01.0
+      docs: 'Rapidly progressive nephritic syndrome : minor glomerular abnormality'
+    - code: N01.1
+      docs: 'Rapidly progressive nephritic syndrome : focal and segmental glomerular
+        lesions'
+    - code: N01.2
+      docs: 'Rapidly progressive nephritic syndrome : diffuse membranous glomerulonephritis'
+    - code: N01.3
+      docs: 'Rapidly progressive nephritic syndrome : diffuse mesangial proliferative
+        glomerulonephritis'
+    - code: N01.4
+      docs: 'Rapidly progressive nephritic syndrome : diffuse endocapillary proliferative
+        glomerulonephritis'
+    - code: N01.5
+      docs: 'Rapidly progressive nephritic syndrome : diffuse mesangiocapillary glomerulonephritis'
+    - code: N01.6
+      docs: 'Rapidly progressive nephritic syndrome : dense deposit disease'
+    - code: N01.7
+      docs: 'Rapidly progressive nephritic syndrome : diffuse crescentic glomerulonephritis'
+    - code: N01.8
+      docs: 'Rapidly progressive nephritic syndrome : other'
+    - code: N01.9
+      docs: 'Rapidly progressive nephritic syndrome : unspecified'
+  - category: N02
+    docs: Recurrent and persistent haematuria
+    child:
+    - code: N02.0
+      docs: 'Recurrent and persistent haematuria : minor glomerular abnormality'
+    - code: N02.1
+      docs: 'Recurrent and persistent haematuria : focal and segmental glomerular
+        lesions'
+    - code: N02.2
+      docs: 'Recurrent and persistent haematuria : diffuse membranous glomerulonephritis'
+    - code: N02.3
+      docs: 'Recurrent and persistent haematuria : diffuse mesangial proliferative
+        glomerulonephritis'
+    - code: N02.4
+      docs: 'Recurrent and persistent haematuria : diffuse endocapillary proliferative
+        glomerulonephritis'
+    - code: N02.5
+      docs: 'Recurrent and persistent haematuria : diffuse mesangiocapillary glomerulonephritis'
+    - code: N02.6
+      docs: 'Recurrent and persistent haematuria : dense deposit disease'
+    - code: N02.7
+      docs: 'Recurrent and persistent haematuria : diffuse crescentic glomerulonephritis'
+    - code: N02.8
+      docs: 'Recurrent and persistent haematuria : other'
+    - code: N02.9
+      docs: 'Recurrent and persistent haematuria : unspecified'
+  - category: N03
+    docs: Chronic nephritic syndrome
+    child:
+    - code: N03.0
+      docs: 'Chronic nephritic syndrome : minor glomerular abnormality'
+    - code: N03.1
+      docs: 'Chronic nephritic syndrome : focal and segmental glomerular lesions'
+    - code: N03.2
+      docs: 'Chronic nephritic syndrome : diffuse membranous glomerulonephritis'
+    - code: N03.3
+      docs: 'Chronic nephritic syndrome : diffuse mesangial proliferative glomerulonephritis'
+    - code: N03.4
+      docs: 'Chronic nephritic syndrome : diffuse endocapillary proliferative glomerulonephritis'
+    - code: N03.5
+      docs: 'Chronic nephritic syndrome : diffuse mesangiocapillary glomerulonephritis'
+    - code: N03.6
+      docs: 'Chronic nephritic syndrome : dense deposit disease'
+    - code: N03.7
+      docs: 'Chronic nephritic syndrome : diffuse crescentic glomerulonephritis'
+    - code: N03.8
+      docs: 'Chronic nephritic syndrome : other'
+    - code: N03.9
+      docs: 'Chronic nephritic syndrome : unspecified'
+  - category: N04
+    docs: Nephrotic syndrome
+    child:
+    - code: N04.0
+      docs: 'Nephrotic syndrome : minor glomerular abnormality'
+    - code: N04.1
+      docs: 'Nephrotic syndrome : focal and segmental glomerular lesions'
+    - code: N04.2
+      docs: 'Nephrotic syndrome : diffuse membranous glomerulonephritis'
+    - code: N04.3
+      docs: 'Nephrotic syndrome : diffuse mesangial proliferative glomerulonephritis'
+    - code: N04.4
+      docs: 'Nephrotic syndrome : diffuse endocapillary proliferative glomerulonephritis'
+    - code: N04.5
+      docs: 'Nephrotic syndrome : diffuse mesangiocapillary glomerulonephritis'
+    - code: N04.6
+      docs: 'Nephrotic syndrome : dense deposit disease'
+    - code: N04.7
+      docs: 'Nephrotic syndrome : diffuse crescentic glomerulonephritis'
+    - code: N04.8
+      docs: 'Nephrotic syndrome : other'
+    - code: N04.9
+      docs: 'Nephrotic syndrome : unspecified'
+  - category: N05
+    docs: Unspecified nephritic syndrome
+    child:
+    - code: N05.0
+      docs: 'Unspecified nephritic syndrome : minor glomerular abnormality'
+    - code: N05.1
+      docs: 'Unspecified nephritic syndrome : focal and segmental glomerular lesions'
+    - code: N05.2
+      docs: 'Unspecified nephritic syndrome : diffuse membranous glomerulonephritis'
+    - code: N05.3
+      docs: 'Unspecified nephritic syndrome : diffuse mesangial proliferative glomerulonephritis'
+    - code: N05.4
+      docs: 'Unspecified nephritic syndrome : diffuse endocapillary proliferative
+        glomerulonephritis'
+    - code: N05.5
+      docs: 'Unspecified nephritic syndrome : diffuse mesangiocapillary glomerulonephritis'
+    - code: N05.6
+      docs: 'Unspecified nephritic syndrome : dense deposit disease'
+    - code: N05.7
+      docs: 'Unspecified nephritic syndrome : diffuse crescentic glomerulonephritis'
+    - code: N05.8
+      docs: 'Unspecified nephritic syndrome : other'
+    - code: N05.9
+      docs: 'Unspecified nephritic syndrome : unspecified'
+  - category: N06
+    docs: Isolated proteinuria with specified morphological lesion
+    child:
+    - code: N06.0
+      docs: 'Isolated proteinuria with specified morphological lesion : minor glomerular
+        abnormality'
+    - code: N06.1
+      docs: 'Isolated proteinuria with specified morphological lesion : focal and
+        segmental glomerular lesions'
+    - code: N06.2
+      docs: 'Isolated proteinuria with specified morphological lesion : diffuse membranous
+        glomerulonephritis'
+    - code: N06.3
+      docs: 'Isolated proteinuria with specified morphological lesion : diffuse mesangial
+        proliferative glomerulonephritis'
+    - code: N06.4
+      docs: 'Isolated proteinuria with specified morphological lesion : diffuse endocapillary
+        proliferative glomerulonephritis'
+    - code: N06.5
+      docs: 'Isolated proteinuria with specified morphological lesion : diffuse mesangiocapillary
+        glomerulonephritis'
+    - code: N06.6
+      docs: 'Isolated proteinuria with specified morphological lesion : dense deposit
+        disease'
+    - code: N06.7
+      docs: 'Isolated proteinuria with specified morphological lesion : diffuse crescentic
+        glomerulonephritis'
+    - code: N06.8
+      docs: 'Isolated proteinuria with specified morphological lesion : other'
+    - code: N06.9
+      docs: 'Isolated proteinuria with specified morphological lesion : unspecified'
+  - category: N07
+    docs: Hereditary nephropathy, not elsewhere classified
+    child:
+    - code: N07.0
+      docs: 'Hereditary nephropathy, not elsewhere classified : minor glomerular abnormality'
+    - code: N07.1
+      docs: 'Hereditary nephropathy, not elsewhere classified : focal and segmental
+        glomerular lesions'
+    - code: N07.2
+      docs: 'Hereditary nephropathy, not elsewhere classified : diffuse membranous
+        glomerulonephritis'
+    - code: N07.3
+      docs: 'Hereditary nephropathy, not elsewhere classified : diffuse mesangial
+        proliferative glomerulonephritis'
+    - code: N07.4
+      docs: 'Hereditary nephropathy, not elsewhere classified : diffuse endocapillary
+        proliferative glomerulonephritis'
+    - code: N07.5
+      docs: 'Hereditary nephropathy, not elsewhere classified : diffuse mesangiocapillary
+        glomerulonephritis'
+    - code: N07.6
+      docs: 'Hereditary nephropathy, not elsewhere classified : dense deposit disease'
+    - code: N07.7
+      docs: 'Hereditary nephropathy, not elsewhere classified : diffuse crescentic
+        glomerulonephritis'
+    - code: N07.8
+      docs: 'Hereditary nephropathy, not elsewhere classified : other'
+    - code: N07.9
+      docs: 'Hereditary nephropathy, not elsewhere classified : unspecified'
+  - category: N08
+    docs: Glomerular disorders in diseases classified elsewhere
+    child:
+    - code: N08.0
+      docs: Glomerular disorders in infectious and parasitic diseases classified elsewhere
+    - code: N08.1
+      docs: Glomerular disorders in neoplastic diseases
+    - code: N08.2
+      docs: Glomerular disorders in blood diseases and disorders involving the immune
+        mechanism
+    - code: N08.3
+      docs: Glomerular disorders in diabetes mellitus
+    - code: N08.4
+      docs: Glomerular disorders in other endocrine, nutritional and metabolic diseases
+    - code: N08.5
+      docs: Glomerular disorders in systemic connective tissue disorders
+    - code: N08.8
+      docs: Glomerular disorders in other diseases classified elsewhere
+- category: N10-N16
+  docs: Renal tubulo-interstitial diseases
+  child:
+  - code: N10
+    docs: Acute tubulo-interstitial nephritis
+  - category: N11
+    docs: Chronic tubulo-interstitial nephritis
+    child:
+    - code: N11.0
+      docs: Nonobstructive reflux-associated chronic pyelonephritis
+    - code: N11.1
+      docs: Chronic obstructive pyelonephritis
+    - code: N11.8
+      docs: Other chronic tubulo-interstitial nephritis
+    - code: N11.9
+      docs: Chronic tubulo-interstitial nephritis, unspecified
+  - code: N12
+    docs: Tubulo-interstitial nephritis, not specified as acute or chronic
+  - category: N13
+    docs: Obstructive and reflux uropathy
+    child:
+    - code: N13.0
+      docs: Hydronephrosis with ureteropelvic junction obstruction
+    - code: N13.1
+      docs: Hydronephrosis with ureteral stricture, not elsewhere classified
+    - code: N13.2
+      docs: Hydronephrosis with renal and ureteral calculous obstruction
+    - code: N13.3
+      docs: Other and unspecified hydronephrosis
+    - code: N13.4
+      docs: Hydroureter
+    - code: N13.5
+      docs: Kinking and stricture of ureter without hydronephrosis
+    - code: N13.6
+      docs: Pyonephrosis
+    - code: N13.7
+      docs: Vesicoureteral-reflux-associated uropathy
+    - code: N13.8
+      docs: Other obstructive and reflux uropathy
+    - code: N13.9
+      docs: Obstructive and reflux uropathy, unspecified
+  - category: N14
+    docs: Drug- and heavy-metal-induced tubulo-interstitial and tubular conditions
+    child:
+    - code: N14.0
+      docs: Analgesic nephropathy
+    - code: N14.1
+      docs: Nephropathy induced by other drugs, medicaments and biological substances
+    - code: N14.2
+      docs: Nephropathy induced by unspecified drug, medicament or biological substance
+    - code: N14.3
+      docs: Nephropathy induced by heavy metals
+    - code: N14.4
+      docs: Toxic nephropathy, not elsewhere classified
+  - category: N15
+    docs: Other renal tubulo-interstitial diseases
+    child:
+    - code: N15.0
+      docs: Balkan nephropathy
+    - code: N15.1
+      docs: Renal and perinephric abscess
+    - code: N15.8
+      docs: Other specified renal tubulo-interstitial diseases
+    - code: N15.9
+      docs: Renal tubulo-interstitial disease, unspecified
+  - category: N16
+    docs: Renal tubulo-interstitial disorders in diseases classified elsewhere
+    child:
+    - code: N16.0
+      docs: Renal tubulo-interstitial disorders in infectious and parasitic diseases
+        classified elsewhere
+    - code: N16.1
+      docs: Renal tubulo-interstitial disorders in neoplastic diseases
+    - code: N16.2
+      docs: Renal tubulo-interstitial disorders in blood diseases and disorders involving
+        the immune mechanism
+    - code: N16.3
+      docs: Renal tubulo-interstitial disorders in metabolic diseases
+    - code: N16.4
+      docs: Renal tubulo-interstitial disorders in systemic connective tissue disorders
+    - code: N16.5
+      docs: Renal tubulo-interstitial disorders in transplant rejection
+    - code: N16.8
+      docs: Renal tubulo-interstitial disorders in other diseases classified elsewhere
+- category: N17-N19
+  docs: Renal failure
+  child:
+  - category: N17
+    docs: Acute renal failure
+    child:
+    - code: N17.0
+      docs: Acute renal failure with tubular necrosis
+    - code: N17.1
+      docs: Acute renal failure with acute cortical necrosis
+    - code: N17.2
+      docs: Acute renal failure with medullary necrosis
+    - code: N17.8
+      docs: Other acute renal failure
+    - code: N17.9
+      docs: Acute renal failure, unspecified
+  - category: N18
+    docs: Chronic kidney disease
+    child:
+    - code: N18.1
+      docs: Chronic kidney disease, stage 1
+    - code: N18.2
+      docs: Chronic kidney disease, stage 2
+    - code: N18.3
+      docs: Chronic kidney disease, stage 3
+    - code: N18.4
+      docs: Chronic kidney disease, stage 4
+    - code: N18.5
+      docs: Chronic kidney disease, stage 5
+    - code: N18.9
+      docs: Chronic kidney disease, unspecified
+  - code: N19
+    docs: Unspecified kidney failure
+- category: N20-N23
+  docs: Urolithiasis
+  child:
+  - category: N20
+    docs: Calculus of kidney and ureter
+    child:
+    - code: N20.0
+      docs: Calculus of kidney
+    - code: N20.1
+      docs: Calculus of ureter
+    - code: N20.2
+      docs: Calculus of kidney with calculus of ureter
+    - code: N20.9
+      docs: Urinary calculus, unspecified
+  - category: N21
+    docs: Calculus of lower urinary tract
+    child:
+    - code: N21.0
+      docs: Calculus in bladder
+    - code: N21.1
+      docs: Calculus in urethra
+    - code: N21.8
+      docs: Other lower urinary tract calculus
+    - code: N21.9
+      docs: Calculus of lower urinary tract, unspecified
+  - category: N22
+    docs: Calculus of urinary tract in diseases classified elsewhere
+    child:
+    - code: N22.0
+      docs: Urinary calculus in schistosomiasis [bilharziasis]
+    - code: N22.8
+      docs: Calculus of urinary tract in other diseases classified elsewhere
+  - code: N23
+    docs: Unspecified renal colic
+- category: N25-N29
+  docs: Other disorders of kidney and ureter
+  child:
+  - category: N25
+    docs: Disorders resulting from impaired renal tubular function
+    child:
+    - code: N25.0
+      docs: Renal osteodystrophy
+    - code: N25.1
+      docs: Nephrogenic diabetes insipidus
+    - code: N25.8
+      docs: Other disorders resulting from impaired renal tubular function
+    - code: N25.9
+      docs: Disorder resulting from impaired renal tubular function, unspecified
+  - code: N26
+    docs: Unspecified contracted kidney
+  - category: N27
+    docs: Small kidney of unknown cause
+    child:
+    - code: N27.0
+      docs: Small kidney, unilateral
+    - code: N27.1
+      docs: Small kidney, bilateral
+    - code: N27.9
+      docs: Small kidney, unspecified
+  - category: N28
+    docs: Other disorders of kidney and ureter, not elsewhere classified
+    child:
+    - code: N28.0
+      docs: Ischaemia and infarction of kidney
+    - code: N28.1
+      docs: Cyst of kidney
+    - code: N28.8
+      docs: Other specified disorders of kidney and ureter
+    - code: N28.9
+      docs: Disorder of kidney and ureter, unspecified
+  - category: N29
+    docs: Other disorders of kidney and ureter in diseases classified elsewhere
+    child:
+    - code: N29.0
+      docs: Late syphilis of kidney
+    - code: N29.1
+      docs: Other disorders of kidney and ureter in infectious and parasitic diseases
+        classified elsewhere
+    - code: N29.8
+      docs: Other disorders of kidney and ureter in other diseases classified elsewhere
+- category: N30-N39
+  docs: Other diseases of urinary system
+  child:
+  - category: N30
+    docs: Cystitis
+    child:
+    - code: N30.0
+      docs: Acute cystitis
+    - code: N30.1
+      docs: Interstitial cystitis (chronic)
+    - code: N30.2
+      docs: Other chronic cystitis
+    - code: N30.3
+      docs: Trigonitis
+    - code: N30.4
+      docs: Irradiation cystitis
+    - code: N30.8
+      docs: Other cystitis
+    - code: N30.9
+      docs: Cystitis, unspecified
+  - category: N31
+    docs: Neuromuscular dysfunction of bladder, not elsewhere classified
+    child:
+    - code: N31.0
+      docs: Uninhibited neuropathic bladder, not elsewhere classified
+    - code: N31.1
+      docs: Reflex neuropathic bladder, not elsewhere classified
+    - code: N31.2
+      docs: Flaccid neuropathic bladder, not elsewhere classified
+    - code: N31.8
+      docs: Other neuromuscular dysfunction of bladder
+    - code: N31.9
+      docs: Neuromuscular dysfunction of bladder, unspecified
+  - category: N32
+    docs: Other disorders of bladder
+    child:
+    - code: N32.0
+      docs: Bladder-neck obstruction
+    - code: N32.1
+      docs: Vesicointestinal fistula
+    - code: N32.2
+      docs: Vesical fistula, not elsewhere classified
+    - code: N32.3
+      docs: Diverticulum of bladder
+    - code: N32.4
+      docs: Rupture of bladder, nontraumatic
+    - code: N32.8
+      docs: Other specified disorders of bladder
+    - code: N32.9
+      docs: Bladder disorder, unspecified
+  - category: N33
+    docs: Bladder disorders in diseases classified elsewhere
+    child:
+    - code: N33.0
+      docs: Tuberculous cystitis
+    - code: N33.8
+      docs: Bladder disorders in other diseases classified elsewhere
+  - category: N34
+    docs: Urethritis and urethral syndrome
+    child:
+    - code: N34.0
+      docs: Urethral abscess
+    - code: N34.1
+      docs: Nonspecific urethritis
+    - code: N34.2
+      docs: Other urethritis
+    - code: N34.3
+      docs: Urethral syndrome, unspecified
+  - category: N35
+    docs: Urethral stricture
+    child:
+    - code: N35.0
+      docs: Post-traumatic urethral stricture
+    - code: N35.1
+      docs: Postinfective urethral stricture, not elsewhere classified
+    - code: N35.8
+      docs: Other urethral stricture
+    - code: N35.9
+      docs: Urethral stricture, unspecified
+  - category: N36
+    docs: Other disorders of urethra
+    child:
+    - code: N36.0
+      docs: Urethral fistula
+    - code: N36.1
+      docs: Urethral diverticulum
+    - code: N36.2
+      docs: Urethral caruncle
+    - code: N36.3
+      docs: Prolapsed urethral mucosa
+    - code: N36.8
+      docs: Other specified disorders of urethra
+    - code: N36.9
+      docs: Urethral disorder, unspecified
+  - category: N37
+    docs: Urethral disorders in diseases classified elsewhere
+    child:
+    - code: N37.0
+      docs: Urethritis in diseases classified elsewhere
+    - code: N37.8
+      docs: Other urethral disorders in diseases classified elsewhere
+  - category: N39
+    docs: Other disorders of urinary system
+    child:
+    - code: N39.0
+      docs: Urinary tract infection, site not specified
+    - code: N39.1
+      docs: Persistent proteinuria, unspecified
+    - code: N39.2
+      docs: Orthostatic proteinuria, unspecified
+    - code: N39.3
+      docs: Stress incontinence
+    - code: N39.4
+      docs: Other specified urinary incontinence
+    - code: N39.8
+      docs: Other specified disorders of urinary system
+    - code: N39.9
+      docs: Disorder of urinary system, unspecified
+- category: N40-N51
+  docs: Diseases of male genital organs
+  child:
+  - code: N40
+    docs: Hyperplasia of prostate
+  - category: N41
+    docs: Inflammatory diseases of prostate
+    child:
+    - code: N41.0
+      docs: Acute prostatitis
+    - code: N41.1
+      docs: Chronic prostatitis
+    - code: N41.2
+      docs: Abscess of prostate
+    - code: N41.3
+      docs: Prostatocystitis
+    - code: N41.8
+      docs: Other inflammatory diseases of prostate
+    - code: N41.9
+      docs: Inflammatory disease of prostate, unspecified
+  - category: N42
+    docs: Other disorders of prostate
+    child:
+    - code: N42.0
+      docs: Calculus of prostate
+    - code: N42.1
+      docs: Congestion and haemorrhage of prostate
+    - code: N42.2
+      docs: Atrophy of prostate
+    - code: N42.3
+      docs: Dysplasia of prostate
+    - code: N42.8
+      docs: Other specified disorders of prostate
+    - code: N42.9
+      docs: Disorder of prostate, unspecified
+  - category: N43
+    docs: Hydrocele and spermatocele
+    child:
+    - code: N43.0
+      docs: Encysted hydrocele
+    - code: N43.1
+      docs: Infected hydrocele
+    - code: N43.2
+      docs: Other hydrocele
+    - code: N43.3
+      docs: Hydrocele, unspecified
+    - code: N43.4
+      docs: Spermatocele
+  - code: N44
+    docs: Torsion of testis
+  - category: N45
+    docs: Orchitis and epididymitis
+    child:
+    - code: N45.0
+      docs: Orchitis, epididymitis and epididymo-orchitis with abscess
+    - code: N45.9
+      docs: Orchitis, epididymitis and epididymo-orchitis without abscess
+  - code: N46
+    docs: Male infertility
+  - code: N47
+    docs: Redundant prepuce, phimosis and paraphimosis
+  - category: N48
+    docs: Other disorders of penis
+    child:
+    - code: N48.0
+      docs: Leukoplakia of penis
+    - code: N48.1
+      docs: Balanoposthitis
+    - code: N48.2
+      docs: Other inflammatory disorders of penis
+    - code: N48.3
+      docs: Priapism
+    - code: N48.4
+      docs: Impotence of organic origin
+    - code: N48.5
+      docs: Ulcer of penis
+    - code: N48.6
+      docs: Induratio penis plastica
+    - code: N48.8
+      docs: Other specified disorders of penis
+    - code: N48.9
+      docs: Disorder of penis, unspecified
+  - category: N49
+    docs: Inflammatory disorders of male genital organs, not elsewhere classified
+    child:
+    - code: N49.0
+      docs: Inflammatory disorders of seminal vesicle
+    - code: N49.1
+      docs: Inflammatory disorders of spermatic cord, tunica vaginalis and vas deferens
+    - code: N49.2
+      docs: Inflammatory disorders of scrotum
+    - code: N49.8
+      docs: Inflammatory disorders of other specified male genital organs
+    - code: N49.9
+      docs: Inflammatory disorder of unspecified male genital organ
+  - category: N50
+    docs: Other disorders of male genital organs
+    child:
+    - code: N50.0
+      docs: Atrophy of testis
+    - code: N50.1
+      docs: Vascular disorders of male genital organs
+    - code: N50.8
+      docs: Other specified disorders of male genital organs
+    - code: N50.9
+      docs: Disorder of male genital organs, unspecified
+  - category: N51
+    docs: Disorders of male genital organs in diseases classified elsewhere
+    child:
+    - code: N51.0
+      docs: Disorders of prostate in diseases classified elsewhere
+    - code: N51.1
+      docs: Disorders of testis and epididymis in diseases classified elsewhere
+    - code: N51.2
+      docs: Balanitis in diseases classified elsewhere
+    - code: N51.8
+      docs: Other disorders of male genital organs in diseases classified elsewhere
+- category: N60-N64
+  docs: Disorders of breast
+  child:
+  - category: N60
+    docs: Benign mammary dysplasia
+    child:
+    - code: N60.0
+      docs: Solitary cyst of breast
+    - code: N60.1
+      docs: Diffuse cystic mastopathy
+    - code: N60.2
+      docs: Fibroadenosis of breast
+    - code: N60.3
+      docs: Fibrosclerosis of breast
+    - code: N60.4
+      docs: Mammary duct ectasia
+    - code: N60.8
+      docs: Other benign mammary dysplasias
+    - code: N60.9
+      docs: Benign mammary dysplasia, unspecified
+  - code: N61
+    docs: Inflammatory disorders of breast
+  - code: N62
+    docs: Hypertrophy of breast
+  - code: N63
+    docs: Unspecified lump in breast
+  - category: N64
+    docs: Other disorders of breast
+    child:
+    - code: N64.0
+      docs: Fissure and fistula of nipple
+    - code: N64.1
+      docs: Fat necrosis of breast
+    - code: N64.2
+      docs: Atrophy of breast
+    - code: N64.3
+      docs: Galactorrhoea not associated with childbirth
+    - code: N64.4
+      docs: Mastodynia
+    - code: N64.5
+      docs: Other signs and symptoms in breast
+    - code: N64.8
+      docs: Other specified disorders of breast
+    - code: N64.9
+      docs: Disorder of breast, unspecified
+- category: N70-N77
+  docs: Inflammatory diseases of female pelvic organs
+  child:
+  - category: N70
+    docs: Salpingitis and oophoritis
+    child:
+    - code: N70.0
+      docs: Acute salpingitis and oophoritis
+    - code: N70.1
+      docs: Chronic salpingitis and oophoritis
+    - code: N70.9
+      docs: Salpingitis and oophoritis, unspecified
+  - category: N71
+    docs: Inflammatory disease of uterus, except cervix
+    child:
+    - code: N71.0
+      docs: Acute inflammatory disease of uterus
+    - code: N71.1
+      docs: Chronic inflammatory disease of uterus
+    - code: N71.9
+      docs: Inflammatory disease of uterus, unspecified
+  - code: N72
+    docs: Inflammatory disease of cervix uteri
+  - category: N73
+    docs: Other female pelvic inflammatory diseases
+    child:
+    - code: N73.0
+      docs: Acute parametritis and pelvic cellulitis
+    - code: N73.1
+      docs: Chronic parametritis and pelvic cellulitis
+    - code: N73.2
+      docs: Unspecified parametritis and pelvic cellulitis
+    - code: N73.3
+      docs: Female acute pelvic peritonitis
+    - code: N73.4
+      docs: Female chronic pelvic peritonitis
+    - code: N73.5
+      docs: Female pelvic peritonitis, unspecified
+    - code: N73.6
+      docs: Female pelvic peritoneal adhesions
+    - code: N73.8
+      docs: Other specified female pelvic inflammatory diseases
+    - code: N73.9
+      docs: Female pelvic inflammatory disease, unspecified
+  - category: N74
+    docs: Female pelvic inflammatory disorders in diseases classified elsewhere
+    child:
+    - code: N74.0
+      docs: Tuberculous infection of cervix uteri
+    - code: N74.1
+      docs: Female tuberculous pelvic inflammatory disease
+    - code: N74.2
+      docs: Female syphilitic pelvic inflammatory disease
+    - code: N74.3
+      docs: Female gonococcal pelvic inflammatory disease
+    - code: N74.4
+      docs: Female chlamydial pelvic inflammatory disease
+    - code: N74.8
+      docs: Female pelvic inflammatory disorders in other diseases classified elsewhere
+  - category: N75
+    docs: Diseases of Bartholin gland
+    child:
+    - code: N75.0
+      docs: Cyst of Bartholin gland
+    - code: N75.1
+      docs: Abscess of Bartholin gland
+    - code: N75.8
+      docs: Other diseases of Bartholin gland
+    - code: N75.9
+      docs: Disease of Bartholin gland, unspecified
+  - category: N76
+    docs: Other inflammation of vagina and vulva
+    child:
+    - code: N76.0
+      docs: Acute vaginitis
+    - code: N76.1
+      docs: Subacute and chronic vaginitis
+    - code: N76.2
+      docs: Acute vulvitis
+    - code: N76.3
+      docs: Subacute and chronic vulvitis
+    - code: N76.4
+      docs: Abscess of vulva
+    - code: N76.5
+      docs: Ulceration of vagina
+    - code: N76.6
+      docs: Ulceration of vulva
+    - code: N76.8
+      docs: Other specified inflammation of vagina and vulva
+  - category: N77
+    docs: Vulvovaginal ulceration and inflammation in diseases classified elsewhere
+    child:
+    - code: N77.0
+      docs: Ulceration of vulva in infectious and parasitic diseases classified elsewhere
+    - code: N77.1
+      docs: Vaginitis, vulvitis and vulvovaginitis in infectious and parasitic diseases
+        classified elsewhere
+    - code: N77.8
+      docs: Vulvovaginal ulceration and inflammation in other diseases classified
+        elsewhere
+- category: N80-N98
+  docs: Noninflammatory disorders of female genital tract
+  child:
+  - category: N80
+    docs: Endometriosis
+    child:
+    - code: N80.0
+      docs: Endometriosis of uterus
+    - code: N80.1
+      docs: Endometriosis of ovary
+    - code: N80.2
+      docs: Endometriosis of fallopian tube
+    - code: N80.3
+      docs: Endometriosis of pelvic peritoneum
+    - code: N80.4
+      docs: Endometriosis of rectovaginal septum and vagina
+    - code: N80.5
+      docs: Endometriosis of intestine
+    - code: N80.6
+      docs: Endometriosis in cutaneous scar
+    - code: N80.8
+      docs: Other endometriosis
+    - code: N80.9
+      docs: Endometriosis, unspecified
+  - category: N81
+    docs: Female genital prolapse
+    child:
+    - code: N81.0
+      docs: Female urethrocele
+    - code: N81.1
+      docs: Cystocele
+    - code: N81.2
+      docs: Incomplete uterovaginal prolapse
+    - code: N81.3
+      docs: Complete uterovaginal prolapse
+    - code: N81.4
+      docs: Uterovaginal prolapse, unspecified
+    - code: N81.5
+      docs: Vaginal enterocele
+    - code: N81.6
+      docs: Rectocele
+    - code: N81.8
+      docs: Other female genital prolapse
+    - code: N81.9
+      docs: Female genital prolapse, unspecified
+  - category: N82
+    docs: Fistulae involving female genital tract
+    child:
+    - code: N82.0
+      docs: Vesicovaginal fistula
+    - code: N82.1
+      docs: Other female urinary-genital tract fistulae
+    - code: N82.2
+      docs: Fistula of vagina to small intestine
+    - code: N82.3
+      docs: Fistula of vagina to large intestine
+    - code: N82.4
+      docs: Other female intestinal-genital tract fistulae
+    - code: N82.5
+      docs: Female genital tract-skin fistulae
+    - code: N82.8
+      docs: Other female genital tract fistulae
+    - code: N82.9
+      docs: Female genital tract fistula, unspecified
+  - category: N83
+    docs: Noninflammatory disorders of ovary, fallopian tube and broad ligament
+    child:
+    - code: N83.0
+      docs: Follicular cyst of ovary
+    - code: N83.1
+      docs: Corpus luteum cyst
+    - code: N83.2
+      docs: Other and unspecified ovarian cysts
+    - code: N83.3
+      docs: Acquired atrophy of ovary and fallopian tube
+    - code: N83.4
+      docs: Prolapse and hernia of ovary and fallopian tube
+    - code: N83.5
+      docs: Torsion of ovary, ovarian pedicle and fallopian tube
+    - code: N83.6
+      docs: Haematosalpinx
+    - code: N83.7
+      docs: Haematoma of broad ligament
+    - code: N83.8
+      docs: Other noninflammatory disorders of ovary, fallopian tube and broad ligament
+    - code: N83.9
+      docs: Noninflammatory disorder of ovary, fallopian tube and broad ligament,
+        unspecified
+  - category: N84
+    docs: Polyp of female genital tract
+    child:
+    - code: N84.0
+      docs: Polyp of corpus uteri
+    - code: N84.1
+      docs: Polyp of cervix uteri
+    - code: N84.2
+      docs: Polyp of vagina
+    - code: N84.3
+      docs: Polyp of vulva
+    - code: N84.8
+      docs: Polyp of other parts of female genital tract
+    - code: N84.9
+      docs: Polyp of female genital tract, unspecified
+  - category: N85
+    docs: Other noninflammatory disorders of uterus, except cervix
+    child:
+    - code: N85.0
+      docs: Endometrial glandular hyperplasia
+    - code: N85.1
+      docs: Endometrial adenomatous hyperplasia
+    - code: N85.2
+      docs: Hypertrophy of uterus
+    - code: N85.3
+      docs: Subinvolution of uterus
+    - code: N85.4
+      docs: Malposition of uterus
+    - code: N85.5
+      docs: Inversion of uterus
+    - code: N85.6
+      docs: Intrauterine synechiae
+    - code: N85.7
+      docs: Haematometra
+    - code: N85.8
+      docs: Other specified noninflammatory disorders of uterus
+    - code: N85.9
+      docs: Noninflammatory disorder of uterus, unspecified
+  - code: N86
+    docs: Erosion and ectropion of cervix uteri
+  - category: N87
+    docs: Dysplasia of cervix uteri
+    child:
+    - code: N87.0
+      docs: Mild cervical dysplasia
+    - code: N87.1
+      docs: Moderate cervical dysplasia
+    - code: N87.2
+      docs: Severe cervical dysplasia, not elsewhere classified
+    - code: N87.9
+      docs: Dysplasia of cervix uteri, unspecified
+  - category: N88
+    docs: Other noninflammatory disorders of cervix uteri
+    child:
+    - code: N88.0
+      docs: Leukoplakia of cervix uteri
+    - code: N88.1
+      docs: Old laceration of cervix uteri
+    - code: N88.2
+      docs: Stricture and stenosis of cervix uteri
+    - code: N88.3
+      docs: Incompetence of cervix uteri
+    - code: N88.4
+      docs: Hypertrophic elongation of cervix uteri
+    - code: N88.8
+      docs: Other specified noninflammatory disorders of cervix uteri
+    - code: N88.9
+      docs: Noninflammatory disorder of cervix uteri, unspecified
+  - category: N89
+    docs: Other noninflammatory disorders of vagina
+    child:
+    - code: N89.0
+      docs: Mild vaginal dysplasia
+    - code: N89.1
+      docs: Moderate vaginal dysplasia
+    - code: N89.2
+      docs: Severe vaginal dysplasia, not elsewhere classified
+    - code: N89.3
+      docs: Dysplasia of vagina, unspecified
+    - code: N89.4
+      docs: Leukoplakia of vagina
+    - code: N89.5
+      docs: Stricture and atresia of vagina
+    - code: N89.6
+      docs: Tight hymenal ring
+    - code: N89.7
+      docs: Haematocolpos
+    - code: N89.8
+      docs: Other specified noninflammatory disorders of vagina
+    - code: N89.9
+      docs: Noninflammatory disorder of vagina, unspecified
+  - category: N90
+    docs: Other noninflammatory disorders of vulva and perineum
+    child:
+    - code: N90.0
+      docs: Mild vulvar dysplasia
+    - code: N90.1
+      docs: Moderate vulvar dysplasia
+    - code: N90.2
+      docs: Severe vulvar dysplasia, not elsewhere classified
+    - code: N90.3
+      docs: Dysplasia of vulva, unspecified
+    - code: N90.4
+      docs: Leukoplakia of vulva
+    - code: N90.5
+      docs: Atrophy of vulva
+    - code: N90.6
+      docs: Hypertrophy of vulva
+    - code: N90.7
+      docs: Vulvar cyst
+    - code: N90.8
+      docs: Other specified noninflammatory disorders of vulva and perineum
+    - code: N90.9
+      docs: Noninflammatory disorder of vulva and perineum, unspecified
+  - category: N91
+    docs: Absent, scanty and rare menstruation
+    child:
+    - code: N91.0
+      docs: Primary amenorrhoea
+    - code: N91.1
+      docs: Secondary amenorrhoea
+    - code: N91.2
+      docs: Amenorrhoea, unspecified
+    - code: N91.3
+      docs: Primary oligomenorrhoea
+    - code: N91.4
+      docs: Secondary oligomenorrhoea
+    - code: N91.5
+      docs: Oligomenorrhoea, unspecified
+  - category: N92
+    docs: Excessive, frequent and irregular menstruation
+    child:
+    - code: N92.0
+      docs: Excessive and frequent menstruation with regular cycle
+    - code: N92.1
+      docs: Excessive and frequent menstruation with irregular cycle
+    - code: N92.2
+      docs: Excessive menstruation at puberty
+    - code: N92.3
+      docs: Ovulation bleeding
+    - code: N92.4
+      docs: Excessive bleeding in the premenopausal period
+    - code: N92.5
+      docs: Other specified irregular menstruation
+    - code: N92.6
+      docs: Irregular menstruation, unspecified
+  - category: N93
+    docs: Other abnormal uterine and vaginal bleeding
+    child:
+    - code: N93.0
+      docs: Postcoital and contact bleeding
+    - code: N93.8
+      docs: Other specified abnormal uterine and vaginal bleeding
+    - code: N93.9
+      docs: Abnormal uterine and vaginal bleeding, unspecified
+  - category: N94
+    docs: Pain and other conditions associated with female genital organs and menstrual
+      cycle
+    child:
+    - code: N94.0
+      docs: Mittelschmerz
+    - code: N94.1
+      docs: Dyspareunia
+    - code: N94.2
+      docs: Vaginismus
+    - code: N94.3
+      docs: Premenstrual tension syndrome
+    - code: N94.4
+      docs: Primary dysmenorrhoea
+    - code: N94.5
+      docs: Secondary dysmenorrhoea
+    - code: N94.6
+      docs: Dysmenorrhoea, unspecified
+    - code: N94.8
+      docs: Other specified conditions associated with female genital organs and menstrual
+        cycle
+    - code: N94.9
+      docs: Unspecified condition associated with female genital organs and menstrual
+        cycle
+  - category: N95
+    docs: Menopausal and other perimenopausal disorders
+    child:
+    - code: N95.0
+      docs: Postmenopausal bleeding
+    - code: N95.1
+      docs: Menopausal and female climacteric states
+    - code: N95.2
+      docs: Postmenopausal atrophic vaginitis
+    - code: N95.3
+      docs: States associated with artificial menopause
+    - code: N95.8
+      docs: Other specified menopausal and perimenopausal disorders
+    - code: N95.9
+      docs: Menopausal and perimenopausal disorder, unspecified
+  - code: N96
+    docs: Habitual aborter
+  - category: N97
+    docs: Female infertility
+    child:
+    - code: N97.0
+      docs: Female infertility associated with anovulation
+    - code: N97.1
+      docs: Female infertility of tubal origin
+    - code: N97.2
+      docs: Female infertility of uterine origin
+    - code: N97.3
+      docs: Female infertility of cervical origin
+    - code: N97.4
+      docs: Female infertility associated with male factors
+    - code: N97.8
+      docs: Female infertility of other origin
+    - code: N97.9
+      docs: Female infertility, unspecified
+  - category: N98
+    docs: Complications associated with artificial fertilization
+    child:
+    - code: N98.0
+      docs: Infection associated with artificial insemination
+    - code: N98.1
+      docs: Hyperstimulation of ovaries
+    - code: N98.2
+      docs: Complications of attempted introduction of fertilized ovum following in
+        vitro fertilization
+    - code: N98.3
+      docs: Complications of attempted introduction of embryo in embryo transfer
+    - code: N98.8
+      docs: Other complications associated with artificial fertilization
+    - code: N98.9
+      docs: Complication associated with artificial fertilization, unspecified
+- category: N99-N99
+  docs: Other disorders of the genitourinary system
+  child:
+  - category: N99
+    docs: Postprocedural disorders of genitourinary system, not elsewhere classified
+    child:
+    - code: N99.0
+      docs: Postprocedural renal failure
+    - code: N99.1
+      docs: Postprocedural urethral stricture
+    - code: N99.2
+      docs: Postoperative adhesions of vagina
+    - code: N99.3
+      docs: Prolapse of vaginal vault after hysterectomy
+    - code: N99.4
+      docs: Postprocedural pelvic peritoneal adhesions
+    - code: N99.5
+      docs: Malfunction of external stoma of urinary tract
+    - code: N99.8
+      docs: Other postprocedural disorders of genitourinary system
+    - code: N99.9
+      docs: Postprocedural disorder of genitourinary system, unspecified

@@ -1,0 +1,1153 @@
+category: XV
+docs: Pregnancy, childbirth and the puerperium
+child:
+- category: O00-O08
+  docs: Pregnancy with abortive outcome
+  child:
+  - category: O00
+    docs: Ectopic pregnancy
+    child:
+    - code: O00.0
+      docs: Abdominal pregnancy
+    - code: O00.1
+      docs: Tubal pregnancy
+    - code: O00.2
+      docs: Ovarian pregnancy
+    - code: O00.8
+      docs: Other ectopic pregnancy
+    - code: O00.9
+      docs: Ectopic pregnancy, unspecified
+  - category: O01
+    docs: Hydatidiform mole
+    child:
+    - code: O01.0
+      docs: Classical hydatidiform mole
+    - code: O01.1
+      docs: Incomplete and partial hydatidiform mole
+    - code: O01.9
+      docs: Hydatidiform mole, unspecified
+  - category: O02
+    docs: Other abnormal products of conception
+    child:
+    - code: O02.0
+      docs: Blighted ovum and nonhydatidiform mole
+    - code: O02.1
+      docs: Missed abortion
+    - code: O02.8
+      docs: Other specified abnormal products of conception
+    - code: O02.9
+      docs: Abnormal product of conception, unspecified
+  - category: O03
+    docs: Spontaneous abortion
+    child:
+    - code: O03.0
+      docs: 'Spontaneous abortion : incomplete, complicated by genital tract and pelvic
+        infection'
+    - code: O03.1
+      docs: 'Spontaneous abortion : incomplete, complicated by delayed or excessive
+        haemorrhage'
+    - code: O03.2
+      docs: 'Spontaneous abortion : incomplete, complicated by embolism'
+    - code: O03.3
+      docs: 'Spontaneous abortion : incomplete, with other and unspecified complications'
+    - code: O03.4
+      docs: 'Spontaneous abortion : incomplete, without complication'
+    - code: O03.5
+      docs: 'Spontaneous abortion : complete or unspecified, complicated by genital
+        tract and pelvic infection'
+    - code: O03.6
+      docs: 'Spontaneous abortion : complete or unspecified, complicated by delayed
+        or excessive haemorrhage'
+    - code: O03.7
+      docs: 'Spontaneous abortion : complete or unspecified, complicated by embolism'
+    - code: O03.8
+      docs: 'Spontaneous abortion : complete or unspecified, with other and unspecified
+        complications'
+    - code: O03.9
+      docs: 'Spontaneous abortion : complete or unspecified, without complication'
+  - category: O04
+    docs: Medical abortion
+    child:
+    - code: O04.0
+      docs: 'Medical abortion : incomplete, complicated by genital tract and pelvic
+        infection'
+    - code: O04.1
+      docs: 'Medical abortion : incomplete, complicated by delayed or excessive haemorrhage'
+    - code: O04.2
+      docs: 'Medical abortion : incomplete, complicated by embolism'
+    - code: O04.3
+      docs: 'Medical abortion : incomplete, with other and unspecified complications'
+    - code: O04.4
+      docs: 'Medical abortion : incomplete, without complication'
+    - code: O04.5
+      docs: 'Medical abortion : complete or unspecified, complicated by genital tract
+        and pelvic infection'
+    - code: O04.6
+      docs: 'Medical abortion : complete or unspecified, complicated by delayed or
+        excessive haemorrhage'
+    - code: O04.7
+      docs: 'Medical abortion : complete or unspecified, complicated by embolism'
+    - code: O04.8
+      docs: 'Medical abortion : complete or unspecified, with other and unspecified
+        complications'
+    - code: O04.9
+      docs: 'Medical abortion : complete or unspecified, without complication'
+  - category: O05
+    docs: Other abortion
+    child:
+    - code: O05.0
+      docs: 'Other abortion : incomplete, complicated by genital tract and pelvic
+        infection'
+    - code: O05.1
+      docs: 'Other abortion : incomplete, complicated by delayed or excessive haemorrhage'
+    - code: O05.2
+      docs: 'Other abortion : incomplete, complicated by embolism'
+    - code: O05.3
+      docs: 'Other abortion : incomplete, with other and unspecified complications'
+    - code: O05.4
+      docs: 'Other abortion : incomplete, without complication'
+    - code: O05.5
+      docs: 'Other abortion : complete or unspecified, complicated by genital tract
+        and pelvic infection'
+    - code: O05.6
+      docs: 'Other abortion : complete or unspecified, complicated by delayed or excessive
+        haemorrhage'
+    - code: O05.7
+      docs: 'Other abortion : complete or unspecified, complicated by embolism'
+    - code: O05.8
+      docs: 'Other abortion : complete or unspecified, with other and unspecified
+        complications'
+    - code: O05.9
+      docs: 'Other abortion : complete or unspecified, without complication'
+  - category: O06
+    docs: Unspecified abortion
+    child:
+    - code: O06.0
+      docs: 'Unspecified abortion : incomplete, complicated by genital tract and pelvic
+        infection'
+    - code: O06.1
+      docs: 'Unspecified abortion : incomplete, complicated by delayed or excessive
+        haemorrhage'
+    - code: O06.2
+      docs: 'Unspecified abortion : incomplete, complicated by embolism'
+    - code: O06.3
+      docs: 'Unspecified abortion : incomplete, with other and unspecified complications'
+    - code: O06.4
+      docs: 'Unspecified abortion : incomplete, without complication'
+    - code: O06.5
+      docs: 'Unspecified abortion : complete or unspecified, complicated by genital
+        tract and pelvic infection'
+    - code: O06.6
+      docs: 'Unspecified abortion : complete or unspecified, complicated by delayed
+        or excessive haemorrhage'
+    - code: O06.7
+      docs: 'Unspecified abortion : complete or unspecified, complicated by embolism'
+    - code: O06.8
+      docs: 'Unspecified abortion : complete or unspecified, with other and unspecified
+        complications'
+    - code: O06.9
+      docs: 'Unspecified abortion : complete or unspecified, without complication'
+  - category: O07
+    docs: Failed attempted abortion
+    child:
+    - code: O07.0
+      docs: Failed medical abortion, complicated by genital tract and pelvic infection
+    - code: O07.1
+      docs: Failed medical abortion, complicated by delayed or excessive haemorrhage
+    - code: O07.2
+      docs: Failed medical abortion, complicated by embolism
+    - code: O07.3
+      docs: Failed medical abortion, with other and unspecified complications
+    - code: O07.4
+      docs: Failed medical abortion, without complication
+    - code: O07.5
+      docs: Other and unspecified failed attempted abortion, complicated by genital
+        tract and pelvic infection
+    - code: O07.6
+      docs: Other and unspecified failed attempted abortion, complicated by delayed
+        or excessive haemorrhage
+    - code: O07.7
+      docs: Other and unspecified failed attempted abortion, complicated by embolism
+    - code: O07.8
+      docs: Other and unspecified failed attempted abortion, with other and unspecified
+        complications
+    - code: O07.9
+      docs: Other and unspecified failed attempted abortion, without complication
+  - category: O08
+    docs: Complications following abortion and ectopic and molar pregnancy
+    child:
+    - code: O08.0
+      docs: Genital tract and pelvic infection following abortion and ectopic and
+        molar pregnancy
+    - code: O08.1
+      docs: Delayed or excessive haemorrhage following abortion and ectopic and molar
+        pregnancy
+    - code: O08.2
+      docs: Embolism following abortion and ectopic and molar pregnancy
+    - code: O08.3
+      docs: Shock following abortion and ectopic and molar pregnancy
+    - code: O08.4
+      docs: Renal failure following abortion and ectopic and molar pregnancy
+    - code: O08.5
+      docs: Metabolic disorders following abortion and ectopic and molar pregnancy
+    - code: O08.6
+      docs: Damage to pelvic organs and tissues following abortion and ectopic and
+        molar pregnancy
+    - code: O08.7
+      docs: Other venous complications following abortion and ectopic and molar pregnancy
+    - code: O08.8
+      docs: Other complications following abortion and ectopic and molar pregnancy
+    - code: O08.9
+      docs: Complication following abortion and ectopic and molar pregnancy, unspecified
+- category: O10-O16
+  docs: Oedema, proteinuria and hypertensive disorders in pregnancy, childbirth and
+    the puerperium
+  child:
+  - category: O10
+    docs: Pre-existing hypertension complicating pregnancy, childbirth and the puerperium
+    child:
+    - code: O10.0
+      docs: Pre-existing essential hypertension complicating pregnancy, childbirth
+        and the puerperium
+    - code: O10.1
+      docs: Pre-existing hypertensive heart disease complicating pregnancy, childbirth
+        and the puerperium
+    - code: O10.2
+      docs: Pre-existing hypertensive renal disease complicating pregnancy, childbirth
+        and the puerperium
+    - code: O10.3
+      docs: Pre-existing hypertensive heart and renal disease complicating pregnancy,
+        childbirth and the puerperium
+    - code: O10.4
+      docs: Pre-existing secondary hypertension complicating pregnancy, childbirth
+        and the puerperium
+    - code: O10.9
+      docs: Unspecified pre-existing hypertension complicating pregnancy, childbirth
+        and the puerperium
+  - code: O11
+    docs: Pre-eclampsia superimposed on chronic hypertension
+  - category: O12
+    docs: Gestational [pregnancy-induced] oedema and proteinuria without hypertension
+    child:
+    - code: O12.0
+      docs: Gestational oedema
+    - code: O12.1
+      docs: Gestational proteinuria
+    - code: O12.2
+      docs: Gestational oedema with proteinuria
+  - code: O13
+    docs: Gestational [pregnancy-induced] hypertension
+  - category: O14
+    docs: Pre-eclampsia
+    child:
+    - code: O14.0
+      docs: Mild to moderate pre-eclampsia
+    - code: O14.1
+      docs: Severe pre-eclampsia
+    - code: O14.2
+      docs: HELLP syndrome
+    - code: O14.9
+      docs: Pre-eclampsia, unspecified
+  - category: O15
+    docs: Eclampsia
+    child:
+    - code: O15.0
+      docs: Eclampsia in pregnancy
+    - code: O15.1
+      docs: Eclampsia in labour
+    - code: O15.2
+      docs: Eclampsia in the puerperium
+    - code: O15.9
+      docs: Eclampsia, unspecified as to time period
+  - code: O16
+    docs: Unspecified maternal hypertension
+- category: O20-O29
+  docs: Other maternal disorders predominantly related to pregnancy
+  child:
+  - category: O20
+    docs: Haemorrhage in early pregnancy
+    child:
+    - code: O20.0
+      docs: Threatened abortion
+    - code: O20.8
+      docs: Other haemorrhage in early pregnancy
+    - code: O20.9
+      docs: Haemorrhage in early pregnancy, unspecified
+  - category: O21
+    docs: Excessive vomiting in pregnancy
+    child:
+    - code: O21.0
+      docs: Mild hyperemesis gravidarum
+    - code: O21.1
+      docs: Hyperemesis gravidarum with metabolic disturbance
+    - code: O21.2
+      docs: Late vomiting of pregnancy
+    - code: O21.8
+      docs: Other vomiting complicating pregnancy
+    - code: O21.9
+      docs: Vomiting of pregnancy, unspecified
+  - category: O22
+    docs: Venous complications and haemorrhoids in pregnancy
+    child:
+    - code: O22.0
+      docs: Varicose veins of lower extremity in pregnancy
+    - code: O22.1
+      docs: Genital varices in pregnancy
+    - code: O22.2
+      docs: Superficial thrombophlebitis in pregnancy
+    - code: O22.3
+      docs: Deep phlebothrombosis in pregnancy
+    - code: O22.4
+      docs: Haemorrhoids in pregnancy
+    - code: O22.5
+      docs: Cerebral venous thrombosis in pregnancy
+    - code: O22.8
+      docs: Other venous complications in pregnancy
+    - code: O22.9
+      docs: Venous complication in pregnancy, unspecified
+  - category: O23
+    docs: Infections of genitourinary tract in pregnancy
+    child:
+    - code: O23.0
+      docs: Infections of kidney in pregnancy
+    - code: O23.1
+      docs: Infections of bladder in pregnancy
+    - code: O23.2
+      docs: Infections of urethra in pregnancy
+    - code: O23.3
+      docs: Infections of other parts of urinary tract in pregnancy
+    - code: O23.4
+      docs: Unspecified infection of urinary tract in pregnancy
+    - code: O23.5
+      docs: Infections of the genital tract in pregnancy
+    - code: O23.9
+      docs: Other and unspecified genitourinary tract infection in pregnancy
+  - category: O24
+    docs: Diabetes mellitus in pregnancy
+    child:
+    - code: O24.0
+      docs: 'Diabetes mellitus in pregnancy: Pre-existing diabetes mellitus, insulin-dependent'
+    - code: O24.1
+      docs: 'Diabetes mellitus in pregnancy: Pre-existing diabetes mellitus, non-insulin-dependent'
+    - code: O24.2
+      docs: 'Diabetes mellitus in pregnancy: Pre-existing malnutrition-related diabetes
+        mellitus'
+    - code: O24.3
+      docs: 'Diabetes mellitus in pregnancy: Pre-existing diabetes mellitus, unspecified'
+    - code: O24.4
+      docs: Diabetes mellitus arising in pregnancy
+    - code: O24.9
+      docs: Diabetes mellitus in pregnancy, unspecified
+  - code: O25
+    docs: Malnutrition in pregnancy
+  - category: O26
+    docs: Maternal care for other conditions predominantly related to pregnancy
+    child:
+    - code: O26.0
+      docs: Excessive weight gain in pregnancy
+    - code: O26.1
+      docs: Low weight gain in pregnancy
+    - code: O26.2
+      docs: Pregnancy care of habitual aborter
+    - code: O26.3
+      docs: Retained intrauterine contraceptive device in pregnancy
+    - code: O26.4
+      docs: Herpes gestationis
+    - code: O26.5
+      docs: Maternal hypotension syndrome
+    - code: O26.6
+      docs: Liver disorders in pregnancy, childbirth and the puerperium
+    - code: O26.7
+      docs: Subluxation of symphysis (pubis) in pregnancy, childbirth and the puerperium
+    - code: O26.8
+      docs: Other specified pregnancy-related conditions
+    - code: O26.9
+      docs: Pregnancy-related condition, unspecified
+  - category: O28
+    docs: Abnormal findings on antenatal screening of mother
+    child:
+    - code: O28.0
+      docs: Abnormal haematological finding on antenatal screening of mother
+    - code: O28.1
+      docs: Abnormal biochemical finding on antenatal screening of mother
+    - code: O28.2
+      docs: Abnormal cytological finding on antenatal screening of mother
+    - code: O28.3
+      docs: Abnormal ultrasonic finding on antenatal screening of mother
+    - code: O28.4
+      docs: Abnormal radiological finding on antenatal screening of mother
+    - code: O28.5
+      docs: Abnormal chromosomal and genetic finding on antenatal screening of mother
+    - code: O28.8
+      docs: Other abnormal findings on antenatal screening of mother
+    - code: O28.9
+      docs: Abnormal finding on antenatal screening of mother, unspecified
+  - category: O29
+    docs: Complications of anaesthesia during pregnancy
+    child:
+    - code: O29.0
+      docs: Pulmonary complications of anaesthesia during pregnancy
+    - code: O29.1
+      docs: Cardiac complications of anaesthesia during pregnancy
+    - code: O29.2
+      docs: Central nervous system complications of anaesthesia during pregnancy
+    - code: O29.3
+      docs: Toxic reaction to local anaesthesia during pregnancy
+    - code: O29.4
+      docs: Spinal and epidural anaesthesia-induced headache during pregnancy
+    - code: O29.5
+      docs: Other complications of spinal and epidural anaesthesia during pregnancy
+    - code: O29.6
+      docs: Failed or difficult intubation during pregnancy
+    - code: O29.8
+      docs: Other complications of anaesthesia during pregnancy
+    - code: O29.9
+      docs: Complication of anaesthesia during pregnancy, unspecified
+- category: O30-O48
+  docs: Maternal care related to the fetus and amniotic cavity and possible delivery
+    problems
+  child:
+  - category: O30
+    docs: Multiple gestation
+    child:
+    - code: O30.0
+      docs: Twin pregnancy
+    - code: O30.1
+      docs: Triplet pregnancy
+    - code: O30.2
+      docs: Quadruplet pregnancy
+    - code: O30.8
+      docs: Other multiple gestation
+    - code: O30.9
+      docs: Multiple gestation, unspecified
+  - category: O31
+    docs: Complications specific to multiple gestation
+    child:
+    - code: O31.0
+      docs: Papyraceous fetus
+    - code: O31.1
+      docs: Continuing pregnancy after abortion of one fetus or more
+    - code: O31.2
+      docs: Continuing pregnancy after intrauterine death of one fetus or more
+    - code: O31.8
+      docs: Other complications specific to multiple gestation
+  - category: O32
+    docs: Maternal care for known or suspected malpresentation of fetus
+    child:
+    - code: O32.0
+      docs: Maternal care for unstable lie
+    - code: O32.1
+      docs: Maternal care for breech presentation
+    - code: O32.2
+      docs: Maternal care for transverse and oblique lie
+    - code: O32.3
+      docs: Maternal care for face, brow and chin presentation
+    - code: O32.4
+      docs: Maternal care for high head at term
+    - code: O32.5
+      docs: Maternal care for multiple gestation with malpresentation of one fetus
+        or more
+    - code: O32.6
+      docs: Maternal care for compound presentation
+    - code: O32.8
+      docs: Maternal care for other malpresentation of fetus
+    - code: O32.9
+      docs: Maternal care for malpresentation of fetus, unspecified
+  - category: O33
+    docs: Maternal care for known or suspected disproportion
+    child:
+    - code: O33.0
+      docs: Maternal care for disproportion due to deformity of maternal pelvic bones
+    - code: O33.1
+      docs: Maternal care for disproportion due to generally contracted pelvis
+    - code: O33.2
+      docs: Maternal care for disproportion due to inlet contraction of pelvis
+    - code: O33.3
+      docs: Maternal care for disproportion due to outlet contraction of pelvis
+    - code: O33.4
+      docs: Maternal care for disproportion of mixed maternal and fetal origin
+    - code: O33.5
+      docs: Maternal care for disproportion due to unusually large fetus
+    - code: O33.6
+      docs: Maternal care for disproportion due to hydrocephalic fetus
+    - code: O33.7
+      docs: Maternal care for disproportion due to other fetal deformities
+    - code: O33.8
+      docs: Maternal care for disproportion of other origin
+    - code: O33.9
+      docs: Maternal care for disproportion, unspecified
+  - category: O34
+    docs: Maternal care for known or suspected abnormality of pelvic organs
+    child:
+    - code: O34.0
+      docs: Maternal care for congenital malformation of uterus
+    - code: O34.1
+      docs: Maternal care for tumour of corpus uteri
+    - code: O34.2
+      docs: Maternal care due to uterine scar from previous surgery
+    - code: O34.3
+      docs: Maternal care for cervical incompetence
+    - code: O34.4
+      docs: Maternal care for other abnormalities of cervix
+    - code: O34.5
+      docs: Maternal care for other abnormalities of gravid uterus
+    - code: O34.6
+      docs: Maternal care for abnormality of vagina
+    - code: O34.7
+      docs: Maternal care for abnormality of vulva and perineum
+    - code: O34.8
+      docs: Maternal care for other abnormalities of pelvic organs
+    - code: O34.9
+      docs: Maternal care for abnormality of pelvic organ, unspecified
+  - category: O35
+    docs: Maternal care for known or suspected fetal abnormality and damage
+    child:
+    - code: O35.0
+      docs: Maternal care for (suspected) central nervous system malformation in fetus
+    - code: O35.1
+      docs: Maternal care for (suspected) chromosomal abnormality in fetus
+    - code: O35.2
+      docs: Maternal care for (suspected) hereditary disease in fetus
+    - code: O35.3
+      docs: Maternal care for (suspected) damage to fetus from viral disease in mother
+    - code: O35.4
+      docs: Maternal care for (suspected) damage to fetus from alcohol
+    - code: O35.5
+      docs: Maternal care for (suspected) damage to fetus by drugs
+    - code: O35.6
+      docs: Maternal care for (suspected) damage to fetus by radiation
+    - code: O35.7
+      docs: Maternal care for (suspected) damage to fetus by other medical procedures
+    - code: O35.8
+      docs: Maternal care for other (suspected) fetal abnormality and damage
+    - code: O35.9
+      docs: Maternal care for (suspected) fetal abnormality and damage, unspecified
+  - category: O36
+    docs: Maternal care for other known or suspected fetal problems
+    child:
+    - code: O36.0
+      docs: Maternal care for rhesus isoimmunization
+    - code: O36.1
+      docs: Maternal care for other isoimmunization
+    - code: O36.2
+      docs: Maternal care for hydrops fetalis
+    - code: O36.3
+      docs: Maternal care for signs of fetal hypoxia
+    - code: O36.4
+      docs: Maternal care for intrauterine death
+    - code: O36.5
+      docs: Maternal care for poor fetal growth
+    - code: O36.6
+      docs: Maternal care for excessive fetal growth
+    - code: O36.7
+      docs: Maternal care for viable fetus in abdominal pregnancy
+    - code: O36.8
+      docs: Maternal care for other specified fetal problems
+    - code: O36.9
+      docs: Maternal care for fetal problem, unspecified
+  - code: O40
+    docs: Polyhydramnios
+  - category: O41
+    docs: Other disorders of amniotic fluid and membranes
+    child:
+    - code: O41.0
+      docs: Oligohydramnios
+    - code: O41.1
+      docs: Infection of amniotic sac and membranes
+    - code: O41.8
+      docs: Other specified disorders of amniotic fluid and membranes
+    - code: O41.9
+      docs: Disorder of amniotic fluid and membranes, unspecified
+  - category: O42
+    docs: Premature rupture of membranes
+    child:
+    - code: O42.0
+      docs: Premature rupture of membranes, onset of labour within 24 hours
+    - code: O42.1
+      docs: Premature rupture of membranes, onset of labour after 24 hours
+    - code: O42.2
+      docs: Premature rupture of membranes, labour delayed by therapy
+    - code: O42.9
+      docs: Premature rupture of membranes, unspecified
+  - category: O43
+    docs: Placental disorders
+    child:
+    - code: O43.0
+      docs: Placental transfusion syndromes
+    - code: O43.1
+      docs: Malformation of placenta
+    - code: O43.2
+      docs: Morbidly adherent placenta
+    - code: O43.8
+      docs: Other placental disorders
+    - code: O43.9
+      docs: Placental disorder, unspecified
+  - category: O44
+    docs: Placenta praevia
+    child:
+    - code: O44.0
+      docs: Placenta praevia specified as without haemorrhage
+    - code: O44.1
+      docs: Placenta praevia with haemorrhage
+  - category: O45
+    docs: Premature separation of placenta [abruptio placentae]
+    child:
+    - code: O45.0
+      docs: Premature separation of placenta with coagulation defect
+    - code: O45.8
+      docs: Other premature separation of placenta
+    - code: O45.9
+      docs: Premature separation of placenta, unspecified
+  - category: O46
+    docs: Antepartum haemorrhage, not elsewhere classified
+    child:
+    - code: O46.0
+      docs: Antepartum haemorrhage with coagulation defect
+    - code: O46.8
+      docs: Other antepartum haemorrhage
+    - code: O46.9
+      docs: Antepartum haemorrhage, unspecified
+  - category: O47
+    docs: False labour
+    child:
+    - code: O47.0
+      docs: False labour before 37 completed weeks of gestation
+    - code: O47.1
+      docs: False labour at or after 37 completed weeks of gestation
+    - code: O47.9
+      docs: False labour, unspecified
+  - code: O48
+    docs: Prolonged pregnancy
+- category: O60-O75
+  docs: Complications of labour and delivery
+  child:
+  - category: O60
+    docs: Preterm labour and delivery
+    child:
+    - code: O60.0
+      docs: Preterm labour without delivery
+    - code: O60.1
+      docs: Preterm spontaneous labour with preterm delivery
+    - code: O60.2
+      docs: Preterm spontaneous labour with term delivery
+    - code: O60.3
+      docs: Preterm delivery without spontaneous labour
+  - category: O61
+    docs: Failed induction of labour
+    child:
+    - code: O61.0
+      docs: Failed medical induction of labour
+    - code: O61.1
+      docs: Failed instrumental induction of labour
+    - code: O61.8
+      docs: Other failed induction of labour
+    - code: O61.9
+      docs: Failed induction of labour, unspecified
+  - category: O62
+    docs: Abnormalities of forces of labour
+    child:
+    - code: O62.0
+      docs: Primary inadequate contractions
+    - code: O62.1
+      docs: Secondary uterine inertia
+    - code: O62.2
+      docs: Other uterine inertia
+    - code: O62.3
+      docs: Precipitate labour
+    - code: O62.4
+      docs: Hypertonic, incoordinate, and prolonged uterine contractions
+    - code: O62.8
+      docs: Other abnormalities of forces of labour
+    - code: O62.9
+      docs: Abnormality of forces of labour, unspecified
+  - category: O63
+    docs: Long labour
+    child:
+    - code: O63.0
+      docs: Prolonged first stage (of labour)
+    - code: O63.1
+      docs: Prolonged second stage (of labour)
+    - code: O63.2
+      docs: Delayed delivery of second twin, triplet, etc.
+    - code: O63.9
+      docs: Long labour, unspecified
+  - category: O64
+    docs: Obstructed labour due to malposition and malpresentation of fetus
+    child:
+    - code: O64.0
+      docs: Obstructed labour due to incomplete rotation of fetal head
+    - code: O64.1
+      docs: Obstructed labour due to breech presentation
+    - code: O64.2
+      docs: Obstructed labour due to face presentation
+    - code: O64.3
+      docs: Obstructed labour due to brow presentation
+    - code: O64.4
+      docs: Obstructed labour due to shoulder presentation
+    - code: O64.5
+      docs: Obstructed labour due to compound presentation
+    - code: O64.8
+      docs: Obstructed labour due to other malposition and malpresentation
+    - code: O64.9
+      docs: Obstructed labour due to malposition and malpresentation, unspecified
+  - category: O65
+    docs: Obstructed labour due to maternal pelvic abnormality
+    child:
+    - code: O65.0
+      docs: Obstructed labour due to deformed pelvis
+    - code: O65.1
+      docs: Obstructed labour due to generally contracted pelvis
+    - code: O65.2
+      docs: Obstructed labour due to pelvic inlet contraction
+    - code: O65.3
+      docs: Obstructed labour due to pelvic outlet and mid-cavity contraction
+    - code: O65.4
+      docs: Obstructed labour due to fetopelvic disproportion, unspecified
+    - code: O65.5
+      docs: Obstructed labour due to abnormality of maternal pelvic organs
+    - code: O65.8
+      docs: Obstructed labour due to other maternal pelvic abnormalities
+    - code: O65.9
+      docs: Obstructed labour due to maternal pelvic abnormality, unspecified
+  - category: O66
+    docs: Other obstructed labour
+    child:
+    - code: O66.0
+      docs: Obstructed labour due to shoulder dystocia
+    - code: O66.1
+      docs: Obstructed labour due to locked twins
+    - code: O66.2
+      docs: Obstructed labour due to unusually large fetus
+    - code: O66.3
+      docs: Obstructed labour due to other abnormalities of fetus
+    - code: O66.4
+      docs: Failed trial of labour, unspecified
+    - code: O66.5
+      docs: Failed application of vacuum extractor and forceps, unspecified
+    - code: O66.8
+      docs: Other specified obstructed labour
+    - code: O66.9
+      docs: Obstructed labour, unspecified
+  - category: O67
+    docs: Labour and delivery complicated by intrapartum haemorrhage, not elsewhere
+      classified
+    child:
+    - code: O67.0
+      docs: Intrapartum haemorrhage with coagulation defect
+    - code: O67.8
+      docs: Other intrapartum haemorrhage
+    - code: O67.9
+      docs: Intrapartum haemorrhage, unspecified
+  - category: O68
+    docs: Labour and delivery complicated by fetal stress [distress]
+    child:
+    - code: O68.0
+      docs: Labour and delivery complicated by fetal heart rate anomaly
+    - code: O68.1
+      docs: Labour and delivery complicated by meconium in amniotic fluid
+    - code: O68.2
+      docs: Labour and delivery complicated by fetal heart rate anomaly with meconium
+        in amniotic fluid
+    - code: O68.3
+      docs: Labour and delivery complicated by biochemical evidence of fetal stress
+    - code: O68.8
+      docs: Labour and delivery complicated by other evidence of fetal stress
+    - code: O68.9
+      docs: Labour and delivery complicated by fetal stress, unspecified
+  - category: O69
+    docs: Labour and delivery complicated by umbilical cord complications
+    child:
+    - code: O69.0
+      docs: Labour and delivery complicated by prolapse of cord
+    - code: O69.1
+      docs: Labour and delivery complicated by cord around neck, with compression
+    - code: O69.2
+      docs: Labour and delivery complicated by other cord entanglement, with compression
+    - code: O69.3
+      docs: Labour and delivery complicated by short cord
+    - code: O69.4
+      docs: Labour and delivery complicated by vasa praevia
+    - code: O69.5
+      docs: Labour and delivery complicated by vascular lesion of cord
+    - code: O69.8
+      docs: Labour and delivery complicated by other cord complications
+    - code: O69.9
+      docs: Labour and delivery complicated by cord complication, unspecified
+  - category: O70
+    docs: Perineal laceration during delivery
+    child:
+    - code: O70.0
+      docs: First degree perineal laceration during delivery
+    - code: O70.1
+      docs: Second degree perineal laceration during delivery
+    - code: O70.2
+      docs: Third degree perineal laceration during delivery
+    - code: O70.3
+      docs: Fourth degree perineal laceration during delivery
+    - code: O70.9
+      docs: Perineal laceration during delivery, unspecified
+  - category: O71
+    docs: Other obstetric trauma
+    child:
+    - code: O71.0
+      docs: Rupture of uterus before onset of labour
+    - code: O71.1
+      docs: Rupture of uterus during labour
+    - code: O71.2
+      docs: Postpartum inversion of uterus
+    - code: O71.3
+      docs: Obstetric laceration of cervix
+    - code: O71.4
+      docs: Obstetric high vaginal laceration
+    - code: O71.5
+      docs: Other obstetric injury to pelvic organs
+    - code: O71.6
+      docs: Obstetric damage to pelvic joints and ligaments
+    - code: O71.7
+      docs: Obstetric haematoma of pelvis
+    - code: O71.8
+      docs: Other specified obstetric trauma
+    - code: O71.9
+      docs: Obstetric trauma, unspecified
+  - category: O72
+    docs: Postpartum haemorrhage
+    child:
+    - code: O72.0
+      docs: Third-stage haemorrhage
+    - code: O72.1
+      docs: Other immediate postpartum haemorrhage
+    - code: O72.2
+      docs: Delayed and secondary postpartum haemorrhage
+    - code: O72.3
+      docs: Postpartum coagulation defects
+  - category: O73
+    docs: Retained placenta and membranes, without haemorrhage
+    child:
+    - code: O73.0
+      docs: Retained placenta without haemorrhage
+    - code: O73.1
+      docs: Retained portions of placenta and membranes, without haemorrhage
+  - category: O74
+    docs: Complications of anaesthesia during labour and delivery
+    child:
+    - code: O74.0
+      docs: Aspiration pneumonitis due to anaesthesia during labour and delivery
+    - code: O74.1
+      docs: Other pulmonary complications of anaesthesia during labour and delivery
+    - code: O74.2
+      docs: Cardiac complications of anaesthesia during labour and delivery
+    - code: O74.3
+      docs: Central nervous system complications of anaesthesia during labour and
+        delivery
+    - code: O74.4
+      docs: Toxic reaction to local anaesthesia during labour and delivery
+    - code: O74.5
+      docs: Spinal and epidural anaesthesia-induced headache during labour and delivery
+    - code: O74.6
+      docs: Other complications of spinal and epidural anaesthesia during labour and
+        delivery
+    - code: O74.7
+      docs: Failed or difficult intubation during labour and delivery
+    - code: O74.8
+      docs: Other complications of anaesthesia during labour and delivery
+    - code: O74.9
+      docs: Complication of anaesthesia during labour and delivery, unspecified
+  - category: O75
+    docs: Other complications of labour and delivery, not elsewhere classified
+    child:
+    - code: O75.0
+      docs: Maternal distress during labour and delivery
+    - code: O75.1
+      docs: Shock during or following labour and delivery
+    - code: O75.2
+      docs: Pyrexia during labour, not elsewhere classified
+    - code: O75.3
+      docs: Other infection during labour
+    - code: O75.4
+      docs: Other complications of obstetric surgery and procedures
+    - code: O75.5
+      docs: Delayed delivery after artificial rupture of membranes
+    - code: O75.6
+      docs: Delayed delivery after spontaneous or unspecified rupture of membranes
+    - code: O75.7
+      docs: Vaginal delivery following previous caesarean section
+    - code: O75.8
+      docs: Other specified complications of labour and delivery
+    - code: O75.9
+      docs: Complication of labour and delivery, unspecified
+- category: O80-O84
+  docs: Delivery
+  child:
+  - category: O80
+    docs: Single spontaneous delivery
+    child:
+    - code: O80.0
+      docs: Spontaneous vertex delivery
+    - code: O80.1
+      docs: Spontaneous breech delivery
+    - code: O80.8
+      docs: Other single spontaneous delivery
+    - code: O80.9
+      docs: Single spontaneous delivery, unspecified
+  - category: O81
+    docs: Single delivery by forceps and vacuum extractor
+    child:
+    - code: O81.0
+      docs: Low forceps delivery
+    - code: O81.1
+      docs: Mid-cavity forceps delivery
+    - code: O81.2
+      docs: Mid-cavity forceps with rotation
+    - code: O81.3
+      docs: Other and unspecified forceps delivery
+    - code: O81.4
+      docs: Vacuum extractor delivery
+    - code: O81.5
+      docs: Delivery by combination of forceps and vacuum extractor
+  - category: O82
+    docs: Single delivery by caesarean section
+    child:
+    - code: O82.0
+      docs: Delivery by elective caesarean section
+    - code: O82.1
+      docs: Delivery by emergency caesarean section
+    - code: O82.2
+      docs: Delivery by caesarean hysterectomy
+    - code: O82.8
+      docs: Other single delivery by caesarean section
+    - code: O82.9
+      docs: Delivery by caesarean section, unspecified
+  - category: O83
+    docs: Other assisted single delivery
+    child:
+    - code: O83.0
+      docs: Breech extraction
+    - code: O83.1
+      docs: Other assisted breech delivery
+    - code: O83.2
+      docs: Other manipulation-assisted delivery
+    - code: O83.3
+      docs: Delivery of viable fetus in abdominal pregnancy
+    - code: O83.4
+      docs: Destructive operation for delivery
+    - code: O83.8
+      docs: Other specified assisted single delivery
+    - code: O83.9
+      docs: Assisted single delivery, unspecified
+  - category: O84
+    docs: Multiple delivery
+    child:
+    - code: O84.0
+      docs: Multiple delivery, all spontaneous
+    - code: O84.1
+      docs: Multiple delivery, all by forceps and vacuum extractor
+    - code: O84.2
+      docs: Multiple delivery, all by caesarean section
+    - code: O84.8
+      docs: Other multiple delivery
+    - code: O84.9
+      docs: Multiple delivery, unspecified
+- category: O85-O92
+  docs: Complications predominantly related to the puerperium
+  child:
+  - code: O85
+    docs: Puerperal sepsis
+  - category: O86
+    docs: Other puerperal infections
+    child:
+    - code: O86.0
+      docs: Infection of obstetric surgical wound
+    - code: O86.1
+      docs: Other infection of genital tract following delivery
+    - code: O86.2
+      docs: Urinary tract infection following delivery
+    - code: O86.3
+      docs: Other genitourinary tract infections following delivery
+    - code: O86.4
+      docs: Pyrexia of unknown origin following delivery
+    - code: O86.8
+      docs: Other specified puerperal infections
+  - category: O87
+    docs: Venous complications and haemorrhoids in the puerperium
+    child:
+    - code: O87.0
+      docs: Superficial thrombophlebitis in the puerperium
+    - code: O87.1
+      docs: Deep phlebothrombosis in the puerperium
+    - code: O87.2
+      docs: Haemorrhoids in the puerperium
+    - code: O87.3
+      docs: Cerebral venous thrombosis in the puerperium
+    - code: O87.8
+      docs: Other venous complications in the puerperium
+    - code: O87.9
+      docs: Venous complication in the puerperium, unspecified
+  - category: O88
+    docs: Obstetric embolism
+    child:
+    - code: O88.0
+      docs: Obstetric air embolism
+    - code: O88.1
+      docs: Amniotic fluid embolism
+    - code: O88.2
+      docs: Obstetric blood-clot embolism
+    - code: O88.3
+      docs: Obstetric pyaemic and septic embolism
+    - code: O88.8
+      docs: Other obstetric embolism
+  - category: O89
+    docs: Complications of anaesthesia during the puerperium
+    child:
+    - code: O89.0
+      docs: Pulmonary complications of anaesthesia during the puerperium
+    - code: O89.1
+      docs: Cardiac complications of anaesthesia during the puerperium
+    - code: O89.2
+      docs: Central nervous system complications of anaesthesia during the puerperium
+    - code: O89.3
+      docs: Toxic reaction to local anaesthesia during the puerperium
+    - code: O89.4
+      docs: Spinal and epidural anaesthesia-induced headache during the puerperium
+    - code: O89.5
+      docs: Other complications of spinal and epidural anaesthesia during the puerperium
+    - code: O89.6
+      docs: Failed or difficult intubation during the puerperium
+    - code: O89.8
+      docs: Other complications of anaesthesia during the puerperium
+    - code: O89.9
+      docs: Complication of anaesthesia during the puerperium, unspecified
+  - category: O90
+    docs: Complications of the puerperium, not elsewhere classified
+    child:
+    - code: O90.0
+      docs: Disruption of caesarean section wound
+    - code: O90.1
+      docs: Disruption of perineal obstetric wound
+    - code: O90.2
+      docs: Haematoma of obstetric wound
+    - code: O90.3
+      docs: Cardiomyopathy in the puerperium
+    - code: O90.4
+      docs: Postpartum acute renal failure
+    - code: O90.5
+      docs: Postpartum thyroiditis
+    - code: O90.8
+      docs: Other complications of the puerperium, not elsewhere classified
+    - code: O90.9
+      docs: Complication of the puerperium, unspecified
+  - category: O91
+    docs: Infections of breast associated with childbirth
+    child:
+    - code: O91.0
+      docs: Infection of nipple associated with childbirth
+    - code: O91.1
+      docs: Abscess of breast associated with childbirth
+    - code: O91.2
+      docs: Nonpurulent mastitis associated with childbirth
+  - category: O92
+    docs: Other disorders of breast and lactation associated with childbirth
+    child:
+    - code: O92.0
+      docs: Retracted nipple associated with childbirth
+    - code: O92.1
+      docs: Cracked nipple associated with childbirth
+    - code: O92.2
+      docs: Other and unspecified disorders of breast associated with childbirth
+    - code: O92.3
+      docs: Agalactia
+    - code: O92.4
+      docs: Hypogalactia
+    - code: O92.5
+      docs: Suppressed lactation
+    - code: O92.6
+      docs: Galactorrhoea
+    - code: O92.7
+      docs: Other and unspecified disorders of lactation
+- category: O94-O99
+  docs: Other obstetric conditions, not elsewhere classified
+  child:
+  - code: O94
+    docs: Sequelae of complication of pregnancy, childbirth and the puerperium
+  - code: O95
+    docs: Obstetric death of unspecified cause
+  - category: O96
+    docs: Death from any obstetric cause occurring more than 42 days but less than
+      one year after delivery
+    child:
+    - code: O96.0
+      docs: Death from direct obstetric cause occurring more than 42 days but less
+        than one year after delivery
+    - code: O96.1
+      docs: Death from indirect obstetric cause occurring more than 42 days but less
+        than one year after delivery
+    - code: O96.9
+      docs: Death from unspecified obstetric cause occurring more than 42 days but
+        less than one year after delivery
+  - category: O97
+    docs: Death from sequelae of obstetric causes
+    child:
+    - code: O97.0
+      docs: Death from sequelae of direct obstetric cause
+    - code: O97.1
+      docs: Death from sequelae of indirect obstetric cause
+    - code: O97.9
+      docs: Death from sequelae of obstetric cause, unspecified
+  - category: O98
+    docs: Maternal infectious and parasitic diseases classifiable elsewhere but complicating
+      pregnancy, childbirth and the puerperium
+    child:
+    - code: O98.0
+      docs: Tuberculosis complicating pregnancy, childbirth and the puerperium
+    - code: O98.1
+      docs: Syphilis complicating pregnancy, childbirth and the puerperium
+    - code: O98.2
+      docs: Gonorrhoea complicating pregnancy, childbirth and the puerperium
+    - code: O98.3
+      docs: Other infections with a predominantly sexual mode of transmission complicating
+        pregnancy, childbirth and the puerperium
+    - code: O98.4
+      docs: Viral hepatitis complicating pregnancy, childbirth and the puerperium
+    - code: O98.5
+      docs: Other viral diseases complicating pregnancy, childbirth and the puerperium
+    - code: O98.6
+      docs: Protozoal diseases complicating pregnancy, childbirth and the puerperium
+    - code: O98.7
+      docs: Human immunodeficiency virus [HIV] disease complicating pregnancy, childbirth
+        and the puerperium
+    - code: O98.8
+      docs: Other maternal infectious and parasitic diseases complicating pregnancy,
+        childbirth and the puerperium
+    - code: O98.9
+      docs: Unspecified maternal infectious or parasitic disease complicating pregnancy,
+        childbirth and the puerperium
+  - category: O99
+    docs: Other maternal diseases classifiable elsewhere but complicating pregnancy,
+      childbirth and the puerperium
+    child:
+    - code: O99.0
+      docs: Anaemia complicating pregnancy, childbirth and the puerperium
+    - code: O99.1
+      docs: Other diseases of the blood and blood-forming organs and certain disorders
+        involving the immune mechanism complicating pregnancy, childbirth and the
+        puerperium
+    - code: O99.2
+      docs: Endocrine, nutritional and metabolic diseases complicating pregnancy,
+        childbirth and the puerperium
+    - code: O99.3
+      docs: Mental disorders and diseases of the nervous system complicating pregnancy,
+        childbirth and the puerperium
+    - code: O99.4
+      docs: Diseases of the circulatory system complicating pregnancy, childbirth
+        and the puerperium
+    - code: O99.5
+      docs: Diseases of the respiratory system complicating pregnancy, childbirth
+        and the puerperium
+    - code: O99.6
+      docs: Diseases of the digestive system complicating pregnancy, childbirth and
+        the puerperium
+    - code: O99.7
+      docs: Diseases of the skin and subcutaneous tissue complicating pregnancy, childbirth
+        and the puerperium
+    - code: O99.8
+      docs: Other specified diseases and conditions complicating pregnancy, childbirth
+        and the puerperium

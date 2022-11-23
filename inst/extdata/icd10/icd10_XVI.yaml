@@ -1,0 +1,880 @@
+category: XVI
+docs: Certain conditions originating in the perinatal period
+child:
+- category: P00-P04
+  docs: Fetus and newborn affected by maternal factors and by complications of pregnancy,
+    labour and delivery
+  child:
+  - category: P00
+    docs: Fetus and newborn affected by maternal conditions that may be unrelated
+      to present pregnancy
+    child:
+    - code: P00.0
+      docs: Fetus and newborn affected by maternal hypertensive disorders
+    - code: P00.1
+      docs: Fetus and newborn affected by maternal renal and urinary tract diseases
+    - code: P00.2
+      docs: Fetus and newborn affected by maternal infectious and parasitic diseases
+    - code: P00.3
+      docs: Fetus and newborn affected by other maternal circulatory and respiratory
+        diseases
+    - code: P00.4
+      docs: Fetus and newborn affected by maternal nutritional disorders
+    - code: P00.5
+      docs: Fetus and newborn affected by maternal injury
+    - code: P00.6
+      docs: Fetus and newborn affected by surgical procedure on mother
+    - code: P00.7
+      docs: Fetus and newborn affected by other medical procedures on mother, not
+        elsewhere classified
+    - code: P00.8
+      docs: Fetus and newborn affected by other maternal conditions
+    - code: P00.9
+      docs: Fetus and newborn affected by unspecified maternal condition
+  - category: P01
+    docs: Fetus and newborn affected by maternal complications of pregnancy
+    child:
+    - code: P01.0
+      docs: Fetus and newborn affected by incompetent cervix
+    - code: P01.1
+      docs: Fetus and newborn affected by premature rupture of membranes
+    - code: P01.2
+      docs: Fetus and newborn affected by oligohydramnios
+    - code: P01.3
+      docs: Fetus and newborn affected by polyhydramnios
+    - code: P01.4
+      docs: Fetus and newborn affected by ectopic pregnancy
+    - code: P01.5
+      docs: Fetus and newborn affected by multiple pregnancy
+    - code: P01.6
+      docs: Fetus and newborn affected by maternal death
+    - code: P01.7
+      docs: Fetus and newborn affected by malpresentation before labour
+    - code: P01.8
+      docs: Fetus and newborn affected by other maternal complications of pregnancy
+    - code: P01.9
+      docs: Fetus and newborn affected by maternal complication of pregnancy, unspecified
+  - category: P02
+    docs: Fetus and newborn affected by complications of placenta, cord and membranes
+    child:
+    - code: P02.0
+      docs: Fetus and newborn affected by placenta praevia
+    - code: P02.1
+      docs: Fetus and newborn affected by other forms of placental separation and
+        haemorrhage
+    - code: P02.2
+      docs: Fetus and newborn affected by other and unspecified morphological and
+        functional abnormalities of placenta
+    - code: P02.3
+      docs: Fetus and newborn affected by placental transfusion syndromes
+    - code: P02.4
+      docs: Fetus and newborn affected by prolapsed cord
+    - code: P02.5
+      docs: Fetus and newborn affected by other compression of umbilical cord
+    - code: P02.6
+      docs: Fetus and newborn affected by other and unspecified conditions of umbilical
+        cord
+    - code: P02.7
+      docs: Fetus and newborn affected by chorioamnionitis
+    - code: P02.8
+      docs: Fetus and newborn affected by other abnormalities of membranes
+    - code: P02.9
+      docs: Fetus and newborn affected by abnormality of membranes, unspecified
+  - category: P03
+    docs: Fetus and newborn affected by other complications of labour and delivery
+    child:
+    - code: P03.0
+      docs: Fetus and newborn affected by breech delivery and extraction
+    - code: P03.1
+      docs: Fetus and newborn affected by other malpresentation, malposition and disproportion
+        during labour and delivery
+    - code: P03.2
+      docs: Fetus and newborn affected by forceps delivery
+    - code: P03.3
+      docs: Fetus and newborn affected by delivery by vacuum extractor [ventouse]
+    - code: P03.4
+      docs: Fetus and newborn affected by caesarean delivery
+    - code: P03.5
+      docs: Fetus and newborn affected by precipitate delivery
+    - code: P03.6
+      docs: Fetus and newborn affected by abnormal uterine contractions
+    - code: P03.8
+      docs: Fetus and newborn affected by other specified complications of labour
+        and delivery
+    - code: P03.9
+      docs: Fetus and newborn affected by complication of labour and delivery, unspecified
+  - category: P04
+    docs: Fetus and newborn affected by noxious influences transmitted via placenta
+      or breast milk
+    child:
+    - code: P04.0
+      docs: Fetus and newborn affected by maternal anaesthesia and analgesia in pregnancy,
+        labour and delivery
+    - code: P04.1
+      docs: Fetus and newborn affected by other maternal medication
+    - code: P04.2
+      docs: Fetus and newborn affected by maternal use of tobacco
+    - code: P04.3
+      docs: Fetus and newborn affected by maternal use of alcohol
+    - code: P04.4
+      docs: Fetus and newborn affected by maternal use of drugs of addiction
+    - code: P04.5
+      docs: Fetus and newborn affected by maternal use of nutritional chemical substances
+    - code: P04.6
+      docs: Fetus and newborn affected by maternal exposure to environmental chemical
+        substances
+    - code: P04.8
+      docs: Fetus and newborn affected by other maternal noxious influences
+    - code: P04.9
+      docs: Fetus and newborn affected by maternal noxious influence, unspecified
+- category: P05-P08
+  docs: Disorders related to length of gestation and fetal growth
+  child:
+  - category: P05
+    docs: Slow fetal growth and fetal malnutrition
+    child:
+    - code: P05.0
+      docs: Light for gestational age
+    - code: P05.1
+      docs: Small for gestational age
+    - code: P05.2
+      docs: Fetal malnutrition without mention of light or small for gestational age
+    - code: P05.9
+      docs: Slow fetal growth, unspecified
+  - category: P07
+    docs: Disorders related to short gestation and low birth weight, not elsewhere
+      classified
+    child:
+    - code: P07.0
+      docs: Extremely low birth weight
+    - code: P07.1
+      docs: Other low birth weight
+    - code: P07.2
+      docs: Extreme immaturity
+    - code: P07.3
+      docs: Other preterm infants
+  - category: P08
+    docs: Disorders related to long gestation and high birth weight
+    child:
+    - code: P08.0
+      docs: Exceptionally large baby
+    - code: P08.1
+      docs: Other heavy for gestational age infants
+    - code: P08.2
+      docs: Post-term infant, not heavy for gestational age
+- category: P10-P15
+  docs: Birth trauma
+  child:
+  - category: P10
+    docs: Intracranial laceration and haemorrhage due to birth injury
+    child:
+    - code: P10.0
+      docs: Subdural haemorrhage due to birth injury
+    - code: P10.1
+      docs: Cerebral haemorrhage due to birth injury
+    - code: P10.2
+      docs: Intraventricular haemorrhage due to birth injury
+    - code: P10.3
+      docs: Subarachnoid haemorrhage due to birth injury
+    - code: P10.4
+      docs: Tentorial tear due to birth injury
+    - code: P10.8
+      docs: Other intracranial lacerations and haemorrhages due to birth injury
+    - code: P10.9
+      docs: Unspecified intracranial laceration and haemorrhage due to birth injury
+  - category: P11
+    docs: Other birth injuries to central nervous system
+    child:
+    - code: P11.0
+      docs: Cerebral oedema due to birth injury
+    - code: P11.1
+      docs: Other specified brain damage due to birth injury
+    - code: P11.2
+      docs: Unspecified brain damage due to birth injury
+    - code: P11.3
+      docs: Birth injury to facial nerve
+    - code: P11.4
+      docs: Birth injury to other cranial nerves
+    - code: P11.5
+      docs: Birth injury to spine and spinal cord
+    - code: P11.9
+      docs: Birth injury to central nervous system, unspecified
+  - category: P12
+    docs: Birth injury to scalp
+    child:
+    - code: P12.0
+      docs: Cephalhaematoma due to birth injury
+    - code: P12.1
+      docs: Chignon due to birth injury
+    - code: P12.2
+      docs: Epicranial subaponeurotic haemorrhage due to birth injury
+    - code: P12.3
+      docs: Bruising of scalp due to birth injury
+    - code: P12.4
+      docs: Monitoring injury of scalp of newborn
+    - code: P12.8
+      docs: Other birth injuries to scalp
+    - code: P12.9
+      docs: Birth injury to scalp, unspecified
+  - category: P13
+    docs: Birth injury to skeleton
+    child:
+    - code: P13.0
+      docs: Fracture of skull due to birth injury
+    - code: P13.1
+      docs: Other birth injuries to skull
+    - code: P13.2
+      docs: Birth injury to femur
+    - code: P13.3
+      docs: Birth injury to other long bones
+    - code: P13.4
+      docs: Fracture of clavicle due to birth injury
+    - code: P13.8
+      docs: Birth injuries to other parts of skeleton
+    - code: P13.9
+      docs: Birth injury to skeleton, unspecified
+  - category: P14
+    docs: Birth injury to peripheral nervous system
+    child:
+    - code: P14.0
+      docs: Erb paralysis due to birth injury
+    - code: P14.1
+      docs: Klumpke paralysis due to birth injury
+    - code: P14.2
+      docs: Phrenic nerve paralysis due to birth injury
+    - code: P14.3
+      docs: Other brachial plexus birth injuries
+    - code: P14.8
+      docs: Birth injuries to other parts of peripheral nervous system
+    - code: P14.9
+      docs: Birth injury to peripheral nervous system, unspecified
+  - category: P15
+    docs: Other birth injuries
+    child:
+    - code: P15.0
+      docs: Birth injury to liver
+    - code: P15.1
+      docs: Birth injury to spleen
+    - code: P15.2
+      docs: Sternomastoid injury due to birth injury
+    - code: P15.3
+      docs: Birth injury to eye
+    - code: P15.4
+      docs: Birth injury to face
+    - code: P15.5
+      docs: Birth injury to external genitalia
+    - code: P15.6
+      docs: Subcutaneous fat necrosis due to birth injury
+    - code: P15.8
+      docs: Other specified birth injuries
+    - code: P15.9
+      docs: Birth injury, unspecified
+- category: P20-P29
+  docs: Respiratory and cardiovascular disorders specific to the perinatal period
+  child:
+  - category: P20
+    docs: Intrauterine hypoxia
+    child:
+    - code: P20.0
+      docs: Intrauterine hypoxia first noted before onset of labour
+    - code: P20.1
+      docs: Intrauterine hypoxia first noted during labour and delivery
+    - code: P20.9
+      docs: Intrauterine hypoxia, unspecified
+  - category: P21
+    docs: Birth asphyxia
+    child:
+    - code: P21.0
+      docs: Severe birth asphyxia
+    - code: P21.1
+      docs: Mild and moderate birth asphyxia
+    - code: P21.9
+      docs: Birth asphyxia, unspecified
+  - category: P22
+    docs: Respiratory distress of newborn
+    child:
+    - code: P22.0
+      docs: Respiratory distress syndrome of newborn
+    - code: P22.1
+      docs: Transient tachypnoea of newborn
+    - code: P22.8
+      docs: Other respiratory distress of newborn
+    - code: P22.9
+      docs: Respiratory distress of newborn, unspecified
+  - category: P23
+    docs: Congenital pneumonia
+    child:
+    - code: P23.0
+      docs: Congenital pneumonia due to viral agent
+    - code: P23.1
+      docs: Congenital pneumonia due to Chlamydia
+    - code: P23.2
+      docs: Congenital pneumonia due to staphylococcus
+    - code: P23.3
+      docs: Congenital pneumonia due to streptococcus, group B
+    - code: P23.4
+      docs: Congenital pneumonia due to Escherichia coli
+    - code: P23.5
+      docs: Congenital pneumonia due to Pseudomonas
+    - code: P23.6
+      docs: Congenital pneumonia due to other bacterial agents
+    - code: P23.8
+      docs: Congenital pneumonia due to other organisms
+    - code: P23.9
+      docs: Congenital pneumonia, unspecified
+  - category: P24
+    docs: Neonatal aspiration syndromes
+    child:
+    - code: P24.0
+      docs: Neonatal aspiration of meconium
+    - code: P24.1
+      docs: Neonatal aspiration of amniotic fluid and mucus
+    - code: P24.2
+      docs: Neonatal aspiration of blood
+    - code: P24.3
+      docs: Neonatal aspiration of milk and regurgitated food
+    - code: P24.8
+      docs: Other neonatal aspiration syndromes
+    - code: P24.9
+      docs: Neonatal aspiration syndrome, unspecified
+  - category: P25
+    docs: Interstitial emphysema and related conditions originating in the perinatal
+      period
+    child:
+    - code: P25.0
+      docs: Interstitial emphysema originating in the perinatal period
+    - code: P25.1
+      docs: Pneumothorax originating in the perinatal period
+    - code: P25.2
+      docs: Pneumomediastinum originating in the perinatal period
+    - code: P25.3
+      docs: Pneumopericardium originating in the perinatal period
+    - code: P25.8
+      docs: Other conditions related to interstitial emphysema originating in the
+        perinatal period
+  - category: P26
+    docs: Pulmonary haemorrhage originating in the perinatal period
+    child:
+    - code: P26.0
+      docs: Tracheobronchial haemorrhage originating in the perinatal period
+    - code: P26.1
+      docs: Massive pulmonary haemorrhage originating in the perinatal period
+    - code: P26.8
+      docs: Other pulmonary haemorrhages originating in the perinatal period
+    - code: P26.9
+      docs: Unspecified pulmonary haemorrhage originating in the perinatal period
+  - category: P27
+    docs: Chronic respiratory disease originating in the perinatal period
+    child:
+    - code: P27.0
+      docs: Wilson-Mikity syndrome
+    - code: P27.1
+      docs: Bronchopulmonary dysplasia originating in the perinatal period
+    - code: P27.8
+      docs: Other chronic respiratory diseases originating in the perinatal period
+    - code: P27.9
+      docs: Unspecified chronic respiratory disease originating in the perinatal period
+  - category: P28
+    docs: Other respiratory conditions originating in the perinatal period
+    child:
+    - code: P28.0
+      docs: Primary atelectasis of newborn
+    - code: P28.1
+      docs: Other and unspecified atelectasis of newborn
+    - code: P28.2
+      docs: Cyanotic attacks of newborn
+    - code: P28.3
+      docs: Primary sleep apnoea of newborn
+    - code: P28.4
+      docs: Other apnoea of newborn
+    - code: P28.5
+      docs: Respiratory failure of newborn
+    - code: P28.8
+      docs: Other specified respiratory conditions of newborn
+    - code: P28.9
+      docs: Respiratory condition of newborn, unspecified
+  - category: P29
+    docs: Cardiovascular disorders originating in the perinatal period
+    child:
+    - code: P29.0
+      docs: Neonatal cardiac failure
+    - code: P29.1
+      docs: Neonatal cardiac dysrhythmia
+    - code: P29.2
+      docs: Neonatal hypertension
+    - code: P29.3
+      docs: Persistent fetal circulation
+    - code: P29.4
+      docs: Transient myocardial ischaemia of newborn
+    - code: P29.8
+      docs: Other cardiovascular disorders originating in the perinatal period
+    - code: P29.9
+      docs: Cardiovascular disorder originating in the perinatal period, unspecified
+- category: P35-P39
+  docs: Infections specific to the perinatal period
+  child:
+  - category: P35
+    docs: Congenital viral diseases
+    child:
+    - code: P35.0
+      docs: Congenital rubella syndrome
+    - code: P35.1
+      docs: Congenital cytomegalovirus infection
+    - code: P35.2
+      docs: Congenital herpesviral [herpes simplex] infection
+    - code: P35.3
+      docs: Congenital viral hepatitis
+    - code: P35.8
+      docs: Other congenital viral diseases
+    - code: P35.9
+      docs: Congenital viral disease, unspecified
+  - category: P36
+    docs: Bacterial sepsis of newborn
+    child:
+    - code: P36.0
+      docs: Sepsis of newborn due to streptococcus, group B
+    - code: P36.1
+      docs: Sepsis of newborn due to other and unspecified streptococci
+    - code: P36.2
+      docs: Sepsis of newborn due to Staphylococcus aureus
+    - code: P36.3
+      docs: Sepsis of newborn due to other and unspecified staphylococci
+    - code: P36.4
+      docs: Sepsis of newborn due to Escherichia coli
+    - code: P36.5
+      docs: Sepsis of newborn due to anaerobes
+    - code: P36.8
+      docs: Other bacterial sepsis of newborn
+    - code: P36.9
+      docs: Bacterial sepsis of newborn, unspecified
+  - category: P37
+    docs: Other congenital infectious and parasitic diseases
+    child:
+    - code: P37.0
+      docs: Congenital tuberculosis
+    - code: P37.1
+      docs: Congenital toxoplasmosis
+    - code: P37.2
+      docs: Neonatal (disseminated) listeriosis
+    - code: P37.3
+      docs: Congenital falciparum malaria
+    - code: P37.4
+      docs: Other congenital malaria
+    - code: P37.5
+      docs: Neonatal candidiasis
+    - code: P37.8
+      docs: Other specified congenital infectious and parasitic diseases
+    - code: P37.9
+      docs: Congenital infectious and parasitic disease, unspecified
+  - code: P38
+    docs: Omphalitis of newborn with or without mild haemorrhage
+  - category: P39
+    docs: Other infections specific to the perinatal period
+    child:
+    - code: P39.0
+      docs: Neonatal infective mastitis
+    - code: P39.1
+      docs: Neonatal conjunctivitis and dacryocystitis
+    - code: P39.2
+      docs: Intra-amniotic infection of fetus, not elsewhere classified
+    - code: P39.3
+      docs: Neonatal urinary tract infection
+    - code: P39.4
+      docs: Neonatal skin infection
+    - code: P39.8
+      docs: Other specified infections specific to the perinatal period
+    - code: P39.9
+      docs: Infection specific to the perinatal period, unspecified
+- category: P50-P61
+  docs: Haemorrhagic and haematological disorders of fetus and newborn
+  child:
+  - category: P50
+    docs: Fetal blood loss
+    child:
+    - code: P50.0
+      docs: Fetal blood loss from vasa praevia
+    - code: P50.1
+      docs: Fetal blood loss from ruptured cord
+    - code: P50.2
+      docs: Fetal blood loss from placenta
+    - code: P50.3
+      docs: Haemorrhage into co-twin
+    - code: P50.4
+      docs: Haemorrhage into maternal circulation
+    - code: P50.5
+      docs: Fetal blood loss from cut end of co-twin's cord
+    - code: P50.8
+      docs: Other fetal blood loss
+    - code: P50.9
+      docs: Fetal blood loss, unspecified
+  - category: P51
+    docs: Umbilical haemorrhage of newborn
+    child:
+    - code: P51.0
+      docs: Massive umbilical haemorrhage of newborn
+    - code: P51.8
+      docs: Other umbilical haemorrhages of newborn
+    - code: P51.9
+      docs: Umbilical haemorrhage of newborn, unspecified
+  - category: P52
+    docs: Intracranial nontraumatic haemorrhage of fetus and newborn
+    child:
+    - code: P52.0
+      docs: Intraventricular (nontraumatic) haemorrhage, grade 1, of fetus and newborn
+    - code: P52.1
+      docs: Intraventricular (nontraumatic) haemorrhage, grade 2, of fetus and newborn
+    - code: P52.2
+      docs: Intraventricular (nontraumatic) haemorrhage, grade 3, and grade 4 of fetus
+        and newborn
+    - code: P52.3
+      docs: Unspecified intraventricular (nontraumatic) haemorrhage of fetus and newborn
+    - code: P52.4
+      docs: Intracerebral (nontraumatic) haemorrhage of fetus and newborn
+    - code: P52.5
+      docs: Subarachnoid (nontraumatic) haemorrhage of fetus and newborn
+    - code: P52.6
+      docs: Cerebellar (nontraumatic) and posterior fossa haemorrhage of fetus and
+        newborn
+    - code: P52.8
+      docs: Other intracranial (nontraumatic) haemorrhages of fetus and newborn
+    - code: P52.9
+      docs: Intracranial (nontraumatic) haemorrhage of fetus and newborn, unspecified
+  - code: P53
+    docs: Haemorrhagic disease of fetus and newborn
+  - category: P54
+    docs: Other neonatal haemorrhages
+    child:
+    - code: P54.0
+      docs: Neonatal haematemesis
+    - code: P54.1
+      docs: Neonatal melaena
+    - code: P54.2
+      docs: Neonatal rectal haemorrhage
+    - code: P54.3
+      docs: Other neonatal gastrointestinal haemorrhage
+    - code: P54.4
+      docs: Neonatal adrenal haemorrhage
+    - code: P54.5
+      docs: Neonatal cutaneous haemorrhage
+    - code: P54.6
+      docs: Neonatal vaginal haemorrhage
+    - code: P54.8
+      docs: Other specified neonatal haemorrhages
+    - code: P54.9
+      docs: Neonatal haemorrhage, unspecified
+  - category: P55
+    docs: Haemolytic disease of fetus and newborn
+    child:
+    - code: P55.0
+      docs: Rh isoimmunization of fetus and newborn
+    - code: P55.1
+      docs: ABO isoimmunization of fetus and newborn
+    - code: P55.8
+      docs: Other haemolytic diseases of fetus and newborn
+    - code: P55.9
+      docs: Haemolytic disease of fetus and newborn, unspecified
+  - category: P56
+    docs: Hydrops fetalis due to haemolytic disease
+    child:
+    - code: P56.0
+      docs: Hydrops fetalis due to isoimmunization
+    - code: P56.9
+      docs: Hydrops fetalis due to other and unspecified haemolytic disease
+  - category: P57
+    docs: Kernicterus
+    child:
+    - code: P57.0
+      docs: Kernicterus due to isoimmunization
+    - code: P57.8
+      docs: Other specified kernicterus
+    - code: P57.9
+      docs: Kernicterus, unspecified
+  - category: P58
+    docs: Neonatal jaundice due to other excessive haemolysis
+    child:
+    - code: P58.0
+      docs: Neonatal jaundice due to bruising
+    - code: P58.1
+      docs: Neonatal jaundice due to bleeding
+    - code: P58.2
+      docs: Neonatal jaundice due to infection
+    - code: P58.3
+      docs: Neonatal jaundice due to polycythaemia
+    - code: P58.4
+      docs: Neonatal jaundice due to drugs or toxins transmitted from mother or given
+        to newborn
+    - code: P58.5
+      docs: Neonatal jaundice due to swallowed maternal blood
+    - code: P58.8
+      docs: Neonatal jaundice due to other specified excessive haemolysis
+    - code: P58.9
+      docs: Neonatal jaundice due to excessive haemolysis, unspecified
+  - category: P59
+    docs: Neonatal jaundice from other and unspecified causes
+    child:
+    - code: P59.0
+      docs: Neonatal jaundice associated with preterm delivery
+    - code: P59.1
+      docs: Inspissated bile syndrome
+    - code: P59.2
+      docs: Neonatal jaundice from other and unspecified hepatocellular damage
+    - code: P59.3
+      docs: Neonatal jaundice from breast milk inhibitor
+    - code: P59.8
+      docs: Neonatal jaundice from other specified causes
+    - code: P59.9
+      docs: Neonatal jaundice, unspecified
+  - code: P60
+    docs: Disseminated intravascular coagulation of fetus and newborn
+  - category: P61
+    docs: Other perinatal haematological disorders
+    child:
+    - code: P61.0
+      docs: Transient neonatal thrombocytopenia
+    - code: P61.1
+      docs: Polycythaemia neonatorum
+    - code: P61.2
+      docs: Anaemia of prematurity
+    - code: P61.3
+      docs: Congenital anaemia from fetal blood loss
+    - code: P61.4
+      docs: Other congenital anaemias, not elsewhere classified
+    - code: P61.5
+      docs: Transient neonatal neutropenia
+    - code: P61.6
+      docs: Other transient neonatal disorders of coagulation
+    - code: P61.8
+      docs: Other specified perinatal haematological disorders
+    - code: P61.9
+      docs: Perinatal haematological disorder, unspecified
+- category: P70-P74
+  docs: Transitory endocrine and metabolic disorders specific to fetus and newborn
+  child:
+  - category: P70
+    docs: Transitory disorders of carbohydrate metabolism specific to fetus and newborn
+    child:
+    - code: P70.0
+      docs: Syndrome of infant of mother with gestational diabetes
+    - code: P70.1
+      docs: Syndrome of infant of a diabetic mother
+    - code: P70.2
+      docs: Neonatal diabetes mellitus
+    - code: P70.3
+      docs: Iatrogenic neonatal hypoglycaemia
+    - code: P70.4
+      docs: Other neonatal hypoglycaemia
+    - code: P70.8
+      docs: Other transitory disorders of carbohydrate metabolism of fetus and newborn
+    - code: P70.9
+      docs: Transitory disorder of carbohydrate metabolism of fetus and newborn, unspecified
+  - category: P71
+    docs: Transitory neonatal disorders of calcium and magnesium metabolism
+    child:
+    - code: P71.0
+      docs: Cow milk hypocalcaemia in newborn
+    - code: P71.1
+      docs: Other neonatal hypocalcaemia
+    - code: P71.2
+      docs: Neonatal hypomagnesaemia
+    - code: P71.3
+      docs: Neonatal tetany without calcium or magnesium deficiency
+    - code: P71.4
+      docs: Transitory neonatal hypoparathyroidism
+    - code: P71.8
+      docs: Other transitory neonatal disorders of calcium and magnesium metabolism
+    - code: P71.9
+      docs: Transitory neonatal disorder of calcium and magnesium metabolism, unspecified
+  - category: P72
+    docs: Other transitory neonatal endocrine disorders
+    child:
+    - code: P72.0
+      docs: Neonatal goitre, not elsewhere classified
+    - code: P72.1
+      docs: Transitory neonatal hyperthyroidism
+    - code: P72.2
+      docs: Other transitory neonatal disorders of thyroid function, not elsewhere
+        classified
+    - code: P72.8
+      docs: Other specified transitory neonatal endocrine disorders
+    - code: P72.9
+      docs: Transitory neonatal endocrine disorder, unspecified
+  - category: P74
+    docs: Other transitory neonatal electrolyte and metabolic disturbances
+    child:
+    - code: P74.0
+      docs: Late metabolic acidosis of newborn
+    - code: P74.1
+      docs: Dehydration of newborn
+    - code: P74.2
+      docs: Disturbances of sodium balance of newborn
+    - code: P74.3
+      docs: Disturbances of potassium balance of newborn
+    - code: P74.4
+      docs: Other transitory electrolyte disturbances of newborn
+    - code: P74.5
+      docs: Transitory tyrosinaemia of newborn
+    - code: P74.8
+      docs: Other transitory metabolic disturbances of newborn
+    - code: P74.9
+      docs: Transitory metabolic disturbance of newborn, unspecified
+- category: P75-P78
+  docs: Digestive system disorders of fetus and newborn
+  child:
+  - code: P75
+    docs: Meconium ileus in cystic fibrosis
+  - category: P76
+    docs: Other intestinal obstruction of newborn
+    child:
+    - code: P76.0
+      docs: Meconium plug syndrome
+    - code: P76.1
+      docs: Transitory ileus of newborn
+    - code: P76.2
+      docs: Intestinal obstruction due to inspissated milk
+    - code: P76.8
+      docs: Other specified intestinal obstruction of newborn
+    - code: P76.9
+      docs: Intestinal obstruction of newborn, unspecified
+  - code: P77
+    docs: Necrotizing enterocolitis of fetus and newborn
+  - category: P78
+    docs: Other perinatal digestive system disorders
+    child:
+    - code: P78.0
+      docs: Perinatal intestinal perforation
+    - code: P78.1
+      docs: Other neonatal peritonitis
+    - code: P78.2
+      docs: Neonatal haematemesis and melaena due to swallowed maternal blood
+    - code: P78.3
+      docs: Noninfective neonatal diarrhoea
+    - code: P78.8
+      docs: Other specified perinatal digestive system disorders
+    - code: P78.9
+      docs: Perinatal digestive system disorder, unspecified
+- category: P80-P83
+  docs: Conditions involving the integument and temperature regulation of fetus and
+    newborn
+  child:
+  - category: P80
+    docs: Hypothermia of newborn
+    child:
+    - code: P80.0
+      docs: Cold injury syndrome
+    - code: P80.8
+      docs: Other hypothermia of newborn
+    - code: P80.9
+      docs: Hypothermia of newborn, unspecified
+  - category: P81
+    docs: Other disturbances of temperature regulation of newborn
+    child:
+    - code: P81.0
+      docs: Environmental hyperthermia of newborn
+    - code: P81.8
+      docs: Other specified disturbances of temperature regulation of newborn
+    - code: P81.9
+      docs: Disturbance of temperature regulation of newborn, unspecified
+  - category: P83
+    docs: Other conditions of integument specific to fetus and newborn
+    child:
+    - code: P83.0
+      docs: Sclerema neonatorum
+    - code: P83.1
+      docs: Neonatal erythema toxicum
+    - code: P83.2
+      docs: Hydrops fetalis not due to haemolytic disease
+    - code: P83.3
+      docs: Other and unspecified oedema specific to fetus and newborn
+    - code: P83.4
+      docs: Breast engorgement of newborn
+    - code: P83.5
+      docs: Congenital hydrocele
+    - code: P83.6
+      docs: Umbilical polyp of newborn
+    - code: P83.8
+      docs: Other specified conditions of integument specific to fetus and newborn
+    - code: P83.9
+      docs: Condition of integument specific to fetus and newborn, unspecified
+- category: P90-P96
+  docs: Other disorders originating in the perinatal period
+  child:
+  - code: P90
+    docs: Convulsions of newborn
+  - category: P91
+    docs: Other disturbances of cerebral status of newborn
+    child:
+    - code: P91.0
+      docs: Neonatal cerebral ischaemia
+    - code: P91.1
+      docs: Acquired periventricular cysts of newborn
+    - code: P91.2
+      docs: Neonatal cerebral leukomalacia
+    - code: P91.3
+      docs: Neonatal cerebral irritability
+    - code: P91.4
+      docs: Neonatal cerebral depression
+    - code: P91.5
+      docs: Neonatal coma
+    - code: P91.6
+      docs: Hypoxic ischaemic encephalopathy of newborn
+    - code: P91.7
+      docs: Acquired hydrocephalus of newborn
+    - code: P91.8
+      docs: Other specified disturbances of cerebral status of newborn
+    - code: P91.9
+      docs: Disturbance of cerebral status of newborn, unspecified
+  - category: P92
+    docs: Feeding problems of newborn
+    child:
+    - code: P92.0
+      docs: Vomiting in newborn
+    - code: P92.1
+      docs: Regurgitation and rumination in newborn
+    - code: P92.2
+      docs: Slow feeding of newborn
+    - code: P92.3
+      docs: Underfeeding of newborn
+    - code: P92.4
+      docs: Overfeeding of newborn
+    - code: P92.5
+      docs: Neonatal difficulty in feeding at breast
+    - code: P92.8
+      docs: Other feeding problems of newborn
+    - code: P92.9
+      docs: Feeding problem of newborn, unspecified
+  - code: P93
+    docs: Reactions and intoxications due to drugs administered to fetus and newborn
+  - category: P94
+    docs: Disorders of muscle tone of newborn
+    child:
+    - code: P94.0
+      docs: Transient neonatal myasthenia gravis
+    - code: P94.1
+      docs: Congenital hypertonia
+    - code: P94.2
+      docs: Congenital hypotonia
+    - code: P94.8
+      docs: Other disorders of muscle tone of newborn
+    - code: P94.9
+      docs: Disorder of muscle tone of newborn, unspecified
+  - code: P95
+    docs: Fetal death of unspecified cause
+  - category: P96
+    docs: Other conditions originating in the perinatal period
+    child:
+    - code: P96.0
+      docs: Congenital renal failure
+    - code: P96.1
+      docs: Neonatal withdrawal symptoms from maternal use of drugs of addiction
+    - code: P96.2
+      docs: Withdrawal symptoms from therapeutic use of drugs in newborn
+    - code: P96.3
+      docs: Wide cranial sutures of newborn
+    - code: P96.4
+      docs: Termination of pregnancy, affecting fetus and newborn
+    - code: P96.5
+      docs: Complications of intrauterine procedures, not elsewhere classified
+    - code: P96.8
+      docs: Other specified conditions originating in the perinatal period
+    - code: P96.9
+      docs: Condition originating in the perinatal period, unspecified

@@ -1,0 +1,3255 @@
+category: XIX
+docs: Injury, poisoning and certain other consequences of external causes
+child:
+- category: S00-S09
+  docs: Injuries to the head
+  child:
+  - category: S00
+    docs: Superficial injury of head
+    child:
+    - code: S00.0
+      docs: Superficial injury of scalp
+    - code: S00.1
+      docs: Contusion of eyelid and periocular area
+    - code: S00.2
+      docs: Other superficial injuries of eyelid and periocular area
+    - code: S00.3
+      docs: Superficial injury of nose
+    - code: S00.4
+      docs: Superficial injury of ear
+    - code: S00.5
+      docs: Superficial injury of lip and oral cavity
+    - code: S00.7
+      docs: Multiple superficial injuries of head
+    - code: S00.8
+      docs: Superficial injury of other parts of head
+    - code: S00.9
+      docs: Superficial injury of head, part unspecified
+  - category: S01
+    docs: Open wound of head
+    child:
+    - code: S01.0
+      docs: Open wound of scalp
+    - code: S01.1
+      docs: Open wound of eyelid and periocular area
+    - code: S01.2
+      docs: Open wound of nose
+    - code: S01.3
+      docs: Open wound of ear
+    - code: S01.4
+      docs: Open wound of cheek and temporomandibular area
+    - code: S01.5
+      docs: Open wound of lip and oral cavity
+    - code: S01.7
+      docs: Multiple open wounds of head
+    - code: S01.8
+      docs: Open wound of other parts of head
+    - code: S01.9
+      docs: Open wound of head, part unspecified
+  - category: S02
+    docs: Fracture of skull and facial bones
+    child:
+    - code: S02.0
+      docs: Fracture of vault of skull
+    - code: S02.1
+      docs: Fracture of base of skull
+    - code: S02.2
+      docs: Fracture of nasal bones
+    - code: S02.3
+      docs: Fracture of orbital floor
+    - code: S02.4
+      docs: Fracture of malar and maxillary bones
+    - code: S02.5
+      docs: Fracture of tooth
+    - code: S02.6
+      docs: Fracture of mandible
+    - code: S02.7
+      docs: Multiple fractures involving skull and facial bones
+    - code: S02.8
+      docs: Fractures of other skull and facial bones
+    - code: S02.9
+      docs: Fracture of skull and facial bones, part unspecified
+  - category: S03
+    docs: Dislocation, sprain and strain of joints and ligaments of head
+    child:
+    - code: S03.0
+      docs: Dislocation of jaw
+    - code: S03.1
+      docs: Dislocation of septal cartilage of nose
+    - code: S03.2
+      docs: Dislocation of tooth
+    - code: S03.3
+      docs: Dislocation of other and unspecified parts of head
+    - code: S03.4
+      docs: Sprain and strain of jaw
+    - code: S03.5
+      docs: Sprain and strain of joints and ligaments of other and unspecified parts
+        of head
+  - category: S04
+    docs: Injury of cranial nerves
+    child:
+    - code: S04.0
+      docs: Injury of optic nerve and pathways
+    - code: S04.1
+      docs: Injury of oculomotor nerve
+    - code: S04.2
+      docs: Injury of trochlear nerve
+    - code: S04.3
+      docs: Injury of trigeminal nerve
+    - code: S04.4
+      docs: Injury of abducent nerve
+    - code: S04.5
+      docs: Injury of facial nerve
+    - code: S04.6
+      docs: Injury of acoustic nerve
+    - code: S04.7
+      docs: Injury of accessory nerve
+    - code: S04.8
+      docs: Injury of other cranial nerves
+    - code: S04.9
+      docs: Injury of unspecified cranial nerve
+  - category: S05
+    docs: Injury of eye and orbit
+    child:
+    - code: S05.0
+      docs: Injury of conjunctiva and corneal abrasion without mention of foreign
+        body
+    - code: S05.1
+      docs: Contusion of eyeball and orbital tissues
+    - code: S05.2
+      docs: Ocular laceration and rupture with prolapse or loss of intraocular tissue
+    - code: S05.3
+      docs: Ocular laceration without prolapse or loss of intraocular tissue
+    - code: S05.4
+      docs: Penetrating wound of orbit with or without foreign body
+    - code: S05.5
+      docs: Penetrating wound of eyeball with foreign body
+    - code: S05.6
+      docs: Penetrating wound of eyeball without foreign body
+    - code: S05.7
+      docs: Avulsion of eye
+    - code: S05.8
+      docs: Other injuries of eye and orbit
+    - code: S05.9
+      docs: Injury of eye and orbit, unspecified
+  - category: S06
+    docs: Intracranial injury
+    child:
+    - code: S06.0
+      docs: Concussion
+    - code: S06.1
+      docs: Traumatic cerebral oedema
+    - code: S06.2
+      docs: Diffuse brain injury
+    - code: S06.3
+      docs: Focal brain injury
+    - code: S06.4
+      docs: Epidural haemorrhage
+    - code: S06.5
+      docs: Traumatic subdural haemorrhage
+    - code: S06.6
+      docs: Traumatic subarachnoid haemorrhage
+    - code: S06.7
+      docs: Intracranial injury with prolonged coma
+    - code: S06.8
+      docs: Other intracranial injuries
+    - code: S06.9
+      docs: Intracranial injury, unspecified
+  - category: S07
+    docs: Crushing injury of head
+    child:
+    - code: S07.0
+      docs: Crushing injury of face
+    - code: S07.1
+      docs: Crushing injury of skull
+    - code: S07.8
+      docs: Crushing injury of other parts of head
+    - code: S07.9
+      docs: Crushing injury of head, part unspecified
+  - category: S08
+    docs: Traumatic amputation of part of head
+    child:
+    - code: S08.0
+      docs: Avulsion of scalp
+    - code: S08.1
+      docs: Traumatic amputation of ear
+    - code: S08.8
+      docs: Traumatic amputation of other parts of head
+    - code: S08.9
+      docs: Traumatic amputation of unspecified part of head
+  - category: S09
+    docs: Other and unspecified injuries of head
+    child:
+    - code: S09.0
+      docs: Injury of blood vessels of head, not elsewhere classified
+    - code: S09.1
+      docs: Injury of muscle and tendon of head
+    - code: S09.2
+      docs: Traumatic rupture of ear drum
+    - code: S09.7
+      docs: Multiple injuries of head
+    - code: S09.8
+      docs: Other specified injuries of head
+    - code: S09.9
+      docs: Unspecified injury of head
+- category: S10-S19
+  docs: Injuries to the neck
+  child:
+  - category: S10
+    docs: Superficial injury of neck
+    child:
+    - code: S10.0
+      docs: Contusion of throat
+    - code: S10.1
+      docs: Other and unspecified superficial injuries of throat
+    - code: S10.7
+      docs: Multiple superficial injuries of neck
+    - code: S10.8
+      docs: Superficial injury of other parts of neck
+    - code: S10.9
+      docs: Superficial injury of neck, part unspecified
+  - category: S11
+    docs: Open wound of neck
+    child:
+    - code: S11.0
+      docs: Open wound involving larynx and trachea
+    - code: S11.1
+      docs: Open wound involving thyroid gland
+    - code: S11.2
+      docs: Open wound involving pharynx and cervical oesophagus
+    - code: S11.7
+      docs: Multiple open wounds of neck
+    - code: S11.8
+      docs: Open wound of other parts of neck
+    - code: S11.9
+      docs: Open wound of neck, part unspecified
+  - category: S12
+    docs: Fracture of neck
+    child:
+    - code: S12.0
+      docs: Fracture of first cervical vertebra
+    - code: S12.1
+      docs: Fracture of second cervical vertebra
+    - code: S12.2
+      docs: Fracture of other specified cervical vertebra
+    - code: S12.7
+      docs: Multiple fractures of cervical spine
+    - code: S12.8
+      docs: Fracture of other parts of neck
+    - code: S12.9
+      docs: Fracture of neck, part unspecified
+  - category: S13
+    docs: Dislocation, sprain and strain of joints and ligaments at neck level
+    child:
+    - code: S13.0
+      docs: Traumatic rupture of cervical intervertebral disc
+    - code: S13.1
+      docs: Dislocation of cervical vertebra
+    - code: S13.2
+      docs: Dislocation of other and unspecified parts of neck
+    - code: S13.3
+      docs: Multiple dislocations of neck
+    - code: S13.4
+      docs: Sprain and strain of cervical spine
+    - code: S13.5
+      docs: Sprain and strain of thyroid region
+    - code: S13.6
+      docs: Sprain and strain of joints and ligaments of other and unspecified parts
+        of neck
+  - category: S14
+    docs: Injury of nerves and spinal cord at neck level
+    child:
+    - code: S14.0
+      docs: Concussion and oedema of cervical spinal cord
+    - code: S14.1
+      docs: Other and unspecified injuries of cervical spinal cord
+    - code: S14.2
+      docs: Injury of nerve root of cervical spine
+    - code: S14.3
+      docs: Injury of brachial plexus
+    - code: S14.4
+      docs: Injury of peripheral nerves of neck
+    - code: S14.5
+      docs: Injury of cervical sympathetic nerves
+    - code: S14.6
+      docs: Injury of other and unspecified nerves of neck
+  - category: S15
+    docs: Injury of blood vessels at neck level
+    child:
+    - code: S15.0
+      docs: Injury of carotid artery
+    - code: S15.1
+      docs: Injury of vertebral artery
+    - code: S15.2
+      docs: Injury of external jugular vein
+    - code: S15.3
+      docs: Injury of internal jugular vein
+    - code: S15.7
+      docs: Injury of multiple blood vessels at neck level
+    - code: S15.8
+      docs: Injury of other blood vessels at neck level
+    - code: S15.9
+      docs: Injury of unspecified blood vessel at neck level
+  - code: S16
+    docs: Injury of muscle and tendon at neck level
+  - category: S17
+    docs: Crushing injury of neck
+    child:
+    - code: S17.0
+      docs: Crushing injury of larynx and trachea
+    - code: S17.8
+      docs: Crushing injury of other parts of neck
+    - code: S17.9
+      docs: Crushing injury of neck, part unspecified
+  - code: S18
+    docs: Traumatic amputation at neck level
+  - category: S19
+    docs: Other and unspecified injuries of neck
+    child:
+    - code: S19.7
+      docs: Multiple injuries of neck
+    - code: S19.8
+      docs: Other specified injuries of neck
+    - code: S19.9
+      docs: Unspecified injury of neck
+- category: S20-S29
+  docs: Injuries to the thorax
+  child:
+  - category: S20
+    docs: Superficial injury of thorax
+    child:
+    - code: S20.0
+      docs: Contusion of breast
+    - code: S20.1
+      docs: Other and unspecified superficial injuries of breast
+    - code: S20.2
+      docs: Contusion of thorax
+    - code: S20.3
+      docs: Other superficial injuries of front wall of thorax
+    - code: S20.4
+      docs: Other superficial injuries of back wall of thorax
+    - code: S20.7
+      docs: Multiple superficial injuries of thorax
+    - code: S20.8
+      docs: Superficial injury of other and unspecified parts of thorax
+  - category: S21
+    docs: Open wound of thorax
+    child:
+    - code: S21.0
+      docs: Open wound of breast
+    - code: S21.1
+      docs: Open wound of front wall of thorax
+    - code: S21.2
+      docs: Open wound of back wall of thorax
+    - code: S21.7
+      docs: Multiple open wounds of thoracic wall
+    - code: S21.8
+      docs: Open wound of other parts of thorax
+    - code: S21.9
+      docs: Open wound of thorax, part unspecified
+  - category: S22
+    docs: Fracture of rib(s), sternum and thoracic spine
+    child:
+    - code: S22.0
+      docs: Fracture of thoracic vertebra
+    - code: S22.1
+      docs: Multiple fractures of thoracic spine
+    - code: S22.2
+      docs: Fracture of sternum
+    - code: S22.3
+      docs: Fracture of rib
+    - code: S22.4
+      docs: Multiple fractures of ribs
+    - code: S22.5
+      docs: Flail chest
+    - code: S22.8
+      docs: Fracture of other parts of bony thorax
+    - code: S22.9
+      docs: Fracture of bony thorax, part unspecified
+  - category: S23
+    docs: Dislocation, sprain and strain of joints and ligaments of thorax
+    child:
+    - code: S23.0
+      docs: Traumatic rupture of thoracic intervertebral disc
+    - code: S23.1
+      docs: Dislocation of thoracic vertebra
+    - code: S23.2
+      docs: Dislocation of other and unspecified parts of thorax
+    - code: S23.3
+      docs: Sprain and strain of thoracic spine
+    - code: S23.4
+      docs: Sprain and strain of ribs and sternum
+    - code: S23.5
+      docs: Sprain and strain of other and unspecified parts of thorax
+  - category: S24
+    docs: Injury of nerves and spinal cord at thorax level
+    child:
+    - code: S24.0
+      docs: Concussion and oedema of thoracic spinal cord
+    - code: S24.1
+      docs: Other and unspecified injuries of thoracic spinal cord
+    - code: S24.2
+      docs: Injury of nerve root of thoracic spine
+    - code: S24.3
+      docs: Injury of peripheral nerves of thorax
+    - code: S24.4
+      docs: Injury of thoracic sympathetic nerves
+    - code: S24.5
+      docs: Injury of other nerves of thorax
+    - code: S24.6
+      docs: Injury of unspecified nerve of thorax
+  - category: S25
+    docs: Injury of blood vessels of thorax
+    child:
+    - code: S25.0
+      docs: Injury of thoracic aorta
+    - code: S25.1
+      docs: Injury of innominate or subclavian artery
+    - code: S25.2
+      docs: Injury of superior vena cava
+    - code: S25.3
+      docs: Injury of innominate or subclavian vein
+    - code: S25.4
+      docs: Injury of pulmonary blood vessels
+    - code: S25.5
+      docs: Injury of intercostal blood vessels
+    - code: S25.7
+      docs: Injury of multiple blood vessels of thorax
+    - code: S25.8
+      docs: Injury of other blood vessels of thorax
+    - code: S25.9
+      docs: Injury of unspecified blood vessel of thorax
+  - category: S26
+    docs: Injury of heart
+    child:
+    - code: S26.0
+      docs: Injury of heart with haemopericardium
+    - code: S26.8
+      docs: Other injuries of heart
+    - code: S26.9
+      docs: Injury of heart, unspecified
+  - category: S27
+    docs: Injury of other and unspecified intrathoracic organs
+    child:
+    - code: S27.0
+      docs: Traumatic pneumothorax
+    - code: S27.1
+      docs: Traumatic haemothorax
+    - code: S27.2
+      docs: Traumatic haemopneumothorax
+    - code: S27.3
+      docs: Other injuries of lung
+    - code: S27.4
+      docs: Injury of bronchus
+    - code: S27.5
+      docs: Injury of thoracic trachea
+    - code: S27.6
+      docs: Injury of pleura
+    - code: S27.7
+      docs: Multiple injuries of intrathoracic organs
+    - code: S27.8
+      docs: Injury of other specified intrathoracic organs
+    - code: S27.9
+      docs: Injury of unspecified intrathoracic organ
+  - category: S28
+    docs: Crushing injury of thorax and traumatic amputation of part of thorax
+    child:
+    - code: S28.0
+      docs: Crushed chest
+    - code: S28.1
+      docs: Traumatic amputation of part of thorax
+  - category: S29
+    docs: Other and unspecified injuries of thorax
+    child:
+    - code: S29.0
+      docs: Injury of muscle and tendon at thorax level
+    - code: S29.7
+      docs: Multiple injuries of thorax
+    - code: S29.8
+      docs: Other specified injuries of thorax
+    - code: S29.9
+      docs: Unspecified injury of thorax
+- category: S30-S39
+  docs: Injuries to the abdomen, lower back, lumbar spine and pelvis
+  child:
+  - category: S30
+    docs: Superficial injury of abdomen, lower back and pelvis
+    child:
+    - code: S30.0
+      docs: Contusion of lower back and pelvis
+    - code: S30.1
+      docs: Contusion of abdominal wall
+    - code: S30.2
+      docs: Contusion of external genital organs
+    - code: S30.7
+      docs: Multiple superficial injuries of abdomen, lower back and pelvis
+    - code: S30.8
+      docs: Other superficial injuries of abdomen, lower back and pelvis
+    - code: S30.9
+      docs: Superficial injury of abdomen, lower back and pelvis, part unspecified
+  - category: S31
+    docs: Open wound of abdomen, lower back and pelvis
+    child:
+    - code: S31.0
+      docs: Open wound of lower back and pelvis
+    - code: S31.1
+      docs: Open wound of abdominal wall
+    - code: S31.2
+      docs: Open wound of penis
+    - code: S31.3
+      docs: Open wound of scrotum and testes
+    - code: S31.4
+      docs: Open wound of vagina and vulva
+    - code: S31.5
+      docs: Open wound of other and unspecified external genital organs
+    - code: S31.7
+      docs: Multiple open wounds of abdomen, lower back and pelvis
+    - code: S31.8
+      docs: Open wound of other and unspecified parts of abdomen
+  - category: S32
+    docs: Fracture of lumbar spine and pelvis
+    child:
+    - code: S32.0
+      docs: Fracture of lumbar vertebra
+    - code: S32.1
+      docs: Fracture of sacrum
+    - code: S32.2
+      docs: Fracture of coccyx
+    - code: S32.3
+      docs: Fracture of ilium
+    - code: S32.4
+      docs: Fracture of acetabulum
+    - code: S32.5
+      docs: Fracture of pubis
+    - code: S32.7
+      docs: Multiple fractures of lumbar spine and pelvis
+    - code: S32.8
+      docs: Fracture of other and unspecified parts of lumbar spine and pelvis
+  - category: S33
+    docs: Dislocation, sprain and strain of joints and ligaments of lumbar spine and
+      pelvis
+    child:
+    - code: S33.0
+      docs: Traumatic rupture of lumbar intervertebral disc
+    - code: S33.1
+      docs: Dislocation of lumbar vertebra
+    - code: S33.2
+      docs: Dislocation of sacroiliac and sacrococcygeal joint
+    - code: S33.3
+      docs: Dislocation of other and unspecified parts of lumbar spine and pelvis
+    - code: S33.4
+      docs: Traumatic rupture of symphysis pubis
+    - code: S33.5
+      docs: Sprain and strain of lumbar spine
+    - code: S33.6
+      docs: Sprain and strain of sacroiliac joint
+    - code: S33.7
+      docs: Sprain and strain of other and unspecified parts of lumbar spine and pelvis
+  - category: S34
+    docs: Injury of nerves and lumbar spinal cord at abdomen, lower back and pelvis
+      level
+    child:
+    - code: S34.0
+      docs: Concussion and oedema of lumbar spinal cord
+    - code: S34.1
+      docs: Other injury of lumbar spinal cord
+    - code: S34.2
+      docs: Injury of nerve root of lumbar and sacral spine
+    - code: S34.3
+      docs: Injury of cauda equina
+    - code: S34.4
+      docs: Injury of lumbosacral plexus
+    - code: S34.5
+      docs: Injury of lumbar, sacral and pelvic sympathetic nerves
+    - code: S34.6
+      docs: Injury of peripheral nerve(s) of abdomen, lower back and pelvis
+    - code: S34.8
+      docs: Injury of other and unspecified nerves at abdomen, lower back and pelvis
+        level
+  - category: S35
+    docs: Injury of blood vessels at abdomen, lower back and pelvis level
+    child:
+    - code: S35.0
+      docs: Injury of abdominal aorta
+    - code: S35.1
+      docs: Injury of inferior vena cava
+    - code: S35.2
+      docs: Injury of coeliac or mesenteric artery
+    - code: S35.3
+      docs: Injury of portal or splenic vein
+    - code: S35.4
+      docs: Injury of renal blood vessels
+    - code: S35.5
+      docs: Injury of iliac blood vessels
+    - code: S35.7
+      docs: Injury of multiple blood vessels at abdomen, lower back and pelvis level
+    - code: S35.8
+      docs: Injury of other blood vessels at abdomen, lower back and pelvis level
+    - code: S35.9
+      docs: Injury of unspecified blood vessel at abdomen, lower back and pelvis level
+  - category: S36
+    docs: Injury of intra-abdominal organs
+    child:
+    - code: S36.0
+      docs: Injury of spleen
+    - code: S36.1
+      docs: Injury of liver or gallbladder
+    - code: S36.2
+      docs: Injury of pancreas
+    - code: S36.3
+      docs: Injury of stomach
+    - code: S36.4
+      docs: Injury of small intestine
+    - code: S36.5
+      docs: Injury of colon
+    - code: S36.6
+      docs: Injury of rectum
+    - code: S36.7
+      docs: Injury of multiple intra-abdominal organs
+    - code: S36.8
+      docs: Injury of other intra-abdominal organs
+    - code: S36.9
+      docs: Injury of unspecified intra-abdominal organ
+  - category: S37
+    docs: Injury of urinary and pelvic organs
+    child:
+    - code: S37.0
+      docs: Injury of kidney
+    - code: S37.1
+      docs: Injury of ureter
+    - code: S37.2
+      docs: Injury of bladder
+    - code: S37.3
+      docs: Injury of urethra
+    - code: S37.4
+      docs: Injury of ovary
+    - code: S37.5
+      docs: Injury of fallopian tube
+    - code: S37.6
+      docs: Injury of uterus
+    - code: S37.7
+      docs: Injury of multiple pelvic organs
+    - code: S37.8
+      docs: Injury of other pelvic organs
+    - code: S37.9
+      docs: Injury of unspecified pelvic organ
+  - category: S38
+    docs: Crushing injury and traumatic amputation of part of abdomen, lower back
+      and pelvis
+    child:
+    - code: S38.0
+      docs: Crushing injury of external genital organs
+    - code: S38.1
+      docs: Crushing injury of other and unspecified parts of abdomen, lower back
+        and pelvis
+    - code: S38.2
+      docs: Traumatic amputation of external genital organs
+    - code: S38.3
+      docs: Traumatic amputation of other and unspecified parts of abdomen, lower
+        back and pelvis
+  - category: S39
+    docs: Other and unspecified injuries of abdomen, lower back and pelvis
+    child:
+    - code: S39.0
+      docs: Injury of muscle and tendon of abdomen, lower back and pelvis
+    - code: S39.6
+      docs: Injury of intra-abdominal organ(s) with pelvic organ(s)
+    - code: S39.7
+      docs: Other multiple injuries of abdomen, lower back and pelvis
+    - code: S39.8
+      docs: Other specified injuries of abdomen, lower back and pelvis
+    - code: S39.9
+      docs: Unspecified injury of abdomen, lower back and pelvis
+- category: S40-S49
+  docs: Injuries to the shoulder and upper arm
+  child:
+  - category: S40
+    docs: Superficial injury of shoulder and upper arm
+    child:
+    - code: S40.0
+      docs: Contusion of shoulder and upper arm
+    - code: S40.7
+      docs: Multiple superficial injuries of shoulder and upper arm
+    - code: S40.8
+      docs: Other superficial injuries of shoulder and upper arm
+    - code: S40.9
+      docs: Superficial injury of shoulder and upper arm, unspecified
+  - category: S41
+    docs: Open wound of shoulder and upper arm
+    child:
+    - code: S41.0
+      docs: Open wound of shoulder
+    - code: S41.1
+      docs: Open wound of upper arm
+    - code: S41.7
+      docs: Multiple open wounds of shoulder and upper arm
+    - code: S41.8
+      docs: Open wound of other and unspecified parts of shoulder girdle
+  - category: S42
+    docs: Fracture of shoulder and upper arm
+    child:
+    - code: S42.0
+      docs: Fracture of clavicle
+    - code: S42.1
+      docs: Fracture of scapula
+    - code: S42.2
+      docs: Fracture of upper end of humerus
+    - code: S42.3
+      docs: Fracture of shaft of humerus
+    - code: S42.4
+      docs: Fracture of lower end of humerus
+    - code: S42.7
+      docs: Multiple fractures of clavicle, scapula and humerus
+    - code: S42.8
+      docs: Fracture of other parts of shoulder and upper arm
+    - code: S42.9
+      docs: Fracture of shoulder girdle, part unspecified
+  - category: S43
+    docs: Dislocation, sprain and strain of joints and ligaments of shoulder girdle
+    child:
+    - code: S43.0
+      docs: Dislocation of shoulder joint
+    - code: S43.1
+      docs: Dislocation of acromioclavicular joint
+    - code: S43.2
+      docs: Dislocation of sternoclavicular joint
+    - code: S43.3
+      docs: Dislocation of other and unspecified parts of shoulder girdle
+    - code: S43.4
+      docs: Sprain and strain of shoulder joint
+    - code: S43.5
+      docs: Sprain and strain of acromioclavicular joint
+    - code: S43.6
+      docs: Sprain and strain of sternoclavicular joint
+    - code: S43.7
+      docs: Sprain and strain of other and unspecified parts of shoulder girdle
+  - category: S44
+    docs: Injury of nerves at shoulder and upper arm level
+    child:
+    - code: S44.0
+      docs: Injury of ulnar nerve at upper arm level
+    - code: S44.1
+      docs: Injury of median nerve at upper arm level
+    - code: S44.2
+      docs: Injury of radial nerve at upper arm level
+    - code: S44.3
+      docs: Injury of axillary nerve
+    - code: S44.4
+      docs: Injury of musculocutaneous nerve
+    - code: S44.5
+      docs: Injury of cutaneous sensory nerve at shoulder and upper arm level
+    - code: S44.7
+      docs: Injury of multiple nerves at shoulder and upper arm level
+    - code: S44.8
+      docs: Injury of other nerves at shoulder and upper arm level
+    - code: S44.9
+      docs: Injury of unspecified nerve at shoulder and upper arm level
+  - category: S45
+    docs: Injury of blood vessels at shoulder and upper arm level
+    child:
+    - code: S45.0
+      docs: Injury of axillary artery
+    - code: S45.1
+      docs: Injury of brachial artery
+    - code: S45.2
+      docs: Injury of axillary or brachial vein
+    - code: S45.3
+      docs: Injury of superficial vein at shoulder and upper arm level
+    - code: S45.7
+      docs: Injury of multiple blood vessels at shoulder and upper arm level
+    - code: S45.8
+      docs: Injury of other blood vessels at shoulder and upper arm level
+    - code: S45.9
+      docs: Injury of unspecified blood vessel at shoulder and upper arm level
+  - category: S46
+    docs: Injury of muscle and tendon at shoulder and upper arm level
+    child:
+    - code: S46.0
+      docs: Injury of muscle(s) and tendon(s) of the rotator cuff of shoulder
+    - code: S46.1
+      docs: Injury of muscle and tendon of long head of biceps
+    - code: S46.2
+      docs: Injury of muscle and tendon of other parts of biceps
+    - code: S46.3
+      docs: Injury of muscle and tendon of triceps
+    - code: S46.7
+      docs: Injury of multiple muscles and tendons at shoulder and upper arm level
+    - code: S46.8
+      docs: Injury of other muscles and tendons at shoulder and upper arm level
+    - code: S46.9
+      docs: Injury of unspecified muscle and tendon at shoulder and upper arm level
+  - code: S47
+    docs: Crushing injury of shoulder and upper arm
+  - category: S48
+    docs: Traumatic amputation of shoulder and upper arm
+    child:
+    - code: S48.0
+      docs: Traumatic amputation at shoulder joint
+    - code: S48.1
+      docs: Traumatic amputation at level between shoulder and elbow
+    - code: S48.9
+      docs: Traumatic amputation of shoulder and upper arm, level unspecified
+  - category: S49
+    docs: Other and unspecified injuries of shoulder and upper arm
+    child:
+    - code: S49.7
+      docs: Multiple injuries of shoulder and upper arm
+    - code: S49.8
+      docs: Other specified injuries of shoulder and upper arm
+    - code: S49.9
+      docs: Unspecified injury of shoulder and upper arm
+- category: S50-S59
+  docs: Injuries to the elbow and forearm
+  child:
+  - category: S50
+    docs: Superficial injury of forearm
+    child:
+    - code: S50.0
+      docs: Contusion of elbow
+    - code: S50.1
+      docs: Contusion of other and unspecified parts of forearm
+    - code: S50.7
+      docs: Multiple superficial injuries of forearm
+    - code: S50.8
+      docs: Other superficial injuries of forearm
+    - code: S50.9
+      docs: Superficial injury of forearm, unspecified
+  - category: S51
+    docs: Open wound of forearm
+    child:
+    - code: S51.0
+      docs: Open wound of elbow
+    - code: S51.7
+      docs: Multiple open wounds of forearm
+    - code: S51.8
+      docs: Open wound of other parts of forearm
+    - code: S51.9
+      docs: Open wound of forearm, part unspecified
+  - category: S52
+    docs: Fracture of forearm
+    child:
+    - code: S52.0
+      docs: Fracture of upper end of ulna
+    - code: S52.1
+      docs: Fracture of upper end of radius
+    - code: S52.2
+      docs: Fracture of shaft of ulna
+    - code: S52.3
+      docs: Fracture of shaft of radius
+    - code: S52.4
+      docs: Fracture of shafts of both ulna and radius
+    - code: S52.5
+      docs: Fracture of lower end of radius
+    - code: S52.6
+      docs: Fracture of lower end of both ulna and radius
+    - code: S52.7
+      docs: Multiple fractures of forearm
+    - code: S52.8
+      docs: Fracture of other parts of forearm
+    - code: S52.9
+      docs: Fracture of forearm, part unspecified
+  - category: S53
+    docs: Dislocation, sprain and strain of joints and ligaments of elbow
+    child:
+    - code: S53.0
+      docs: Dislocation of radial head
+    - code: S53.1
+      docs: Dislocation of elbow, unspecified
+    - code: S53.2
+      docs: Traumatic rupture of radial collateral ligament
+    - code: S53.3
+      docs: Traumatic rupture of ulnar collateral ligament
+    - code: S53.4
+      docs: Sprain and strain of elbow
+  - category: S54
+    docs: Injury of nerves at forearm level
+    child:
+    - code: S54.0
+      docs: Injury of ulnar nerve at forearm level
+    - code: S54.1
+      docs: Injury of median nerve at forearm level
+    - code: S54.2
+      docs: Injury of radial nerve at forearm level
+    - code: S54.3
+      docs: Injury of cutaneous sensory nerve at forearm level
+    - code: S54.7
+      docs: Injury of multiple nerves at forearm level
+    - code: S54.8
+      docs: Injury of other nerves at forearm level
+    - code: S54.9
+      docs: Injury of unspecified nerve at forearm level
+  - category: S55
+    docs: Injury of blood vessels at forearm level
+    child:
+    - code: S55.0
+      docs: Injury of ulnar artery at forearm level
+    - code: S55.1
+      docs: Injury of radial artery at forearm level
+    - code: S55.2
+      docs: Injury of vein at forearm level
+    - code: S55.7
+      docs: Injury of multiple blood vessels at forearm level
+    - code: S55.8
+      docs: Injury of other blood vessels at forearm level
+    - code: S55.9
+      docs: Injury of unspecified blood vessel at forearm level
+  - category: S56
+    docs: Injury of muscle and tendon at forearm level
+    child:
+    - code: S56.0
+      docs: Injury of flexor muscle and tendon of thumb at forearm level
+    - code: S56.1
+      docs: Injury of long flexor muscle and tendon of other finger(s) at forearm
+        level
+    - code: S56.2
+      docs: Injury of other flexor muscle and tendon at forearm level
+    - code: S56.3
+      docs: Injury of extensor or abductor muscles and tendons of thumb at forearm
+        level
+    - code: S56.4
+      docs: Injury of extensor muscle and tendon of other finger(s) at forearm level
+    - code: S56.5
+      docs: Injury of other extensor muscle and tendon at forearm level
+    - code: S56.7
+      docs: Injury of multiple muscles and tendons at forearm level
+    - code: S56.8
+      docs: Injury of other and unspecified muscles and tendons at forearm level
+  - category: S57
+    docs: Crushing injury of forearm
+    child:
+    - code: S57.0
+      docs: Crushing injury of elbow
+    - code: S57.8
+      docs: Crushing injury of other parts of forearm
+    - code: S57.9
+      docs: Crushing injury of forearm, part unspecified
+  - category: S58
+    docs: Traumatic amputation of forearm
+    child:
+    - code: S58.0
+      docs: Traumatic amputation at elbow level
+    - code: S58.1
+      docs: Traumatic amputation at level between elbow and wrist
+    - code: S58.9
+      docs: Traumatic amputation of forearm, level unspecified
+  - category: S59
+    docs: Other and unspecified injuries of forearm
+    child:
+    - code: S59.7
+      docs: Multiple injuries of forearm
+    - code: S59.8
+      docs: Other specified injuries of forearm
+    - code: S59.9
+      docs: Unspecified injury of forearm
+- category: S60-S69
+  docs: Injuries to the wrist and hand
+  child:
+  - category: S60
+    docs: Superficial injury of wrist and hand
+    child:
+    - code: S60.0
+      docs: Contusion of finger(s) without damage to nail
+    - code: S60.1
+      docs: Contusion of finger(s) with damage to nail
+    - code: S60.2
+      docs: Contusion of other parts of wrist and hand
+    - code: S60.7
+      docs: Multiple superficial injuries of wrist and hand
+    - code: S60.8
+      docs: Other superficial injuries of wrist and hand
+    - code: S60.9
+      docs: Superficial injury of wrist and hand, unspecified
+  - category: S61
+    docs: Open wound of wrist and hand
+    child:
+    - code: S61.0
+      docs: Open wound of finger(s) without damage to nail
+    - code: S61.1
+      docs: Open wound of finger(s) with damage to nail
+    - code: S61.7
+      docs: Multiple open wounds of wrist and hand
+    - code: S61.8
+      docs: Open wound of other parts of wrist and hand
+    - code: S61.9
+      docs: Open wound of wrist and hand, part unspecified
+  - category: S62
+    docs: Fracture at wrist and hand level
+    child:
+    - code: S62.0
+      docs: Fracture of navicular [scaphoid] bone of hand
+    - code: S62.1
+      docs: Fracture of other carpal bone(s)
+    - code: S62.2
+      docs: Fracture of first metacarpal bone
+    - code: S62.3
+      docs: Fracture of other metacarpal bone
+    - code: S62.4
+      docs: Multiple fractures of metacarpal bones
+    - code: S62.5
+      docs: Fracture of thumb
+    - code: S62.6
+      docs: Fracture of other finger
+    - code: S62.7
+      docs: Multiple fractures of fingers
+    - code: S62.8
+      docs: Fracture of other and unspecified parts of wrist and hand
+  - category: S63
+    docs: Dislocation, sprain and strain of joints and ligaments at wrist and hand
+      level
+    child:
+    - code: S63.0
+      docs: Dislocation of wrist
+    - code: S63.1
+      docs: Dislocation of finger
+    - code: S63.2
+      docs: Multiple dislocations of fingers
+    - code: S63.3
+      docs: Traumatic rupture of ligament of wrist and carpus
+    - code: S63.4
+      docs: Traumatic rupture of ligament of finger at metacarpophalangeal and interphalangeal
+        joint(s)
+    - code: S63.5
+      docs: Sprain and strain of wrist
+    - code: S63.6
+      docs: Sprain and strain of finger(s)
+    - code: S63.7
+      docs: Sprain and strain of other and unspecified parts of hand
+  - category: S64
+    docs: Injury of nerves at wrist and hand level
+    child:
+    - code: S64.0
+      docs: Injury of ulnar nerve at wrist and hand level
+    - code: S64.1
+      docs: Injury of median nerve at wrist and hand level
+    - code: S64.2
+      docs: Injury of radial nerve at wrist and hand level
+    - code: S64.3
+      docs: Injury of digital nerve of thumb
+    - code: S64.4
+      docs: Injury of digital nerve of other finger
+    - code: S64.7
+      docs: Injury of multiple nerves at wrist and hand level
+    - code: S64.8
+      docs: Injury of other nerves at wrist and hand level
+    - code: S64.9
+      docs: Injury of unspecified nerve at wrist and hand level
+  - category: S65
+    docs: Injury of blood vessels at wrist and hand level
+    child:
+    - code: S65.0
+      docs: Injury of ulnar artery at wrist and hand level
+    - code: S65.1
+      docs: Injury of radial artery at wrist and hand level
+    - code: S65.2
+      docs: Injury of superficial palmar arch
+    - code: S65.3
+      docs: Injury of deep palmar arch
+    - code: S65.4
+      docs: Injury of blood vessel(s) of thumb
+    - code: S65.5
+      docs: Injury of blood vessel(s) of other finger
+    - code: S65.7
+      docs: Injury of multiple blood vessels at wrist and hand level
+    - code: S65.8
+      docs: Injury of other blood vessels at wrist and hand level
+    - code: S65.9
+      docs: Injury of unspecified blood vessel at wrist and hand level
+  - category: S66
+    docs: Injury of muscle and tendon at wrist and hand level
+    child:
+    - code: S66.0
+      docs: Injury of long flexor muscle and tendon of thumb at wrist and hand level
+    - code: S66.1
+      docs: Injury of flexor muscle and tendon of other finger at wrist and hand level
+    - code: S66.2
+      docs: Injury of extensor muscle and tendon of thumb at wrist and hand level
+    - code: S66.3
+      docs: Injury of extensor muscle and tendon of other finger at wrist and hand
+        level
+    - code: S66.4
+      docs: Injury of intrinsic muscle and tendon of thumb at wrist and hand level
+    - code: S66.5
+      docs: Injury of intrinsic muscle and tendon of other finger at wrist and hand
+        level
+    - code: S66.6
+      docs: Injury of multiple flexor muscles and tendons at wrist and hand level
+    - code: S66.7
+      docs: Injury of multiple extensor muscles and tendons at wrist and hand level
+    - code: S66.8
+      docs: Injury of other muscles and tendons at wrist and hand level
+    - code: S66.9
+      docs: Injury of unspecified muscle and tendon at wrist and hand level
+  - category: S67
+    docs: Crushing injury of wrist and hand
+    child:
+    - code: S67.0
+      docs: Crushing injury of thumb and other finger(s)
+    - code: S67.8
+      docs: Crushing injury of other and unspecified parts of wrist and hand
+  - category: S68
+    docs: Traumatic amputation of wrist and hand
+    child:
+    - code: S68.0
+      docs: Traumatic amputation of thumb (complete)(partial)
+    - code: S68.1
+      docs: Traumatic amputation of other single finger (complete)(partial)
+    - code: S68.2
+      docs: Traumatic amputation of two or more fingers alone (complete)(partial)
+    - code: S68.3
+      docs: Combined traumatic amputation of (part of) finger(s) with other parts
+        of wrist and hand
+    - code: S68.4
+      docs: Traumatic amputation of hand at wrist level
+    - code: S68.8
+      docs: Traumatic amputation of other parts of wrist and hand
+    - code: S68.9
+      docs: Traumatic amputation of wrist and hand, level unspecified
+  - category: S69
+    docs: Other and unspecified injuries of wrist and hand
+    child:
+    - code: S69.7
+      docs: Multiple injuries of wrist and hand
+    - code: S69.8
+      docs: Other specified injuries of wrist and hand
+    - code: S69.9
+      docs: Unspecified injury of wrist and hand
+- category: S70-S79
+  docs: Injuries to the hip and thigh
+  child:
+  - category: S70
+    docs: Superficial injury of hip and thigh
+    child:
+    - code: S70.0
+      docs: Contusion of hip
+    - code: S70.1
+      docs: Contusion of thigh
+    - code: S70.7
+      docs: Multiple superficial injuries of hip and thigh
+    - code: S70.8
+      docs: Other superficial injuries of hip and thigh
+    - code: S70.9
+      docs: Superficial injury of hip and thigh, unspecified
+  - category: S71
+    docs: Open wound of hip and thigh
+    child:
+    - code: S71.0
+      docs: Open wound of hip
+    - code: S71.1
+      docs: Open wound of thigh
+    - code: S71.7
+      docs: Multiple open wounds of hip and thigh
+    - code: S71.8
+      docs: Open wound of other and unspecified parts of pelvic girdle
+  - category: S72
+    docs: Fracture of femur
+    child:
+    - code: S72.0
+      docs: Fracture of neck of femur
+    - code: S72.1
+      docs: Pertrochanteric fracture
+    - code: S72.2
+      docs: Subtrochanteric fracture
+    - code: S72.3
+      docs: Fracture of shaft of femur
+    - code: S72.4
+      docs: Fracture of lower end of femur
+    - code: S72.7
+      docs: Multiple fractures of femur
+    - code: S72.8
+      docs: Fractures of other parts of femur
+    - code: S72.9
+      docs: Fracture of femur, part unspecified
+  - category: S73
+    docs: Dislocation, sprain and strain of joint and ligaments of hip
+    child:
+    - code: S73.0
+      docs: Dislocation of hip
+    - code: S73.1
+      docs: Sprain and strain of hip
+  - category: S74
+    docs: Injury of nerves at hip and thigh level
+    child:
+    - code: S74.0
+      docs: Injury of sciatic nerve at hip and thigh level
+    - code: S74.1
+      docs: Injury of femoral nerve at hip and thigh level
+    - code: S74.2
+      docs: Injury of cutaneous sensory nerve at hip and thigh level
+    - code: S74.7
+      docs: Injury of multiple nerves at hip and thigh level
+    - code: S74.8
+      docs: Injury of other nerves at hip and thigh level
+    - code: S74.9
+      docs: Injury of unspecified nerve at hip and thigh level
+  - category: S75
+    docs: Injury of blood vessels at hip and thigh level
+    child:
+    - code: S75.0
+      docs: Injury of femoral artery
+    - code: S75.1
+      docs: Injury of femoral vein at hip and thigh level
+    - code: S75.2
+      docs: Injury of greater saphenous vein at hip and thigh level
+    - code: S75.7
+      docs: Injury of multiple blood vessels at hip and thigh level
+    - code: S75.8
+      docs: Injury of other blood vessels at hip and thigh level
+    - code: S75.9
+      docs: Injury of unspecified blood vessel at hip and thigh level
+  - category: S76
+    docs: Injury of muscle and tendon at hip and thigh level
+    child:
+    - code: S76.0
+      docs: Injury of muscle and tendon of hip
+    - code: S76.1
+      docs: Injury of quadriceps muscle and tendon
+    - code: S76.2
+      docs: Injury of adductor muscle and tendon of thigh
+    - code: S76.3
+      docs: Injury of muscle and tendon of the posterior muscle group at thigh level
+    - code: S76.4
+      docs: Injury of other and unspecified muscles and tendons at thigh level
+    - code: S76.7
+      docs: Injury of multiple muscles and tendons at hip and thigh level
+  - category: S77
+    docs: Crushing injury of hip and thigh
+    child:
+    - code: S77.0
+      docs: Crushing injury of hip
+    - code: S77.1
+      docs: Crushing injury of thigh
+    - code: S77.2
+      docs: Crushing injury of hip with thigh
+  - category: S78
+    docs: Traumatic amputation of hip and thigh
+    child:
+    - code: S78.0
+      docs: Traumatic amputation at hip joint
+    - code: S78.1
+      docs: Traumatic amputation at level between hip and knee
+    - code: S78.9
+      docs: Traumatic amputation of hip and thigh, level unspecified
+  - category: S79
+    docs: Other and unspecified injuries of hip and thigh
+    child:
+    - code: S79.7
+      docs: Multiple injuries of hip and thigh
+    - code: S79.8
+      docs: Other specified injuries of hip and thigh
+    - code: S79.9
+      docs: Unspecified injury of hip and thigh
+- category: S80-S89
+  docs: Injuries to the knee and lower leg
+  child:
+  - category: S80
+    docs: Superficial injury of lower leg
+    child:
+    - code: S80.0
+      docs: Contusion of knee
+    - code: S80.1
+      docs: Contusion of other and unspecified parts of lower leg
+    - code: S80.7
+      docs: Multiple superficial injuries of lower leg
+    - code: S80.8
+      docs: Other superficial injuries of lower leg
+    - code: S80.9
+      docs: Superficial injury of lower leg, unspecified
+  - category: S81
+    docs: Open wound of lower leg
+    child:
+    - code: S81.0
+      docs: Open wound of knee
+    - code: S81.7
+      docs: Multiple open wounds of lower leg
+    - code: S81.8
+      docs: Open wound of other parts of lower leg
+    - code: S81.9
+      docs: Open wound of lower leg, part unspecified
+  - category: S82
+    docs: Fracture of lower leg, including ankle
+    child:
+    - code: S82.0
+      docs: Fracture of patella
+    - code: S82.1
+      docs: Fracture of upper end of tibia
+    - code: S82.2
+      docs: Fracture of shaft of tibia
+    - code: S82.3
+      docs: Fracture of lower end of tibia
+    - code: S82.4
+      docs: Fracture of fibula alone
+    - code: S82.5
+      docs: Fracture of medial malleolus
+    - code: S82.6
+      docs: Fracture of lateral malleolus
+    - code: S82.7
+      docs: Multiple fractures of lower leg
+    - code: S82.8
+      docs: Fractures of other parts of lower leg
+    - code: S82.9
+      docs: Fracture of lower leg, part unspecified
+  - category: S83
+    docs: Dislocation, sprain and strain of joints and ligaments of knee
+    child:
+    - code: S83.0
+      docs: Dislocation of patella
+    - code: S83.1
+      docs: Dislocation of knee
+    - code: S83.2
+      docs: Tear of meniscus, current
+    - code: S83.3
+      docs: Tear of articular cartilage of knee, current
+    - code: S83.4
+      docs: Sprain and strain involving (fibular)(tibial) collateral ligament of knee
+    - code: S83.5
+      docs: Sprain and strain involving (anterior)(posterior) cruciate ligament of
+        knee
+    - code: S83.6
+      docs: Sprain and strain of other and unspecified parts of knee
+    - code: S83.7
+      docs: Injury to multiple structures of knee
+  - category: S84
+    docs: Injury of nerves at lower leg level
+    child:
+    - code: S84.0
+      docs: Injury of tibial nerve at lower leg level
+    - code: S84.1
+      docs: Injury of peroneal nerve at lower leg level
+    - code: S84.2
+      docs: Injury of cutaneous sensory nerve at lower leg level
+    - code: S84.7
+      docs: Injury of multiple nerves at lower leg level
+    - code: S84.8
+      docs: Injury of other nerves at lower leg level
+    - code: S84.9
+      docs: Injury of unspecified nerve at lower leg level
+  - category: S85
+    docs: Injury of blood vessels at lower leg level
+    child:
+    - code: S85.0
+      docs: Injury of popliteal artery
+    - code: S85.1
+      docs: Injury of (anterior)(posterior) tibial artery
+    - code: S85.2
+      docs: Injury of peroneal artery
+    - code: S85.3
+      docs: Injury of greater saphenous vein at lower leg level
+    - code: S85.4
+      docs: Injury of lesser saphenous vein at lower leg level
+    - code: S85.5
+      docs: Injury of popliteal vein
+    - code: S85.7
+      docs: Injury of multiple blood vessels at lower leg level
+    - code: S85.8
+      docs: Injury of other blood vessels at lower leg level
+    - code: S85.9
+      docs: Injury of unspecified blood vessel at lower leg level
+  - category: S86
+    docs: Injury of muscle and tendon at lower leg level
+    child:
+    - code: S86.0
+      docs: Injury of Achilles tendon
+    - code: S86.1
+      docs: Injury of other muscle(s) and tendon(s) of posterior muscle group at lower
+        leg level
+    - code: S86.2
+      docs: Injury of muscle(s) and tendon(s) of anterior muscle group at lower leg
+        level
+    - code: S86.3
+      docs: Injury of muscle(s) and tendon(s) of peroneal muscle group at lower leg
+        level
+    - code: S86.7
+      docs: Injury of multiple muscles and tendons at lower leg level
+    - code: S86.8
+      docs: Injury of other muscles and tendons at lower leg level
+    - code: S86.9
+      docs: Injury of unspecified muscle and tendon at lower leg level
+  - category: S87
+    docs: Crushing injury of lower leg
+    child:
+    - code: S87.0
+      docs: Crushing injury of knee
+    - code: S87.8
+      docs: Crushing injury of other and unspecified parts of lower leg
+  - category: S88
+    docs: Traumatic amputation of lower leg
+    child:
+    - code: S88.0
+      docs: Traumatic amputation at knee level
+    - code: S88.1
+      docs: Traumatic amputation at level between knee and ankle
+    - code: S88.9
+      docs: Traumatic amputation of lower leg, level unspecified
+  - category: S89
+    docs: Other and unspecified injuries of lower leg
+    child:
+    - code: S89.7
+      docs: Multiple injuries of lower leg
+    - code: S89.8
+      docs: Other specified injuries of lower leg
+    - code: S89.9
+      docs: Unspecified injury of lower leg
+- category: S90-S99
+  docs: Injuries to the ankle and foot
+  child:
+  - category: S90
+    docs: Superficial injury of ankle and foot
+    child:
+    - code: S90.0
+      docs: Contusion of ankle
+    - code: S90.1
+      docs: Contusion of toe(s) without damage to nail
+    - code: S90.2
+      docs: Contusion of toe(s) with damage to nail
+    - code: S90.3
+      docs: Contusion of other and unspecified parts of foot
+    - code: S90.7
+      docs: Multiple superficial injuries of ankle and foot
+    - code: S90.8
+      docs: Other superficial injuries of ankle and foot
+    - code: S90.9
+      docs: Superficial injury of ankle and foot, unspecified
+  - category: S91
+    docs: Open wound of ankle and foot
+    child:
+    - code: S91.0
+      docs: Open wound of ankle
+    - code: S91.1
+      docs: Open wound of toe(s) without damage to nail
+    - code: S91.2
+      docs: Open wound of toe(s) with damage to nail
+    - code: S91.3
+      docs: Open wound of other parts of foot
+    - code: S91.7
+      docs: Multiple open wounds of ankle and foot
+  - category: S92
+    docs: Fracture of foot, except ankle
+    child:
+    - code: S92.0
+      docs: Fracture of calcaneus
+    - code: S92.1
+      docs: Fracture of talus
+    - code: S92.2
+      docs: Fracture of other tarsal bone(s)
+    - code: S92.3
+      docs: Fracture of metatarsal bone
+    - code: S92.4
+      docs: Fracture of great toe
+    - code: S92.5
+      docs: Fracture of other toe
+    - code: S92.7
+      docs: Multiple fractures of foot
+    - code: S92.9
+      docs: Fracture of foot, unspecified
+  - category: S93
+    docs: Dislocation, sprain and strain of joints and ligaments at ankle and foot
+      level
+    child:
+    - code: S93.0
+      docs: Dislocation of ankle joint
+    - code: S93.1
+      docs: Dislocation of toe(s)
+    - code: S93.2
+      docs: Rupture of ligaments at ankle and foot level
+    - code: S93.3
+      docs: Dislocation of other and unspecified parts of foot
+    - code: S93.4
+      docs: Sprain and strain of ankle
+    - code: S93.5
+      docs: Sprain and strain of toe(s)
+    - code: S93.6
+      docs: Sprain and strain of other and unspecified parts of foot
+  - category: S94
+    docs: Injury of nerves at ankle and foot level
+    child:
+    - code: S94.0
+      docs: Injury of lateral plantar nerve
+    - code: S94.1
+      docs: Injury of medial plantar nerve
+    - code: S94.2
+      docs: Injury of deep peroneal nerve at ankle and foot level
+    - code: S94.3
+      docs: Injury of cutaneous sensory nerve at ankle and foot level
+    - code: S94.7
+      docs: Injury of multiple nerves at ankle and foot level
+    - code: S94.8
+      docs: Injury of other nerves at ankle and foot level
+    - code: S94.9
+      docs: Injury of unspecified nerve at ankle and foot level
+  - category: S95
+    docs: Injury of blood vessels at ankle and foot level
+    child:
+    - code: S95.0
+      docs: Injury of dorsal artery of foot
+    - code: S95.1
+      docs: Injury of plantar artery of foot
+    - code: S95.2
+      docs: Injury of dorsal vein of foot
+    - code: S95.7
+      docs: Injury of multiple blood vessels at ankle and foot level
+    - code: S95.8
+      docs: Injury of other blood vessels at ankle and foot level
+    - code: S95.9
+      docs: Injury of unspecified blood vessel at ankle and foot level
+  - category: S96
+    docs: Injury of muscle and tendon at ankle and foot level
+    child:
+    - code: S96.0
+      docs: Injury of muscle and tendon of long flexor muscle of toe at ankle and
+        foot level
+    - code: S96.1
+      docs: Injury of muscle and tendon of long extensor muscle of toe at ankle and
+        foot level
+    - code: S96.2
+      docs: Injury of intrinsic muscle and tendon at ankle and foot level
+    - code: S96.7
+      docs: Injury of multiple muscles and tendons at ankle and foot level
+    - code: S96.8
+      docs: Injury of other muscles and tendons at ankle and foot level
+    - code: S96.9
+      docs: Injury of unspecified muscle and tendon at ankle and foot level
+  - category: S97
+    docs: Crushing injury of ankle and foot
+    child:
+    - code: S97.0
+      docs: Crushing injury of ankle
+    - code: S97.1
+      docs: Crushing injury of toe(s)
+    - code: S97.8
+      docs: Crushing injury of other parts of ankle and foot
+  - category: S98
+    docs: Traumatic amputation of ankle and foot
+    child:
+    - code: S98.0
+      docs: Traumatic amputation of foot at ankle level
+    - code: S98.1
+      docs: Traumatic amputation of one toe
+    - code: S98.2
+      docs: Traumatic amputation of two or more toes
+    - code: S98.3
+      docs: Traumatic amputation of other parts of foot
+    - code: S98.4
+      docs: Traumatic amputation of foot, level unspecified
+  - category: S99
+    docs: Other and unspecified injuries of ankle and foot
+    child:
+    - code: S99.7
+      docs: Multiple injuries of ankle and foot
+    - code: S99.8
+      docs: Other specified injuries of ankle and foot
+    - code: S99.9
+      docs: Unspecified injury of ankle and foot
+- category: T00-T07
+  docs: Injuries involving multiple body regions
+  child:
+  - category: T00
+    docs: Superficial injuries involving multiple body regions
+    child:
+    - code: T00.0
+      docs: Superficial injuries involving head with neck
+    - code: T00.1
+      docs: Superficial injuries involving thorax with abdomen, lower back and pelvis
+    - code: T00.2
+      docs: Superficial injuries involving multiple regions of upper limb(s)
+    - code: T00.3
+      docs: Superficial injuries involving multiple regions of lower limb(s)
+    - code: T00.6
+      docs: Superficial injuries involving multiple regions of upper limb(s) with
+        lower limb(s)
+    - code: T00.8
+      docs: Superficial injuries involving other combinations of body regions
+    - code: T00.9
+      docs: Multiple superficial injuries, unspecified
+  - category: T01
+    docs: Open wounds involving multiple body regions
+    child:
+    - code: T01.0
+      docs: Open wounds involving head with neck
+    - code: T01.1
+      docs: Open wounds involving thorax with abdomen, lower back and pelvis
+    - code: T01.2
+      docs: Open wounds involving multiple regions of upper limb(s)
+    - code: T01.3
+      docs: Open wounds involving multiple regions of lower limb(s)
+    - code: T01.6
+      docs: Open wounds involving multiple regions of upper limb(s) with lower limb(s)
+    - code: T01.8
+      docs: Open wounds involving other combinations of body regions
+    - code: T01.9
+      docs: Multiple open wounds, unspecified
+  - category: T02
+    docs: Fractures involving multiple body regions
+    child:
+    - code: T02.0
+      docs: Fractures involving head with neck
+    - code: T02.1
+      docs: Fractures involving thorax with lower back and pelvis
+    - code: T02.2
+      docs: Fractures involving multiple regions of one upper limb
+    - code: T02.3
+      docs: Fractures involving multiple regions of one lower limb
+    - code: T02.4
+      docs: Fractures involving multiple regions of both upper limbs
+    - code: T02.5
+      docs: Fractures involving multiple regions of both lower limbs
+    - code: T02.6
+      docs: Fractures involving multiple regions of upper limb(s) with lower limb(s)
+    - code: T02.7
+      docs: Fractures involving thorax with lower back and pelvis with limb(s)
+    - code: T02.8
+      docs: Fractures involving other combinations of body regions
+    - code: T02.9
+      docs: Multiple fractures, unspecified
+  - category: T03
+    docs: Dislocations, sprains and strains involving multiple body regions
+    child:
+    - code: T03.0
+      docs: Dislocations, sprains and strains involving head with neck
+    - code: T03.1
+      docs: Dislocations, sprains and strains involving thorax with lower back and
+        pelvis
+    - code: T03.2
+      docs: Dislocations, sprains and strains involving multiple regions of upper
+        limb(s)
+    - code: T03.3
+      docs: Dislocations, sprains and strains involving multiple regions of lower
+        limb(s)
+    - code: T03.4
+      docs: Dislocations, sprains and strains involving multiple regions of upper
+        limb(s) with lower limb(s)
+    - code: T03.8
+      docs: Dislocations, sprains and strains involving other combinations of body
+        regions
+    - code: T03.9
+      docs: Multiple dislocations, sprains and strains, unspecified
+  - category: T04
+    docs: Crushing injuries involving multiple body regions
+    child:
+    - code: T04.0
+      docs: Crushing injuries involving head with neck
+    - code: T04.1
+      docs: Crushing injuries involving thorax with abdomen, lower back and pelvis
+    - code: T04.2
+      docs: Crushing injuries involving multiple regions of upper limb(s)
+    - code: T04.3
+      docs: Crushing injuries involving multiple regions of lower limb(s)
+    - code: T04.4
+      docs: Crushing injuries involving multiple regions of upper limb(s) with lower
+        limb(s)
+    - code: T04.7
+      docs: Crushing injuries of thorax with abdomen, lower back and pelvis with limb(s)
+    - code: T04.8
+      docs: Crushing injuries involving other combinations of body regions
+    - code: T04.9
+      docs: Multiple crushing injuries, unspecified
+  - category: T05
+    docs: Traumatic amputations involving multiple body regions
+    child:
+    - code: T05.0
+      docs: Traumatic amputation of both hands
+    - code: T05.1
+      docs: Traumatic amputation of one hand and other arm [any level, except hand]
+    - code: T05.2
+      docs: Traumatic amputation of both arms [any level]
+    - code: T05.3
+      docs: Traumatic amputation of both feet
+    - code: T05.4
+      docs: Traumatic amputation of one foot and other leg [any level, except foot]
+    - code: T05.5
+      docs: Traumatic amputation of both legs [any level]
+    - code: T05.6
+      docs: Traumatic amputation of upper and lower limbs, any combination [any level]
+    - code: T05.8
+      docs: Traumatic amputations involving other combinations of body regions
+    - code: T05.9
+      docs: Multiple traumatic amputations, unspecified
+  - category: T06
+    docs: Other injuries involving multiple body regions, not elsewhere classified
+    child:
+    - code: T06.0
+      docs: Injuries of brain and cranial nerves with injuries of nerves and spinal
+        cord at neck level
+    - code: T06.1
+      docs: Injuries of nerves and spinal cord involving other multiple body regions
+    - code: T06.2
+      docs: Injuries of nerves involving multiple body regions
+    - code: T06.3
+      docs: Injuries of blood vessels involving multiple body regions
+    - code: T06.4
+      docs: Injuries of muscles and tendons involving multiple body regions
+    - code: T06.5
+      docs: Injuries of intrathoracic organs with intra-abdominal and pelvic organs
+    - code: T06.8
+      docs: Other specified injuries involving multiple body regions
+  - code: T07
+    docs: Unspecified multiple injuries
+- category: T08-T14
+  docs: Injuries to unspecified part of trunk, limb or body region
+  child:
+  - code: T08
+    docs: Fracture of spine, level unspecified
+  - category: T09
+    docs: Other injuries of spine and trunk, level unspecified
+    child:
+    - code: T09.0
+      docs: Superficial injury of trunk, level unspecified
+    - code: T09.1
+      docs: Open wound of trunk, level unspecified
+    - code: T09.2
+      docs: Dislocation, sprain and strain of unspecified joint and ligament of trunk
+    - code: T09.3
+      docs: Injury of spinal cord, level unspecified
+    - code: T09.4
+      docs: Injury of unspecified nerve, spinal nerve root and plexus of trunk
+    - code: T09.5
+      docs: Injury of unspecified muscle and tendon of trunk
+    - code: T09.6
+      docs: Traumatic amputation of trunk, level unspecified
+    - code: T09.8
+      docs: Other specified injuries of trunk, level unspecified
+    - code: T09.9
+      docs: Unspecified injury of trunk, level unspecified
+  - code: T10
+    docs: Fracture of upper limb, level unspecified
+  - category: T11
+    docs: Other injuries of upper limb, level unspecified
+    child:
+    - code: T11.0
+      docs: Superficial injury of upper limb, level unspecified
+    - code: T11.1
+      docs: Open wound of upper limb, level unspecified
+    - code: T11.2
+      docs: Dislocation, sprain and strain of unspecified joint and ligament of upper
+        limb, level unspecified
+    - code: T11.3
+      docs: Injury of unspecified nerve of upper limb, level unspecified
+    - code: T11.4
+      docs: Injury of unspecified blood vessel of upper limb, level unspecified
+    - code: T11.5
+      docs: Injury of unspecified muscle and tendon of upper limb, level unspecified
+    - code: T11.6
+      docs: Traumatic amputation of upper limb, level unspecified
+    - code: T11.8
+      docs: Other specified injuries of upper limb, level unspecified
+    - code: T11.9
+      docs: Unspecified injury of upper limb, level unspecified
+  - code: T12
+    docs: Fracture of lower limb, level unspecified
+  - category: T13
+    docs: Other injuries of lower limb, level unspecified
+    child:
+    - code: T13.0
+      docs: Superficial injury of lower limb, level unspecified
+    - code: T13.1
+      docs: Open wound of lower limb, level unspecified
+    - code: T13.2
+      docs: Dislocation, sprain and strain of unspecified joint and ligament of lower
+        limb, level unspecified
+    - code: T13.3
+      docs: Injury of unspecified nerve of lower limb, level unspecified
+    - code: T13.4
+      docs: Injury of unspecified blood vessel of lower limb, level unspecified
+    - code: T13.5
+      docs: Injury of unspecified muscle and tendon of lower limb, level unspecified
+    - code: T13.6
+      docs: Traumatic amputation of lower limb, level unspecified
+    - code: T13.8
+      docs: Other specified injuries of lower limb, level unspecified
+    - code: T13.9
+      docs: Unspecified injury of lower limb, level unspecified
+  - category: T14
+    docs: Injury of unspecified body region
+    child:
+    - code: T14.0
+      docs: Superficial injury of unspecified body region
+    - code: T14.1
+      docs: Open wound of unspecified body region
+    - code: T14.2
+      docs: Fracture of unspecified body region
+    - code: T14.3
+      docs: Dislocation, sprain and strain of unspecified body region
+    - code: T14.4
+      docs: Injury of nerve(s) of unspecified body region
+    - code: T14.5
+      docs: Injury of blood vessel(s) of unspecified body region
+    - code: T14.6
+      docs: Injury of muscles and tendons of unspecified body region
+    - code: T14.7
+      docs: Crushing injury and traumatic amputation of unspecified body region
+    - code: T14.8
+      docs: Other injuries of unspecified body region
+    - code: T14.9
+      docs: Injury, unspecified
+- category: T15-T19
+  docs: Effects of foreign body entering through natural orifice
+  child:
+  - category: T15
+    docs: Foreign body on external eye
+    child:
+    - code: T15.0
+      docs: Foreign body in cornea
+    - code: T15.1
+      docs: Foreign body in conjunctival sac
+    - code: T15.8
+      docs: Foreign body in other and multiple parts of external eye
+    - code: T15.9
+      docs: Foreign body on external eye, part unspecified
+  - code: T16
+    docs: Foreign body in ear
+  - category: T17
+    docs: Foreign body in respiratory tract
+    child:
+    - code: T17.0
+      docs: Foreign body in nasal sinus
+    - code: T17.1
+      docs: Foreign body in nostril
+    - code: T17.2
+      docs: Foreign body in pharynx
+    - code: T17.3
+      docs: Foreign body in larynx
+    - code: T17.4
+      docs: Foreign body in trachea
+    - code: T17.5
+      docs: Foreign body in bronchus
+    - code: T17.8
+      docs: Foreign body in other and multiple parts of respiratory tract
+    - code: T17.9
+      docs: Foreign body in respiratory tract, part unspecified
+  - category: T18
+    docs: Foreign body in alimentary tract
+    child:
+    - code: T18.0
+      docs: Foreign body in mouth
+    - code: T18.1
+      docs: Foreign body in oesophagus
+    - code: T18.2
+      docs: Foreign body in stomach
+    - code: T18.3
+      docs: Foreign body in small intestine
+    - code: T18.4
+      docs: Foreign body in colon
+    - code: T18.5
+      docs: Foreign body in anus and rectum
+    - code: T18.8
+      docs: Foreign body in other and multiple parts of alimentary tract
+    - code: T18.9
+      docs: Foreign body in alimentary tract, part unspecified
+  - category: T19
+    docs: Foreign body in genitourinary tract
+    child:
+    - code: T19.0
+      docs: Foreign body in urethra
+    - code: T19.1
+      docs: Foreign body in bladder
+    - code: T19.2
+      docs: Foreign body in vulva and vagina
+    - code: T19.3
+      docs: Foreign body in uterus [any part]
+    - code: T19.8
+      docs: Foreign body in other and multiple parts of genitourinary tract
+    - code: T19.9
+      docs: Foreign body in genitourinary tract, part unspecified
+- category: T20-T32
+  docs: Burns and corrosions
+  child:
+  - category: T20-T25
+    docs: Burns and corrosions of external body surface, specified by site
+    child:
+    - category: T20
+      docs: Burn and corrosion of head and neck
+      child:
+      - code: T20.0
+        docs: Burn of unspecified degree of head and neck
+      - code: T20.1
+        docs: Burn of first degree of head and neck
+      - code: T20.2
+        docs: Burn of second degree of head and neck
+      - code: T20.3
+        docs: Burn of third degree of head and neck
+      - code: T20.4
+        docs: Corrosion of unspecified degree of head and neck
+      - code: T20.5
+        docs: Corrosion of first degree of head and neck
+      - code: T20.6
+        docs: Corrosion of second degree of head and neck
+      - code: T20.7
+        docs: Corrosion of third degree of head and neck
+    - category: T21
+      docs: Burn and corrosion of trunk
+      child:
+      - code: T21.0
+        docs: Burn of unspecified degree of trunk
+      - code: T21.1
+        docs: Burn of first degree of trunk
+      - code: T21.2
+        docs: Burn of second degree of trunk
+      - code: T21.3
+        docs: Burn of third degree of trunk
+      - code: T21.4
+        docs: Corrosion of unspecified degree of trunk
+      - code: T21.5
+        docs: Corrosion of first degree of trunk
+      - code: T21.6
+        docs: Corrosion of second degree of trunk
+      - code: T21.7
+        docs: Corrosion of third degree of trunk
+    - category: T22
+      docs: Burn and corrosion of shoulder and upper limb, except wrist and hand
+      child:
+      - code: T22.0
+        docs: Burn of unspecified degree of shoulder and upper limb, except wrist
+          and hand
+      - code: T22.1
+        docs: Burn of first degree of shoulder and upper limb, except wrist and hand
+      - code: T22.2
+        docs: Burn of second degree of shoulder and upper limb, except wrist and hand
+      - code: T22.3
+        docs: Burn of third degree of shoulder and upper limb, except wrist and hand
+      - code: T22.4
+        docs: Corrosion of unspecified degree of shoulder and upper limb, except wrist
+          and hand
+      - code: T22.5
+        docs: Corrosion of first degree of shoulder and upper limb, except wrist and
+          hand
+      - code: T22.6
+        docs: Corrosion of second degree of shoulder and upper limb, except wrist
+          and hand
+      - code: T22.7
+        docs: Corrosion of third degree of shoulder and upper limb, except wrist and
+          hand
+    - category: T23
+      docs: Burn and corrosion of wrist and hand
+      child:
+      - code: T23.0
+        docs: Burn of unspecified degree of wrist and hand
+      - code: T23.1
+        docs: Burn of first degree of wrist and hand
+      - code: T23.2
+        docs: Burn of second degree of wrist and hand
+      - code: T23.3
+        docs: Burn of third degree of wrist and hand
+      - code: T23.4
+        docs: Corrosion of unspecified degree of wrist and hand
+      - code: T23.5
+        docs: Corrosion of first degree of wrist and hand
+      - code: T23.6
+        docs: Corrosion of second degree of wrist and hand
+      - code: T23.7
+        docs: Corrosion of third degree of wrist and hand
+    - category: T24
+      docs: Burn and corrosion of hip and lower limb, except ankle and foot
+      child:
+      - code: T24.0
+        docs: Burn of unspecified degree of hip and lower limb, except ankle and foot
+      - code: T24.1
+        docs: Burn of first degree of hip and lower limb, except ankle and foot
+      - code: T24.2
+        docs: Burn of second degree of hip and lower limb, except ankle and foot
+      - code: T24.3
+        docs: Burn of third degree of hip and lower limb, except ankle and foot
+      - code: T24.4
+        docs: Corrosion of unspecified degree of hip and lower limb, except ankle
+          and foot
+      - code: T24.5
+        docs: Corrosion of first degree of hip and lower limb, except ankle and foot
+      - code: T24.6
+        docs: Corrosion of second degree of hip and lower limb, except ankle and foot
+      - code: T24.7
+        docs: Corrosion of third degree of hip and lower limb, except ankle and foot
+    - category: T25
+      docs: Burn and corrosion of ankle and foot
+      child:
+      - code: T25.0
+        docs: Burn of unspecified degree of ankle and foot
+      - code: T25.1
+        docs: Burn of first degree of ankle and foot
+      - code: T25.2
+        docs: Burn of second degree of ankle and foot
+      - code: T25.3
+        docs: Burn of third degree of ankle and foot
+      - code: T25.4
+        docs: Corrosion of unspecified degree of ankle and foot
+      - code: T25.5
+        docs: Corrosion of first degree of ankle and foot
+      - code: T25.6
+        docs: Corrosion of second degree of ankle and foot
+      - code: T25.7
+        docs: Corrosion of third degree of ankle and foot
+  - category: T26-T28
+    docs: Burns and corrosions confined to eye and internal organs
+    child:
+    - category: T26
+      docs: Burn and corrosion confined to eye and adnexa
+      child:
+      - code: T26.0
+        docs: Burn of eyelid and periocular area
+      - code: T26.1
+        docs: Burn of cornea and conjunctival sac
+      - code: T26.2
+        docs: Burn with resulting rupture and destruction of eyeball
+      - code: T26.3
+        docs: Burn of other parts of eye and adnexa
+      - code: T26.4
+        docs: Burn of eye and adnexa, part unspecified
+      - code: T26.5
+        docs: Corrosion of eyelid and periocular area
+      - code: T26.6
+        docs: Corrosion of cornea and conjunctival sac
+      - code: T26.7
+        docs: Corrosion with resulting rupture and destruction of eyeball
+      - code: T26.8
+        docs: Corrosion of other parts of eye and adnexa
+      - code: T26.9
+        docs: Corrosion of eye and adnexa, part unspecified
+    - category: T27
+      docs: Burn and corrosion of respiratory tract
+      child:
+      - code: T27.0
+        docs: Burn of larynx and trachea
+      - code: T27.1
+        docs: Burn involving larynx and trachea with lung
+      - code: T27.2
+        docs: Burn of other parts of respiratory tract
+      - code: T27.3
+        docs: Burn of respiratory tract, part unspecified
+      - code: T27.4
+        docs: Corrosion of larynx and trachea
+      - code: T27.5
+        docs: Corrosion involving larynx and trachea with lung
+      - code: T27.6
+        docs: Corrosion of other parts of respiratory tract
+      - code: T27.7
+        docs: Corrosion of respiratory tract, part unspecified
+    - category: T28
+      docs: Burn and corrosion of other internal organs
+      child:
+      - code: T28.0
+        docs: Burn of mouth and pharynx
+      - code: T28.1
+        docs: Burn of oesophagus
+      - code: T28.2
+        docs: Burn of other parts of alimentary tract
+      - code: T28.3
+        docs: Burn of internal genitourinary organs
+      - code: T28.4
+        docs: Burn of other and unspecified internal organs
+      - code: T28.5
+        docs: Corrosion of mouth and pharynx
+      - code: T28.6
+        docs: Corrosion of oesophagus
+      - code: T28.7
+        docs: Corrosion of other parts of alimentary tract
+      - code: T28.8
+        docs: Corrosion of internal genitourinary organs
+      - code: T28.9
+        docs: Corrosion of other and unspecified internal organs
+  - category: T29-T32
+    docs: Burns and corrosions of multiple and unspecified body regions
+    child:
+    - category: T29
+      docs: Burns and corrosions of multiple body regions
+      child:
+      - code: T29.0
+        docs: Burns of multiple regions, unspecified degree
+      - code: T29.1
+        docs: Burns of multiple regions, no more than first-degree burns mentioned
+      - code: T29.2
+        docs: Burns of multiple regions, no more than second-degree burns mentioned
+      - code: T29.3
+        docs: Burns of multiple regions, at least one burn of third degree mentioned
+      - code: T29.4
+        docs: Corrosions of multiple regions, unspecified degree
+      - code: T29.5
+        docs: Corrosions of multiple regions, no more than first-degree corrosions
+          mentioned
+      - code: T29.6
+        docs: Corrosions of multiple regions, no more than second-degree corrosions
+          mentioned
+      - code: T29.7
+        docs: Corrosions of multiple regions, at least one corrosion of third degree
+          mentioned
+    - category: T30
+      docs: Burn and corrosion, body region unspecified
+      child:
+      - code: T30.0
+        docs: Burn of unspecified body region, unspecified degree
+      - code: T30.1
+        docs: Burn of first degree, body region unspecified
+      - code: T30.2
+        docs: Burn of second degree, body region unspecified
+      - code: T30.3
+        docs: Burn of third degree, body region unspecified
+      - code: T30.4
+        docs: Corrosion of unspecified body region, unspecified degree
+      - code: T30.5
+        docs: Corrosion of first degree, body region unspecified
+      - code: T30.6
+        docs: Corrosion of second degree, body region unspecified
+      - code: T30.7
+        docs: Corrosion of third degree, body region unspecified
+    - category: T31
+      docs: Burns classified according to extent of body surface involved
+      child:
+      - code: T31.0
+        docs: Burns involving less than 10% of body surface
+      - code: T31.1
+        docs: Burns involving 10-19% of body surface
+      - code: T31.2
+        docs: Burns involving 20-29% of body surface
+      - code: T31.3
+        docs: Burns involving 30-39% of body surface
+      - code: T31.4
+        docs: Burns involving 40-49% of body surface
+      - code: T31.5
+        docs: Burns involving 50-59% of body surface
+      - code: T31.6
+        docs: Burns involving 60-69% of body surface
+      - code: T31.7
+        docs: Burns involving 70-79% of body surface
+      - code: T31.8
+        docs: Burns involving 80-89% of body surface
+      - code: T31.9
+        docs: Burns involving 90% or more of body surface
+    - category: T32
+      docs: Corrosions classified according to extent of body surface involved
+      child:
+      - code: T32.0
+        docs: Corrosions involving less than 10% of body surface
+      - code: T32.1
+        docs: Corrosions involving 10-19% of body surface
+      - code: T32.2
+        docs: Corrosions involving 20-29% of body surface
+      - code: T32.3
+        docs: Corrosions involving 30-39% of body surface
+      - code: T32.4
+        docs: Corrosions involving 40-49% of body surface
+      - code: T32.5
+        docs: Corrosions involving 50-59% of body surface
+      - code: T32.6
+        docs: Corrosions involving 60-69% of body surface
+      - code: T32.7
+        docs: Corrosions involving 70-79% of body surface
+      - code: T32.8
+        docs: Corrosions involving 80-89% of body surface
+      - code: T32.9
+        docs: Corrosions involving 90% or more of body surface
+- category: T33-T35
+  docs: Frostbite
+  child:
+  - category: T33
+    docs: Superficial frostbite
+    child:
+    - code: T33.0
+      docs: Superficial frostbite of head
+    - code: T33.1
+      docs: Superficial frostbite of neck
+    - code: T33.2
+      docs: Superficial frostbite of thorax
+    - code: T33.3
+      docs: Superficial frostbite of abdominal wall, lower back and pelvis
+    - code: T33.4
+      docs: Superficial frostbite of arm
+    - code: T33.5
+      docs: Superficial frostbite of wrist and hand
+    - code: T33.6
+      docs: Superficial frostbite of hip and thigh
+    - code: T33.7
+      docs: Superficial frostbite of knee and lower leg
+    - code: T33.8
+      docs: Superficial frostbite of ankle and foot
+    - code: T33.9
+      docs: Superficial frostbite of other and unspecified sites
+  - category: T34
+    docs: Frostbite with tissue necrosis
+    child:
+    - code: T34.0
+      docs: Frostbite with tissue necrosis of head
+    - code: T34.1
+      docs: Frostbite with tissue necrosis of neck
+    - code: T34.2
+      docs: Frostbite with tissue necrosis of thorax
+    - code: T34.3
+      docs: Frostbite with tissue necrosis of abdominal wall, lower back and pelvis
+    - code: T34.4
+      docs: Frostbite with tissue necrosis of arm
+    - code: T34.5
+      docs: Frostbite with tissue necrosis of wrist and hand
+    - code: T34.6
+      docs: Frostbite with tissue necrosis of hip and thigh
+    - code: T34.7
+      docs: Frostbite with tissue necrosis of knee and lower leg
+    - code: T34.8
+      docs: Frostbite with tissue necrosis of ankle and foot
+    - code: T34.9
+      docs: Frostbite with tissue necrosis of other and unspecified sites
+  - category: T35
+    docs: Frostbite involving multiple body regions and unspecified frostbite
+    child:
+    - code: T35.0
+      docs: Superficial frostbite involving multiple body regions
+    - code: T35.1
+      docs: Frostbite with tissue necrosis involving multiple body regions
+    - code: T35.2
+      docs: Unspecified frostbite of head and neck
+    - code: T35.3
+      docs: Unspecified frostbite of thorax, abdomen, lower back and pelvis
+    - code: T35.4
+      docs: Unspecified frostbite of upper limb
+    - code: T35.5
+      docs: Unspecified frostbite of lower limb
+    - code: T35.6
+      docs: Unspecified frostbite involving multiple body regions
+    - code: T35.7
+      docs: Unspecified frostbite of unspecified site
+- category: T36-T50
+  docs: Poisoning by drugs, medicaments and biological substances
+  child:
+  - category: T36
+    docs: Poisoning by systemic antibiotics
+    child:
+    - code: T36.0
+      docs: 'Poisoning: Penicillins'
+    - code: T36.1
+      docs: 'Poisoning: Cefalosporins and other beta-lactam antibiotics'
+    - code: T36.2
+      docs: 'Poisoning: Chloramphenicol group'
+    - code: T36.3
+      docs: 'Poisoning: Macrolides'
+    - code: T36.4
+      docs: 'Poisoning: Tetracyclines'
+    - code: T36.5
+      docs: 'Poisoning: Aminoglycosides'
+    - code: T36.6
+      docs: 'Poisoning: Rifamycins'
+    - code: T36.7
+      docs: 'Poisoning: Antifungal antibiotics, systemically used'
+    - code: T36.8
+      docs: 'Poisoning: Other systemic antibiotics'
+    - code: T36.9
+      docs: 'Poisoning: Systemic antibiotic, unspecified'
+  - category: T37
+    docs: Poisoning by other systemic anti-infectives and antiparasitics
+    child:
+    - code: T37.0
+      docs: 'Poisoning: Sulfonamides'
+    - code: T37.1
+      docs: 'Poisoning: Antimycobacterial drugs'
+    - code: T37.2
+      docs: 'Poisoning: Antimalarials and drugs acting on other blood protozoa'
+    - code: T37.3
+      docs: 'Poisoning: Other antiprotozoal drugs'
+    - code: T37.4
+      docs: 'Poisoning: Anthelminthics'
+    - code: T37.5
+      docs: 'Poisoning: Antiviral drugs'
+    - code: T37.8
+      docs: 'Poisoning: Other specified systemic anti-infectives and antiparasitics'
+    - code: T37.9
+      docs: 'Poisoning: Systemic anti-infective and antiparasitic, unspecified'
+  - category: T38
+    docs: Poisoning by hormones and their synthetic substitutes and antagonists, not
+      elsewhere classified
+    child:
+    - code: T38.0
+      docs: 'Poisoning: Glucocorticoids and synthetic analogues'
+    - code: T38.1
+      docs: 'Poisoning: Thyroid hormones and substitutes'
+    - code: T38.2
+      docs: 'Poisoning: Antithyroid drugs'
+    - code: T38.3
+      docs: 'Poisoning: Insulin and oral hypoglycaemic [antidiabetic] drugs'
+    - code: T38.4
+      docs: 'Poisoning: Oral contraceptives'
+    - code: T38.5
+      docs: 'Poisoning: Other estrogens and progestogens'
+    - code: T38.6
+      docs: 'Poisoning: Antigonadotrophins, antiestrogens, antiandrogens, not elsewhere
+        classified'
+    - code: T38.7
+      docs: 'Poisoning: Androgens and anabolic congeners'
+    - code: T38.8
+      docs: 'Poisoning: Other and unspecified hormones and their synthetic substitutes'
+    - code: T38.9
+      docs: 'Poisoning: Other and unspecified hormone antagonists'
+  - category: T39
+    docs: Poisoning by nonopioid analgesics, antipyretics and antirheumatics
+    child:
+    - code: T39.0
+      docs: 'Poisoning: Salicylates'
+    - code: T39.1
+      docs: 'Poisoning: 4-Aminophenol derivatives'
+    - code: T39.2
+      docs: 'Poisoning: Pyrazolone derivatives'
+    - code: T39.3
+      docs: 'Poisoning: Other nonsteroidal anti-inflammatory drugs [NSAID]'
+    - code: T39.4
+      docs: 'Poisoning: Antirheumatics, not elsewhere classified'
+    - code: T39.8
+      docs: 'Poisoning: Other nonopioid analgesics and antipyretics, not elsewhere
+        classified'
+    - code: T39.9
+      docs: 'Poisoning: Nonopioid analgesic, antipyretic and antirheumatic, unspecified'
+  - category: T40
+    docs: Poisoning by narcotics and psychodysleptics [hallucinogens]
+    child:
+    - code: T40.0
+      docs: 'Poisoning: Opium'
+    - code: T40.1
+      docs: 'Poisoning: Heroin'
+    - code: T40.2
+      docs: 'Poisoning: Other opioids'
+    - code: T40.3
+      docs: 'Poisoning: Methadone'
+    - code: T40.4
+      docs: 'Poisoning: Other synthetic narcotics'
+    - code: T40.5
+      docs: 'Poisoning: Cocaine'
+    - code: T40.6
+      docs: 'Poisoning: Other and unspecified narcotics'
+    - code: T40.7
+      docs: 'Poisoning: Cannabis (derivatives)'
+    - code: T40.8
+      docs: 'Poisoning: Lysergide [LSD]'
+    - code: T40.9
+      docs: 'Poisoning: Other and unspecified psychodysleptics [hallucinogens]'
+  - category: T41
+    docs: Poisoning by anaesthetics and therapeutic gases
+    child:
+    - code: T41.0
+      docs: 'Poisoning: Inhaled anaesthetics'
+    - code: T41.1
+      docs: 'Poisoning: Intravenous anaesthetics'
+    - code: T41.2
+      docs: 'Poisoning: Other and unspecified general anaesthetics'
+    - code: T41.3
+      docs: 'Poisoning: Local anaesthetics'
+    - code: T41.4
+      docs: 'Poisoning: Anaesthetic, unspecified'
+    - code: T41.5
+      docs: 'Poisoning: Therapeutic gases'
+  - category: T42
+    docs: Poisoning by antiepileptic, sedative-hypnotic and antiparkinsonism drugs
+    child:
+    - code: T42.0
+      docs: 'Poisoning: Hydantoin derivatives'
+    - code: T42.1
+      docs: 'Poisoning: Iminostilbenes'
+    - code: T42.2
+      docs: 'Poisoning: Succinimides and oxazolidinediones'
+    - code: T42.3
+      docs: 'Poisoning: Barbiturates'
+    - code: T42.4
+      docs: 'Poisoning: Benzodiazepines'
+    - code: T42.5
+      docs: 'Poisoning: Mixed antiepileptics, not elsewhere classified'
+    - code: T42.6
+      docs: 'Poisoning: Other antiepileptic and sedative-hypnotic drugs'
+    - code: T42.7
+      docs: 'Poisoning: Antiepileptic and sedative-hypnotic drugs, unspecified'
+    - code: T42.8
+      docs: 'Poisoning: Antiparkinsonism drugs and other central muscle-tone depressants'
+  - category: T43
+    docs: Poisoning by psychotropic drugs, not elsewhere classified
+    child:
+    - code: T43.0
+      docs: 'Poisoning: Tricyclic and tetracyclic antidepressants'
+    - code: T43.1
+      docs: 'Poisoning: Monoamine-oxidase-inhibitor antidepressants'
+    - code: T43.2
+      docs: 'Poisoning: Other and unspecified antidepressants'
+    - code: T43.3
+      docs: 'Poisoning: Phenothiazine antipsychotics and neuroleptics'
+    - code: T43.4
+      docs: 'Poisoning: Butyrophenone and thioxanthene neuroleptics'
+    - code: T43.5
+      docs: 'Poisoning: Other and unspecified antipsychotics and neuroleptics'
+    - code: T43.6
+      docs: 'Poisoning: Psychostimulants with abuse potential'
+    - code: T43.8
+      docs: 'Poisoning: Other psychotropic drugs, not elsewhere classified'
+    - code: T43.9
+      docs: 'Poisoning: Psychotropic drug, unspecified'
+  - category: T44
+    docs: Poisoning by drugs primarily affecting the autonomic nervous system
+    child:
+    - code: T44.0
+      docs: 'Poisoning: Anticholinesterase agents'
+    - code: T44.1
+      docs: 'Poisoning: Other parasympathomimetics [cholinergics]'
+    - code: T44.2
+      docs: 'Poisoning: Ganglionic blocking drugs, not elsewhere classified'
+    - code: T44.3
+      docs: 'Poisoning: Other parasympatholytics [anticholinergics and antimuscarinics]
+        and spasmolytics, not elsewhere classified'
+    - code: T44.4
+      docs: 'Poisoning: Predominantly alpha-adrenoreceptor agonists, not elsewhere
+        classified'
+    - code: T44.5
+      docs: 'Poisoning: Predominantly beta-adrenoreceptor agonists, not elsewhere
+        classified'
+    - code: T44.6
+      docs: 'Poisoning: Alpha-adrenoreceptor antagonists, not elsewhere classified'
+    - code: T44.7
+      docs: 'Poisoning: Beta-adrenoreceptor antagonists, not elsewhere classified'
+    - code: T44.8
+      docs: 'Poisoning: Centrally acting and adrenergic-neuron-blocking agents, not
+        elsewhere classified'
+    - code: T44.9
+      docs: 'Poisoning: Other and unspecified drugs primarily affecting the autonomic
+        nervous system'
+  - category: T45
+    docs: Poisoning by primarily systemic and haematological agents, not elsewhere
+      classified
+    child:
+    - code: T45.0
+      docs: 'Poisoning: Antiallergic and antiemetic drugs'
+    - code: T45.1
+      docs: 'Poisoning: Antineoplastic and immunosuppressive drugs'
+    - code: T45.2
+      docs: 'Poisoning: Vitamins, not elsewhere classified'
+    - code: T45.3
+      docs: 'Poisoning: Enzymes, not elsewhere classified'
+    - code: T45.4
+      docs: 'Poisoning: Iron and its compounds'
+    - code: T45.5
+      docs: 'Poisoning: Anticoagulants'
+    - code: T45.6
+      docs: 'Poisoning: Fibrinolysis-affecting drugs'
+    - code: T45.7
+      docs: 'Poisoning: Anticoagulant antagonists, vitamin K and other coagulants'
+    - code: T45.8
+      docs: 'Poisoning: Other primarily systemic and haematological agents'
+    - code: T45.9
+      docs: 'Poisoning: Primarily systemic and haematological agent, unspecified'
+  - category: T46
+    docs: Poisoning by agents primarily affecting the cardiovascular system
+    child:
+    - code: T46.0
+      docs: 'Poisoning: Cardiac-stimulant glycosides and drugs of similar action'
+    - code: T46.1
+      docs: 'Poisoning: Calcium-channel blockers'
+    - code: T46.2
+      docs: 'Poisoning: Other antidysrhythmic drugs, not elsewhere classified'
+    - code: T46.3
+      docs: 'Poisoning: Coronary vasodilators, not elsewhere classified'
+    - code: T46.4
+      docs: 'Poisoning: Angiotensin-converting-enzyme inhibitors'
+    - code: T46.5
+      docs: 'Poisoning: Other antihypertensive drugs, not elsewhere classified'
+    - code: T46.6
+      docs: 'Poisoning: Antihyperlipidaemic and antiarteriosclerotic drugs'
+    - code: T46.7
+      docs: 'Poisoning: Peripheral vasodilators'
+    - code: T46.8
+      docs: 'Poisoning: Antivaricose drugs, including sclerosing agents'
+    - code: T46.9
+      docs: 'Poisoning: Other and unspecified agents primarily affecting the cardiovascular
+        system'
+  - category: T47
+    docs: Poisoning by agents primarily affecting the gastrointestinal system
+    child:
+    - code: T47.0
+      docs: 'Poisoning: Histamine H 2 -receptor antagonists'
+    - code: T47.1
+      docs: 'Poisoning: Other antacids and anti-gastric-secretion drugs'
+    - code: T47.2
+      docs: 'Poisoning: Stimulant laxatives'
+    - code: T47.3
+      docs: 'Poisoning: Saline and osmotic laxatives'
+    - code: T47.4
+      docs: 'Poisoning: Other laxatives'
+    - code: T47.5
+      docs: 'Poisoning: Digestants'
+    - code: T47.6
+      docs: 'Poisoning: Antidiarrhoeal drugs'
+    - code: T47.7
+      docs: 'Poisoning: Emetics'
+    - code: T47.8
+      docs: 'Poisoning: Other agents primarily affecting the gastrointestinal system'
+    - code: T47.9
+      docs: 'Poisoning: Agent primarily affecting the gastrointestinal system, unspecified'
+  - category: T48
+    docs: Poisoning by agents primarily acting on smooth and skeletal muscles and
+      the respiratory system
+    child:
+    - code: T48.0
+      docs: 'Poisoning: Oxytocic drugs'
+    - code: T48.1
+      docs: 'Poisoning: Skeletal muscle relaxants [neuromuscular blocking agents]'
+    - code: T48.2
+      docs: 'Poisoning: Other and unspecified agents primarily acting on muscles'
+    - code: T48.3
+      docs: 'Poisoning: Antitussives'
+    - code: T48.4
+      docs: 'Poisoning: Expectorants'
+    - code: T48.5
+      docs: 'Poisoning: Anti-common-cold drugs'
+    - code: T48.6
+      docs: 'Poisoning: Antiasthmatics, not elsewhere classified'
+    - code: T48.7
+      docs: 'Poisoning: Other and unspecified agents primarily acting on the respiratory
+        system'
+  - category: T49
+    docs: Poisoning by topical agents primarily affecting skin and mucous membrane
+      and by ophthalmological, otorhinolaryngological and dental drugs
+    child:
+    - code: T49.0
+      docs: 'Poisoning: Local antifungal, anti-infective and anti-inflammatory drugs,
+        not elsewhere classified'
+    - code: T49.1
+      docs: 'Poisoning: Antipruritics'
+    - code: T49.2
+      docs: 'Poisoning: Local astringents and local detergents'
+    - code: T49.3
+      docs: 'Poisoning: Emollients, demulcents and protectants'
+    - code: T49.4
+      docs: 'Poisoning: Keratolytics, keratoplastics and other hair treatment drugs
+        and preparations'
+    - code: T49.5
+      docs: 'Poisoning: Ophthalmological drugs and preparations'
+    - code: T49.6
+      docs: 'Poisoning: Otorhinolaryngological drugs and preparations'
+    - code: T49.7
+      docs: 'Poisoning: Dental drugs, topically applied'
+    - code: T49.8
+      docs: 'Poisoning: Other topical agents'
+    - code: T49.9
+      docs: 'Poisoning: Topical agent, unspecified'
+  - category: T50
+    docs: Poisoning by diuretics and other and unspecified drugs, medicaments and
+      biological substances
+    child:
+    - code: T50.0
+      docs: 'Poisoning: Mineralocorticoids and their antagonists'
+    - code: T50.1
+      docs: 'Poisoning: Loop [high-ceiling] diuretics'
+    - code: T50.2
+      docs: 'Poisoning: Carbonic-anhydrase inhibitors, benzothiadiazides and other
+        diuretics'
+    - code: T50.3
+      docs: 'Poisoning: Electrolytic, caloric and water-balance agents'
+    - code: T50.4
+      docs: 'Poisoning: Drugs affecting uric acid metabolism'
+    - code: T50.5
+      docs: 'Poisoning: Appetite depressants'
+    - code: T50.6
+      docs: 'Poisoning: Antidotes and chelating agents, not elsewhere classified'
+    - code: T50.7
+      docs: 'Poisoning: Analeptics and opioid receptor antagonists'
+    - code: T50.8
+      docs: 'Poisoning: Diagnostic agents'
+    - code: T50.9
+      docs: 'Poisoning: Other and unspecified drugs, medicaments and biological substances'
+- category: T51-T65
+  docs: Toxic effects of substances chiefly nonmedicinal as to source
+  child:
+  - category: T51
+    docs: Toxic effect of alcohol
+    child:
+    - code: T51.0
+      docs: 'Toxic effect: Ethanol'
+    - code: T51.1
+      docs: 'Toxic effect: Methanol'
+    - code: T51.2
+      docs: 'Toxic effect: 2-Propanol'
+    - code: T51.3
+      docs: 'Toxic effect: Fusel oil'
+    - code: T51.8
+      docs: 'Toxic effect: Other alcohols'
+    - code: T51.9
+      docs: 'Toxic effect: Alcohol, unspecified'
+  - category: T52
+    docs: Toxic effect of organic solvents
+    child:
+    - code: T52.0
+      docs: 'Toxic effect: Petroleum products'
+    - code: T52.1
+      docs: 'Toxic effect: Benzene'
+    - code: T52.2
+      docs: 'Toxic effect: Homologues of benzene'
+    - code: T52.3
+      docs: 'Toxic effect: Glycols'
+    - code: T52.4
+      docs: 'Toxic effect: Ketones'
+    - code: T52.8
+      docs: 'Toxic effect: Other organic solvents'
+    - code: T52.9
+      docs: 'Toxic effect: Organic solvent, unspecified'
+  - category: T53
+    docs: Toxic effect of halogen derivatives of aliphatic and aromatic hydrocarbons
+    child:
+    - code: T53.0
+      docs: 'Toxic effect: Carbon tetrachloride'
+    - code: T53.1
+      docs: 'Toxic effect: Chloroform'
+    - code: T53.2
+      docs: 'Toxic effect: Trichloroethylene'
+    - code: T53.3
+      docs: 'Toxic effect: Tetrachloroethylene'
+    - code: T53.4
+      docs: 'Toxic effect: Dichloromethane'
+    - code: T53.5
+      docs: 'Toxic effect: Chlorofluorocarbons'
+    - code: T53.6
+      docs: 'Toxic effect: Other halogen derivatives of aliphatic hydrocarbons'
+    - code: T53.7
+      docs: 'Toxic effect: Other halogen derivatives of aromatic hydrocarbons'
+    - code: T53.9
+      docs: 'Toxic effect: Halogen derivative of aliphatic and aromatic hydrocarbons,
+        unspecified'
+  - category: T54
+    docs: Toxic effect of corrosive substances
+    child:
+    - code: T54.0
+      docs: 'Toxic effect: Phenol and phenol homologues'
+    - code: T54.1
+      docs: 'Toxic effect: Other corrosive organic compounds'
+    - code: T54.2
+      docs: 'Toxic effect: Corrosive acids and acid-like substances'
+    - code: T54.3
+      docs: 'Toxic effect: Corrosive alkalis and alkali-like substances'
+    - code: T54.9
+      docs: 'Toxic effect: Corrosive substance, unspecified'
+  - code: T55
+    docs: Toxic effect of soaps and detergents
+  - category: T56
+    docs: Toxic effect of metals
+    child:
+    - code: T56.0
+      docs: 'Toxic effect: Lead and its compounds'
+    - code: T56.1
+      docs: 'Toxic effect: Mercury and its compounds'
+    - code: T56.2
+      docs: 'Toxic effect: Chromium and its compounds'
+    - code: T56.3
+      docs: 'Toxic effect: Cadmium and its compounds'
+    - code: T56.4
+      docs: 'Toxic effect: Copper and its compounds'
+    - code: T56.5
+      docs: 'Toxic effect: Zinc and its compounds'
+    - code: T56.6
+      docs: 'Toxic effect: Tin and its compounds'
+    - code: T56.7
+      docs: 'Toxic effect: Beryllium and its compounds'
+    - code: T56.8
+      docs: 'Toxic effect: Other metals'
+    - code: T56.9
+      docs: 'Toxic effect: Metal, unspecified'
+  - category: T57
+    docs: Toxic effect of other inorganic substances
+    child:
+    - code: T57.0
+      docs: 'Toxic effect: Arsenic and its compounds'
+    - code: T57.1
+      docs: 'Toxic effect: Phosphorus and its compounds'
+    - code: T57.2
+      docs: 'Toxic effect: Manganese and its compounds'
+    - code: T57.3
+      docs: 'Toxic effect: Hydrogen cyanide'
+    - code: T57.8
+      docs: 'Toxic effect: Other specified inorganic substances'
+    - code: T57.9
+      docs: 'Toxic effect: Inorganic substance, unspecified'
+  - code: T58
+    docs: Toxic effect of carbon monoxide
+  - category: T59
+    docs: Toxic effect of other gases, fumes and vapours
+    child:
+    - code: T59.0
+      docs: 'Toxic effect: Nitrogen oxides'
+    - code: T59.1
+      docs: 'Toxic effect: Sulfur dioxide'
+    - code: T59.2
+      docs: 'Toxic effect: Formaldehyde'
+    - code: T59.3
+      docs: 'Toxic effect: Lacrimogenic gas'
+    - code: T59.4
+      docs: 'Toxic effect: Chlorine gas'
+    - code: T59.5
+      docs: 'Toxic effect: Fluorine gas and hydrogen fluoride'
+    - code: T59.6
+      docs: 'Toxic effect: Hydrogen sulfide'
+    - code: T59.7
+      docs: 'Toxic effect: Carbon dioxide'
+    - code: T59.8
+      docs: 'Toxic effect: Other specified gases, fumes and vapours'
+    - code: T59.9
+      docs: 'Toxic effect: Gases, fumes and vapours, unspecified'
+  - category: T60
+    docs: Toxic effect of pesticides
+    child:
+    - code: T60.0
+      docs: 'Toxic effect: Organophosphate and carbamate insecticides'
+    - code: T60.1
+      docs: 'Toxic effect: Halogenated insecticides'
+    - code: T60.2
+      docs: 'Toxic effect: Other insecticides'
+    - code: T60.3
+      docs: 'Toxic effect: Herbicides and fungicides'
+    - code: T60.4
+      docs: 'Toxic effect: Rodenticides'
+    - code: T60.8
+      docs: 'Toxic effect: Other pesticides'
+    - code: T60.9
+      docs: 'Toxic effect: Pesticide, unspecified'
+  - category: T61
+    docs: Toxic effect of noxious substances eaten as seafood
+    child:
+    - code: T61.0
+      docs: 'Toxic effect: Ciguatera fish poisoning'
+    - code: T61.1
+      docs: 'Toxic effect: Scombroid fish poisoning'
+    - code: T61.2
+      docs: 'Toxic effect: Other fish and shellfish poisoning'
+    - code: T61.8
+      docs: 'Toxic effect: Toxic effect of other seafoods'
+    - code: T61.9
+      docs: 'Toxic effect: Toxic effect of unspecified seafood'
+  - category: T62
+    docs: Toxic effect of other noxious substances eaten as food
+    child:
+    - code: T62.0
+      docs: 'Toxic effect: Ingested mushrooms'
+    - code: T62.1
+      docs: 'Toxic effect: Ingested berries'
+    - code: T62.2
+      docs: 'Toxic effect: Other ingested (parts of) plant(s)'
+    - code: T62.8
+      docs: 'Toxic effect: Other specified noxious substances eaten as food'
+    - code: T62.9
+      docs: 'Toxic effect: Noxious substance eaten as food, unspecified'
+  - category: T63
+    docs: Toxic effect of contact with venomous animals
+    child:
+    - code: T63.0
+      docs: 'Toxic effect: Snake venom'
+    - code: T63.1
+      docs: 'Toxic effect: Venom of other reptiles'
+    - code: T63.2
+      docs: 'Toxic effect: Venom of scorpion'
+    - code: T63.3
+      docs: 'Toxic effect: Venom of spider'
+    - code: T63.4
+      docs: 'Toxic effect: Venom of other arthropods'
+    - code: T63.5
+      docs: 'Toxic effect: Toxic effect of contact with fish'
+    - code: T63.6
+      docs: 'Toxic effect: Toxic effect of contact with other marine animals'
+    - code: T63.8
+      docs: 'Toxic effect: Toxic effect of contact with other venomous animals'
+    - code: T63.9
+      docs: 'Toxic effect: Toxic effect of contact with unspecified venomous animal'
+  - code: T64
+    docs: Toxic effect of aflatoxin and other mycotoxin food contaminants
+  - category: T65
+    docs: Toxic effect of other and unspecified substances
+    child:
+    - code: T65.0
+      docs: 'Toxic effect: Cyanides'
+    - code: T65.1
+      docs: 'Toxic effect: Strychnine and its salts'
+    - code: T65.2
+      docs: 'Toxic effect: Tobacco and nicotine'
+    - code: T65.3
+      docs: 'Toxic effect: Nitroderivatives and aminoderivatives of benzene and its
+        homologues'
+    - code: T65.4
+      docs: 'Toxic effect: Carbon disulfide'
+    - code: T65.5
+      docs: 'Toxic effect: Nitroglycerin and other nitric acids and esters'
+    - code: T65.6
+      docs: 'Toxic effect: Paints and dyes, not elsewhere classified'
+    - code: T65.8
+      docs: 'Toxic effect: Toxic effect of other specified substances'
+    - code: T65.9
+      docs: 'Toxic effect: Toxic effect of unspecified substance'
+- category: T66-T78
+  docs: Other and unspecified effects of external causes
+  child:
+  - code: T66
+    docs: Unspecified effects of radiation
+  - category: T67
+    docs: Effects of heat and light
+    child:
+    - code: T67.0
+      docs: Heatstroke and sunstroke
+    - code: T67.1
+      docs: Heat syncope
+    - code: T67.2
+      docs: Heat cramp
+    - code: T67.3
+      docs: Heat exhaustion, anhydrotic
+    - code: T67.4
+      docs: Heat exhaustion due to salt depletion
+    - code: T67.5
+      docs: Heat exhaustion, unspecified
+    - code: T67.6
+      docs: Heat fatigue, transient
+    - code: T67.7
+      docs: Heat oedema
+    - code: T67.8
+      docs: Other effects of heat and light
+    - code: T67.9
+      docs: Effect of heat and light, unspecified
+  - code: T68
+    docs: Hypothermia
+  - category: T69
+    docs: Other effects of reduced temperature
+    child:
+    - code: T69.0
+      docs: Immersion hand and foot
+    - code: T69.1
+      docs: Chilblains
+    - code: T69.8
+      docs: Other specified effects of reduced temperature
+    - code: T69.9
+      docs: Effect of reduced temperature, unspecified
+  - category: T70
+    docs: Effects of air pressure and water pressure
+    child:
+    - code: T70.0
+      docs: Otitic barotrauma
+    - code: T70.1
+      docs: Sinus barotrauma
+    - code: T70.2
+      docs: Other and unspecified effects of high altitude
+    - code: T70.3
+      docs: Caisson disease [decompression sickness]
+    - code: T70.4
+      docs: Effects of high-pressure fluids
+    - code: T70.8
+      docs: Other effects of air pressure and water pressure
+    - code: T70.9
+      docs: Effect of air pressure and water pressure, unspecified
+  - code: T71
+    docs: Asphyxiation
+  - category: T73
+    docs: Effects of other deprivation
+    child:
+    - code: T73.0
+      docs: Effects of hunger
+    - code: T73.1
+      docs: Effects of thirst
+    - code: T73.2
+      docs: Exhaustion due to exposure
+    - code: T73.3
+      docs: Exhaustion due to excessive exertion
+    - code: T73.8
+      docs: Other effects of deprivation
+    - code: T73.9
+      docs: Effect of deprivation, unspecified
+  - category: T74
+    docs: Maltreatment syndromes
+    child:
+    - code: T74.0
+      docs: Neglect or abandonment
+    - code: T74.1
+      docs: Physical abuse
+    - code: T74.2
+      docs: Sexual abuse
+    - code: T74.3
+      docs: Psychological abuse
+    - code: T74.8
+      docs: Other maltreatment syndromes
+    - code: T74.9
+      docs: Maltreatment syndrome, unspecified
+  - category: T75
+    docs: Effects of other external causes
+    child:
+    - code: T75.0
+      docs: Effects of lightning
+    - code: T75.1
+      docs: Drowning and nonfatal submersion
+    - code: T75.2
+      docs: Effects of vibration
+    - code: T75.3
+      docs: Motion sickness
+    - code: T75.4
+      docs: Effects of electric current
+    - code: T75.8
+      docs: Other specified effects of external causes
+  - category: T78
+    docs: Adverse effects, not elsewhere classified
+    child:
+    - code: T78.0
+      docs: Anaphylactic shock due to adverse food reaction
+    - code: T78.1
+      docs: Other adverse food reactions, not elsewhere classified
+    - code: T78.2
+      docs: Anaphylactic shock, unspecified
+    - code: T78.3
+      docs: Angioneurotic oedema
+    - code: T78.4
+      docs: Allergy, unspecified
+    - code: T78.8
+      docs: Other adverse effects, not elsewhere classified
+    - code: T78.9
+      docs: Adverse effect, unspecified
+- category: T79-T79
+  docs: Certain early complications of trauma
+  child:
+  - category: T79
+    docs: Certain early complications of trauma, not elsewhere classified
+    child:
+    - code: T79.0
+      docs: Air embolism (traumatic)
+    - code: T79.1
+      docs: Fat embolism (traumatic)
+    - code: T79.2
+      docs: Traumatic secondary and recurrent haemorrhage
+    - code: T79.3
+      docs: Post-traumatic wound infection, not elsewhere classified
+    - code: T79.4
+      docs: Traumatic shock
+    - code: T79.5
+      docs: Traumatic anuria
+    - code: T79.6
+      docs: Traumatic ischaemia of muscle
+    - code: T79.7
+      docs: Traumatic subcutaneous emphysema
+    - code: T79.8
+      docs: Other early complications of trauma
+    - code: T79.9
+      docs: Unspecified early complication of trauma
+- category: T80-T88
+  docs: Complications of surgical and medical care, not elsewhere classified
+  child:
+  - category: T80
+    docs: Complications following infusion, transfusion and therapeutic injection
+    child:
+    - code: T80.0
+      docs: Air embolism following infusion, transfusion and therapeutic injection
+    - code: T80.1
+      docs: Vascular complications following infusion, transfusion and therapeutic
+        injection
+    - code: T80.2
+      docs: Infections following infusion, transfusion and therapeutic injection
+    - code: T80.3
+      docs: ABO incompatibility reaction
+    - code: T80.4
+      docs: Rh incompatibility reaction
+    - code: T80.5
+      docs: Anaphylactic shock due to serum
+    - code: T80.6
+      docs: Other serum reactions
+    - code: T80.8
+      docs: Other complications following infusion, transfusion and therapeutic injection
+    - code: T80.9
+      docs: Unspecified complication following infusion, transfusion and therapeutic
+        injection
+  - category: T81
+    docs: Complications of procedures, not elsewhere classified
+    child:
+    - code: T81.0
+      docs: Haemorrhage and haematoma complicating a procedure, not elsewhere classified
+    - code: T81.1
+      docs: Shock during or resulting from a procedure, not elsewhere classified
+    - code: T81.2
+      docs: Accidental puncture and laceration during a procedure, not elsewhere classified
+    - code: T81.3
+      docs: Disruption of operation wound, not elsewhere classified
+    - code: T81.4
+      docs: Infection following a procedure, not elsewhere classified
+    - code: T81.5
+      docs: Foreign body accidentally left in body cavity or operation wound following
+        a procedure
+    - code: T81.6
+      docs: Acute reaction to foreign substance accidentally left during a procedure
+    - code: T81.7
+      docs: Vascular complications following a procedure, not elsewhere classified
+    - code: T81.8
+      docs: Other complications of procedures, not elsewhere classified
+    - code: T81.9
+      docs: Unspecified complication of procedure
+  - category: T82
+    docs: Complications of cardiac and vascular prosthetic devices, implants and grafts
+    child:
+    - code: T82.0
+      docs: Mechanical complication of heart valve prosthesis
+    - code: T82.1
+      docs: Mechanical complication of cardiac electronic device
+    - code: T82.2
+      docs: Mechanical complication of coronary artery bypass and valve grafts
+    - code: T82.3
+      docs: Mechanical complication of other vascular grafts
+    - code: T82.4
+      docs: Mechanical complication of vascular dialysis catheter
+    - code: T82.5
+      docs: Mechanical complication of other cardiac and vascular devices and implants
+    - code: T82.6
+      docs: Infection and inflammatory reaction due to cardiac valve prosthesis
+    - code: T82.7
+      docs: Infection and inflammatory reaction due to other cardiac and vascular
+        devices, implants and grafts
+    - code: T82.8
+      docs: Other specified complications of cardiac and vascular prosthetic devices,
+        implants and grafts
+    - code: T82.9
+      docs: Unspecified complication of cardiac and vascular prosthetic device, implant
+        and graft
+  - category: T83
+    docs: Complications of genitourinary prosthetic devices, implants and grafts
+    child:
+    - code: T83.0
+      docs: Mechanical complication of urinary (indwelling) catheter
+    - code: T83.1
+      docs: Mechanical complication of other urinary devices and implants
+    - code: T83.2
+      docs: Mechanical complication of graft of urinary organ
+    - code: T83.3
+      docs: Mechanical complication of intrauterine contraceptive device
+    - code: T83.4
+      docs: Mechanical complication of other prosthetic devices, implants and grafts
+        in genital tract
+    - code: T83.5
+      docs: Infection and inflammatory reaction due to prosthetic device, implant
+        and graft in urinary system
+    - code: T83.6
+      docs: Infection and inflammatory reaction due to prosthetic device, implant
+        and graft in genital tract
+    - code: T83.8
+      docs: Other complications of genitourinary prosthetic devices, implants and
+        grafts
+    - code: T83.9
+      docs: Unspecified complication of genitourinary prosthetic device, implant and
+        graft
+  - category: T84
+    docs: Complications of internal orthopaedic prosthetic devices, implants and grafts
+    child:
+    - code: T84.0
+      docs: Mechanical complication of internal joint prosthesis
+    - code: T84.1
+      docs: Mechanical complication of internal fixation device of bones of limb
+    - code: T84.2
+      docs: Mechanical complication of internal fixation device of other bones
+    - code: T84.3
+      docs: Mechanical complication of other bone devices, implants and grafts
+    - code: T84.4
+      docs: Mechanical complication of other internal orthopaedic devices, implants
+        and grafts
+    - code: T84.5
+      docs: Infection and inflammatory reaction due to internal joint prosthesis
+    - code: T84.6
+      docs: Infection and inflammatory reaction due to internal fixation device [any
+        site]
+    - code: T84.7
+      docs: Infection and inflammatory reaction due to other internal orthopaedic
+        prosthetic devices, implants and grafts
+    - code: T84.8
+      docs: Other complications of internal orthopaedic prosthetic devices, implants
+        and grafts
+    - code: T84.9
+      docs: Unspecified complication of internal orthopaedic prosthetic device, implant
+        and graft
+  - category: T85
+    docs: Complications of other internal prosthetic devices, implants and grafts
+    child:
+    - code: T85.0
+      docs: Mechanical complication of ventricular intracranial (communicating) shunt
+    - code: T85.1
+      docs: Mechanical complication of implanted electronic stimulator of nervous
+        system
+    - code: T85.2
+      docs: Mechanical complication of intraocular lens
+    - code: T85.3
+      docs: Mechanical complication of other ocular prosthetic devices, implants and
+        grafts
+    - code: T85.4
+      docs: Mechanical complication of breast prosthesis and implant
+    - code: T85.5
+      docs: Mechanical complication of gastrointestinal prosthetic devices, implants
+        and grafts
+    - code: T85.6
+      docs: Mechanical complication of other specified internal prosthetic devices,
+        implants and grafts
+    - code: T85.7
+      docs: Infection and inflammatory reaction due to other internal prosthetic devices,
+        implants and grafts
+    - code: T85.8
+      docs: Other complications of internal prosthetic devices, implants and grafts,
+        not elsewhere classified
+    - code: T85.9
+      docs: Unspecified complication of internal prosthetic device, implant and graft
+  - category: T86
+    docs: Failure and rejection of transplanted organs and tissues
+    child:
+    - code: T86.0
+      docs: Bone-marrow transplant rejection
+    - code: T86.1
+      docs: Kidney transplant failure and rejection
+    - code: T86.2
+      docs: Heart transplant failure and rejection
+    - code: T86.3
+      docs: Heart-lung transplant failure and rejection
+    - code: T86.4
+      docs: Liver transplant failure and rejection
+    - code: T86.8
+      docs: Failure and rejection of other transplanted organs and tissues
+    - code: T86.9
+      docs: Failure and rejection of unspecified transplanted organ and tissue
+  - category: T87
+    docs: Complications peculiar to reattachment and amputation
+    child:
+    - code: T87.0
+      docs: Complications of reattached (part of) upper extremity
+    - code: T87.1
+      docs: Complications of reattached (part of) lower extremity
+    - code: T87.2
+      docs: Complications of other reattached body part
+    - code: T87.3
+      docs: Neuroma of amputation stump
+    - code: T87.4
+      docs: Infection of amputation stump
+    - code: T87.5
+      docs: Necrosis of amputation stump
+    - code: T87.6
+      docs: Other and unspecified complications of amputation stump
+  - category: T88
+    docs: Other complications of surgical and medical care, not elsewhere classified
+    child:
+    - code: T88.0
+      docs: Infection following immunization
+    - code: T88.1
+      docs: Other complications following immunization, not elsewhere classified
+    - code: T88.2
+      docs: Shock due to anaesthesia
+    - code: T88.3
+      docs: Malignant hyperthermia due to anaesthesia
+    - code: T88.4
+      docs: Failed or difficult intubation
+    - code: T88.5
+      docs: Other complications of anaesthesia
+    - code: T88.6
+      docs: Anaphylactic shock due to adverse effect of correct drug or medicament
+        properly administered
+    - code: T88.7
+      docs: Unspecified adverse effect of drug or medicament
+    - code: T88.8
+      docs: Other specified complications of surgical and medical care, not elsewhere
+        classified
+    - code: T88.9
+      docs: Complication of surgical and medical care, unspecified
+- category: T90-T98
+  docs: Sequelae of injuries, of poisoning and of other consequences of external causes
+  child:
+  - category: T90
+    docs: Sequelae of injuries of head
+    child:
+    - code: T90.0
+      docs: Sequelae of superficial injury of head
+    - code: T90.1
+      docs: Sequelae of open wound of head
+    - code: T90.2
+      docs: Sequelae of fracture of skull and facial bones
+    - code: T90.3
+      docs: Sequelae of injury of cranial nerves
+    - code: T90.4
+      docs: Sequelae of injury of eye and orbit
+    - code: T90.5
+      docs: Sequelae of intracranial injury
+    - code: T90.8
+      docs: Sequelae of other specified injuries of head
+    - code: T90.9
+      docs: Sequelae of unspecified injury of head
+  - category: T91
+    docs: Sequelae of injuries of neck and trunk
+    child:
+    - code: T91.0
+      docs: Sequelae of superficial injury and open wound of neck and trunk
+    - code: T91.1
+      docs: Sequelae of fracture of spine
+    - code: T91.2
+      docs: Sequelae of other fracture of thorax and pelvis
+    - code: T91.3
+      docs: Sequelae of injury of spinal cord
+    - code: T91.4
+      docs: Sequelae of injury of intrathoracic organs
+    - code: T91.5
+      docs: Sequelae of injury of intra-abdominal and pelvic organs
+    - code: T91.8
+      docs: Sequelae of other specified injuries of neck and trunk
+    - code: T91.9
+      docs: Sequelae of unspecified injury of neck and trunk
+  - category: T92
+    docs: Sequelae of injuries of upper limb
+    child:
+    - code: T92.0
+      docs: Sequelae of open wound of upper limb
+    - code: T92.1
+      docs: Sequelae of fracture of arm
+    - code: T92.2
+      docs: Sequelae of fracture at wrist and hand level
+    - code: T92.3
+      docs: Sequelae of dislocation, sprain and strain of upper limb
+    - code: T92.4
+      docs: Sequelae of injury of nerve of upper limb
+    - code: T92.5
+      docs: Sequelae of injury of muscle and tendon of upper limb
+    - code: T92.6
+      docs: Sequelae of crushing injury and traumatic amputation of upper limb
+    - code: T92.8
+      docs: Sequelae of other specified injuries of upper limb
+    - code: T92.9
+      docs: Sequelae of unspecified injury of upper limb
+  - category: T93
+    docs: Sequelae of injuries of lower limb
+    child:
+    - code: T93.0
+      docs: Sequelae of open wound of lower limb
+    - code: T93.1
+      docs: Sequelae of fracture of femur
+    - code: T93.2
+      docs: Sequelae of other fractures of lower limb
+    - code: T93.3
+      docs: Sequelae of dislocation, sprain and strain of lower limb
+    - code: T93.4
+      docs: Sequelae of injury of nerve of lower limb
+    - code: T93.5
+      docs: Sequelae of injury of muscle and tendon of lower limb
+    - code: T93.6
+      docs: Sequelae of crushing injury and traumatic amputation of lower limb
+    - code: T93.8
+      docs: Sequelae of other specified injuries of lower limb
+    - code: T93.9
+      docs: Sequelae of unspecified injury of lower limb
+  - category: T94
+    docs: Sequelae of injuries involving multiple and unspecified body regions
+    child:
+    - code: T94.0
+      docs: Sequelae of injuries involving multiple body regions
+    - code: T94.1
+      docs: Sequelae of injuries, not specified by body region
+  - category: T95
+    docs: Sequelae of burns, corrosions and frostbite
+    child:
+    - code: T95.0
+      docs: Sequelae of burn, corrosion and frostbite of head and neck
+    - code: T95.1
+      docs: Sequelae of burn, corrosion and frostbite of trunk
+    - code: T95.2
+      docs: Sequelae of burn, corrosion and frostbite of upper limb
+    - code: T95.3
+      docs: Sequelae of burn, corrosion and frostbite of lower limb
+    - code: T95.4
+      docs: Sequelae of burn and corrosion classifiable only according to extent of
+        body surface involved
+    - code: T95.8
+      docs: Sequelae of other specified burn, corrosion and frostbite
+    - code: T95.9
+      docs: Sequelae of unspecified burn, corrosion and frostbite
+  - code: T96
+    docs: Sequelae of poisoning by drugs, medicaments and biological substances
+  - code: T97
+    docs: Sequelae of toxic effects of substances chiefly nonmedicinal as to source
+  - category: T98
+    docs: Sequelae of other and unspecified effects of external causes
+    child:
+    - code: T98.0
+      docs: Sequelae of effects of foreign body entering through natural orifice
+    - code: T98.1
+      docs: Sequelae of other and unspecified effects of external causes
+    - code: T98.2
+      docs: Sequelae of certain early complications of trauma
+    - code: T98.3
+      docs: Sequelae of complications of surgical and medical care, not elsewhere
+        classified
