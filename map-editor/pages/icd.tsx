@@ -9,7 +9,7 @@ export default function Home() {
 
     function load_file() {
         invoke('get_yaml')
-            .then(setCodes)
+            .then(console.log)
     }
 
     return (
@@ -18,10 +18,9 @@ export default function Home() {
             <button onClick={load_file}>Load file</button>
             <h1>ICD-10</h1>
             <ol>
-
-                {codes/* {codes.map((node) => (
+                {codes.map((node) => (
                     <li>hello</li>
-                    ))} */}
+                ))}
             </ol>
         </div >
     )

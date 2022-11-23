@@ -16,7 +16,7 @@ fn get_yaml() -> String {
     let f = std::fs::File::open(result).expect("Error reading file");
     let d: Value = serde_yaml::from_reader(f).expect("Error parsing YAML");
 
-    format!("Hello {:?}",d)
+    format!(d)
 }
 
 fn main() {
