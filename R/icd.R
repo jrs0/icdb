@@ -203,26 +203,10 @@ icd10_api_gen_codes <- function(token, release = "2016", item = "A00-A09",
             category = res$code,
             docs = res$title$`@value`,
             child = res$child %>%
-                sapply(function(ep) {
-                    
-                    icd10_api_gen_codes(token, endpoint = ep)
+                sapply(function(ep) {  
+                    list(icd10_api_gen_codes(token, endpoint = ep))
                 })
         )
     }
-    
-    ## ## Get documentation
-    ## pp <- list(docs = rr$title$`@value`)
-    
-    ## ## Parse all the child entities
-    ## ss <- list()
-    ## for (url in rr$child)
-    ## {
-    ##     ## URLs use the remote host, replace this with localhost
-    ##     url <- stringr::str_replace(url, pattern = "id.who.int", replacement = "localhost")
-
-    ##     ##ss[[janitor::make_clean_names
-    ## }
-
-    
     
 }

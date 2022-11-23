@@ -1,0 +1,153 @@
+category: A00-A09
+docs: Intestinal infectious diseases
+child:
+- category: A00
+  docs: Cholera
+  child:
+  - code: A00.0
+    docs: Cholera due to Vibrio cholerae 01, biovar cholerae
+  - code: A00.1
+    docs: Cholera due to Vibrio cholerae 01, biovar eltor
+  - code: A00.9
+    docs: Cholera, unspecified
+- category: A01
+  docs: Typhoid and paratyphoid fevers
+  child:
+  - code: A01.0
+    docs: Typhoid fever
+  - code: A01.1
+    docs: Paratyphoid fever A
+  - code: A01.2
+    docs: Paratyphoid fever B
+  - code: A01.3
+    docs: Paratyphoid fever C
+  - code: A01.4
+    docs: Paratyphoid fever, unspecified
+- category: A02
+  docs: Other salmonella infections
+  child:
+  - code: A02.0
+    docs: Salmonella enteritis
+  - code: A02.1
+    docs: Salmonella sepsis
+  - code: A02.2
+    docs: Localized salmonella infections
+  - code: A02.8
+    docs: Other specified salmonella infections
+  - code: A02.9
+    docs: Salmonella infection, unspecified
+- category: A03
+  docs: Shigellosis
+  child:
+  - code: A03.0
+    docs: Shigellosis due to Shigella dysenteriae
+  - code: A03.1
+    docs: Shigellosis due to Shigella flexneri
+  - code: A03.2
+    docs: Shigellosis due to Shigella boydii
+  - code: A03.3
+    docs: Shigellosis due to Shigella sonnei
+  - code: A03.8
+    docs: Other shigellosis
+  - code: A03.9
+    docs: Shigellosis, unspecified
+- category: A04
+  docs: Other bacterial intestinal infections
+  child:
+  - code: A04.0
+    docs: Enteropathogenic Escherichia coli infection
+  - code: A04.1
+    docs: Enterotoxigenic Escherichia coli infection
+  - code: A04.2
+    docs: Enteroinvasive Escherichia coli infection
+  - code: A04.3
+    docs: Enterohaemorrhagic Escherichia coli infection
+  - code: A04.4
+    docs: Other intestinal Escherichia coli infections
+  - code: A04.5
+    docs: Campylobacter enteritis
+  - code: A04.6
+    docs: Enteritis due to Yersinia enterocolitica
+  - code: A04.7
+    docs: Enterocolitis due to Clostridium difficile
+  - code: A04.8
+    docs: Other specified bacterial intestinal infections
+  - code: A04.9
+    docs: Bacterial intestinal infection, unspecified
+- category: A05
+  docs: Other bacterial foodborne intoxications, not elsewhere classified
+  child:
+  - code: A05.0
+    docs: Foodborne staphylococcal intoxication
+  - code: A05.1
+    docs: Botulism
+  - code: A05.2
+    docs: Foodborne Clostridium perfringens [Clostridium welchii] intoxication
+  - code: A05.3
+    docs: Foodborne Vibrio parahaemolyticus intoxication
+  - code: A05.4
+    docs: Foodborne Bacillus cereus intoxication
+  - code: A05.8
+    docs: Other specified bacterial foodborne intoxications
+  - code: A05.9
+    docs: Bacterial foodborne intoxication, unspecified
+- category: A06
+  docs: Amoebiasis
+  child:
+  - code: A06.0
+    docs: Acute amoebic dysentery
+  - code: A06.1
+    docs: Chronic intestinal amoebiasis
+  - code: A06.2
+    docs: Amoebic nondysenteric colitis
+  - code: A06.3
+    docs: Amoeboma of intestine
+  - code: A06.4
+    docs: Amoebic liver abscess
+  - code: A06.5
+    docs: Amoebic lung abscess
+  - code: A06.6
+    docs: Amoebic brain abscess
+  - code: A06.7
+    docs: Cutaneous amoebiasis
+  - code: A06.8
+    docs: Amoebic infection of other sites
+  - code: A06.9
+    docs: Amoebiasis, unspecified
+- category: A07
+  docs: Other protozoal intestinal diseases
+  child:
+  - code: A07.0
+    docs: Balantidiasis
+  - code: A07.1
+    docs: Giardiasis [lambliasis]
+  - code: A07.2
+    docs: Cryptosporidiosis
+  - code: A07.3
+    docs: Isosporiasis
+  - code: A07.8
+    docs: Other specified protozoal intestinal diseases
+  - code: A07.9
+    docs: Protozoal intestinal disease, unspecified
+- category: A08
+  docs: Viral and other specified intestinal infections
+  child:
+  - code: A08.0
+    docs: Rotaviral enteritis
+  - code: A08.1
+    docs: Acute gastroenteropathy due to Norwalk agent
+  - code: A08.2
+    docs: Adenoviral enteritis
+  - code: A08.3
+    docs: Other viral enteritis
+  - code: A08.4
+    docs: Viral intestinal infection, unspecified
+  - code: A08.5
+    docs: Other specified intestinal infections
+- category: A09
+  docs: Other gastroenteritis and colitis of infectious and unspecified origin
+  child:
+  - code: A09.0
+    docs: Other and unspecified gastroenteritis and colitis of infectious origin
+  - code: A09.9
+    docs: Gastroenteritis and colitis of unspecified origin
