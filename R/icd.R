@@ -98,7 +98,7 @@ parse_icd11 <- function(endpoint = "http://localhost/icd/entity")
 ##' 
 ##' @title Get the API token
 ##' @return The token (named list) 
-get_icd_api_token <- function()
+icd_api_get_token <- function()
 {
     ## Authenticate the endpoint
     secret <- yaml::read_yaml(system.file("extdata", "secret/icd10-cred.yaml", package = "icdb"))
@@ -113,15 +113,34 @@ get_icd_api_token <- function()
     httr::content(token)
 }
 
+##' After authenticating, make a request to an API endpoint. Use
+##' 
+##' Note: this function can be mocked for testing.
+##' 
+##' @title Make a request to the WHO ICD API 
+##' @param token The authentication token (containing access_token key)
+##' @param endpoint The URL endpoint
+##' @param data A named list of the headers to send
+##' @return A named list of the contents of the request
+##' 
+icd_api_request <- function(token, endpoint, data = list())
+{
+    headers <-
+        httr::add_headers(!!!data, 
+                          Authorization = paste0("Bearer ",token$access_token),
+                          accept = "application/json",
+                          `API-Version` = "v2",
+                          `Accept-Language` = "en")
+    
+    xx <- httr::GET(url = endpoint, headers)
+    httr::content(xx)
+}
+
 icd10_api <- function(token, endpoint = "https://id.who.int/icd/entity")
 {    
-    xx <- httr::GET(url = endpoint, httr::add_headers(
-                                              Authorization = paste0("Bearer ",token$access_token),
-                                              accept = "application/json",
-                                              `API-Version` = "v2",
-                                              `Accept-Language` = "en"))
     
-    print(xx)
+    res <- icd_api_request(token, endpoint)
+    print(res)
     stop()
     rr <- httr::content(xx, "parsed")
 
