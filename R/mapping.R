@@ -143,7 +143,7 @@ make_mapped_table_getter <- function(srv, source, table)
 ##'
 ##' @export
 ##' 
-mapped_server <- function(..., mapping = system.file("extdata", "mapping.yaml", package="icdb"))
+mapped_server <- function(..., mapping = system.file("extdata", "bnssg/mapping.yaml", package="icdb"))
 {
     ## Connect to the server
     srv <- server(..., interactive = FALSE)
