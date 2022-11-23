@@ -6,7 +6,7 @@
 \usage{
 mapped_server(
   ...,
-  mapping = system.file("extdata", "mapping.yaml", package = "icdb")
+  mapping = system.file("extdata", "bnssg/mapping.yaml", package = "icdb")
 )
 }
 \arguments{

@@ -167,52 +167,54 @@ mapped_table <- function(tbl, mapping)
 
 print_mapping <- function(mapping, level = 0)
 {
-    ## First print the top level summary information
-    cat(crayon::bold("\nSUMMARY\n"))
-    cat(stringr::str_wrap(mapping$docs),"\n")
+    ## Documentation will be handled in the map editor
+    
+    ## ## First print the top level summary information
+    ## cat(crayon::bold("\nSUMMARY\n"))
+    ## cat(stringr::str_wrap(mapping$docs),"\n")
 
-    ## Next, print information about the logical columns
-    cat(crayon::bold("\nMAPPED COLUMNS\n"))
-    for (logical_column_name in names(mapping$columns))
-    {
-        logical_column <- mapping$columns[[logical_column_name]]
+    ## ## Next, print information about the logical columns
+    ## cat(crayon::bold("\nMAPPED COLUMNS\n"))
+    ## for (logical_column_name in names(mapping$columns))
+    ## {
+    ##     logical_column <- mapping$columns[[logical_column_name]]
 
-        ## This is a quick hack just to restrict to only the
-        ## used columns. Really, the unused columns should not
-        ## even be here, but that can be part of the proper
-        ## documentation parsing step (which does not exist yet)
-        if (!is.null(logical_column$use) && !logical_column$use)
-        {
-            next
-        }
+    ##     ## This is a quick hack just to restrict to only the
+    ##     ## used columns. Really, the unused columns should not
+    ##     ## even be here, but that can be part of the proper
+    ##     ## documentation parsing step (which does not exist yet)
+    ##     if (!is.null(logical_column$use) && !logical_column$use)
+    ##     {
+    ##         next
+    ##     }
 
-        cat(crayon::blue(logical_column_name), "\n")
-        cat(stringr::str_wrap(crayon::bold(logical_column$docs)), "\n")
-        cat("Generated from:\n")
-        for (real_column_name in names(logical_column$source_columns))
-        {
-            cat(paste0(" - ", real_column_name, "\n"))
-        }
+    ##     cat(crayon::blue(logical_column_name), "\n")
+    ##     cat(stringr::str_wrap(crayon::bold(logical_column$docs)), "\n")
+    ##     cat("Generated from:\n")
+    ##     for (real_column_name in names(logical_column$source_columns))
+    ##     {
+    ##         cat(paste0(" - ", real_column_name, "\n"))
+    ##     }
 
-        cat("Reduce strategy: ")
-        for (strategy in logical_column$strategy)
-        {
-            cat(paste0(strategy, ", "))
-        }
-        cat("\n\n")
-    }
+    ##     cat("Reduce strategy: ")
+    ##     for (strategy in logical_column$strategy)
+    ##     {
+    ##         cat(paste0(strategy, ", "))
+    ##     }
+    ##     cat("\n\n")
+    ## }
         
 }
 
 
-##' @export
-print.mapped_table <- function(x,...)
-{
-    print_mapping(attr(x,"mapping"))
+## @export
+## print.mapped_table <- function(x,...)
+## {
+##     #print_mapping(attr(x,"mapping"))
 
-    cat(crayon::bold("MAPPED TABLE\n"))
-    NextMethod()
-}
+##     cat(crayon::bold("MAPPED TABLE\n"))
+##     NextMethod()
+## }
 
 ##' Read an included configuration file. The search path is the
 ##' current working directory first, followed by the extdata
