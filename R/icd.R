@@ -249,3 +249,14 @@ icd_api_fetch_all <- function(token, release = "2016")
         })
 
 }
+
+##' Combine icd10_.yaml files into a single file
+##'
+##' @title Combine ICD-10 chapter files
+##'
+##' @export
+icd_combine_files <- function()
+{
+    
+
+}
