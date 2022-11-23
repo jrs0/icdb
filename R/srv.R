@@ -407,8 +407,6 @@ server <- function(data_source_name = NULL,
 ##'
 get_tbl <- function(srv, source)
 {
-    print(source)
-
     if (!("table" %in% names(source)))
     {
         stop("You must specify at least 'table' in source (get_tbl)")
@@ -431,52 +429,6 @@ get_tbl <- function(srv, source)
     }
     
     dplyr::tbl(srv@con, id)
-    
-    ## ## Currently, this function just does a different thing for
-    ## ## each database type.
-    ## ## TODO: fix so that this function works with any database
-    ## ## type generically. This probably involves refactoring the
-    ## ## table fetching method.
-    ## dbclass <- class(srv@con)
-    ## if (grepl("sqlite", dbclass, ignore.case = TRUE))
-    ## {
-    ##     ## Only use the table for an SQLite server
-    ##     tbl <- dplyr::tbl(srv@con, table)
-    ## }
-    ## else if (grepl("sql server", dbclass, ignore.case = TRUE))
-    ## {
-    ##     query <- paste0("SELECT table_schema FROM ",
-    ##             database,
-    ##             ".INFORMATION_SCHEMA.TABLES WHERE table_name = '",
-    ##             table, "'")
-    ##     res <- srv@con %>% DBI::dbGetQuery(query)
-
-    ##     ## Pick the first schema in the list. This is potentially a bug
-    ##     ## TODO Come back and look at this
-    ##     if(length(res$table_schema) == 0)
-    ##     {
-    ##         stop("Could not find the table schema for table ", table,
-    ##              " in database ", database, ". Double check that the table exists.")
-    ##     }
-    ##     schema <- res$table_schema[[1]]
-
-    ##     ## Get the table
-    ##     tbl <- dplyr::tbl(srv@con, dbplyr::in_catalog(database,
-    ##                                                   schema,
-    ##                                                   table))
-    ## }
-    ## else if (grepl("MariaDBConnection", dbclass, ignore.case = TRUE))
-    ## {
-    ##   tbl <- dplyr::tbl(srv@con, dbplyr::in_schema(database, table))
-    ## }
-    ## else
-    ## {
-    ##     stop("Other databases not currently supported in get_tbl")
-    ## }
-
-
-    ## tbl
-
 }
 
 ##' Make a function that returns a table getter. The function which
