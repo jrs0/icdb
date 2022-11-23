@@ -13,4 +13,20 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-Write me...
+
+This page contains all the details for how ICDB is tested. 
+
+## Connection layer
+
+## Mapping layer
+
+## Dataset layer
+
+## ICD API access
+
+ICDB uses the [WHO ICD API](https://icd.who.int/icdapi) to generate configuration files for parsing diagnosis columns in the database. To check that this works, two functions are mocked:
+
+* The authentication function, which gets an access token for making API requests. 
+* The request function itself, which returns endpoint data
+
+The mock functions are made to return data using the same format as the API, and then the tests are written to ensure that this fictional response is processed correctly. 
