@@ -34,14 +34,13 @@ make_mapped_table_getter <- function(srv, source, table)
     {
         ## Get the name of the logical table and fetch the table
         tbl <- get_tbl(srv, source)
-        print(tbl)
+
         ## If the table is marked as raw, return the entire table
         ## unmodified
         if (!is.null(mapping$raw) && mapping$raw == TRUE)
         {
             return(tbl)
         }
-        
         ## The first step is to select the relevant real columns
         real_columns <- list()
         for (logical_column in columns)
@@ -68,8 +67,6 @@ make_mapped_table_getter <- function(srv, source, table)
                 next
             }
             
-            ## Loop over the constituent columns that make
-            ## up the logical column
             count <- 1
             for (old_name in logical_column$source)
             {
@@ -143,7 +140,7 @@ make_mapped_table_getter <- function(srv, source, table)
 ##'
 ##' @export
 ##' 
-mapped_server <- function(..., mapping = system.file("extdata", "mapping.yaml", package="icdb"))
+mapped_server <- function(..., mapping = system.file("extdata", "bnssg/mapping.yaml", package="icdb"))
 {
     ## Connect to the server
     srv <- server(..., interactive = FALSE)
@@ -166,55 +163,6 @@ new_mapped_table <- function(tbl, mapping)
 mapped_table <- function(tbl, mapping)
 {
     new_mapped_table(tbl, mapping)
-}
-
-print_mapping <- function(mapping, level = 0)
-{
-    ## First print the top level summary information
-    cat(crayon::bold("\nSUMMARY\n"))
-    cat(stringr::str_wrap(mapping$docs),"\n")
-
-    ## Next, print information about the logical columns
-    cat(crayon::bold("\nMAPPED COLUMNS\n"))
-    for (logical_column_name in names(mapping$columns))
-    {
-        logical_column <- mapping$columns[[logical_column_name]]
-
-        ## This is a quick hack just to restrict to only the
-        ## used columns. Really, the unused columns should not
-        ## even be here, but that can be part of the proper
-        ## documentation parsing step (which does not exist yet)
-        if (!is.null(logical_column$use) && !logical_column$use)
-        {
-            next
-        }
-
-        cat(crayon::blue(logical_column_name), "\n")
-        cat(stringr::str_wrap(crayon::bold(logical_column$docs)), "\n")
-        cat("Generated from:\n")
-        for (real_column_name in names(logical_column$source_columns))
-        {
-            cat(paste0(" - ", real_column_name, "\n"))
-        }
-
-        cat("Reduce strategy: ")
-        for (strategy in logical_column$strategy)
-        {
-            cat(paste0(strategy, ", "))
-        }
-        cat("\n\n")
-    }
-        
-}
-
-
-##' @export
-print.mapped_table <- function(x,...)
-{
-    print_mapping(attr(x,"mapping"))
-
-    cat(crayon::bold("MAPPED TABLE\n"))
-    NextMethod()
 }
 
 ##' Read an included configuration file. The search path is the
@@ -273,7 +221,7 @@ parse_mapping <- function(mapping, srv)
     {
         if ("include" %in% names(object))
         {
-            print("Parsing include")
+            message("Reading included file '", object$include, "'")
             
             ## If the current object is an include, then read the
             ## contents of the included file and put them in the current
@@ -298,7 +246,7 @@ parse_mapping <- function(mapping, srv)
         ## Check which of the three valid objects is being processed
         if ("database" %in% names(object))
         {
-            print("Parsing database")
+            message("Adding database '", object$database, "'")
 
             ## Check validity
             if("tables" %in% names(object))
@@ -314,7 +262,7 @@ parse_mapping <- function(mapping, srv)
         }
         else if ("table" %in% names(object))
         {
-            message("Parsing table ", object$table)
+            message("Adding table '", object$table, "'")
             
             ## Check validity
             if (!("columns" %in% names(object)) &&
