@@ -1498,7 +1498,10 @@
     strategy: coalesce
     use: no
 - table: swd_supplemental
-  source: WRITE_ME
+  source:
+    catalog: "MODELLING_SQL_AREA"
+    schema: "dbo"
+    table: "swd_supplemental"
   docs: WRITE ME
   columns:
   - column: cc_AIDS
@@ -1619,8 +1622,8 @@
   - column: nhs_number
     docs: Pseudo NHS number
     source: nhs_number
-    strategy: coalesce
-    use: no
+    strategy: coalesce_exclude_null
+    use: yes
   - column: hba1c_reading
     docs: Haemoglobin A1C level
     source: hba1c_reading
