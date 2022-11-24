@@ -713,8 +713,11 @@
     - DiagnosisSchemeInUse_CommissioningDataSet
     strategy: coalesce
   - column: primary_diagnosis_icd
-    docs: PRIMARY DIAGNOSIS (ICD) is the International Classification of Diseases
+    docs: "PRIMARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the PRIMARY DIAGNOSIS.
+
+      Note: compared to the episodes database, this field appears to have trailing whitespace
+      removed."
     use: yes
     source:
     - DiagnosisPrimary_ICD # This is the name in the database
