@@ -14,7 +14,7 @@ setClass(
     )
 )
 
-##' @title Print the mapped_server object 
+##' @title Print the mapped_server object
 ##' @param object mapped_server to print
 ##' @export
 setMethod("show", "mapped_server", function(object) {
@@ -26,7 +26,7 @@ make_mapped_table_getter <- function(srv, source, table)
     force(srv)
     force(source)
     columns <- table$columns
-    
+
     ## Create the table documentation
     mapping <- table
 
@@ -52,21 +52,21 @@ make_mapped_table_getter <- function(srv, source, table)
                 real_columns <- c(real_columns, logical_column$source)
             }
         }
-        tbl <- tbl %>% dplyr::select(all_of(unlist(real_columns)))
+        tbl <- tbl %>% dplyr::select(dplyr::all_of(unlist(real_columns)))
 
         ## Next, rename the columns according to names derived from the logical
         ## column name
         for (logical_column in columns)
         {
             logical_column_name <- logical_column$column
-            
+
             ## If the logical column is not marked with use: TRUE, then
             ## ignore this logical column
             if (!is.null(logical_column$use) && !logical_column$use)
             {
                 next
             }
-            
+
             count <- 1
             for (old_name in logical_column$source)
             {
@@ -75,7 +75,7 @@ make_mapped_table_getter <- function(srv, source, table)
                 count <- count + 1
             }
         }
-        
+
         ## Loop over all the logical columns, reducing by the specified
         ## strategies. The strategies are presented as a list -- the order
         ## in the yaml file specifies the order in which they are executed.
@@ -93,7 +93,7 @@ make_mapped_table_getter <- function(srv, source, table)
 
             ## Loop over the strategies, applying one-by-one
             for (strategy in strategies)
-            {    
+            {
                 ## If the item is not a list, then it is a simple function
                 ## which can be called to process the item
                 if (is.null(names(strategy)))
@@ -124,7 +124,7 @@ make_mapped_table_getter <- function(srv, source, table)
 ##' objects can store documentation about themselves, which provides an easy way to look
 ##' up what a column is or where it came from. The mapped_server uses an underlying server
 ##' object for the database connection.
-##' 
+##'
 ##' The structure of the database is defined by a .yaml file, which describes
 ##' how to obtain the fields from an underlying data source. See the package documentation
 ##' for how to structure this file.
@@ -139,7 +139,7 @@ make_mapped_table_getter <- function(srv, source, table)
 ##' @return A new MappedDB object
 ##'
 ##' @export
-##' 
+##'
 mapped_server <- function(..., mapping = system.file("extdata", "bnssg/mapping.yaml", package="icdb"))
 {
     ## Connect to the server
@@ -176,11 +176,11 @@ mapped_table <- function(tbl, mapping)
 ##' mechanism later, in which case it will be good to isolate it in
 ##' a few functions like this (the other one is currently get_codes,
 ##' which doesn't quite work like this and needs changing).
-##' 
+##'
 ##' @title Read an included config file.
 ##' @param include_file The path to the config file
 ##' @return The nested list for the data stored in the included file
-##' 
+##'
 read_include <- function(include_file)
 {
     if (fs::is_file(include_file))
@@ -222,25 +222,25 @@ parse_mapping <- function(mapping, srv)
         if ("include" %in% names(object))
         {
             message("Reading included file '", object$include, "'")
-            
+
             ## If the current object is an include, then read the
             ## contents of the included file and put them in the current
-            ## list level 
+            ## list level
             mapping <- c(mapping, read_include(object$include))
-        }     
+        }
     }
 
     ## Drop the include objects
     mapping <- mapping[
         !sapply(mapping, function(x) {"include" %in% names(x)})
     ]
-    
+
     ## The mapping argument is a list of object -- loop over them
     ## recursively processing the contents. The results will be
     ## put in this named list, which will be returned as a node
     ## type at the end
     result <- list()
-    
+
     for (object in mapping)
     {
         ## Check which of the three valid objects is being processed
@@ -258,12 +258,12 @@ parse_mapping <- function(mapping, srv)
             {
                 stop("Expected 'tables' key in database object ",
                      object$database)
-            }  
+            }
         }
         else if ("table" %in% names(object))
         {
             message("Adding table '", object$table, "'")
-            
+
             ## Check validity
             if (!("columns" %in% names(object)) &&
                !("raw" %in% names(object)))
@@ -278,10 +278,10 @@ parse_mapping <- function(mapping, srv)
                 stop("Expected required or 'source' key in table object ",
                      object$table)
             }
-            
+
             ## Record the source table name for the next execution environment
             source <- object$source
-            
+
             ## corresponding to this logical table
             result[[object$table]] <-
                 table_wrapper(make_mapped_table_getter(srv, source, object))
@@ -310,7 +310,7 @@ parse_mapping <- function(mapping, srv)
 ##     {
 ##         parse_mapping(read_include(mapping$include),
 ##                       srv, source_database, source_table)
-##     }    
+##     }
 ##     else if ("databases" %in% names(mapping))
 ##     {
 ##         ## When you get to a list of databases, parse each database in turn
@@ -339,7 +339,7 @@ parse_mapping <- function(mapping, srv)
 ##     else if ("columns" %in% names(mapping))
 ##     {
 ##         ## This is never used? This function needs an overhaul.
-        
+
 ##         ## If there is a columns field, then the current mapping is a table.
 ##         ## Record the source table name for the next execution environment
 ##         source_table <- mapping$source_table

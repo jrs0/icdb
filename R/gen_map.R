@@ -1,5 +1,5 @@
 ##'
-##' 
+##'
 NULL
 
 ##' Read the BNSSG system-wide dataset guide document into a mapping file.
@@ -8,18 +8,19 @@ NULL
 ##' containing a table of column names in the tables with documentation.
 ##' The table should have four columns: `Table Name`, `Column Name`,
 ##' `Data Type` and `Description`.
-##' 
+##'
 ##' @title Read SWD guide
 ##' @param spec The SWD guide document (.xlsx)
 ##' @param output The file path to write the output
-##' 
+##' @importFrom rlang .data
+##'
 gen_swd_map <- function(spec, output = filename)
 {
     sheet <- "Data Tables and Fields"
-    
-    ## Read the excel sheet into a variable 
+
+    ## Read the excel sheet into a variable
     xx <- readxl::read_xlsx(spec, sheet, skip = 3)
-    
+
     tables <- xx$`Table Name` %>%
         unique()
 
@@ -28,17 +29,17 @@ gen_swd_map <- function(spec, output = filename)
     {
         ## Get the source columns
         cc <- xx %>%
-            dplyr::filter(`Table Name` == tab) %>%
-            dplyr::select(`Column Name`, `Description`) %>%
+            dplyr::filter(.data$`Table Name` == tab) %>%
+            dplyr::select(.data$`Column Name`, .data$`Description`) %>%
             purrr::pmap(~ list(
                             column = .x,
                             docs = .y,
                             source = c(.x),
                             strategy = "coalesce",
                             use = TRUE
-                            
+
                         ))
-        
+
         tt <- c(tt, list(list(
                         table = tab,
                         source = "WRITE_ME",
@@ -67,18 +68,18 @@ gen_swd_map <- function(spec, output = filename)
 ##' In the generated output file, you will need to specify the
 ##' source database and tables names in order to map the file
 ##' to a particular database.
-##' 
+##'
 ##' @title Parse CDS technical output specification
 ##' @param tos The path to the technical output specification file
 ##' @param sheet The sheet name (corresponding to a database) to use
 ##' @param output The path to an output file for the generated mapping.yaml
 ##' This parameter is optional. If it is not specified, it will be
 ##' generated automatically based on the sheet name.
-##' 
+##' @importFrom rlang .data
 ##' @export
 gen_cds_map <- function(tos, sheet, output = filename)
 {
-    ## Read the excel sheet into a variable 
+    ## Read the excel sheet into a variable
     xx <- readxl::read_xlsx(tos, sheet)
 
     ## Extract only the rows that begin with a valid
@@ -88,21 +89,21 @@ gen_cds_map <- function(tos, sheet, output = filename)
     ## Drop all columns except the xml schema name
     ## and the documentation column
     xx <- xx %>%
-        dplyr::rename(source_column = ...3, docs = ...4) %>%
-        dplyr::select(source_column, docs)
+        dplyr::rename(source_column = .data$...3, docs = .data$...4) %>%
+        dplyr::select(.data$source_column, .data$docs)
 
     ## The next line removes the merged cells (the ones
     ## containing "-/-". The validity of this makes the
     ## assumption that the documentation is all contained
     ## in the same row as the identifier name, and not
     ## split over multiple rows downwards (to check).
-    xx <- xx %>% dplyr::filter(!grepl("-/-", source_column))
+    xx <- xx %>% dplyr::filter(!grepl("-/-", .data$source_column))
 
     ## Generate logical column names from the source
     ## column names
     xx <- xx %>%
-        dplyr::mutate(column = janitor::make_clean_names(source_column))
-    
+        dplyr::mutate(column = janitor::make_clean_names(.data$source_column))
+
     ## At this point, there is enough minimal information
     ## to create the mapping file. Create the columns
     ## structure in the right format for the mapping
@@ -120,7 +121,7 @@ gen_cds_map <- function(tos, sheet, output = filename)
     }
     cc <- xx %>% purrr::pmap(fn)
     ## names(cc) <- xx$column
-    
+
     ## Create the mapping file structure
     tabname <- janitor::make_clean_names(sheet)
     tables <- list(
@@ -131,7 +132,7 @@ gen_cds_map <- function(tos, sheet, output = filename)
             columns = cc
         )
     )
-    
+
     ## Write the output file
     filename <- paste0(tabname, ".yaml")
     yaml::write_yaml(tables, file = output)
