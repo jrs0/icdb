@@ -71,10 +71,27 @@ gen_icd_indices <- function(str, codes)
         
 }
 
+##' Convert a list of indices to a list of codes
+##'
+##' @title Convert indices lists to ICD-10 codes
+##' @param indices A list of indices (itself a list) 
+##' @param codes The codes definition structure
+##' @return 
+##' @author 
 icd10_get_code <- function(indices, codes)
 {
-    
-    
+    ## The structure of the codes file is
+    ## a nested list of lists. At each level,
+    ## there is a key called child, which holds
+    ## the next list down. Generate the arguments
+    ## for use with pluck, to descend through
+    ## the nested structure in one go
+    k <- c(1, indices) %>%
+        purrr::map(~ list(.x, "child")) %>%
+        purrr::flatten() 
+
+    codes %>% purrr::pluck(!!!k)
+
 }
 
 ##' Create a new icd10 (S3) object from a string
