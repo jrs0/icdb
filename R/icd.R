@@ -38,7 +38,8 @@ NULL
 ##' by the presence of a dash in the category.
 ##' 
 ##' @title Identify an ICD-10 code.
-##' @param str The code string (from the database) to search for
+##' @param str The code string (from the database) to
+##' search for (with dots removed)
 ##' @param codes The codes definition structure
 ##' @return A vector of indices identifying the code 
 ##' @author 
@@ -69,7 +70,12 @@ gen_icd_indices <- function(str, codes)
     }
         
 }
+
+icd10_get_code <- function(indices, codes)
+{
     
+    
+}
 
 ##' Create a new icd10 (S3) object from a string
 ##'
@@ -93,10 +99,9 @@ new_icd10 <- function(str = character(), codes = system.file("extdata", "icd10/i
     return(icd10_codes)
     stop()
 
-    ## strip whitespace from around the code
-    str <- trimws(str)
-
-    
+    ## strip whitespace from the code, and
+    ## remove any dots.
+    str <- str_replace_all(x, "[^[:alnum:]]", "")
     
     ## The icd10 class stores the meaning of a code
     ## with reference to a particular code definition
