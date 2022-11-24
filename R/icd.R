@@ -48,6 +48,13 @@ gen_icd_indices <- function(str, codes)
     ## contain a category key or a code key.
     indices <- integer()
 
+    ## Look through the index keys at the current level
+    codes[[1]]$child %>%
+        purrr::map("index") %>%
+        ## to obtain the first TRUE, which is
+        ## the category that str is contained in
+        purrr::detect_index(~ str <= .)
+        
 }
     
 
