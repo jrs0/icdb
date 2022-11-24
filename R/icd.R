@@ -27,11 +27,13 @@ icd10 <- function(str = character())
     new_icd10(str)
 }
 
-format.vctrs_percent <- function(x, ...) {
-  out <- formatC(signif(vec_data(x) * 100, 3))
-  out[is.na(x)] <- NA
-  out[!is.na(x)] <- paste0(out[!is.na(x)], "%")
-  out
+is_icd10 <- function(x) {
+  inherits(x, "icdb_icd10")
+}
+
+##' @export
+format.icdb_icd10 <- function(x, ...) {
+    paste0("FMT_",x)
 }
 
 ##' Convert a character vector to an icd10 vector
