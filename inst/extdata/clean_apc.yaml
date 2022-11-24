@@ -1,3 +1,5 @@
+## WARNING: This file is the old format, regenerate it before using it further
+## (used by the tests)
 - table: cds_130
   docs: "Admitted patient care (CDS 130) mapping"
   source:
