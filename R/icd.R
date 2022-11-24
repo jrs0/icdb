@@ -38,6 +38,9 @@ format.icdb_icd10 <- function(x, ...) {
 }
 
 
+##' For this to work, I needed to import the generic.
+##' This feels unnecessary -- find the proper way to
+##' set a method for a generic not in the class.
 ##' @export
 vec_ptype_abbr.icdb_icd10 <- function(x, ...) {
   "icd10"
