@@ -127,7 +127,7 @@
     - AIMTC_Pseudo_NHS
     - NHSnumber # This is what is in the database
     #- NHSNumber
-    strategy: coalesce
+    strategy: coalesce_exclude_null
   - column: nhs_number_status_indicator_code_2
     docs: NHS NUMBER STATUS INDICATOR CODE is the trace status of the NHS NUMBER.
     use: no
