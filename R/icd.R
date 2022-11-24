@@ -3,29 +3,87 @@
 ##'
 NULL
 
+
+##' Search the ICD-10 codes definition structure
+##' to find the indices that identify a particular
+##' ICD-10 code. 
+##' 
+##' @title Identify an ICD-10 code.
+##' @param str The code string (from the database) to search for
+##' @param codes The codes definition structure
+##' @return A vector of indices identifying the code 
+##' @author 
+gen_icd_indices <- function(str, codes)
+{
+    ## codes is a list of objects that either
+    ## contain a category key or a code key.
+    indices <- integer()
+    for (object in codes)
+    
+}
+
 ##' Create a new icd10 (S3) object from a string
 ##'
 ##' @title Make an ICD-10 object from a string
 ##' @param str The input string to parse
-##' @param mapping The ICD-10 mapping file to use
+##' @param codes The ICD-10 codes definition file to use
 ##' @return The new icd10 S3 object
 ##' 
-new_icd10 <- function(str = character(), mapping = system.file("extdata", "icd10/icd10.yaml", package = "icdb"))
+new_icd10 <- function(str = character(), codes = system.file("extdata", "icd10/icd10.yaml", package = "icdb"))
 {
-    ## Open 
-    
     vctrs::vec_assert(str, character())
 
+    ## Open the file. This is a long operation, but
+    ## provided this function is called in a vectorised
+    ## way (i.e. str is a vector), the file will only
+    ## be opened once. If it turns out to be a performace
+    ## problem, it can be fixed later. The top level is
+    ## a list with one item, and the main chapter level
+    ## starts in the child key.
+    icd10_codes <- yaml::read_yaml(codes)[[1]]$child
+    return(icd10_codes)
+    stop()
     ## strip whitespace from around the code
     str <- trimws(str)
 
+    ## An ICD10 string is a four-character
+    ## code like "C71.0". In the database, the
+    ## dot may be missing, there may be a trailing
+    ## dash (for filler codes, which should be X,
+    ## or any other high-level category code),
+    ## and there may be trailing matter (such as
+    ## dagger or asterisk codes).
+
+    ## In the chapter level of the configuration file,
+    
+    ## Even though all the information about a code
+    ## is present in the string, it is necessary to
+    ## search the codes file to find the location
+    ## of the code.
+    ##
+    ## Each level of the codes file has a category
+    ## or a codes key, with structure as follows:
+    ##
+    ## category -> category +  -> category -> code
+    ## (chapter)   (code_range)   (triple)    (ICD-10)
+    ## I           A00-A09        A00         A00.0
+    ##
+    ## The + after the code range indicates that
+    ## there may be an arbitrary number of code range
+    ## levels, involving increasingly nested levels
+    ## of the codes file. A code_range is identified
+    ## by the presence of a dash in the category.
+    
+    
     ## The icd10 class stores the meaning of a code
     ## with reference to a particular code definition
     ## file. This file is organised as a nested list
     ## of lists, meaning that a particular item in the
     ## file can be referenced by a vector of integers,
     ## which represent the indices at each level of the
-    ## hierarchy.
+    ## hierarchy. These indices can then be used to
+    ## quickly obtain the information about the code
+    ## from the file. 
     
     ## The object is a named list
     data <- list(
