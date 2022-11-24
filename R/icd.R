@@ -46,14 +46,27 @@ gen_icd_indices <- function(str, codes)
 {
     ## codes is a list of objects that either
     ## contain a category key or a code key.
-    indices <- integer()
 
     ## Look through the index keys at the current level
-    codes[[1]]$child %>%
+    ## and find the position of the code
+    position <- codes %>%
         purrr::map("index") %>%
         ## to obtain the first TRUE, which is
         ## the category that str is contained in
         purrr::detect_index(~ str <= .)
+    
+    if (!is.null(codes[[position]]$category))
+    {
+        ## If the next level has a category key,
+        ## then search that category
+        c(position, gen_icd_indices(str, codes[[position]]$child))
+    }
+    else
+    {
+        ## Else, the next level is a code level.
+        ## In this case, return the current position
+        c(position)
+    }
         
 }
     
