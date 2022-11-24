@@ -454,9 +454,11 @@ icd_add_indices <- function(codes)
         {
             ## Process the child objects
             object$child <- icd_add_indices(object$child)
-            
-            ## Object is a chapter or a category
-            if (grepl("-", object$category))
+
+            ## Check if there are numerical digits in the
+            ## category. If there are, then the category is
+            ## is a chapter. 
+            if (grepl("[0-9]", object$category))
             {
                 ## Object is a category. Split on
                 ## the hyphen to obtain the start
@@ -465,22 +467,19 @@ icd_add_indices <- function(codes)
                 ## expression. object$category is just
                 ## a string, but it is treating it like
                 ## a list/vector.
-                object$index <-
-                    stringr::str_split(object$category, "-") %>%
+                object$index <- object$category %>%
+                    stringr::str_split("-") %>%
                     unlist() %>%
-                    head(1)
-                
+                    head(1)   
             }
             else
             {
                 ## Object is a chapter. Use the code in the
                 ## first subcategory as the index
-                first_subcat <- object$child[[1]]$category
-                
-                object$index <-
-                    stringr::str_split(first_subcat, "-") %>%
+                object$index <- object$child[[1]]$category %>%
+                    stringr::str_split("-") %>%
                     unlist() %>%
-                    head(1)                
+                    head(1)          
             }
         }
         else if (!is.null(object$code))
