@@ -127,7 +127,7 @@
     - AIMTC_Pseudo_NHS
     - NHSnumber # This is what is in the database
     #- NHSNumber
-    strategy: coalesce
+    strategy: coalesce_exclude_null
   - column: nhs_number_status_indicator_code_2
     docs: NHS NUMBER STATUS INDICATOR CODE is the trace status of the NHS NUMBER.
     use: no
@@ -1868,3 +1868,22 @@
     source:
     - LatestClinicallyAppropriateDate
     strategy: coalesce
+
+  ## The columns below have been added manually
+  - column: "episode_start"
+    docs: "A datetime field that is the time when the episode began."
+    source:
+    - "StartDate_ConsultantEpisode"
+    - "StartDate1"
+    - "StartTime_Episode"
+    strategy: "coalesce"
+    use: yes
+  - column: "episode_end"
+    docs: "A datetime field that is the time when the episode finished."
+    source:
+    - "EndDate_ConsultantEpisode"
+    - "EndDate1"
+    - "EndTime_Episode"
+    strategy: "coalesce"
+    use: yes
+
