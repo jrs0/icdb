@@ -1,4 +1,5 @@
 ##'
+##' @importFrom vctrs vec_ptype_abbr
 ##'
 NULL
 
@@ -34,6 +35,12 @@ is_icd10 <- function(x) {
 ##' @export
 format.icdb_icd10 <- function(x, ...) {
     paste0("FMT_",x)
+}
+
+
+##' @export
+vec_ptype_abbr.icdb_icd10 <- function(x, ...) {
+  "icd10"
 }
 
 ##' Convert a character vector to an icd10 vector
