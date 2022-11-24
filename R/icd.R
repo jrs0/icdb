@@ -47,21 +47,9 @@ gen_icd_indices <- function(str, codes)
     ## codes is a list of objects that either
     ## contain a category key or a code key.
     indices <- integer()
-    for (object in codes)
-    {
-        if (!is.null(object$category))
-        {
-            ## Object 
-        }
-        else if (!is.null(object$category))
-        {
-        }
-        else
-        {
-            stop("Expected category or codes key in codes definition object")
-        }
-    }
+
 }
+    
 
 ##' Create a new icd10 (S3) object from a string
 ##'
@@ -84,6 +72,7 @@ new_icd10 <- function(str = character(), codes = system.file("extdata", "icd10/i
     icd10_codes <- yaml::read_yaml(codes)[[1]]$child
     return(icd10_codes)
     stop()
+
     ## strip whitespace from around the code
     str <- trimws(str)
 
@@ -426,10 +415,10 @@ icd_combine_files <- function()
 ##' function adds an index key to the structure passed as
 ##' the argument.
 ##'
-##' The index key is a list of two items -- a range start
-##' and a range end (this could be optimised to one
-##' for cases that only contain a code, but this is not
-##' worth it for now).
+##' The index key represents the first allowable code in
+##' the category. This function replaces the code key in
+##' the leaf nodes with an index, which contains the code
+##' at that level.
 ##'
 ##' @title Index a codes definition structure
 ##' @return The codes structure with indices (a nested list)
@@ -477,6 +466,9 @@ icd_add_indices <- function(codes)
         else if (!is.null(object$code))
         {
             object$index <- object$code
+
+            ## Remove the code object
+            object$code <- NULL
         }
         else
         {
