@@ -53,7 +53,7 @@ gen_icd_indices <- function(str, codes)
         purrr::map("index") %>%
         ## to obtain the first TRUE, which is
         ## the category that str is contained in
-        purrr::detect_index(~ str <= .)
+        purrr::detect_index(~ str >= ., .dir = "backward")
     
     if (!is.null(codes[[position]]$category))
     {
