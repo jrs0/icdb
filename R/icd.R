@@ -2,6 +2,34 @@
 ##'
 NULL
 
+##' Create a new icd10 (S3) object from a string
+##'
+##' @title Make an ICD-10 object from a string
+##' @param str The input string to parse
+##' @param mapping The ICD-10 mapping file to use
+##' @return The new icd10 S3 object
+##' 
+new_icd10 <- function(str, mapping = system.file("extdata", "icd10/icd10.yaml", package = "icdb"))
+{
+    ## The object is a named list
+    data <- list(
+        code = str
+    )
+    
+    structure(data, class = "icd10")
+}
+
+##' Convert a character vector to an icd10 vector
+##'
+##' @title Convert character to icd10
+##' @param vec The input character vector to parse 
+##' @return The icd10 vector (same length as input)
+##'
+to_icd10 <- function(vec)
+{
+    vec %>% purrr::map(~ new_icd10(.))
+}
+
 ##' Parse an ICD-10 codes file from the NHS Digital (TRUD) from the
 ##' "NHS ICD-10 5th Edition data files" item. The function converts the
 ##' codes to a codes definition file suitable for use in a mapped
@@ -10,6 +38,7 @@ NULL
 ##' @title Parse ICD-10 codes 
 ##' @param path The input file path (tab separated)
 ##' @param output The filename of the output definition file
+##' 
 parse_icd10 <- function(path, output = "icd10.yaml")
 {
     ## Read the file, and split the code based on the .
