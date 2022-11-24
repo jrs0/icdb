@@ -217,9 +217,7 @@
         - code: A09.9
           docs: Gastroenteritis and colitis of unspecified origin
           index: A09.9
-      index:
-      - - A00
-        - A09
+      index: A00
     - category: A15-A19
       docs: Tuberculosis
       child:
@@ -362,9 +360,7 @@
         - code: A19.9
           docs: Miliary tuberculosis, unspecified
           index: A19.9
-      index:
-      - - A15
-        - A19
+      index: A15
     - category: A20-A28
       docs: Certain zoonotic bacterial diseases
       child:
@@ -533,9 +529,7 @@
         - code: A28.9
           docs: Zoonotic bacterial disease, unspecified
           index: A28.9
-      index:
-      - - A20
-        - A28
+      index: A20
     - category: A30-A49
       docs: Other bacterial diseases
       child:
@@ -818,9 +812,7 @@
         - code: A49.9
           docs: Bacterial infection, unspecified
           index: A49.9
-      index:
-      - - A30
-        - A49
+      index: A30
     - category: A50-A64
       docs: Infections with a predominantly sexual mode of transmission
       child:
@@ -1009,9 +1001,7 @@
       - code: A64
         docs: Unspecified sexually transmitted disease
         index: A64
-      index:
-      - - A50
-        - A64
+      index: A50
     - category: A65-A69
       docs: Other spirochaetal diseases
       child:
@@ -1099,9 +1089,7 @@
         - code: A69.9
           docs: Spirochaetal infection, unspecified
           index: A69.9
-      index:
-      - - A65
-        - A69
+      index: A65
     - category: A70-A74
       docs: Other diseases caused by chlamydiae
       child:
@@ -1132,9 +1120,7 @@
         - code: A74.9
           docs: Chlamydial infection, unspecified
           index: A74.9
-      index:
-      - - A70
-        - A74
+      index: A70
     - category: A75-A79
       docs: Rickettsioses
       child:
@@ -1195,9 +1181,7 @@
         - code: A79.9
           docs: Rickettsiosis, unspecified
           index: A79.9
-      index:
-      - - A75
-        - A79
+      index: A75
     - category: A80-A89
       docs: Viral infections of the central nervous system
       child:
@@ -1348,9 +1332,7 @@
       - code: A89
         docs: Unspecified viral infection of central nervous system
         index: A89
-      index:
-      - - A80
-        - A89
+      index: A80
     - category: A92-A99
       docs: Arthropod-borne viral fevers and viral haemorrhagic fevers
       child:
@@ -1468,9 +1450,7 @@
       - code: A99
         docs: Unspecified viral haemorrhagic fever
         index: A99
-      index:
-      - - A92
-        - A99
+      index: A92
     - category: B00-B09
       docs: Viral infections characterized by skin and mucous membrane lesions
       child:
@@ -1621,9 +1601,7 @@
         docs: Unspecified viral infection characterized by skin and mucous membrane
           lesions
         index: B09
-      index:
-      - - B00
-        - B09
+      index: B00
     - category: B15-B19
       docs: Viral hepatitis
       child:
@@ -1696,9 +1674,7 @@
         - code: B19.9
           docs: Unspecified viral hepatitis without hepatic coma
           index: B19.9
-      index:
-      - - B15
-        - B19
+      index: B15
     - category: B20-B24
       docs: Human immunodeficiency virus [HIV] disease
       child:
@@ -1796,9 +1772,7 @@
       - code: B24
         docs: Unspecified human immunodeficiency virus [HIV] disease
         index: B24
-      index:
-      - - B20
-        - B24
+      index: B20
     - category: B25-B34
       docs: Other viral diseases
       child:
@@ -1922,9 +1896,7 @@
         - code: B34.9
           docs: Viral infection, unspecified
           index: B34.9
-      index:
-      - - B25
-        - B34
+      index: B25
     - category: B35-B49
       docs: Mycoses
       child:
@@ -2249,9 +2221,7 @@
       - code: B49
         docs: Unspecified mycosis
         index: B49
-      index:
-      - - B35
-        - B49
+      index: B35
     - category: B50-B64
       docs: Protozoal diseases
       child:
@@ -2396,9 +2366,7 @@
       - code: B64
         docs: Unspecified protozoal disease
         index: B64
-      index:
-      - - B50
-        - B64
+      index: B50
     - category: B65-B83
       docs: Helminthiases
       child:
@@ -2669,9 +2637,7 @@
         - code: B83.9
           docs: Helminthiasis, unspecified
           index: B83.9
-      index:
-      - - B65
-        - B83
+      index: B65
     - category: B85-B89
       docs: Pediculosis, acariasis and other infestations
       child:
@@ -2744,9 +2710,7 @@
       - code: B89
         docs: Unspecified parasitic disease
         index: B89
-      index:
-      - - B85
-        - B89
+      index: B85
     - category: B90-B94
       docs: Sequelae of infectious and parasitic diseases
       child:
@@ -2792,9 +2756,7 @@
         - code: B94.9
           docs: Sequelae of unspecified infectious or parasitic disease
           index: B94.9
-      index:
-      - - B90
-        - B94
+      index: B90
     - category: B95-B98
       docs: Bacterial, viral and other infectious agents
       child:
@@ -2919,18 +2881,15 @@
         - code: B98.1
           docs: Vibrio vulnificus as the cause of diseases classified to other chapters
           index: B98.1
-      index:
-      - - B95
-        - B98
+      index: B95
     - category: B99-B99
       docs: Other infectious diseases
       child:
       - code: B99
         docs: Other and unspecified infectious diseases
         index: B99
-      index:
-      - - B99
-        - B99
+      index: B99
+    index: A00
   - category: II
     docs: Neoplasms
     child:
@@ -3178,9 +3137,7 @@
               docs: 'Malignant neoplasm: Overlapping lesion of lip, oral cavity and
                 pharynx'
               index: C14.8
-          index:
-          - - C00
-            - C14
+          index: C00
         - category: C15-C26
           docs: Malignant neoplasms of digestive organs
           child:
@@ -3401,9 +3358,7 @@
             - code: C26.9
               docs: 'Malignant neoplasm: Ill-defined sites within the digestive system'
               index: C26.9
-          index:
-          - - C15
-            - C26
+          index: C15
         - category: C30-C39
           docs: Malignant neoplasms of respiratory and intrathoracic organs
           child:
@@ -3522,9 +3477,7 @@
               docs: 'Malignant neoplasm: Ill-defined sites within the respiratory
                 system'
               index: C39.9
-          index:
-          - - C30
-            - C39
+          index: C30
         - category: C40-C41
           docs: Malignant neoplasms of bone and articular cartilage
           child:
@@ -3576,9 +3529,7 @@
             - code: C41.9
               docs: 'Malignant neoplasm: Bone and articular cartilage, unspecified'
               index: C41.9
-          index:
-          - - C40
-            - C41
+          index: C40
         - category: C43-C44
           docs: Melanoma and other malignant neoplasms of skin
           child:
@@ -3652,9 +3603,7 @@
             - code: C44.9
               docs: 'Malignant neoplasm: Malignant neoplasm of skin, unspecified'
               index: C44.9
-          index:
-          - - C43
-            - C44
+          index: C43
         - category: C45-C49
           docs: Malignant neoplasms of mesothelial and soft tissue
           child:
@@ -3784,9 +3733,7 @@
             - code: C49.9
               docs: 'Malignant neoplasm: Connective and soft tissue, unspecified'
               index: C49.9
-          index:
-          - - C45
-            - C49
+          index: C45
         - category: C50-C50
           docs: Malignant neoplasm of breast
           child:
@@ -3820,9 +3767,7 @@
             - code: C50.9
               docs: 'Malignant neoplasm: Breast, unspecified'
               index: C50.9
-          index:
-          - - C50
-            - C50
+          index: C50
         - category: C51-C58
           docs: Malignant neoplasms of female genital organs
           child:
@@ -3919,9 +3864,7 @@
           - code: C58
             docs: Malignant neoplasm of placenta
             index: C58
-          index:
-          - - C51
-            - C58
+          index: C51
         - category: C60-C63
           docs: Malignant neoplasms of male genital organs
           child:
@@ -3979,9 +3922,7 @@
             - code: C63.9
               docs: 'Malignant neoplasm: Male genital organ, unspecified'
               index: C63.9
-          index:
-          - - C60
-            - C63
+          index: C60
         - category: C64-C68
           docs: Malignant neoplasms of urinary tract
           child:
@@ -4042,9 +3983,7 @@
             - code: C68.9
               docs: 'Malignant neoplasm: Urinary organ, unspecified'
               index: C68.9
-          index:
-          - - C64
-            - C68
+          index: C64
         - category: C69-C72
           docs: Malignant neoplasms of eye, brain and other parts of central nervous
             system
@@ -4153,9 +4092,7 @@
             - code: C72.9
               docs: 'Malignant neoplasm: Central nervous system, unspecified'
               index: C72.9
-          index:
-          - - C69
-            - C72
+          index: C69
         - category: C73-C75
           docs: Malignant neoplasms of thyroid and other endocrine glands
           child:
@@ -4201,12 +4138,8 @@
             - code: C75.9
               docs: 'Malignant neoplasm: Endocrine gland, unspecified'
               index: C75.9
-          index:
-          - - C73
-            - C75
-        index:
-        - - C00
-          - C75
+          index: C73
+        index: C00
       - category: C76-C80
         docs: Malignant neoplasms of ill-defined, secondary and unspecified sites
         child:
@@ -4350,9 +4283,7 @@
           - code: C80.9
             docs: Malignant neoplasm, primary site unspecified
             index: C80.9
-        index:
-        - - C76
-          - C80
+        index: C76
       - category: C81-C96
         docs: Malignant neoplasms, stated or presumed to be primary, of lymphoid,
           haematopoietic and related tissue
@@ -4686,21 +4617,15 @@
             docs: Malignant neoplasm of lymphoid, haematopoietic and related tissue,
               unspecified
             index: C96.9
-        index:
-        - - C81
-          - C96
+        index: C81
       - category: C97-C97
         docs: Malignant neoplasms of independent (primary) multiple sites
         child:
         - code: C97
           docs: Malignant neoplasms of independent (primary) multiple sites
           index: C97
-        index:
-        - - C97
-          - C97
-      index:
-      - - C00
-        - C97
+        index: C97
+      index: C00
     - category: D00-D09
       docs: In situ neoplasms
       child:
@@ -4902,9 +4827,7 @@
         - code: D09.9
           docs: Carcinoma in situ, unspecified
           index: D09.9
-      index:
-      - - D00
-        - D09
+      index: D00
     - category: D10-D36
       docs: Benign neoplasms
       child:
@@ -5453,9 +5376,7 @@
         - code: D36.9
           docs: 'Benign neoplasm: Benign neoplasm of unspecified site'
           index: D36.9
-      index:
-      - - D10
-        - D36
+      index: D10
     - category: D37-D48
       docs: Neoplasms of uncertain or unknown behaviour
       child:
@@ -5744,9 +5665,8 @@
           docs: 'Neoplasm of uncertain or unknown behaviour: Neoplasm of uncertain
             or unknown behaviour, unspecified'
           index: D48.9
-      index:
-      - - D37
-        - D48
+      index: D37
+    index: C00
   - category: III
     docs: Diseases of the blood and blood-forming organs and certain disorders involving
       the immune mechanism
@@ -5824,9 +5744,7 @@
         - code: D53.9
           docs: Nutritional anaemia, unspecified
           index: D53.9
-      index:
-      - - D50
-        - D53
+      index: D50
     - category: D55-D59
       docs: Haemolytic anaemias
       child:
@@ -5941,9 +5859,7 @@
         - code: D59.9
           docs: Acquired haemolytic anaemia, unspecified
           index: D59.9
-      index:
-      - - D55
-        - D59
+      index: D55
     - category: D60-D64
       docs: Aplastic and other anaemias
       child:
@@ -6019,9 +5935,7 @@
         - code: D64.9
           docs: Anaemia, unspecified
           index: D64.9
-      index:
-      - - D60
-        - D64
+      index: D60
     - category: D65-D69
       docs: Coagulation defects, purpura and other haemorrhagic conditions
       child:
@@ -6094,9 +6008,7 @@
         - code: D69.9
           docs: Haemorrhagic condition, unspecified
           index: D69.9
-      index:
-      - - D65
-        - D69
+      index: D65
     - category: D70-D77
       docs: Other diseases of blood and blood-forming organs
       child:
@@ -6192,9 +6104,7 @@
         docs: Other disorders of blood and blood-forming organs in diseases classified
           elsewhere
         index: D77
-      index:
-      - - D70
-        - D77
+      index: D70
     - category: D80-D89
       docs: Certain disorders involving the immune mechanism
       child:
@@ -6368,9 +6278,8 @@
         - code: D89.9
           docs: Disorder involving the immune mechanism, unspecified
           index: D89.9
-      index:
-      - - D80
-        - D89
+      index: D80
+    index: D50
   - category: IV
     docs: Endocrine, nutritional and metabolic diseases
     child:
@@ -6521,9 +6430,7 @@
         - code: E07.9
           docs: Disorder of thyroid, unspecified
           index: E07.9
-      index:
-      - - E00
-        - E07
+      index: E00
     - category: E10-E14
       docs: Diabetes mellitus
       child:
@@ -6693,9 +6600,7 @@
         - code: E14.9
           docs: Unspecified diabetes mellitus without complications
           index: E14.9
-      index:
-      - - E10
-        - E14
+      index: E10
     - category: E15-E16
       docs: Other disorders of glucose regulation and pancreatic internal secretion
       child:
@@ -6726,9 +6631,7 @@
         - code: E16.9
           docs: Disorder of pancreatic internal secretion, unspecified
           index: E16.9
-      index:
-      - - E15
-        - E16
+      index: E15
     - category: E20-E35
       docs: Disorders of other endocrine glands
       child:
@@ -7005,9 +6908,7 @@
         - code: E35.8
           docs: Disorders of other endocrine glands in diseases classified elsewhere
           index: E35.8
-      index:
-      - - E20
-        - E35
+      index: E20
     - category: E40-E46
       docs: Malnutrition
       child:
@@ -7038,9 +6939,7 @@
       - code: E46
         docs: Unspecified protein-energy malnutrition
         index: E46
-      index:
-      - - E40
-        - E46
+      index: E40
     - category: E50-E64
       docs: Other nutritional deficiencies
       child:
@@ -7215,9 +7114,7 @@
         - code: E64.9
           docs: Sequelae of unspecified nutritional deficiency
           index: E64.9
-      index:
-      - - E50
-        - E64
+      index: E50
     - category: E65-E68
       docs: Obesity and other hyperalimentation
       child:
@@ -7263,9 +7160,7 @@
       - code: E68
         docs: Sequelae of hyperalimentation
         index: E68
-      index:
-      - - E65
-        - E68
+      index: E65
     - category: E70-E90
       docs: Metabolic disorders
       child:
@@ -7657,9 +7552,8 @@
       - code: E90
         docs: Nutritional and metabolic disorders in diseases classified elsewhere
         index: E90
-      index:
-      - - E70
-        - E90
+      index: E70
+    index: E00
   - category: IX
     docs: Diseases of the circulatory system
     child:
@@ -7696,9 +7590,7 @@
         - code: I02.9
           docs: Rheumatic chorea without heart involvement
           index: I02.9
-      index:
-      - - I00
-        - I02
+      index: I00
     - category: I05-I09
       docs: Chronic rheumatic heart diseases
       child:
@@ -7795,9 +7687,7 @@
         - code: I09.9
           docs: Rheumatic heart disease, unspecified
           index: I09.9
-      index:
-      - - I05
-        - I09
+      index: I05
     - category: I10-I15
       docs: Hypertensive diseases
       child:
@@ -7856,9 +7746,7 @@
         - code: I15.9
           docs: Secondary hypertension, unspecified
           index: I15.9
-      index:
-      - - I10
-        - I15
+      index: I10
     - category: I20-I25
       docs: Ischaemic heart diseases
       child:
@@ -7992,9 +7880,7 @@
         - code: I25.9
           docs: Chronic ischaemic heart disease, unspecified
           index: I25.9
-      index:
-      - - I20
-        - I25
+      index: I20
     - category: I26-I28
       docs: Pulmonary heart disease and diseases of pulmonary circulation
       child:
@@ -8040,9 +7926,7 @@
         - code: I28.9
           docs: Disease of pulmonary vessels, unspecified
           index: I28.9
-      index:
-      - - I26
-        - I28
+      index: I26
     - category: I30-I52
       docs: Other forms of heart disease
       child:
@@ -8469,9 +8353,7 @@
         - code: I52.8
           docs: Other heart disorders in other diseases classified elsewhere
           index: I52.8
-      index:
-      - - I30
-        - I52
+      index: I30
     - category: I60-I69
       docs: Cerebrovascular diseases
       child:
@@ -8702,9 +8584,7 @@
         - code: I69.8
           docs: Sequelae of other and unspecified cerebrovascular diseases
           index: I69.8
-      index:
-      - - I60
-        - I69
+      index: I60
     - category: I70-I79
       docs: Diseases of arteries, arterioles and capillaries
       child:
@@ -8890,9 +8770,7 @@
           docs: Other disorders of arteries, arterioles and capillaries in diseases
             classified elsewhere
           index: I79.8
-      index:
-      - - I70
-        - I79
+      index: I70
     - category: I80-I89
       docs: Diseases of veins, lymphatic vessels and lymph nodes, not elsewhere classified
       child:
@@ -9035,9 +8913,7 @@
         - code: I89.9
           docs: Noninfective disorder of lymphatic vessels and lymph nodes, unspecified
           index: I89.9
-      index:
-      - - I80
-        - I89
+      index: I80
     - category: I95-I99
       docs: Other and unspecified disorders of the circulatory system
       child:
@@ -9101,9 +8977,8 @@
       - code: I99
         docs: Other and unspecified disorders of circulatory system
         index: I99
-      index:
-      - - I95
-        - I99
+      index: I95
+    index: I00
   - category: V
     docs: Mental and behavioural disorders
     child:
@@ -9249,9 +9124,7 @@
       - code: F09
         docs: Unspecified organic or symptomatic mental disorder
         index: F09
-      index:
-      - - F00
-        - F09
+      index: F00
     - category: F10-F19
       docs: Mental and behavioural disorders due to psychoactive substance use
       child:
@@ -9684,9 +9557,7 @@
             of other psychoactive substances : unspecified mental and behavioural
             disorder'
           index: F19.9
-      index:
-      - - F10
-        - F19
+      index: F10
     - category: F20-F29
       docs: Schizophrenia, schizotypal and delusional disorders
       child:
@@ -9783,9 +9654,7 @@
       - code: F29
         docs: Unspecified nonorganic psychosis
         index: F29
-      index:
-      - - F20
-        - F29
+      index: F20
     - category: F30-F39
       docs: Mood [affective] disorders
       child:
@@ -9920,9 +9789,7 @@
       - code: F39
         docs: Unspecified mood [affective] disorder
         index: F39
-      index:
-      - - F30
-        - F39
+      index: F30
     - category: F40-F48
       docs: Neurotic, stress-related and somatoform disorders
       child:
@@ -10073,9 +9940,7 @@
         - code: F48.9
           docs: Neurotic disorder, unspecified
           index: F48.9
-      index:
-      - - F40
-        - F48
+      index: F40
     - category: F50-F59
       docs: Behavioural syndromes associated with physiological disturbances and physical
         factors
@@ -10198,9 +10063,7 @@
         docs: Unspecified behavioural syndromes associated with physiological disturbances
           and physical factors
         index: F59
-      index:
-      - - F50
-        - F59
+      index: F50
     - category: F60-F69
       docs: Disorders of adult personality and behaviour
       child:
@@ -10359,9 +10222,7 @@
       - code: F69
         docs: Unspecified disorder of adult personality and behaviour
         index: F69
-      index:
-      - - F60
-        - F69
+      index: F60
     - category: F70-F79
       docs: Mental retardation
       child:
@@ -10467,9 +10328,7 @@
         - code: F79.9
           docs: Unspecified mental retardation without mention of impairment of behaviour
           index: F79.9
-      index:
-      - - F70
-        - F79
+      index: F70
     - category: F80-F89
       docs: Disorders of psychological development
       child:
@@ -10555,9 +10414,7 @@
       - code: F89
         docs: Unspecified disorder of psychological development
         index: F89
-      index:
-      - - F80
-        - F89
+      index: F80
     - category: F90-F98
       docs: Behavioural and emotional disorders with onset usually occurring in childhood
         and adolescence
@@ -10701,18 +10558,15 @@
           docs: Unspecified behavioural and emotional disorders with onset usually
             occurring in childhood and adolescence
           index: F98.9
-      index:
-      - - F90
-        - F98
+      index: F90
     - category: F99-F99
       docs: Unspecified mental disorder
       child:
       - code: F99
         docs: Mental disorder, not otherwise specified
         index: F99
-      index:
-      - - F99
-        - F99
+      index: F99
+    index: F00
   - category: VI
     docs: Diseases of the nervous system
     child:
@@ -10834,9 +10688,7 @@
       - code: G09
         docs: Sequelae of inflammatory diseases of central nervous system
         index: G09
-      index:
-      - - G00
-        - G09
+      index: G00
     - category: G10-G14
       docs: Systemic atrophies primarily affecting the central nervous system
       child:
@@ -10906,9 +10758,7 @@
       - code: G14
         docs: Postpolio syndrome
         index: G14
-      index:
-      - - G10
-        - G14
+      index: G10
     - category: G20-G26
       docs: Extrapyramidal and movement disorders
       child:
@@ -11023,9 +10873,7 @@
       - code: G26
         docs: Extrapyramidal and movement disorders in diseases classified elsewhere
         index: G26
-      index:
-      - - G20
-        - G26
+      index: G20
     - category: G30-G32
       docs: Other degenerative diseases of the nervous system
       child:
@@ -11074,9 +10922,7 @@
           docs: Other specified degenerative disorders of nervous system in diseases
             classified elsewhere
           index: G32.8
-      index:
-      - - G30
-        - G32
+      index: G30
     - category: G35-G37
       docs: Demyelinating diseases of the central nervous system
       child:
@@ -11126,9 +10972,7 @@
         - code: G37.9
           docs: Demyelinating disease of central nervous system, unspecified
           index: G37.9
-      index:
-      - - G35
-        - G37
+      index: G35
     - category: G40-G47
       docs: Episodic and paroxysmal disorders
       child:
@@ -11306,9 +11150,7 @@
         - code: G47.9
           docs: Sleep disorder, unspecified
           index: G47.9
-      index:
-      - - G40
-        - G47
+      index: G40
     - category: G50-G59
       docs: Nerve, nerve root and plexus disorders
       child:
@@ -11523,9 +11365,7 @@
         - code: G59.8
           docs: Other mononeuropathies in diseases classified elsewhere
           index: G59.8
-      index:
-      - - G50
-        - G59
+      index: G50
     - category: G60-G64
       docs: Polyneuropathies and other disorders of the peripheral nervous system
       child:
@@ -11613,9 +11453,7 @@
       - code: G64
         docs: Other disorders of peripheral nervous system
         index: G64
-      index:
-      - - G60
-        - G64
+      index: G60
     - category: G70-G73
       docs: Diseases of myoneural junction and muscle
       child:
@@ -11709,9 +11547,7 @@
         - code: G73.7
           docs: Myopathy in other diseases classified elsewhere
           index: G73.7
-      index:
-      - - G70
-        - G73
+      index: G70
     - category: G80-G83
       docs: Cerebral palsy and other paralytic syndromes
       child:
@@ -11799,9 +11635,7 @@
         - code: G83.9
           docs: Paralytic syndrome, unspecified
           index: G83.9
-      index:
-      - - G80
-        - G83
+      index: G80
     - category: G90-G99
       docs: Other disorders of the nervous system
       child:
@@ -11969,9 +11803,8 @@
           docs: Other specified disorders of nervous system in diseases classified
             elsewhere
           index: G99.8
-      index:
-      - - G90
-        - G99
+      index: G90
+    index: G00
   - category: VII
     docs: Diseases of the eye and adnexa
     child:
@@ -12119,9 +11952,7 @@
         - code: H06.3
           docs: Other disorders of orbit in diseases classified elsewhere
           index: H06.3
-      index:
-      - - H00
-        - H06
+      index: H00
     - category: H10-H13
       docs: Disorders of conjunctiva
       child:
@@ -12194,9 +12025,7 @@
         - code: H13.8
           docs: Other disorders of conjunctiva in diseases classified elsewhere
           index: H13.8
-      index:
-      - - H10
-        - H13
+      index: H10
     - category: H15-H22
       docs: Disorders of sclera, cornea, iris and ciliary body
       child:
@@ -12363,9 +12192,7 @@
         - code: H22.8
           docs: Other disorders of iris and ciliary body in diseases classified elsewhere
           index: H22.8
-      index:
-      - - H15
-        - H22
+      index: H15
     - category: H25-H28
       docs: Disorders of lens
       child:
@@ -12441,9 +12268,7 @@
         - code: H28.8
           docs: Other disorders of lens in diseases classified elsewhere
           index: H28.8
-      index:
-      - - H25
-        - H28
+      index: H25
     - category: H30-H36
       docs: Disorders of choroid and retina
       child:
@@ -12580,9 +12405,7 @@
         - code: H36.8
           docs: Other retinal disorders in diseases classified elsewhere
           index: H36.8
-      index:
-      - - H30
-        - H36
+      index: H30
     - category: H40-H42
       docs: Glaucoma
       child:
@@ -12625,9 +12448,7 @@
         - code: H42.8
           docs: Glaucoma in other diseases classified elsewhere
           index: H42.8
-      index:
-      - - H40
-        - H42
+      index: H40
     - category: H43-H45
       docs: Disorders of vitreous body and globe
       child:
@@ -12698,9 +12519,7 @@
           docs: Other disorders of vitreous body and globe in diseases classified
             elsewhere
           index: H45.8
-      index:
-      - - H43
-        - H45
+      index: H43
     - category: H46-H48
       docs: Disorders of optic nerve and visual pathways
       child:
@@ -12748,9 +12567,7 @@
           docs: Other disorders of optic nerve and visual pathways in diseases classified
             elsewhere
           index: H48.8
-      index:
-      - - H46
-        - H48
+      index: H46
     - category: H49-H52
       docs: Disorders of ocular muscles, binocular movement, accommodation and refraction
       child:
@@ -12853,9 +12670,7 @@
         - code: H52.7
           docs: Disorder of refraction, unspecified
           index: H52.7
-      index:
-      - - H49
-        - H52
+      index: H49
     - category: H53-H54
       docs: Visual disturbances and blindness
       child:
@@ -12916,9 +12731,7 @@
         - code: H54.9
           docs: Unspecified visual impairment (binocular)
           index: H54.9
-      index:
-      - - H53
-        - H54
+      index: H53
     - category: H55-H59
       docs: Other disorders of eye and adnexa
       child:
@@ -12965,9 +12778,8 @@
         - code: H59.9
           docs: Postprocedural disorder of eye and adnexa, unspecified
           index: H59.9
-      index:
-      - - H55
-        - H59
+      index: H55
+    index: H00
   - category: VIII
     docs: Diseases of the ear and mastoid process
     child:
@@ -13044,9 +12856,7 @@
         - code: H62.8
           docs: Other disorders of external ear in diseases classified elsewhere
           index: H62.8
-      index:
-      - - H60
-        - H62
+      index: H60
     - category: H65-H75
       docs: Diseases of middle ear and mastoid
       child:
@@ -13213,9 +13023,7 @@
           docs: Other specified disorders of middle ear and mastoid in diseases classified
             elsewhere
           index: H75.8
-      index:
-      - - H65
-        - H75
+      index: H65
     - category: H80-H83
       docs: Diseases of inner ear
       child:
@@ -13285,9 +13093,7 @@
         - code: H83.9
           docs: Disease of inner ear, unspecified
           index: H83.9
-      index:
-      - - H80
-        - H83
+      index: H80
     - category: H90-H95
       docs: Other disorders of ear
       child:
@@ -13403,9 +13209,8 @@
         - code: H95.9
           docs: Postprocedural disorder of ear and mastoid process, unspecified
           index: H95.9
-      index:
-      - - H90
-        - H95
+      index: H90
+    index: H60
   - category: X
     docs: Diseases of the respiratory system
     child:
@@ -13496,9 +13301,7 @@
         - code: J06.9
           docs: Acute upper respiratory infection, unspecified
           index: J06.9
-      index:
-      - - J00
-        - J06
+      index: J00
     - category: J09-J18
       docs: Influenza and pneumonia
       child:
@@ -13635,9 +13438,7 @@
         - code: J18.9
           docs: Pneumonia, unspecified
           index: J18.9
-      index:
-      - - J09
-        - J18
+      index: J09
     - category: J20-J22
       docs: Other acute lower respiratory infections
       child:
@@ -13692,9 +13493,7 @@
       - code: J22
         docs: Unspecified acute lower respiratory infection
         index: J22
-      index:
-      - - J20
-        - J22
+      index: J20
     - category: J30-J39
       docs: Other diseases of upper respiratory tract
       child:
@@ -13866,9 +13665,7 @@
         - code: J39.9
           docs: Disease of upper respiratory tract, unspecified
           index: J39.9
-      index:
-      - - J30
-        - J39
+      index: J30
     - category: J40-J47
       docs: Chronic lower respiratory diseases
       child:
@@ -13945,9 +13742,7 @@
       - code: J47
         docs: Bronchiectasis
         index: J47
-      index:
-      - - J40
-        - J47
+      index: J40
     - category: J60-J70
       docs: Lung diseases due to external agents
       child:
@@ -14109,9 +13904,7 @@
         - code: J70.9
           docs: Respiratory conditions due to unspecified external agent
           index: J70.9
-      index:
-      - - J60
-        - J70
+      index: J60
     - category: J80-J84
       docs: Other respiratory diseases principally affecting the interstitium
       child:
@@ -14139,9 +13932,7 @@
         - code: J84.9
           docs: Interstitial pulmonary disease, unspecified
           index: J84.9
-      index:
-      - - J80
-        - J84
+      index: J80
     - category: J85-J86
       docs: Suppurative and necrotic conditions of lower respiratory tract
       child:
@@ -14169,9 +13960,7 @@
         - code: J86.9
           docs: Pyothorax without fistula
           index: J86.9
-      index:
-      - - J85
-        - J86
+      index: J85
     - category: J90-J94
       docs: Other diseases of pleura
       child:
@@ -14223,9 +14012,7 @@
         - code: J94.9
           docs: Pleural condition, unspecified
           index: J94.9
-      index:
-      - - J90
-        - J94
+      index: J90
     - category: J95-J99
       docs: Other diseases of the respiratory system
       child:
@@ -14310,9 +14097,8 @@
         - code: J99.8
           docs: Respiratory disorders in other diseases classified elsewhere
           index: J99.8
-      index:
-      - - J95
-        - J99
+      index: J95
+    index: J00
   - category: XI
     docs: Diseases of the digestive system
     child:
@@ -14691,9 +14477,7 @@
         - code: K14.9
           docs: Disease of tongue, unspecified
           index: K14.9
-      index:
-      - - K00
-        - K14
+      index: K00
     - category: K20-K31
       docs: Diseases of oesophagus, stomach and duodenum
       child:
@@ -14952,9 +14736,7 @@
         - code: K31.9
           docs: Disease of stomach and duodenum, unspecified
           index: K31.9
-      index:
-      - - K20
-        - K31
+      index: K20
     - category: K35-K38
       docs: Diseases of appendix
       child:
@@ -14997,9 +14779,7 @@
         - code: K38.9
           docs: Disease of appendix, unspecified
           index: K38.9
-      index:
-      - - K35
-        - K38
+      index: K35
     - category: K40-K46
       docs: Hernia
       child:
@@ -15126,9 +14906,7 @@
         - code: K46.9
           docs: Unspecified abdominal hernia without obstruction or gangrene
           index: K46.9
-      index:
-      - - K40
-        - K46
+      index: K40
     - category: K50-K52
       docs: Noninfective enteritis and colitis
       child:
@@ -15192,9 +14970,7 @@
         - code: K52.9
           docs: Noninfective gastroenteritis and colitis, unspecified
           index: K52.9
-      index:
-      - - K50
-        - K52
+      index: K50
     - category: K55-K64
       docs: Other diseases of intestines
       child:
@@ -15433,9 +15209,7 @@
         - code: K64.9
           docs: Haemorrhoids, unspecified
           index: K64.9
-      index:
-      - - K55
-        - K64
+      index: K55
     - category: K65-K67
       docs: Diseases of peritoneum
       child:
@@ -15484,9 +15258,7 @@
         - code: K67.8
           docs: Other disorders of peritoneum in infectious diseases classified elsewhere
           index: K67.8
-      index:
-      - - K65
-        - K67
+      index: K65
     - category: K70-K77
       docs: Diseases of liver
       child:
@@ -15664,9 +15436,7 @@
         - code: K77.8
           docs: Liver disorders in other diseases classified elsewhere
           index: K77.8
-      index:
-      - - K70
-        - K77
+      index: K70
     - category: K80-K87
       docs: Disorders of gallbladder, biliary tract and pancreas
       child:
@@ -15813,9 +15583,7 @@
         - code: K87.1
           docs: Disorders of pancreas in diseases classified elsewhere
           index: K87.1
-      index:
-      - - K80
-        - K87
+      index: K80
     - category: K90-K93
       docs: Other diseases of the digestive system
       child:
@@ -15902,9 +15670,8 @@
           docs: Disorders of other specified digestive organs in diseases classified
             elsewhere
           index: K93.8
-      index:
-      - - K90
-        - K93
+      index: K90
+    index: K00
   - category: XII
     docs: Diseases of the skin and subcutaneous tissue
     child:
@@ -16013,9 +15780,7 @@
         - code: L08.9
           docs: Local infection of skin and subcutaneous tissue, unspecified
           index: L08.9
-      index:
-      - - L00
-        - L08
+      index: L00
     - category: L10-L14
       docs: Bullous disorders
       child:
@@ -16100,9 +15865,7 @@
       - code: L14
         docs: Bullous disorders in diseases classified elsewhere
         index: L14
-      index:
-      - - L10
-        - L14
+      index: L10
     - category: L20-L30
       docs: Dermatitis and eczema
       child:
@@ -16310,9 +16073,7 @@
         - code: L30.9
           docs: Dermatitis, unspecified
           index: L30.9
-      index:
-      - - L20
-        - L30
+      index: L20
     - category: L40-L45
       docs: Papulosquamous disorders
       child:
@@ -16418,9 +16179,7 @@
       - code: L45
         docs: Papulosquamous disorders in diseases classified elsewhere
         index: L45
-      index:
-      - - L40
-        - L45
+      index: L40
     - category: L50-L54
       docs: Urticaria and erythema
       child:
@@ -16505,9 +16264,7 @@
         - code: L54.8
           docs: Erythema in other diseases classified elsewhere
           index: L54.8
-      index:
-      - - L50
-        - L54
+      index: L50
     - category: L55-L59
       docs: Radiation-related disorders of the skin and subcutaneous tissue
       child:
@@ -16605,9 +16362,7 @@
         - code: L59.9
           docs: Disorder of skin and subcutaneous tissue related to radiation, unspecified
           index: L59.9
-      index:
-      - - L55
-        - L59
+      index: L55
     - category: L60-L75
       docs: Disorders of skin appendages
       child:
@@ -16875,9 +16630,7 @@
         - code: L75.9
           docs: Apocrine sweat disorder, unspecified
           index: L75.9
-      index:
-      - - L60
-        - L75
+      index: L60
     - category: L80-L99
       docs: Other disorders of the skin and subcutaneous tissue
       child:
@@ -17156,9 +16909,8 @@
           docs: Other specified disorders of skin and subcutaneous tissue in diseases
             classified elsewhere
           index: L99.8
-      index:
-      - - L80
-        - L99
+      index: L80
+    index: L00
   - category: XIII
     docs: Diseases of the musculoskeletal system and connective tissue
     child:
@@ -17251,9 +17003,7 @@
           - code: M03.6
             docs: Reactive arthropathy in other diseases classified elsewhere
             index: M03.6
-        index:
-        - - M00
-          - M03
+        index: M00
       - category: M05-M14
         docs: Inflammatory polyarthropathies
         child:
@@ -17470,9 +17220,7 @@
           - code: M14.8
             docs: Arthropathies in other specified diseases classified elsewhere
             index: M14.8
-        index:
-        - - M05
-          - M14
+        index: M05
       - category: M15-M19
         docs: Arthrosis
         child:
@@ -17596,9 +17344,7 @@
           - code: M19.9
             docs: Arthrosis, unspecified
             index: M19.9
-        index:
-        - - M15
-          - M19
+        index: M15
       - category: M20-M25
         docs: Other joint disorders
         child:
@@ -17780,12 +17526,8 @@
           - code: M25.9
             docs: Joint disorder, unspecified
             index: M25.9
-        index:
-        - - M20
-          - M25
-      index:
-      - - M00
-        - M25
+        index: M20
+      index: M00
     - category: M30-M36
       docs: Systemic connective tissue disorders
       child:
@@ -17943,9 +17685,7 @@
           docs: Systemic disorders of connective tissue in other diseases classified
             elsewhere
           index: M36.8
-      index:
-      - - M30
-        - M36
+      index: M30
     - category: M40-M54
       docs: Dorsopathies
       child:
@@ -18042,9 +17782,7 @@
           - code: M43.9
             docs: Deforming dorsopathy, unspecified
             index: M43.9
-        index:
-        - - M40
-          - M43
+        index: M40
       - category: M45-M49
         docs: Spondylopathies
         child:
@@ -18148,9 +17886,7 @@
           - code: M49.8
             docs: Spondylopathy in other diseases classified elsewhere
             index: M49.8
-        index:
-        - - M45
-          - M49
+        index: M45
       - category: M50-M54
         docs: Other dorsopathies
         child:
@@ -18250,12 +17986,8 @@
           - code: M54.9
             docs: Dorsalgia, unspecified
             index: M54.9
-        index:
-        - - M50
-          - M54
-      index:
-      - - M40
-        - M54
+        index: M50
+      index: M40
     - category: M60-M79
       docs: Soft tissue disorders
       child:
@@ -18352,9 +18084,7 @@
           - code: M63.8
             docs: Other disorders of muscle in diseases classified elsewhere
             index: M63.8
-        index:
-        - - M60
-          - M63
+        index: M60
       - category: M65-M68
         docs: Disorders of synovium and tendon
         child:
@@ -18436,9 +18166,7 @@
           - code: M68.8
             docs: Other disorders of synovium and tendon in diseases classified elsewhere
             index: M68.8
-        index:
-        - - M65
-          - M68
+        index: M65
       - category: M70-M79
         docs: Other soft tissue disorders
         child:
@@ -18658,12 +18386,8 @@
           - code: M79.9
             docs: Soft tissue disorder, unspecified
             index: M79.9
-        index:
-        - - M70
-          - M79
-      index:
-      - - M60
-        - M79
+        index: M70
+      index: M60
     - category: M80-M94
       docs: Osteopathies and chondropathies
       child:
@@ -18820,9 +18544,7 @@
           - code: M85.9
             docs: Disorder of bone density and structure, unspecified
             index: M85.9
-        index:
-        - - M80
-          - M85
+        index: M80
       - category: M86-M90
         docs: Other osteopathies
         child:
@@ -18949,9 +18671,7 @@
           - code: M90.8
             docs: Osteopathy in other diseases classified elsewhere
             index: M90.8
-        index:
-        - - M86
-          - M90
+        index: M86
       - category: M91-M94
         docs: Chondropathies
         child:
@@ -19048,12 +18768,8 @@
           - code: M94.9
             docs: Disorder of cartilage, unspecified
             index: M94.9
-        index:
-        - - M91
-          - M94
-      index:
-      - - M80
-        - M94
+        index: M91
+      index: M80
     - category: M95-M99
       docs: Other disorders of the musculoskeletal system and connective tissue
       child:
@@ -19149,9 +18865,8 @@
         - code: M99.9
           docs: Biomechanical lesion, unspecified
           index: M99.9
-      index:
-      - - M95
-        - M99
+      index: M95
+    index: M00
   - category: XIV
     docs: Diseases of the genitourinary system
     child:
@@ -19475,9 +19190,7 @@
         - code: N08.8
           docs: Glomerular disorders in other diseases classified elsewhere
           index: N08.8
-      index:
-      - - N00
-        - N08
+      index: N00
     - category: N10-N16
       docs: Renal tubulo-interstitial diseases
       child:
@@ -19596,9 +19309,7 @@
         - code: N16.8
           docs: Renal tubulo-interstitial disorders in other diseases classified elsewhere
           index: N16.8
-      index:
-      - - N10
-        - N16
+      index: N10
     - category: N17-N19
       docs: Renal failure
       child:
@@ -19644,9 +19355,7 @@
       - code: N19
         docs: Unspecified kidney failure
         index: N19
-      index:
-      - - N17
-        - N19
+      index: N17
     - category: N20-N23
       docs: Urolithiasis
       child:
@@ -19692,9 +19401,7 @@
       - code: N23
         docs: Unspecified renal colic
         index: N23
-      index:
-      - - N20
-        - N23
+      index: N20
     - category: N25-N29
       docs: Other disorders of kidney and ureter
       child:
@@ -19757,9 +19464,7 @@
           docs: Other disorders of kidney and ureter in other diseases classified
             elsewhere
           index: N29.8
-      index:
-      - - N25
-        - N29
+      index: N25
     - category: N30-N39
       docs: Other diseases of urinary system
       child:
@@ -19922,9 +19627,7 @@
         - code: N39.9
           docs: Disorder of urinary system, unspecified
           index: N39.9
-      index:
-      - - N30
-        - N39
+      index: N30
     - category: N40-N51
       docs: Diseases of male genital organs
       child:
@@ -20088,9 +19791,7 @@
         - code: N51.8
           docs: Other disorders of male genital organs in diseases classified elsewhere
           index: N51.8
-      index:
-      - - N40
-        - N51
+      index: N40
     - category: N60-N64
       docs: Disorders of breast
       child:
@@ -20154,9 +19855,7 @@
         - code: N64.9
           docs: Disorder of breast, unspecified
           index: N64.9
-      index:
-      - - N60
-        - N64
+      index: N60
     - category: N70-N77
       docs: Inflammatory diseases of female pelvic organs
       child:
@@ -20296,9 +19995,7 @@
           docs: Vulvovaginal ulceration and inflammation in other diseases classified
             elsewhere
           index: N77.8
-      index:
-      - - N70
-        - N77
+      index: N70
     - category: N80-N98
       docs: Noninflammatory disorders of female genital tract
       child:
@@ -20746,9 +20443,7 @@
         - code: N98.9
           docs: Complication associated with artificial fertilization, unspecified
           index: N98.9
-      index:
-      - - N80
-        - N98
+      index: N80
     - category: N99-N99
       docs: Other disorders of the genitourinary system
       child:
@@ -20779,9 +20474,8 @@
         - code: N99.9
           docs: Postprocedural disorder of genitourinary system, unspecified
           index: N99.9
-      index:
-      - - N99
-        - N99
+      index: N99
+    index: N00
   - category: XIX
     docs: Injury, poisoning and certain other consequences of external causes
     child:
@@ -21055,9 +20749,7 @@
         - code: S09.9
           docs: Unspecified injury of head
           index: S09.9
-      index:
-      - - S00
-        - S09
+      index: S00
     - category: S10-S19
       docs: Injuries to the neck
       child:
@@ -21224,9 +20916,7 @@
         - code: S19.9
           docs: Unspecified injury of neck
           index: S19.9
-      index:
-      - - S10
-        - S19
+      index: S10
     - category: S20-S29
       docs: Injuries to the thorax
       child:
@@ -21446,9 +21136,7 @@
         - code: S29.9
           docs: Unspecified injury of thorax
           index: S29.9
-      index:
-      - - S20
-        - S29
+      index: S20
     - category: S30-S39
       docs: Injuries to the abdomen, lower back, lumbar spine and pelvis
       child:
@@ -21719,9 +21407,7 @@
         - code: S39.9
           docs: Unspecified injury of abdomen, lower back and pelvis
           index: S39.9
-      index:
-      - - S30
-        - S39
+      index: S30
     - category: S40-S49
       docs: Injuries to the shoulder and upper arm
       child:
@@ -21915,9 +21601,7 @@
         - code: S49.9
           docs: Unspecified injury of shoulder and upper arm
           index: S49.9
-      index:
-      - - S40
-        - S49
+      index: S40
     - category: S50-S59
       docs: Injuries to the elbow and forearm
       child:
@@ -22116,9 +21800,7 @@
         - code: S59.9
           docs: Unspecified injury of forearm
           index: S59.9
-      index:
-      - - S50
-        - S59
+      index: S50
     - category: S60-S69
       docs: Injuries to the wrist and hand
       child:
@@ -22361,9 +22043,7 @@
         - code: S69.9
           docs: Unspecified injury of wrist and hand
           index: S69.9
-      index:
-      - - S60
-        - S69
+      index: S60
     - category: S70-S79
       docs: Injuries to the hip and thigh
       child:
@@ -22536,9 +22216,7 @@
         - code: S79.9
           docs: Unspecified injury of hip and thigh
           index: S79.9
-      index:
-      - - S70
-        - S79
+      index: S70
     - category: S80-S89
       docs: Injuries to the knee and lower leg
       child:
@@ -22748,9 +22426,7 @@
         - code: S89.9
           docs: Unspecified injury of lower leg
           index: S89.9
-      index:
-      - - S80
-        - S89
+      index: S80
     - category: S90-S99
       docs: Injuries to the ankle and foot
       child:
@@ -22958,9 +22634,7 @@
         - code: S99.9
           docs: Unspecified injury of ankle and foot
           index: S99.9
-      index:
-      - - S90
-        - S99
+      index: S90
     - category: T00-T07
       docs: Injuries involving multiple body regions
       child:
@@ -23167,9 +22841,7 @@
       - code: T07
         docs: Unspecified multiple injuries
         index: T07
-      index:
-      - - T00
-        - T07
+      index: T00
     - category: T08-T14
       docs: Injuries to unspecified part of trunk, limb or body region
       child:
@@ -23308,9 +22980,7 @@
         - code: T14.9
           docs: Injury, unspecified
           index: T14.9
-      index:
-      - - T08
-        - T14
+      index: T08
     - category: T15-T19
       docs: Effects of foreign body entering through natural orifice
       child:
@@ -23407,9 +23077,7 @@
         - code: T19.9
           docs: Foreign body in genitourinary tract, part unspecified
           index: T19.9
-      index:
-      - - T15
-        - T19
+      index: T15
     - category: T20-T32
       docs: Burns and corrosions
       child:
@@ -23591,9 +23259,7 @@
           - code: T25.7
             docs: Corrosion of third degree of ankle and foot
             index: T25.7
-        index:
-        - - T20
-          - T25
+        index: T20
       - category: T26-T28
         docs: Burns and corrosions confined to eye and internal organs
         child:
@@ -23690,9 +23356,7 @@
           - code: T28.9
             docs: Corrosion of other and unspecified internal organs
             index: T28.9
-        index:
-        - - T26
-          - T28
+        index: T26
       - category: T29-T32
         docs: Burns and corrosions of multiple and unspecified body regions
         child:
@@ -23819,12 +23483,8 @@
           - code: T32.9
             docs: Corrosions involving 90% or more of body surface
             index: T32.9
-        index:
-        - - T29
-          - T32
-      index:
-      - - T20
-        - T32
+        index: T29
+      index: T20
     - category: T33-T35
       docs: Frostbite
       child:
@@ -23921,9 +23581,7 @@
         - code: T35.7
           docs: Unspecified frostbite of unspecified site
           index: T35.7
-      index:
-      - - T33
-        - T35
+      index: T33
     - category: T36-T50
       docs: Poisoning by drugs, medicaments and biological substances
       child:
@@ -24403,9 +24061,7 @@
           docs: 'Poisoning: Other and unspecified drugs, medicaments and biological
             substances'
           index: T50.9
-      index:
-      - - T36
-        - T50
+      index: T36
     - category: T51-T65
       docs: Toxic effects of substances chiefly nonmedicinal as to source
       child:
@@ -24720,9 +24376,7 @@
         - code: T65.9
           docs: 'Toxic effect: Toxic effect of unspecified substance'
           index: T65.9
-      index:
-      - - T51
-        - T65
+      index: T51
     - category: T66-T78
       docs: Other and unspecified effects of external causes
       child:
@@ -24894,9 +24548,7 @@
         - code: T78.9
           docs: Adverse effect, unspecified
           index: T78.9
-      index:
-      - - T66
-        - T78
+      index: T66
     - category: T79-T79
       docs: Certain early complications of trauma
       child:
@@ -24933,9 +24585,7 @@
         - code: T79.9
           docs: Unspecified early complication of trauma
           index: T79.9
-      index:
-      - - T79
-        - T79
+      index: T79
     - category: T80-T88
       docs: Complications of surgical and medical care, not elsewhere classified
       child:
@@ -25244,9 +24894,7 @@
         - code: T88.9
           docs: Complication of surgical and medical care, unspecified
           index: T88.9
-      index:
-      - - T80
-        - T88
+      index: T80
     - category: T90-T98
       docs: Sequelae of injuries, of poisoning and of other consequences of external
         causes
@@ -25421,9 +25069,8 @@
           docs: Sequelae of complications of surgical and medical care, not elsewhere
             classified
           index: T98.3
-      index:
-      - - T90
-        - T98
+      index: T90
+    index: S00
   - category: XV
     docs: Pregnancy, childbirth and the puerperium
     child:
@@ -25700,9 +25347,7 @@
         - code: O08.9
           docs: Complication following abortion and ectopic and molar pregnancy, unspecified
           index: O08.9
-      index:
-      - - O00
-        - O08
+      index: O00
     - category: O10-O16
       docs: Oedema, proteinuria and hypertensive disorders in pregnancy, childbirth
         and the puerperium
@@ -25786,9 +25431,7 @@
       - code: O16
         docs: Unspecified maternal hypertension
         index: O16
-      index:
-      - - O10
-        - O16
+      index: O10
     - category: O20-O29
       docs: Other maternal disorders predominantly related to pregnancy
       child:
@@ -25990,9 +25633,7 @@
         - code: O29.9
           docs: Complication of anaesthesia during pregnancy, unspecified
           index: O29.9
-      index:
-      - - O20
-        - O29
+      index: O20
     - category: O30-O48
       docs: Maternal care related to the fetus and amniotic cavity and possible delivery
         problems
@@ -26295,9 +25936,7 @@
       - code: O48
         docs: Prolonged pregnancy
         index: O48
-      index:
-      - - O30
-        - O48
+      index: O30
     - category: O60-O75
       docs: Complications of labour and delivery
       child:
@@ -26657,9 +26296,7 @@
         - code: O75.9
           docs: Complication of labour and delivery, unspecified
           index: O75.9
-      index:
-      - - O60
-        - O75
+      index: O60
     - category: O80-O84
       docs: Delivery
       child:
@@ -26759,9 +26396,7 @@
         - code: O84.9
           docs: Multiple delivery, unspecified
           index: O84.9
-      index:
-      - - O80
-        - O84
+      index: O80
     - category: O85-O92
       docs: Complications predominantly related to the puerperium
       child:
@@ -26925,9 +26560,7 @@
         - code: O92.7
           docs: Other and unspecified disorders of lactation
           index: O92.7
-      index:
-      - - O85
-        - O92
+      index: O85
     - category: O94-O99
       docs: Other obstetric conditions, not elsewhere classified
       child:
@@ -27043,9 +26676,8 @@
           docs: Other specified diseases and conditions complicating pregnancy, childbirth
             and the puerperium
           index: O99.8
-      index:
-      - - O94
-        - O99
+      index: O94
+    index: O00
   - category: XVI
     docs: Certain conditions originating in the perinatal period
     child:
@@ -27226,9 +26858,7 @@
         - code: P04.9
           docs: Fetus and newborn affected by maternal noxious influence, unspecified
           index: P04.9
-      index:
-      - - P00
-        - P04
+      index: P00
     - category: P05-P08
       docs: Disorders related to length of gestation and fetal growth
       child:
@@ -27276,9 +26906,7 @@
         - code: P08.2
           docs: Post-term infant, not heavy for gestational age
           index: P08.2
-      index:
-      - - P05
-        - P08
+      index: P05
     - category: P10-P15
       docs: Birth trauma
       child:
@@ -27429,9 +27057,7 @@
         - code: P15.9
           docs: Birth injury, unspecified
           index: P15.9
-      index:
-      - - P10
-        - P15
+      index: P10
     - category: P20-P29
       docs: Respiratory and cardiovascular disorders specific to the perinatal period
       child:
@@ -27627,9 +27253,7 @@
         - code: P29.9
           docs: Cardiovascular disorder originating in the perinatal period, unspecified
           index: P29.9
-      index:
-      - - P20
-        - P29
+      index: P20
     - category: P35-P39
       docs: Infections specific to the perinatal period
       child:
@@ -27735,9 +27359,7 @@
         - code: P39.9
           docs: Infection specific to the perinatal period, unspecified
           index: P39.9
-      index:
-      - - P35
-        - P39
+      index: P35
     - category: P50-P61
       docs: Haemorrhagic and haematological disorders of fetus and newborn
       child:
@@ -27966,9 +27588,7 @@
         - code: P61.9
           docs: Perinatal haematological disorder, unspecified
           index: P61.9
-      index:
-      - - P50
-        - P61
+      index: P50
     - category: P70-P74
       docs: Transitory endocrine and metabolic disorders specific to fetus and newborn
       child:
@@ -28070,9 +27690,7 @@
         - code: P74.9
           docs: Transitory metabolic disturbance of newborn, unspecified
           index: P74.9
-      index:
-      - - P70
-        - P74
+      index: P70
     - category: P75-P78
       docs: Digestive system disorders of fetus and newborn
       child:
@@ -28121,9 +27739,7 @@
         - code: P78.9
           docs: Perinatal digestive system disorder, unspecified
           index: P78.9
-      index:
-      - - P75
-        - P78
+      index: P75
     - category: P80-P83
       docs: Conditions involving the integument and temperature regulation of fetus
         and newborn
@@ -28182,9 +27798,7 @@
         - code: P83.9
           docs: Condition of integument specific to fetus and newborn, unspecified
           index: P83.9
-      index:
-      - - P80
-        - P83
+      index: P80
     - category: P90-P96
       docs: Other disorders originating in the perinatal period
       child:
@@ -28302,9 +27916,8 @@
         - code: P96.9
           docs: Condition originating in the perinatal period, unspecified
           index: P96.9
-      index:
-      - - P90
-        - P96
+      index: P90
+    index: P00
   - category: XVII
     docs: Congenital malformations, deformations and chromosomal abnormalities
     child:
@@ -28458,9 +28071,7 @@
         - code: Q07.9
           docs: Congenital malformation of nervous system, unspecified
           index: Q07.9
-      index:
-      - - Q00
-        - Q07
+      index: Q00
     - category: Q10-Q18
       docs: Congenital malformations of eye, ear, face and neck
       child:
@@ -28674,9 +28285,7 @@
         - code: Q18.9
           docs: Congenital malformation of face and neck, unspecified
           index: Q18.9
-      index:
-      - - Q10
-        - Q18
+      index: Q10
     - category: Q20-Q28
       docs: Congenital malformations of the circulatory system
       child:
@@ -28926,9 +28535,7 @@
         - code: Q28.9
           docs: Congenital malformation of circulatory system, unspecified
           index: Q28.9
-      index:
-      - - Q20
-        - Q28
+      index: Q20
     - category: Q30-Q34
       docs: Congenital malformations of the respiratory system
       child:
@@ -29040,9 +28647,7 @@
         - code: Q34.9
           docs: Congenital malformation of respiratory system, unspecified
           index: Q34.9
-      index:
-      - - Q30
-        - Q34
+      index: Q30
     - category: Q35-Q37
       docs: Cleft lip and cleft palate
       child:
@@ -29103,9 +28708,7 @@
         - code: Q37.9
           docs: Unspecified cleft palate with unilateral cleft lip
           index: Q37.9
-      index:
-      - - Q35
-        - Q37
+      index: Q35
     - category: Q38-Q45
       docs: Other congenital malformations of the digestive system
       child:
@@ -29313,9 +28916,7 @@
         - code: Q45.9
           docs: Congenital malformation of digestive system, unspecified
           index: Q45.9
-      index:
-      - - Q38
-        - Q45
+      index: Q38
     - category: Q50-Q56
       docs: Congenital malformations of genital organs
       child:
@@ -29497,9 +29098,7 @@
         - code: Q56.4
           docs: Indeterminate sex, unspecified
           index: Q56.4
-      index:
-      - - Q50
-        - Q56
+      index: Q50
     - category: Q60-Q64
       docs: Congenital malformations of the urinary system
       child:
@@ -29639,9 +29238,7 @@
         - code: Q64.9
           docs: Congenital malformation of urinary system, unspecified
           index: Q64.9
-      index:
-      - - Q60
-        - Q64
+      index: Q60
     - category: Q65-Q79
       docs: Congenital malformations and deformations of the musculoskeletal system
       child:
@@ -30052,9 +29649,7 @@
         - code: Q79.9
           docs: Congenital malformation of musculoskeletal system, unspecified
           index: Q79.9
-      index:
-      - - Q65
-        - Q79
+      index: Q65
     - category: Q80-Q89
       docs: Other congenital malformations
       child:
@@ -30262,9 +29857,7 @@
         - code: Q89.9
           docs: Congenital malformation, unspecified
           index: Q89.9
-      index:
-      - - Q80
-        - Q89
+      index: Q80
     - category: Q90-Q99
       docs: Chromosomal abnormalities, not elsewhere classified
       child:
@@ -30501,9 +30094,8 @@
         - code: Q99.9
           docs: Chromosomal abnormality, unspecified
           index: Q99.9
-      index:
-      - - Q90
-        - Q99
+      index: Q90
+    index: Q00
   - category: XVIII
     docs: Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere
       classified
@@ -30638,9 +30230,7 @@
           docs: Other specified symptoms and signs involving the circulatory and respiratory
             systems
           index: R09.8
-      index:
-      - - R00
-        - R09
+      index: R00
     - category: R10-R19
       docs: Symptoms and signs involving the digestive system and abdomen
       child:
@@ -30723,9 +30313,7 @@
           docs: Other specified symptoms and signs involving the digestive system
             and abdomen
           index: R19.8
-      index:
-      - - R10
-        - R19
+      index: R10
     - category: R20-R23
       docs: Symptoms and signs involving the skin and subcutaneous tissue
       child:
@@ -30795,9 +30383,7 @@
         - code: R23.8
           docs: Other and unspecified skin changes
           index: R23.8
-      index:
-      - - R20
-        - R23
+      index: R20
     - category: R25-R29
       docs: Symptoms and signs involving the nervous and musculoskeletal systems
       child:
@@ -30871,9 +30457,7 @@
           docs: Other and unspecified symptoms and signs involving the nervous and
             musculoskeletal systems
           index: R29.8
-      index:
-      - - R25
-        - R29
+      index: R25
     - category: R30-R39
       docs: Symptoms and signs involving the urinary system
       child:
@@ -30922,9 +30506,7 @@
         - code: R39.8
           docs: Other and unspecified symptoms and signs involving the urinary system
           index: R39.8
-      index:
-      - - R30
-        - R39
+      index: R30
     - category: R40-R46
       docs: Symptoms and signs involving cognition, perception, emotional state and
         behaviour
@@ -31057,9 +30639,7 @@
         - code: R46.8
           docs: Other symptoms and signs involving appearance and behaviour
           index: R46.8
-      index:
-      - - R40
-        - R46
+      index: R40
     - category: R47-R49
       docs: Symptoms and signs involving speech and voice
       child:
@@ -31105,9 +30685,7 @@
         - code: R49.8
           docs: Other and unspecified voice disturbances
           index: R49.8
-      index:
-      - - R47
-        - R49
+      index: R47
     - category: R50-R69
       docs: General symptoms and signs
       child:
@@ -31301,9 +30879,7 @@
       - code: R69
         docs: Unknown and unspecified causes of morbidity
         index: R69
-      index:
-      - - R50
-        - R69
+      index: R50
     - category: R70-R79
       docs: Abnormal findings on examination of blood, without diagnosis
       child:
@@ -31428,9 +31004,7 @@
         - code: R79.9
           docs: Abnormal finding of blood chemistry, unspecified
           index: R79.9
-      index:
-      - - R70
-        - R79
+      index: R70
     - category: R80-R82
       docs: Abnormal findings on examination of urine, without diagnosis
       child:
@@ -31473,9 +31047,7 @@
         - code: R82.9
           docs: Other and unspecified abnormal findings in urine
           index: R82.9
-      index:
-      - - R80
-        - R82
+      index: R80
     - category: R83-R89
       docs: Abnormal findings on examination of other body fluids, substances and
         tissues, without diagnosis
@@ -31733,9 +31305,7 @@
           docs: 'Abnormal findings in specimens from other organs, systems and tissues
             : unspecified abnormal finding'
           index: R89.9
-      index:
-      - - R83
-        - R89
+      index: R83
     - category: R90-R94
       docs: Abnormal findings on diagnostic imaging and in function studies, without
         diagnosis
@@ -31820,9 +31390,7 @@
         - code: R94.8
           docs: Abnormal results of function studies of other organs and systems
           index: R94.8
-      index:
-      - - R90
-        - R94
+      index: R90
     - category: R95-R99
       docs: Ill-defined and unknown causes of mortality
       child:
@@ -31851,9 +31419,8 @@
       - code: R99
         docs: Other ill-defined and unspecified causes of mortality
         index: R99
-      index:
-      - - R95
-        - R99
+      index: R95
+    index: R00
   - category: XX
     docs: External causes of morbidity and mortality
     child:
@@ -31977,9 +31544,7 @@
             - code: V09.9
               docs: Pedestrian injured in unspecified transport accident
               index: V09.9
-          index:
-          - - V01
-            - V09
+          index: V01
         - category: V10-V19
           docs: Pedal cyclist injured in transport accident
           child:
@@ -32301,9 +31866,7 @@
             - code: V19.9
               docs: Pedal cyclist [any] injured in unspecified traffic accident
               index: V19.9
-          index:
-          - - V10
-            - V19
+          index: V10
         - category: V20-V29
           docs: Motorcycle rider injured in transport accident
           child:
@@ -32627,9 +32190,7 @@
             - code: V29.9
               docs: Motorcycle rider [any] injured in unspecified traffic accident
               index: V29.9
-          index:
-          - - V20
-            - V29
+          index: V20
         - category: V30-V39
           docs: Occupant of three-wheeled motor vehicle injured in transport accident
           child:
@@ -33087,9 +32648,7 @@
               docs: Occupant [any] of three-wheeled motor vehicle injured in unspecified
                 traffic accident
               index: V39.9
-          index:
-          - - V30
-            - V39
+          index: V30
         - category: V40-V49
           docs: Car occupant injured in transport accident
           child:
@@ -33484,9 +33043,7 @@
             - code: V49.9
               docs: Car occupant [any] injured in unspecified traffic accident
               index: V49.9
-          index:
-          - - V40
-            - V49
+          index: V40
         - category: V50-V59
           docs: Occupant of pick-up truck or van injured in transport accident
           child:
@@ -33921,9 +33478,7 @@
               docs: Occupant [any] of pick-up truck or van injured in unspecified
                 traffic accident
               index: V59.9
-          index:
-          - - V50
-            - V59
+          index: V50
         - category: V60-V69
           docs: Occupant of heavy transport vehicle injured in transport accident
           child:
@@ -34366,9 +33921,7 @@
               docs: Occupant [any] of heavy transport vehicle injured in unspecified
                 traffic accident
               index: V69.9
-          index:
-          - - V60
-            - V69
+          index: V60
         - category: V70-V79
           docs: Bus occupant injured in transport accident
           child:
@@ -34763,9 +34316,7 @@
             - code: V79.9
               docs: Bus occupant [any] injured in unspecified traffic accident
               index: V79.9
-          index:
-          - - V70
-            - V79
+          index: V70
         - category: V80-V89
           docs: Other land transport accidents
           child:
@@ -35144,9 +34695,7 @@
             - code: V89.9
               docs: Person injured in unspecified vehicle accident
               index: V89.9
-          index:
-          - - V80
-            - V89
+          index: V80
         - category: V90-V94
           docs: Water transport accidents
           child:
@@ -35351,9 +34900,7 @@
               docs: 'Other and unspecified water transport accidents : unspecified
                 watercraft'
               index: V94.9
-          index:
-          - - V90
-            - V94
+          index: V90
         - category: V95-V97
           docs: Air and space transport accidents
           child:
@@ -35418,9 +34965,7 @@
             - code: V97.8
               docs: Other air transport accidents, not elsewhere classified
               index: V97.8
-          index:
-          - - V95
-            - V97
+          index: V95
         - category: V98-V99
           docs: Other and unspecified transport accidents
           child:
@@ -35430,12 +34975,8 @@
           - code: V99
             docs: Unspecified transport accident
             index: V99
-          index:
-          - - V98
-            - V99
-        index:
-        - - V01
-          - V99
+          index: V98
+        index: V01
       - category: W00-X59
         docs: Other external causes of accidental injury
         child:
@@ -35504,9 +35045,7 @@
           - code: W19
             docs: Unspecified fall
             index: W19
-          index:
-          - - W00
-            - W19
+          index: W00
         - category: W20-W49
           docs: Exposure to inanimate mechanical forces
           child:
@@ -35603,9 +35142,7 @@
           - code: W49
             docs: Exposure to other and unspecified inanimate mechanical forces
             index: W49
-          index:
-          - - W20
-            - W49
+          index: W20
         - category: W50-W64
           docs: Exposure to animate mechanical forces
           child:
@@ -35645,9 +35182,7 @@
           - code: W64
             docs: Exposure to other and unspecified animate mechanical forces
             index: W64
-          index:
-          - - W50
-            - W64
+          index: W50
         - category: W65-W74
           docs: Accidental drowning and submersion
           child:
@@ -35675,9 +35210,7 @@
           - code: W74
             docs: Unspecified drowning and submersion
             index: W74
-          index:
-          - - W65
-            - W74
+          index: W65
         - category: W75-W84
           docs: Other accidental threats to breathing
           child:
@@ -35710,9 +35243,7 @@
           - code: W84
             docs: Unspecified threat to breathing
             index: W84
-          index:
-          - - W75
-            - W84
+          index: W75
         - category: W85-W99
           docs: Exposure to electric current, radiation and extreme ambient air temperature
             and pressure
@@ -35750,9 +35281,7 @@
           - code: W99
             docs: Exposure to other and unspecified man-made environmental factors
             index: W99
-          index:
-          - - W85
-            - W99
+          index: W85
         - category: X00-X09
           docs: Exposure to smoke, fire and flames
           child:
@@ -35783,9 +35312,7 @@
           - code: X09
             docs: Exposure to unspecified smoke, fire and flames
             index: X09
-          index:
-          - - X00
-            - X09
+          index: X00
         - category: X10-X19
           docs: Contact with heat and hot substances
           child:
@@ -35819,9 +35346,7 @@
           - code: X19
             docs: Contact with other and unspecified heat and hot substances
             index: X19
-          index:
-          - - X10
-            - X19
+          index: X10
         - category: X20-X29
           docs: Contact with venomous animals and plants
           child:
@@ -35855,9 +35380,7 @@
           - code: X29
             docs: Contact with unspecified venomous animal or plant
             index: X29
-          index:
-          - - X20
-            - X29
+          index: X20
         - category: X30-X39
           docs: Exposure to forces of nature
           child:
@@ -35903,9 +35426,7 @@
           - code: X39
             docs: Exposure to other and unspecified forces of nature
             index: X39
-          index:
-          - - X30
-            - X39
+          index: X30
         - category: X40-X49
           docs: Accidental poisoning by and exposure to noxious substances
           child:
@@ -35946,9 +35467,7 @@
             docs: Accidental poisoning by and exposure to other and unspecified chemicals
               and noxious substances
             index: X49
-          index:
-          - - X40
-            - X49
+          index: X40
         - category: X50-X57
           docs: Overexertion, travel and privation
           child:
@@ -35970,9 +35489,7 @@
           - code: X57
             docs: Unspecified privation
             index: X57
-          index:
-          - - X50
-            - X57
+          index: X50
         - category: X58-X59
           docs: Accidental exposure to other and unspecified factors
           child:
@@ -35988,15 +35505,9 @@
             - code: X59.9
               docs: Exposure to unspecified factor causing other and unspecified injury
               index: X59.9
-          index:
-          - - X58
-            - X59
-        index:
-        - - W00
-          - X59
-      index:
-      - - V01
-        - X59
+          index: X58
+        index: W00
+      index: V01
     - category: X60-X84
       docs: Intentional self-harm
       child:
@@ -36082,9 +35593,7 @@
       - code: X84
         docs: Intentional self-harm by unspecified means
         index: X84
-      index:
-      - - X60
-        - X84
+      index: X60
     - category: X85-Y09
       docs: Assault
       child:
@@ -36196,9 +35705,7 @@
       - code: Y09
         docs: Assault by unspecified means
         index: Y09
-      index:
-      - - X85
-        - Y09
+      index: X85
     - category: Y10-Y34
       docs: Event of undetermined intent
       child:
@@ -36285,9 +35792,7 @@
       - code: Y34
         docs: Unspecified event, undetermined intent
         index: Y34
-      index:
-      - - Y10
-        - Y34
+      index: Y10
     - category: Y35-Y36
       docs: Legal intervention and operations of war
       child:
@@ -36353,9 +35858,7 @@
         - code: Y36.9
           docs: War operations, unspecified
           index: Y36.9
-      index:
-      - - Y35
-        - Y36
+      index: Y35
     - category: Y40-Y84
       docs: Complications of medical and surgical care
       child:
@@ -36960,9 +36463,7 @@
           - code: Y59.9
             docs: Vaccine or biological substance, unspecified
             index: Y59.9
-        index:
-        - - Y40
-          - Y59
+        index: Y40
       - category: Y60-Y69
         docs: Misadventures to patients during surgical and medical care
         child:
@@ -37143,9 +36644,7 @@
         - code: Y69
           docs: Unspecified misadventure during surgical and medical care
           index: Y69
-        index:
-        - - Y60
-          - Y69
+        index: Y60
       - category: Y70-Y82
         docs: Medical devices associated with adverse incidents in diagnostic and
           therapeutic use
@@ -37450,9 +36949,7 @@
             docs: 'Other and unspecified medical devices associated with adverse incidents
               : miscellaneous devices, not elsewhere classified'
             index: Y82.8
-        index:
-        - - Y70
-          - Y82
+        index: Y70
       - category: Y83-Y84
         docs: Surgical and other medical procedures as the cause of abnormal reaction
           of the patient, or of later complication, without mention of misadventure
@@ -37525,12 +37022,8 @@
           - code: Y84.9
             docs: Medical procedure, unspecified
             index: Y84.9
-        index:
-        - - Y83
-          - Y84
-      index:
-      - - Y40
-        - Y84
+        index: Y83
+      index: Y40
     - category: Y85-Y89
       docs: Sequelae of external causes of morbidity and mortality
       child:
@@ -37591,9 +37084,7 @@
         - code: Y89.9
           docs: Sequelae of unspecified external cause
           index: Y89.9
-      index:
-      - - Y85
-        - Y89
+      index: Y85
     - category: Y90-Y98
       docs: Supplementary factors related to causes of morbidity and mortality classified
         elsewhere
@@ -37661,9 +37152,8 @@
       - code: Y98
         docs: Lifestyle-related condition
         index: Y98
-      index:
-      - - Y90
-        - Y98
+      index: Y90
+    index: V01
   - category: XXI
     docs: Factors influencing health status and contact with health services
     child:
@@ -37991,9 +37481,7 @@
         - code: Z13.9
           docs: Special screening examination, unspecified
           index: Z13.9
-      index:
-      - - Z00
-        - Z13
+      index: Z00
     - category: Z20-Z29
       docs: Persons with potential health hazards related to communicable diseases
       child:
@@ -38206,9 +37694,7 @@
         - code: Z29.9
           docs: Prophylactic measure, unspecified
           index: Z29.9
-      index:
-      - - Z20
-        - Z29
+      index: Z20
     - category: Z30-Z39
       docs: Persons encountering health services in circumstances related to reproduction
       child:
@@ -38428,9 +37914,7 @@
         - code: Z39.2
           docs: Routine postpartum follow-up
           index: Z39.2
-      index:
-      - - Z30
-        - Z39
+      index: Z30
     - category: Z40-Z54
       docs: Persons encountering health services for specific procedures and health
         care
@@ -38783,9 +38267,7 @@
         - code: Z54.9
           docs: Convalescence following unspecified treatment
           index: Z54.9
-      index:
-      - - Z40
-        - Z54
+      index: Z40
     - category: Z55-Z65
       docs: Persons with potential health hazards related to socioeconomic and psychosocial
         circumstances
@@ -39112,9 +38594,7 @@
         - code: Z65.9
           docs: Problem related to unspecified psychosocial circumstances
           index: Z65.9
-      index:
-      - - Z55
-        - Z65
+      index: Z55
     - category: Z70-Z76
       docs: Persons encountering health services in other circumstances
       child:
@@ -39311,9 +38791,7 @@
         - code: Z76.9
           docs: Person encountering health services in unspecified circumstances
           index: Z76.9
-      index:
-      - - Z70
-        - Z76
+      index: Z70
     - category: Z80-Z99
       docs: Persons with potential health hazards related to family and personal history
         and certain conditions influencing health status
@@ -39895,9 +39373,8 @@
         - code: Z99.9
           docs: Dependence on unspecified enabling machine and device
           index: Z99.9
-      index:
-      - - Z80
-        - Z99
+      index: Z80
+    index: Z00
   - category: XXII
     docs: Codes for special purposes
     child:
@@ -39977,9 +39454,7 @@
         - code: U07.9
           docs: Emergency use of U07.9
           index: U07.9
-      index:
-      - - U00
-        - U49
+      index: U00
     - category: U82-U85
       docs: Resistance to antimicrobial and antineoplastic drugs
       child:
@@ -40049,9 +39524,6 @@
       - code: U85
         docs: Resistance to antineoplastic drugs
         index: U85
-      index:
-      - - U82
-        - U85
-  index:
-  - - ICD
-    - '10'
+      index: U82
+    index: U00
+  index: ICD

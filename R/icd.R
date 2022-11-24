@@ -452,7 +452,7 @@ icd_add_indices <- function(codes)
                 ## fix whatever is going on with this
                 ## expression. object$category is just
                 ## a string, but it is treating it like
-                ## a list/vector
+                ## a list/vector.
                 object$index <-
                     stringr::str_split(object$category, "-") %>%
                     unlist() %>%
@@ -461,7 +461,14 @@ icd_add_indices <- function(codes)
             }
             else
             {
-                ## Object is a chapter. TODO
+                ## Object is a chapter. Use the code in the
+                ## first subcategory as the index
+                first_subcat <- object$child[[1]]$category
+                
+                object$index <-
+                    stringr::str_split(first_subcat, "-") %>%
+                    unlist() %>%
+                    head(1)                
             }
         }
         else if (!is.null(object$code))
