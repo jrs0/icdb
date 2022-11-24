@@ -17,7 +17,7 @@ end <- today()
 
 ## Subtract one year from the end to get the date of
 ## the last valid index event (where there is one complete
-## follow-up year)
+## follow-up year).
 index_end <- end - days(365)
 
 spells <- msrv$sus$apc_spells %>%
