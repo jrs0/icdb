@@ -101,7 +101,7 @@ new_icd10 <- function(str = character(), codes = system.file("extdata", "icd10/i
 
     ## strip whitespace from the code, and
     ## remove any dots.
-    str <- str_replace_all(x, "[^[:alnum:]]", "")
+    str <- stringr::str_replace_all(x, "[^[:alnum:]]", "")
     
     ## The icd10 class stores the meaning of a code
     ## with reference to a particular code definition
@@ -472,27 +472,27 @@ icd_add_indices <- function(codes)
                 ## expression. object$category is just
                 ## a string, but it is treating it like
                 ## a list/vector.
-                object$index <- object$category %>%
-                    stringr::str_split("-") %>%
-                    unlist() %>%
-                    head(1)   
+                val <- object$category
             }
             else
             {
                 ## Object is a chapter. Use the code in the
                 ## first subcategory as the index
-                object$index <- object$child[[1]]$category %>%
-                    stringr::str_split("-") %>%
-                    unlist() %>%
-                    head(1)          
+                val <- object$child[[1]]$category
             }
+
+            ## Get the code, pick out only the first item
+            ## from a range (if the dash if present)
+            object$index <- val %>%
+                stringr::str_split("-") %>%
+                unlist() %>%
+                head(1)
+
         }
         else if (!is.null(object$code))
         {
-            object$index <- object$code
-
-            ## Remove the code object
-            object$code <- NULL
+            object$index <- object$code %>%
+                stringr::str_replace_all("\\.", "")
         }
         else
         {
