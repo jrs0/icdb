@@ -6,7 +6,33 @@ NULL
 
 ##' Search the ICD-10 codes definition structure
 ##' to find the indices that identify a particular
-##' ICD-10 code. 
+##' ICD-10 code.
+##'
+##' An ICD10 string is a four-character
+##' code like "C71.0". In the database, the
+##' dot may be missing, there may be a trailing
+##' dash (for filler codes, which should be X,
+##' or any other high-level category code),
+##' and there may be trailing matter (such as
+##' dagger or asterisk codes).
+##' 
+##' Even though all the information about a code
+##' is present in the string, it is necessary to
+##' search the codes file to find the location
+##' of the code.
+##'
+##' Each level of the codes file has a category
+##' or a codes key, with structure as follows:
+##'
+##' category -> category +  -> category -> code
+##' (chapter)   (code_range)   (triple)    (ICD-10)
+##' I           A00-A09        A00         A00.0
+##'
+##' The + after the code range indicates that
+##' there may be an arbitrary number of code range
+##' levels, involving increasingly nested levels
+##' of the codes file. A code_range is identified
+##' by the presence of a dash in the category.
 ##' 
 ##' @title Identify an ICD-10 code.
 ##' @param str The code string (from the database) to search for
@@ -19,7 +45,19 @@ gen_icd_indices <- function(str, codes)
     ## contain a category key or a code key.
     indices <- integer()
     for (object in codes)
-    
+    {
+        if (!is.null(object$category))
+        {
+            ## Object 
+        }
+        else if (!is.null(object$category))
+        {
+        }
+        else
+        {
+            stop("Expected category or codes key in codes definition object")
+        }
+    }
 }
 
 ##' Create a new icd10 (S3) object from a string
@@ -46,33 +84,6 @@ new_icd10 <- function(str = character(), codes = system.file("extdata", "icd10/i
     ## strip whitespace from around the code
     str <- trimws(str)
 
-    ## An ICD10 string is a four-character
-    ## code like "C71.0". In the database, the
-    ## dot may be missing, there may be a trailing
-    ## dash (for filler codes, which should be X,
-    ## or any other high-level category code),
-    ## and there may be trailing matter (such as
-    ## dagger or asterisk codes).
-
-    ## In the chapter level of the configuration file,
-    
-    ## Even though all the information about a code
-    ## is present in the string, it is necessary to
-    ## search the codes file to find the location
-    ## of the code.
-    ##
-    ## Each level of the codes file has a category
-    ## or a codes key, with structure as follows:
-    ##
-    ## category -> category +  -> category -> code
-    ## (chapter)   (code_range)   (triple)    (ICD-10)
-    ## I           A00-A09        A00         A00.0
-    ##
-    ## The + after the code range indicates that
-    ## there may be an arbitrary number of code range
-    ## levels, involving increasingly nested levels
-    ## of the codes file. A code_range is identified
-    ## by the presence of a dash in the category.
     
     
     ## The icd10 class stores the meaning of a code
@@ -400,5 +411,27 @@ icd_combine_files <- function()
 
     ## Write output file
     yaml::write_yaml(xx, "icd10.yaml")
+    
+}
+
+##' To facilite searching for codes in the configuration
+##' file, it is important for each object (category or code)
+##' to store a range of codes that it contains. R supports
+##' lexicographical comparison of characters by default,
+##' so all that is required is to store a pair representing
+##' the start of the range and the end of the range. This
+##' function adds an index key to the structure passed as
+##' the argument.
+##'
+##' The index key is a list of two items -- a range start
+##' and a range end (this could be optimised to one
+##' for cases that only contain a code, but this is not
+##' worth it for now).
+##'
+##' @title Index a codes definition structure
+##' @return The codes structure with indices (a nested list)
+##' @param codes The input nested list of codes
+icd_add_index <- function(codes)
+{
     
 }
