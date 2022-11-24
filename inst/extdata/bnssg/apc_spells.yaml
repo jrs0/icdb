@@ -2368,5 +2368,8 @@
     - "AIMTC_ProviderSpell_End_Date"
     - "DischargeDate_FromHospitalProviderSpell"
     - "DischargeTime_HospitalProviderSpell"
+    strategy: "coalesce"
+    use: yes 
+    
 
       
