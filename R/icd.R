@@ -441,16 +441,22 @@ icd_add_indices <- function(codes)
         if (!is.null(object$category))
         {
             ## Process the child objects
-            object <- icd_add_indices(object$child)
+            object$child <- icd_add_indices(object$child)
             
             ## Object is a chapter or a category
             if (grepl("-", object$category))
             {
                 ## Object is a category. Split on
                 ## the hyphen to obtain the start
-                ## and end of range
+                ## of the range. TODO: come back and
+                ## fix whatever is going on with this
+                ## expression. object$category is just
+                ## a string, but it is treating it like
+                ## a list/vector
                 object$index <-
-                    strsplit(object$category, "-")
+                    stringr::str_split(object$category, "-") %>%
+                    unlist() %>%
+                    head(1)
                 
             }
             else
@@ -460,8 +466,7 @@ icd_add_indices <- function(codes)
         }
         else if (!is.null(object$code))
         {
-            object$index <-
-                c(object$code, object$code)
+            object$index <- object$code
         }
         else
         {
