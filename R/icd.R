@@ -9,14 +9,29 @@ NULL
 ##' @param mapping The ICD-10 mapping file to use
 ##' @return The new icd10 S3 object
 ##' 
-new_icd10 <- function(str, mapping = system.file("extdata", "icd10/icd10.yaml", package = "icdb"))
+new_icd10 <- function(str = character(), mapping = system.file("extdata", "icd10/icd10.yaml", package = "icdb"))
 {
+    vctrs::vec_assert(str, character())
+    
     ## The object is a named list
     data <- list(
         code = str
     )
     
-    structure(data, class = "icd10")
+    vctrs::new_vctr(str, class = "icdb_icd10")
+}
+
+icd10 <- function(str = character())
+{
+    str <- vctrs::vec_cast(str, character())
+    new_icd10(str)
+}
+
+format.vctrs_percent <- function(x, ...) {
+  out <- formatC(signif(vec_data(x) * 100, 3))
+  out[is.na(x)] <- NA
+  out[!is.na(x)] <- paste0(out[!is.na(x)], "%")
+  out
 }
 
 ##' Convert a character vector to an icd10 vector
@@ -27,7 +42,7 @@ new_icd10 <- function(str, mapping = system.file("extdata", "icd10/icd10.yaml", 
 ##'
 to_icd10 <- function(vec)
 {
-    vec %>% purrr::map(~ new_icd10(.))
+    vec %>% purrr::map(~ new_icd10(.x))
 }
 
 ##' Parse an ICD-10 codes file from the NHS Digital (TRUD) from the
