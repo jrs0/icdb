@@ -86,11 +86,13 @@ icd10_get_code <- function(indices, codes)
     ## the next list down. Generate the arguments
     ## for use with pluck, to descend through
     ## the nested structure in one go
-    k <- c(1, indices) %>%
-        purrr::map(~ list(.x, "child")) %>%
+    k <- indices %>%
+        purrr::map(~ list("child", .x)) %>%
         purrr::flatten() 
 
-    codes %>% purrr::pluck(!!!k)
+    ## Note the first 1 is to get down into the
+    ## first level (where there is a child key)
+    codes %>% purrr::pluck(1, !!!k)
 
 }
 
