@@ -18,6 +18,3 @@ gendata
 
 ## Any file or folder called secret
 secret
-
-## Ignore the top level scratch folder (a scratch-pad for scripts)
-scratch
