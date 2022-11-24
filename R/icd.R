@@ -12,11 +12,25 @@ NULL
 ##' 
 new_icd10 <- function(str = character(), mapping = system.file("extdata", "icd10/icd10.yaml", package = "icdb"))
 {
+    ## Open 
+    
     vctrs::vec_assert(str, character())
+
+    ## strip whitespace from around the code
+    str <- trimws(str)
+
+    ## The icd10 class stores the meaning of a code
+    ## with reference to a particular code definition
+    ## file. This file is organised as a nested list
+    ## of lists, meaning that a particular item in the
+    ## file can be referenced by a vector of integers,
+    ## which represent the indices at each level of the
+    ## hierarchy.
     
     ## The object is a named list
     data <- list(
-        code = str
+        code = str,
+        indices = 
     )
     
     vctrs::new_vctr(str, class = "icdb_icd10")

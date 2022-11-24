@@ -23,7 +23,6 @@ index_end <- end - days(365)
 ## Fetch all spells between the dates (this is all ICD codes,
 ## even those not related to an ACS event)
 spells <- msrv$sus$apc_spells %>%
-    ##filter(spell_start >= !!start, spell_end <= !!index_end) %>%
-    head(100) %>%
+    filter(spell_start >= !!start, spell_end <= !!index_end) %>%
     run() %>%
     mutate(p = icd10(primary_diagnosis_icd))
