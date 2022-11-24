@@ -3,6 +3,9 @@
 ##'
 NULL
 
+## This is what you want !
+## t[[1]]$child %>% purrr::map("category")
+
 
 ##' Search the ICD-10 codes definition structure
 ##' to find the indices that identify a particular
