@@ -431,7 +431,46 @@ icd_combine_files <- function()
 ##' @title Index a codes definition structure
 ##' @return The codes structure with indices (a nested list)
 ##' @param codes The input nested list of codes
-icd_add_index <- function(codes)
+icd_add_indices <- function(codes)
 {
+    ## For the new codes structure
+    result <- list()
     
+    for (object in codes)
+    {
+        if (!is.null(object$category))
+        {
+            ## Process the child objects
+            object <- icd_add_indices(object$child)
+            
+            ## Object is a chapter or a category
+            if (grepl("-", object$category))
+            {
+                ## Object is a category. Split on
+                ## the hyphen to obtain the start
+                ## and end of range
+                object$index <-
+                    strsplit(object$category, "-")
+                
+            }
+            else
+            {
+                ## Object is a chapter. TODO
+            }
+        }
+        else if (!is.null(object$code))
+        {
+            object$index <-
+                c(object$code, object$code)
+        }
+        else
+        {
+            stop("Expected category or codes key in codes definition object")
+        }
+
+        result <- c(result, list(object))
+    }
+
+    ## Return the copy of the structure with indices
+    result
 }
