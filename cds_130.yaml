@@ -1,6 +1,9 @@
-- table: cds_130
-  docs: WRITE ME
-  source: WRITE ME
+- table: apc_spells
+  docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital This table contains the spells."
+  source:
+    catalog: ABI
+    schema: dbo
+    table: vw_APC_SEM_Spell_001
   columns:
   - column: unique_booking_reference_number_converted
     docs: "The unique booking reference number assigned by the Choose and Book system
@@ -119,9 +122,11 @@
       NHS NUMBER is 10 numeric digits in length. The tenth digit is a check digit
       used to confirm its validity. The check digit is validated using the Modulus
       11 algorithm and the use of this algorithm is mandatory."
-    use: no
+    use: yes
     source:
-    - NHSNumber
+    - AIMTC_Pseudo_NHS
+    - NHSnumber # This is what is in the database
+    #- NHSNumber
     strategy: coalesce
   - column: nhs_number_status_indicator_code_2
     docs: NHS NUMBER STATUS INDICATOR CODE is the trace status of the NHS NUMBER.
@@ -710,9 +715,10 @@
   - column: primary_diagnosis_icd
     docs: PRIMARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the PRIMARY DIAGNOSIS.
-    use: no
+    use: yes
     source:
-    - PrimaryDiagnosis_ICD
+    - DiagnosisPrimary_ICD # This is the name in the database
+    #- PrimaryDiagnosis_ICD
     strategy: coalesce
   - column: present_on_admission_indicator
     docs: An indication of whether a PATIENT DIAGNOSIS was already present when the
@@ -1862,3 +1868,25 @@
     source:
     - LatestClinicallyAppropriateDate
     strategy: coalesce
+
+  ## Columns added below here do not directly correspond to an entry in CDS 130
+  ## They combine several datetime columns into one
+  - column: "spell_start"
+    docs: "A datetime field that is the time when the associated spell for this episode began."
+    source:
+    - "AIMTC_ProviderSpell_Start_Date"
+    - "StartDate_HospitalProviderSpell"
+    - "StartTime_HospitalProviderSpell"
+    strategy: "coalesce"
+    use: yes 
+  - column: "spell_end"
+    docs: "A datetime field that is the time when the associated spell for this episode ended."
+    source:
+    - "AIMTC_ProviderSpell_End_Date"
+    - "DischargeDate_FromHospitalProviderSpell"
+    - "DischargeTime_HospitalProviderSpell"
+    strategy: "coalesce"
+    use: yes 
+    
+
+      
