@@ -45,9 +45,13 @@ NULL
 ##' 
 icd10_str_to_indices <- function(str, codes)
 {
-    ## codes is a list of objects that either
-    ## contain a category key or a code key.
-
+    ## Check for empty string
+    ## TODO maybe a better place to do this
+    if (grepl("^\\s*$", str))
+    {
+        stop("Cannot parse a whitespace string as an ICD-10 code")
+    }
+    
     ## Look through the index keys at the current level
     ## and find the position of the code
     position <- codes %>%
@@ -235,11 +239,27 @@ new_icd10 <- function(str = character())
 
     ## Get the indices for each code
     indices <- str %>%
-        purrr::map(~ icd10_str_to_indices(.x, codes))
+        purrr::map(function(x) {
+            tryCatch(
+                error = function(cnd) {
+                    ## Use -1 to indicate invalid code
+                    -1
+                },
+                icd10_str_to_indices(x, codes)
+            )
+        })
 
     ## Get the proper name
     name <- indices %>%
-        purrr::map(~ icd10_indices_to_code(.x, codes)) %>%
+        purrr::map(function(x) {
+            if (x[[1]] == -1) {
+                "Err"
+            }
+            else
+            {
+                icd10_indices_to_code(x, codes)
+            }
+        }) %>%
         purrr::map("code") %>%
         unlist()
 
