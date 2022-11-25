@@ -223,7 +223,7 @@ new_icd10 <- function(str = character())
         purrr::map("code") %>%
         unlist()
 
-    obj <- c(names, indices) %>%
+    obj <- list(name, indices) %>%
         purrr::pmap(~ list(.x, .y))
     
     vctrs::new_vctr(obj, class = "icdb_icd10")
@@ -241,7 +241,7 @@ is_icd10 <- function(x) {
 
 ##' @export
 format.icdb_icd10 <- function(x, ...) {
-    paste0("FMT_",x)
+    x %>% purrr::map(1) 
 }
 
 
