@@ -482,33 +482,35 @@ icd_add_indices <- function(codes)
             ## Process the child objects
             object$child <- icd_add_indices(object$child)
 
-            ## Check if there are numerical digits in the
-            ## category. If there are, then the category is
-            ## is a chapter. 
-            if (grepl("[0-9]", object$category))
+            ## Check if the category is a code range or
+            ## a code, meaning it starts with a capital
+            ## letter followed by a number, e.g.
+            ## A00-A03 or I22. If the category is not
+            ## in this form, then copy the value of
+            ## the first index one level down (this
+            ## is valid because of the order of evaulation
+            ## of this function -- inside to out).
+            if (grepl("[A-Z][0-9]", object$category))
             {
-                ## Object is a category. Split on
-                ## the hyphen to obtain the start
-                ## of the range. TODO: come back and
+                ## Get the code, pick out only the
+                ## first item from a range (if the
+                ## dash if present) TODO: come back and
                 ## fix whatever is going on with this
                 ## expression. object$category is just
                 ## a string, but it is treating it like
                 ## a list/vector.
-                val <- object$category
+                object$index <- object$category %>%
+                    stringr::str_split("-") %>%
+                    unlist() %>%
+                    head(1)
             }
             else
             {
-                ## Object is a chapter. Use the code in the
-                ## first subcategory as the index
-                val <- object$child[[1]]$category
+                ## Object is a chapter. Copy the first
+                ## index from one level down.
+                object$index <- object$child[[1]]$index
             }
 
-            ## Get the code, pick out only the first item
-            ## from a range (if the dash if present)
-            object$index <- val %>%
-                stringr::str_split("-") %>%
-                unlist() %>%
-                head(1)
 
         }
         else if (!is.null(object$code))
