@@ -1,5 +1,4 @@
 test_that("a selection of ICD-10 codes that have previously failed to parse", {
-
     ## This worked OK from the beginning
     expect_equal(format(icd10("A000")), "A00.0")
 

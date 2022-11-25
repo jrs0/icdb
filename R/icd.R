@@ -63,8 +63,8 @@ icd10_str_to_indices <- function(str, codes)
                 ## the end of the range is interpreted
                 ## as anything beginning with this
                 ## string
-                val <- substr(str,1,nchar(x))
-                (val >= x[[1]]) && (val <= x[[2]])
+                trunc <- substr(str,1,nchar(x))
+                (trunc >= x[[1]]) && (trunc <= x[[2]])
             }
             else
             {
@@ -115,7 +115,7 @@ icd10_str_to_indices <- function(str, codes)
         {
             ## The code is not better matched by the next level
             ## down. In this case, drop 
-            c(position, head(res, n=-1))
+            c(position, head(x, n=-1))
         }
     }
     else if (!is.null(codes[[position]]$code))
