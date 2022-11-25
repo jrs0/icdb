@@ -552,6 +552,25 @@ icd_combine_files <- function()
 
 }
 
+##' Increment the category at the current level (i.e.
+##' X34 -> X35, not e.g. X3400...0001)
+##' 
+##' @title Lexicographically increment an ICD-10 category
+##' @param word The word to increment (of the form X43)
+##' @return The next word (X44)
+icd10_lex_inc <- function(word)
+{
+    ## Assume format X34 (Letter-Num-Num)
+    num <- word %>% stringr::str_replace(".","") %>%
+        as.integer()
+     
+    word %>%
+        stringr::str_replace("[0-9]*",
+                             as.character(num+1))
+}
+
+    
+
 ##' To facilite searching for codes in the configuration
 ##' file, it is important for each object (category or code)
 ##' to store a range of codes that it contains. R supports
