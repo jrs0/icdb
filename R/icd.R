@@ -601,13 +601,30 @@ icd10_index_codes <- function(codes)
             {
                 ## Object is a chapter. Copy the first
                 ## index from one level down, using the
-                ## start and end values for the range
-                N <- length(object$child)
+                ## start and end values for the range.
+
+                ## Before doing that, the indexes must
+                ## be sorted
+                ## Get the sorted order of this level 
+                k <- object$child %>%
+                    ## Get the first value (the starting
+                    ## value) of each range and sort
+                    ## by that
+                    purrr::map(~ .x$index[[1]]) %>%
+                    unlist() %>%
+                    order()
+
+                ## Use the index k to reorder the level
+                reordered <- object$child[k]
+
+                ## Compute the range start and end based on the
+                ## reordered list
+                N <- length(reordered)
                 object$index <- c(
                     ## Start of first range
-                    object$child %>% purrr::chuck(1, "index", 1), 
+                    reordered %>% purrr::chuck(1, "index", 1), 
                     ## End of last range                    
-                    object$child %>% purrr::chuck(N, "index", 2)
+                    reordered %>% purrr::chuck(N, "index", 2)
                 )
             }
 
