@@ -1,0 +1,17 @@
+---
+title: "ICD-10 parsing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ICD-10 parsing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+ICDB can read and interpret ICD-10 codes in string format. The goal of this feature is to provide a guarantee that ICD-10 columns in data frames contain valid codes, and provide facilities for interpreting the codes (for example, getting documentation strings, grouping by category, etc.). In addition, ICDB will provide utilities for defining groups of codes which are of interest. This functionality will be extended to cover OPCS-4 codes, and other codes found in healthcare databases. This page describes how the ICD-10 code parsing process works.

@@ -48,6 +48,8 @@ navbar:
         href: articles/cache-design.html
       - text: Data Preprocessing
         href: articles/preprocess-design.html
+      - text: ICD-10 code parsing
+        href: articles/icd10-design.html
       - text: Validation
       - text: Testing Strategy
         href: articles/testing-strategy.html
