@@ -87,7 +87,6 @@ icd10_str_to_indices <- function(str, codes)
             stringr::str_split("-") %>%
             unlist()
 
-        if ()
         if (length(cc) == 1)
         {
             ## Must exactly match
@@ -630,7 +629,7 @@ icd_combine_files <- function()
 ##' @title Index a codes definition structure
 ##' @return The codes structure with indices (a nested list)
 ##' @param codes The input nested list of codes
-icd10_gen_indices <- function(codes)
+icd10_index_codes <- function(codes)
 {
     ## For the new codes structure
     result <- list()
@@ -640,7 +639,7 @@ icd10_gen_indices <- function(codes)
         if (!is.null(object$category))
         {
             ## Process the child objects
-            object$child <- icd_add_indices(object$child)
+            object$child <- icd10_index_codes(object$child)
 
             ## Check if the category is a code range or
             ## a code, meaning it starts with a capital
@@ -652,23 +651,24 @@ icd10_gen_indices <- function(codes)
             ## of this function -- inside to out).
             if (grepl("[A-Z][0-9]", object$category))
             {
-                ## Get the code, pick out only the
-                ## first item from a range (if the
-                ## dash if present) TODO: come back and
-                ## fix whatever is going on with this
-                ## expression. object$category is just
-                ## a string, but it is treating it like
-                ## a list/vector.
+                ## Store the index as a range (start
+                ## and end inclusive).
                 object$index <- object$category %>%
                     stringr::str_split("-") %>%
-                    unlist() %>%
-                    head(1)
+                    unlist()
             }
             else
             {
                 ## Object is a chapter. Copy the first
-                ## index from one level down.
-                object$index <- object$child[[1]]$index
+                ## index from one level down, using the
+                ## start and end values for the range
+                N <- length(object$child)
+                object$index <- c(
+                    ## Start of first range
+                    object$child %>% purrr::chuck(1, "index", 1), 
+                    ## End of last range                    
+                    object$child %>% purrr::chuck(N, "index", 2)
+                )
             }
 
 
