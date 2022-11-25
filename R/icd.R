@@ -243,7 +243,7 @@ new_icd10 <- function(str = character())
             tryCatch(
                 error = function(cnd) {
                     ## Use -1 to indicate invalid code
-                    -1
+                    c(-1)
                 },
                 icd10_str_to_indices(x, codes)
             )
@@ -259,8 +259,7 @@ new_icd10 <- function(str = character())
             {
                 icd10_indices_to_code(x, codes)$code
             }
-        }) %>%
-        unlist()
+        })
 
     obj <- list(name, indices) %>%
         purrr::pmap(~ list(.x, .y))
