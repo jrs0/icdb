@@ -99,7 +99,7 @@ icd10_str_to_indices <- function(str, codes)
         ## If the category was a match, then
         ## Query that category for the code
         x <- icd10_str_to_indices(str, codes[[position]]$child)
-        
+
         ## Code from here onwards is in the reverse pass of the
         ## call tree (i.e. we are moving up the tree now, towards
         ## more general categories). The x returned above
@@ -125,8 +125,8 @@ icd10_str_to_indices <- function(str, codes)
     else if (!is.null(codes[[position]]$code))
     {
         ## An exact match is required, else return -1 to signify
-        ## failed match. TODO Add the valid code match patterns
-        ## here
+        ## failed match. BUG what is the correct condition to
+        ## check here.
         if (str != codes[[position]]$index)
         {
             c(-1)
