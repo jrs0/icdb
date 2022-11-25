@@ -6,42 +6,17 @@ NULL
 ## This is what you want !
 ## t[[1]]$child %>% purrr::map("category")
 
-
-##' Search the ICD-10 codes definition structure
-##' to find the indices that identify a particular
-##' ICD-10 code.
+##' This function takes a string and searches the codes
+##' structure to find a match, returning the list of
+##' indices defining the location of the code within
+##' the structure. The purpose of the indices is to
+##' store them in an icd10 object, allowing information
+##' about the code to be queried. 
 ##'
-##' An ICD10 string is a four-character
-##' code like "C71.0". In the database, the
-##' dot may be missing, there may be a trailing
-##' dash (for filler codes, which should be X,
-##' or any other high-level category code),
-##' and there may be trailing matter (such as
-##' dagger or asterisk codes).
-##' 
-##' Even though all the information about a code
-##' is present in the string, it is necessary to
-##' search the codes file to find the location
-##' of the code.3
-##'
-##' Each level of the codes file has a category
-##' or a codes key, with structure as follows:
-##'
-##' category -> category +  -> category -> code
-##' (chapter)   (code_range)   (triple)    (ICD-10)
-##' I           A00-A09        A00         A00.0
-##'
-##' The + after the code range indicates that
-##' there may be an arbitrary number of code range
-##' levels, involving increasingly nested levels
-##' of the codes file. A code_range is identified
-##' by the presence of a dash in the category.
-##' 
-##' @title Identify an ICD-10 code.
-##' @param str The code string (from the database) to
-##' search for (with dots removed)
-##' @param codes The codes definition structure
-##' @return A vector of indices identifying the code
+##' @title Parse an ICD-10 code string
+##' @param str The string to parse
+##' @param codes The reference codes structure
+##' @return A list of indices pointing to the code
 ##' 
 icd10_str_to_indices <- function(str, codes)
 {
@@ -49,7 +24,9 @@ icd10_str_to_indices <- function(str, codes)
     ## TODO maybe a better place to do this
     if (grepl("^\\s*$", str))
     {
-        stop("Cannot parse a whitespace string as an ICD-10 code")
+        rlang::abort("error_empty_code",
+                     message = "Cannot parse a whitespace string as an ICD-10 code"
+                     )
     }
     
     ## Look through the index keys at the current level
@@ -248,6 +225,9 @@ new_icd10 <- function(str = character())
     indices <- str %>%
         purrr::map(function(x) {
             tryCatch(
+                error_empty_code = function(cnd) {
+                    print("Hello")
+                },
                 error = function(cnd) {
                     ## Use -1 to indicate invalid code
                     print("SDS")
@@ -279,10 +259,8 @@ new_icd10 <- function(str = character())
             }
         })
 
-    obj <- list(name, indices) %>%
-        purrr::pmap(~ list(.x, .y))
-    
-    vctrs::new_vctr(obj, class = "icdb_icd10")
+    obj <- list(name=name, indices=indices)
+    vctrs::new_rcrd(obj, class = "icdb_icd10")
 }
 
 icd10 <- function(str = character())
