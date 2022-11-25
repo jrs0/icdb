@@ -75,7 +75,7 @@ icd10_str_to_indices <- function(str, codes)
     ## of this level, so it is not a valid code.
     if (position == 0)
     {
-        stop("'", str, "' is not a valid ICD-10 code")
+        stop("'", str, "' is not a valid ICD-10 code. ")
     }
 
     ## If you get here, the code was valid at the current
