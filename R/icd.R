@@ -43,7 +43,7 @@ NULL
 ##' @param codes The codes definition structure
 ##' @return A vector of indices identifying the code 
 ##' @author 
-gen_icd_indices <- function(str, codes)
+icd10_str_to_indices <- function(str, codes)
 {
     ## codes is a list of objects that either
     ## contain a category key or a code key.
@@ -60,7 +60,7 @@ gen_icd_indices <- function(str, codes)
     {
         ## If the next level has a category key,
         ## then search that category
-        c(position, gen_icd_indices(str, codes[[position]]$child))
+        c(position, icd10_str_to_indices(str, codes[[position]]$child))
     }
     else
     {
@@ -78,7 +78,7 @@ gen_icd_indices <- function(str, codes)
 ##' @param codes The codes definition structure
 ##' @return 
 ##' @author 
-icd10_get_code <- function(indices, codes)
+icd10_indices_to_str <- function(indices, codes)
 {
     ## The structure of the codes file is
     ## a nested list of lists. At each level,
@@ -470,7 +470,7 @@ icd_combine_files <- function()
 ##' @title Index a codes definition structure
 ##' @return The codes structure with indices (a nested list)
 ##' @param codes The input nested list of codes
-icd_add_indices <- function(codes)
+icd10_gen_indices <- function(codes)
 {
     ## For the new codes structure
     result <- list()
