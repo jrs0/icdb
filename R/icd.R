@@ -54,14 +54,27 @@ icd10_str_to_indices <- function(str, codes)
         purrr::map("index") %>%
         ## to obtain the first TRUE, which is
         ## the category that str is contained in
-        purrr::detect_index(~ str >= ., .dir = "backward")
-
+        purrr::detect_index(function(x) {
+            if (length(x) == 2) {
+                ## If the index is a range, check that
+                ## str lies in the range
+                (str >= x[[1]]) && (str <= x[[2]])
+            }
+            else
+            {
+                ## If the index is a single item,
+                ## check that the str is equal to
+                ## the item
+                str == x
+            }
+        })
+    
     ## If position is 0, then a match was not found. This
     ## means that the str is not a valid member of any member
     ## of this level, so it is not a valid code.
     if (position == 0)
     {
-        stop("'", str, "' does not represent a valid ICD-10 code [ERR 1]")
+        stop("'", str, "' is not a valid ICD-10 code")
     }
 
 
