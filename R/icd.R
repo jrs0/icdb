@@ -243,6 +243,7 @@ new_icd10 <- function(str = character())
             tryCatch(
                 error = function(cnd) {
                     ## Use -1 to indicate invalid code
+                    print("SDS")
                     c(-1)
                 },
                 icd10_str_to_indices(x, codes)
@@ -253,6 +254,7 @@ new_icd10 <- function(str = character())
     name <- indices %>%
         purrr::map(function(x) {
             if (x[[1]] == -1) {
+                print("Got here")
                 c("Err")
             }
             else
