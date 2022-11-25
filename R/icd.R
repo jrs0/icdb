@@ -565,7 +565,7 @@ icd10_lex_inc <- function(word)
         as.integer()
      
     word %>%
-        stringr::str_replace("[0-9]*",
+        stringr::str_replace("[0-9]+",
                              as.character(num+1))
 }
 
