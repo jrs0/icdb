@@ -87,13 +87,38 @@ icd10_str_to_indices <- function(str, codes)
     else if (!is.null(codes[[position]]$category))
     {
         ## If you get here, then the entity at position was
-        ## a category, not a code. Processing which category
-        ## should contain 
-
+        ## a category, not a code. However, it is not possible
+        ## to tell whether this is the final valid category
+        ## for the given code string str until all the subacute
+        ## categories have been parsed. Therefore, the logic to
+        ## check the category must occur on the reverse pass
+        ## of the call tree. 
 
         ## Query that category for the code
-        res <- icd10_str_to_indices(str, codes[[position]]$child)
+        x <- icd10_str_to_indices(str, codes[[position]]$child)
 
+        ## Code from here onwards in in the reverse pass of the
+        ## call tree (i.e. we are moving up the tree now, towards
+        ## more general categories). The x returned from
+        ## the call contains the current list of indices, ending
+        ## with a value val which determines whether or not the
+        ## next level down validly contains the code. If val > 0
+        ## then all is well, and the full list can be returned
+        val <- tail(x, n=1)
+        if (val > 0)
+        {
+            ## Return the entire list
+            c(position, x)
+        }
+        else if (val == -1)
+        {
+            ## The code is not in the next level down. In this
+            ## case, it is necessary to check whether the code
+            ## is validly at the current level. 
+            c(position, head(res, n=-1))
+        }
+        
+        
         ## The last element in the returned value res tells you
         ## where the code is in the next level down (if res is
         ## positive), or it tells you that the code
@@ -101,20 +126,6 @@ icd10_str_to_indices <- function(str, codes)
         ## We are walking back up the tree at this point,
         ## so all the levels below this point have already been
         ## parsed
-        val <- tail(res, n=1)
-        if (val > 0)
-        {
-            ## Return the entire list
-            c(position, res)
-        }
-        else if (val == -1)
-        {
-            ## The code is not in the next level down, but
-            ## it is in this level. That means you can
-            ## return the current level as the final
-            ## category for the code
-            c(position, head(res, n=-1))
-        }
         
     }
     else
