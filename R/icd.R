@@ -137,7 +137,8 @@ icd10_str_to_indices <- function(str, codes)
     }
     else
     {
-        stop("Expected to find code or category in ICD-10 list element")
+        stop("Expected to find code or category in ICD-10 ",
+             "list element, while parsing '", str, "'")
     }
         
 }
