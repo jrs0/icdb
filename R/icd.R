@@ -20,13 +20,11 @@ NULL
 ##' 
 icd10_str_to_indices <- function(str, codes)
 {
-    ## Check for empty string
-    ## TODO maybe a better place to do this
+    ## Check for empty string. Return -1
+    ## if empty
     if (grepl("^\\s*$", str))
     {
-        rlang::abort("error_empty_code",
-                     message = "Cannot parse a whitespace string as an ICD-10 code"
-                     )
+        list(indices = c(-1))
     }
     
     ## Look through the index keys at the current level
@@ -74,8 +72,8 @@ icd10_str_to_indices <- function(str, codes)
     {   
         ## If you get here, the code was valid for this category
         ## If the category was a match, then
-        ## Query that category for the code
-        x <- icd10_str_to_indices(str, codes[[position]]$child)
+        ## Query that category for the code indices
+        x <- icd10_str_to_indices(str, codes[[position]]$child)$indices
 
         ## Code from here onwards is in the reverse pass of the
         ## call tree (i.e. we are moving up the tree now, towards
@@ -90,13 +88,13 @@ icd10_str_to_indices <- function(str, codes)
         if (val > 0)
         {
             ## Return the entire list
-            c(position, x)
+            list(indices = c(position, x))
         }
         else if (val == -1)
         {
             ## The code is not better matched by the next level
             ## down. In this case, drop 
-            c(position, head(x, n=-1))
+            list(indices = c(position, head(x, n=-1)))
         }
     }
     else if (!is.null(codes[[position]]$code))
@@ -121,7 +119,7 @@ icd10_str_to_indices <- function(str, codes)
         ##     ## in the current block
         ##     c(position)
         ## }
-        c(position)
+        list(indices = c(position))
     }
     else
     {
@@ -223,35 +221,8 @@ new_icd10 <- function(str = character())
 
     ## Get the indices for each code
     indices <- str %>%
-        purrr::map(function(x) {
-            tryCatch(
-                error_empty_code = function(cnd) {
-                    c(-2)
-                },
-                error = function(cnd) {
-                    ## Use -1 to indicate invalid code
-                    c(-1)
-                },
-                icd10_str_to_indices(x, codes)
-            )
-        })
-
-    ## Calculate the type
-    type <- indices %>%
-        purrr::map(function(x) {
-            if (x[[1]] == -2) {
-                "W"
-            }
-            else if (x[[1]] == -1)
-            {
-                "E"
-            }
-            else if (x[[1]] > 0)
-            {
-                "C"
-            }
-
-        })
+        purrr::map(~ icd10_str_to_indices(.x, codes)) %>%
+        purrr::map("indices")
     
     ## Get the proper name
     name <- indices %>%
@@ -277,7 +248,6 @@ new_icd10 <- function(str = character())
 
     obj <- list(
         name = name,
-        #type = type,
         indices = indices)
     vctrs::new_rcrd(obj, class = "icdb_icd10")
 }
@@ -326,8 +296,7 @@ is_icd10 <- function(x) {
 ##' @export
 format.icdb_icd10 <- function(x, ...) {
     name <- vctrs::field(x, "name")
-    type <- vctrs::field(x, "type")
-    out <- paste0( "[", type, "]", name)
+    out <- paste0( "[", 0, "] ", name)
     out
 }
 
