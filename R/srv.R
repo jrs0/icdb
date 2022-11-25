@@ -275,7 +275,8 @@ server <- function(data_source_name = NULL,
 
         ## Create the mapping from strings to drivers
         drv_map <- list(
-            "SQL server" = odbc::odbc(), ## For Microsoft
+            "ODBC Driver 17 for SQL Server" = odbc::odbc(), ## For Microsoft
+            "SQL Server Native Client 11.0" = odbc::odbc(), ## For Microsoft
             "mysql" = RMariaDB::MariaDB(), ## Both mysql and mariadb using RMariaDB
             "mariadb" = RMariaDB::MariaDB(),
             "sqlite" = RSQLite::SQLite()
@@ -303,7 +304,13 @@ server <- function(data_source_name = NULL,
         ## The conf file will be used as arguments in DBI::dbConnect.
         ## First, replace the driver element with the drv object
         conf$drv <- drv_map[[conf$driver]]
-        conf$driver <- NULL
+
+        ## For non-Microsoft databases, remove the driver key.
+        if (!grepl("SQL server", conf$driver))
+        {
+            conf$driver <- NULL
+        }
+
         if (is.null(conf$drv))
         {
             stop("Unrecognised driver '", conf$driver,
@@ -315,7 +322,8 @@ server <- function(data_source_name = NULL,
         ## (often used in ID columns) in a format that will work
         ## with dplyr (storing the bigint as a character string)
         conf$bigint <- "character"
-
+        print(conf)
+        
         ## Open the database connection
         con <- do.call(DBI::dbConnect, conf)
     }
