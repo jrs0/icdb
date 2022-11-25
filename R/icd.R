@@ -63,12 +63,43 @@ icd10_str_to_indices <- function(str, codes)
     {
         stop("'", str, "' does not represent a valid ICD-10 code [ERR 1]")
     }
+
+    ## Now, decide whether the code is valid at that position.
+    ## For a code, an exact match is required, which can be determined
+    ## on the forward pass of the call tree (i.e. at a leaf node here).
+    if (!is.null(codes[[position]]$category))
     
     if (!is.null(codes[[position]]$category))
     {
+        
+
+        
         ## If the next level has a category key,
-        ## then search that category
-        c(position, icd10_str_to_indices(str, codes[[position]]$child))
+        ## then query that category for the code
+        res <- icd10_str_to_indices(str, codes[[position]]$child)
+
+        ## The last element in the returned value res tells you
+        ## where the code is in the next level down (if res is
+        ## positive), or it tells you that the code
+        ## is not present in the next level down (if res == -1).
+        ## We are walking back up the tree at this point,
+        ## so all the levels below this point have already been
+        ## parsed
+        val <- tail(res, n=1)
+        if (val > 0)
+        {
+            ## Return the entire list
+            c(position, res)
+        }
+        else if (val == -1)
+        {
+            ## The code is not in the next level down, but
+            ## it is in this level. That means you can
+            ## return the current level as the final
+            ## category for the code
+            c(position, head(res, n=-1))
+        }
+        
     }
     else
     {
