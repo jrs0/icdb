@@ -24,5 +24,6 @@ index_end <- end - days(365)
 ## even those not related to an ACS event)
 spells <- msrv$sus$apc_spells %>%
     filter(spell_start >= !!start, spell_end <= !!index_end) %>%
-    run() %>%
-    mutate(p = icd10(primary_diagnosis_icd))
+    run()##  %>%
+    ## mutate(p = icd10(primary_diagnosis_icd))
+
