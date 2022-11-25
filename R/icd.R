@@ -288,7 +288,10 @@ is_icd10 <- function(x) {
 
 ##' @export
 format.icdb_icd10 <- function(x, ...) {
-    x %>% purrr::map(1) %>% unlist()
+    name <- vctrs::field(x, "name")
+    indices <- vctrs::field(x, "indices")
+    out <- paste0(name, "[", indices, "]")
+    out
 }
 
 
