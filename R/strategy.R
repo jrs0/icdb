@@ -66,7 +66,7 @@ coalesce <- function(tbl, name)
 ##' @return The tbl after reducing
 coalesce_exclude_null <- function(tbl, name)
 {
-    tbl %>% dplyr::coalesce(name) %>%
+    tbl %>% coalesce(name) %>%
         dplyr::filter(!is.na(!!as.name(name)))
 }
 
