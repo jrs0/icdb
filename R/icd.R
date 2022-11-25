@@ -57,8 +57,13 @@ icd10_str_to_indices <- function(str, codes)
         purrr::detect_index(function(x) {
             if (length(x) == 2) {
                 ## If the index is a range, check that
-                ## str lies in the range
-                (str >= x[[1]]) && (str <= x[[2]])
+                ## str lies in the range. The range is
+                ## of the form [start, end). The end
+                ## element is open, as per the indexing
+                ## function (which lexicographically
+                ## increments the end of the range as
+                ## stated in the ICD-10 codes).
+                (str >= x[[1]]) && (str < x[[2]])
             }
             else
             {
