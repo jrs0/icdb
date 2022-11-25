@@ -66,6 +66,10 @@ coalesce <- function(tbl, name)
 ##' @return The tbl after reducing
 coalesce_exclude_null <- function(tbl, name)
 {
+    ## This coalesce is not from dplyr, it is from icdb
+    ## (the function above). Cannot put icdb:: in front
+    ## because it is not exported. Feels like there should be
+    ## a way to specify it, but TODO later...
     tbl %>% coalesce(name) %>%
         dplyr::filter(!is.na(!!as.name(name)))
 }
