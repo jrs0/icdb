@@ -67,15 +67,31 @@ icd10_str_to_indices <- function(str, codes)
     ## Now, decide whether the code is valid at that position.
     ## For a code, an exact match is required, which can be determined
     ## on the forward pass of the call tree (i.e. at a leaf node here).
-    if (!is.null(codes[[position]]$category))
-    
-    if (!is.null(codes[[position]]$category))
+    if (!is.null(codes[[position]]$code))
     {
+        ## An exact match is required, else return -1 to signify
+        ## failed match. TODO Add the valid code match patterns
+        ## here
+        if (str != codes[[position]]$index)
+        {
+            c(-1)
+        }
+        else
+        {
+            ## Else, the code matched. Return the position
+            ## in the current block
+            c(position)
+        }
         
+    }
+    else if (!is.null(codes[[position]]$category))
+    {
+        ## If you get here, then the entity at position was
+        ## a category, not a code. Processing which category
+        ## should contain 
 
-        
-        ## If the next level has a category key,
-        ## then query that category for the code
+
+        ## Query that category for the code
         res <- icd10_str_to_indices(str, codes[[position]]$child)
 
         ## The last element in the returned value res tells you
@@ -103,16 +119,7 @@ icd10_str_to_indices <- function(str, codes)
     }
     else
     {
-        ## If the str does not match the index of the code,
-        ## then the code is not valid
-        if (str != codes[[position]]$index)
-        {
-            stop("'", str, "' does not represent a valid ICD-10 code [ERR 2]")
-        }
-        
-        ## Else, the next level is a code level.
-        ## In this case, return the current position
-        c(position)
+        stop("Expected to find code or category in ICD-10 list element")
     }
         
 }
