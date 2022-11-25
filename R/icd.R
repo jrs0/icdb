@@ -569,8 +569,6 @@ icd10_lex_inc <- function(word)
                              as.character(num+1))
 }
 
-    
-
 ##' To facilite searching for codes in the configuration
 ##' file, it is important for each object (category or code)
 ##' to store a range of codes that it contains. R supports
@@ -615,6 +613,17 @@ icd10_index_codes <- function(codes)
                 object$index <- object$category %>%
                     stringr::str_split("-") %>%
                     unlist()
+
+                ## Lexicographically increment the
+                ## end of the range to allow codes
+                ## beyond the end (for example,
+                ## B34.9 must be included in the
+                ## category that ends B34)
+                if (length(object$index) == 2)
+                {
+                    object$index[[2]] <- object$index[[2]] %>%
+                        icd10_lex_inc()
+                }
             }
             else
             {
@@ -642,8 +651,9 @@ icd10_index_codes <- function(codes)
                 object$index <- c(
                     ## Start of first range
                     reordered %>% purrr::chuck(1, "index", 1), 
-                    ## End of last range                    
-                    reordered %>% purrr::chuck(N, "index", 2)
+                    ## End of last range
+                    reordered %>%
+                    purrr::chuck(N, "index", 2)
                 )
             }
 
