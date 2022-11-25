@@ -157,12 +157,12 @@ print.node <- function(x, ...)
 `$.node` <- function(x,i)
 {
     obj <- NextMethod()
-    if (class(obj) == "node")
+    if (methods::is(obj,"node"))
     {
         ## Return for printing or otherwise
         obj
     }
-    else if (class(obj) == "table_wrapper")
+    else if (methods::is(obj, "table_wrapper"))
     {
         ## Call the object, which returns a table, and
         ## return the result
@@ -402,7 +402,7 @@ server <- function(data_source_name = NULL,
 ##' @title Get a dplyr::tbl corresponding to a table
 ##' @param srv The Databases object containing the server connection
 ##' @param source A named list containing a table, optionally a schema, and
-##' optionally a database. 
+##' optionally a database.
 ##' @return The dplyr::tbl (shell) for the table
 ##'
 get_tbl <- function(srv, source)
@@ -425,9 +425,9 @@ get_tbl <- function(srv, source)
     else
     {
         ## e.g., for sqlite
-        id <- source$table        
+        id <- source$table
     }
-    
+
     dplyr::tbl(srv@con, id)
 }
 
@@ -438,7 +438,8 @@ get_tbl <- function(srv, source)
 ##' This function is the way to associate a function with every table
 ##' object in the db list, and replaces the need to overload `$`, while
 ##' also avoiding the problem of storing the table name and database
-##' name in the functions environment. This is the purpose of a function
+##' name in the functions environment. This is the purpose of a function
+
 ##' factory; to capture variables in the enclosing environment and allow
 ##' them to persist when the function is called. Read this page and the
 ##' associated environment sections for a full explanation:
@@ -511,7 +512,7 @@ setGeneric("sql_query", function(db, query) standardGeneric("sql_query"))
 setMethod("sql_query", c("server", "character"), function(db, query) {
 
     ## Search for the cached file
-    result <- read_cache(query)    
+    result <- read_cache(query)
     if (!is.null(result))
     {
         message("Found cached results for this query, using that")

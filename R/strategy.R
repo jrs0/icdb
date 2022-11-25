@@ -36,6 +36,10 @@ NULL
 ##' @title Reduce by coalescing columns
 ##' @param tbl An input dplyr::tbl
 ##' @param name The logical column name
+##' @importFrom rlang := quo
+##' @importFrom dplyr matches select mutate
+##' @importFrom magrittr %>%
+##' @importFrom purrr map
 ##' @return The tbl after reducing the columns
 coalesce <- function(tbl, name)
 {
@@ -57,10 +61,12 @@ coalesce <- function(tbl, name)
 ##' @title Reduce by coalescing columns, excluding resulting null values
 ##' @param tbl The tbl to process
 ##' @param name The logical column name
+##' @importFrom magrittr %>%
+##' @importFrom dplyr coalesce filter
 ##' @return The tbl after reducing
 coalesce_exclude_null <- function(tbl, name)
 {
-    tbl %>% coalesce(name) %>%
+    tbl %>% dplyr::coalesce(name) %>%
         dplyr::filter(!is.na(!!as.name(name)))
 }
 
@@ -78,6 +84,9 @@ coalesce_exclude_null <- function(tbl, name)
 ##' @param tbl The tbl to process
 ##' @param name The logical column name (unquoted, like in dplyr filter etc.)
 ##' @param codes_files A list of the names of codes configuration files
+##' @importFrom magrittr %>%
+##' @importFrom dplyr mutate filter case_when
+##' @importFrom rlang ensym
 ##' @return The tbl after reducing
 ##'
 ##' @export
@@ -97,6 +106,6 @@ codes_from <- function(tbl, codes_files, name)
     ## The line for setting the name needs some work, but it works
     ## so I'm leaving it for now.
     tbl %>% dplyr::filter(flt) %>%
-        dplyr::mutate(!!as.name(rlang::ensym(name)) := case_when(!!!cases), .keep = "unused")
+        dplyr::mutate(!!as.name(rlang::ensym(name)) := dplyr::case_when(!!!cases), .keep = "unused")
 }
 

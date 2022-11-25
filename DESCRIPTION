@@ -11,14 +11,12 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
 Imports:
-    crayon,
     DBI,
     dbplyr (>= 2.2.1),
     dplyr,
     fs,
     httr,
     janitor,
-    kableExtra,
     lubridate,
     magrittr,
     methods,
@@ -34,7 +32,9 @@ Imports:
     tidyr,
     utils,
     yaml
-Suggests: 
+Suggests:
+    crayon,
+    kableExtra,
     covr,
     knitr,
     rmarkdown,

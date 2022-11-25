@@ -198,6 +198,7 @@ write_cache <- function(data, object, time)
 ##' Remove entries from the level 1 cache, flushing them to level 2
 ##'
 ##' @title Flush and prune the level 1 cache
+##' @importFrom rlang .data
 prune_level1 <- function()
 {
     ## After writing to the level 1 cache, check whether anything needs
@@ -208,7 +209,7 @@ prune_level1 <- function()
         ## the level 2 cache. This assumes that it is dirty -- could
         ## add a flag to indicate whether the entry needs to be flushed
         metadata <- pkg_env$cache$level1$meta %>%
-            dplyr::filter(last_access == min(last_access)) %>%
+            dplyr::filter(.data$last_access == min(.data$last_access)) %>%
             as.list()
 
         ## Write the row to the level2 cache
@@ -216,7 +217,7 @@ prune_level1 <- function()
 
         ## Now delete the entry from the level1 cache
         pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
-            dplyr::filter(hash != metadata$hash)
+            dplyr::filter(.data$hash != metadata$hash)
     }
 }
 
@@ -372,7 +373,7 @@ read_cache <- function(data, lifetime = NULL)
 ##'
 ##' @title Summarise the cache
 ##' @return A tibble containing cache entries
-##'
+##' @importFrom rlang .data
 ##' @export
 show_cache <-function()
 {
@@ -383,9 +384,9 @@ show_cache <-function()
     ## Next, get the level 2 files and remove those that are in level 1
     file_list <- list.files(pkg_env$cache$path, pattern = "meta\\.rds") %>%
         dplyr::as_tibble() %>%
-        dplyr::mutate(value = stringr::str_replace(value, ".meta.rds", "")) %>%
-        dplyr::filter(!(value %in% tbl$hash)) %>%
-        dplyr::mutate(value = paste0(value, ".meta.rds"))
+        dplyr::mutate(value = stringr::str_replace(.data$value, ".meta.rds", "")) %>%
+        dplyr::filter(!(.data$value %in% tbl$hash)) %>%
+        dplyr::mutate(value = paste0(.data$value, ".meta.rds"))
 
     ## Make a function to get the data
     fn <- function(file) {
@@ -399,7 +400,7 @@ show_cache <-function()
     ## Replace NA in mem column by FALSE
     tbl[is.na(tbl)] <- FALSE
 
-    tbl %>% dplyr::arrange(desc(last_access))
+    tbl %>% dplyr::arrange(dplyr::desc(.data$last_access))
 }
 
 

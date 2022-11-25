@@ -217,7 +217,7 @@ to_icd10 <- function(vec)
 ##' codes to a codes definition file suitable for use in a mapped
 ##' server.
 ##'
-##' @title Parse ICD-10 codes 
+##' @title Parse ICD-10 codes
 ##' @param path The input file path (tab separated)
 ##' @param output The filename of the output definition file
 ##' 
@@ -225,29 +225,29 @@ parse_icd10 <- function(path, output = "icd10.yaml")
 {
     ## Read the file, and split the code based on the .
     tbl <- readr::read_tsv(path) %>%
-        tidyr::separate(CODE, into = c("code0", "code1"), sep = "\\.") 
+        tidyr::separate(.data$CODE, into = c("code0", "code1"), sep = "\\.")
 
     ## Top level
     top <- tbl %>%
-        dplyr::filter(is.na(code1))
-        
+        dplyr::filter(is.na(.data$code1))
+
     ## Create the top level codes
     codes <- list(categories = list())
-    
+
     fn <- function(code, description)
     {
         ## Make the next level down
         bottom <- tbl %>%
-            dplyr::filter(code0 == code,
-                          !is.na(code1)) %>%
-            dplyr::select(code1, DESCRIPTION, ALT_CODE)
+            dplyr::filter(.data$code0 == code,
+                          !is.na(.data$code1)) %>%
+            dplyr::select(.data$code1, .data$DESCRIPTION, .data$ALT_CODE)
 
         categories <- bottom %>%
             purrr::pmap(~ list(docs = ..2,
                                codes = list(paste0(code,".",..1),
                                             ..3)))
         names(categories) <- bottom$code1
-        
+
         ## Make the categories
         res <- list(
             docs = description,
@@ -262,9 +262,9 @@ parse_icd10 <- function(path, output = "icd10.yaml")
 
         res
     }
-    
+
     codes$categories <- top %>%
-        dplyr::select(code0, DESCRIPTION) %>%
+        dplyr::select(.data$code0, .data$DESCRIPTION) %>%
         purrr::pmap(~ fn(.x, .y))
     names(codes$categories) <- top$code0
 
@@ -285,10 +285,10 @@ parse_icd11 <- function(endpoint = "http://localhost/icd/entity")
     rr <- httr::content(xx, "parsed")
 
     print(rr)
-    
+
     ## Get documentation
     pp <- list(docs = rr$title$`@value`)
-    
+
     ## Parse all the child entities
     ss <- list()
     for (url in rr$child)
@@ -304,11 +304,11 @@ parse_icd11 <- function(endpoint = "http://localhost/icd/entity")
 ##'
 ##' Call this function once to get the token, and then use it
 ##' in the icd10_api calls
-##' 
+##'
 ##' Note: this function can be mocked for testing.
-##' 
+##'
 ##' @title Get the API token
-##' @return The token (named list) 
+##' @return The token (named list)
 icd_api_token <- function()
 {
     ## Authenticate the endpoint
@@ -319,30 +319,30 @@ icd_api_token <- function()
     (
         scope = 'icdapi_access',
         grant_type = 'client_credentials'
-    ))  
+    ))
     token <- httr::POST(token_endpoint, body = payload)
     httr::content(token)
 }
 
 ##' After authenticating, make a request to an API endpoint. Use
-##' 
+##'
 ##' Note: this function can be mocked for testing.
-##' 
-##' @title Make a request to the WHO ICD API 
+##'
+##' @title Make a request to the WHO ICD API
 ##' @param token The authentication token (containing access_token key)
 ##' @param endpoint The URL endpoint
 ##' @param data A named list of the headers to send
 ##' @return A named list of the contents of the request
-##' 
+##'
 icd_api_request <- function(token, endpoint, data = list())
 {
     headers <-
-        httr::add_headers(!!!data, 
+        httr::add_headers(!!!data,
                           Authorization = paste0("Bearer ",token$access_token),
                           accept = "application/json",
                           `API-Version` = "v2",
                           `Accept-Language` = "en")
-    
+
     xx <- httr::GET(url = endpoint, headers)
     if (xx$status == 401)
     {
@@ -357,7 +357,7 @@ icd_api_request <- function(token, endpoint, data = list())
         stop(paste0(xx$status, " returned; unknown error."))
     }
     httr::content(xx)
-    
+
 }
 
 ##' Use this function to automatically process the ICD-10 classifications into
@@ -369,12 +369,12 @@ icd_api_request <- function(token, endpoint, data = list())
 ##' the token timing out. The results can be combined to form a full ICD-10
 ##' file.
 ##'
-##' @title Generate a codes file from the ICD-10 API 
+##' @title Generate a codes file from the ICD-10 API
 ##' @param token The access token obtained from icd_api_token
 ##' @param release The release year (default "2016"; Options "2019",
-##' "2016", "2010", "2008") 
+##' "2016", "2010", "2008")
 ##' @param item The item to retrieve; a string appended to the end of the
-##' endpoint URL. This can be a chapter or a lower level item. 
+##' endpoint URL. This can be a chapter or a lower level item.
 ##' @param endpoint The endpoint URL to request. Generated from other arguments
 ##' if the endpoint is not provided.
 ##' @return A leaf or category object (named list)
@@ -384,7 +384,7 @@ icd_api_get_codes <- function(token, release = "2016", item = "I",
 {
     ## This is the base API url
     root <- "https://id.who.int/icd/release/10"
-    
+
     res <- icd_api_request(token, endpoint)
 
     ## Each request returns a named list containing the contents of this
@@ -404,7 +404,7 @@ icd_api_get_codes <- function(token, release = "2016", item = "I",
     ##
     ## Two other important keys, which are not currently used for anything,
     ## are the `inclusion` and `exclusion` lists for a particular node.
-    
+
     if (is.null(res$child))
     {
         ## Then the current node is a leaf node. Return the map
@@ -421,7 +421,7 @@ icd_api_get_codes <- function(token, release = "2016", item = "I",
             category = res$code,
             docs = res$title$`@value`,
             child = res$child %>%
-                sapply(function(ep) {  
+                sapply(function(ep) {
                     list(icd_api_get_codes(token, endpoint = ep))
                 })
         )
@@ -432,9 +432,9 @@ icd_api_get_codes <- function(token, release = "2016", item = "I",
 ##'
 ##' The function outputs files of the form icd10_I.yaml
 ##' where I is replaced with the chapter number.
-##' 
+##'
 ##' @title Fetch ICD-10 codes
-##' @param token The access token for the API 
+##' @param token The access token for the API
 ##' @param release The release year (see )
 ##'
 ##' @export
@@ -443,15 +443,15 @@ icd_api_fetch_all <- function(token, release = "2016")
     ## This is the base API url
     endpoint <- paste("https://id.who.int/icd/release/10",
                       release, sep="/")
-    
+
     ## Fetch the chapter endpoints
     ch_ep <- icd_api_request(token, endpoint)$child
     ch_names <- ch_ep %>%
         purrr::map(~ strsplit(., "/") %>% unlist() %>% tail(n=1))
-    
+
     ch_names %>%
         purrr::map(function(ch) {
-            
+
             ep <- paste("https://id.who.int/icd/release/10",
                         release, ch, sep="/")
             val <- icd_api_get_codes(token, endpoint = ep)
@@ -476,14 +476,14 @@ icd_combine_files <- function()
                docs = "ICD-10 codes, 2016 release",
                child = list())
     for (f in files)
-    {     
+    {
         yy <- yaml::read_yaml(f)
         xx$child <- c(xx$child, list(yy))
     }
 
     ## Write output file
     yaml::write_yaml(xx, "icd10.yaml")
-    
+
 }
 
 ##' To facilite searching for codes in the configuration
