@@ -127,6 +127,15 @@
     <loc>https://jrs0.github.io/icdb/reference/has_tag.html</loc>
   </url>
   <url>
+    <loc>https://jrs0.github.io/icdb/reference/icd10_gen_indices.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/icd10_indices_to_code.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/icd10_str_to_indices.html</loc>
+  </url>
+  <url>
     <loc>https://jrs0.github.io/icdb/reference/icd_api_fetch_all.html</loc>
   </url>
   <url>
@@ -152,6 +161,9 @@
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/mapped_server.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/new_icd10.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/new_node.html</loc>
@@ -217,7 +229,13 @@
     <loc>https://jrs0.github.io/icdb/reference/table_node.html</loc>
   </url>
   <url>
+    <loc>https://jrs0.github.io/icdb/reference/to_icd10.html</loc>
+  </url>
+  <url>
     <loc>https://jrs0.github.io/icdb/reference/use_cache.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/vec_ptype_abbr.icdb_icd10.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/write_cache.html</loc>
