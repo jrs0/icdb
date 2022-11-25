@@ -285,7 +285,7 @@ is_valid.icdb_icd10 <- function(x)
     x %>%
         purrr::map(1) %>%
         purrr::map(~ .x != "Err") %>%
-        purrr::flatten()
+        unlist()
 }
 
 is_icd10 <- function(x) {

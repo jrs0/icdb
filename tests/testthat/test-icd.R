@@ -14,5 +14,5 @@ test_that("a selection of ICD-10 codes that have previously failed to parse", {
 })
 
 test_that("a selection of invalid ICD-10 codes throw errors", {
-  expect_error(icd10("I222")) ## There is no I22.2
+  expect_false(is_valid(icd10("I222"))) ## There is no I22.2
 })
