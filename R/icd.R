@@ -253,7 +253,7 @@ new_icd10 <- function(str = character())
     name <- indices %>%
         purrr::map(function(x) {
             if (x[[1]] == -1) {
-                "Err"
+                c("Err")
             }
             else
             {
