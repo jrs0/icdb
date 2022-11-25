@@ -59,10 +59,10 @@ icd10_str_to_indices <- function(str, codes)
     ## If position is 0, then a match was not found. This
     ## means that the str is not a valid member of any member
     ## of this level, so it is not a valid code.
-    ## if (position == 0)
-    ## {
-    ##     stop("'", str, "' does not represent a valid ICD-10 code")
-    ## }
+    if (position == 0)
+    {
+        stop("'", str, "' does not represent a valid ICD-10 code [ERR 1]")
+    }
     
     if (!is.null(codes[[position]]$category))
     {
@@ -72,6 +72,13 @@ icd10_str_to_indices <- function(str, codes)
     }
     else
     {
+        ## If the str does not match the index of the code,
+        ## then the code is not valid
+        if (str != codes[[position]]$index)
+        {
+            stop("'", str, "' does not represent a valid ICD-10 code [ERR 2]")
+        }
+        
         ## Else, the next level is a code level.
         ## In this case, return the current position
         c(position)
@@ -156,7 +163,8 @@ new_icd10 <- function(str = character(), codes = system.file("extdata", "icd10/i
 
     ## strip whitespace from the code, and
     ## remove any dots.
-    str <- stringr::str_replace_all(x, "[^[:alnum:]]", "")
+    ## The line below is wrong, want to keep dash
+    ##str <- stringr::str_replace_all(x, "[^[:alnum:]]", "")
     
     ## The icd10 class stores the meaning of a code
     ## with reference to a particular code definition
