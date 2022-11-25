@@ -22,7 +22,7 @@ NULL
 ##' Even though all the information about a code
 ##' is present in the string, it is necessary to
 ##' search the codes file to find the location
-##' of the code.
+##' of the code.3
 ##'
 ##' Each level of the codes file has a category
 ##' or a codes key, with structure as follows:
@@ -59,10 +59,10 @@ icd10_str_to_indices <- function(str, codes)
     ## If position is 0, then a match was not found. This
     ## means that the str is not a valid member of any member
     ## of this level, so it is not a valid code.
-    ## if (position == 0)
-    ## {
-    ##     stop("'", str, "' does not represent a valid ICD-10 code")
-    ## }
+    if (position == 0)
+    {
+        stop("'", str, "' does not represent a valid ICD-10 code [ERR 1]")
+    }
     
     if (!is.null(codes[[position]]$category))
     {
@@ -72,6 +72,13 @@ icd10_str_to_indices <- function(str, codes)
     }
     else
     {
+        ## If the str does not match the index of the code,
+        ## then the code is not valid
+        if (str != codes[[position]]$index)
+        {
+            stop("'", str, "' does not represent a valid ICD-10 code [ERR 2]")
+        }
+        
         ## Else, the next level is a code level.
         ## In this case, return the current position
         c(position)
@@ -111,7 +118,7 @@ icd10_load_codes <- function(file = system.file("extdata",
                                                 "icd10/icd10_index.yaml",
                                                 package = "icdb"))
 {
-    icd10_codes <- yaml::read_yaml(file)
+    codes <- yaml::read_yaml(file)
 
     ## The structure must be ordered by index at
     ## every level. Each level is already ordered
@@ -121,15 +128,15 @@ icd10_load_codes <- function(file = system.file("extdata",
     ## the lexicographical order). Sort this
     ## level by index here. Get the sorted
     ## order into k
-    k <- v[[1]]$child %>%
+    k <- codes[[1]]$child %>%
         purrr::map("index") %>%
         unlist() %>%
         order()
 
     ## Use k to reorder the chapter level
-    v[[1]]$child <- v[[1]]$child[k]
+    codes[[1]]$child <- codes[[1]]$child[k]
 
-    v
+    codes
 }
 
 ##' Create a new icd10 (S3) object from a string
@@ -156,7 +163,8 @@ new_icd10 <- function(str = character(), codes = system.file("extdata", "icd10/i
 
     ## strip whitespace from the code, and
     ## remove any dots.
-    str <- stringr::str_replace_all(x, "[^[:alnum:]]", "")
+    ## The line below is wrong, want to keep dash
+    ##str <- stringr::str_replace_all(x, "[^[:alnum:]]", "")
     
     ## The icd10 class stores the meaning of a code
     ## with reference to a particular code definition
