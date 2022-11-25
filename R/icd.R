@@ -85,7 +85,7 @@ icd10_str_to_indices <- function(str, codes)
     ## of this level, so it is not a valid code.
     if (position == 0)
     {
-        stop("'", str, "' is not a valid ICD-10 code. ")
+        stop("'", str, "' is not a valid ICD-10 code.")
     }
 
     ## If you get here, the code was valid at the current
@@ -124,20 +124,27 @@ icd10_str_to_indices <- function(str, codes)
     }
     else if (!is.null(codes[[position]]$code))
     {
+        ## This section handles two cases
+        ## 1) Codes that exactly match a code leaf node
+        ## 2) Codes that exactly match a code leaf node,
+        ##    but also contain un-parsed trailing matter
+        ## The case where a code does not match any of the
+        ## code leaf nodes is handled in the detect_index
+        
         ## An exact match is required, else return -1 to signify
         ## failed match. BUG what is the correct condition to
         ## check here.
-        if (str != codes[[position]]$index)
-        {
-            c(-1)
-        }
-        else
-        {
-            ## Else, the code matched. Return the position
-            ## in the current block
-            c(position)
-        }
-        
+        ## if (str != codes[[position]]$index)
+        ## {
+        ##     c(-1)
+        ## }
+        ## else
+        ## {
+        ##     ## Else, the code matched. Return the position
+        ##     ## in the current block
+        ##     c(position)
+        ## }
+        c(position)
     }
     else
     {
@@ -259,7 +266,16 @@ new_icd10 <- function(str = character())
             }
             else
             {
-                icd10_indices_to_code(x, codes)$code
+                ## This element is either a code or
+                ## a category
+                elem <- icd10_indices_to_code(x, codes)
+                if (!is.null(elem$code)) {
+                    elem$code
+                }
+                else
+                {
+                    elem$category
+                }
             }
         })
 
