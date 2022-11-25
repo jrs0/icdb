@@ -1,6 +1,218 @@
 ##'
+##' @importFrom vctrs vec_ptype_abbr
 ##'
 NULL
+
+## This is what you want !
+## t[[1]]$child %>% purrr::map("category")
+
+
+##' Search the ICD-10 codes definition structure
+##' to find the indices that identify a particular
+##' ICD-10 code.
+##'
+##' An ICD10 string is a four-character
+##' code like "C71.0". In the database, the
+##' dot may be missing, there may be a trailing
+##' dash (for filler codes, which should be X,
+##' or any other high-level category code),
+##' and there may be trailing matter (such as
+##' dagger or asterisk codes).
+##' 
+##' Even though all the information about a code
+##' is present in the string, it is necessary to
+##' search the codes file to find the location
+##' of the code.
+##'
+##' Each level of the codes file has a category
+##' or a codes key, with structure as follows:
+##'
+##' category -> category +  -> category -> code
+##' (chapter)   (code_range)   (triple)    (ICD-10)
+##' I           A00-A09        A00         A00.0
+##'
+##' The + after the code range indicates that
+##' there may be an arbitrary number of code range
+##' levels, involving increasingly nested levels
+##' of the codes file. A code_range is identified
+##' by the presence of a dash in the category.
+##' 
+##' @title Identify an ICD-10 code.
+##' @param str The code string (from the database) to
+##' search for (with dots removed)
+##' @param codes The codes definition structure
+##' @return A vector of indices identifying the code
+##' 
+icd10_str_to_indices <- function(str, codes)
+{
+    ## codes is a list of objects that either
+    ## contain a category key or a code key.
+
+    ## Look through the index keys at the current level
+    ## and find the position of the code
+    position <- codes %>%
+        purrr::map("index") %>%
+        ## to obtain the first TRUE, which is
+        ## the category that str is contained in
+        purrr::detect_index(~ str >= ., .dir = "backward")
+
+    ## If position is 0, then a match was not found. This
+    ## means that the str is not a valid member of any member
+    ## of this level, so it is not a valid code.
+    ## if (position == 0)
+    ## {
+    ##     stop("'", str, "' does not represent a valid ICD-10 code")
+    ## }
+    
+    if (!is.null(codes[[position]]$category))
+    {
+        ## If the next level has a category key,
+        ## then search that category
+        c(position, icd10_str_to_indices(str, codes[[position]]$child))
+    }
+    else
+    {
+        ## Else, the next level is a code level.
+        ## In this case, return the current position
+        c(position)
+    }
+        
+}
+
+##' Convert a list of indices to a list of codes
+##'
+##' @title Convert indices lists to ICD-10 codes
+##' @param indices A list of indices (itself a list) 
+##' @param codes The codes definition structure
+##' @return The named list containing the corresponding code
+##' or category for these indices
+icd10_indices_to_code <- function(indices, codes)
+{
+    ## The structure of the codes file is
+    ## a nested list of lists. At each level,
+    ## there is a key called child, which holds
+    ## the next list down. Generate the arguments
+    ## for use with pluck, to descend through
+    ## the nested structure in one go
+    k <- indices %>%
+        purrr::map(~ list(.x, "child")) %>%
+        purrr::flatten() %>%
+        ## Remove the final "child" key to
+        ## get the entire category or code
+        head(-1)
+        
+
+    ## Note the first 1 is to get down into the
+    ## first level (where there is a child key)
+    codes %>% purrr::chuck(!!!k)
+}
+
+icd10_load_codes <- function(file = system.file("extdata",
+                                                "icd10/icd10_index.yaml",
+                                                package = "icdb"))
+{
+    icd10_codes <- yaml::read_yaml(file)
+
+    ## The structure must be ordered by index at
+    ## every level. Each level is already ordered
+    ## by category, which is fine except for the
+    ## chapter level (where the numerical order
+    ## of Roman numerals does not coincide with
+    ## the lexicographical order). Sort this
+    ## level by index here. Get the sorted
+    ## order into k
+    k <- v[[1]]$child %>%
+        purrr::map("index") %>%
+        unlist() %>%
+        order()
+
+    ## Use k to reorder the chapter level
+    v[[1]]$child <- v[[1]]$child[k]
+
+    v
+}
+
+##' Create a new icd10 (S3) object from a string
+##'
+##' @title Make an ICD-10 object from a string
+##' @param str The input string to parse
+##' @param codes The ICD-10 codes definition file to use
+##' @return The new icd10 S3 object
+##' 
+new_icd10 <- function(str = character(), codes = system.file("extdata", "icd10/icd10.yaml", package = "icdb"))
+{
+    vctrs::vec_assert(str, character())
+
+    ## Open the file. This is a long operation, but
+    ## provided this function is called in a vectorised
+    ## way (i.e. str is a vector), the file will only
+    ## be opened once. If it turns out to be a performace
+    ## problem, it can be fixed later. The top level is
+    ## a list with one item, and the main chapter level
+    ## starts in the child key.
+    icd10_codes <- yaml::read_yaml(codes)[[1]]$child
+    return(icd10_codes)
+    stop()
+
+    ## strip whitespace from the code, and
+    ## remove any dots.
+    str <- stringr::str_replace_all(x, "[^[:alnum:]]", "")
+    
+    ## The icd10 class stores the meaning of a code
+    ## with reference to a particular code definition
+    ## file. This file is organised as a nested list
+    ## of lists, meaning that a particular item in the
+    ## file can be referenced by a vector of integers,
+    ## which represent the indices at each level of the
+    ## hierarchy. These indices can then be used to
+    ## quickly obtain the information about the code
+    ## from the file. 
+    
+    ## The object is a named list
+    data <- list(
+        code = str,
+        indices = 
+    )
+    
+    vctrs::new_vctr(str, class = "icdb_icd10")
+}
+
+icd10 <- function(str = character())
+{
+    str <- vctrs::vec_cast(str, character())
+    new_icd10(str)
+}
+
+is_icd10 <- function(x) {
+  inherits(x, "icdb_icd10")
+}
+
+##' @export
+format.icdb_icd10 <- function(x, ...) {
+    paste0("FMT_",x)
+}
+
+
+##' For this to work, I needed to import the generic.
+##' This feels unnecessary -- find the proper way to
+##' set a method for a generic not in the class.
+##' @export
+##' @param x The object to abbreviate the name of 
+##' @param ... Further parameters (todo: check what for)
+vec_ptype_abbr.icdb_icd10 <- function(x, ...) {
+  "icd10"
+}
+
+##' Convert a character vector to an icd10 vector
+##'
+##' @title Convert character to icd10
+##' @param vec The input character vector to parse 
+##' @return The icd10 vector (same length as input)
+##'
+to_icd10 <- function(vec)
+{
+    vec %>% purrr::map(~ new_icd10(.x))
+}
 
 ##' Parse an ICD-10 codes file from the NHS Digital (TRUD) from the
 ##' "NHS ICD-10 5th Edition data files" item. The function converts the
@@ -10,7 +222,6 @@ NULL
 ##' @title Parse ICD-10 codes
 ##' @param path The input file path (tab separated)
 ##' @param output The filename of the output definition file
-##' @importFrom rlang .data
 parse_icd10 <- function(path, output = "icd10.yaml")
 {
     ## Read the file, and split the code based on the .
@@ -274,4 +485,81 @@ icd_combine_files <- function()
     ## Write output file
     yaml::write_yaml(xx, "icd10.yaml")
 
+}
+
+##' To facilite searching for codes in the configuration
+##' file, it is important for each object (category or code)
+##' to store a range of codes that it contains. R supports
+##' lexicographical comparison of characters by default,
+##' so all that is required is to store a pair representing
+##' the start of the range and the end of the range. This
+##' function adds an index key to the structure passed as
+##' the argument.
+##'
+##' The index key represents the first allowable code in
+##' the category. This function replaces the code key in
+##' the leaf nodes with an index, which contains the code
+##' at that level.
+##'
+##' @title Index a codes definition structure
+##' @return The codes structure with indices (a nested list)
+##' @param codes The input nested list of codes
+icd10_gen_indices <- function(codes)
+{
+    ## For the new codes structure
+    result <- list()
+    
+    for (object in codes)
+    {
+        if (!is.null(object$category))
+        {
+            ## Process the child objects
+            object$child <- icd_add_indices(object$child)
+
+            ## Check if the category is a code range or
+            ## a code, meaning it starts with a capital
+            ## letter followed by a number, e.g.
+            ## A00-A03 or I22. If the category is not
+            ## in this form, then copy the value of
+            ## the first index one level down (this
+            ## is valid because of the order of evaulation
+            ## of this function -- inside to out).
+            if (grepl("[A-Z][0-9]", object$category))
+            {
+                ## Get the code, pick out only the
+                ## first item from a range (if the
+                ## dash if present) TODO: come back and
+                ## fix whatever is going on with this
+                ## expression. object$category is just
+                ## a string, but it is treating it like
+                ## a list/vector.
+                object$index <- object$category %>%
+                    stringr::str_split("-") %>%
+                    unlist() %>%
+                    head(1)
+            }
+            else
+            {
+                ## Object is a chapter. Copy the first
+                ## index from one level down.
+                object$index <- object$child[[1]]$index
+            }
+
+
+        }
+        else if (!is.null(object$code))
+        {
+            object$index <- object$code %>%
+                stringr::str_replace_all("\\.", "")
+        }
+        else
+        {
+            stop("Expected category or codes key in codes definition object")
+        }
+
+        result <- c(result, list(object))
+    }
+
+    ## Return the copy of the structure with indices
+    result
 }

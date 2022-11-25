@@ -46,6 +46,9 @@ npm install
 # Install cargo tauri command
 cargo install tauri-cli
 
+# Install dependencies
+npm install @tauri-apps/api
+
 # Build and run
 cargo tauri dev
 
