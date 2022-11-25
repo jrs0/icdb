@@ -171,20 +171,34 @@ icd10_load_codes <- function(file = system.file("extdata",
     codes <- yaml::read_yaml(file)
 
     ## The structure must be ordered by index at
-    ## every level. Each level is already ordered
+    ## every level. Most levels is already ordered
     ## by category, which is fine except for the
     ## chapter level (where the numerical order
     ## of Roman numerals does not coincide with
-    ## the lexicographical order). Sort this
-    ## level by index here. Get the sorted
-    ## order into k
-    k <- codes[[1]]$child %>%
-        purrr::map("index") %>%
-        unlist() %>%
-        order()
+    ## the lexicographical order). Another exception
+    ## is U occuring after Z. The function takes
+    ## a list (the contents of the child key) and
+    ## returns the sorted list
+    sort_level <- function(level)
+    {
+        ## Get the sorted order of this level 
+        k <- level %>%
+            purrr::map("index") %>%
+            unlist() %>%
+            order()
+        
+        ## Use k to reorder the current level
+        level <- level[k]
 
-    ## Use k to reorder the chapter level
-    codes[[1]]$child <- codes[[1]]$child[k]
+        ## Reorder all the child levels
+        if (!is.null(level$child))
+        {
+            level$child
+        }
+        
+    }
+    
+    
 
     codes
 }
@@ -241,7 +255,7 @@ is_icd10 <- function(x) {
 
 ##' @export
 format.icdb_icd10 <- function(x, ...) {
-    x %>% purrr::map(1) 
+    x %>% purrr::map(1) %>% unlist()
 }
 
 
