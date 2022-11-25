@@ -296,7 +296,8 @@ is_icd10 <- function(x) {
 ##' @export
 format.icdb_icd10 <- function(x, ...) {
     name <- vctrs::field(x, "name")
-    out <- paste0( "[", 0, "] ", name)
+    type <- get_type(x)
+    out <- paste0( "[", type, "] ", name)
     out
 }
 
