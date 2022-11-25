@@ -306,7 +306,7 @@ server <- function(data_source_name = NULL,
         conf$drv <- drv_map[[conf$driver]]
 
         ## For non-Microsoft databases, remove the driver key.
-        if (!grepl("SQL server", conf$driver))
+        if (!grepl("SQL Server", conf$driver))
         {
             conf$driver <- NULL
         }
