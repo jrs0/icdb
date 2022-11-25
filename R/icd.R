@@ -197,6 +197,8 @@ format.icdb_icd10 <- function(x, ...) {
 ##' This feels unnecessary -- find the proper way to
 ##' set a method for a generic not in the class.
 ##' @export
+##' @param x The object to abbreviate the name of 
+##' @param ... Further parameters (todo: check what for)
 vec_ptype_abbr.icdb_icd10 <- function(x, ...) {
   "icd10"
 }
@@ -220,7 +222,6 @@ to_icd10 <- function(vec)
 ##' @title Parse ICD-10 codes
 ##' @param path The input file path (tab separated)
 ##' @param output The filename of the output definition file
-##' 
 parse_icd10 <- function(path, output = "icd10.yaml")
 {
     ## Read the file, and split the code based on the .

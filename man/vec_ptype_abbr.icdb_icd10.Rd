@@ -8,6 +8,11 @@ set a method for a generic not in the class.}
 \usage{
 \method{vec_ptype_abbr}{icdb_icd10}(x, ...)
 }
+\arguments{
+\item{x}{The object to abbreviate the name of}
+
+\item{...}{Further parameters (todo: check what for)}
+}
 \description{
 For this to work, I needed to import the generic.
 This feels unnecessary -- find the proper way to
