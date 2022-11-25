@@ -277,7 +277,7 @@ new_icd10 <- function(str = character())
 
     obj <- list(
         name = name,
-        type = type,
+        #type = type,
         indices = indices)
     vctrs::new_rcrd(obj, class = "icdb_icd10")
 }
@@ -301,6 +301,24 @@ is_valid.icdb_icd10 <- function(x)
         unlist()
 }
 
+get_type <- function(x)
+{
+    vctrs::field(x, "indices") %>%
+        purrr::map(function(y) {
+            if (y[[1]] == -2) {
+                "W"
+            }
+            else if (y[[1]] == -1)
+            {
+                "E"
+            }
+            else if (y[[1]] > 0)
+            {
+                "C"
+            }
+        })
+}
+
 is_icd10 <- function(x) {
   inherits(x, "icdb_icd10")
 }
@@ -309,7 +327,7 @@ is_icd10 <- function(x) {
 format.icdb_icd10 <- function(x, ...) {
     name <- vctrs::field(x, "name")
     type <- vctrs::field(x, "type")
-    out <- paste0(name, "[", type, "]")
+    out <- paste0( "[", type, "]", name)
     out
 }
 
