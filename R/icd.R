@@ -257,10 +257,9 @@ new_icd10 <- function(str = character())
             }
             else
             {
-                icd10_indices_to_code(x, codes)
+                icd10_indices_to_code(x, codes)$code
             }
         }) %>%
-        purrr::map("code") %>%
         unlist()
 
     obj <- list(name, indices) %>%
