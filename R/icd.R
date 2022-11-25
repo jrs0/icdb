@@ -87,13 +87,16 @@ icd10_get_code <- function(indices, codes)
     ## for use with pluck, to descend through
     ## the nested structure in one go
     k <- indices %>%
-        purrr::map(~ list("child", .x)) %>%
-        purrr::flatten() 
+        purrr::map(~ list(.x, "child")) %>%
+        purrr::flatten() %>%
+        ## Remove the final "child" key to
+        ## get the entire category or code
+        head(-1)
+        
 
     ## Note the first 1 is to get down into the
     ## first level (where there is a child key)
-    codes %>% purrr::pluck(1, !!!k)
-
+    codes %>% purrr::chuck(!!!k)
 }
 
 ##' Create a new icd10 (S3) object from a string
