@@ -2,6 +2,7 @@
 
 S3method("$",node)
 S3method(format,icdb_icd10)
+S3method(is_valid,icdb_icd10)
 S3method(print,node)
 S3method(vec_ptype_abbr,icdb_icd10)
 export()

@@ -32,7 +32,7 @@ dagger or asterisk codes).
 Even though all the information about a code
 is present in the string, it is necessary to
 search the codes file to find the location
-of the code.
+of the code.3
 
 Each level of the codes file has a category
 or a codes key, with structure as follows:

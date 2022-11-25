@@ -273,6 +273,18 @@ icd10 <- function(str = character())
     new_icd10(str)
 }
 
+is_valid <- function(x) {
+  UseMethod("is_valid")
+}
+
+##' @export
+is_valid.icdb_icd10 <- function(x)
+{
+    x %>%
+        purrr::map(1) %>%
+        purrr::map(~ .x != "Err")
+}
+
 is_icd10 <- function(x) {
   inherits(x, "icdb_icd10")
 }
