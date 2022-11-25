@@ -6,13 +6,13 @@
 \usage{
 new_icd10(
   str = character(),
-  mapping = system.file("extdata", "icd10/icd10.yaml", package = "icdb")
+  codes = system.file("extdata", "icd10/icd10.yaml", package = "icdb")
 )
 }
 \arguments{
 \item{str}{The input string to parse}
 
-\item{mapping}{The ICD-10 mapping file to use}
+\item{codes}{The ICD-10 codes definition file to use}
 }
 \value{
 The new icd10 S3 object

@@ -41,8 +41,8 @@ NULL
 ##' @param str The code string (from the database) to
 ##' search for (with dots removed)
 ##' @param codes The codes definition structure
-##' @return A vector of indices identifying the code 
-##' @author 
+##' @return A vector of indices identifying the code
+##' 
 icd10_str_to_indices <- function(str, codes)
 {
     ## codes is a list of objects that either
@@ -55,6 +55,14 @@ icd10_str_to_indices <- function(str, codes)
         ## to obtain the first TRUE, which is
         ## the category that str is contained in
         purrr::detect_index(~ str >= ., .dir = "backward")
+
+    ## If position is 0, then a match was not found. This
+    ## means that the str is not a valid member of any member
+    ## of this level, so it is not a valid code.
+    ## if (position == 0)
+    ## {
+    ##     stop("'", str, "' does not represent a valid ICD-10 code")
+    ## }
     
     if (!is.null(codes[[position]]$category))
     {
@@ -76,8 +84,8 @@ icd10_str_to_indices <- function(str, codes)
 ##' @title Convert indices lists to ICD-10 codes
 ##' @param indices A list of indices (itself a list) 
 ##' @param codes The codes definition structure
-##' @return 
-##' @author 
+##' @return The named list containing the corresponding code
+##' or category for these indices
 icd10_indices_to_code <- function(indices, codes)
 {
     ## The structure of the codes file is
