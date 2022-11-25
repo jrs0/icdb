@@ -559,6 +559,8 @@ icd_combine_files <- function()
 
 ##' Increment the category at the current level (i.e.
 ##' X34 -> X35, not e.g. X3400...0001)
+##'
+##' 
 ##' 
 ##' @title Lexicographically increment an ICD-10 category
 ##' @param word The word to increment (of the form X43)
