@@ -64,10 +64,79 @@ icd10_str_to_indices <- function(str, codes)
         stop("'", str, "' does not represent a valid ICD-10 code [ERR 1]")
     }
 
+
     ## Now, decide whether the code is valid at that position.
-    ## For a code, an exact match is required, which can be determined
-    ## on the forward pass of the call tree (i.e. at a leaf node here).
-    if (!is.null(codes[[position]]$code))
+    ## The current position may either be a category or a code.
+    ## To check whether a code is validly in the category, it
+    ## it is necessary to check whether the leading digits of
+    ## the code match the leading digits of the category at position.
+    ## This check is performed on the forward pass of the code tree,
+    ## so that invalid codes can be rejected as quickly as
+    ## possible. If the code level is reached, then validity
+    ## is checked by ensuring the code at position matches then
+    ## the str.
+    if (!is.null(codes[[position]]$category))
+    {   
+        ## Test whether the category at position at validly
+        ## hold the code in str. The category is either of
+        ## the form "R0-R1", where R0 and R1 are ICD triples.
+        ## In this case, the code must be in the specified
+        ## range. Otherwise, it contains "R0", in which case
+        ## the ICD triple must be an exact match.
+        cc <- codes[[position]]$category %>%
+            stringr::str_split("-") %>%
+            unlist()
+
+        if ()
+        if (length(cc) == 1)
+        {
+            ## Must exactly match
+            pattern <- paste0("^", codes[[position]]$category)
+            if (!grepl(pattern, str))
+            {
+                ## Code did not match, this means the code is not
+                ## valid in the category
+                stop("'", str, "' did not match category at position [ERR 1]")
+            }
+        }
+        else
+        {
+            ## Require the code to be in the range specified
+            if (str < cc[[1]] || str > cc[[2]])
+            {
+                print(cc)
+                stop("'", str, "' did not match category at position [ERR 2]")
+            }
+        }
+
+        ## If you get here, the code was valid for this category
+        ## If the category was a match, then
+        ## Query that category for the code
+        x <- icd10_str_to_indices(str, codes[[position]]$child)
+        
+        ## Code from here onwards is in the reverse pass of the
+        ## call tree (i.e. we are moving up the tree now, towards
+        ## more general categories). The x returned above
+        ## contains a -1 if the next level down was not a better
+        ## match for the code. In which case, we use the current
+        ## level as the best match and return the indices to
+        ## this level.
+        ## TODO: this whole thing is drop where == -1, replace
+        ## with one liner
+        val <- tail(x, n=1)
+        if (val > 0)
+        {
+            ## Return the entire list
+            c(position, x)
+        }
+        else if (val == -1)
+        {
+            ## The code is not better matched by the next level
+            ## down. In this case, drop 
+            c(position, head(res, n=-1))
+        }
+    }
+    else if (!is.null(codes[[position]]$code))
     {
         ## An exact match is required, else return -1 to signify
         ## failed match. TODO Add the valid code match patterns
@@ -84,50 +153,50 @@ icd10_str_to_indices <- function(str, codes)
         }
         
     }
-    else if (!is.null(codes[[position]]$category))
-    {
-        ## If you get here, then the entity at position was
-        ## a category, not a code. However, it is not possible
-        ## to tell whether this is the final valid category
-        ## for the given code string str until all the subacute
-        ## categories have been parsed. Therefore, the logic to
-        ## check the category must occur on the reverse pass
-        ## of the call tree. 
+    ## else if (!is.null(codes[[position]]$category))
+    ## {
+    ##     ## If you get here, then the entity at position was
+    ##     ## a category, not a code. However, it is not possible
+    ##     ## to tell whether this is the final valid category
+    ##     ## for the given code string str until all the subacute
+    ##     ## categories have been parsed. Therefore, the logic to
+    ##     ## check the category must occur on the reverse pass
+    ##     ## of the call tree. 
 
-        ## Query that category for the code
-        x <- icd10_str_to_indices(str, codes[[position]]$child)
+    ##     ## Query that category for the code
+    ##     x <- icd10_str_to_indices(str, codes[[position]]$child)
 
-        ## Code from here onwards in in the reverse pass of the
-        ## call tree (i.e. we are moving up the tree now, towards
-        ## more general categories). The x returned from
-        ## the call contains the current list of indices, ending
-        ## with a value val which determines whether or not the
-        ## next level down validly contains the code. If val > 0
-        ## then all is well, and the full list can be returned
-        val <- tail(x, n=1)
-        if (val > 0)
-        {
-            ## Return the entire list
-            c(position, x)
-        }
-        else if (val == -1)
-        {
-            ## The code is not in the next level down. In this
-            ## case, it is necessary to check whether the code
-            ## is validly at the current level. 
-            c(position, head(res, n=-1))
-        }
+    ##     ## Code from here onwards in in the reverse pass of the
+    ##     ## call tree (i.e. we are moving up the tree now, towards
+    ##     ## more general categories). The x returned from
+    ##     ## the call contains the current list of indices, ending
+    ##     ## with a value val which determines whether or not the
+    ##     ## next level down validly contains the code. If val > 0
+    ##     ## then all is well, and the full list can be returned
+    ##     val <- tail(x, n=1)
+    ##     if (val > 0)
+    ##     {
+    ##         ## Return the entire list
+    ##         c(position, x)
+    ##     }
+    ##     else if (val == -1)
+    ##     {
+    ##         ## The code is not in the next level down. In this
+    ##         ## case, it is necessary to check whether the code
+    ##         ## is validly at the current level. 
+    ##         c(position, head(res, n=-1))
+    ##     }
         
         
-        ## The last element in the returned value res tells you
-        ## where the code is in the next level down (if res is
-        ## positive), or it tells you that the code
-        ## is not present in the next level down (if res == -1).
-        ## We are walking back up the tree at this point,
-        ## so all the levels below this point have already been
-        ## parsed
+    ##     ## The last element in the returned value res tells you
+    ##     ## where the code is in the next level down (if res is
+    ##     ## positive), or it tells you that the code
+    ##     ## is not present in the next level down (if res == -1).
+    ##     ## We are walking back up the tree at this point,
+    ##     ## so all the levels below this point have already been
+    ##     ## parsed
         
-    }
+    ## }
     else
     {
         stop("Expected to find code or category in ICD-10 list element")
