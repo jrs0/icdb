@@ -78,7 +78,7 @@ icd10_str_to_indices <- function(str, codes)
 ##' @param codes The codes definition structure
 ##' @return 
 ##' @author 
-icd10_indices_to_str <- function(indices, codes)
+icd10_indices_to_code <- function(indices, codes)
 {
     ## The structure of the codes file is
     ## a nested list of lists. At each level,
@@ -97,6 +97,31 @@ icd10_indices_to_str <- function(indices, codes)
     ## Note the first 1 is to get down into the
     ## first level (where there is a child key)
     codes %>% purrr::chuck(!!!k)
+}
+
+icd10_load_codes <- function(file = system.file("extdata",
+                                                "icd10/icd10_index.yaml",
+                                                package = "icdb"))
+{
+    icd10_codes <- yaml::read_yaml(file)
+
+    ## The structure must be ordered by index at
+    ## every level. Each level is already ordered
+    ## by category, which is fine except for the
+    ## chapter level (where the numerical order
+    ## of Roman numerals does not coincide with
+    ## the lexicographical order). Sort this
+    ## level by index here. Get the sorted
+    ## order into k
+    k <- v[[1]]$child %>%
+        purrr::map("index") %>%
+        unlist() %>%
+        order()
+
+    ## Use k to reorder the chapter level
+    v[[1]]$child <- v[[1]]$child[k]
+
+    v
 }
 
 ##' Create a new icd10 (S3) object from a string
