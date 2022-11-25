@@ -181,6 +181,13 @@ icd10_load_codes <- function(file = system.file("extdata",
     ## returns the sorted list
     sort_level <- function(level)
     {
+        ## Reorder all the child levels, if
+        ## there are any
+        if (!is.null(level$child))
+        {
+            level$child <- sort_level(level$child)
+        }
+        
         ## Get the sorted order of this level 
         k <- level %>%
             purrr::map("index") %>%
@@ -188,19 +195,11 @@ icd10_load_codes <- function(file = system.file("extdata",
             order()
         
         ## Use k to reorder the current level
-        level <- level[k]
-
-        ## Reorder all the child levels
-        if (!is.null(level$child))
-        {
-            level$child
-        }
-        
+        level[k]
     }
-    
-    
 
-    codes
+    ## Sprt the codes
+    sort_level(codes)
 }
 
 ##' Create a new icd10 (S3) object from a string
