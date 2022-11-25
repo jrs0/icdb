@@ -226,17 +226,33 @@ new_icd10 <- function(str = character())
         purrr::map(function(x) {
             tryCatch(
                 error_empty_code = function(cnd) {
-                    print("Hello")
+                    c(-2)
                 },
                 error = function(cnd) {
                     ## Use -1 to indicate invalid code
-                    print("SDS")
                     c(-1)
                 },
                 icd10_str_to_indices(x, codes)
             )
         })
 
+    ## Calculate the type
+    type <- indices %>%
+        purrr::map(function(x) {
+            if (x[[1]] == -2) {
+                "W"
+            }
+            else if (x[[1]] == -1)
+            {
+                "E"
+            }
+            else if (x[[1]] > 0)
+            {
+                "C"
+            }
+
+        })
+    
     ## Get the proper name
     name <- indices %>%
         purrr::map(function(x) {
@@ -259,7 +275,10 @@ new_icd10 <- function(str = character())
             }
         })
 
-    obj <- list(name=name, indices=indices)
+    obj <- list(
+        name = name,
+        type = type,
+        indices = indices)
     vctrs::new_rcrd(obj, class = "icdb_icd10")
 }
 
@@ -289,8 +308,8 @@ is_icd10 <- function(x) {
 ##' @export
 format.icdb_icd10 <- function(x, ...) {
     name <- vctrs::field(x, "name")
-    indices <- vctrs::field(x, "indices")
-    out <- paste0(name, "[", indices, "]")
+    type <- vctrs::field(x, "type")
+    out <- paste0(name, "[", type, "]")
     out
 }
 
