@@ -22,7 +22,7 @@ NULL
 ##' Even though all the information about a code
 ##' is present in the string, it is necessary to
 ##' search the codes file to find the location
-##' of the code.
+##' of the code.3
 ##'
 ##' Each level of the codes file has a category
 ##' or a codes key, with structure as follows:
@@ -111,7 +111,7 @@ icd10_load_codes <- function(file = system.file("extdata",
                                                 "icd10/icd10_index.yaml",
                                                 package = "icdb"))
 {
-    icd10_codes <- yaml::read_yaml(file)
+    codes <- yaml::read_yaml(file)
 
     ## The structure must be ordered by index at
     ## every level. Each level is already ordered
@@ -121,15 +121,15 @@ icd10_load_codes <- function(file = system.file("extdata",
     ## the lexicographical order). Sort this
     ## level by index here. Get the sorted
     ## order into k
-    k <- v[[1]]$child %>%
+    k <- codes[[1]]$child %>%
         purrr::map("index") %>%
         unlist() %>%
         order()
 
     ## Use k to reorder the chapter level
-    v[[1]]$child <- v[[1]]$child[k]
+    codes[[1]]$child <- codes[[1]]$child[k]
 
-    v
+    codes
 }
 
 ##' Create a new icd10 (S3) object from a string
