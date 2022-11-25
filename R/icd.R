@@ -63,9 +63,11 @@ icd10_str_to_indices <- function(str, codes)
             else
             {
                 ## If the index is a single item,
-                ## check that the str is equal to
-                ## the item
-                str == x
+                ## truncate str to the length of
+                ## x and compare for equality
+                pattern <- paste0("^", x)
+                print(pattern)
+                grepl(pattern, str)
             }
         })
     
@@ -76,7 +78,6 @@ icd10_str_to_indices <- function(str, codes)
     {
         stop("'", str, "' is not a valid ICD-10 code")
     }
-
 
     ## Now, decide whether the code is valid at that position.
     ## The current position may either be a category or a code.
@@ -90,36 +91,36 @@ icd10_str_to_indices <- function(str, codes)
     ## the str.
     if (!is.null(codes[[position]]$category))
     {   
-        ## Test whether the category at position at validly
-        ## hold the code in str. The category is either of
-        ## the form "R0-R1", where R0 and R1 are ICD triples.
-        ## In this case, the code must be in the specified
-        ## range. Otherwise, it contains "R0", in which case
-        ## the ICD triple must be an exact match.
-        cc <- codes[[position]]$category %>%
-            stringr::str_split("-") %>%
-            unlist()
+        ## ## Test whether the category at position at validly
+        ## ## hold the code in str. The category is either of
+        ## ## the form "R0-R1", where R0 and R1 are ICD triples.
+        ## ## In this case, the code must be in the specified
+        ## ## range. Otherwise, it contains "R0", in which case
+        ## ## the ICD triple must be an exact match.
+        ## cc <- codes[[position]]$category %>%
+        ##     stringr::str_split("-") %>%
+        ##     unlist()
 
-        if (length(cc) == 1)
-        {
-            ## Must exactly match
-            pattern <- paste0("^", codes[[position]]$category)
-            if (!grepl(pattern, str))
-            {
-                ## Code did not match, this means the code is not
-                ## valid in the category
-                stop("'", str, "' did not match category at position [ERR 1]")
-            }
-        }
-        else
-        {
-            ## Require the code to be in the range specified
-            if (str < cc[[1]] || str > cc[[2]])
-            {
-                print(cc)
-                stop("'", str, "' did not match category at position [ERR 2]")
-            }
-        }
+        ## if (length(cc) == 1)
+        ## {
+        ##     ## Must exactly match
+        ##     pattern <- paste0("^", codes[[position]]$category)
+        ##     if (!grepl(pattern, str))
+        ##     {
+        ##         ## Code did not match, this means the code is not
+        ##         ## valid in the category
+        ##         stop("'", str, "' did not match category at position [ERR 1]")
+        ##     }
+        ## }
+        ## else
+        ## {
+        ##     ## Require the code to be in the range specified
+        ##     if (str < cc[[1]] || str > cc[[2]])
+        ##     {
+        ##         print(cc)
+        ##         stop("'", str, "' did not match category at position [ERR 2]")
+        ##     }
+        ## }
 
         ## If you get here, the code was valid for this category
         ## If the category was a match, then
