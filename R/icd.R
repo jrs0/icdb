@@ -282,7 +282,8 @@ is_valid.icdb_icd10 <- function(x)
 {
     x %>%
         purrr::map(1) %>%
-        purrr::map(~ .x != "Err")
+        purrr::map(~ .x != "Err") %>%
+        purrr::flatten()
 }
 
 is_icd10 <- function(x) {
