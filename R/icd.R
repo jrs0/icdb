@@ -67,7 +67,7 @@ icd10_str_to_indices <- function(str, codes)
                 ## the end of the range is interpreted
                 ## as anything beginning with this
                 ## string
-                trunc <- substr(str,1,nchar(x))
+                trunc <- substr(str,1,nchar(x[[1]]))
                 (trunc >= x[[1]]) && (trunc <= x[[2]])
             }
             else
@@ -75,9 +75,8 @@ icd10_str_to_indices <- function(str, codes)
                 ## If the index is a single item,
                 ## truncate str to the length of
                 ## x and compare for equality
-                ## BUG HERE
-                pattern <- paste0("^", x)
-                grepl(pattern, str)
+                trunc <- substr(str,1,nchar(x[[1]]))
+                trunc == x[[1]]
             }
         })
     
