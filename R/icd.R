@@ -89,7 +89,6 @@ icd10_str_to_indices <- function(str, codes)
         x <- res$indices
         t <- res$type
         s <- res$trailing
-        message("trailing: ", s)
         
         ## Code from here onwards is in the reverse pass of the
         ## call tree (i.e. we are moving up the tree now, towards
@@ -140,7 +139,6 @@ icd10_str_to_indices <- function(str, codes)
             ## at the start. Check for trailing matter
             if (nchar(index) < nchar(str))
             {
-                message(str, index)
                 list(
                     indices = c(position),
                     type = 3,
@@ -256,7 +254,7 @@ new_icd10 <- function(str = character())
         purrr::map(function(x)
         {
             tryCatch(
-                error = function(cnd)
+                error_empty_string = function(cnd)
                 {
                     cnd$result
                 },
@@ -328,18 +326,18 @@ get_type <- function(x)
 {
     vctrs::field(x, "types") %>%
         purrr::map(function(y) {
-            if (y[[1]] == 2) {
+            if (y == 2) {
                 "X" ## Invalid (meaningless)
             }
-            else if (y[[1]] == 1)
+            else if (y == 1)
             {
                 "E" ## Empty space
             }
-            else if (y[[1]] == 0)
+            else if (y == 0)
             {
                 "C" ## Code (correctly parsed)
             }
-            else if (y[[1]] == 3)
+            else if (y == 3)
             {
                 "T" ## With trailing matter
             }
