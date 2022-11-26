@@ -41,6 +41,7 @@ test_that("various types of whitespace in ICD-10 codes work", {
     expect_false(is_valid(icd10("  \t\n ")))
 })
 
+## A mock function used for the next test
 mock_icd_api_request <- function(token, endpoint, data = list())
 {
     if (endpoint == "https://id.who.int/icd/release/10/2016")
@@ -131,15 +132,56 @@ mock_icd_api_request <- function(token, endpoint, data = list())
 }
 
 
-test_that("various types of whitespace in ICD", {
+test_that("the ICD-10 code file generation process works", {
 
     ## Get the data and store chapter by chapter in files
+    ## Use a mock for the api (defined by mock_icd_api_request above)
+    ## to simulate the data returned by the real API.
     mockthat::with_mock(icd_api_request = mock_icd_api_request,   
                         icd_api_fetch_all("fake_token", dir = "gendata/"))
 
     ## Combine the files
+    icd_combine_files("gendata/")
 
-    ## Check the validity of the result
-    
+    ## Read and check the file
+    res <- yaml::read_yaml("gendata/icd10.yaml")
+
+    correct <- list(
+        list(
+            category = "ICD-10",
+            docs = "ICD-10 codes, 2016 release", 
+            child = list(
+                list(
+                    category = "I",
+                    docs = "Chapter I",
+                    child = list(
+                        list(
+                            category = "A15-A19",
+                            docs = "Range 1",
+                            child = list(
+                                list(
+                                    category = "A15",
+                                    docs = "Category 1",
+                                    child = list(
+                                        list(code = "A15.2",
+                                             docs = "Code 1"))))))), 
+                list(
+                    category = "V",
+                    docs = "Chapter V",
+                    child = list(
+                        list(
+                            category = "F00-F09",
+                            docs = "Range 2",
+                            child = list(
+                                list(category = "F01",
+                                     docs = "Category 2",
+                                     child = list(
+                                         list(
+                                             code = "F01.9",
+                                             docs = "Code 2"))))))))))
+
+    ## Compare the correct structure with the generated file
+    expect_equal(res, correct)
     
 })
+

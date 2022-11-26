@@ -4,7 +4,10 @@
 \alias{icd_combine_files}
 \title{Combine ICD-10 chapter files}
 \usage{
-icd_combine_files()
+icd_combine_files(dir = system.file(folder, "icd10/", package = "icdb"))
+}
+\arguments{
+\item{dir}{Where to look for the files to combine}
 }
 \description{
 Combine icd10_.yaml files into a single file

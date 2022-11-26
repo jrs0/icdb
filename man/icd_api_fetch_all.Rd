@@ -4,12 +4,14 @@
 \alias{icd_api_fetch_all}
 \title{Fetch ICD-10 codes}
 \usage{
-icd_api_fetch_all(token, release = "2016")
+icd_api_fetch_all(token, release = "2016", dir = ".")
 }
 \arguments{
 \item{token}{The access token for the API}
 
-\item{release}{The release year (see )}
+\item{release}{The release year}
+
+\item{dir}{Where to put the output files}
 }
 \description{
 Fetch all the ICD10 code chapters into separate files.
