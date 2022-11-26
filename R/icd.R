@@ -25,7 +25,8 @@ icd10_str_to_indices <- function(str, codes)
     ## if empty
     if (grepl("^\\s*$", str))
     {
-        return(list(indices = list(), type = c(1)))
+        rlang::abort("error_empty_string",
+                     result = list(indices = list(), type = c(1)))
     }
     
     ## Look through the index keys at the current level
@@ -61,7 +62,8 @@ icd10_str_to_indices <- function(str, codes)
     ## of this level, so it is not a valid code.
     if (position == 0)
     {
-        return(list(indices = list(), type = c(2)))
+        rlang::abort("error_invalid_code",
+                     result = list(indices = list(), type = c(2)))
     }
 
     ## If you get here, the code was valid at the current
@@ -237,15 +239,24 @@ new_icd10 <- function(str = character())
 
     ## Get the indices for each code
     results <- str %>%
-        purrr::map(~ icd10_str_to_indices(.x, codes))
-
+        purrr::map(function(x)
+        {
+            tryCatch(
+                error = function(cnd)
+                {
+                    cnd$result
+                },
+                icd10_str_to_indices(x, codes)
+            )
+        })
+        
     indices <- results %>% purrr::map("indices")
     types <- results %>% purrr::map("type")
     
     ## Get the proper name
     name <- indices %>%
         purrr::map(function(x) {
-            if (x[[1]] == -1) {
+            if (length(x) == 0) {
                 print("Got here")
                 c("Err")
             }
