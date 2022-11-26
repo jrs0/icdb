@@ -14,7 +14,10 @@ Get the authentication token for the WHO ICD API
 }
 \details{
 Call this function once to get the token, and then use it
-in the icd10_api calls
+in the icd10_api calls. To use this function, create
+a file secret/icd10_cred.yaml in extdata, with credentials.
+See the example file icd10_cred.yaml in extdata for the
+template.
 
 Note: this function can be mocked for testing.
 }

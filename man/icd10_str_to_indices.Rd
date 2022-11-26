@@ -2,48 +2,28 @@
 % Please edit documentation in R/icd.R
 \name{icd10_str_to_indices}
 \alias{icd10_str_to_indices}
-\title{Identify an ICD-10 code.}
+\title{Parse an ICD-10 code string}
 \usage{
 icd10_str_to_indices(str, codes)
 }
 \arguments{
-\item{str}{The code string (from the database) to
-search for (with dots removed)}
+\item{str}{The string to parse}
 
-\item{codes}{The codes definition structure}
+\item{codes}{The reference codes structure}
 }
 \value{
-A vector of indices identifying the code
+A named list containing indices (a list)
+and type (containing the status of the parse).
 }
 \description{
-Search the ICD-10 codes definition structure
-to find the indices that identify a particular
-ICD-10 code.
+This function takes a string and searches the codes
+structure to find a match, returning the list of
+indices defining the location of the code within
+the structure. The purpose of the indices is to
+store them in an icd10 object, allowing information
+about the code to be queried.
 }
 \details{
-An ICD10 string is a four-character
-code like "C71.0". In the database, the
-dot may be missing, there may be a trailing
-dash (for filler codes, which should be X,
-or any other high-level category code),
-and there may be trailing matter (such as
-dagger or asterisk codes).
-
-Even though all the information about a code
-is present in the string, it is necessary to
-search the codes file to find the location
-of the code.
-
-Each level of the codes file has a category
-or a codes key, with structure as follows:
-
-category -> category +  -> category -> code
-(chapter)   (code_range)   (triple)    (ICD-10)
-I           A00-A09        A00         A00.0
-
-The + after the code range indicates that
-there may be an arbitrary number of code range
-levels, involving increasingly nested levels
-of the codes file. A code_range is identified
-by the presence of a dash in the category.
+Return type codes: 0 for success; 1 for empty
+string; 2 for invalid code;
 }

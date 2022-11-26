@@ -11,3 +11,5 @@
 ^\.github$
 ^map-editor
 ^scripts
+^index.md$
+gendata

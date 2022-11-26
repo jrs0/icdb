@@ -20,6 +20,7 @@ Imports:
     lubridate,
     magrittr,
     methods,
+    mockthat,
     odbc,
     purrr,
     readr,
