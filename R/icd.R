@@ -554,7 +554,7 @@ icd_combine_files <- function(dir = system.file(folder, "icd10/", package="icdb"
     }
 
     ## Write output file
-    yaml::write_yaml(xx, paste(dir, "icd10.yaml", sep="/"))
+    yaml::write_yaml(list(xx), paste(dir, "icd10.yaml", sep="/"))
 
 }
 
