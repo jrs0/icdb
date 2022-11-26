@@ -25,3 +25,18 @@ test_that("all valid Xnnn.n ICD-10 codes parse", {
 test_that("a selection of invalid ICD-10 codes throw errors", {
     expect_false(is_valid(icd10("I222"))) ## There is no I22.2
 })
+
+test_that("various types of whitespace in ICD-10 codes work", {
+
+    ## Whitespace in codes
+    expect_equal(format(icd10("A000  ")), "[C] A00.0")
+    expect_equal(format(icd10("  A000")), "[C] A00.0")
+    expect_equal(format(icd10(" A000 ")), "[C] A00.0")
+    expect_equal(format(icd10("\tA000\n")), "[C] A00.0")
+
+    ## Whitespace only
+    expect_false(is_valid(icd10("")))
+    expect_false(is_valid(icd10(" ")))
+    expect_false(is_valid(icd10("\t")))
+    expect_false(is_valid(icd10("  \t\n ")))
+})

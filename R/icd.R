@@ -244,8 +244,9 @@ new_icd10 <- function(str = character())
 
     ## strip whitespace from the code, and
     ## remove any dots.
-    str <- stringr::str_replace_all(str, "\\.", "")
-
+    str <- stringr::str_replace_all(str, "\\.", "") %>%
+        trimws()
+    
     ## Get the indices for each code
     results <- str %>%
         purrr::map(function(x)
