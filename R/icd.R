@@ -29,7 +29,7 @@ icd10_str_to_indices <- function(str, codes)
                      result = list(
                          indices = list(),
                          type = c(1),
-                         string = str
+                         trailing = str
                      ))
     }
     
@@ -70,7 +70,7 @@ icd10_str_to_indices <- function(str, codes)
                      result = list(
                          indices = list(),
                          type = c(2),
-                         string = str
+                         trailing = str
                      ))
                      
     }
@@ -88,6 +88,8 @@ icd10_str_to_indices <- function(str, codes)
         res <- icd10_str_to_indices(str, codes[[position]]$child)
         x <- res$indices
         t <- res$type
+        s <- res$trailing
+        message("trailing: ", s)
         
         ## Code from here onwards is in the reverse pass of the
         ## call tree (i.e. we are moving up the tree now, towards
@@ -104,7 +106,8 @@ icd10_str_to_indices <- function(str, codes)
             ## Return the entire list
             list(
                 indices = c(position, x),
-                type = t
+                type = t,
+                trailing = s
             )
         }
         else if (val == -1)
@@ -113,7 +116,8 @@ icd10_str_to_indices <- function(str, codes)
             ## down. In this case, drop 
             list(
                 indices = c(position, head(x, n=-1)),
-                type = t
+                type = t,
+                trailing = s
             )
         }
     }
@@ -125,35 +129,36 @@ icd10_str_to_indices <- function(str, codes)
         ##    but also contain un-parsed trailing matter
         ## The case where a code does not match any of the
         ## code leaf nodes is handled in the detect_index
-        
-        ## An exact match is required, else return -1 to signify
-        ## failed match. BUG what is the correct condition to
-        ## check here.
-        ## if (str != codes[[position]]$index)
-        ## {
-        ##     c(-1)
-        ## }
-        ## else
-        ## {
-        ##     ## Else, the code matched. Return the position
-        ##     ## in the current block
-        ##     c(position)
-        ## }
 
-
-        ## TODO: return unparsed trailing matter here as
-        ## another item in the list
-        list(
-            indices = c(position),
-            type = 0 ## This will propogate up
-        )
+        ## Use the start of the index of the code as a pattern
+        ## to search for at the start of the string
+        index <- codes[[position]]$index
+        pattern <- paste0("^", index)
+        if (grepl(pattern, str))
+        {
+            ## Then the code index agrees with the string
+            ## at the start. Check for trailing matter
+            if (nchar(index) < nchar(str))
+            {
+                message(str, index)
+                list(
+                    indices = c(position),
+                    type = 3,
+                    trailing = substr(str,
+                                      nchar(index)+1,
+                                      nchar(str))
+                )
+            }
+            else
+            {
+                ## Exact match
+                list(
+                    indices = c(position),
+                    type = 0 ## This will propogate up
+                )
+            }
+        }
     }
-    else
-    {
-        stop("Expected to find code or category in ICD-10 ",
-             "list element, while parsing '", str, "'")
-    }
-        
 }
 
 ##' Convert a list of indices to a list of codes
@@ -266,7 +271,7 @@ new_icd10 <- function(str = character())
     name <- results %>%
         purrr::map(function(x) {
             if (length(x$indices) == 0) {
-                paste0("(", x$string, ")")
+                paste0("(", x$trailing, ")")
             }
             else
             {
@@ -274,12 +279,22 @@ new_icd10 <- function(str = character())
                 ## a category
                 elem <- icd10_indices_to_code(x$indices, codes)
                 if (!is.null(elem$code)) {
-                    elem$code
+                    res <- elem$code
                 }
                 else
                 {
-                    elem$category
+                    res <- elem$category
                 }
+
+                ## Now append any trailing matter, if
+                ## there is any
+                if (!is.null(x$trailing))
+                {
+                    res <- paste0(res, "(", x$trailing ,")")
+                }
+
+                ## Return the name
+                res
             }
         })
 
@@ -314,15 +329,19 @@ get_type <- function(x)
     vctrs::field(x, "types") %>%
         purrr::map(function(y) {
             if (y[[1]] == 2) {
-                "X"
+                "X" ## Invalid (meaningless)
             }
             else if (y[[1]] == 1)
             {
-                "E"
+                "E" ## Empty space
             }
             else if (y[[1]] == 0)
             {
-                "C"
+                "C" ## Code (correctly parsed)
+            }
+            else if (y[[1]] == 3)
+            {
+                "T" ## With trailing matter
             }
         })
 }
