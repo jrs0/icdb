@@ -3,9 +3,6 @@
 ##'
 NULL
 
-## This is what you want !
-## t[[1]]$child %>% purrr::map("category")
-
 ##' This function takes a string and searches the codes
 ##' structure to find a match, returning the list of
 ##' indices defining the location of the code within
@@ -24,7 +21,7 @@ icd10_str_to_indices <- function(str, codes)
     ## if empty
     if (grepl("^\\s*$", str))
     {
-        list(indices = c(-1))
+        list(indices = list(), type = c(1))
     }
     
     ## Look through the index keys at the current level
@@ -73,8 +70,10 @@ icd10_str_to_indices <- function(str, codes)
         ## If you get here, the code was valid for this category
         ## If the category was a match, then
         ## Query that category for the code indices
-        x <- icd10_str_to_indices(str, codes[[position]]$child)$indices
-
+        res <- icd10_str_to_indices(str, codes[[position]]$child)
+        x <- res$indices
+        t <- res$type
+        
         ## Code from here onwards is in the reverse pass of the
         ## call tree (i.e. we are moving up the tree now, towards
         ## more general categories). The x returned above
@@ -88,13 +87,19 @@ icd10_str_to_indices <- function(str, codes)
         if (val > 0)
         {
             ## Return the entire list
-            list(indices = c(position, x))
+            list(
+                indices = c(position, x),
+                type = t
+            )
         }
         else if (val == -1)
         {
             ## The code is not better matched by the next level
             ## down. In this case, drop 
-            list(indices = c(position, head(x, n=-1)))
+            list(
+                indices = c(position, head(x, n=-1)),
+                type = t
+            )
         }
     }
     else if (!is.null(codes[[position]]$code))
@@ -119,7 +124,14 @@ icd10_str_to_indices <- function(str, codes)
         ##     ## in the current block
         ##     c(position)
         ## }
-        list(indices = c(position))
+
+
+        ## TODO: return unparsed trailing matter here as
+        ## another item in the list
+        list(
+            indices = c(position),
+            type = 0 ## This will propogate up
+        )
     }
     else
     {
@@ -220,9 +232,11 @@ new_icd10 <- function(str = character())
     str <- stringr::str_replace_all(str, "\\.", "")
 
     ## Get the indices for each code
-    indices <- str %>%
-        purrr::map(~ icd10_str_to_indices(.x, codes)) %>%
-        purrr::map("indices")
+    results <- str %>%
+        purrr::map(~ icd10_str_to_indices(.x, codes))
+
+    indices <- results %>% purrr::map("indices")
+    types <- results %>% purrr::map("type")
     
     ## Get the proper name
     name <- indices %>%
@@ -248,6 +262,7 @@ new_icd10 <- function(str = character())
 
     obj <- list(
         name = name,
+        types = types,
         indices = indices)
     vctrs::new_rcrd(obj, class = "icdb_icd10")
 }
@@ -273,7 +288,7 @@ is_valid.icdb_icd10 <- function(x)
 
 get_type <- function(x)
 {
-    vctrs::field(x, "indices") %>%
+    vctrs::field(x, "types") %>%
         purrr::map(function(y) {
             if (y[[1]] == -2) {
                 "W"
@@ -282,7 +297,7 @@ get_type <- function(x)
             {
                 "E"
             }
-            else if (y[[1]] > 0)
+            else if (y[[1]] == 0)
             {
                 "C"
             }
