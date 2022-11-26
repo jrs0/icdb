@@ -50,14 +50,14 @@ mock_icd_api_request <- function(token, endpoint, data = list())
                  `@value` = "Example ICD API return (top level)"
              ),
              child = list(
-                 "http://id.who.int/icd/release/10/2016/I", 
-                 "http://id.who.int/icd/release/10/2016/V"
+                 "https://id.who.int/icd/release/10/2016/I", 
+                 "https://id.who.int/icd/release/10/2016/V"
              ))
     }
     else if (endpoint == "https://id.who.int/icd/release/10/2016/I")
     {
         list(child = list(
-                 "http://id.who.int/icd/release/10/2016/A15-A19"
+                 "https://id.who.int/icd/release/10/2016/A15-A19"
              ),
              code = "I",
              title = list(
@@ -67,7 +67,7 @@ mock_icd_api_request <- function(token, endpoint, data = list())
     else if (endpoint == "https://id.who.int/icd/release/10/2016/A15-A19")
     {
         list(child = list(
-                 "http://id.who.int/icd/release/10/2016/A15"
+                 "https://id.who.int/icd/release/10/2016/A15"
              ),
              code = "A15-A19",
              title = list(
@@ -77,7 +77,7 @@ mock_icd_api_request <- function(token, endpoint, data = list())
     else if (endpoint == "https://id.who.int/icd/release/10/2016/A15")
     {
         list(child = list(
-                 "http://id.who.int/icd/release/10/2016/A15.2"
+                 "https://id.who.int/icd/release/10/2016/A15.2"
              ),
              code = "A15",
              title = list(
@@ -94,7 +94,7 @@ mock_icd_api_request <- function(token, endpoint, data = list())
     else if (endpoint == "https://id.who.int/icd/release/10/2016/V")
     {
         list(child = list(
-                 "http://id.who.int/icd/release/10/2016/F00-F09"
+                 "https://id.who.int/icd/release/10/2016/F00-F09"
              ),
              code = "V",
              title = list(
@@ -104,7 +104,7 @@ mock_icd_api_request <- function(token, endpoint, data = list())
     else if (endpoint == "https://id.who.int/icd/release/10/2016/F00-F09")
     {
         list(child = list(
-                 "http://id.who.int/icd/release/10/2016/F01"
+                 "https://id.who.int/icd/release/10/2016/F01"
              ),
              code = "F00-F09",
              title = list(
@@ -114,7 +114,7 @@ mock_icd_api_request <- function(token, endpoint, data = list())
     else if (endpoint == "https://id.who.int/icd/release/10/2016/F01")
     {
         list(child = list(
-                 "http://id.who.int/icd/release/10/2016/F01.9"
+                 "https://id.who.int/icd/release/10/2016/F01.9"
              ),
              code = "F01",
              title = list(
