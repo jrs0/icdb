@@ -8,8 +8,6 @@ new_icd10(str = character())
 }
 \arguments{
 \item{str}{The input string to parse}
-
-\item{codes}{The ICD-10 codes definition file to use}
 }
 \value{
 The new icd10 S3 object

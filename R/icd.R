@@ -226,7 +226,6 @@ icd10_load_codes <- function(file = system.file("extdata",
 ##'
 ##' @title Make an ICD-10 object from a string
 ##' @param str The input string to parse
-##' @param codes The ICD-10 codes definition file to use
 ##' @return The new icd10 S3 object
 ##' 
 new_icd10 <- function(str = character())
