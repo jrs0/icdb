@@ -26,7 +26,11 @@ icd10_str_to_indices <- function(str, codes)
     if (grepl("^\\s*$", str))
     {
         rlang::abort("error_empty_string",
-                     result = list(indices = list(), type = c(1)))
+                     result = list(
+                         indices = list(),
+                         type = c(1),
+                         string = str
+                     ))
     }
     
     ## Look through the index keys at the current level
@@ -63,7 +67,12 @@ icd10_str_to_indices <- function(str, codes)
     if (position == 0)
     {
         rlang::abort("error_invalid_code",
-                     result = list(indices = list(), type = c(2)))
+                     result = list(
+                         indices = list(),
+                         type = c(2),
+                         string = str
+                     ))
+                     
     }
 
     ## If you get here, the code was valid at the current
@@ -254,17 +263,16 @@ new_icd10 <- function(str = character())
     types <- results %>% purrr::map("type")
     
     ## Get the proper name
-    name <- indices %>%
+    name <- results %>%
         purrr::map(function(x) {
-            if (length(x) == 0) {
-                print("Got here")
-                c("Err")
+            if (length(x$indices) == 0) {
+                paste0("(", x$string, ")")
             }
             else
             {
                 ## This element is either a code or
                 ## a category
-                elem <- icd10_indices_to_code(x, codes)
+                elem <- icd10_indices_to_code(x$indices, codes)
                 if (!is.null(elem$code)) {
                     elem$code
                 }
@@ -296,7 +304,8 @@ is_valid <- function(x) {
 is_valid.icdb_icd10 <- function(x)
 {
     vctrs::field(x, "types") %>%
-        purrr::map(~ .x == 0)
+        purrr::map(~ .x == 0) %>%
+        unlist()
     
 }
 
@@ -304,10 +313,10 @@ get_type <- function(x)
 {
     vctrs::field(x, "types") %>%
         purrr::map(function(y) {
-            if (y[[1]] == -2) {
-                "W"
+            if (y[[1]] == 2) {
+                "X"
             }
-            else if (y[[1]] == -1)
+            else if (y[[1]] == 1)
             {
                 "E"
             }
