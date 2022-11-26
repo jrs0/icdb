@@ -1,0 +1,12 @@
+## Create an account on https://icd.who.int/ to obtain
+## an API account. Copy this file to a folder called
+## secret in extdata (which is gitignored), and then
+## copy your credentials into the file from the only
+## "Client Keys" page. Then use
+##
+## token <- icd_api_token()
+##
+## to get a token in your R session.
+client_id: "your clientId"
+client_secret: "your clientSecret"
+  
