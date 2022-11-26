@@ -41,109 +41,105 @@ test_that("various types of whitespace in ICD-10 codes work", {
     expect_false(is_valid(icd10("  \t\n ")))
 })
 
+mock_icd_api_request <- function(token, endpoint, data = list())
+{
+    if (endpoint == "https://id.who.int/icd/release/10/2016")
+    {
+        list(title = list(
+                 `@language` = "en",
+                 `@value` = "Example ICD API return (top level)"
+             ),
+             child = list(
+                 "http://id.who.int/icd/release/10/2016/I", 
+                 "http://id.who.int/icd/release/10/2016/V"
+             ))
+    }
+    else if (endpoint == "https://id.who.int/icd/release/10/2016/I")
+    {
+        list(child = list(
+                 "http://id.who.int/icd/release/10/2016/A15-A19"
+             ),
+             code = "I",
+             title = list(
+                 `@value` = "Chapter I") 
+             )
+    }
+    else if (endpoint == "https://id.who.int/icd/release/10/2016/A15-A19")
+    {
+        list(child = list(
+                 "http://id.who.int/icd/release/10/2016/A15"
+             ),
+             code = "A15-A19",
+             title = list(
+                 `@value` = "Range 1") 
+             )
+    }
+    else if (endpoint == "https://id.who.int/icd/release/10/2016/A15")
+    {
+        list(child = list(
+                 "http://id.who.int/icd/release/10/2016/A15.2"
+             ),
+             code = "A15",
+             title = list(
+                 `@value` = "Category 1") 
+             )
+    }
+    else if (endpoint == "https://id.who.int/icd/release/10/2016/A15.2")
+    {
+        list(code = "A15.2",
+             title = list(
+                 `@value` = "Code 1") 
+             )
+    }
+    else if (endpoint == "https://id.who.int/icd/release/10/2016/V")
+    {
+        list(child = list(
+                 "http://id.who.int/icd/release/10/2016/F00-F09"
+             ),
+             code = "V",
+             title = list(
+                 `@value` = "Chapter V") 
+             )
+    }
+    else if (endpoint == "https://id.who.int/icd/release/10/2016/F00-F09")
+    {
+        list(child = list(
+                 "http://id.who.int/icd/release/10/2016/F01"
+             ),
+             code = "F00-F09",
+             title = list(
+                 `@value` = "Range 2") 
+             )
+    }
+    else if (endpoint == "https://id.who.int/icd/release/10/2016/F01")
+    {
+        list(child = list(
+                 "http://id.who.int/icd/release/10/2016/F01.9"
+             ),
+             code = "F01",
+             title = list(
+                 `@value` = "Category 2") 
+             )
+    }
+    else if (endpoint == "https://id.who.int/icd/release/10/2016/F01.9")
+    {
+        list(code = "F01.9",
+             title = list(
+                 `@value` = "Code 2") 
+             )
+    }               
+}
+
+
 test_that("various types of whitespace in ICD", {
 
-    ## Replace the API call with a function that returns
-    ## ficticious data in the right format
-    mockery::stub(icd_api_get_codes, "icd_api_request",
-                  function(token, endpoint, data = list())
-                  {
-                      if (endpoint == "https://id.who.int/icd/release/10/2016")
-                      {
-                          list(title = list(
-                                   `@language` = "en",
-                                   `@value` = "Example ICD API return (top level)"
-                               ),
-                               child = list(
-                                   "http://id.who.int/icd/release/10/2016/I", 
-                                   "http://id.who.int/icd/release/10/2016/V"
-                               ))
-                      }
-                      else if (endpoint ==
-                               "https://id.who.int/icd/release/10/2016/I")
-                      {
-                          list(child = list(
-                                   "http://id.who.int/icd/release/10/2016/A15-A19"
-                               ),
-                               code = "I",
-                               title = list(
-                                   `@value` = "Chapter I") 
-                               )
-                      }
-                      else if (endpoint ==
-                               "https://id.who.int/icd/release/10/2016/A15-A19")
-                      {
-                          list(child = list(
-                                   "http://id.who.int/icd/release/10/2016/A15"
-                               ),
-                               code = "A15-A19",
-                               title = list(
-                                   `@value` = "Range 1") 
-                               )
-                      }
-                      else if (endpoint ==
-                               "https://id.who.int/icd/release/10/2016/A15")
-                      {
-                          list(child = list(
-                                   "http://id.who.int/icd/release/10/2016/A15.2"
-                               ),
-                               code = "A15",
-                               title = list(
-                                   `@value` = "Category 1") 
-                               )
-                      }
-                      else if (endpoint ==
-                               "https://id.who.int/icd/release/10/2016/A15.2")
-                      {
-                          list(code = "A15.2"
-                               title = list(
-                                   `@value` = "Code 1") 
-                               )
-                      }
-                      else if (endpoint ==
-                               "https://id.who.int/icd/release/10/2016/V")
-                      {
-                          list(child = list(
-                                   "http://id.who.int/icd/release/10/2016/F00-F09"
-                               ),
-                               code = "V",
-                               title = list(
-                                   `@value` = "Chapter V") 
-                               )
-                      }
-                      else if (endpoint ==
-                               "https://id.who.int/icd/release/10/2016/F00-F09")
-                      {
-                          list(child = list(
-                                   "http://id.who.int/icd/release/10/2016/F01"
-                               ),
-                               code = "F00-F09",
-                               title = list(
-                                   `@value` = "Range 2") 
-                               )
-                      }
-                      else if (endpoint ==
-                               "https://id.who.int/icd/release/10/2016/F01")
-                      {
-                          list(child = list(
-                                   "http://id.who.int/icd/release/10/2016/F01.9"
-                               ),
-                               code = "F01",
-                               title = list(
-                                   `@value` = "Category 2") 
-                               )
-                      }
-                      else if (endpoint ==
-                               "https://id.who.int/icd/release/10/2016/F01.9")
-                      {
-                          list(code = "F01.9"
-                               title = list(
-                                   `@value` = "Code 2") 
-                               )
-                      }               
-                  })
+    mockthat::with_mock(icd_api_request = mock_icd_api_request,   
+                        icd_api_fetch_all("fake_token"))
 
-    token <- list("fake_token")
-    print(icd_api_fetch_all(token))
+    mockthat::with_mock(icd_api_request = mock_icd_api_request,
+                        icd_api_fetch_all("fake_token"))
+
+    
+    
     
 })
