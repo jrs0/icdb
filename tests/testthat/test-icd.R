@@ -133,13 +133,13 @@ mock_icd_api_request <- function(token, endpoint, data = list())
 
 test_that("various types of whitespace in ICD", {
 
+    ## Get the data and store chapter by chapter in files
     mockthat::with_mock(icd_api_request = mock_icd_api_request,   
-                        icd_api_fetch_all("fake_token"))
+                        icd_api_fetch_all("fake_token", dir = "gendata/"))
 
-    mockthat::with_mock(icd_api_request = mock_icd_api_request,
-                        icd_api_fetch_all("fake_token"))
+    ## Combine the files
 
-    
+    ## Check the validity of the result
     
     
 })

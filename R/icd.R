@@ -522,7 +522,12 @@ icd_api_fetch_all <- function(token, release = "2016", dir = "./")
             val <- icd_api_get_codes(token, endpoint = ep)
 
             message("Writing codes to output file")
-            yaml::write_yaml(val, paste0(outdir, "icd10_", ch, ".yaml"))
+            if (!dir.exists(dir))
+            {
+                dir.create(dir)
+            }
+            
+            yaml::write_yaml(val, paste0(dir, "icd10_", ch, ".yaml"))
         })
 
 }
@@ -536,8 +541,7 @@ icd_api_fetch_all <- function(token, release = "2016", dir = "./")
 ##' 
 icd_combine_files <- function(dir = system.file(folder, "icd10/", package="icdb"))
 {
-    files <- list.files(dir,
-                        pattern = "^icd10_(.)*.yaml$", full.names = TRUE)
+    files <- list.files(dir, pattern = "^icd10_(.)*.yaml$", full.names = TRUE)
 
     xx <- list(category = "ICD-10",
                docs = "ICD-10 codes, 2016 release",
