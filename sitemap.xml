@@ -34,6 +34,9 @@
     <loc>https://jrs0.github.io/icdb/articles/icd-codes.html</loc>
   </url>
   <url>
+    <loc>https://jrs0.github.io/icdb/articles/icd10-design.html</loc>
+  </url>
+  <url>
     <loc>https://jrs0.github.io/icdb/articles/icdb.html</loc>
   </url>
   <url>
@@ -127,7 +130,7 @@
     <loc>https://jrs0.github.io/icdb/reference/has_tag.html</loc>
   </url>
   <url>
-    <loc>https://jrs0.github.io/icdb/reference/icd10_gen_indices.html</loc>
+    <loc>https://jrs0.github.io/icdb/reference/icd10_index_codes.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/icd10_indices_to_code.html</loc>
@@ -173,12 +176,6 @@
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/parse_codes.html</loc>
-  </url>
-  <url>
-    <loc>https://jrs0.github.io/icdb/reference/parse_icd10.html</loc>
-  </url>
-  <url>
-    <loc>https://jrs0.github.io/icdb/reference/parse_icd11.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/parse_mapping.html</loc>
