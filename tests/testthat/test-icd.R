@@ -13,6 +13,15 @@ test_that("a selection of ICD-10 codes that have previously failed to parse", {
 
 })
 
+test_that("all valid Xnnn.n ICD-10 codes parse", {
+    codes <- read.csv(system.file("testdata",
+                                  "icd10/icd10_code_list.txt",
+                                  package="icdb"))
+    raw <- codes %>% unlist()
+    parsed <- raw %>% icd10()
+    expect_equal(format(parsed), paste("[C]", raw))
+})
+
 test_that("a selection of invalid ICD-10 codes throw errors", {
-  expect_false(is_valid(icd10("I222"))) ## There is no I22.2
+    expect_false(is_valid(icd10("I222"))) ## There is no I22.2
 })
