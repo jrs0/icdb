@@ -500,10 +500,10 @@ icd_api_get_codes <- function(token, release = "2016", item = "I",
 ##'
 ##' @title Fetch ICD-10 codes
 ##' @param token The access token for the API
-##' @param release The release year (see )
-##' @param dir Where to put the output files (use a trailing /)
+##' @param release The release year
+##' @param dir Where to put the output files
 ##' @export
-icd_api_fetch_all <- function(token, release = "2016", dir = "./")
+icd_api_fetch_all <- function(token, release = "2016", dir = ".")
 {
     ## This is the base API url
     endpoint <- paste("https://id.who.int/icd/release/10",
@@ -526,8 +526,9 @@ icd_api_fetch_all <- function(token, release = "2016", dir = "./")
             {
                 dir.create(dir)
             }
-            
-            yaml::write_yaml(val, paste0(dir, "icd10_", ch, ".yaml"))
+
+            filename <- paste0("/icd10_", ch, ".yaml")
+            yaml::write_yaml(val, paste(dir, filename, sep="/"))
         })
 
 }
@@ -553,7 +554,7 @@ icd_combine_files <- function(dir = system.file(folder, "icd10/", package="icdb"
     }
 
     ## Write output file
-    yaml::write_yaml(xx, "icd10.yaml")
+    yaml::write_yaml(xx, paste(dir, "icd10.yaml", sep="/"))
 
 }
 

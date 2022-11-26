@@ -1,0 +1,25 @@
+category: ICD-10
+docs: ICD-10 codes, 2016 release
+child:
+- category: I
+  docs: Chapter I
+  child:
+  - category: A15-A19
+    docs: Range 1
+    child:
+    - category: A15
+      docs: Category 1
+      child:
+      - code: A15.2
+        docs: Code 1
+- category: V
+  docs: Chapter V
+  child:
+  - category: F00-F09
+    docs: Range 2
+    child:
+    - category: F01
+      docs: Category 2
+      child:
+      - code: F01.9
+        docs: Code 2
