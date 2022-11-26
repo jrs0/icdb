@@ -40,3 +40,19 @@ test_that("various types of whitespace in ICD-10 codes work", {
     expect_false(is_valid(icd10("\t")))
     expect_false(is_valid(icd10("  \t\n ")))
 })
+
+test_that("various types of whitespace in ICD", {
+
+    ## Replace the API call with a function that returns
+    ## ficticious data in the right format
+    mockery::stub(icd_api_get_codes, "icd_api_request",
+                  function(token, endpoint, data = list())
+                  {
+                      
+
+
+                  })
+    
+
+
+})
