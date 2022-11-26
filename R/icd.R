@@ -10,10 +10,14 @@ NULL
 ##' store them in an icd10 object, allowing information
 ##' about the code to be queried. 
 ##'
+##' Return type codes: 0 for success; 1 for empty
+##' string; 2 for invalid code; 
+##' 
 ##' @title Parse an ICD-10 code string
 ##' @param str The string to parse
 ##' @param codes The reference codes structure
-##' @return A list of indices pointing to the code
+##' @return A named list containing indices (a list)
+##' and type (containing the status of the parse).
 ##' 
 icd10_str_to_indices <- function(str, codes)
 {
@@ -21,7 +25,7 @@ icd10_str_to_indices <- function(str, codes)
     ## if empty
     if (grepl("^\\s*$", str))
     {
-        list(indices = list(), type = c(1))
+        return(list(indices = list(), type = c(1)))
     }
     
     ## Look through the index keys at the current level
@@ -57,7 +61,7 @@ icd10_str_to_indices <- function(str, codes)
     ## of this level, so it is not a valid code.
     if (position == 0)
     {
-        stop("'", str, "' is not a valid ICD-10 code.")
+        return(list(indices = list(), type = c(2)))
     }
 
     ## If you get here, the code was valid at the current
@@ -280,10 +284,9 @@ is_valid <- function(x) {
 ##' @export
 is_valid.icdb_icd10 <- function(x)
 {
-    x %>%
-        purrr::map(1) %>%
-        purrr::map(~ .x != "Err") %>%
-        unlist()
+    vctrs::field(x, "types") %>%
+        purrr::map(~ .x == 0)
+    
 }
 
 get_type <- function(x)
