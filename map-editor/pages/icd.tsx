@@ -2,8 +2,31 @@ import { useState } from 'react';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
-function Category({ name }) {
-    return <div>{name}</div>
+function Category({ cat }) {
+    return (
+        <div class="category">
+            <div>{cat.category}</div>
+            <div>{cat.docs}</div>
+            <ol>
+                {
+                    cat.child.map((node) => {
+                        if ("category" in node) {
+                            return (
+                                <li>
+                                    <Category cat={node} />
+                                </li>)
+                        } else {
+                            return (
+                                <li>
+                                    <div>{node.code}</div>
+                                    <div>{node.docs}</div>
+                                </li>)
+                        }
+                    })
+                }
+            </ol>
+        </div>
+    )
 }
 
 export default function Home() {
@@ -23,9 +46,13 @@ export default function Home() {
             <h1>ICD-10</h1>
             <ol>
                 {
-                    code_def.codes.map((node) => (
-                        <li><Category name="Hello" /></li>
-                    ))
+                    code_def.codes.map((node) => {
+                        if ("category" in node) {
+                            return (<li><Category cat={node} /></li>)
+                        } else {
+                            return (<li>Unknown</li>)
+                        }
+                    })
                 }
             </ol>
         </div >
