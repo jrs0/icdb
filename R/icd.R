@@ -3,7 +3,6 @@
 ##'
 NULL
 
-
 ##' This function takes a string and searches the codes
 ##' structure to find a match, returning the list of
 ##' indices defining the location of the code within
@@ -194,7 +193,7 @@ icd10_load_codes <- function(file = system.file("extdata",
                                                 "icd10/icd10_index.yaml",
                                                 package = "icdb"))
 {
-    codes <- yaml::read_yaml(file)
+    codes_def <- yaml::read_yaml(file)
 
     ## The structure must be ordered by index at
     ## every level. Most levels is already ordered
@@ -224,8 +223,10 @@ icd10_load_codes <- function(file = system.file("extdata",
         level[k]
     }
 
-    ## Sprt the codes
-    sort_level(codes)
+    ## Sort the codes
+    codes_def <- sort_level(codes_def$codes)
+
+    codes_def
 }
 
 ##' This is a map from strings to icd10 objects that
