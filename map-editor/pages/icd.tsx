@@ -5,23 +5,23 @@ import Link from 'next/link'
 function Code({ code }) {
     return <div>
         <div>{code.code} -- {code.docs}</div>
+        <input type="checkbox" />
     </div>
 }
 
 function Category({ cat }) {
     return <div class="category">
         <div>{cat.category} -- {cat.docs}</div>
-        <ol>
-            {
-                cat.child.map((node) => {
-                    if ("category" in node) {
-                        return <li><Category cat={node} /></li>
-                    } else {
-                        return <li><Code code={node} /></li>
-                    }
-                })
-            }
-        </ol>
+        <input type="checkbox" />
+        <ol> {
+            cat.child.map((node) => {
+                if ("category" in node) {
+                    return <li><Category cat={node} /></li>
+                } else {
+                    return <li><Code code={node} /></li>
+                }
+            })
+        } </ol>
     </div>
 }
 
@@ -48,22 +48,4 @@ export default function Home() {
             <Category cat={code_def.codes[0]} />
         </div>
     }
-
-
-    return <div>
-        {
-        }
-    </div>
-
-    /* return <div>
-     *     <Link href="/">Back</Link><br />
-     *     <h1>ICD-10</h1>
-     *     {
-       if (code_def == 0) {
-     *         return <button onClick={load_file}>Load file</button>
-     *     } else {
-       return <Category cat={code_def.codes} />
-     *     }
-       }
-     * </div> */
 }
