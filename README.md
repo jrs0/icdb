@@ -16,7 +16,7 @@ the library and documentation is currently incomplete**.
 
 ## Obtaining the documentation
 
-The documentation is hosted [here](htts://jrs0.github.com/).
+The documentation is hosted [here](https://jrs0.github.io/icdb/).
 
 If you need to generate the documentation locally, clone or download
 this repository, and open an R session in the icdb/ folder. Then run the
