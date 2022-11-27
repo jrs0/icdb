@@ -3,6 +3,15 @@ import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
 function Code({ code, exclude }) {
+
+    // Check whether the code is excluded
+    if ("exclude" in code) {
+        if (code.exclude == true) {
+            exclude = true;
+        }
+    }
+
+
     return <div>
         <div>{code.code} -- {code.docs}</div>
         <input type="checkbox" checked={!exclude} />
@@ -11,8 +20,8 @@ function Code({ code, exclude }) {
 
 function Category({ cat, exclude }) {
 
-    // Check whether the current category is
-    // excluded -- if it is, pass this
+    // Check whether the category is
+    // excluded. If it is, pass this
     // information down to the child categories
     if ("exclude" in cat) {
         if (cat.exclude == true) {
@@ -29,7 +38,7 @@ function Category({ cat, exclude }) {
                     return <li><Category cat={node}
                         exclude={exclude} /></li>
                 } else {
-                    return <li><Code code={node} /></li>
+                    return <li><Code code={node} exclude={exclude} /></li>
                 }
             })
         } </ol>

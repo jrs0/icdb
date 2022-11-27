@@ -5,12 +5,12 @@ codes:
   child:
   - category: I
     docs: Certain infectious and parasitic diseases
-    exclude: true
     child:
     - category: A00-A09
       docs: Intestinal infectious diseases
       child:
       - category: A00
+        exclude: true
         docs: Cholera
         child:
         - code: A00.0
