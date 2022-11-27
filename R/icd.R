@@ -357,7 +357,9 @@ new_icd10 <- function(str = character(), codes_file)
 }
 
 icd10 <- function(str = character(),
-                  codes_file = system.file("extdata", "icd10/icd10.yaml"))
+                  codes_file = system.file("extdata",
+                                           "icd10/icd10.yaml",
+                                           package = "icdb"))
 {
     str <- vctrs::vec_cast(str, character())
     new_icd10(str, codes_file)
@@ -405,10 +407,20 @@ is_icd10 <- function(x) {
 ##' @export
 format.icdb_icd10 <- function(x, ...) {
     name <- vctrs::field(x, "name")
-    groups <- vctrs::field(x, "groups")
     type <- get_type(x)
-    out <- paste0( "[", type, "] ", name, " <",
-                  paste(unlist(groups), collapse=", "), ">")
+
+    groups <- vctrs::field(x, "groups") %>%
+        purrr::map(~ if(length(.x) > 0) {
+                         paste0(" <",
+                                paste(unlist(.x), collapse=", "),
+                                ">")
+                     }
+                     else
+                     {
+                         ""
+                     })
+    
+    out <- paste0( "[", type, "] ", name, groups)
     out
 }
 
