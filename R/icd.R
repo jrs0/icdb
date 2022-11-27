@@ -16,10 +16,11 @@ NULL
 ##' @title Parse an ICD-10 code string
 ##' @param str The string to parse
 ##' @param codes The reference codes structure
+##' @param groups The current set of groups for this code
 ##' @return A named list containing indices (a list)
 ##' and type (containing the status of the parse).
 ##' 
-icd10_str_to_indices <- function(str, codes)
+icd10_str_to_indices <- function(str, codes, groups)
 {
     ## Check for empty string. Return -1
     ## if empty
@@ -30,7 +31,8 @@ icd10_str_to_indices <- function(str, codes)
                      result = list(
                          indices = list(),
                          type = c(1),
-                         trailing = str
+                         trailing = str,
+                         groups = list()
                      ))
     }
     
@@ -72,7 +74,8 @@ icd10_str_to_indices <- function(str, codes)
                      result = list(
                          indices = list(),
                          type = c(2),
-                         trailing = str
+                         trailing = str,
+                         groups = list()
                      ))
                      
     }
@@ -85,12 +88,17 @@ icd10_str_to_indices <- function(str, codes)
     if (!is.null(codes[[position]]$category))
     {   
         ## If you get here, the code was valid for this category
-        ## If the category was a match, then
+        ## Check for any group exclusions at this level and remove
+        ## them from the current group list (note that if exclude
+        ## is not present, NULL is returned, which works fine).
+        groups <- setdiff(groups, codes[[position]]$exclude)
+        
         ## Query that category for the code indices
-        res <- icd10_str_to_indices(str, codes[[position]]$child)
+        res <- icd10_str_to_indices(str, codes[[position]]$child, groups)
         x <- res$indices
         t <- res$type
         s <- res$trailing
+        g <- res$groups
         
         ## Code from here onwards is in the reverse pass of the
         ## call tree (i.e. we are moving up the tree now, towards
@@ -108,7 +116,8 @@ icd10_str_to_indices <- function(str, codes)
             list(
                 indices = c(position, x),
                 type = t,
-                trailing = s
+                trailing = s,
+                groups = g
             )
         }
         else if (val == -1)
@@ -118,7 +127,8 @@ icd10_str_to_indices <- function(str, codes)
             list(
                 indices = c(position, head(x, n=-1)),
                 type = t,
-                trailing = s
+                trailing = s,
+                groups = g
             )
         }
     }
@@ -224,7 +234,7 @@ icd10_load_codes <- function(file = system.file("extdata",
     }
 
     ## Sort the codes
-    codes_def <- sort_level(codes_def$codes)
+    codes_def$codes <- sort_level(codes_def$codes)
 
     codes_def
 }
@@ -262,8 +272,10 @@ new_icd10 <- function(str = character())
     ## problem, it can be fixed later. The top level is
     ## a list with one item, and the main chapter level
     ## starts in the child key.
-    codes <- icd10_load_codes()
-
+    codes_def <- icd10_load_codes()
+    codes <- codes_def$codes
+    groups <- codes_def$groups
+    
     ## strip whitespace from the code, and
     ## remove any dots.
     str <- stringr::str_replace_all(str, "\\.", "") %>%
@@ -288,13 +300,14 @@ new_icd10 <- function(str = character())
                     error = function(cnd)
                     {
                         ## Other error condition
+                        warning(cnd)
                         list(
                             trailing = x,
                             indices = list(),
                             type = c(2)
                         )
                     },
-                    icd10_str_to_indices(x, codes)
+                    icd10_str_to_indices(x, codes, groups)
                 )
                 cache$write(x, code)
                 code
@@ -303,6 +316,7 @@ new_icd10 <- function(str = character())
         
     indices <- results %>% purrr::map("indices")
     types <- results %>% purrr::map("type")
+    groups <- results %>% purrr::map("groups")
     
     ## Get the proper name
     name <- results %>%
@@ -338,7 +352,8 @@ new_icd10 <- function(str = character())
     obj <- list(
         name = name,
         types = types,
-        indices = indices)
+        indices = indices,
+        groups = groups)
     vctrs::new_rcrd(obj, class = "icdb_icd10")
 }
 
@@ -390,8 +405,9 @@ is_icd10 <- function(x) {
 ##' @export
 format.icdb_icd10 <- function(x, ...) {
     name <- vctrs::field(x, "name")
+    groups <- vctrs::field(x, "groups")
     type <- get_type(x)
-    out <- paste0( "[", type, "] ", name)
+    out <- paste0( "[", type, "] ", name, " <", groups, ">")
     out
 }
 
