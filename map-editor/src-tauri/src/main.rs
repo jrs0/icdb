@@ -14,9 +14,9 @@ fn get_yaml() -> String {
     };
     let f = std::fs::File::open(result).expect("Error reading file");
     let d: serde_json::Value = serde_yaml::from_reader(f).expect("Error parsing YAML");
-    let s = d.to_string();
+    // let s = d.to_string();
     
-    format!("{s}")
+    format!("{d}")
 }
 
 fn main() {

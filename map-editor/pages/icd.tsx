@@ -2,14 +2,18 @@ import { useState } from 'react';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
+function Category({ name }) {
+    return <div>{name}</div>
+}
 
 export default function Home() {
 
-    let [codes, setCodes] = useState([]);
+    let [code_def, setCodeDef] = useState({ "groups": [], "codes": [] });
 
     function load_file() {
         invoke('get_yaml')
-            .then(console.log)
+            .then(JSON.parse)
+            .then(setCodeDef)
     }
 
     return (
@@ -18,9 +22,11 @@ export default function Home() {
             <button onClick={load_file}>Load file</button>
             <h1>ICD-10</h1>
             <ol>
-                {codes.map((node) => (
-                    <li>hello</li>
-                ))}
+                {
+                    code_def.codes.map((node) => (
+                        <li><Category name="Hello" /></li>
+                    ))
+                }
             </ol>
         </div >
     )
