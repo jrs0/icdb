@@ -200,11 +200,9 @@ icd10_indices_to_code <- function(indices, codes)
     codes %>% purrr::chuck(!!!k)
 }
 
-icd10_load_codes <- function(file = system.file("extdata",
-                                                "icd10/icd10_index.yaml",
-                                                package = "icdb"))
+icd10_load_codes <- function(codes_file)
 {
-    codes_def <- yaml::read_yaml(file)
+    codes_def <- yaml::read_yaml(codes_file)
 
     ## The structure must be ordered by index at
     ## every level. Most levels is already ordered
@@ -260,7 +258,7 @@ icd10_cache <- R6::R6Class("icd10_cache",
 ##' @param str The input string to parse
 ##' @return The new icd10 S3 object
 ##' 
-new_icd10 <- function(str = character())
+new_icd10 <- function(str = character(), codes_file)
 {
     vctrs::vec_assert(str, character())
 
@@ -273,7 +271,7 @@ new_icd10 <- function(str = character())
     ## problem, it can be fixed later. The top level is
     ## a list with one item, and the main chapter level
     ## starts in the child key.
-    codes_def <- icd10_load_codes()
+    codes_def <- icd10_load_codes(codes_file)
     codes <- codes_def$codes
     groups <- codes_def$groups
 
@@ -358,10 +356,11 @@ new_icd10 <- function(str = character())
     vctrs::new_rcrd(obj, class = "icdb_icd10")
 }
 
-icd10 <- function(str = character())
+icd10 <- function(str = character(),
+                  codes_file = system.file("extdata", "icd10/icd10.yaml"))
 {
     str <- vctrs::vec_cast(str, character())
-    new_icd10(str)
+    new_icd10(str, codes_file)
 }
 
 is_valid <- function(x) {
