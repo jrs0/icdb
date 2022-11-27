@@ -3,6 +3,7 @@
 ##'
 NULL
 
+
 ##' This function takes a string and searches the codes
 ##' structure to find a match, returning the list of
 ##' indices defining the location of the code within
@@ -25,7 +26,8 @@ icd10_str_to_indices <- function(str, codes)
     ## if empty
     if (grepl("^\\s*$", str))
     {
-        rlang::abort("error_empty_string",
+        rlang::abort("error_invalid",
+                     message = "Whitespace is not a valid ICD-10 code",
                      result = list(
                          indices = list(),
                          type = c(1),
@@ -66,7 +68,8 @@ icd10_str_to_indices <- function(str, codes)
     ## of this level, so it is not a valid code.
     if (position == 0)
     {
-        rlang::abort("error_invalid_code",
+        rlang::abort("error_invalid",
+                     message = "ICD-10 code was not valid",
                      result = list(
                          indices = list(),
                          type = c(2),
@@ -278,7 +281,7 @@ new_icd10 <- function(str = character())
             else
             {
                 code <- tryCatch(
-                    error = function(cnd)
+                    error_invalid = function(cnd)
                     {
                         cnd$result
                     },
