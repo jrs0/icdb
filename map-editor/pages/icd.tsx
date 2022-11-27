@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
-function Code({ code }) {
+function Code({ code, exclude }) {
     return <div>
         <div>{code.code} -- {code.docs}</div>
-        <input type="checkbox" checked={false} />
+        <input type="checkbox" checked={!exclude} />
     </div>
 }
 
