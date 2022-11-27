@@ -272,6 +272,7 @@ new_icd10 <- function(str = character())
             res <- cache$read(x)
             if (!is.null(res))
             {
+                message("getting cached result")
                 res
             }
             else
@@ -281,9 +282,14 @@ new_icd10 <- function(str = character())
                     {
                         cnd$result
                     },
+                    error_invalid_code = function(cnd)
+                    {
+                        cnd$result
+                    },
                     icd10_str_to_indices(x, codes)
                 )
                 cache$write(x, code)
+                code
             }
         })
         
