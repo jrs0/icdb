@@ -299,11 +299,11 @@ new_icd10 <- function(str = character(), codes_file)
                     error = function(cnd)
                     {
                         ## Other error condition
-                        warning(cnd)
                         list(
                             trailing = x,
                             indices = list(),
-                            type = c(2)
+                            type = c(2),
+                            groups = list()
                         )
                     },
                     icd10_str_to_indices(x, codes, groups)
