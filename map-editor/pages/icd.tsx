@@ -2,36 +2,32 @@ import { useState } from 'react';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
+function Code({ code }) {
+    return <div>
+        <div>{code.code} -- {code.docs}</div>
+    </div>
+}
+
 function Category({ cat }) {
-    return (
-        <div class="category">
-            <div>{cat.category}</div>
-            <div>{cat.docs}</div>
-            <ol>
-                {
-                    cat.child.map((node) => {
-                        if ("category" in node) {
-                            return (
-                                <li>
-                                    <Category cat={node} />
-                                </li>)
-                        } else {
-                            return (
-                                <li>
-                                    <div>{node.code}</div>
-                                    <div>{node.docs}</div>
-                                </li>)
-                        }
-                    })
-                }
-            </ol>
-        </div>
-    )
+    return <div class="category">
+        <div>{cat.category} -- {cat.docs}</div>
+        <ol>
+            {
+                cat.child.map((node) => {
+                    if ("category" in node) {
+                        return <li><Category cat={node} /></li>
+                    } else {
+                        return <li><Code code={node} /></li>
+                    }
+                })
+            }
+        </ol>
+    </div>
 }
 
 export default function Home() {
 
-    let [code_def, setCodeDef] = useState({ "groups": [], "codes": [] });
+    let [code_def, setCodeDef] = useState(0);
 
     function load_file() {
         invoke('get_yaml')
@@ -39,23 +35,35 @@ export default function Home() {
             .then(setCodeDef)
     }
 
-    return (
-        <div>
+    if (code_def == 0) {
+        return <div>
             <Link href="/">Back</Link><br />
-            <button onClick={load_file}>Load file</button>
             <h1>ICD-10</h1>
-            <ol>
-                {
-                    code_def.codes.map((node) => {
-                        if ("category" in node) {
-                            return (<li><Category cat={node} /></li>)
-                        } else {
-                            return (<li>Unknown</li>)
-                        }
-                    })
-                }
-            </ol>
-        </div >
-    )
+            <button onClick={load_file}>Load file</button>
+        </div>
+    } else {
+        return <div>
+            <Link href="/">Back</Link><br />
+            <h1>ICD-10</h1>
+            <Category cat={code_def.codes[0]} />
+        </div>
+    }
 
+
+    return <div>
+        {
+        }
+    </div>
+
+    /* return <div>
+     *     <Link href="/">Back</Link><br />
+     *     <h1>ICD-10</h1>
+     *     {
+       if (code_def == 0) {
+     *         return <button onClick={load_file}>Load file</button>
+     *     } else {
+       return <Category cat={code_def.codes} />
+     *     }
+       }
+     * </div> */
 }
