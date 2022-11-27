@@ -4,10 +4,13 @@
 \alias{new_icd10}
 \title{Make an ICD-10 object from a string}
 \usage{
-new_icd10(str = character())
+new_icd10(str = character(), codes_file)
 }
 \arguments{
 \item{str}{The input string to parse}
+
+\item{codes_file}{The path of the codes definition
+file to use}
 }
 \value{
 The new icd10 S3 object

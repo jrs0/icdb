@@ -4,12 +4,14 @@
 \alias{icd10_str_to_indices}
 \title{Parse an ICD-10 code string}
 \usage{
-icd10_str_to_indices(str, codes)
+icd10_str_to_indices(str, codes, groups)
 }
 \arguments{
 \item{str}{The string to parse}
 
 \item{codes}{The reference codes structure}
+
+\item{groups}{The current set of groups for this code}
 }
 \value{
 A named list containing indices (a list)

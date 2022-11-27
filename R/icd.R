@@ -238,9 +238,6 @@ icd10_load_codes <- function(codes_file)
     codes_def
 }
 
-##' This is a map from strings to icd10 objects that
-##' makes lookup quicker for commonly encountered codes
-##' 
 icd10_cache <- R6::R6Class("icd10_cache",
                            list(
                                cache = list(),
@@ -256,6 +253,8 @@ icd10_cache <- R6::R6Class("icd10_cache",
 ##'
 ##' @title Make an ICD-10 object from a string
 ##' @param str The input string to parse
+##' @param codes_file The path of the codes definition
+##' file to use
 ##' @return The new icd10 S3 object
 ##' 
 new_icd10 <- function(str = character(), codes_file)
