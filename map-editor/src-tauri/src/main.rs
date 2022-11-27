@@ -4,8 +4,7 @@
 )]
 
 use tauri_api::dialog::{select, Response};
-use serde_yaml::Value;
-
+    
 #[tauri::command]
 fn get_yaml() -> String {
     let result = match select(Some("yaml"), Some("~")).unwrap() {
@@ -14,9 +13,10 @@ fn get_yaml() -> String {
 	Response::Cancel => String::from("Cancelled")
     };
     let f = std::fs::File::open(result).expect("Error reading file");
-    let d: Value = serde_yaml::from_reader(f).expect("Error parsing YAML");
-
-    format!(d)
+    let d: serde_json::Value = serde_yaml::from_reader(f).expect("Error parsing YAML");
+    let s = d.to_string();
+    
+    format!("{s}")
 }
 
 fn main() {
