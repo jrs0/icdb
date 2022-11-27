@@ -278,11 +278,7 @@ new_icd10 <- function(str = character())
             else
             {
                 code <- tryCatch(
-                    error_empty_string = function(cnd)
-                    {
-                        cnd$result
-                    },
-                    error_invalid_code = function(cnd)
+                    error = function(cnd)
                     {
                         cnd$result
                     },
