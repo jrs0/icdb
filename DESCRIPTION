@@ -5,8 +5,8 @@ Authors@R: c(
     person("John", "Scott", , "john.scott17@nhs.net", role = c("aut", "cre")),
     person("Nick", "Sunderland", role = c("aut"))
     )
-Description: A library for making database access and processing easier in R. The main features include a tab-completing list of database and table names, ability to cache large queries for development purposes, and the ability to remap and document columns in databases to provide a consistent R interface. The package is currently under development.
-License: MIT + file LICENSE
+Description: A library for accessing and processing health-care databases in R. 
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
