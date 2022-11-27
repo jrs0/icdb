@@ -3,7 +3,6 @@
 ##'
 NULL
 
-
 ##' This function takes a string and searches the codes
 ##' structure to find a match, returning the list of
 ##' indices defining the location of the code within
@@ -17,10 +16,11 @@ NULL
 ##' @title Parse an ICD-10 code string
 ##' @param str The string to parse
 ##' @param codes The reference codes structure
+##' @param groups The current set of groups for this code
 ##' @return A named list containing indices (a list)
 ##' and type (containing the status of the parse).
 ##' 
-icd10_str_to_indices <- function(str, codes)
+icd10_str_to_indices <- function(str, codes, groups)
 {
     ## Check for empty string. Return -1
     ## if empty
@@ -31,7 +31,8 @@ icd10_str_to_indices <- function(str, codes)
                      result = list(
                          indices = list(),
                          type = c(1),
-                         trailing = str
+                         trailing = str,
+                         groups = list()
                      ))
     }
     
@@ -73,7 +74,8 @@ icd10_str_to_indices <- function(str, codes)
                      result = list(
                          indices = list(),
                          type = c(2),
-                         trailing = str
+                         trailing = str,
+                         groups = list()
                      ))
                      
     }
@@ -82,16 +84,20 @@ icd10_str_to_indices <- function(str, codes)
     ## level. The remainder of the function is concerned with
     ## whether the current category is the best match, or
     ## whether the next category down is better.
+
+    ## Check for any group exclusions at this level and remove
+    ## them from the current group list (note that if exclude
+    ## is not present, NULL is returned, which works fine).
+    groups <- setdiff(groups, codes[[position]]$exclude)
     
     if (!is.null(codes[[position]]$category))
     {   
-        ## If you get here, the code was valid for this category
-        ## If the category was a match, then
         ## Query that category for the code indices
-        res <- icd10_str_to_indices(str, codes[[position]]$child)
+        res <- icd10_str_to_indices(str, codes[[position]]$child, groups)
         x <- res$indices
         t <- res$type
         s <- res$trailing
+        g <- res$groups
         
         ## Code from here onwards is in the reverse pass of the
         ## call tree (i.e. we are moving up the tree now, towards
@@ -109,7 +115,8 @@ icd10_str_to_indices <- function(str, codes)
             list(
                 indices = c(position, x),
                 type = t,
-                trailing = s
+                trailing = s,
+                groups = g
             )
         }
         else if (val == -1)
@@ -119,7 +126,8 @@ icd10_str_to_indices <- function(str, codes)
             list(
                 indices = c(position, head(x, n=-1)),
                 type = t,
-                trailing = s
+                trailing = s,
+                groups = g
             )
         }
     }
@@ -147,7 +155,8 @@ icd10_str_to_indices <- function(str, codes)
                     type = 3,
                     trailing = substr(str,
                                       nchar(index)+1,
-                                      nchar(str))
+                                      nchar(str)),
+                    groups = groups
                 )
             }
             else
@@ -155,7 +164,8 @@ icd10_str_to_indices <- function(str, codes)
                 ## Exact match
                 list(
                     indices = c(position),
-                    type = 0 ## This will propogate up
+                    type = 0,
+                    groups = groups
                 )
             }
         }
@@ -190,11 +200,9 @@ icd10_indices_to_code <- function(indices, codes)
     codes %>% purrr::chuck(!!!k)
 }
 
-icd10_load_codes <- function(file = system.file("extdata",
-                                                "icd10/icd10_index.yaml",
-                                                package = "icdb"))
+icd10_load_codes <- function(codes_file)
 {
-    codes <- yaml::read_yaml(file)
+    codes_def <- yaml::read_yaml(codes_file)
 
     ## The structure must be ordered by index at
     ## every level. Most levels is already ordered
@@ -224,13 +232,12 @@ icd10_load_codes <- function(file = system.file("extdata",
         level[k]
     }
 
-    ## Sprt the codes
-    sort_level(codes)
+    ## Sort the codes
+    codes_def$codes <- sort_level(codes_def$codes)
+
+    codes_def
 }
 
-##' This is a map from strings to icd10 objects that
-##' makes lookup quicker for commonly encountered codes
-##' 
 icd10_cache <- R6::R6Class("icd10_cache",
                            list(
                                cache = list(),
@@ -246,9 +253,11 @@ icd10_cache <- R6::R6Class("icd10_cache",
 ##'
 ##' @title Make an ICD-10 object from a string
 ##' @param str The input string to parse
+##' @param codes_file The path of the codes definition
+##' file to use
 ##' @return The new icd10 S3 object
 ##' 
-new_icd10 <- function(str = character())
+new_icd10 <- function(str = character(), codes_file)
 {
     vctrs::vec_assert(str, character())
 
@@ -261,7 +270,9 @@ new_icd10 <- function(str = character())
     ## problem, it can be fixed later. The top level is
     ## a list with one item, and the main chapter level
     ## starts in the child key.
-    codes <- icd10_load_codes()
+    codes_def <- icd10_load_codes(codes_file)
+    codes <- codes_def$codes
+    groups <- codes_def$groups
 
     ## strip whitespace from the code, and
     ## remove any dots.
@@ -290,10 +301,11 @@ new_icd10 <- function(str = character())
                         list(
                             trailing = x,
                             indices = list(),
-                            type = c(2)
+                            type = c(2),
+                            groups = list()
                         )
                     },
-                    icd10_str_to_indices(x, codes)
+                    icd10_str_to_indices(x, codes, groups)
                 )
                 cache$write(x, code)
                 code
@@ -302,6 +314,7 @@ new_icd10 <- function(str = character())
         
     indices <- results %>% purrr::map("indices")
     types <- results %>% purrr::map("type")
+    groups <- results %>% purrr::map("groups")
     
     ## Get the proper name
     name <- results %>%
@@ -337,14 +350,18 @@ new_icd10 <- function(str = character())
     obj <- list(
         name = name,
         types = types,
-        indices = indices)
+        indices = indices,
+        groups = groups)
     vctrs::new_rcrd(obj, class = "icdb_icd10")
 }
 
-icd10 <- function(str = character())
+icd10 <- function(str = character(),
+                  codes_file = system.file("extdata",
+                                           "icd10/icd10.yaml",
+                                           package = "icdb"))
 {
     str <- vctrs::vec_cast(str, character())
-    new_icd10(str)
+    new_icd10(str, codes_file)
 }
 
 is_valid <- function(x) {
@@ -390,7 +407,19 @@ is_icd10 <- function(x) {
 format.icdb_icd10 <- function(x, ...) {
     name <- vctrs::field(x, "name")
     type <- get_type(x)
-    out <- paste0( "[", type, "] ", name)
+
+    groups <- vctrs::field(x, "groups") %>%
+        purrr::map(~ if(length(.x) > 0) {
+                         paste0(" <",
+                                paste(unlist(.x), collapse=", "),
+                                ">")
+                     }
+                     else
+                     {
+                         ""
+                     })
+    
+    out <- paste0( "[", type, "] ", name, groups)
     out
 }
 
