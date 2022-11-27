@@ -84,15 +84,14 @@ icd10_str_to_indices <- function(str, codes, groups)
     ## level. The remainder of the function is concerned with
     ## whether the current category is the best match, or
     ## whether the next category down is better.
+
+    ## Check for any group exclusions at this level and remove
+    ## them from the current group list (note that if exclude
+    ## is not present, NULL is returned, which works fine).
+    groups <- setdiff(groups, codes[[position]]$exclude)
     
     if (!is.null(codes[[position]]$category))
     {   
-        ## If you get here, the code was valid for this category
-        ## Check for any group exclusions at this level and remove
-        ## them from the current group list (note that if exclude
-        ## is not present, NULL is returned, which works fine).
-        groups <- setdiff(groups, codes[[position]]$exclude)
-        
         ## Query that category for the code indices
         res <- icd10_str_to_indices(str, codes[[position]]$child, groups)
         x <- res$indices
@@ -156,7 +155,8 @@ icd10_str_to_indices <- function(str, codes, groups)
                     type = 3,
                     trailing = substr(str,
                                       nchar(index)+1,
-                                      nchar(str))
+                                      nchar(str)),
+                    groups = groups
                 )
             }
             else
@@ -164,7 +164,8 @@ icd10_str_to_indices <- function(str, codes, groups)
                 ## Exact match
                 list(
                     indices = c(position),
-                    type = 0 ## This will propogate up
+                    type = 0,
+                    groups = groups
                 )
             }
         }
@@ -275,7 +276,7 @@ new_icd10 <- function(str = character())
     codes_def <- icd10_load_codes()
     codes <- codes_def$codes
     groups <- codes_def$groups
-    
+
     ## strip whitespace from the code, and
     ## remove any dots.
     str <- stringr::str_replace_all(str, "\\.", "") %>%
@@ -407,7 +408,8 @@ format.icdb_icd10 <- function(x, ...) {
     name <- vctrs::field(x, "name")
     groups <- vctrs::field(x, "groups")
     type <- get_type(x)
-    out <- paste0( "[", type, "] ", name, " <", groups, ">")
+    out <- paste0( "[", type, "] ", name, " <",
+                  paste(unlist(groups), collapse=", "), ">")
     out
 }
 

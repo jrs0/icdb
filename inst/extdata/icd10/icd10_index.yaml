@@ -15,6 +15,7 @@ codes:
         docs: Cholera
         child:
         - code: A00.0
+          exclude: acs
           docs: Cholera due to Vibrio cholerae 01, biovar cholerae
           index: A000
         - code: A00.1
