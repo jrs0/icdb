@@ -225,6 +225,20 @@ icd10_load_codes <- function(file = system.file("extdata",
     sort_level(codes)
 }
 
+##' This is a map from strings to icd10 objects that
+##' makes lookup quicker for commonly encountered codes
+##' 
+icd10_cache <- R6::R6Class("icd10_cache",
+                           list(
+                               cache = list(),
+                               read = function(str) {
+                                   self$cache[[str]]
+                               },
+                               write = function(str, code) {
+                                   self$cache[[str]] <- code
+                               }
+                           ))
+
 ##' Create a new icd10 (S3) object from a string
 ##'
 ##' @title Make an ICD-10 object from a string
@@ -235,6 +249,8 @@ new_icd10 <- function(str = character())
 {
     vctrs::vec_assert(str, character())
 
+    cache <- icd10_cache$new()
+    
     ## Open the file. This is a long operation, but
     ## provided this function is called in a vectorised
     ## way (i.e. str is a vector), the file will only
@@ -253,13 +269,22 @@ new_icd10 <- function(str = character())
     results <- str %>%
         purrr::map(function(x)
         {
-            tryCatch(
-                error_empty_string = function(cnd)
-                {
-                    cnd$result
-                },
-                icd10_str_to_indices(x, codes)
-            )
+            res <- cache$read(x)
+            if (!is.null(res))
+            {
+                res
+            }
+            else
+            {
+                code <- tryCatch(
+                    error_empty_string = function(cnd)
+                    {
+                        cnd$result
+                    },
+                    icd10_str_to_indices(x, codes)
+                )
+                cache$write(x, code)
+            }
         })
         
     indices <- results %>% purrr::map("indices")
