@@ -5,14 +5,15 @@ import Link from 'next/link'
 function Code({ code }) {
     return <div>
         <div>{code.code} -- {code.docs}</div>
-        <input type="checkbox" />
+        <input type="checkbox" value=checked" />
     </div>
 }
 
 function Category({ cat }) {
+
     return <div class="category">
         <div>{cat.category} -- {cat.docs}</div>
-        <input type="checkbox" />
+        <input type="checkbox" value="checked" />
         <ol> {
             cat.child.map((node) => {
                 if ("category" in node) {
@@ -29,10 +30,16 @@ export default function Home() {
 
     let [code_def, setCodeDef] = useState(0);
 
+    // Function to load the codes yaml file
     function load_file() {
         invoke('get_yaml')
             .then(JSON.parse)
             .then(setCodeDef)
+    }
+
+    // Function to get the list of groups
+    function get_groups() {
+        return code_defs.groups
     }
 
     if (code_def == 0) {
@@ -45,6 +52,7 @@ export default function Home() {
         return <div>
             <Link href="/">Back</Link><br />
             <h1>ICD-10</h1>
+            <div>Groups: {get_groups()}</div>
             <Category cat={code_def.codes[0]} />
         </div>
     }
