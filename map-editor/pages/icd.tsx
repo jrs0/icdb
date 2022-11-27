@@ -5,19 +5,29 @@ import Link from 'next/link'
 function Code({ code }) {
     return <div>
         <div>{code.code} -- {code.docs}</div>
-        <input type="checkbox" value=checked" />
+        <input type="checkbox" checked={false} />
     </div>
 }
 
-function Category({ cat }) {
+function Category({ cat, exclude }) {
+
+    // Check whether the current category is
+    // excluded -- if it is, pass this
+    // information down to the child categories
+    if ("exclude" in cat) {
+        if (cat.exclude == true) {
+            exclude = true;
+        }
+    }
 
     return <div class="category">
         <div>{cat.category} -- {cat.docs}</div>
-        <input type="checkbox" value="checked" />
+        <input type="checkbox" checked={!exclude} />
         <ol> {
             cat.child.map((node) => {
                 if ("category" in node) {
-                    return <li><Category cat={node} /></li>
+                    return <li><Category cat={node}
+                        exclude={exclude} /></li>
                 } else {
                     return <li><Code code={node} /></li>
                 }
@@ -39,7 +49,7 @@ export default function Home() {
 
     // Function to get the list of groups
     function get_groups() {
-        return code_defs.groups
+        return code_def.groups
     }
 
     if (code_def == 0) {
@@ -53,7 +63,9 @@ export default function Home() {
             <Link href="/">Back</Link><br />
             <h1>ICD-10</h1>
             <div>Groups: {get_groups()}</div>
-            <Category cat={code_def.codes[0]} />
+            <ol>
+                <li><Category cat={code_def.codes[0]} /></li>
+            </ol>
         </div>
     }
 }
