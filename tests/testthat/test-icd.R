@@ -29,7 +29,7 @@ test_that("a selection of invalid ICD-10 codes throw errors", {
 test_that("the format of invalid codes is correct (including trailing matter)", {
     expect_equal(format(icd10("I222")), "[X] (I222)")
     expect_equal(format(icd10("abcde")), "[X] (abcde)")
-    expect_equal(format(icd10("  ")), "[E] (  )")
+    expect_equal(format(icd10("  ")), "[E] ()")
     expect_equal(format(icd10("")), "[E] ()")
     expect_equal(format(icd10("A0000")), "[T] A00.0(0)")
     expect_equal(format(icd10("A000abc")), "[T] A00.0(abc)")
