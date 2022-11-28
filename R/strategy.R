@@ -109,7 +109,6 @@ codes_from <- function(tbl, codes_files, name)
     ## Perform the selection and filtering operation on the column
     ## The line for setting the name needs some work, but it works
     ## so I'm leaving it for now.
-    ## BUG here -- %like% not found (when tbl is not an sql object)
     tbl %>% dplyr::filter(flt) %>%
         dplyr::mutate(!!as.name(rlang::ensym(name)) := dplyr::case_when(!!!cases), .keep = "unused")
 }
