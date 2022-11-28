@@ -20,9 +20,10 @@ end <- today()
 ## follow-up year).
 index_end <- end - days(365)
 
-## Fetch all spells between the dates (this is all ICD codes,
-## even those not related to an ACS event)
+## Fetch all spells between the dates (filter by the codes defined
+## in the acs.yaml and bleeding.yaml files)
 spells <- msrv$sus$apc_spells %>%
     filter(spell_start >= !!start, spell_end <= !!index_end) %>%
+    codes_from(c("icd10/acs.yaml", "icd10/bleeding.yaml"), primary_diagnosis_icd) %>% 
     run()
 
