@@ -26,3 +26,5 @@ spells <- msrv$sus$apc_spells %>%
     filter(spell_start >= !!start, spell_end <= !!index_end) %>%
     run()
 
+a <- msrv$sus$apc_spells %>%
+    filter(spell_start >= !!start, spell_end <= !!index_end)
