@@ -4,6 +4,7 @@
 library(tidyverse)
 library(tidymodels)
 library(lubridate)
+library(survival)
 
 ## Remember that you have to rerun use_cache after
 ## a load_all()
@@ -44,11 +45,11 @@ subsequent <- spells %>%
     ## Group by patient
     group_by(nhs_number) %>%
     ## Arrange in order of spell start and event type
-    arrange(spell_start, type, .by_group = TRUE) %>%
+    arrange(spell_start, type, .by_group = TRUE)
     ## Only keep those groups which started with an ACS event
-    filter(first(type) == "acs") %>%
+    ##filter(first(type) == "acs") %>%
     ## Only keep those groups that also contain a subsequent bleeding event
-    filter(any(type == "bleeding"))
+    ##filter(any(type == "bleeding"))
 
 ## Find ACS events that were followed by bleeding events
 ## within the post-index window. The result contains the most
