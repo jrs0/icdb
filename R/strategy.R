@@ -104,16 +104,7 @@ codes_from <- function(tbl, codes_files, name)
 
     ## Generate the filter and casewhen statements
     cases <- gen_casewhen(code_map, rlang::ensym(name))
-
-    ## Unfortunately the filtering is not consistent
-    ## between an SQL tbl and an normal tbl (only
-    ## %like% is supported for the sql version, but
-    ## %like% is not supported for a normal tbl).
-    ## Find which type you have and pass a flag to
-    ## generate the right function
-    ## TODO: fix this
-    flt <- gen_filter(code_map, rlang::ensym(name),
-                      any(grepl("sql", class(tbl))))
+    flt <- gen_filter(code_map, rlang::ensym(name))
 
     ## Perform the selection and filtering operation on the column
     ## The line for setting the name needs some work, but it works
