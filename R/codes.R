@@ -246,31 +246,12 @@ gen_casewhen <- function(code_map, colname)
         unname()
 }
 
-##' Generate an argument for dplyr::filter that will select the codes
-##' provided in the code_map
-##'
-##' @title Generate the filter argument to select particular codes
-##' @param code_map The result of calling gen_code_map()
-##' @param colname The name of the column to use in the filter statement
-##' @param sql If true, use %like% (which works with an SQL Server tibble)
-##' instead of grepl (which works for a normal tibble)
-##' @return The argument to be used in dplyr::filter
-##'
-gen_filter <- function(code_map, colname, sql)
+gen_filter <- function(code_map,colname)
 {
     ## Map reduce to generate the OR list for dplyr filtering
-    if (sql)
-    {
-        names(code_map) %>%
-            purrr::map(~ rlang::expr(!!colname %like% !!.)) %>%
-            purrr::reduce(~ rlang::expr(!!.x || !!.y))
-     }
-    else
-    {
-        names(code_map) %>%
-            purrr::map(~ rlang::expr(grepl(!!., !!colname))) %>%
-            purrr::reduce(~ rlang::expr(!!.x || !!.y))
-    }
+    flt <- names(code_map) %>%
+        purrr::map(~ rlang::expr(!!colname %like% !!.)) %>%
+        purrr::reduce(~ rlang::expr(!!.x || !!.y))
 }
 
 ##' Use this function to set the level of detail for diagnosis code
