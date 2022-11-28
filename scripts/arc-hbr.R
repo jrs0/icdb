@@ -66,20 +66,21 @@ next_bleed <- subsequent %>%
     mutate(val = if_else(type == "bleeding", spell_start, NULL)) %>%
     fill(val, .direction = "up") %>%
     mutate(time_to_bleed = val - spell_start) %>%
+    ## In addition, store the bleeding diagnosis for the subsequent
+    ## bleeding event.
+    mutate(bleed_type = if_else(type == "bleeding", primary_diagnosis_icd, NULL)) %>%
+    fill(bleed_type, .direction = "up") %>%
     ## Keep only the most recent ACS event before a bleeding event,
     ## and also ACS events with no subsequent bleeding event
     filter(type == "acs") %>%
     filter(time_to_bleed == min(time_to_bleed) | is.na(time_to_bleed)) %>%
     ## Create a column for whether a bleed occured in the post-index
     ## window
-    mutate(post_bleed = case_when(time_to_bleed < post ~ TRUE, TRUE ~ FALSE))
-
-
-    ## Only keep groups that have a subsequent bleeding event
-    ## within the post-index window
-    filter(next_bleeding < post) %>%
-    ## Only keep the ACS event that has the smallest time
-    ## to next bleeding event, i.e., the most recent ACS
-    ## event before the bleeding event.
-    filter(type == "acs") %>%
-    filter(next_bleeding == min(next_bleeding))
+    mutate(bleed = case_when(time_to_bleed < post ~ TRUE,
+                                  TRUE ~ FALSE)) %>%
+    ## Clean up by dropping temporary columns and renaming
+    ungroup() %>%
+    select(-val, -type, -spell_end, -nhs_number) %>%
+    rename(acs_type = primary_diagnosis_icd,
+           age = age_on_admission) %>%
+    relocate(age, spell_start, acs_type, bleed, time_to_bleed, bleed_type)
