@@ -35,6 +35,10 @@ icd10_str_to_indices <- function(str, codes, groups)
                          groups = list()
                      ))
     }
+
+    ## TODO: the first thing to do to improve performance
+    ## would be to implement detect_index as a binary
+    ## search.
     
     ## Look through the index keys at the current level
     ## and find the position of the code
