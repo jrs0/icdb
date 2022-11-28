@@ -56,12 +56,19 @@ subsequent <- spells %>%
 ## occured within less than the post-index window. This makes
 ## the assumption that the most recent ACS event is the cause
 ## of the bleeding event.
-within_post <- subsequent %>%
+next_bleed <- subsequent %>%
     ## For each ACS event, calculate the time to the nearest
     ## subsequent bleeding event
     mutate(val = if_else(type == "bleeding", spell_start, NULL)) %>%
     fill(val, .direction = "up") %>%
-    mutate(next_bleeding = val - spell_start) %>%
+    mutate(time_to_bleed = val - spell_start) %>%
+    ## Keep only the most recent ACS event before a bleeding event,
+    ## and also ACS events with no subsequent bleeding event
+    filter(type == "acs") %>%
+    filter(time_to_bleed == min(time_to_bleed) | is.na(time_to_bleed))
+
+
+
     ## Only keep groups that have a subsequent bleeding event
     ## within the post-index window
     filter(next_bleeding < post) %>%
