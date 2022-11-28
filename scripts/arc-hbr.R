@@ -84,3 +84,7 @@ next_bleed <- subsequent %>%
     rename(acs_type = primary_diagnosis_icd,
            age = age_on_admission) %>%
     relocate(age, spell_start, acs_type, bleed, time_to_bleed, bleed_type)
+
+## Age is a minor ARC-HBR criterion
+hbr <- next_bleed %>%
+    mutate(hbr_age = case_when(age >= 75 ~ 0.5, TRUE ~ 0))
