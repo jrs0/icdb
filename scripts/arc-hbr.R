@@ -33,7 +33,11 @@ spells <- msrv$sus$apc_spells %>%
     run()
 
 ## Get sequences of spells that began with an ACS event and contained
-## at least one subsequent ACS or bleeding event.
+## at least one subsequent ACS or bleeding event. The result is
+## a tibble grouped by patient, containing a chronological record
+## of all ACS and bleeding events following an ACS event. This makes
+## the assumption that bleeding events are only of interest after
+## at least one ACS event has occured.
 subsequent <- spells %>%
     ## Add a column "type" that contains either "acs" or "bleeding"
     mutate(type = drop_detail(primary_diagnosis_icd, 1)) %>% 
@@ -44,15 +48,25 @@ subsequent <- spells %>%
     ## Only keep those groups which started with an ACS event
     filter(first(type) == "acs") %>%
     ## Only keep those groups that also contain a subsequent bleeding event
-    filter(any(type == "bleeding"))## %>%
-    ## Only keep groups where the bleeding even is within the post window
-    ##filter(nth(spell_start, 2) < first(spell_start) - post)
+    filter(any(type == "bleeding"))
 
 ## Find ACS events that were followed by bleeding events
-## within the post-index window. 
+## within the post-index window. The result contains the most
+## recent ACS event before a subsequent bleeding event which
+## occured within less than the post-index window. This makes
+## the assumption that the most recent ACS event is the cause
+## of the bleeding event.
 within_post <- subsequent %>%
     ## For each ACS event, calculate the time to the nearest
     ## subsequent bleeding event
     mutate(val = if_else(type == "bleeding", spell_start, NULL)) %>%
     fill(val, .direction = "up") %>%
-    mutate(next_bleeding = val - spell_start)
+    mutate(next_bleeding = val - spell_start) %>%
+    ## Only keep groups that have a subsequent bleeding event
+    ## within the post-index window
+    filter(next_bleeding < post) %>%
+    ## Only keep the ACS event that has the smallest time
+    ## to next bleeding event, i.e., the most recent ACS
+    ## event before the bleeding event.
+    filter(type == "acs") %>%
+    filter(next_bleeding == min(next_bleeding))
