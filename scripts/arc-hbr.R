@@ -5,6 +5,8 @@ library(tidyverse)
 library(tidymodels)
 library(lubridate)
 
+## Remember that you have to rerun use_cache after
+## a load_all()
 use_cache(TRUE, size = 1, lifetime = ddays(30))
 
 msrv <- mapped_server("xsw")
@@ -26,4 +28,7 @@ spells <- msrv$sus$apc_spells %>%
     filter(spell_start >= !!start, spell_end <= !!index_end) %>%
     codes_from(c("icd10/acs.yaml", "icd10/bleeding.yaml"), primary_diagnosis_icd) %>% 
     run()
+
+## 
+    
 
