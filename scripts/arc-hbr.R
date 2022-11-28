@@ -57,16 +57,22 @@ subsequent <- spells %>%
 ## the assumption that the most recent ACS event is the cause
 ## of the bleeding event.
 next_bleed <- subsequent %>%
-    ## For each ACS event, calculate the time to the nearest
-    ## subsequent bleeding event
+    ## For each bleeding event, calculate the time to the nearest
+    ## (most recent) ACS event. This is the 1-backwards strategy,
+    ## where an event B is assumed to be caused by the most recent
+    ## event A (fails if multiple As really cause B). The times
+    ## to next bleeding are stored in the ACS rows (an NA is used
+    ## if there is not subsequent bleeding event
     mutate(val = if_else(type == "bleeding", spell_start, NULL)) %>%
     fill(val, .direction = "up") %>%
     mutate(time_to_bleed = val - spell_start) %>%
     ## Keep only the most recent ACS event before a bleeding event,
     ## and also ACS events with no subsequent bleeding event
     filter(type == "acs") %>%
-    filter(time_to_bleed == min(time_to_bleed) | is.na(time_to_bleed))
-
+    filter(time_to_bleed == min(time_to_bleed) | is.na(time_to_bleed)) %>%
+    ## Create a column for whether a bleed occured in the post-index
+    ## window
+    mutate(post_bleed = case_when(time_to_bleed < post ~ TRUE, TRUE ~ FALSE))
 
 
     ## Only keep groups that have a subsequent bleeding event
