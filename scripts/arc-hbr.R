@@ -26,6 +26,3 @@ spells <- msrv$sus$apc_spells %>%
     filter(spell_start >= !!start, spell_end <= !!index_end) %>%
     run()
 
-
-spells %>% mutate(p = icd10(primary_diagnosis_icd))
-
