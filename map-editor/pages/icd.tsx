@@ -1,6 +1,25 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
+
+const CHECKBOX_STATES = {
+    Checked: 'Checked',
+    Indeterminate: 'Indeterminate',
+    Empty: 'Empty',
+};
+
+function Checkbox({ label, value, onChange }) {
+    return (
+        <label>
+            <input
+                type="checkbox"
+                checked={value === CHECKBOX_STATES.Checked}
+                onChange={onChange}
+            />
+            {label}
+        </label>
+    );
+};
 
 function Code({ code, exclude }) {
 
@@ -19,6 +38,20 @@ function Code({ code, exclude }) {
 
 function Category({ cat, exclude }) {
 
+    let [checked, setChecked] = useState(CHECKBOX_STATES.Empty);
+
+    function handleChange() {
+        let updatedChecked;
+
+        if (checked === CHECKBOX_STATES.Checked) {
+            updatedChecked = CHECKBOX_STATES.Empty;
+        } else if (checked === CHECKBOX_STATES.Empty) {
+            updatedChecked = CHECKBOX_STATES.Checked;
+        }
+
+        setChecked(updatedChecked);
+    };
+
     let [hidden, setHidden] = useState(true);
 
     // Check whether the category is
@@ -30,9 +63,15 @@ function Category({ cat, exclude }) {
         }
     }
 
+    // Select or unselect the current level
+    // in the particular group
+    function toggle_selected() {
+        setSelected(!selected)
+    }
+
     return <div class="category">
         <div>{cat.category} -- {cat.docs}</div>
-        <input type="checkbox" checked={!exclude} />
+        <Checkbox label="Include" onChange={handleChange} value={checked} />
         <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
         <ol> {
             cat.child.map((node) => {
