@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
@@ -9,9 +9,25 @@ const CHECKBOX_STATES = {
 };
 
 function Checkbox({ label, value, onChange }) {
+
+    const checkboxRef = useRef();
+    useEffect(() => {
+        if (value === CHECKBOX_STATES.Checked) {
+            checkboxRef.current.checked = true;
+            checkboxRef.current.indeterminate = false;
+        } else if (value === CHECKBOX_STATES.Empty) {
+            checkboxRef.current.checked = false;
+            checkboxRef.current.indeterminate = false;
+        } else if (value === CHECKBOX_STATES.Indeterminate) {
+            checkboxRef.current.checked = false;
+            checkboxRef.current.indeterminate = true;
+        }
+    }, [value]);
+
     return (
         <label>
             <input
+                ref={checkboxRef}
                 type="checkbox"
                 checked={value === CHECKBOX_STATES.Checked}
                 onChange={onChange}
@@ -40,12 +56,29 @@ function Category({ cat, exclude }) {
 
     let [checked, setChecked] = useState(CHECKBOX_STATES.Empty);
 
+    // Handle the transitions of the include state. The tick
+    // is displayed if none of the subcategories are excluded.
+    // The valid transition are (dash means indeterminate)
+    //
+    // tick -> untick
+    // dash -> untick
+    // untick -> tick
+    //
+    // On a transition to tick, all the subcategories are
+    // included, so any exclude flags in the subcategories
+    // are cleared. On a transition to untick, an exclude is
+    // written into the current level. It is not possible to
+    // transition to indeterminate. This occurs when one of
+    // the excluded, but others are included.
+    //
     function handleChange() {
         let updatedChecked;
 
         if (checked === CHECKBOX_STATES.Checked) {
             updatedChecked = CHECKBOX_STATES.Empty;
         } else if (checked === CHECKBOX_STATES.Empty) {
+            updatedChecked = CHECKBOX_STATES.Indeterminate;
+        } else if (checked === CHECKBOX_STATES.Indeterminate) {
             updatedChecked = CHECKBOX_STATES.Checked;
         }
 
@@ -63,11 +96,6 @@ function Category({ cat, exclude }) {
         }
     }
 
-    // Select or unselect the current level
-    // in the particular group
-    function toggle_selected() {
-        setSelected(!selected)
-    }
 
     return <div class="category">
         <div>{cat.category} -- {cat.docs}</div>
