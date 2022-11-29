@@ -52,10 +52,17 @@ function Code({ code, exclude }) {
     </div>
 }
 
-function Category({ cat, parent_checked }) {
+function Category({ cat, n, parent_checked, parent_write_exclude }) {
     // checked is the main controlling state, which
     // stores the exclusion status of the current level
     let [checked, setChecked] = useState(CHECKBOX_STATES.Checked);
+
+    // The write_exclude function is used to write an exclude
+    // key into the codes definition file. write_exclude
+    // takes
+    function write_exclude(indices) {
+        parent_write_exclude(indices.push(n))
+    }
 
     // It is really important that you check whether
     // checked is empty first, otherwise you get in an
@@ -74,6 +81,7 @@ function Category({ cat, parent_checked }) {
             // TODO write an exclude key for the current
             // category
             //setCurrentExclude(true);
+            parent_write_exclude(Array(n))
         } else if (checked === CHECKBOX_STATES.Empty) {
             updatedChecked = CHECKBOX_STATES.Checked;
             // TODO delete the exclude category for the
@@ -89,13 +97,17 @@ function Category({ cat, parent_checked }) {
         <Checkbox label="Include" onChange={handleChange} value={checked} />
         <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
         <ol> {
-            cat.child.map((node) => {
+            cat.child.map((node, index) => {
                 if (!hidden) {
                     if ("category" in node) {
                         return <li><Category cat={node}
-                            parent_checked={checked} /></li>
+                            parent_checked={checked}
+                            parent_write_exclude={write_exclude}
+                            n={index}
+                        /></li>
                     } else {
-                        return <li><Code code={node} exclude={exclude} /></li>
+                        return <li><Code code={node}
+                            parent_checked={checked} /></li>
                     }
                 }
             })
@@ -119,6 +131,10 @@ export default function Home() {
         return code_def.groups
     }
 
+    function write_exclude(indices) {
+        console.log(indices)
+    }
+
     if (code_def == 0) {
         return <div>
             <Link href="/">Back</Link><br />
@@ -131,7 +147,8 @@ export default function Home() {
             <h1>ICD-10</h1>
             <div>Groups: {get_groups()}</div>
             <ol>
-                <li><Category cat={code_def.codes[0]} /></li>
+                <li><Category cat={code_def.codes[0]} n={0}
+                    parent_write_exclude={write_exclude} /></li>
             </ol>
         </div>
     }
