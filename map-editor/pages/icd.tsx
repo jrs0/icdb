@@ -61,6 +61,7 @@ function Category({ cat, n, parent_checked, parent_write_exclude }) {
     // key into the codes definition file. write_exclude
     // takes
     function write_exclude(indices) {
+        console.log("hi", indices)
         parent_write_exclude(indices.push(n))
     }
 
@@ -69,10 +70,11 @@ function Category({ cat, n, parent_checked, parent_write_exclude }) {
     // infinite loop of rerenders for this element (think
     // about it). This is a structural problem -- to fix
     // later.
-    if (checked !== CHECKBOX_STATES.Empty &&
-        parent_checked === CHECKBOX_STATES.Empty) {
-        setChecked(CHECKBOX_STATES.Empty)
-    }
+    /* if (checked !== CHECKBOX_STATES.Empty &&
+     *     parent_checked === CHECKBOX_STATES.Empty) {
+     *     setChecked(CHECKBOX_STATES.Empty)
+     * }
+     */
 
     function handleChange() {
         let updatedChecked;
@@ -81,7 +83,8 @@ function Category({ cat, n, parent_checked, parent_write_exclude }) {
             // TODO write an exclude key for the current
             // category
             //setCurrentExclude(true);
-            parent_write_exclude(Array(n))
+            console.log("n=", n)
+            parent_write_exclude([n])
         } else if (checked === CHECKBOX_STATES.Empty) {
             updatedChecked = CHECKBOX_STATES.Checked;
             // TODO delete the exclude category for the
