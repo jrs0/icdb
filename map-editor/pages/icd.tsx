@@ -52,9 +52,45 @@ function Code({ code, exclude }) {
     </div>
 }
 
+// cat -- the category to render
+// parent_exclude -- means the parent is excluded
 function Category({ cat, exclude }) {
 
-    let [checked, setChecked] = useState(CHECKBOX_STATES.Empty);
+    // The parent_checked is the state of the 
+
+    // This state states whether the current level is
+    // included or excluded. It is passed into descendants
+    // to tell them 
+    /* let [current_exclude,
+     *     setCurrentExclude] = useState(parent_exclude); */
+
+    // Include the current level and all descendands
+    // 
+    function include_current_and_descendants() {
+
+    }
+
+    // Whether to exclude this level or not
+    // value either derives from exclude flag at this
+    // level, or whether the exclusion is inherited
+    //let exclude = current_exclude | parent_exclude;
+
+    // Check whether the category is
+    // excluded. If it is, pass this
+    // information down to the child categories
+    if ("exclude" in cat) {
+        if (cat.exclude == true) {
+            exclude = true;
+        }
+    }
+
+    // Calculate initial value of checkbox
+    let checked_initial = CHECKBOX_STATES.Checked
+    if (exclude) {
+        checked_initial = CHECKBOX_STATES.Empty
+    }
+
+    let [checked, setChecked] = useState(checked_initial);
 
     // Handle the transitions of the include state. The tick
     // is displayed if none of the subcategories are excluded.
@@ -73,29 +109,20 @@ function Category({ cat, exclude }) {
     //
     function handleChange() {
         let updatedChecked;
-
         if (checked === CHECKBOX_STATES.Checked) {
             updatedChecked = CHECKBOX_STATES.Empty;
+            // TODO write an exclude key for the current
+            // category
+            //setCurrentExclude(true);
         } else if (checked === CHECKBOX_STATES.Empty) {
-            updatedChecked = CHECKBOX_STATES.Indeterminate;
-        } else if (checked === CHECKBOX_STATES.Indeterminate) {
             updatedChecked = CHECKBOX_STATES.Checked;
+            // TODO delete the exclude category for the
+            // current level and all child levels
         }
-
         setChecked(updatedChecked);
     };
 
     let [hidden, setHidden] = useState(true);
-
-    // Check whether the category is
-    // excluded. If it is, pass this
-    // information down to the child categories
-    if ("exclude" in cat) {
-        if (cat.exclude == true) {
-            exclude = true;
-        }
-    }
-
 
     return <div class="category">
         <div>{cat.category} -- {cat.docs}</div>
@@ -106,7 +133,7 @@ function Category({ cat, exclude }) {
                 if (!hidden) {
                     if ("category" in node) {
                         return <li><Category cat={node}
-                            exclude={exclude} /></li>
+                            parent_exclude={exclude} /></li>
                     } else {
                         return <li><Code code={node} exclude={exclude} /></li>
                     }
