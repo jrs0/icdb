@@ -21,3 +21,6 @@ gendata
 
 ## Any file or folder called secret
 secret
+
+## Ignore profiler output
+Rprof.out

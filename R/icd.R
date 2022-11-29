@@ -35,6 +35,10 @@ icd10_str_to_indices <- function(str, codes, groups)
                          groups = list()
                      ))
     }
+
+    ## TODO: the first thing to do to improve performance
+    ## would be to implement detect_index as a binary
+    ## search.
     
     ## Look through the index keys at the current level
     ## and find the position of the code
@@ -238,17 +242,6 @@ icd10_load_codes <- function(codes_file)
     codes_def
 }
 
-icd10_cache <- R6::R6Class("icd10_cache",
-                           list(
-                               cache = list(),
-                               read = function(str) {
-                                   self$cache[[str]]
-                               },
-                               write = function(str, code) {
-                                   self$cache[[str]] <- code
-                               }
-                           ))
-
 ##' Create a new icd10 (S3) object from a string
 ##'
 ##' @title Make an ICD-10 object from a string
@@ -261,7 +254,10 @@ new_icd10 <- function(str = character(), codes_file)
 {
     vctrs::vec_assert(str, character())
 
-    cache <- icd10_cache$new()
+    ## A store mapping strings to icd10 objects
+    ## to reduce computation of the same codes
+    ## multiple times
+    cache <- list()
     
     ## Open the file. This is a long operation, but
     ## provided this function is called in a vectorised
@@ -283,7 +279,7 @@ new_icd10 <- function(str = character(), codes_file)
     results <- str %>%
         purrr::map(function(x)
         {
-            res <- cache$read(x)
+            res <- cache[[x]]
             if (!is.null(res))
             {
                 res
@@ -307,7 +303,7 @@ new_icd10 <- function(str = character(), codes_file)
                     },
                     icd10_str_to_indices(x, codes, groups)
                 )
-                cache$write(x, code)
+                cache[[x]] <- code
                 code
             }
         })
