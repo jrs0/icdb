@@ -52,64 +52,21 @@ function Code({ code, exclude }) {
     </div>
 }
 
-// cat -- the category to render
-// parent_exclude -- means the parent is excluded
-function Category({ cat, parent_checked = CHECKBOX_STATES.Checked }) {
-
-    // The parent_checked is the state of the 
-
-    // This state states whether the current level is
-    // included or excluded. It is passed into descendants
-    // to tell them 
-    /* let [current_exclude,
-     *     setCurrentExclude] = useState(parent_exclude); */
-
-    // Include the current level and all descendands
-    // 
-    function include_current_and_descendants() {
-
-    }
-
-    // Whether to exclude this level or not
-    // value either derives from exclude flag at this
-    // level, or whether the exclusion is inherited
-    //let exclude = current_exclude | parent_exclude;
-
-    // Check whether the category is
-    // excluded. If it is, pass this
-    // information down to the child categories
-    //let exclude = (parent_checked === CHECKBOX_STATES.Empty);
-    //let checked_initial = parent_checked;
-    /* if ("exclude" in cat) {
-       if (cat.exclude == true) {
-     *         exclude = true;
-       }
-     * } */
-
-    // Calculate initial value of checkbox
-    /* if (exclude) {
-     *     checked_initial = CHECKBOX_STATES.Empty
-     * } */
-
+function Category({ cat, parent_checked }) {
     // checked is the main controlling state, which
     // stores the exclusion status of the current level
     let [checked, setChecked] = useState(CHECKBOX_STATES.Checked);
 
-    // Handle the transitions of the include state. The tick
-    // is displayed if none of the subcategories are excluded.
-    // The valid transition are (dash means indeterminate)
-    //
-    // tick -> untick
-    // dash -> untick
-    // untick -> tick
-    //
-    // On a transition to tick, all the subcategories are
-    // included, so any exclude flags in the subcategories
-    // are cleared. On a transition to untick, an exclude is
-    // written into the current level. It is not possible to
-    // transition to indeterminate. This occurs when one of
-    // the excluded, but others are included.
-    //
+    // It is really important that you check whether
+    // checked is empty first, otherwise you get in an
+    // infinite loop of rerenders for this element (think
+    // about it). This is a structural problem -- to fix
+    // later.
+    if (checked !== CHECKBOX_STATES.Empty &&
+        parent_checked === CHECKBOX_STATES.Empty) {
+        setChecked(CHECKBOX_STATES.Empty)
+    }
+
     function handleChange() {
         let updatedChecked;
         if (checked === CHECKBOX_STATES.Checked) {
