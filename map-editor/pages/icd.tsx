@@ -11,7 +11,6 @@ function Code({ code, exclude }) {
         }
     }
 
-
     return <div>
         <div>{code.code} -- {code.docs}</div>
         <input type="checkbox" checked={!exclude} />
@@ -19,6 +18,8 @@ function Code({ code, exclude }) {
 }
 
 function Category({ cat, exclude }) {
+
+    let [hidden, setHidden] = useState(true);
 
     // Check whether the category is
     // excluded. If it is, pass this
@@ -32,13 +33,16 @@ function Category({ cat, exclude }) {
     return <div class="category">
         <div>{cat.category} -- {cat.docs}</div>
         <input type="checkbox" checked={!exclude} />
+        <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
         <ol> {
             cat.child.map((node) => {
-                if ("category" in node) {
-                    return <li><Category cat={node}
-                        exclude={exclude} /></li>
-                } else {
-                    return <li><Code code={node} exclude={exclude} /></li>
+                if (!hidden) {
+                    if ("category" in node) {
+                        return <li><Category cat={node}
+                            exclude={exclude} /></li>
+                    } else {
+                        return <li><Code code={node} exclude={exclude} /></li>
+                    }
                 }
             })
         } </ol>
