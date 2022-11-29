@@ -61,8 +61,8 @@ function Category({ cat, n, parent_checked, parent_write_exclude }) {
     // key into the codes definition file. write_exclude
     // takes
     function write_exclude(indices) {
-        console.log("hi", indices)
-        parent_write_exclude(indices.push(n))
+        indices.push(n)
+        parent_write_exclude(indices)
     }
 
     // It is really important that you check whether
