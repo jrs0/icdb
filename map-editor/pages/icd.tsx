@@ -61,7 +61,6 @@ function Category({ cat, n, parent_checked, parent_write_exclude }) {
     // key into the codes definition file. write_exclude
     // takes
     function write_exclude(indices) {
-        indices.push(n)
         parent_write_exclude(indices)
     }
 
@@ -136,6 +135,16 @@ export default function Home() {
 
     function write_exclude(indices) {
         console.log(indices)
+        // Write the exclude flag in this
+        // level of the file.
+        let cat = code_def;
+        for (let i = 0; i < indices.length; i++) {
+            cat = cat.child[i]
+        }
+
+        // Set the exclude flag
+        cat.exclude = true;
+        console.log(cat)
     }
 
     if (code_def == 0) {
@@ -150,7 +159,7 @@ export default function Home() {
             <h1>ICD-10</h1>
             <div>Groups: {get_groups()}</div>
             <ol>
-                <li><Category cat={code_def.codes[0]} n={0}
+                <li><Category cat={code_def.child[0]} n={0}
                     parent_write_exclude={write_exclude} /></li>
             </ol>
         </div>
