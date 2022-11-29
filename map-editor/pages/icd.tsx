@@ -54,7 +54,7 @@ function Code({ code, exclude }) {
 
 // cat -- the category to render
 // parent_exclude -- means the parent is excluded
-function Category({ cat, exclude }) {
+function Category({ cat, parent_checked = CHECKBOX_STATES.Checked }) {
 
     // The parent_checked is the state of the 
 
@@ -78,19 +78,22 @@ function Category({ cat, exclude }) {
     // Check whether the category is
     // excluded. If it is, pass this
     // information down to the child categories
-    if ("exclude" in cat) {
-        if (cat.exclude == true) {
-            exclude = true;
-        }
-    }
+    //let exclude = (parent_checked === CHECKBOX_STATES.Empty);
+    //let checked_initial = parent_checked;
+    /* if ("exclude" in cat) {
+       if (cat.exclude == true) {
+     *         exclude = true;
+       }
+     * } */
 
     // Calculate initial value of checkbox
-    let checked_initial = CHECKBOX_STATES.Checked
-    if (exclude) {
-        checked_initial = CHECKBOX_STATES.Empty
-    }
+    /* if (exclude) {
+     *     checked_initial = CHECKBOX_STATES.Empty
+     * } */
 
-    let [checked, setChecked] = useState(checked_initial);
+    // checked is the main controlling state, which
+    // stores the exclusion status of the current level
+    let [checked, setChecked] = useState(CHECKBOX_STATES.Checked);
 
     // Handle the transitions of the include state. The tick
     // is displayed if none of the subcategories are excluded.
@@ -133,7 +136,7 @@ function Category({ cat, exclude }) {
                 if (!hidden) {
                     if ("category" in node) {
                         return <li><Category cat={node}
-                            parent_exclude={exclude} /></li>
+                            parent_checked={checked} /></li>
                     } else {
                         return <li><Code code={node} exclude={exclude} /></li>
                     }
