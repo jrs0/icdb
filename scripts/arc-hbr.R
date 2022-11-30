@@ -84,7 +84,10 @@ next_bleed <- subsequent[1:1000,] %>%
     select(-val, -type, -spell_end, -nhs_number) %>%
     rename(acs_type = primary_diagnosis_icd,
            age = age_on_admission) %>%
-    relocate(age, spell_start, acs_type, status, time_to_bleed, bleed_type)
+    relocate(age, spell_start, acs_type, status, time_to_bleed, bleed_type) %>%
+    ## Scale time to days TODO find the right way to not
+    ## have to do this manually
+    mutate(time_to_bleed = time_to_bleed/86400)
 
 ## Age is a minor ARC-HBR criterion: score = 0.5 if age >= 75,
 ## else score is zero (higher means more at risk)
@@ -97,9 +100,8 @@ summary(hbr)
 
 s1 <- survfit(Surv(time_to_bleed, status) ~ 1, data = hbr)
 
-survfit2(Surv(time_to_bleed, status) ~ 1, data = hbr) %>% 
-  ggsurvfit() +
-  labs(
-    x = "Seconds",
-    y = "Overall survival probability"
-  )
+survfit2(Surv(time_to_bleed, status) ~ hbr_age, data = hbr) %>% 
+    ggsurvfit() +
+    labs(x = "Seconds",
+         y = "Overall survival probability") +
+    scale_x_continuous()
