@@ -37,19 +37,36 @@ function Checkbox({ label, value, onChange }) {
     );
 };
 
-function Code({ code }) {
+function Code({ cat, update_code_def, parent_exclude }) {
 
-    // checked is the main controlling state, which
-    // stores the exclusion status of the current level
-    let [checked, setChecked] = useState(CHECKBOX_STATES.Checked);
-
-    // Check whether the code is excluded
-    let exclude = false;
-    if ("exclude" in code) {
-        if (code.exclude == true) {
-            exclude = true;
-        }
+    // Set the state of the checkbox is controlled by the
+    // exclude variable. If the current
+    // level or any of the parent levels are excluded,
+    // then set the checkbox to unticked
+    let exclude = false
+    if (parent_exclude == true || cat.exclude == true) {
+	exclude = true
     }
+    
+    let checked = CHECKBOX_STATES.Checked;
+    if (exclude == true) {
+	checked = CHECKBOX_STATES.Empty
+    }
+    
+    function handleChange() {
+        let updatedChecked;
+        if (checked === CHECKBOX_STATES.Checked) {
+            updatedChecked = CHECKBOX_STATES.Empty;
+            // TODO write an exclude key for the current
+            // category
+	    exclude_current()
+        } else if (checked === CHECKBOX_STATES.Empty) {
+            updatedChecked = CHECKBOX_STATES.Checked;
+            // TODO delete the exclude category for the
+            // current level and all child levels
+        }
+        //setChecked(updatedChecked);
+    };
 
     function handleChange() {
         let updatedChecked;
@@ -66,7 +83,7 @@ function Code({ code }) {
     };  
 
     return <div>
-        <div>{code.code} -- {code.docs}</div>
+        <div>{cat.code} -- {cat.docs}</div>
 	<Checkbox label="Include" onChange={handleChange} value={checked} />
     </div>
 }
@@ -124,7 +141,7 @@ function Category({ cat, update_code_def, parent_exclude }) {
                     if ("category" in node) {
                         return <li><Category cat={node} update_code_def={update_code_def} parent_exclude={exclude} /></li>
                     } else {
-                        return <li><Code code={node} /></li>
+                        return <li><Code cat={node} update_code_def={update_code_def} parent_exclude={exclude}/></li>
                     }
                 }
             })
