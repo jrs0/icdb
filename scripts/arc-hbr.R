@@ -16,7 +16,7 @@ msrv <- mapped_server("xsw")
 ## procedures. This script will use acute coronary syndrome (ACS)
 ## diagnosis codes in lieu of procedure codes for now.
 start <- ymd("2000-1-1")
-end <- today()
+end <- ymd("2022-11-29")
 
 ## Define the length of the post-index window
 post <- days(365)
@@ -36,9 +36,7 @@ spells <- msrv$sus$apc_spells %>%
 ## Get sequences of spells that began with an ACS event and contained
 ## at least one subsequent ACS or bleeding event. The result is
 ## a tibble grouped by patient, containing a chronological record
-## of all ACS and bleeding events following an ACS event. This makes
-## the assumption that bleeding events are only of interest after
-## at least one ACS event has occured.
+## of all ACS and bleeding events
 subsequent <- spells %>%
     ## Add a column "type" that contains either "acs" or "bleeding"
     mutate(type = drop_detail(primary_diagnosis_icd, 1)) %>% 
@@ -46,17 +44,13 @@ subsequent <- spells %>%
     group_by(nhs_number) %>%
     ## Arrange in order of spell start and event type
     arrange(spell_start, type, .by_group = TRUE)
-    ## Only keep those groups which started with an ACS event
-    ##filter(first(type) == "acs") %>%
-    ## Only keep those groups that also contain a subsequent bleeding event
-    ##filter(any(type == "bleeding"))
 
 ## Find ACS events that were followed by bleeding events
 ## within the post-index window. The result contains the most
 ## recent ACS event before a subsequent bleeding event which
 ## occured within less than the post-index window. This makes
-## the assumption that the most recent ACS event is the cause
-## of the bleeding event.
+## the assumption that the most recent ACS event before the
+## bleeding event is the cause of the bleeding event.
 next_bleed <- subsequent %>%
     ## For each bleeding event, calculate the time to the nearest
     ## (most recent) ACS event. This is the 1-backwards strategy,
@@ -86,6 +80,8 @@ next_bleed <- subsequent %>%
            age = age_on_admission) %>%
     relocate(age, spell_start, acs_type, bleed, time_to_bleed, bleed_type)
 
-## Age is a minor ARC-HBR criterion
+## Age is a minor ARC-HBR criterion: score = 0.5 if age >= 75,
+## else score is zero (higher means more at risk)
 hbr <- next_bleed %>%
     mutate(hbr_age = case_when(age >= 75 ~ 0.5, TRUE ~ 0))
+
