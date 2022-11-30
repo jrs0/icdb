@@ -27,7 +27,7 @@ function Checkbox({ label, value, enabled, onChange }) {
 	// Set whether the element is disabled (grayed out)
 	checkboxRef.current.disabled = !enabled
 	
-    }, [value, disabled]);
+    }, [value, enabled]);
 
     return (
         <label>
@@ -103,11 +103,8 @@ function Category({ cat, update_code_def, parent_exclude }) {
 	// current level
 	cat.exclude = true;
 
-	// Call the top-level set-state function
-	// to trigger a render of the full tree.
-	// All the components should render based
-	// on the new state of the exclude tags in
-	// the structure.
+	// This is not necessary -- only
+	// for printing the codes_def to the log
 	update_code_def()
 	
 	// Update the state of the current
@@ -115,11 +112,11 @@ function Category({ cat, update_code_def, parent_exclude }) {
 	// trigger render of the child
 	// components
 	setExcluded(true);
-
     }
 
     function include_current() {
 	delete cat.exclude;
+	setExcluded(false)
     }
 
     /* if (exclude == false && (parent_exclude == true || cat.exclude == true)) {
@@ -132,7 +129,24 @@ function Category({ cat, update_code_def, parent_exclude }) {
     // current level is excluded or not. The
     // exclusion may come from the presence of
     // an exclude tag, or it may come from the
-    // parent being excluded. The state of the
+    // parent being excluded.
+    let [exclude, setExcluded] = useState(false);
+
+    // All components must store their included
+    // state, in order to know how to render the
+    // checkbox and handle clicks. However, not
+    // every level in the codes definition file
+    // (the cat variable) stores an exclude tag.
+    // If an exclude tag is present, then it excludes
+    // the current level and all child levels.
+    // Use the exclude tag to set the excluded
+    // state of the current component, before using
+    // the parent_exclude
+    if (exclude == false && cat.exclude == true) {
+	setExcluded(true)
+    }
+    
+    // The state of the
     // checkbox is controlled by the exclude state
     // and the parent exclude state. If the exclude
     // is false, then the checkbox is ticked and
@@ -141,19 +155,15 @@ function Category({ cat, update_code_def, parent_exclude }) {
     // is unticked and enabled. If the parent is
     // also excluded, then the checkbox is also
     // disabled.
-    let [exclude, setExcluded] = useState(false);
-
-    // When this component 
-    
-    
     let checked = CHECKBOX_STATES.Checked;
     let enabled = true;
     if (exclude == false) {
-	checked = CHECKBOX_STATES.Empty;
+	checked = CHECKBOX_STATES.Checked;
     } else {
 	// This reflects that fact that the user
 	// must enable the next level up before
 	// modifying this level
+	checked = CHECKBOX_STATES.Empty
 	enabled = !parent_exclude;
     }	
 
