@@ -64,6 +64,8 @@ function Category({ cat, n, parent_checked, parent_write_exclude }) {
         parent_write_exclude(indices)
     }
 
+    
+    
     // It is really important that you check whether
     // checked is empty first, otherwise you get in an
     // infinite loop of rerenders for this element (think
@@ -94,7 +96,7 @@ function Category({ cat, n, parent_checked, parent_write_exclude }) {
 
     let [hidden, setHidden] = useState(true);
 
-    return <div class="category">
+    return <div className="category">
         <div>{cat.category} -- {cat.docs}</div>
         <Checkbox label="Include" onChange={handleChange} value={checked} />
         <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
@@ -133,18 +135,20 @@ export default function Home() {
         return code_def.groups
     }
 
+    function set_exclude(cat) {
+	cat.child[0].exclude = true
+    }
+    
     function write_exclude(indices) {
+
+	// Store 
+	
         console.log(indices)
         // Write the exclude flag in this
         // level of the file.
         let cat = code_def;
-        for (let i = 0; i < indices.length; i++) {
-            cat = cat.child[i]
-        }
-
-        // Set the exclude flag
-        cat.exclude = true;
-        console.log(cat)
+	set_exclude(cat)
+	console.log(code_def)
     }
 
     if (code_def == 0) {
