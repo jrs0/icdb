@@ -262,6 +262,12 @@ export default function Home() {
             .then(setCodeDef)
     }
 
+    // Function to save the codes yaml file
+    function save_file() {
+        invoke('save_yaml', {codeDef: code_def})
+	    .then(console.log("done"))
+    }
+    
     // Function to get the list of groups
     function get_groups() {
         return code_def.groups
@@ -276,12 +282,14 @@ export default function Home() {
     } else {
         return <div>
             <Link href="/">Back</Link><br />
+	    <button onClick={save_file}>Save as</button>
+
             <h1>ICD-10</h1>
             <div>Groups: {get_groups()}</div>
             <ol>
                 <li><Category cat={code_def.child[0]}
-	parent_exclude={false} /></li>
-        </ol>
+		    parent_exclude={false} /></li>
+            </ol>
         </div>
     }
 }
