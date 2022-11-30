@@ -95,42 +95,37 @@ function Code({ cat, update_code_def, parent_exclude }) {
 }
 
 function Category({ cat, update_code_def, parent_exclude }) {
-    
-    // Exclude current level
-    function exclude_current() {
-
-	// Add the exclude tag for the
-	// current level
-	cat.exclude = true;
-
-	// This is not necessary -- only
-	// for printing the codes_def to the log
-	update_code_def()
-	
-	// Update the state of the current
-	// level to be excluded. This will
-	// trigger render of the child
-	// components
-	setExcluded(true);
-    }
-
-    function include_current() {
-	delete cat.exclude;
-	setExcluded(false)
-    }
-
-    /* if (exclude == false && (parent_exclude == true || cat.exclude == true)) {
-       setExcluded(true)
-     * } */
-
-    
-    
+        
     // The exclude state determines whether the
     // current level is excluded or not. The
     // exclusion may come from the presence of
     // an exclude tag, or it may come from the
     // parent being excluded.
     let [exclude, setExcluded] = useState(false);
+
+    // Exclude current level
+    function exclude_current() {
+
+	// Add the exclude tag for the
+	// current level
+	cat.exclude = true;
+	
+	// Update the state of the current
+	// level to be excluded. This will
+	// trigger render of the child
+	// components
+	setExcluded(true);
+	
+	// This is not necessary -- only
+	// for printing the codes_def to the log
+	update_code_def()
+
+    }
+
+    function include_current() {
+	delete cat.exclude;
+	setExcluded(false)
+    }
 
     // All components must store their included
     // state, in order to know how to render the
@@ -142,8 +137,12 @@ function Category({ cat, update_code_def, parent_exclude }) {
     // Use the exclude tag to set the excluded
     // state of the current component, before using
     // the parent_exclude
-    if (exclude == false && cat.exclude == true) {
-	setExcluded(true)
+    if (exclude == false) {
+	if (cat.exclude == true) {
+	    setExcluded(true)
+	} else if (parent_exclude == true) {
+	    setExcluded(true)
+	}
     }
     
     // The state of the
@@ -183,7 +182,7 @@ function Category({ cat, update_code_def, parent_exclude }) {
             updatedChecked = CHECKBOX_STATES.Checked;
             // TODO delete the exclude category for the
             // current level and all child levels
-	    include_current()
+	    //include_current()
         }
     };
 
