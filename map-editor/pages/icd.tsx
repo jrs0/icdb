@@ -42,7 +42,7 @@ function Checkbox({ label, value, enabled, onChange }) {
     );
 };
 
-function Code({ cat, update_code_def, parent_exclude }) {
+function Code({ cat, parent_exclude }) {
 
     // The exclude state determines whether the
     // current level is excluded or not. The
@@ -63,17 +63,13 @@ function Code({ cat, update_code_def, parent_exclude }) {
 	// trigger render of the child
 	// components
 	setExcluded(true);
-	
-	// This is not necessary -- only
-	// for printing the codes_def to the log
-	update_code_def()
-
     }
 
     function include_current() {
 	delete cat.exclude;
 	setExcluded(false)
     }
+
 
     // All components must store their included
     // state, in order to know how to render the
@@ -87,13 +83,13 @@ function Code({ cat, update_code_def, parent_exclude }) {
     // the parent_exclude
     if (exclude == false) {
 	if (cat.exclude || parent_exclude) {
-	    setExcluded(true)
+	    exclude_current()
 	}
     } else {
 	if (!cat.exclude && !parent_exclude) {
-	    setExcluded(false)
-	}	
-    }
+	    include_current()   
+	}			    
+    }			    
     
     // The state of the
     // checkbox is controlled by the exclude state
@@ -142,7 +138,7 @@ function Code({ cat, update_code_def, parent_exclude }) {
     </div>
 }
 
-function Category({ cat, update_code_def, parent_exclude }) {
+function Category({ cat, parent_exclude }) {
         
     // The exclude state determines whether the
     // current level is excluded or not. The
@@ -162,18 +158,18 @@ function Category({ cat, update_code_def, parent_exclude }) {
 	// level to be excluded. This will
 	// trigger render of the child
 	// components
-	setExcluded(true);
-	
-	// This is not necessary -- only
-	// for printing the codes_def to the log
-	update_code_def()
-
+	if (exclude != true) {
+	    setExcluded(true);
+	}
     }
 
     function include_current() {
 	delete cat.exclude;
-	setExcluded(false)
+	if (exclude != false) {
+	    setExcluded(false)
+	}
     }
+
 
     // All components must store their included
     // state, in order to know how to render the
@@ -185,14 +181,12 @@ function Category({ cat, update_code_def, parent_exclude }) {
     // Use the exclude tag to set the excluded
     // state of the current component, before using
     // the parent_exclude
-    if (exclude == false) {
-	if (cat.exclude || parent_exclude) {
-	    setExcluded(true)
-	}
+    if ("exclude" in cat && cat.exclude == true) {
+	exclude_current()
+    } else if (parent_exclude == true) {
+	exclude_current()
     } else {
-	if (!cat.exclude && !parent_exclude) {
-	    setExcluded(false)
-	}	
+	include_current()
     }
     
     // The state of the
@@ -247,9 +241,9 @@ function Category({ cat, update_code_def, parent_exclude }) {
             cat.child.map((node) => {
                 if (!hidden) {
                     if ("category" in node) {
-                        return <li><Category cat={node} update_code_def={update_code_def} parent_exclude={exclude} /></li>
+                        return <li><Category cat={node}  parent_exclude={exclude} /></li>
                     } else {
-                        return <li><Code cat={node} update_code_def={update_code_def} parent_exclude={exclude}/></li>
+                        return <li><Code cat={node}  parent_exclude={exclude}/></li>
                     }
                 }
             })
@@ -273,11 +267,6 @@ export default function Home() {
         return code_def.groups
     }
 
-    function update_code_def() {
-	setCodeDef(code_def)
-	console.log(code_def)
-    }
-
     if (code_def == 0) {
         return <div>
             <Link href="/">Back</Link><br />
@@ -291,7 +280,6 @@ export default function Home() {
             <div>Groups: {get_groups()}</div>
             <ol>
                 <li><Category cat={code_def.child[0]}
-	update_code_def={update_code_def}
 	parent_exclude={false} /></li>
         </ol>
         </div>
