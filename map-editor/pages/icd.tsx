@@ -103,6 +103,13 @@ function Category({ cat, update_code_def, parent_exclude }) {
 	update_code_def()
     }
 
+    // Include the current level and
+    // all child levels
+    function include_current() {
+	delete cat.exclude
+	update_code_def()
+    }
+
     // Set the state of the checkbox is controlled by the
     // exclude variable. If the current
     // level or any of the parent levels are excluded,
@@ -135,6 +142,7 @@ function Category({ cat, update_code_def, parent_exclude }) {
             updatedChecked = CHECKBOX_STATES.Checked;
             // TODO delete the exclude category for the
             // current level and all child levels
+	    include_current()
         }
     };
 
