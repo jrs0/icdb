@@ -29,7 +29,7 @@ function Checkbox({ label, value, onChange }) {
             <input
                 ref={checkboxRef}
                 type="checkbox"
-                checked={value === CHECKBOX_STATES.Checked}
+                value={value}
                 onChange={onChange}
             />
             {label}
@@ -37,45 +37,19 @@ function Checkbox({ label, value, onChange }) {
     );
 };
 
-function Code({ code, exclude }) {
+function Code({ code }) {
+
+    // checked is the main controlling state, which
+    // stores the exclusion status of the current level
+    let [checked, setChecked] = useState(CHECKBOX_STATES.Checked);
 
     // Check whether the code is excluded
+    let exclude = false;
     if ("exclude" in code) {
         if (code.exclude == true) {
             exclude = true;
         }
     }
-
-    return <div>
-        <div>{code.code} -- {code.docs}</div>
-        <input type="checkbox" checked={!exclude} />
-    </div>
-}
-
-function Category({ cat, n, parent_checked, parent_write_exclude }) {
-    // checked is the main controlling state, which
-    // stores the exclusion status of the current level
-    let [checked, setChecked] = useState(CHECKBOX_STATES.Checked);
-
-    // The write_exclude function is used to write an exclude
-    // key into the codes definition file. write_exclude
-    // takes
-    function write_exclude(indices) {
-        parent_write_exclude(indices)
-    }
-
-    
-    
-    // It is really important that you check whether
-    // checked is empty first, otherwise you get in an
-    // infinite loop of rerenders for this element (think
-    // about it). This is a structural problem -- to fix
-    // later.
-    /* if (checked !== CHECKBOX_STATES.Empty &&
-     *     parent_checked === CHECKBOX_STATES.Empty) {
-     *     setChecked(CHECKBOX_STATES.Empty)
-     * }
-     */
 
     function handleChange() {
         let updatedChecked;
@@ -83,17 +57,61 @@ function Category({ cat, n, parent_checked, parent_write_exclude }) {
             updatedChecked = CHECKBOX_STATES.Empty;
             // TODO write an exclude key for the current
             // category
-            //setCurrentExclude(true);
-            console.log("n=", n)
-            parent_write_exclude([n])
         } else if (checked === CHECKBOX_STATES.Empty) {
             updatedChecked = CHECKBOX_STATES.Checked;
             // TODO delete the exclude category for the
             // current level and all child levels
         }
         setChecked(updatedChecked);
+    };  
+
+    return <div>
+        <div>{code.code} -- {code.docs}</div>
+	<Checkbox label="Include" onChange={handleChange} value={checked} />
+    </div>
+}
+
+function Category({ cat, update_code_def, parent_exclude }) {
+    // checked is the main controlling state, which
+    // stores the exclusion status of the current level
+    //let [checked, setChecked] = useState(CHECKBOX_STATES.Checked);
+
+    // Exclude current level
+    function exclude_current() {
+	cat.exclude = true;
+	update_code_def()
+    }
+
+    // Set the state of the checkbox is controlled by the
+    // exclude variable. If the current
+    // level or any of the parent levels are excluded,
+    // then set the checkbox to unticked
+    let exclude = false
+    if (parent_exclude == true || cat.exclude == true) {
+	exclude = true
+    }
+    
+    let checked = CHECKBOX_STATES.Checked;
+    if (exclude == true) {
+	checked = CHECKBOX_STATES.Empty
+    }
+    
+    function handleChange() {
+        let updatedChecked;
+        if (checked === CHECKBOX_STATES.Checked) {
+            updatedChecked = CHECKBOX_STATES.Empty;
+            // TODO write an exclude key for the current
+            // category
+	    exclude_current()
+        } else if (checked === CHECKBOX_STATES.Empty) {
+            updatedChecked = CHECKBOX_STATES.Checked;
+            // TODO delete the exclude category for the
+            // current level and all child levels
+        }
+        //setChecked(updatedChecked);
     };
 
+    // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
 
     return <div className="category">
@@ -101,17 +119,12 @@ function Category({ cat, n, parent_checked, parent_write_exclude }) {
         <Checkbox label="Include" onChange={handleChange} value={checked} />
         <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
         <ol> {
-            cat.child.map((node, index) => {
+            cat.child.map((node) => {
                 if (!hidden) {
                     if ("category" in node) {
-                        return <li><Category cat={node}
-                            parent_checked={checked}
-                            parent_write_exclude={write_exclude}
-                            n={index}
-                        /></li>
+                        return <li><Category cat={node} update_code_def={update_code_def} parent_exclude={exclude} /></li>
                     } else {
-                        return <li><Code code={node}
-                            parent_checked={checked} /></li>
+                        return <li><Code code={node} /></li>
                     }
                 }
             })
@@ -135,19 +148,8 @@ export default function Home() {
         return code_def.groups
     }
 
-    function set_exclude(cat) {
-	cat.child[0].exclude = true
-    }
-    
-    function write_exclude(indices) {
-
-	// Store 
-	
-        console.log(indices)
-        // Write the exclude flag in this
-        // level of the file.
-        let cat = code_def;
-	set_exclude(cat)
+    function update_code_def() {
+	setCodeDef(code_def)
 	console.log(code_def)
     }
 
@@ -163,8 +165,9 @@ export default function Home() {
             <h1>ICD-10</h1>
             <div>Groups: {get_groups()}</div>
             <ol>
-                <li><Category cat={code_def.child[0]} n={0}
-                    parent_write_exclude={write_exclude} /></li>
+                <li><Category cat={code_def.child[0]}
+			      update_code_def={update_code_def}
+		    parent_exclude={false} /></li>
             </ol>
         </div>
     }
