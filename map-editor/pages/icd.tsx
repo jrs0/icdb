@@ -91,11 +91,11 @@ function Code({ cat, update_code_def, parent_exclude }) {
 function Category({ cat, update_code_def, parent_exclude }) {
     // checked is the main controlling state, which
     // stores the exclusion status of the current level
-    //let [checked, setChecked] = useState(CHECKBOX_STATES.Checked);
 
     // Exclude current level
     function exclude_current() {
 	cat.exclude = true;
+	setExcluded(true);
 	update_code_def()
     }
 
@@ -103,9 +103,9 @@ function Category({ cat, update_code_def, parent_exclude }) {
     // exclude variable. If the current
     // level or any of the parent levels are excluded,
     // then set the checkbox to unticked
-    let exclude = false
-    if (parent_exclude == true || cat.exclude == true) {
-	exclude = true
+    let [exclude, setExcluded] = useState(false);
+    if (exclude == false && (parent_exclude == true || cat.exclude == true)) {
+	setExcluded(true)
     }
     
     let checked = CHECKBOX_STATES.Checked;
