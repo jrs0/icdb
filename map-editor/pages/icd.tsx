@@ -184,7 +184,11 @@ function Category({ cat, parent_exclude }) {
     if ("exclude" in cat && cat.exclude == true) {
 	exclude_current()
     } else if (parent_exclude == true) {
-	exclude_current()
+	// Set as excluded, but do not
+	// write to the file
+	if (exclude != true) {
+	    setExcluded("true")
+	}
     } else {
 	include_current()
     }

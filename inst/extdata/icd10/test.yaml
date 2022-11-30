@@ -9,12 +9,15 @@ child:
         child:
         - code: A00.0
           docs: Cholera due to Vibrio cholerae 01, biovar cholerae
+          exclude: true
           index: A000
         - code: A00.1
           docs: Cholera due to Vibrio cholerae 01, biovar eltor
+          exclude: true
           index: A001
         - code: A00.9
           docs: Cholera, unspecified
+          exclude: true
           index: A009
         docs: Cholera
         exclude: true
@@ -37,6 +40,7 @@ child:
           docs: Paratyphoid fever, unspecified
           index: A014
         docs: Typhoid and paratyphoid fevers
+        exclude: true
         index: A01
       - category: A02
         child:
@@ -56,6 +60,7 @@ child:
           docs: Salmonella infection, unspecified
           index: A029
         docs: Other salmonella infections
+        exclude: true
         index: A02
       - category: A03
         child:
@@ -78,6 +83,7 @@ child:
           docs: Shigellosis, unspecified
           index: A039
         docs: Shigellosis
+        exclude: true
         index: A03
       - category: A04
         child:
@@ -112,6 +118,7 @@ child:
           docs: Bacterial intestinal infection, unspecified
           index: A049
         docs: Other bacterial intestinal infections
+        exclude: true
         index: A04
       - category: A05
         child:
@@ -137,6 +144,7 @@ child:
           docs: Bacterial foodborne intoxication, unspecified
           index: A059
         docs: Other bacterial foodborne intoxications, not elsewhere classified
+        exclude: true
         index: A05
       - category: A06
         child:
@@ -171,6 +179,7 @@ child:
           docs: Amoebiasis, unspecified
           index: A069
         docs: Amoebiasis
+        exclude: true
         index: A06
       - category: A07
         child:
@@ -193,6 +202,7 @@ child:
           docs: Protozoal intestinal disease, unspecified
           index: A079
         docs: Other protozoal intestinal diseases
+        exclude: true
         index: A07
       - category: A08
         child:
@@ -215,6 +225,7 @@ child:
           docs: Other specified intestinal infections
           index: A085
         docs: Viral and other specified intestinal infections
+        exclude: true
         index: A08
       - category: A09
         child:
@@ -225,8 +236,10 @@ child:
           docs: Gastroenteritis and colitis of unspecified origin
           index: A099
         docs: Other gastroenteritis and colitis of infectious and unspecified origin
+        exclude: true
         index: A09
       docs: Intestinal infectious diseases
+      exclude: true
       index:
       - A00
       - A09
