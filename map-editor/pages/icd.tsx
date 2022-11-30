@@ -138,11 +138,13 @@ function Category({ cat, update_code_def, parent_exclude }) {
     // state of the current component, before using
     // the parent_exclude
     if (exclude == false) {
-	if (cat.exclude == true) {
-	    setExcluded(true)
-	} else if (parent_exclude == true) {
+	if (cat.exclude || parent_exclude) {
 	    setExcluded(true)
 	}
+    } else {
+	if (!cat.exclude && !parent_exclude) {
+	    setExcluded(false)
+	}	
     }
     
     // The state of the
@@ -182,7 +184,7 @@ function Category({ cat, update_code_def, parent_exclude }) {
             updatedChecked = CHECKBOX_STATES.Checked;
             // TODO delete the exclude category for the
             // current level and all child levels
-	    //include_current()
+	    include_current()
         }
     };
 
