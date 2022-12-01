@@ -53,7 +53,7 @@ function visible_status(cat, parent_exclude)
 
 // Remove all the exclude tags in all
 // sublevels of cat and return the result
-function remove_all_exclude(cat) {
+function remove_all_excludes(cat) {
 
     // Remove the exclude key from this
     // level
@@ -62,10 +62,23 @@ function remove_all_exclude(cat) {
     if ("child" in cat) {
 	// Loop over all the subcategories
 	// remove the exclude
-	cat.child = cat.child.map(remove_all_exclude)
+	cat.child = cat.child.map(remove_all_excludes)
     }
 
     // Return the modified category
+    return(cat)
+}
+
+// Set the top-level excludes for the
+// subcategories in the current category,
+// and return the modified object
+function set_top_excludes(cat) {
+    if ("child" in cat) {
+	cat.child = cat.child.map((subcat) => {
+	    subcat.exclude = true
+	    return(subcat)
+	})
+    }
     return(cat)
 }
 
@@ -116,9 +129,9 @@ function Category({ cat_init, parent_exclude }) {
 	    let cat_copy = Object.assign({}, cat)
 
 	    // Clear all the nested exclude tags
-	    cat_copy = remove_all_exclude(cat_copy)
-	    
-	    // Set the current level exclude tag
+	    // and then re-enable the current level
+	    // exclude flag
+	    cat_copy = remove_all_excludes(cat_copy)
 	    cat_copy.exclude = true;
 
 	    // Set the new state
@@ -126,11 +139,22 @@ function Category({ cat_init, parent_exclude }) {
 	    
 	} else {
 
-	    console.log("I am excluded")
-
-	    // Remove any exclude tag if it exists
+	    // When the current component is excluded,
+	    // the user is wanting to enable this level
+	    // and set all the immediate subcategories
+	    // to disabled by default
+	    
+	    // Deep copy the state to use setCat without
+	    // problems
 	    let cat_copy = Object.assign({}, cat)
-	    delete cat_copy.exclude;
+
+	    // Clear all the nested exclude tags
+	    // and then enable the top level,
+	    
+	    cat_copy = remove_all_excludes(cat_copy)
+	    cat_copy = set_top_excludes(cat_copy)
+
+	    // Set the new state
 	    setCat(cat_copy);
 	}	
     }
