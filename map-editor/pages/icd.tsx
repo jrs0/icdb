@@ -34,7 +34,7 @@ function Checkbox({ label, checked, enabled, onChange }) {
 // Establish whether the component should be included
 // (i.e. ticked) and whether it should be enabled
 // (grayed out or not)
-function visible_status(cat, parent_exclude, refresh_code_def)
+function visible_status(cat, parent_exclude)
 {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
@@ -51,7 +51,7 @@ function visible_status(cat, parent_exclude, refresh_code_def)
     }
 }
 
-function Code({ cat, parent_exclude }) {
+function Code({ cat_init, parent_exclude }) {
 
 
     function handleChange() {
@@ -66,8 +66,13 @@ function Code({ cat, parent_exclude }) {
     </div>
 }
 
-function Category({ cat, parent_exclude, refresh_code_def }) {
-        
+function Category({ cat_init, parent_exclude }) {
+
+    // The category that this component represents
+    let [cat, setCat] = useState(cat_init);
+
+    
+    
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
 
@@ -93,11 +98,7 @@ function Category({ cat, parent_exclude, refresh_code_def }) {
 
 	    // Set the current exclude tag
 	    cat.exclude = true;
-
-	    // Refresh the state of the code_def
-	    // structure so that all components
-	    // rerender
-	    refresh_code_def()
+	    setCat(cat);
 	    
 	} else {
 
@@ -105,11 +106,7 @@ function Category({ cat, parent_exclude, refresh_code_def }) {
 
 	    // Remove any exclude tag if it exists
 	    delete cat.exclude;
-
-	    // Refresh the state of the code_def
-	    // structure so that all components
-	    // rerender
-	    refresh_code_def()
+	    setCat(cat);
 	    
 	}	
     }
@@ -122,9 +119,9 @@ function Category({ cat, parent_exclude, refresh_code_def }) {
             cat.child.map((node) => {
                 if (!hidden) {
                     if ("category" in node) {
-                        return <li><Category cat={node} parent_exclude={!included} refresh_code_def={refresh_code_def}/></li>
+                        return <li><Category cat_init={node} parent_exclude={!included}/></li>
                     } else {
-                        return <li><Code cat={node} parent_exclude={!included} refresh_code_def={refresh_code_def}/></li>
+                        return <li><Code cat_init={node} parent_exclude={!included}/></li>
                     }
                 }
             })
@@ -154,20 +151,6 @@ export default function Home() {
         return code_def.groups
     }
 
-    // To be called from subcomponents after they have
-    // modified code_def by references (by changing cat
-    // objects).
-    //
-    // BUG: the approach of changing by reference in
-    // subcomponents, and then setting state up here
-    // cannot work, because by that time the state has
-    // already changed, and the call to setCodeDef
-    // sets code_def to the same value, which does not
-    // trigger a rerender. 
-    function refresh_code_def() {
-	console.log(code_def)
-	setCodeDef(code_def)
-    }
 
     if (code_def == 0) {
         return <div>
@@ -183,9 +166,8 @@ export default function Home() {
             <h1>ICD-10</h1>
             <div>Groups: {get_groups()}</div>
             <ol>
-                <li><Category cat={code_def.child[0]}
-			      parent_exclude={false}
-	refresh_code_def={refresh_code_def} /></li>
+                <li><Category cat_init={code_def.child[0]}
+			      parent_exclude={false} /></li>
             </ol>
         </div>
     }
