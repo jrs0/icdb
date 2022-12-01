@@ -72,7 +72,7 @@ function remove_all_excludes(cat) {
 // Set the top-level excludes for the
 // subcategories in the current category,
 // and return the modified object
-function set_top_excludes(cat) {
+function set_first_excludes(cat) {
     if ("child" in cat) {
 	cat.child = cat.child.map((subcat) => {
 	    subcat.exclude = true
@@ -123,6 +123,7 @@ function Category({ cat_init, parent_exclude }) {
 	    // level, and clearing any exclude flags
 	    // in subcomponent levels (for efficiency
 	    // of representation)
+	    console.log("Excluding ", cat.docs)
 
 	    // Deep copy the state to use setCat without
 	    // problems
@@ -143,16 +144,18 @@ function Category({ cat_init, parent_exclude }) {
 	    // the user is wanting to enable this level
 	    // and set all the immediate subcategories
 	    // to disabled by default
+	    console.log("Including ", cat.docs)
 	    
 	    // Deep copy the state to use setCat without
 	    // problems
 	    let cat_copy = Object.assign({}, cat)
 
 	    // Clear all the nested exclude tags
-	    // and then enable the top level,
-	    
+	    // and then enable the top level category,
+	    // but disable all the first-level
+	    // excludes in the subcategories.
 	    cat_copy = remove_all_excludes(cat_copy)
-	    cat_copy = set_top_excludes(cat_copy)
+	    cat_copy = set_first_excludes(cat_copy)
 
 	    // Set the new state
 	    setCat(cat_copy);
