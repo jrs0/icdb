@@ -52,16 +52,14 @@ subsequent <- spells %>%
 ## occured within less than the post-index window. This makes
 ## the assumption that the most recent ACS event before the
 ## bleeding event is the cause of the bleeding event.
-next_bleed <- subsequent[1:1000,] %>%
+next_bleed <- subsequent %>%
     ## For each bleeding event, calculate the time to the nearest
-    ## (most recent) ACS event. This is the 1-backwards strategy,
-    ## where an event B is assumed to be caused by the most recent
-    ## event A (fails if multiple As really cause B). The times
+    ## (most recent) ACS event. The times
     ## to next bleeding are stored in the ACS rows (an NA is used
     ## if there is not subsequent bleeding event
     mutate(val = if_else(type == "bleeding", spell_start, NULL)) %>%
     fill(val, .direction = "up") %>%
-    mutate(time_to_bleed = val - spell_start) %>%
+    mutate(time_to_bleed = as.numeric((val - spell_start)/lubridate::ddays(1))) %>%
     ## In addition, store the bleeding diagnosis for the subsequent
     ## bleeding event.
     mutate(bleed_type = if_else(type == "bleeding", primary_diagnosis_icd, NULL)) %>%
@@ -74,20 +72,24 @@ next_bleed <- subsequent[1:1000,] %>%
     ## An NA in the time_to_bleed means that no bleeding event
     ## occured.
     mutate(status = case_when(is.na(time_to_bleed) ~ 0,
-                             TRUE ~ 1)) %>%
+                              time_to_bleed > as.numeric(post/ddays(1)) ~ 0,
+                              TRUE ~ 1)) %>%
     ## Set all the NA rows as at least post-index window time
     ## length. The NA means that no subsequent bleeding event
     ## occured, so this right censoring is a weaker statement
-    mutate(time_to_bleed = replace_na(time_to_bleed, post)) %>%
+    mutate(time_to_bleed = replace_na(time_to_bleed, as.numeric(post/ddays(1))),
+           time_to_bleed = if_else(time_to_bleed > as.numeric(post/ddays(1)),
+                                   365,
+                                   time_to_bleed)) %>%
     ## Clean up by dropping temporary columns and renaming
     ungroup() %>%
     select(-val, -type, -spell_end, -nhs_number) %>%
     rename(acs_type = primary_diagnosis_icd,
            age = age_on_admission) %>%
-    relocate(age, spell_start, acs_type, status, time_to_bleed, bleed_type) %>%
+    relocate(age, spell_start, acs_type, status, time_to_bleed, bleed_type)
     ## Scale time to days TODO find the right way to not
     ## have to do this manually
-    mutate(time_to_bleed = time_to_bleed/86400)
+    ##mutate(time_to_bleed = time_to_bleed/86400)
 
 ## Age is a minor ARC-HBR criterion: score = 0.5 if age >= 75,
 ## else score is zero (higher means more at risk)
@@ -102,6 +104,6 @@ s1 <- survfit(Surv(time_to_bleed, status) ~ 1, data = hbr)
 
 survfit2(Surv(time_to_bleed, status) ~ hbr_age, data = hbr) %>% 
     ggsurvfit() +
-    labs(x = "Seconds",
+    labs(x = "Days",
          y = "Overall survival probability") +
     scale_x_continuous()
