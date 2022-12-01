@@ -51,7 +51,7 @@ function visible_status(cat, parent_exclude)
     }
 }
 
-function Code({ cat_init, parent_exclude }) {
+function Code({ cat, parent_exclude }) {
 
 
     function handleChange() {
@@ -70,8 +70,6 @@ function Category({ cat_init, parent_exclude }) {
 
     // The category that this component represents
     let [cat, setCat] = useState(cat_init);
-
-    
     
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
@@ -97,20 +95,18 @@ function Category({ cat_init, parent_exclude }) {
 	    console.log("I am included")
 
 	    // Set the current exclude tag
-	    // BUG: we have the same problem here -- cat is
-	    // changed by reference, so setCat does not know
-	    // about the change on the next line
-	    cat.exclude = true;
-	    setCat(cat);
+	    let cat_copy = Object.assign({}, cat)
+	    cat_copy.exclude = true;
+	    setCat(cat_copy);
 	    
 	} else {
 
 	    console.log("I am excluded")
 
 	    // Remove any exclude tag if it exists
-	    delete cat.exclude;
-	    setCat(cat);
-	    
+	    let cat_copy = Object.assign({}, cat)
+	    delete cat_copy.exclude;
+	    setCat(cat_copy);
 	}	
     }
     
@@ -124,7 +120,7 @@ function Category({ cat_init, parent_exclude }) {
                     if ("category" in node) {
                         return <li><Category cat_init={node} parent_exclude={!included}/></li>
                     } else {
-                        return <li><Code cat_init={node} parent_exclude={!included}/></li>
+                        return <li><Code cat={node} parent_exclude={!included}/></li>
                     }
                 }
             })
