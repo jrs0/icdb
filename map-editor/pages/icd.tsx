@@ -34,7 +34,7 @@ function Checkbox({ label, checked, enabled, onChange }) {
 // Establish whether the component should be included
 // (i.e. ticked) and whether it should be enabled
 // (grayed out or not)
-function visible_status(cat, parent_exclude)
+function visible_status(cat, parent_exclude, refresh_code_def)
 {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
@@ -66,16 +66,43 @@ function Code({ cat, parent_exclude }) {
     </div>
 }
 
-function Category({ cat, parent_exclude }) {
+function Category({ cat, parent_exclude, refresh_code_def }) {
         
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
 
-    function handleChange() {
-	
-    }
-
     let {included, enabled} = visible_status(cat, parent_exclude);
+
+    // Take action when the user clicks the checkbox. Note that
+    // this function cannot be called for a grayed out box,
+    // because it cannot change. This means you can assume the
+    // current level is enabled, meaning that none of the parents
+    // are excluded.
+    function handleChange() {
+
+	// Check the current state of the checkbox
+	if (included) {
+	    // When the current component is included,
+	    // the user is wanting to disable this element,
+	    // and all of its subcomponents. This involves
+	    // writing an exclude tag into the current
+	    // level, and clearning any exclude flags
+	    // in subcomponent levels (for efficiency
+	    // of representation)
+	    console.log("I am included")
+
+	    // Set the current exclude tag
+	    cat.exclude = true;
+
+	    // Refresh the state of the code_def
+	    // structure so that all components
+	    // rerender
+	    refresh_code_def()
+	    
+	} else {
+	    console.log("I am excluded")
+	}	
+    }
     
     return <div className="category">
         <div>{cat.category} -- {cat.docs}</div>
@@ -85,9 +112,9 @@ function Category({ cat, parent_exclude }) {
             cat.child.map((node) => {
                 if (!hidden) {
                     if ("category" in node) {
-                        return <li><Category cat={node} parent_exclude={!included} /></li>
+                        return <li><Category cat={node} parent_exclude={!included} refresh_code_def={refresh_code_def}/></li>
                     } else {
-                        return <li><Code cat={node} parent_exclude={!included}/></li>
+                        return <li><Code cat={node} parent_exclude={!included} refresh_code_def={refresh_code_def}/></li>
                     }
                 }
             })
@@ -117,6 +144,13 @@ export default function Home() {
         return code_def.groups
     }
 
+    // To be called from subcomponents after they have
+    // modified code_def by references (by changing cat
+    // objects)
+    function refresh_code_def() {
+	setCodeDef(code_def)
+    }
+
     if (code_def == 0) {
         return <div>
             <Link href="/">Back</Link><br />
@@ -132,7 +166,8 @@ export default function Home() {
             <div>Groups: {get_groups()}</div>
             <ol>
                 <li><Category cat={code_def.child[0]}
-		    parent_exclude={false} /></li>
+			      parent_exclude={false}
+	refresh_code_def={refresh_code_def} /></li>
             </ol>
         </div>
     }
