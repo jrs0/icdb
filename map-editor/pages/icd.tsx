@@ -51,6 +51,24 @@ function visible_status(cat, parent_exclude)
     }
 }
 
+// Remove all the exclude tags in all
+// sublevels of cat and return the result
+function remove_all_exclude(cat) {
+
+    // Remove the exclude key from this
+    // level
+    delete cat.exclude;
+    
+    if ("child" in cat) {
+	// Loop over all the subcategories
+	// remove the exclude
+	cat.child = cat.child.map(remove_all_exclude)
+    }
+
+    // Return the modified category
+    return(cat)
+}
+
 function Code({ cat, parent_exclude }) {
 
 
@@ -89,14 +107,21 @@ function Category({ cat_init, parent_exclude }) {
 	    // the user is wanting to disable this element,
 	    // and all of its subcomponents. This involves
 	    // writing an exclude tag into the current
-	    // level, and clearning any exclude flags
+	    // level, and clearing any exclude flags
 	    // in subcomponent levels (for efficiency
 	    // of representation)
-	    console.log("I am included")
 
-	    // Set the current exclude tag
+	    // Deep copy the state to use setCat without
+	    // problems
 	    let cat_copy = Object.assign({}, cat)
+
+	    // Clear all the nested exclude tags
+	    cat_copy = remove_all_exclude(cat_copy)
+	    
+	    // Set the current level exclude tag
 	    cat_copy.exclude = true;
+
+	    // Set the new state
 	    setCat(cat_copy);
 	    
 	} else {
