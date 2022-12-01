@@ -100,7 +100,17 @@ function Category({ cat, parent_exclude, refresh_code_def }) {
 	    refresh_code_def()
 	    
 	} else {
+
 	    console.log("I am excluded")
+
+	    // Remove any exclude tag if it exists
+	    delete cat.exclude;
+
+	    // Refresh the state of the code_def
+	    // structure so that all components
+	    // rerender
+	    refresh_code_def()
+	    
 	}	
     }
     
