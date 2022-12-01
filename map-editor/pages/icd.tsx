@@ -32,17 +32,24 @@ function Checkbox({ label, checked, enabled, onChange }) {
 };
 
 // Establish whether the component should be included
-// (i.e. ticked) 
-function get_included(cat, parent_exclude)
+// (i.e. ticked) and whether it should be enabled
+// (grayed out or not)
+function visible_status(cat, parent_exclude)
 {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
     // the parent is excluded
     let exclude_tag = ("exclude" in cat) && (cat.exclude == true);
     let included = !exclude_tag && !parent_exclude
-    return included;
-}
+    
+    // Checkbox is enabled if the parent is not excluded
+    let enabled = !parent_exclude;
 
+    return {
+	included: included,
+	enabled: enabled
+    }
+}
 
 // Remove all the exclude tags in all
 // sublevels of cat and return the result
@@ -111,13 +118,17 @@ function Category({ cat_init, parent_exclude }) {
     // modify a state that is passed down to the
     // next level for reading.
 
+    useEffect(() => {
+	setCat(cat_init);
+    }, [cat_init])
+    
     // The category that this component represents
     let [cat, setCat] = useState(cat_init);
 
     // BUG: The issue could be that included and enabled
     // are calculated after the state has been updated.
     // Perhaps they should be in a useEffect.
-    //let {included, enabled} = visible_status(cat, parent_exclude);
+    let {included, enabled} = visible_status(cat, parent_exclude);
     
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
@@ -201,9 +212,7 @@ function Category({ cat_init, parent_exclude }) {
     // parent is deselected, than all is well.
     return <div className="category">
         <div>{cat.category} -- {cat.docs}</div>
-        <Checkbox label="Include" onChange={handleChange}
-		  checked={() => get_included(cat, parent_exclude)}
-		  enabled={!parent_exclude}/>
+        <Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled}/>
         <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
         <ol> {
             cat.child.map((node) => {
