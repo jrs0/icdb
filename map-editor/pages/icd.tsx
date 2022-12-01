@@ -117,7 +117,10 @@ function Category({ cat_init, parent_exclude }) {
     // reference). However, writing to cat should
     // modify a state that is passed down to the
     // next level for reading.
-    
+
+    useEffect(() => {
+	setCat(cat_init);
+    }, [cat_init])
     
     // The category that this component represents
     let [cat, setCat] = useState(cat_init);
