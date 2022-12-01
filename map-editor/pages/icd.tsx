@@ -97,6 +97,9 @@ function Category({ cat_init, parent_exclude }) {
 	    console.log("I am included")
 
 	    // Set the current exclude tag
+	    // BUG: we have the same problem here -- cat is
+	    // changed by reference, so setCat does not know
+	    // about the change on the next line
 	    cat.exclude = true;
 	    setCat(cat);
 	    
