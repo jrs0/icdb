@@ -87,9 +87,6 @@ next_bleed <- subsequent %>%
     rename(acs_type = primary_diagnosis_icd,
            age = age_on_admission) %>%
     relocate(age, spell_start, acs_type, status, time_to_bleed, bleed_type)
-    ## Scale time to days TODO find the right way to not
-    ## have to do this manually
-    ##mutate(time_to_bleed = time_to_bleed/86400)
 
 ## Age is a minor ARC-HBR criterion: score = 0.5 if age >= 75,
 ## else score is zero (higher means more at risk)
@@ -98,14 +95,11 @@ hbr <- next_bleed %>%
 
 ## Use survival analysis to model the likelihood of bleeding
 ## within 12-months of an ACS event, based on age
-summary(hbr)
-
-s1 <- survfit(Surv(time_to_bleed, status) ~ 1, data = hbr)
-
 survfit2(Surv(time_to_bleed, status) ~ factor(hbr_age, labels = c("Under 75", "75+")), data = hbr) %>% 
     ggsurvfit() +
     labs(x = "Days",
          y = "Overall survival probability") +
+    add_confidence_interval() +
     scale_x_continuous() +
     scale_y_continuous(labels = scales::percent) +
     scale_colour_discrete("Age flag")
