@@ -156,7 +156,14 @@ export default function Home() {
 
     // To be called from subcomponents after they have
     // modified code_def by references (by changing cat
-    // objects)
+    // objects).
+    //
+    // BUG: the approach of changing by reference in
+    // subcomponents, and then setting state up here
+    // cannot work, because by that time the state has
+    // already changed, and the call to setCodeDef
+    // sets code_def to the same value, which does not
+    // trigger a rerender. 
     function refresh_code_def() {
 	console.log(code_def)
 	setCodeDef(code_def)
