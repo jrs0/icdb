@@ -123,7 +123,6 @@ function Category({ cat_init, parent_exclude }) {
 	    // level, and clearing any exclude flags
 	    // in subcomponent levels (for efficiency
 	    // of representation)
-	    console.log("Excluding ", cat.docs)
 
 	    // Deep copy the state to use setCat without
 	    // problems
@@ -135,6 +134,9 @@ function Category({ cat_init, parent_exclude }) {
 	    cat_copy = remove_all_excludes(cat_copy)
 	    cat_copy.exclude = true;
 
+	    console.log("Excluded ", cat_copy.docs)
+	    console.log(cat_copy)
+	    
 	    // Set the new state
 	    setCat(cat_copy);
 	    
@@ -144,7 +146,6 @@ function Category({ cat_init, parent_exclude }) {
 	    // the user is wanting to enable this level
 	    // and set all the immediate subcategories
 	    // to disabled by default
-	    console.log("Including ", cat.docs)
 	    
 	    // Deep copy the state to use setCat without
 	    // problems
@@ -164,11 +165,18 @@ function Category({ cat_init, parent_exclude }) {
 	    cat_copy = remove_all_excludes(cat_copy)
 	    cat_copy = set_first_excludes(cat_copy)
 
+	    console.log("Included ", cat_copy.docs)
+	    console.log(cat_copy)
+	    
 	    // Set the new state
 	    setCat(cat_copy);
 	}	
     }
-    
+
+    // BUG: the issue might be around here, because the top level
+    // structure in cat appears to be OK -- it's just the child
+    // components that are not rerendering, until a render is
+    // forced (e.g. by changing hidden).
     return <div className="category">
         <div>{cat.category} -- {cat.docs}</div>
         <Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled}/>
