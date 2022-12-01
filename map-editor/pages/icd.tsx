@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
@@ -118,17 +118,18 @@ function Category({ cat_init, parent_exclude }) {
     // modify a state that is passed down to the
     // next level for reading.
 
-    useEffect(() => {
-	setCat(cat_init);
-    }, [cat_init])
-    
     // The category that this component represents
     let [cat, setCat] = useState(cat_init);
 
+    const {included, enabled} = useMemo(
+    () => (
+	visible_status(cat, parent_exclude)
+    ), [cat, parent_exclude])
+    
+    
     // BUG: The issue could be that included and enabled
     // are calculated after the state has been updated.
     // Perhaps they should be in a useEffect.
-    let {included, enabled} = visible_status(cat, parent_exclude);
     
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
