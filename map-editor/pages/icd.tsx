@@ -99,6 +99,18 @@ function Code({ cat, parent_exclude }) {
 
 function Category({ cat_init, parent_exclude }) {
 
+    // BUG: cat is being passed as cat_init to the
+    // next level down, but then that is only being
+    // used to initialise the state one level down.
+    // What we want is to inherit the structure of
+    // cat from the level above. Why does cat even
+    // need to be a state? The original issue was
+    // wanting to modify exclude tag in the cats
+    // themselves and have all the child components
+    // render as a result. Is the solution to
+    // set the new state from state init every
+    // time the component renders?
+    
     // The category that this component represents
     let [cat, setCat] = useState(cat_init);
     
