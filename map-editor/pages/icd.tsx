@@ -148,6 +148,13 @@ function Category({ cat_init, parent_exclude }) {
 	    
 	    // Deep copy the state to use setCat without
 	    // problems
+	    // BUG: problem might be here -- only the
+	    // top level is deep copied, so when the
+	    // functions below modify cat_copy, they
+	    // are really modifying cat. If the top
+	    // level of cat is not changed, and only
+	    // the children are, then setCat below
+	    // will not trigger a render.
 	    let cat_copy = Object.assign({}, cat)
 
 	    // Clear all the nested exclude tags
