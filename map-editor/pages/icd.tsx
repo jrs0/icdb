@@ -110,6 +110,14 @@ function Category({ cat_init, parent_exclude }) {
     // render as a result. Is the solution to
     // set the new state from state init every
     // time the component renders?
+    //
+    // The question is who reads and who writes
+    // to cat. Any reading from cat should be done
+    // from a prop passed in from a level above (a
+    // reference). However, writing to cat should
+    // modify a state that is passed down to the
+    // next level for reading.
+    
     
     // The category that this component represents
     let [cat, setCat] = useState(cat_init);
