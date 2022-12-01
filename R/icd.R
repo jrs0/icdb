@@ -399,8 +399,14 @@ is_icd10 <- function(x) {
   inherits(x, "icdb_icd10")
 }
 
+groups <- function(x)
+{
+    vctrs::field(x, "groups")
+}
+
 ##' @export
-format.icdb_icd10 <- function(x, ...) {
+format.icdb_icd10 <- function(x, ...)
+{
     name <- vctrs::field(x, "name")
     type <- get_type(x)
 
