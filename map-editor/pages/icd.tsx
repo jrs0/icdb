@@ -31,6 +31,23 @@ function Checkbox({ label, checked, enabled, onChange }) {
     );
 };
 
+function compute_checks(cat, parent_exclude)
+{
+    // Component is included by default, unless there
+    // is an exclude tag at the current level, or
+    // the parent is excluded
+    let exclude_tag = ("exclude" in cat) && (cat.exclude == true);
+    let included = !exclude_tag && !parent_exclude
+    
+    // Checkbox is enabled if the parent is not excluded
+    let enabled = !parent_exclude;
+
+    return {
+	included: included,
+	enabled: enabled
+    }
+}
+
 function Code({ cat, parent_exclude }) {
 
 
@@ -38,13 +55,11 @@ function Code({ cat, parent_exclude }) {
 
     };
 
-    let checked = true;
-    let enabled = true;
-    let exclude = false;
+    let {included, enabled} = compute_checks(cat, parent_exclude);
     
     return <div>
         <div>{cat.code} -- {cat.docs}</div>
-	<Checkbox label="Include" onChange={handleChange} checked={checked} enabled={enabled} />
+	<Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled} />
     </div>
 }
 
@@ -57,27 +72,19 @@ function Category({ cat, parent_exclude }) {
 	
     }
 
-
-    // Component is included by default, unless there
-    // is an exclude tag at the current level, or
-    // the parent is excluded
-    let exclude_tag = ("exclude" in cat) && (cat.exclude == true);
-    let include = !exclude_tag && !parent_exclude
-	
-    // Checkbox is enabled if the parent is not excluded
-    let enabled = !parent_exclude;
+    let {included, enabled} = compute_checks(cat, parent_exclude);
     
     return <div className="category">
         <div>{cat.category} -- {cat.docs}</div>
-        <Checkbox label="Include" onChange={handleChange} checked={include} enabled={enabled}/>
+        <Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled}/>
         <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
         <ol> {
             cat.child.map((node) => {
                 if (!hidden) {
                     if ("category" in node) {
-                        return <li><Category cat={node} parent_exclude={!include} /></li>
+                        return <li><Category cat={node} parent_exclude={!included} /></li>
                     } else {
-                        return <li><Code cat={node} parent_exclude={!include}/></li>
+                        return <li><Code cat={node} parent_exclude={!included}/></li>
                     }
                 }
             })
