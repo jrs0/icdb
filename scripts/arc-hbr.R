@@ -102,8 +102,10 @@ summary(hbr)
 
 s1 <- survfit(Surv(time_to_bleed, status) ~ 1, data = hbr)
 
-survfit2(Surv(time_to_bleed, status) ~ hbr_age, data = hbr) %>% 
+survfit2(Surv(time_to_bleed, status) ~ factor(hbr_age, labels = c("Under 75", "75+")), data = hbr) %>% 
     ggsurvfit() +
     labs(x = "Days",
          y = "Overall survival probability") +
-    scale_x_continuous()
+    scale_x_continuous() +
+    scale_y_continuous(labels = scales::percent) +
+    scale_colour_discrete("Age flag")
