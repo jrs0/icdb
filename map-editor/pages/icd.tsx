@@ -31,7 +31,10 @@ function Checkbox({ label, checked, enabled, onChange }) {
     );
 };
 
-function compute_checks(cat, parent_exclude)
+// Establish whether the component should be included
+// (i.e. ticked) and whether it should be enabled
+// (grayed out or not)
+function visible_status(cat, parent_exclude)
 {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
@@ -55,7 +58,7 @@ function Code({ cat, parent_exclude }) {
 
     };
 
-    let {included, enabled} = compute_checks(cat, parent_exclude);
+    let {included, enabled} = visible_status(cat, parent_exclude);
     
     return <div>
         <div>{cat.code} -- {cat.docs}</div>
@@ -72,7 +75,7 @@ function Category({ cat, parent_exclude }) {
 	
     }
 
-    let {included, enabled} = compute_checks(cat, parent_exclude);
+    let {included, enabled} = visible_status(cat, parent_exclude);
     
     return <div className="category">
         <div>{cat.category} -- {cat.docs}</div>
