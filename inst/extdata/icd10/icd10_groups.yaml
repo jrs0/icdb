@@ -3074,6 +3074,7 @@ child:
     - A00
     - B99
   - category: II
+    exclude: true
     docs: Neoplasms
     child:
     - category: C00-C97
