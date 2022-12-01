@@ -98,7 +98,7 @@ function Code({ cat, parent_exclude }) {
 }
 
 function Category({ cat_init, parent_exclude }) {
-
+    
     // BUG: cat is being passed as cat_init to the
     // next level down, but then that is only being
     // used to initialise the state one level down.
@@ -124,11 +124,14 @@ function Category({ cat_init, parent_exclude }) {
     
     // The category that this component represents
     let [cat, setCat] = useState(cat_init);
+
+    // BUG: The issue could be that included and enabled
+    // are calculated after the state has been updated.
+    // Perhaps they should be in a useEffect.
+    let {included, enabled} = visible_status(cat, parent_exclude);
     
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
-
-    let {included, enabled} = visible_status(cat, parent_exclude);
 
     // Take action when the user clicks the checkbox. Note that
     // this function cannot be called for a grayed out box,
