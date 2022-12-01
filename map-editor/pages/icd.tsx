@@ -173,10 +173,15 @@ function Category({ cat_init, parent_exclude }) {
 	}	
     }
 
+   
     // BUG: the issue might be around here, because the top level
     // structure in cat appears to be OK -- it's just the child
     // components that are not rerendering, until a render is
     // forced (e.g. by changing hidden).
+    //
+    // Problem occurs when the parent is deselected while this
+    // level is still ticked. If this level is unticked, and the
+    // parent is deselected, than all is well.
     return <div className="category">
         <div>{cat.category} -- {cat.docs}</div>
         <Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled}/>
