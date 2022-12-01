@@ -148,6 +148,7 @@ export default function Home() {
     // modified code_def by references (by changing cat
     // objects)
     function refresh_code_def() {
+	console.log(code_def)
 	setCodeDef(code_def)
     }
 
