@@ -296,8 +296,7 @@ export default function Home() {
 	    // include any other categories. First,
 	    // get the indices of cat relative to
 	    // cat_above
-	    let rel_length = indices.length - indices_above.length
-	    let rel_indices = indices.slice(indices_above.length, rel_length);
+	    let rel_indices = indices.slice(indices_above.length);
 	    console.log("indices", indices)
 	    console.log("indices_above", indices_above)
 	    console.log("rel:", rel_indices)
