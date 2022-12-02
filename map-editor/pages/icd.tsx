@@ -252,6 +252,10 @@ export default function Home() {
 	    //    there is exactly one exclude above it
 	    //    (two or more would contradict the
 	    //    reasoning above).
+	    //
+	    // NOTE: Remember that this reasoning becomes
+	    // invalid if deselecting does not clear
+	    // all the subcategory exclude keys.
 	    if ("exclude" in cat) {
 		// This is case 1. Just remove this
 		// exclude, and all will be well
@@ -263,10 +267,15 @@ export default function Home() {
 		// this exclude may be incorrectly
 		// included -- it is necessary to
 		// add excludes to all these level.
-		indices.pop()
-		let cat_above = get_cat(code_def_copy,
-					indices)
-		console.log("above:",cat_above)	
+		let indices_copy = indices.slice();
+		let cat_above = cat;
+		while (!("exclude" in cat)) {
+		    // Move to the category above
+		    indices_copy.pop()
+		    cat_above = get_cat(code_def_copy,
+					indices_copy)
+		    console.log("above:",cat_above)			    
+		}
 	    }
 	    
 	    
