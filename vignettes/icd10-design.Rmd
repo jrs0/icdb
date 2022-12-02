@@ -24,7 +24,13 @@ The groups are controlled by an optional exclude key in the YAML file, which con
 
 # Generating ICD-10 code definition files
 
-The codes definition file is generated from R functions in the icd.R file by querying the WHO ICD API.
+The codes definition file is generated from R functions in the icd.R file by querying the WHO ICD API, and converting the resulting data to the correct YAML file format.
+
+## The API
+
+## Indexing the codes
+
+## The icd10 object
 
 # Modifying groups 
 
