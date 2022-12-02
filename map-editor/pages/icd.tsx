@@ -304,21 +304,21 @@ export default function Home() {
 
 	    // Loop over all the subcategories between
 	    // cat_above and cat
-	    /* cat = cat_above
-	       rel_indices.forEach((n) => {
+	    cat = cat_above
+	    rel_indices.forEach((n) => {
 
-	       // Add an exclude key to all the
-	       // subcategories which are not on the path
-	       cat.child = cat.child.map((subcat, index) => {
-	       if (index != n) {
-	       subcat.exclude = true
-	       }
-	       return(subcat)
-	       })
-	       
-	       // Move down a level
-	       cat = cat.child[n]
-	       }) */
+		// Add an exclude key to all the
+		// subcategories which are not on the path
+		cat.child = cat.child.map((subcat, index) => {
+		    if (index != n) {
+			subcat.exclude = true
+		    }
+		    return(subcat)
+		})
+		
+		// Move down a level
+		cat = cat.child[n]
+	    })
 	    
 
 	    //}
