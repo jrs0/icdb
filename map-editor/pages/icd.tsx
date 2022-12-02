@@ -209,14 +209,16 @@ export default function Home() {
 
 	console.log(indices, included);
 	console.log(code_def_copy)
+	
 	// Extract the cat referred to by indices
+	// (note that cat is modified by reference,
+	// so changing the resulting cat will still
+	// change code_def_copy)
 	let cat = code_def_copy;
 	indices.forEach((n) => {cat = cat.child[n]})	
 	
 	console.log(cat)
 
-	return 0;
-	
 	// Check the current state of the checkbox
 	if (included) {
 	    // When the current component is included,
