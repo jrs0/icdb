@@ -137,9 +137,9 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
         <ol> {
             cat.child
 	       .filter((node) => {
-		   let in_title = node.category.includes(search_term);
+		   //let in_title = node.category.includes(search_term);
 		   let in_docs = node.docs.includes(search_term);
-		   return in_title || in_docs;
+		   return in_docs;
 	       })
 	       .map((node,index) => {
                 if (!hidden) {
