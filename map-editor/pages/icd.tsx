@@ -97,7 +97,7 @@ function Code({ cat, parent_exclude }) {
     </div>
 }
 
-function Category({ cat_init, parent_exclude }) {
+function Category({ index, cat, parent_exclude, toggle_cat }) {
     
     // BUG: cat is being passed as cat_init to the
     // next level down, but then that is only being
@@ -119,13 +119,9 @@ function Category({ cat_init, parent_exclude }) {
     // next level for reading.
 
     // The category that this component represents
-    let [cat, setCat] = useState(cat_init);
+    //let [cat, setCat] = useState(cat_init);
 
-    const {included, enabled} = useMemo(
-    () => (
-	visible_status(cat, parent_exclude)
-    ), [cat, parent_exclude])
-    
+    const {included, enabled} = visible_status(cat, parent_exclude)    
     
     // BUG: The issue could be that included and enabled
     // are calculated after the state has been updated.
@@ -140,6 +136,70 @@ function Category({ cat_init, parent_exclude }) {
     // current level is enabled, meaning that none of the parents
     // are excluded.
     function handleChange() {
+	toggle_cat([index], included)
+    }
+
+    // Pass requests by subcomponents up to the top level.
+    // The indices argument represents the tail of the indices
+    // list, and included is passed from the subcomponent
+    // upwards
+    function toggle_cat_sub(indices, included) {
+	indices.push(index)
+	toggle_cat(indices, included)
+    }
+
+   
+    // BUG: the issue might be around here, because the top level
+    // structure in cat appears to be OK -- it's just the child
+    // components that are not rerendering, until a render is
+    // forced (e.g. by changing hidden).
+    //
+    // Problem occurs when the parent is deselected while this
+    // level is still ticked. If this level is unticked, and the
+    // parent is deselected, than all is well.
+    return <div className="category">
+        <div>{cat.category} -- {cat.docs}</div>
+        <Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled}/>
+        <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
+        <ol> {
+            cat.child.map((node,index) => {
+                if (!hidden) {
+                    if ("category" in node) {
+                        return <li><Category index={index} cat={node} parent_exclude={!included} toggle_cat={toggle_cat_sub} /></li>
+                    } else {
+                        return <li><Code cat={node} parent_exclude={!included}/></li>
+                    }
+                }
+            })
+        } </ol>
+    </div>
+}
+
+
+
+export default function Home() {
+
+    let [code_def, setCodeDef] = useState(0);
+
+    // Function to load the codes yaml file
+    function load_file() {
+        invoke('get_yaml')
+            .then(JSON.parse)
+            .then(setCodeDef)
+    }
+
+    // Function to save the codes yaml file
+    function save_file() {
+        invoke('save_yaml', {codeDef: code_def})
+	    .then(console.log("done"))
+    }
+    
+    // Function to get the list of groups
+    function get_groups() {
+        return code_def.groups
+    }
+
+    function toggle_cat(indices, included) {
 
 	// Check the current state of the checkbox
 	if (included) {
@@ -166,9 +226,7 @@ function Category({ cat_init, parent_exclude }) {
 	    
 	    // Set the new state
 	    setCat(cat_copy);
-	    
 	} else {
-
 	    // When the current component is excluded,
 	    // the user is wanting to enable this level
 	    // and set all the immediate subcategories
@@ -197,59 +255,9 @@ function Category({ cat_init, parent_exclude }) {
 	    
 	    // Set the new state
 	    setCat(cat_copy);
-	}	
-    }
-
-   
-    // BUG: the issue might be around here, because the top level
-    // structure in cat appears to be OK -- it's just the child
-    // components that are not rerendering, until a render is
-    // forced (e.g. by changing hidden).
-    //
-    // Problem occurs when the parent is deselected while this
-    // level is still ticked. If this level is unticked, and the
-    // parent is deselected, than all is well.
-    return <div className="category">
-        <div>{cat.category} -- {cat.docs}</div>
-        <Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled}/>
-        <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
-        <ol> {
-            cat.child.map((node) => {
-                if (!hidden) {
-                    if ("category" in node) {
-                        return <li><Category cat_init={node} parent_exclude={!included}/></li>
-                    } else {
-                        return <li><Code cat={node} parent_exclude={!included}/></li>
-                    }
-                }
-            })
-        } </ol>
-    </div>
-}
-
-export default function Home() {
-
-    let [code_def, setCodeDef] = useState(0);
-
-    // Function to load the codes yaml file
-    function load_file() {
-        invoke('get_yaml')
-            .then(JSON.parse)
-            .then(setCodeDef)
-    }
-
-    // Function to save the codes yaml file
-    function save_file() {
-        invoke('save_yaml', {codeDef: code_def})
-	    .then(console.log("done"))
+	}
     }
     
-    // Function to get the list of groups
-    function get_groups() {
-        return code_def.groups
-    }
-
-
     if (code_def == 0) {
         return <div>
             <Link href="/">Back</Link><br />
@@ -258,15 +266,14 @@ export default function Home() {
         </div>
     } else {
         return <div>
-            <Link href="/">Back</Link><br />
-	    <button onClick={save_file}>Save as</button>
-
-            <h1>ICD-10</h1>
-            <div>Groups: {get_groups()}</div>
-            <ol>
-                <li><Category cat_init={code_def.child[0]}
-			      parent_exclude={false} /></li>
-            </ol>
-        </div>
+        <Link href="/">Back</Link><br />
+	<button onClick={save_file}>Save as</button>
+	
+        <h1>ICD-10</h1>
+        <div>Groups: {get_groups()}</div>
+        <ol>
+        <li><Category index={0} cat={code_def.child[0]} parent_exclude={false} toggle_cat = {toggle_cat}/></li>
+        </ol>
+    </div>
     }
 }
