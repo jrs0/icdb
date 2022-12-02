@@ -145,8 +145,8 @@ function Category({ index, cat, parent_exclude, toggle_cat }) {
     // list, and included is passed from the subcomponent
     // upwards
     function toggle_cat_sub(indices, included) {
-	indices.push(index)
-	toggle_cat(indices, included)
+	let new_indices = [index].concat(indices)
+	toggle_cat(new_indices, included)
     }
 
    
