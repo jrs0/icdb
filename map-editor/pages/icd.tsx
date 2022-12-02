@@ -285,6 +285,25 @@ export default function Home() {
 		// adding exclude tags to ensure
 		// that only cat is selected
 		delete get_cat(code_def_copy, indices_copy).exclude
+
+		// Now walk back down the tree adding
+		// excludes for categories not on the
+		// path to cat
+		cat = code_def_copy
+		indices.forEach((n) => {
+
+		    // Add an exclude key to all the
+		    // subcategories which are not on the path
+		    cat.child = cat.child.map((subcat, index) => {
+			if (index != n) {
+			    subcat.exclude = true
+			}
+			return(subcat)
+		    })
+		    
+		    // Move down a level
+		    cat = cat.child[n]
+		})
 		
 		console.log("indices", indices)
 		console.log("indices_copy", indices_copy)
