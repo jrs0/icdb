@@ -100,28 +100,6 @@ function Code({ cat, parent_exclude }) {
 
 function Category({ index, cat, parent_exclude, toggle_cat }) {
     
-    // BUG: cat is being passed as cat_init to the
-    // next level down, but then that is only being
-    // used to initialise the state one level down.
-    // What we want is to inherit the structure of
-    // cat from the level above. Why does cat even
-    // need to be a state? The original issue was
-    // wanting to modify exclude tag in the cats
-    // themselves and have all the child components
-    // render as a result. Is the solution to
-    // set the new state from state init every
-    // time the component renders?
-    //
-    // The question is who reads and who writes
-    // to cat. Any reading from cat should be done
-    // from a prop passed in from a level above (a
-    // reference). However, writing to cat should
-    // modify a state that is passed down to the
-    // next level for reading.
-
-    // The category that this component represents
-    //let [cat, setCat] = useState(cat_init);
-
     const {included, enabled} = visible_status(cat, parent_exclude)    
     
     // BUG: The issue could be that included and enabled
@@ -149,15 +127,6 @@ function Category({ index, cat, parent_exclude, toggle_cat }) {
 	toggle_cat(new_indices, included)
     }
 
-   
-    // BUG: the issue might be around here, because the top level
-    // structure in cat appears to be OK -- it's just the child
-    // components that are not rerendering, until a render is
-    // forced (e.g. by changing hidden).
-    //
-    // Problem occurs when the parent is deselected while this
-    // level is still ticked. If this level is unticked, and the
-    // parent is deselected, than all is well.
     return <div className="category">
         <div>{cat.category} -- {cat.docs}</div>
         <Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled}/>
@@ -242,25 +211,8 @@ export default function Home() {
 	} else {
 	    // When the current component is excluded,
 	    // the user is wanting to enable this level
-	    // and set all the immediate subcategories
-	    // to disabled by default
-	    
-	    // Deep copy the state to use setCat without
-	    // problems
-	    // BUG: problem might be here -- only the
-	    // top level is deep copied, so when the
-	    // functions below modify cat_copy, they
-	    // are really modifying cat. If the top
-	    // level of cat is not changed, and only
-	    // the children are, then setCat below
-	    // will not trigger a render.
-
-	    // Clear all the nested exclude tags
-	    // and then enable the top level category,
-	    // but disable all the first-level
-	    // excludes in the subcategories.
+	    // and all sublevels	    
 	    cat = remove_all_excludes(cat)
-	    //cat = set_first_excludes(cat)
 
 	    console.log("Included ", cat.docs)
 	    console.log(cat)
