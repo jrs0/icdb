@@ -256,11 +256,11 @@ export default function Home() {
 	    // NOTE: Remember that this reasoning becomes
 	    // invalid if deselecting does not clear
 	    // all the subcategory exclude keys.
-	    if ("exclude" in cat) {
-		// This is case 1. Just remove this
-		// exclude, and all will be well
-		delete cat.exclude;
-	    } else {
+	    /* if ("exclude" in cat) {
+	       // This is case 1. Just remove this
+	       // exclude, and all will be well
+	       delete cat.exclude;
+	       } else { */
 		// There is exactly one exclude above
 		// this one. This exclude must be
 		// removed. In doing so, levels under
@@ -308,7 +308,7 @@ export default function Home() {
 		console.log("indices", indices)
 		console.log("indices_copy", indices_copy)
 
-	    }
+	//}
 	    
 	    
 	    //cat = remove_all_excludes(cat)
