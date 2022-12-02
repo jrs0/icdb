@@ -260,7 +260,7 @@ export default function Home() {
 	    // but disable all the first-level
 	    // excludes in the subcategories.
 	    cat = remove_all_excludes(cat)
-	    cat = set_first_excludes(cat)
+	    //cat = set_first_excludes(cat)
 
 	    console.log("Included ", cat.docs)
 	    console.log(cat)
