@@ -164,7 +164,11 @@ function Category({ index, cat, parent_exclude, toggle_cat }) {
 // category inside code_def is
 // returned, so this function
 // provides a way to modify code_def
-// at arbitrary depth.
+// at arbitrary depth. Note that you
+// can also use this function to get
+// a subcategory relative to any
+// (non-root) category, provided you
+// also pass the relative indices
 function get_cat(code_def, indices) {
     let cat = code_def;
     indices.forEach((n) => {cat = cat.child[n]})	
@@ -261,54 +265,63 @@ export default function Home() {
 	       // exclude, and all will be well
 	       delete cat.exclude;
 	       } else { */
-		// There is exactly one exclude above
-		// this one. This exclude must be
-		// removed. In doing so, levels under
-		// this exclude may be incorrectly
-		// included -- it is necessary to
-		// add excludes to all these level.
-		let indices_copy = indices.slice();
-		let cat_above = cat;
-		while (!("exclude" in cat_above)) {
-		    // Move to the category above
-		    indices_copy.pop()
-		    cat_above = get_cat(code_def_copy,
-					indices_copy)
-		    console.log("above:",cat_above)			    
-		}
 
-		// At this point, cat is the category
-		// if interest and cat_above is the
-		// first higher category that contains
-		// an exclude. Remove this exclude,
-		// and then traverse back downwards
-		// adding exclude tags to ensure
-		// that only cat is selected
-		delete get_cat(code_def_copy, indices_copy).exclude
+	    // There is exactly one exclude above
+	    // this one. This exclude must be
+	    // removed. In doing so, levels under
+	    // this exclude may be incorrectly
+	    // included -- it is necessary to
+	    // add excludes to all these level.
+	    let indices_above = indices.slice();
+	    let cat_above = cat;
+	    while (!("exclude" in cat_above)) {
+		// Move to the category above
+		indices_above.pop()
+		cat_above = get_cat(code_def_copy,
+				    indices_above)
+		console.log("above:", cat_above)			    
+	    }
 
-		// Now walk back down the tree adding
-		// excludes for categories not on the
-		// path to cat
-		cat = code_def_copy
-		indices.forEach((n) => {
+	    // At this point, cat is the category
+	    // if interest and cat_above is the
+	    // first higher category that contains
+	    // an exclude (which may be equal to cat).
+	    // Remove this exclude.
+	    delete get_cat(code_def_copy, indices_above).exclude
+	    
+	    // Now walk back down the tree from
+	    // cat above adding
+	    // excludes for categories not on the
+	    // path to cat, so as not to incorrectly
+	    // include any other categories. First,
+	    // get the indices of cat relative to
+	    // cat_above
+	    let rel_length = indices.length - indices_above.length
+	    let rel_indices = indices.slice(indices_above.length, rel_length);
+	    console.log("indices", indices)
+	    console.log("indices_above", indices_above)
+	    console.log("rel:", rel_indices)
 
-		    // Add an exclude key to all the
-		    // subcategories which are not on the path
-		    cat.child = cat.child.map((subcat, index) => {
-			if (index != n) {
-			    subcat.exclude = true
-			}
-			return(subcat)
-		    })
-		    
-		    // Move down a level
-		    cat = cat.child[n]
-		})
-		
-		console.log("indices", indices)
-		console.log("indices_copy", indices_copy)
+	    // Loop over all the subcategories between
+	    // cat_above and cat
+	    /* cat = cat_above
+	       rel_indices.forEach((n) => {
 
-	//}
+	       // Add an exclude key to all the
+	       // subcategories which are not on the path
+	       cat.child = cat.child.map((subcat, index) => {
+	       if (index != n) {
+	       subcat.exclude = true
+	       }
+	       return(subcat)
+	       })
+	       
+	       // Move down a level
+	       cat = cat.child[n]
+	       }) */
+	    
+
+	    //}
 	    
 	    
 	    //cat = remove_all_excludes(cat)
