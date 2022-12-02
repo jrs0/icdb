@@ -269,7 +269,7 @@ export default function Home() {
 		// add excludes to all these level.
 		let indices_copy = indices.slice();
 		let cat_above = cat;
-		while (!("exclude" in cat)) {
+		while (!("exclude" in cat_above)) {
 		    // Move to the category above
 		    indices_copy.pop()
 		    cat_above = get_cat(code_def_copy,
