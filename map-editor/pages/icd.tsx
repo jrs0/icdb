@@ -211,8 +211,8 @@ export default function Home() {
 	
 	// Extract the cat referred to by indices
 	let cat = code_def_copy.child[0];
-	for (let i = indices.length - 1; i != 0; i--) {
-	    cat = cat.child[i]
+	for (let n = indices.length - 1; n != 0; n--) {
+	    cat = cat.child[n]
 	}	
 	console.log(cat)
 
