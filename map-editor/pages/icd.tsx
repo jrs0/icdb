@@ -9,7 +9,7 @@ const CHECKBOX_STATES = {
     Empty: 'Empty',
 };
 
-function Checkbox({ label, checked, enabled, onChange }) {
+function Checkbox({ checked, enabled, onChange }) {
 
     const checkboxRef = useRef();
     useEffect(() => {
@@ -27,7 +27,6 @@ function Checkbox({ label, checked, enabled, onChange }) {
                 checked={checked}
                 onChange={onChange}
             />
-            {label}
         </label>
     );
 };
@@ -99,8 +98,15 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term }) {
     }
 
     return <div>
-        <div>{cat.code} -- {cat.docs}</div>
-        <Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled} />
+        <div>
+            <Checkbox onChange={handleChange}
+                checked={included}
+                enabled={enabled} />
+            <span onClick={() => setHidden(!hidden)}>
+                <span>{cat.code}</span>
+                <span>{cat.docs}</span>
+            </span>
+        </div>
     </div>
 }
 
@@ -132,9 +138,15 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
     let show = (search_term.trim().length != 0) || !hidden
 
     return <div className="category">
-        <div>{cat.category} -- {cat.docs}</div>
-        <Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled} />
-        <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
+        <div>
+            <Checkbox onChange={handleChange}
+                checked={included}
+                enabled={enabled} />
+            <span onClick={() => setHidden(!hidden)}>
+                <span>{cat.category}</span>
+                <span>{cat.docs}</span>
+            </span>
+        </div>
         <ol> {
             cat.child
                 .filter((node) => {
@@ -190,7 +202,7 @@ export default function Home() {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearch = event => {
-        setSearchTerm(event.target.value);
+        //setSearchTerm(event.target.value);
     };
 
     let [code_def, setCodeDef] = useState(0);
@@ -358,10 +370,10 @@ export default function Home() {
 
             <h1>ICD-10</h1>
             <div>Groups: {get_groups()}</div>
-            <div>
+            {/* <div>
                 <label htmlFor="search">Search: </label>
                 <input id="search" type="text" onChange={handleSearch} />
-            </div>
+		</div> */}
             <ol>
                 <li>
                     <Category index={0}
