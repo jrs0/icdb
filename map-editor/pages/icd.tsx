@@ -224,9 +224,40 @@ export default function Home() {
 	} else {
 	    // When the current component is excluded,
 	    // the user is wanting to enable this level
-	    // and all sublevels	    
-	    cat = remove_all_excludes(cat)
+	    // and all sublevels, and implicitly enable
+	    // higher levels on the path from this node
+	    // to the root of the tree.
 
+	    // If the current level is excluded, then
+	    // either it itself has an exclude key,
+	    // or there is an exclude key above it.
+	    // Either way, there are guaranteed to be
+	    // not excludes below it. In addition:
+	    //
+	    // 1) If there is an exclude here, then it
+	    //    implies that no levels above this
+	    //    are excluded (otherwise this level
+	    //    would not be excluded)
+	    // 2) If there is no exclude here, then
+	    //    there is exactly one exclude above it
+	    //    (two or more would contradict the
+	    //    reasoning above).
+	    if ("exclude" in cat) {
+		// This is case 1. Just remove this
+		// exclude, and all will be well
+		delete cat.exclude;
+	    } else {
+		// There is exactly one exclude above
+		// this one. 
+	    }
+	    
+	    
+	    //cat = remove_all_excludes(cat)
+
+	    // To enable higher levels, it is necessary to
+	    // remove any excludes "in the way" of
+	    // this category. 
+	    
 	    console.log("Included ", cat.docs)
 	    console.log(cat)
 	}
