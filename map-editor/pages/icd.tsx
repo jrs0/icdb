@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
+import { structuredClone } from '@ungap/structured-clone';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
@@ -201,6 +202,13 @@ export default function Home() {
 
     function toggle_cat(indices, included) {
 
+	let code_def_copy = structuredClone(code_def);
+	
+	console.log(indices, included);
+	console.log(cap_copy);
+	
+	return 0;
+	
 	// Check the current state of the checkbox
 	if (included) {
 	    // When the current component is included,
