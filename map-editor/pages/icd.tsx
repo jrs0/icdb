@@ -83,7 +83,7 @@ function set_first_excludes(cat) {
     return(cat)
 }
 
-function Code({ index, cat, parent_exclude, toggle_cat }) {
+function Code({ index, cat, parent_exclude, toggle_cat, search_term }) {
 
     const {included, enabled} = visible_status(cat, parent_exclude)    
     
@@ -105,12 +105,12 @@ function Code({ index, cat, parent_exclude, toggle_cat }) {
     </div>
 }
 
-function Category({ index, cat, parent_exclude, toggle_cat }) {
+function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
     
     const {included, enabled} = visible_status(cat, parent_exclude)    
     
     // Whether the children of this element are hidden
-    let [hidden, setHidden] = useState(true);
+    let [hidden, setHidden] = useState(false);
 
     // Take action when the user clicks the checkbox. Note that
     // this function cannot be called for a grayed out box,
@@ -135,21 +135,29 @@ function Category({ index, cat, parent_exclude, toggle_cat }) {
         <Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled}/>
         <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
         <ol> {
-            cat.child.map((node,index) => {
+            cat.child
+	       .filter((node) => {
+		   let in_title = node.category.includes(search_term);
+		   let in_docs = node.docs.includes(search_term);
+		   return in_title || in_docs;
+	       })
+	       .map((node,index) => {
                 if (!hidden) {
                     if ("category" in node) {
                         return <li>
 			    <Category index={index}
 				      cat={node}
 				      parent_exclude={!included}
-				      toggle_cat={toggle_cat_sub} />
+				      toggle_cat={toggle_cat_sub}
+				      search_term={search_term}/>
 			</li>
                     } else {
                         return <li>
 			    <Code index={index}
 				  cat={node}
 				  parent_exclude={!included}
-				  toggle_cat={toggle_cat_sub} />
+				  toggle_cat={toggle_cat_sub}
+				  search_term={search_term} />
 			</li>
                     }
                 }
@@ -177,6 +185,13 @@ function get_cat(code_def, indices) {
 
 export default function Home() {
 
+    // State of the search bar
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearch = event => {
+	setSearchTerm(event.target.value);
+    };
+    
     let [code_def, setCodeDef] = useState(0);
 
     // Function to load the codes yaml file
@@ -329,10 +344,6 @@ export default function Home() {
 	setCodeDef(code_def_copy)
     }
 
-    function handleSearch() {
-	console.log("search changed")
-    }
-    
     if (code_def == 0) {
         return <div>
             <Link href="/">Back</Link><br />
@@ -341,7 +352,7 @@ export default function Home() {
         </div>
     } else {
         return <div>
-            <Link href="/">Back</Link><br />
+	    <Link href="/">Back</Link><br />
 	    <button onClick={save_file}>Save as</button>
 	    
             <h1>ICD-10</h1>
@@ -355,7 +366,8 @@ export default function Home() {
 		    <Category index={0}
 			      cat={code_def.child[0]}
 			      parent_exclude={false}
-			      toggle_cat = {toggle_cat} />
+			      toggle_cat = {toggle_cat}
+			      search_term = {searchTerm} />
 		</li>
             </ol>
 	</div>
