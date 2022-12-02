@@ -158,7 +158,18 @@ function Category({ index, cat, parent_exclude, toggle_cat }) {
     </div>
 }
 
-
+// Get the category at nesting level
+// defined by indices from code_def
+// structure. A reference to a
+// category inside code_def is
+// returned, so this function
+// provides a way to modify code_def
+// at arbitrary depth.
+function get_cat(code_def, indices) {
+    let cat = code_def;
+    indices.forEach((n) => {cat = cat.child[n]})	
+    return cat;
+}
 
 export default function Home() {
 
@@ -196,8 +207,7 @@ export default function Home() {
 	// (note that cat is modified by reference,
 	// so changing the resulting cat will still
 	// change code_def_copy)
-	let cat = code_def_copy;
-	indices.forEach((n) => {cat = cat.child[n]})	
+	let cat = get_cat(code_def_copy, indices)
 	
 	console.log(cat)
 
@@ -248,7 +258,15 @@ export default function Home() {
 		delete cat.exclude;
 	    } else {
 		// There is exactly one exclude above
-		// this one. 
+		// this one. This exclude must be
+		// removed. In doing so, levels under
+		// this exclude may be incorrectly
+		// included -- it is necessary to
+		// add excludes to all these level.
+		indices.pop()
+		let cat_above = get_cat(code_def_copy,
+					indices)
+		console.log("above:",cat_above)	
 	    }
 	    
 	    
