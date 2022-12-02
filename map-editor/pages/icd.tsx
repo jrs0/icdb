@@ -138,8 +138,8 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
 
     let show = (search_term.trim().length != 0) || !hidden
 
-    return <div className="category">
-        <div>
+    return <div>
+        < div >
             <span onClick={() => setHidden(!hidden)}>
                 <span className={styles.cat_name}>{cat.category}</span>
                 <span>{cat.docs}</span>
@@ -147,7 +147,7 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
             <Checkbox onChange={handleChange}
                 checked={included}
                 enabled={enabled} />
-        </div>
+        </div >
         <ol className={styles.cat_list}> {
             cat.child
                 .filter((node) => {
@@ -177,7 +177,7 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
                     }
                 })
         } </ol>
-    </div>
+    </div >
 }
 
 // Get the category at nesting level

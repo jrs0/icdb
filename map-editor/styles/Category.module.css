@@ -1,12 +1,15 @@
 .cat_name {
     font-weight: bold;
-    padding: 1ex;
+    padding: 0.5em;
 }
     
 .cat_list {
     list-style-type: none;
+    padding-left: 1em;
+
 }
 
 .cat_row {
-    display: inline-block;
+    display: inline;
+    padding-bottom: 0.3em;
 }
