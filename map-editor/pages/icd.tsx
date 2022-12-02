@@ -211,10 +211,8 @@ export default function Home() {
 	console.log(code_def_copy)
 	// Extract the cat referred to by indices
 	let cat = code_def_copy;
-	for (let n = 0; n < indices.length; n++) {
-	    console.log("Accessing level", indices[n])
-	    cat = cat.child[indices[n]]
-	}	
+	indices.forEach((n) => {cat = cat.child[n]})	
+	
 	console.log(cat)
 
 	return 0;
