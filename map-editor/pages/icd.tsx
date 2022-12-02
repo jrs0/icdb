@@ -48,7 +48,7 @@ function visible_status(cat, parent_exclude)
 
     return {
 	included: included,
-	enabled: enabled
+	enabled: true//enabled
     }
 }
 
