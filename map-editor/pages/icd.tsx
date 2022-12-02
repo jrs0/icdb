@@ -110,7 +110,7 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
     const {included, enabled} = visible_status(cat, parent_exclude)    
     
     // Whether the children of this element are hidden
-    let [hidden, setHidden] = useState(false);
+    let [hidden, setHidden] = useState(true);
 
     // Take action when the user clicks the checkbox. Note that
     // this function cannot be called for a grayed out box,
@@ -136,11 +136,11 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
         <button onClick={() => setHidden(!hidden)}>Toggle Hidden</button>
         <ol> {
             cat.child
-	       .filter((node) => {
-		   //let in_title = node.category.includes(search_term);
-		   let in_docs = node.docs.includes(search_term);
-		   return in_docs;
-	       })
+	    /* .filter((node) => {
+	       //let in_title = node.category.includes(search_term);
+	       let in_docs = node.docs.includes(search_term);
+	       return in_docs;
+	       }) */
 	       .map((node,index) => {
                 if (!hidden) {
                     if ("category" in node) {
