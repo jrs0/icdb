@@ -236,14 +236,9 @@ export default function Home() {
 	    // Clear all the nested exclude tags
 	    // and then re-enable the current level
 	    // exclude flag
-	    cat_copy = remove_all_excludes(cat_copy)
-	    cat_copy.exclude = true;
+	    cat = remove_all_excludes(cat)
+	    cat.exclude = true;
 
-	    console.log("Excluded ", cat_copy.docs)
-	    console.log(cat_copy)
-	    
-	    // Set the new state
-	    setCat(cat_copy);
 	} else {
 	    // When the current component is excluded,
 	    // the user is wanting to enable this level
@@ -259,21 +254,20 @@ export default function Home() {
 	    // level of cat is not changed, and only
 	    // the children are, then setCat below
 	    // will not trigger a render.
-	    let cat_copy = Object.assign({}, cat)
 
 	    // Clear all the nested exclude tags
 	    // and then enable the top level category,
 	    // but disable all the first-level
 	    // excludes in the subcategories.
-	    cat_copy = remove_all_excludes(cat_copy)
-	    cat_copy = set_first_excludes(cat_copy)
+	    cat = remove_all_excludes(cat)
+	    cat = set_first_excludes(cat)
 
-	    console.log("Included ", cat_copy.docs)
-	    console.log(cat_copy)
-	    
-	    // Set the new state
-	    setCat(cat_copy);
+	    console.log("Included ", cat.docs)
+	    console.log(cat)
 	}
+
+	// Now save the new code_defs state
+	setCodeDef(code_def_copy)
     }
     
     if (code_def == 0) {
