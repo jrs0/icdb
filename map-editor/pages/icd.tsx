@@ -202,11 +202,19 @@ export default function Home() {
 
     function toggle_cat(indices, included) {
 
+	// Copy the codes definition structure
+	// to modify it. This may be a performance
+	// problem, but it can be optimised later.
 	let code_def_copy = structuredClone(code_def);
-	
+
+	// Extract the cat referred to by indices
+	let cat = code_def_copy;
+	for (let i = indices.length - 1; i != 0; i--) {
+	    cat = cat.child[i]
+	}	
 	console.log(indices, included);
-	console.log(code_def_copy);
-	
+	console.log(cat)
+
 	return 0;
 	
 	// Check the current state of the checkbox
