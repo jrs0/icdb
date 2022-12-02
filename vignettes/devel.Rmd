@@ -51,7 +51,7 @@ cargo tauri dev
 
 ```
 
-The installation of dependencies and first-time compilation may take a bit of time. When developing the map editor, you may need to add node dependencies. Do this by installing them using "npm install package-name" -- this will automatically update package.json, which will add the dependency to the project.
+The installation of dependencies and first-time compilation may take a bit of time. When developing the map editor, you may need to add node dependencies. Do this by installing them using "npm install package-name" -- this will automatically update package.json, which will add the dependency to the project. Running "npm uninstall package-name" will remove the package from node_modules and delete the dependency from package.json. 
 
 ### Todo list
 
