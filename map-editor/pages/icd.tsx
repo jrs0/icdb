@@ -138,9 +138,19 @@ function Category({ index, cat, parent_exclude, toggle_cat }) {
             cat.child.map((node,index) => {
                 if (!hidden) {
                     if ("category" in node) {
-                        return <li><Category index={index} cat={node} parent_exclude={!included} toggle_cat={toggle_cat_sub} /></li>
+                        return <li>
+			    <Category index={index}
+				      cat={node}
+				      parent_exclude={!included}
+				      toggle_cat={toggle_cat_sub} />
+			</li>
                     } else {
-                        return <li><Code index={index} cat={node} parent_exclude={!included} toggle_cat={toggle_cat_sub} /></li>
+                        return <li>
+			    <Code index={index}
+				  cat={node}
+				  parent_exclude={!included}
+				  toggle_cat={toggle_cat_sub} />
+			</li>
                     }
                 }
             })
@@ -233,14 +243,19 @@ export default function Home() {
         </div>
     } else {
         return <div>
-        <Link href="/">Back</Link><br />
-	<button onClick={save_file}>Save as</button>
+            <Link href="/">Back</Link><br />
+	    <button onClick={save_file}>Save as</button>
 	
-        <h1>ICD-10</h1>
-        <div>Groups: {get_groups()}</div>
-        <ol>
-        <li><Category index={0} cat={code_def.child[0]} parent_exclude={false} toggle_cat = {toggle_cat}/></li>
-        </ol>
-    </div>
+            <h1>ICD-10</h1>
+            <div>Groups: {get_groups()}</div>
+            <ol>
+		<li>
+		    <Category index={0}
+			      cat={code_def.child[0]}
+			      parent_exclude={false}
+			      toggle_cat = {toggle_cat} />
+		</li>
+            </ol>
+	</div>
     }
 }
