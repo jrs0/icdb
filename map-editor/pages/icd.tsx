@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
-//import { structuredClone } from '@ungap/structured-clone';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
+
+import styles from '../styles/Category.module.css'
 
 const CHECKBOX_STATES = {
     Checked: 'Checked',
@@ -99,13 +100,13 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term }) {
 
     return <div>
         <div>
+            <span onClick={() => setHidden(!hidden)}>
+                <span className={styles.cat_name}>{cat.code}</span>
+                <span>{cat.docs}</span>
+            </span>
             <Checkbox onChange={handleChange}
                 checked={included}
                 enabled={enabled} />
-            <span onClick={() => setHidden(!hidden)}>
-                <span>{cat.code}</span>
-                <span>{cat.docs}</span>
-            </span>
         </div>
     </div>
 }
@@ -139,15 +140,15 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
 
     return <div className="category">
         <div>
+            <span onClick={() => setHidden(!hidden)}>
+                <span className={styles.cat_name}>{cat.category}</span>
+                <span>{cat.docs}</span>
+            </span>
             <Checkbox onChange={handleChange}
                 checked={included}
                 enabled={enabled} />
-            <span onClick={() => setHidden(!hidden)}>
-                <span>{cat.category}</span>
-                <span>{cat.docs}</span>
-            </span>
         </div>
-        <ol> {
+        <ol className={styles.cat_list}> {
             cat.child
                 .filter((node) => {
                     //let in_title = node.category.includes(search_term);
@@ -374,7 +375,7 @@ export default function Home() {
                 <label htmlFor="search">Search: </label>
                 <input id="search" type="text" onChange={handleSearch} />
 		</div> */}
-            <ol>
+            <ol className={styles.cat_list}>
                 <li>
                     <Category index={0}
                         cat={code_def.child[0]}
