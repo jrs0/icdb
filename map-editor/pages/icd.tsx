@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { structuredClone } from '@ungap/structured-clone';
+//import { structuredClone } from '@ungap/structured-clone';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
@@ -205,7 +205,7 @@ export default function Home() {
 	let code_def_copy = structuredClone(code_def);
 	
 	console.log(indices, included);
-	console.log(cap_copy);
+	console.log(code_def_copy);
 	
 	return 0;
 	
