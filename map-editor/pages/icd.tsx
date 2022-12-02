@@ -207,12 +207,13 @@ export default function Home() {
 	// problem, but it can be optimised later.
 	let code_def_copy = structuredClone(code_def);
 
+	console.log(indices, included);
+	
 	// Extract the cat referred to by indices
-	let cat = code_def_copy;
+	let cat = code_def_copy.child[0];
 	for (let i = indices.length - 1; i != 0; i--) {
 	    cat = cat.child[i]
 	}	
-	console.log(indices, included);
 	console.log(cat)
 
 	return 0;
