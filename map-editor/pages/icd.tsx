@@ -260,18 +260,10 @@ export default function Home() {
 	    // NOTE: Remember that this reasoning becomes
 	    // invalid if deselecting does not clear
 	    // all the subcategory exclude keys.
-	    /* if ("exclude" in cat) {
-	       // This is case 1. Just remove this
-	       // exclude, and all will be well
-	       delete cat.exclude;
-	       } else { */
 
-	    // There is exactly one exclude above
-	    // this one. This exclude must be
-	    // removed. In doing so, levels under
-	    // this exclude may be incorrectly
-	    // included -- it is necessary to
-	    // add excludes to all these level.
+	    // Find the first category above which
+	    // has an exclude key (which may be this
+	    // category).
 	    let indices_above = indices.slice();
 	    let cat_above = cat;
 	    while (!("exclude" in cat_above)) {
@@ -336,6 +328,10 @@ export default function Home() {
 	// Now save the new code_defs state
 	setCodeDef(code_def_copy)
     }
+
+    function handleSearch() {
+	console.log("search changed")
+    }
     
     if (code_def == 0) {
         return <div>
@@ -347,9 +343,13 @@ export default function Home() {
         return <div>
             <Link href="/">Back</Link><br />
 	    <button onClick={save_file}>Save as</button>
-	
+	    
             <h1>ICD-10</h1>
             <div>Groups: {get_groups()}</div>
+	    <div>
+		<label htmlFor="search">Search: </label>
+		<input id="search" type="text" onChange={handleSearch} />
+	    </div>
             <ol>
 		<li>
 		    <Category index={0}
