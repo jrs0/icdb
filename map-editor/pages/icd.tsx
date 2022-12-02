@@ -276,6 +276,19 @@ export default function Home() {
 					indices_copy)
 		    console.log("above:",cat_above)			    
 		}
+
+		// At this point, cat is the category
+		// if interest and cat_above is the
+		// first higher category that contains
+		// an exclude. Remove this exclude,
+		// and then traverse back downwards
+		// adding exclude tags to ensure
+		// that only cat is selected
+		delete get_cat(code_def_copy, indices_copy).exclude
+		
+		console.log("indices", indices)
+		console.log("indices_copy", indices_copy)
+
 	    }
 	    
 	    
