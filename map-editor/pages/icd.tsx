@@ -208,11 +208,12 @@ export default function Home() {
 	let code_def_copy = structuredClone(code_def);
 
 	console.log(indices, included);
-	
+	console.log(code_def_copy)
 	// Extract the cat referred to by indices
 	let cat = code_def_copy.child[0];
-	for (let n = indices.length - 1; n != 0; n--) {
-	    cat = cat.child[n]
+	for (let n = indices.length - 1; n >= 0; n--) {
+	    console.log("Accessing level", indices[n])
+	    cat = cat.child[indices[n]]
 	}	
 	console.log(cat)
 
