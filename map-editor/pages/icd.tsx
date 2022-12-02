@@ -83,15 +83,22 @@ function set_first_excludes(cat) {
     return(cat)
 }
 
-function Code({ cat, parent_exclude }) {
+function Code({ index, cat, parent_exclude, toggle_cat }) {
 
-
-    function handleChange() {
-
-    };
-
-    let {included, enabled} = visible_status(cat, parent_exclude);
+    const {included, enabled} = visible_status(cat, parent_exclude)    
     
+    // Whether the children of this element are hidden
+    let [hidden, setHidden] = useState(true);
+
+    // Take action when the user clicks the checkbox. Note that
+    // this function cannot be called for a grayed out box,
+    // because it cannot change. This means you can assume the
+    // current level is enabled, meaning that none of the parents
+    // are excluded.
+    function handleChange() {
+	toggle_cat([index], included)
+    }
+
     return <div>
         <div>{cat.code} -- {cat.docs}</div>
 	<Checkbox label="Include" onChange={handleChange} checked={included} enabled={enabled} />
@@ -101,10 +108,6 @@ function Code({ cat, parent_exclude }) {
 function Category({ index, cat, parent_exclude, toggle_cat }) {
     
     const {included, enabled} = visible_status(cat, parent_exclude)    
-    
-    // BUG: The issue could be that included and enabled
-    // are calculated after the state has been updated.
-    // Perhaps they should be in a useEffect.
     
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
@@ -137,7 +140,7 @@ function Category({ index, cat, parent_exclude, toggle_cat }) {
                     if ("category" in node) {
                         return <li><Category index={index} cat={node} parent_exclude={!included} toggle_cat={toggle_cat_sub} /></li>
                     } else {
-                        return <li><Code cat={node} parent_exclude={!included}/></li>
+                        return <li><Code index={index} cat={node} parent_exclude={!included} toggle_cat={toggle_cat_sub} /></li>
                     }
                 }
             })
