@@ -113,7 +113,99 @@ etc.). In addition, ICDB will provide utilities for defining groups of
 codes which are of interest. This functionality will be extended to
 cover OPCS-4 codes, and other codes found in healthcare databases. This
 page describes how the ICD-10 code parsing process works.</p>
-  </main>
+<div class="section level2">
+<h2 id="icd-10-code-definitions-file">ICD-10 code definitions file<a class="anchor" aria-label="anchor" href="#icd-10-code-definitions-file"></a>
+</h2>
+<p>The basis of the ICD-10 code processing is the code definition file,
+which is a YAML (probably soon to be JSON) hierarchical format that
+reflects the structure of the ICD-10 chapters, categories and codes. The
+purpose of the file is to store the codes themselves, as well as
+associated documentation, and to provide a method for creating named
+groups of codes. These named groups are used to filter dataframes
+containing columns of ICD-10 codes.</p>
+<p>The groups are controlled by an optional exclude key in the YAML
+file, which contains a list of groups (string). If a group name is
+present in an exclude array, then none of the codes below that level are
+included in that group. If the group name is not present, then all of
+the codes below that level will be included in the group, unless some
+codes or categories are excluded by other exclude keys below this
+level.</p>
+</div>
+<div class="section level2">
+<h2 id="generating-icd-10-code-definition-files">Generating ICD-10 code definition files<a class="anchor" aria-label="anchor" href="#generating-icd-10-code-definition-files"></a>
+</h2>
+<p>The codes definition file is generated from R functions in the icd.R
+file by querying the WHO ICD API, and converting the resulting data to
+the correct YAML file format.</p>
+<div class="section level3">
+<h3 id="the-api">The API<a class="anchor" aria-label="anchor" href="#the-api"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="indexing-the-codes">Indexing the codes<a class="anchor" aria-label="anchor" href="#indexing-the-codes"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="the-icd10-object">The icd10 object<a class="anchor" aria-label="anchor" href="#the-icd10-object"></a>
+</h3>
+</div>
+</div>
+<div class="section level2">
+<h2 id="modifying-groups">Modifying groups<a class="anchor" aria-label="anchor" href="#modifying-groups"></a>
+</h2>
+<p>The mapping file can be edited using the map editor program. This is
+a Tauri app written using Next.js, which is essentially a React
+framework. The icd.tsx page contains the ICD-10 code editor. The
+hierarchical structure of the React components maps to the structure of
+the codes file, and codes and categories may be included by ticking and
+unticking boxes. The algorithms used to set the exclude tags are briefly
+outlined below. The mapping file is loaded into memory by opening the
+YAML file. Modifications take place in memory, and then a save-as step
+is used to save the modified configuration to either the same file or a
+different file.</p>
+<div class="section level3">
+<h3 id="deselecting-a-category-or-code">Deselecting a category or code<a class="anchor" aria-label="anchor" href="#deselecting-a-category-or-code"></a>
+</h3>
+<p>When a box is ticked, meaning a category is included, and the user
+clicks the box, the following steps happen:</p>
+<ol style="list-style-type: decimal">
+<li>All exclude keys in the subcomponent levels are removed, to fix the
+subtree in a definite state</li>
+<li>A single exclude key is added to the level that is being deselected
+(the item the user unticked)</li>
+</ol>
+<p>This leaves the configuration in a state where unticked boxes are
+guaranteed to have no exclude tags beneath them.</p>
+</div>
+<div class="section level3">
+<h3 id="selecting-a-category-or-codes">Selecting a category or codes<a class="anchor" aria-label="anchor" href="#selecting-a-category-or-codes"></a>
+</h3>
+<p>Selecting a category for inclusion (i.e. checking a previously
+unchecked box) requires all the exclude keys above the category to be
+modified, to ensure that there are no exclude keys “in the way” of the
+current level. The algorithm required to make this modification is
+written below. In the following explanation, the unique path from the
+current level (the leaf) to the root of the tree will be referred to as
+“the path”.</p>
+<ol style="list-style-type: decimal">
+<li>Traverse the path towards the root node. At each level, if there is
+no exclude key, move to the next higher level. If there is an exclude
+key, then remove this exclude key and move to step 2.</li>
+<li>This step is to ensure that no categories were incorrectly included
+as a result of removing the higher-level exclude. In the level below the
+new exclude, write exclude keys at all nodes not on the path. Then move
+to the next node down on the path, and repeat the step (adding excludes
+for all nodes not on the path). Terminate when you reach the leaf, and
+move to step 3.</li>
+<li>The presence of the exclude key removed in step 1 implies that all
+levels above have structure that must be preserved (i.e. the levels
+above are included). This is because excluded categories are guaranteed
+to have no exclude tags beneath them. As a result, stop.</li>
+</ol>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
