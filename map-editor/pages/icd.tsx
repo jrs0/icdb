@@ -305,7 +305,7 @@ export default function Home() {
             // and then re-enable the current level
             // exclude flag
             cat = remove_all_excludes(cat, group)
-            include_group(cat, group)
+            exclude_group(cat, group)
 
         } else {
             // When the current component is excluded,
