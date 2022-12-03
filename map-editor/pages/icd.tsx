@@ -39,7 +39,7 @@ function visible_status(cat, group, parent_exclude) {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
     // the parent is excluded
-    let exclude_tag = ("exclude" in cat) && (group in cat.exclude);
+    let exclude_tag = ("exclude" in cat) && cat.exclude.includes(group);
     let included = !exclude_tag && !parent_exclude
 
     // Checkbox is enabled if the parent is not excluded
