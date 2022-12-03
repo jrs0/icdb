@@ -260,7 +260,7 @@ export default function Home() {
                 // Set the default group
                 // BUG: assumes at least
                 // one group is present
-                setGroup(get_groups()[0])
+                setGroup(code_def.groups[0])
             })
     }
 
