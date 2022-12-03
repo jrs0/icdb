@@ -259,6 +259,8 @@ export default function Home() {
     }
 
     // State for the current group
+    // BUG: not starting with the correct
+    // group
     const [group, setGroup] = useState(get_groups[0]);
 
     const handleGroupChange = event => {
