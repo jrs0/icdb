@@ -9,18 +9,14 @@ child:
         child:
         - code: A00.0
           docs: Cholera due to Vibrio cholerae 01, biovar cholerae
-          exclude: true
           index: A000
         - code: A00.1
           docs: Cholera due to Vibrio cholerae 01, biovar eltor
-          exclude: true
           index: A001
         - code: A00.9
           docs: Cholera, unspecified
-          exclude: true
           index: A009
         docs: Cholera
-        exclude: true
         index: A00
       - category: A01
         child:
@@ -40,7 +36,6 @@ child:
           docs: Paratyphoid fever, unspecified
           index: A014
         docs: Typhoid and paratyphoid fevers
-        exclude: true
         index: A01
       - category: A02
         child:
@@ -60,7 +55,6 @@ child:
           docs: Salmonella infection, unspecified
           index: A029
         docs: Other salmonella infections
-        exclude: true
         index: A02
       - category: A03
         child:
@@ -83,7 +77,6 @@ child:
           docs: Shigellosis, unspecified
           index: A039
         docs: Shigellosis
-        exclude: true
         index: A03
       - category: A04
         child:
@@ -118,7 +111,6 @@ child:
           docs: Bacterial intestinal infection, unspecified
           index: A049
         docs: Other bacterial intestinal infections
-        exclude: true
         index: A04
       - category: A05
         child:
@@ -144,7 +136,6 @@ child:
           docs: Bacterial foodborne intoxication, unspecified
           index: A059
         docs: Other bacterial foodborne intoxications, not elsewhere classified
-        exclude: true
         index: A05
       - category: A06
         child:
@@ -179,7 +170,6 @@ child:
           docs: Amoebiasis, unspecified
           index: A069
         docs: Amoebiasis
-        exclude: true
         index: A06
       - category: A07
         child:
@@ -202,7 +192,6 @@ child:
           docs: Protozoal intestinal disease, unspecified
           index: A079
         docs: Other protozoal intestinal diseases
-        exclude: true
         index: A07
       - category: A08
         child:
@@ -225,7 +214,6 @@ child:
           docs: Other specified intestinal infections
           index: A085
         docs: Viral and other specified intestinal infections
-        exclude: true
         index: A08
       - category: A09
         child:
@@ -236,10 +224,8 @@ child:
           docs: Gastroenteritis and colitis of unspecified origin
           index: A099
         docs: Other gastroenteritis and colitis of infectious and unspecified origin
-        exclude: true
         index: A09
       docs: Intestinal infectious diseases
-      exclude: true
       index:
       - A00
       - A09
@@ -3037,6 +3023,7 @@ child:
       - B99
       - B99
     docs: Certain infectious and parasitic diseases
+    exclude: true
     index:
     - A00
     - B99
@@ -5900,6 +5887,7 @@ child:
       - D37
       - D48
     docs: Neoplasms
+    exclude: true
     index:
     - C00
     - D48
@@ -6545,6 +6533,7 @@ child:
       - D80
       - D89
     docs: Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
+    exclude: true
     index:
     - D50
     - D89
@@ -7891,6 +7880,7 @@ child:
       - E70
       - E90
     docs: Endocrine, nutritional and metabolic diseases
+    exclude: true
     index:
     - E00
     - E90
@@ -10919,6 +10909,7 @@ child:
       - F99
       - F99
     docs: Mental and behavioural disorders
+    exclude: true
     index:
     - F00
     - F99
@@ -12216,6 +12207,7 @@ child:
       - G90
       - G99
     docs: Diseases of the nervous system
+    exclude: true
     index:
     - G00
     - G99
@@ -13254,6 +13246,7 @@ child:
       - H55
       - H59
     docs: Diseases of the eye and adnexa
+    exclude: true
     index:
     - H00
     - H59
@@ -13711,6 +13704,7 @@ child:
       - H90
       - H95
     docs: Diseases of the ear and mastoid process
+    exclude: true
     index:
     - H60
     - H95
@@ -14659,6 +14653,7 @@ child:
       - J95
       - J99
     docs: Diseases of the respiratory system
+    exclude: true
     index:
     - J00
     - J99
@@ -16302,6 +16297,7 @@ child:
       - K90
       - K93
     docs: Diseases of the digestive system
+    exclude: true
     index:
     - K00
     - K93
@@ -17614,6 +17610,7 @@ child:
       - L80
       - L99
     docs: Diseases of the skin and subcutaneous tissue
+    exclude: true
     index:
     - L00
     - L99
@@ -19681,6 +19678,7 @@ child:
       - M95
       - M99
     docs: Diseases of the musculoskeletal system and connective tissue
+    exclude: true
     index:
     - M00
     - M99
@@ -21335,6 +21333,7 @@ child:
       - N99
       - N99
     docs: Diseases of the genitourinary system
+    exclude: true
     index:
     - N00
     - N99
@@ -26035,6 +26034,7 @@ child:
       - T90
       - T98
     docs: Injury, poisoning and certain other consequences of external causes
+    exclude: true
     index:
     - S00
     - T98
@@ -27659,6 +27659,7 @@ child:
       - O94
       - O99
     docs: Pregnancy, childbirth and the puerperium
+    exclude: true
     index:
     - O00
     - O99
@@ -28940,6 +28941,7 @@ child:
       - P90
       - P96
     docs: Certain conditions originating in the perinatal period
+    exclude: true
     index:
     - P00
     - P96
@@ -31213,6 +31215,7 @@ child:
       - Q90
       - Q99
     docs: Congenital malformations, deformations and chromosomal abnormalities
+    exclude: true
     index:
     - Q00
     - Q99
@@ -32549,6 +32552,7 @@ child:
       - R95
       - R99
     docs: Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified
+    exclude: true
     index:
     - R00
     - R99
@@ -37501,6 +37505,7 @@ child:
       - Y90
       - Y98
     docs: External causes of morbidity and mortality
+    exclude: true
     index:
     - V01
     - Y98
@@ -39767,6 +39772,7 @@ child:
       - Z80
       - Z99
     docs: Factors influencing health status and contact with health services
+    exclude: true
     index:
     - Z00
     - Z99
@@ -39929,6 +39935,7 @@ child:
       - U82
       - U85
     docs: Codes for special purposes
+    exclude: true
     index:
     - U00
     - U85
@@ -39936,4 +39943,5 @@ child:
   index:
   - A00
   - Z99
-groups: []
+groups:
+- acs
