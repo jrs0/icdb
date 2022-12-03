@@ -1,4 +1,4 @@
-groups: [acs]
+groups: [acs, bleeding]
 child:
 - category: ICD-10
   docs: ICD-10 codes, 2016 release
@@ -10,7 +10,7 @@ child:
       docs: Intestinal infectious diseases
       child:
       - category: A00
-        exclude: true
+        exclude: [acs]
         docs: Cholera
         child:
         - code: A00.0
@@ -3074,7 +3074,7 @@ child:
     - A00
     - B99
   - category: II
-    exclude: true
+    exclude: [acs]
     docs: Neoplasms
     child:
     - category: C00-C97

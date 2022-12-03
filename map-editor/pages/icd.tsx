@@ -370,7 +370,11 @@ export default function Home() {
             <button onClick={save_file}>Save as</button>
 
             <h1>ICD-10</h1>
-            <div>Groups: {get_groups()}</div>
+            <div>
+                Groups: <select>
+                    {get_groups().map((grp) => (<option>{grp}</option>))}
+                </select>
+            </div>
             {/* <div>
                 <label htmlFor="search">Search: </label>
                 <input id="search" type="text" onChange={handleSearch} />
