@@ -35,11 +35,11 @@ function Checkbox({ checked, enabled, onChange }) {
 // Establish whether the component should be included
 // (i.e. ticked) and whether it should be enabled
 // (grayed out or not)
-function visible_status(cat, parent_exclude) {
+function visible_status(cat, group, parent_exclude) {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
     // the parent is excluded
-    let exclude_tag = ("exclude" in cat) && (cat.exclude == true);
+    let exclude_tag = ("exclude" in cat) && (group in cat.exclude);
     let included = !exclude_tag && !parent_exclude
 
     // Checkbox is enabled if the parent is not excluded
@@ -82,9 +82,9 @@ function set_first_excludes(cat) {
     return (cat)
 }
 
-function Code({ index, cat, parent_exclude, toggle_cat, search_term }) {
+function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
-    const { included, enabled } = visible_status(cat, parent_exclude)
+    const { included, enabled } = visible_status(cat, group, parent_exclude)
 
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
@@ -111,9 +111,9 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term }) {
     </div>
 }
 
-function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
+function Category({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
-    const { included, enabled } = visible_status(cat, parent_exclude)
+    const { included, enabled } = visible_status(cat, group, parent_exclude)
 
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
@@ -163,7 +163,8 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
                                     cat={node}
                                     parent_exclude={!included}
                                     toggle_cat={toggle_cat_sub}
-                                    search_term={search_term} />
+                                    search_term={search_term}
+                                    group={group} />
                             </li>
                         } else {
                             return <li>
@@ -171,7 +172,8 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
                                     cat={node}
                                     parent_exclude={!included}
                                     toggle_cat={toggle_cat_sub}
-                                    search_term={search_term} />
+                                    search_term={search_term}
+                                    group={group} />
                             </li>
                         }
                     }
@@ -205,7 +207,6 @@ export default function Home() {
     const handleSearch = event => {
         //setSearchTerm(event.target.value);
     };
-
 
     let [code_def, setCodeDef] = useState(0);
 
@@ -395,7 +396,8 @@ export default function Home() {
                         cat={code_def.child[0]}
                         parent_exclude={false}
                         toggle_cat={toggle_cat}
-                        search_term={searchTerm} />
+                        search_term={searchTerm}
+                        group={group} />
                 </li>
             </ol>
         </div >
