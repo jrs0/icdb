@@ -13,12 +13,6 @@ const CHECKBOX_STATES = {
 function Checkbox({ checked, enabled, onChange }) {
 
     const checkboxRef = useRef();
-    useEffect(() => {
-
-        // Set whether the element is disabled (grayed out)
-        checkboxRef.current.disabled = !enabled
-
-    }, [enabled]);
 
     return (
         <label>
@@ -240,13 +234,6 @@ export default function Home() {
 
     let [code_def, setCodeDef] = useState(0);
 
-    // Function to load the codes yaml file
-    function load_file() {
-        invoke('get_yaml')
-            .then(JSON.parse)
-            .then(setCodeDef)
-    }
-
     // Function to save the codes yaml file
     function save_file() {
         invoke('save_yaml', { codeDef: code_def })
@@ -260,8 +247,22 @@ export default function Home() {
 
     // State for the current group
     // BUG: not starting with the correct
-    // group
-    const [group, setGroup] = useState(get_groups[0]);
+    // group, because it needs to be set
+    // when the file is loaded.
+    const [group, setGroup] = useState("");
+
+    // Function to load the codes yaml file
+    function load_file() {
+        invoke('get_yaml')
+            .then(JSON.parse)
+            .then(setCodeDef)
+            .then(() => {
+                // Set the default group
+                // BUG: assumes at least
+                // one group is present
+                setGroup(get_groups()[0])
+            })
+    }
 
     const handleGroupChange = event => {
         //console.log(event.target.value)
