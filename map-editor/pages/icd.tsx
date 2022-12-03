@@ -100,13 +100,13 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term }) {
 
     return <div>
         <div>
+            <Checkbox onChange={handleChange}
+                checked={included}
+                enabled={enabled} />
             <span onClick={() => setHidden(!hidden)}>
                 <span className={styles.cat_name}>{cat.code}</span>
                 <span>{cat.docs}</span>
             </span>
-            <Checkbox onChange={handleChange}
-                checked={included}
-                enabled={enabled} />
         </div>
     </div>
 }
@@ -139,15 +139,15 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
     let show = (search_term.trim().length != 0) || !hidden
 
     return <div>
-        < div >
+        <div>
+            <Checkbox onChange={handleChange}
+                checked={included}
+                enabled={enabled} />
             <span onClick={() => setHidden(!hidden)}>
                 <span className={styles.cat_name}>{cat.category}</span>
                 <span>{cat.docs}</span>
             </span>
-            <Checkbox onChange={handleChange}
-                checked={included}
-                enabled={enabled} />
-        </div >
+        </div>
         <ol className={styles.cat_list}> {
             cat.child
                 .filter((node) => {
