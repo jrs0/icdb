@@ -51,18 +51,45 @@ function visible_status(cat, group, parent_exclude) {
     }
 }
 
+// Remove a group from the list of
+// excludes in cat (modifies cat by
+// reference). Think of this function
+// as "unexclude_group".
+function include_group(cat, group) {
+    if ("exclude" in cat) {
+        const index = cat.exclude.indexOf(group);
+        if (index > -1) {
+            cat.exclude.splice(index, 1);
+        }
+    }
+}
+
+
+// Add a group to the list of excludes
+// in cat, creating the exclude key
+// if nececessary (cat is modified
+// by reference)
+function exclude_group(cat, group) {
+    if ("exclude" in cat) {
+        cat.exclude.push(group)
+    } else {
+        cat.exclude = [group]
+    }
+}
+
+
 // Remove all the exclude tags in all
 // sublevels of cat and return the result
-function remove_all_excludes(cat) {
+function remove_all_excludes(cat, group) {
 
-    // Remove the exclude key from this
-    // level
-    delete cat.exclude;
+    // Remove the group from the exclude
+    // list at this level
+    include_group(cat, group)
 
     if ("child" in cat) {
         // Loop over all the subcategories
         // remove the exclude
-        cat.child = cat.child.map(remove_all_excludes)
+        cat.child = cat.child.map(remove_all_excludes, group)
     }
 
     // Return the modified category
@@ -72,10 +99,13 @@ function remove_all_excludes(cat) {
 // Set the top-level excludes for the
 // subcategories in the current category,
 // and return the modified object
-function set_first_excludes(cat) {
+function set_first_excludes(cat, group) {
     if ("child" in cat) {
         cat.child = cat.child.map((subcat) => {
-            subcat.exclude = true
+            // Add the group to the excludes key,
+            // or create a new excludes list if
+            // necessary
+            exclude_group(cat, group)
             return (subcat)
         })
     }
@@ -271,8 +301,8 @@ export default function Home() {
             // Clear all the nested exclude tags
             // and then re-enable the current level
             // exclude flag
-            cat = remove_all_excludes(cat)
-            cat.exclude = true;
+            cat = remove_all_excludes(cat, group)
+            include_group(cat, group)
 
         } else {
             // When the current component is excluded,
@@ -341,7 +371,7 @@ export default function Home() {
                 // subcategories which are not on the path
                 cat.child = cat.child.map((subcat, index) => {
                     if (index != n) {
-                        subcat.exclude = true
+                        exclude_group(subcat, group)
                     }
                     return (subcat)
                 })
