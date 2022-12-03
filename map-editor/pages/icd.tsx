@@ -206,6 +206,7 @@ export default function Home() {
         //setSearchTerm(event.target.value);
     };
 
+
     let [code_def, setCodeDef] = useState(0);
 
     // Function to load the codes yaml file
@@ -225,6 +226,14 @@ export default function Home() {
     function get_groups() {
         return code_def.groups
     }
+
+    // State for the current group
+    const [group, setGroup] = useState(get_groups[0]);
+
+    const handleGroupChange = event => {
+        //console.log(event.target.value)
+        setGroup(event.target.value);
+    };
 
     function toggle_cat(indices, included) {
 
@@ -368,16 +377,17 @@ export default function Home() {
         return <div>
             <Link href="/">Back</Link><br />
             <button onClick={save_file}>Save as</button>
-
             <h1>ICD-10</h1>
             <div>
-                Groups: <select>
-                    {get_groups().map((grp) => (<option>{grp}</option>))}
-                </select>
+                Groups: <select onChange={handleGroupChange}> {
+                    get_groups().map((grp) => (
+                        <option>{grp}</option>
+                    ))
+                } </select>
             </div>
             {/* <div>
-                <label htmlFor="search">Search: </label>
-                <input id="search" type="text" onChange={handleSearch} />
+		<label htmlFor="search">Search: </label>
+		<input id="search" type="text" onChange={handleSearch} />
 		</div> */}
             <ol className={styles.cat_list}>
                 <li>
@@ -388,6 +398,6 @@ export default function Home() {
                         search_term={searchTerm} />
                 </li>
             </ol>
-        </div>
+        </div >
     }
 }
