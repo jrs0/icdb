@@ -367,7 +367,7 @@ export default function Home() {
                 // Move to the category above
                 indices_above.pop()
                 cat_above = get_cat(code_def_copy,
-                    indices_above)
+				    indices_above)
             }
 
             // At this point, cat is the category
@@ -376,8 +376,10 @@ export default function Home() {
             // an exclude (which may be equal to cat).
             // Remove this exclude.
 	    // BUG: this should be the include function
-            delete get_cat(code_def_copy, indices_above).exclude
-
+            //delete get_cat(code_def_copy, indices_above).exclude
+	    include_group(get_cat(code_def_copy, indices_above),
+			  group)
+	    
             // Now walk back down the tree from
             // cat above adding
             // excludes for categories not on the
