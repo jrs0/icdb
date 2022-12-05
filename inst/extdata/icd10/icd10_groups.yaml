@@ -3024,7 +3024,6 @@ child:
       - B99
     docs: Certain infectious and parasitic diseases
     exclude:
-    - bleeding
     - acs
     index:
     - A00
@@ -5890,7 +5889,6 @@ child:
       - D48
     docs: Neoplasms
     exclude:
-    - bleeding
     - acs
     index:
     - C00
@@ -6538,7 +6536,6 @@ child:
       - D89
     docs: Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
     exclude:
-    - bleeding
     - acs
     index:
     - D50
@@ -7887,7 +7884,6 @@ child:
       - E90
     docs: Endocrine, nutritional and metabolic diseases
     exclude:
-    - bleeding
     - acs
     index:
     - E00
@@ -9414,8 +9410,6 @@ child:
       - I95
       - I99
     docs: Diseases of the circulatory system
-    exclude:
-    - bleeding
     index:
     - I00
     - I99
@@ -9562,8 +9556,6 @@ child:
         docs: Unspecified organic or symptomatic mental disorder
         index: F09
       docs: Organic, including symptomatic, mental disorders
-      exclude:
-      - bleeding
       index:
       - F00
       - F09
@@ -9910,8 +9902,6 @@ child:
         docs: Mental and behavioural disorders due to multiple drug use and use of other psychoactive substances
         index: F19
       docs: Mental and behavioural disorders due to psychoactive substance use
-      exclude:
-      - bleeding
       index:
       - F10
       - F19
@@ -10153,8 +10143,6 @@ child:
         docs: Unspecified mood [affective] disorder
         index: F39
       docs: Mood [affective] disorders
-      exclude:
-      - bleeding
       index:
       - F30
       - F39
@@ -10436,8 +10424,6 @@ child:
         docs: Unspecified behavioural syndromes associated with physiological disturbances and physical factors
         index: F59
       docs: Behavioural syndromes associated with physiological disturbances and physical factors
-      exclude:
-      - bleeding
       index:
       - F50
       - F59
@@ -10706,8 +10692,6 @@ child:
         docs: Unspecified mental retardation
         index: F79
       docs: Mental retardation
-      exclude:
-      - bleeding
       index:
       - F70
       - F79
@@ -10798,8 +10782,6 @@ child:
         docs: Unspecified disorder of psychological development
         index: F89
       docs: Disorders of psychological development
-      exclude:
-      - bleeding
       index:
       - F80
       - F89
@@ -10948,8 +10930,6 @@ child:
         docs: Other behavioural and emotional disorders with onset usually occurring in childhood and adolescence
         index: F98
       docs: Behavioural and emotional disorders with onset usually occurring in childhood and adolescence
-      exclude:
-      - bleeding
       index:
       - F90
       - F98
@@ -10959,8 +10939,6 @@ child:
         docs: Mental disorder, not otherwise specified
         index: F99
       docs: Unspecified mental disorder
-      exclude:
-      - bleeding
       index:
       - F99
       - F99
@@ -12265,7 +12243,6 @@ child:
       - G99
     docs: Diseases of the nervous system
     exclude:
-    - bleeding
     - acs
     index:
     - G00
@@ -13306,7 +13283,6 @@ child:
       - H59
     docs: Diseases of the eye and adnexa
     exclude:
-    - bleeding
     - acs
     index:
     - H00
@@ -13766,7 +13742,6 @@ child:
       - H95
     docs: Diseases of the ear and mastoid process
     exclude:
-    - bleeding
     - acs
     index:
     - H60
@@ -14717,7 +14692,6 @@ child:
       - J99
     docs: Diseases of the respiratory system
     exclude:
-    - bleeding
     - acs
     index:
     - J00
@@ -16363,7 +16337,6 @@ child:
       - K93
     docs: Diseases of the digestive system
     exclude:
-    - bleeding
     - acs
     index:
     - K00
@@ -17678,7 +17651,6 @@ child:
       - L99
     docs: Diseases of the skin and subcutaneous tissue
     exclude:
-    - bleeding
     - acs
     index:
     - L00
@@ -18328,8 +18300,6 @@ child:
         - M20
         - M25
       docs: Arthropathies
-      exclude:
-      - bleeding
       index:
       - M00
       - M25
@@ -18496,8 +18466,6 @@ child:
         docs: Systemic disorders of connective tissue in diseases classified elsewhere
         index: M36
       docs: Systemic connective tissue disorders
-      exclude:
-      - bleeding
       index:
       - M30
       - M36
@@ -18819,8 +18787,6 @@ child:
         - M50
         - M54
       docs: Dorsopathies
-      exclude:
-      - bleeding
       index:
       - M40
       - M54
@@ -19245,8 +19211,6 @@ child:
         - M70
         - M79
       docs: Soft tissue disorders
-      exclude:
-      - bleeding
       index:
       - M60
       - M79
@@ -19652,8 +19616,6 @@ child:
         - M91
         - M94
       docs: Osteopathies and chondropathies
-      exclude:
-      - bleeding
       index:
       - M80
       - M94
@@ -19753,8 +19715,6 @@ child:
         docs: Biomechanical lesions, not elsewhere classified
         index: M99
       docs: Other disorders of the musculoskeletal system and connective tissue
-      exclude:
-      - bleeding
       index:
       - M95
       - M99
@@ -21416,7 +21376,6 @@ child:
       - N99
     docs: Diseases of the genitourinary system
     exclude:
-    - bleeding
     - acs
     index:
     - N00
@@ -26119,7 +26078,6 @@ child:
       - T98
     docs: Injury, poisoning and certain other consequences of external causes
     exclude:
-    - bleeding
     - acs
     index:
     - S00
@@ -27746,7 +27704,6 @@ child:
       - O99
     docs: Pregnancy, childbirth and the puerperium
     exclude:
-    - bleeding
     - acs
     index:
     - O00
@@ -29030,7 +28987,6 @@ child:
       - P96
     docs: Certain conditions originating in the perinatal period
     exclude:
-    - bleeding
     - acs
     index:
     - P00
@@ -31306,7 +31262,6 @@ child:
       - Q99
     docs: Congenital malformations, deformations and chromosomal abnormalities
     exclude:
-    - bleeding
     - acs
     index:
     - Q00
@@ -32645,7 +32600,6 @@ child:
       - R99
     docs: Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified
     exclude:
-    - bleeding
     - acs
     index:
     - R00
@@ -37600,7 +37554,6 @@ child:
       - Y98
     docs: External causes of morbidity and mortality
     exclude:
-    - bleeding
     - acs
     index:
     - V01
@@ -39869,7 +39822,6 @@ child:
       - Z99
     docs: Factors influencing health status and contact with health services
     exclude:
-    - bleeding
     - acs
     index:
     - Z00
@@ -40034,12 +39986,13 @@ child:
       - U85
     docs: Codes for special purposes
     exclude:
-    - bleeding
     - acs
     index:
     - U00
     - U85
   docs: ICD-10 codes, 2016 release
+  exclude:
+  - bleeding
   index:
   - A00
   - Z99
