@@ -149,7 +149,8 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
 // BUG: not selecting properly also happens at this level. bug occurs after
 // deselecting at the top level, and then attempting to select at a lower level.
-// Subsequent clearing then fails to remove the exclude  keys.
+// Subsequent clearing then fails to remove the exclude  keys. Also seems to
+// have something to do with when a category is expanded for the first time.
 function Category({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
     const { included, enabled } = visible_status(cat, group, parent_exclude)
@@ -329,6 +330,8 @@ export default function Home() {
             cat = remove_all_excludes(cat, group)
             exclude_group(cat, group)
 
+	    console.log("Included, now ", cat)
+
         } else {
             // When the current component is excluded,
             // the user is wanting to enable this level
@@ -368,10 +371,11 @@ export default function Home() {
             }
 
             // At this point, cat is the category
-            // if interest and cat_above is the
+            // of interest and cat_above is the
             // first higher category that contains
             // an exclude (which may be equal to cat).
             // Remove this exclude.
+	    // BUG: this should be the include function
             delete get_cat(code_def_copy, indices_above).exclude
 
             // Now walk back down the tree from
@@ -400,6 +404,8 @@ export default function Home() {
                 // Move down a level
                 cat = cat.child[n]
             })
+
+	    console.log("Included, now ", cat)
         }
 
         // Now save the new code_defs state
