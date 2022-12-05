@@ -13,12 +13,6 @@ const CHECKBOX_STATES = {
 function Checkbox({ checked, enabled, onChange }) {
 
     const checkboxRef = useRef();
-    useEffect(() => {
-
-        // Set whether the element is disabled (grayed out)
-        checkboxRef.current.disabled = !enabled
-
-    }, [enabled]);
 
     return (
         <label>
@@ -35,11 +29,11 @@ function Checkbox({ checked, enabled, onChange }) {
 // Establish whether the component should be included
 // (i.e. ticked) and whether it should be enabled
 // (grayed out or not)
-function visible_status(cat, parent_exclude) {
+function visible_status(cat, group, parent_exclude) {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
     // the parent is excluded
-    let exclude_tag = ("exclude" in cat) && (cat.exclude == true);
+    let exclude_tag = ("exclude" in cat) && cat.exclude.includes(group);
     let included = !exclude_tag && !parent_exclude
 
     // Checkbox is enabled if the parent is not excluded
@@ -51,40 +45,82 @@ function visible_status(cat, parent_exclude) {
     }
 }
 
+// Remove a group from the list of
+// excludes in cat (modifies cat by
+// reference). Think of this function
+// as "unexclude_group".
+function include_group(cat, group) {
+    if ("exclude" in cat) {
+	// The bug must be here -- not
+	// removing the exclude tag
+	// properly.
+	// BUG: apparently group is
+	// a number here, should be
+	// a string
+	//
+        const index = cat.exclude.indexOf(group);
+        if (index > -1) {
+            cat.exclude.splice(index, 1);
+        }
+    }
+}
+
+
+// Add a group to the list of excludes
+// in cat, creating the exclude key
+// if nececessary (cat is modified
+// by reference)
+function exclude_group(cat, group) {
+    if ("exclude" in cat) {
+        cat.exclude.push(group)
+    } else {
+        cat.exclude = [group]
+    }
+}
+
+
 // Remove all the exclude tags in all
 // sublevels of cat and return the result
-function remove_all_excludes(cat) {
+function remove_all_excludes(cat, group) {
 
-    // Remove the exclude key from this
-    // level
-    delete cat.exclude;
-
+    // Remove the group from the exclude
+    // list at this level
+    include_group(cat, group)
+ 
     if ("child" in cat) {
         // Loop over all the subcategories
         // remove the exclude
-        cat.child = cat.child.map(remove_all_excludes)
+	// BUG: what even is the line blow?
+	// Need to pass in a function, remove_all
+	// _excludes is not getting any arguments
+        cat.child = cat.child.map((subcat) => (
+	    remove_all_excludes(subcat, group)
+	))
     }
 
     // Return the modified category
-    return (cat)
+    return cat
 }
 
 // Set the top-level excludes for the
 // subcategories in the current category,
 // and return the modified object
-function set_first_excludes(cat) {
+function set_first_excludes(cat, group) {
     if ("child" in cat) {
         cat.child = cat.child.map((subcat) => {
-            subcat.exclude = true
+            // Add the group to the excludes key,
+            // or create a new excludes list if
+            // necessary
+            exclude_group(cat, group)
             return (subcat)
         })
     }
     return (cat)
 }
 
-function Code({ index, cat, parent_exclude, toggle_cat, search_term }) {
+function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
-    const { included, enabled } = visible_status(cat, parent_exclude)
+    const { included, enabled } = visible_status(cat, group, parent_exclude)
 
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
@@ -111,9 +147,9 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term }) {
     </div>
 }
 
-function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
+function Category({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
-    const { included, enabled } = visible_status(cat, parent_exclude)
+    const { included, enabled } = visible_status(cat, group, parent_exclude)
 
     // Whether the children of this element are hidden
     let [hidden, setHidden] = useState(true);
@@ -163,7 +199,8 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
                                     cat={node}
                                     parent_exclude={!included}
                                     toggle_cat={toggle_cat_sub}
-                                    search_term={search_term} />
+                                    search_term={search_term}
+                                    group={group} />
                             </li>
                         } else {
                             return <li>
@@ -171,7 +208,8 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term }) {
                                     cat={node}
                                     parent_exclude={!included}
                                     toggle_cat={toggle_cat_sub}
-                                    search_term={search_term} />
+                                    search_term={search_term}
+                                    group={group} />
                             </li>
                         }
                     }
@@ -208,13 +246,6 @@ export default function Home() {
 
     let [code_def, setCodeDef] = useState(0);
 
-    // Function to load the codes yaml file
-    function load_file() {
-        invoke('get_yaml')
-            .then(JSON.parse)
-            .then(setCodeDef)
-    }
-
     // Function to save the codes yaml file
     function save_file() {
         invoke('save_yaml', { codeDef: code_def })
@@ -226,6 +257,42 @@ export default function Home() {
         return code_def.groups
     }
 
+    // State for the current group
+    // BUG: not starting with the correct
+    // group, because it needs to be set
+    // when the file is loaded.
+    const [group, setGroup] = useState("");
+
+    // Function to load the codes yaml file
+    function load_file() {
+        invoke('get_yaml')
+            .then(JSON.parse)
+            .then((res) => {
+		// Note: all .then are executed
+		// asynchronously, so put
+		// sequential steps in here
+		if ("groups" in res) {
+		    if (res.groups.length > 0) {
+			setGroup(res.groups[0])
+		    } else {
+			alert("No groups found. Add some groups and reload the file.")
+			return
+		    }
+		} else {
+		    alert("Did not find groups key. Add a groups key containing an array of groups.")
+		    return
+		}
+		// If you get here, then the state is valid
+		setCodeDef(res)
+
+	    })
+    }
+
+    const handleGroupChange = event => {
+        //console.log(event.target.value)
+        setGroup(event.target.value);
+    };
+
     function toggle_cat(indices, included) {
 
         // Copy the codes definition structure
@@ -233,16 +300,11 @@ export default function Home() {
         // problem, but it can be optimised later.
         let code_def_copy = structuredClone(code_def);
 
-        console.log(indices, included);
-        console.log(code_def_copy)
-
         // Extract the cat referred to by indices
         // (note that cat is modified by reference,
         // so changing the resulting cat will still
         // change code_def_copy)
         let cat = get_cat(code_def_copy, indices)
-
-        console.log(cat)
 
         // Check the current state of the checkbox
         if (included) {
@@ -261,8 +323,8 @@ export default function Home() {
             // Clear all the nested exclude tags
             // and then re-enable the current level
             // exclude flag
-            cat = remove_all_excludes(cat)
-            cat.exclude = true;
+            cat = remove_all_excludes(cat, group)
+            exclude_group(cat, group)
 
         } else {
             // When the current component is excluded,
@@ -300,7 +362,6 @@ export default function Home() {
                 indices_above.pop()
                 cat_above = get_cat(code_def_copy,
                     indices_above)
-                console.log("above:", cat_above)
             }
 
             // At this point, cat is the category
@@ -318,9 +379,6 @@ export default function Home() {
             // get the indices of cat relative to
             // cat_above
             let rel_indices = indices.slice(indices_above.length);
-            console.log("indices", indices)
-            console.log("indices_above", indices_above)
-            console.log("rel:", rel_indices)
 
             // Loop over all the subcategories between
             // cat_above and cat
@@ -331,7 +389,7 @@ export default function Home() {
                 // subcategories which are not on the path
                 cat.child = cat.child.map((subcat, index) => {
                     if (index != n) {
-                        subcat.exclude = true
+                        exclude_group(subcat, group)
                     }
                     return (subcat)
                 })
@@ -339,25 +397,12 @@ export default function Home() {
                 // Move down a level
                 cat = cat.child[n]
             })
-
-
-            //}
-
-
-            //cat = remove_all_excludes(cat)
-
-            // To enable higher levels, it is necessary to
-            // remove any excludes "in the way" of
-            // this category. 
-
-            console.log("Included ", cat.docs)
-            console.log(cat)
         }
 
         // Now save the new code_defs state
         setCodeDef(code_def_copy)
     }
-
+    
     if (code_def == 0) {
         return <div>
             <Link href="/">Back</Link><br />
@@ -365,25 +410,28 @@ export default function Home() {
             <button onClick={load_file}>Load file</button>
         </div>
     } else {
+	
         return <div>
             <Link href="/">Back</Link><br />
             <button onClick={save_file}>Save as</button>
-
             <h1>ICD-10</h1>
-            <div>Groups: {get_groups()}</div>
-            {/* <div>
-                <label htmlFor="search">Search: </label>
-                <input id="search" type="text" onChange={handleSearch} />
-		</div> */}
+            <div>
+                Groups: <select onChange={handleGroupChange}> {
+                    get_groups().map((grp) => (
+                        <option>{grp}</option>
+                    ))
+                } </select>
+            </div>
             <ol className={styles.cat_list}>
                 <li>
                     <Category index={0}
-                        cat={code_def.child[0]}
-                        parent_exclude={false}
-                        toggle_cat={toggle_cat}
-                        search_term={searchTerm} />
+                              cat={code_def.child[0]}
+                              parent_exclude={false}
+                              toggle_cat={toggle_cat}
+                              search_term={searchTerm}
+                              group={group} />
                 </li>
             </ol>
-        </div>
+        </div >
     }
 }
