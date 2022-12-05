@@ -93,11 +93,16 @@ function remove_all_excludes(cat, group) {
     if ("child" in cat) {
         // Loop over all the subcategories
         // remove the exclude
-        cat.child = cat.child.map(remove_all_excludes, group)
+	// BUG: what even is the line blow?
+	// Need to pass in a function, remove_all
+	// _excludes is not getting any arguments
+        cat.child = cat.child.map((subcat) => (
+	    remove_all_excludes(subcat, group)
+	))
     }
 
     // Return the modified category
-    return (cat)
+    return cat
 }
 
 // Set the top-level excludes for the
