@@ -86,6 +86,7 @@ function remove_all_excludes(cat, group) {
 
     // Remove the group from the exclude
     // list at this level
+    console.log("group is", group)
     include_group(cat, group)
 
     if ("child" in cat) {
@@ -324,6 +325,7 @@ export default function Home() {
             // Clear all the nested exclude tags
             // and then re-enable the current level
             // exclude flag
+	    console.log("Add here", group)
             cat = remove_all_excludes(cat, group)
             exclude_group(cat, group)
 
