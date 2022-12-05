@@ -147,6 +147,7 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
     </div>
 }
 
+// BUG: not selecting properly also happens at this level.
 function Category({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
     const { included, enabled } = visible_status(cat, group, parent_exclude)
