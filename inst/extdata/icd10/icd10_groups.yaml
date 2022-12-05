@@ -226,9 +226,6 @@ child:
         docs: Other gastroenteritis and colitis of infectious and unspecified origin
         index: A09
       docs: Intestinal infectious diseases
-      exclude:
-      - acs
-      - bleeding
       index:
       - A00
       - A09
@@ -366,9 +363,6 @@ child:
         docs: Miliary tuberculosis
         index: A19
       docs: Tuberculosis
-      exclude:
-      - acs
-      - bleeding
       index:
       - A15
       - A19
@@ -398,48 +392,29 @@ child:
           docs: Plague, unspecified
           index: A209
         docs: Plague
-        exclude:
-        - acs
-        - bleeding
         index: A20
       - category: A21
         child:
         - code: A21.0
           docs: Ulceroglandular tularaemia
-          exclude:
-          - acs
-          - bleeding
           index: A210
         - code: A21.1
           docs: Oculoglandular tularaemia
-          exclude:
-          - acs
-          - bleeding
           index: A211
         - code: A21.2
           docs: Pulmonary tularaemia
           index: A212
         - code: A21.3
           docs: Gastrointestinal tularaemia
-          exclude:
-          - bleeding
           index: A213
         - code: A21.7
           docs: Generalized tularaemia
-          exclude:
-          - bleeding
           index: A217
         - code: A21.8
           docs: Other forms of tularaemia
-          exclude:
-          - acs
-          - bleeding
           index: A218
         - code: A21.9
           docs: Tularaemia, unspecified
-          exclude:
-          - acs
-          - bleeding
           index: A219
         docs: Tularaemia
         index: A21
@@ -464,9 +439,6 @@ child:
           docs: Anthrax, unspecified
           index: A229
         docs: Anthrax
-        exclude:
-        - acs
-        - bleeding
         index: A22
       - category: A23
         child:
@@ -489,9 +461,6 @@ child:
           docs: Brucellosis, unspecified
           index: A239
         docs: Brucellosis
-        exclude:
-        - acs
-        - bleeding
         index: A23
       - category: A24
         child:
@@ -511,26 +480,17 @@ child:
           docs: Melioidosis, unspecified
           index: A244
         docs: Glanders and melioidosis
-        exclude:
-        - acs
-        - bleeding
         index: A24
       - category: A25
         child:
         - code: A25.0
           docs: Spirillosis
-          exclude:
-          - acs
-          - bleeding
           index: A250
         - code: A25.1
           docs: Streptobacillosis
           index: A251
         - code: A25.9
           docs: Rat-bite fever, unspecified
-          exclude:
-          - acs
-          - bleeding
           index: A259
         docs: Rat-bite fevers
         index: A25
@@ -549,9 +509,6 @@ child:
           docs: Erysipeloid, unspecified
           index: A269
         docs: Erysipeloid
-        exclude:
-        - acs
-        - bleeding
         index: A26
       - category: A27
         child:
@@ -565,9 +522,6 @@ child:
           docs: Leptospirosis, unspecified
           index: A279
         docs: Leptospirosis
-        exclude:
-        - acs
-        - bleeding
         index: A27
       - category: A28
         child:
@@ -587,9 +541,6 @@ child:
           docs: Zoonotic bacterial disease, unspecified
           index: A289
         docs: Other zoonotic bacterial diseases, not elsewhere classified
-        exclude:
-        - acs
-        - bleeding
         index: A28
       docs: Certain zoonotic bacterial diseases
       index:
@@ -890,9 +841,6 @@ child:
         docs: Bacterial infection of unspecified site
         index: A49
       docs: Other bacterial diseases
-      exclude:
-      - acs
-      - bleeding
       index:
       - A30
       - A49
@@ -1091,9 +1039,6 @@ child:
         docs: Unspecified sexually transmitted disease
         index: A64
       docs: Infections with a predominantly sexual mode of transmission
-      exclude:
-      - acs
-      - bleeding
       index:
       - A50
       - A64
@@ -1101,8 +1046,6 @@ child:
       child:
       - code: A65
         docs: Nonvenereal syphilis
-        exclude:
-        - bleeding
         index: A65
       - category: A66
         child:
@@ -1169,8 +1112,6 @@ child:
           docs: Relapsing fever, unspecified
           index: A689
         docs: Relapsing fevers
-        exclude:
-        - bleeding
         index: A68
       - category: A69
         child:
@@ -1190,8 +1131,6 @@ child:
           docs: Spirochaetal infection, unspecified
           index: A699
         docs: Other spirochaetal infections
-        exclude:
-        - bleeding
         index: A69
       docs: Other spirochaetal diseases
       index:
@@ -1229,9 +1168,6 @@ child:
         docs: Other diseases caused by chlamydiae
         index: A74
       docs: Other diseases caused by chlamydiae
-      exclude:
-      - acs
-      - bleeding
       index:
       - A70
       - A74
@@ -1298,9 +1234,6 @@ child:
         docs: Other rickettsioses
         index: A79
       docs: Rickettsioses
-      exclude:
-      - acs
-      - bleeding
       index:
       - A75
       - A79
@@ -1327,8 +1260,6 @@ child:
           docs: Acute poliomyelitis, unspecified
           index: A809
         docs: Acute poliomyelitis
-        exclude:
-        - bleeding
         index: A80
       - category: A81
         child:
@@ -1348,8 +1279,6 @@ child:
           docs: Atypical virus infection of central nervous system, unspecified
           index: A819
         docs: Atypical virus infections of central nervous system
-        exclude:
-        - bleeding
         index: A81
       - category: A82
         child:
@@ -1363,8 +1292,6 @@ child:
           docs: Rabies, unspecified
           index: A829
         docs: Rabies
-        exclude:
-        - bleeding
         index: A82
       - category: A83
         child:
@@ -1396,8 +1323,6 @@ child:
           docs: Mosquito-borne viral encephalitis, unspecified
           index: A839
         docs: Mosquito-borne viral encephalitis
-        exclude:
-        - bleeding
         index: A83
       - category: A84
         child:
@@ -1414,8 +1339,6 @@ child:
           docs: Tick-borne viral encephalitis, unspecified
           index: A849
         docs: Tick-borne viral encephalitis
-        exclude:
-        - bleeding
         index: A84
       - category: A85
         child:
@@ -1432,8 +1355,6 @@ child:
           docs: Other specified viral encephalitis
           index: A858
         docs: Other viral encephalitis, not elsewhere classified
-        exclude:
-        - bleeding
         index: A85
       - code: A86
         docs: Unspecified viral encephalitis
@@ -1456,8 +1377,6 @@ child:
           docs: Viral meningitis, unspecified
           index: A879
         docs: Viral meningitis
-        exclude:
-        - bleeding
         index: A87
       - category: A88
         child:
@@ -1471,13 +1390,9 @@ child:
           docs: Other specified viral infections of central nervous system
           index: A888
         docs: Other viral infections of central nervous system, not elsewhere classified
-        exclude:
-        - bleeding
         index: A88
       - code: A89
         docs: Unspecified viral infection of central nervous system
-        exclude:
-        - bleeding
         index: A89
       docs: Viral infections of the central nervous system
       index:
@@ -1606,9 +1521,6 @@ child:
         docs: Unspecified viral haemorrhagic fever
         index: A99
       docs: Arthropod-borne viral fevers and viral haemorrhagic fevers
-      exclude:
-      - acs
-      - bleeding
       index:
       - A92
       - A99
@@ -1765,9 +1677,6 @@ child:
         docs: Unspecified viral infection characterized by skin and mucous membrane lesions
         index: B09
       docs: Viral infections characterized by skin and mucous membrane lesions
-      exclude:
-      - acs
-      - bleeding
       index:
       - B00
       - B09
@@ -1848,9 +1757,6 @@ child:
         docs: Unspecified viral hepatitis
         index: B19
       docs: Viral hepatitis
-      exclude:
-      - acs
-      - bleeding
       index:
       - B15
       - B19
@@ -1951,9 +1857,6 @@ child:
         docs: Unspecified human immunodeficiency virus [HIV] disease
         index: B24
       docs: Human immunodeficiency virus [HIV] disease
-      exclude:
-      - acs
-      - bleeding
       index:
       - B20
       - B24
@@ -2086,9 +1989,6 @@ child:
         docs: Viral infection of unspecified site
         index: B34
       docs: Other viral diseases
-      exclude:
-      - acs
-      - bleeding
       index:
       - B25
       - B34
@@ -2430,9 +2330,6 @@ child:
         docs: Unspecified mycosis
         index: B49
       docs: Mycoses
-      exclude:
-      - acs
-      - bleeding
       index:
       - B35
       - B49
@@ -2589,9 +2486,6 @@ child:
         docs: Unspecified protozoal disease
         index: B64
       docs: Protozoal diseases
-      exclude:
-      - acs
-      - bleeding
       index:
       - B50
       - B64
@@ -2879,9 +2773,6 @@ child:
         docs: Other helminthiases
         index: B83
       docs: Helminthiases
-      exclude:
-      - acs
-      - bleeding
       index:
       - B65
       - B83
@@ -2960,9 +2851,6 @@ child:
         docs: Unspecified parasitic disease
         index: B89
       docs: Pediculosis, acariasis and other infestations
-      exclude:
-      - acs
-      - bleeding
       index:
       - B85
       - B89
@@ -3013,9 +2901,6 @@ child:
         docs: Sequelae of other and unspecified infectious and parasitic diseases
         index: B94
       docs: Sequelae of infectious and parasitic diseases
-      exclude:
-      - acs
-      - bleeding
       index:
       - B90
       - B94
@@ -3125,9 +3010,6 @@ child:
         docs: Other specified infectious agents as the cause of diseases classified to other chapters
         index: B98
       docs: Bacterial, viral and other infectious agents
-      exclude:
-      - acs
-      - bleeding
       index:
       - B95
       - B98
@@ -3137,13 +3019,13 @@ child:
         docs: Other and unspecified infectious diseases
         index: B99
       docs: Other infectious diseases
-      exclude:
-      - acs
-      - bleeding
       index:
       - B99
       - B99
     docs: Certain infectious and parasitic diseases
+    exclude:
+    - bleeding
+    - acs
     index:
     - A00
     - B99
@@ -6008,8 +5890,8 @@ child:
       - D48
     docs: Neoplasms
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - C00
     - D48
@@ -6656,8 +6538,8 @@ child:
       - D89
     docs: Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - D50
     - D89
@@ -8005,8 +7887,8 @@ child:
       - E90
     docs: Endocrine, nutritional and metabolic diseases
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - E00
     - E90
@@ -8047,6 +7929,8 @@ child:
         docs: Rheumatic chorea
         index: I02
       docs: Acute rheumatic fever
+      exclude:
+      - acs
       index:
       - I00
       - I02
@@ -8151,6 +8035,8 @@ child:
         docs: Other rheumatic heart diseases
         index: I09
       docs: Chronic rheumatic heart diseases
+      exclude:
+      - acs
       index:
       - I05
       - I09
@@ -8215,6 +8101,8 @@ child:
         docs: Secondary hypertension
         index: I15
       docs: Hypertensive diseases
+      exclude:
+      - acs
       index:
       - I10
       - I15
@@ -8227,12 +8115,18 @@ child:
           index: I200
         - code: I20.1
           docs: Angina pectoris with documented spasm
+          exclude:
+          - acs
           index: I201
         - code: I20.8
           docs: Other forms of angina pectoris
+          exclude:
+          - acs
           index: I208
         - code: I20.9
           docs: Angina pectoris, unspecified
+          exclude:
+          - acs
           index: I209
         docs: Angina pectoris
         index: I20
@@ -8301,6 +8195,8 @@ child:
           docs: Other current complications following acute myocardial infarction
           index: I238
         docs: Certain current complications following acute myocardial infarction
+        exclude:
+        - acs
         index: I23
       - category: I24
         child:
@@ -8309,6 +8205,8 @@ child:
           index: I240
         - code: I24.1
           docs: Dressler syndrome
+          exclude:
+          - acs
           index: I241
         - code: I24.8
           docs: Other forms of acute ischaemic heart disease
@@ -8348,6 +8246,8 @@ child:
           docs: Chronic ischaemic heart disease, unspecified
           index: I259
         docs: Chronic ischaemic heart disease
+        exclude:
+        - acs
         index: I25
       docs: Ischaemic heart diseases
       index:
@@ -8401,6 +8301,8 @@ child:
         docs: Other diseases of pulmonary vessels
         index: I28
       docs: Pulmonary heart disease and diseases of pulmonary circulation
+      exclude:
+      - acs
       index:
       - I26
       - I28
@@ -8849,6 +8751,8 @@ child:
         docs: Other heart disorders in diseases classified elsewhere
         index: I52
       docs: Other forms of heart disease
+      exclude:
+      - acs
       index:
       - I30
       - I52
@@ -9086,6 +8990,8 @@ child:
         docs: Sequelae of cerebrovascular disease
         index: I69
       docs: Cerebrovascular diseases
+      exclude:
+      - acs
       index:
       - I60
       - I69
@@ -9280,6 +9186,8 @@ child:
         docs: Disorders of arteries, arterioles and capillaries in diseases classified elsewhere
         index: I79
       docs: Diseases of arteries, arterioles and capillaries
+      exclude:
+      - acs
       index:
       - I70
       - I79
@@ -9432,6 +9340,8 @@ child:
         docs: Other noninfective disorders of lymphatic vessels and lymph nodes
         index: I89
       docs: Diseases of veins, lymphatic vessels and lymph nodes, not elsewhere classified
+      exclude:
+      - acs
       index:
       - I80
       - I89
@@ -9498,12 +9408,13 @@ child:
         docs: Other and unspecified disorders of circulatory system
         index: I99
       docs: Other and unspecified disorders of the circulatory system
+      exclude:
+      - acs
       index:
       - I95
       - I99
     docs: Diseases of the circulatory system
     exclude:
-    - acs
     - bleeding
     index:
     - I00
@@ -9651,6 +9562,8 @@ child:
         docs: Unspecified organic or symptomatic mental disorder
         index: F09
       docs: Organic, including symptomatic, mental disorders
+      exclude:
+      - bleeding
       index:
       - F00
       - F09
@@ -9997,6 +9910,8 @@ child:
         docs: Mental and behavioural disorders due to multiple drug use and use of other psychoactive substances
         index: F19
       docs: Mental and behavioural disorders due to psychoactive substance use
+      exclude:
+      - bleeding
       index:
       - F10
       - F19
@@ -10238,6 +10153,8 @@ child:
         docs: Unspecified mood [affective] disorder
         index: F39
       docs: Mood [affective] disorders
+      exclude:
+      - bleeding
       index:
       - F30
       - F39
@@ -10519,6 +10436,8 @@ child:
         docs: Unspecified behavioural syndromes associated with physiological disturbances and physical factors
         index: F59
       docs: Behavioural syndromes associated with physiological disturbances and physical factors
+      exclude:
+      - bleeding
       index:
       - F50
       - F59
@@ -10787,6 +10706,8 @@ child:
         docs: Unspecified mental retardation
         index: F79
       docs: Mental retardation
+      exclude:
+      - bleeding
       index:
       - F70
       - F79
@@ -10877,6 +10798,8 @@ child:
         docs: Unspecified disorder of psychological development
         index: F89
       docs: Disorders of psychological development
+      exclude:
+      - bleeding
       index:
       - F80
       - F89
@@ -11025,6 +10948,8 @@ child:
         docs: Other behavioural and emotional disorders with onset usually occurring in childhood and adolescence
         index: F98
       docs: Behavioural and emotional disorders with onset usually occurring in childhood and adolescence
+      exclude:
+      - bleeding
       index:
       - F90
       - F98
@@ -11034,13 +10959,14 @@ child:
         docs: Mental disorder, not otherwise specified
         index: F99
       docs: Unspecified mental disorder
+      exclude:
+      - bleeding
       index:
       - F99
       - F99
     docs: Mental and behavioural disorders
     exclude:
     - acs
-    - bleeding
     index:
     - F00
     - F99
@@ -12338,6 +12264,9 @@ child:
       - G90
       - G99
     docs: Diseases of the nervous system
+    exclude:
+    - bleeding
+    - acs
     index:
     - G00
     - G99
@@ -13377,8 +13306,8 @@ child:
       - H59
     docs: Diseases of the eye and adnexa
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - H00
     - H59
@@ -13837,8 +13766,8 @@ child:
       - H95
     docs: Diseases of the ear and mastoid process
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - H60
     - H95
@@ -14788,8 +14717,8 @@ child:
       - J99
     docs: Diseases of the respiratory system
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - J00
     - J99
@@ -16434,8 +16363,8 @@ child:
       - K93
     docs: Diseases of the digestive system
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - K00
     - K93
@@ -17749,8 +17678,8 @@ child:
       - L99
     docs: Diseases of the skin and subcutaneous tissue
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - L00
     - L99
@@ -18399,6 +18328,8 @@ child:
         - M20
         - M25
       docs: Arthropathies
+      exclude:
+      - bleeding
       index:
       - M00
       - M25
@@ -18565,6 +18496,8 @@ child:
         docs: Systemic disorders of connective tissue in diseases classified elsewhere
         index: M36
       docs: Systemic connective tissue disorders
+      exclude:
+      - bleeding
       index:
       - M30
       - M36
@@ -18886,6 +18819,8 @@ child:
         - M50
         - M54
       docs: Dorsopathies
+      exclude:
+      - bleeding
       index:
       - M40
       - M54
@@ -19310,6 +19245,8 @@ child:
         - M70
         - M79
       docs: Soft tissue disorders
+      exclude:
+      - bleeding
       index:
       - M60
       - M79
@@ -19715,6 +19652,8 @@ child:
         - M91
         - M94
       docs: Osteopathies and chondropathies
+      exclude:
+      - bleeding
       index:
       - M80
       - M94
@@ -19814,13 +19753,14 @@ child:
         docs: Biomechanical lesions, not elsewhere classified
         index: M99
       docs: Other disorders of the musculoskeletal system and connective tissue
+      exclude:
+      - bleeding
       index:
       - M95
       - M99
     docs: Diseases of the musculoskeletal system and connective tissue
     exclude:
     - acs
-    - bleeding
     index:
     - M00
     - M99
@@ -21476,8 +21416,8 @@ child:
       - N99
     docs: Diseases of the genitourinary system
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - N00
     - N99
@@ -26179,8 +26119,8 @@ child:
       - T98
     docs: Injury, poisoning and certain other consequences of external causes
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - S00
     - T98
@@ -27806,8 +27746,8 @@ child:
       - O99
     docs: Pregnancy, childbirth and the puerperium
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - O00
     - O99
@@ -29090,8 +29030,8 @@ child:
       - P96
     docs: Certain conditions originating in the perinatal period
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - P00
     - P96
@@ -31366,8 +31306,8 @@ child:
       - Q99
     docs: Congenital malformations, deformations and chromosomal abnormalities
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - Q00
     - Q99
@@ -32705,8 +32645,8 @@ child:
       - R99
     docs: Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - R00
     - R99
@@ -37660,8 +37600,8 @@ child:
       - Y98
     docs: External causes of morbidity and mortality
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - V01
     - Y98
@@ -39929,8 +39869,8 @@ child:
       - Z99
     docs: Factors influencing health status and contact with health services
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - Z00
     - Z99
@@ -40094,8 +40034,8 @@ child:
       - U85
     docs: Codes for special purposes
     exclude:
-    - acs
     - bleeding
+    - acs
     index:
     - U00
     - U85
