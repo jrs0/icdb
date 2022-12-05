@@ -22,6 +22,9 @@ NULL
 ##' 
 icd10_str_to_indices <- function(str, codes, groups)
 {
+    ## BUG: there is a problem before this point,
+    ## because this function appears to work.
+    
     ## Check for empty string. Return -1
     ## if empty
     if (grepl("^\\s*$", str))
