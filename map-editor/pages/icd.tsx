@@ -259,16 +259,20 @@ export default function Home() {
 		// Note: all .then are executed
 		// asynchronously, so put
 		// sequential steps in here
-		setCodeDef(res)
 		if ("groups" in res) {
 		    if (res.groups.length > 0) {
 			setGroup(res.groups[0])
 		    } else {
-			alert("No groups found")
+			alert("No groups found. Add some groups and reload the file.")
+			return
 		    }
 		} else {
-		    alert("Did not find groups key")
+		    alert("Did not find groups key. Add a groups key containing an array of groups.")
+		    return
 		}
+		// If you get here, then the state is valid
+		setCodeDef(res)
+
 	    })
     }
 
@@ -408,7 +412,7 @@ export default function Home() {
         // Now save the new code_defs state
         setCodeDef(code_def_copy)
     }
-
+    
     if (code_def == 0) {
         return <div>
             <Link href="/">Back</Link><br />
@@ -416,6 +420,7 @@ export default function Home() {
             <button onClick={load_file}>Load file</button>
         </div>
     } else {
+	
         return <div>
             <Link href="/">Back</Link><br />
             <button onClick={save_file}>Save as</button>
@@ -427,18 +432,14 @@ export default function Home() {
                     ))
                 } </select>
             </div>
-            {/* <div>
-		<label htmlFor="search">Search: </label>
-		<input id="search" type="text" onChange={handleSearch} />
-		</div> */}
             <ol className={styles.cat_list}>
                 <li>
                     <Category index={0}
-                        cat={code_def.child[0]}
-                        parent_exclude={false}
-                        toggle_cat={toggle_cat}
-                        search_term={searchTerm}
-                        group={group} />
+                              cat={code_def.child[0]}
+                              parent_exclude={false}
+                              toggle_cat={toggle_cat}
+                              search_term={searchTerm}
+                              group={group} />
                 </li>
             </ol>
         </div >
