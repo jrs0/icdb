@@ -88,6 +88,7 @@ function remove_all_excludes(cat, group) {
     // list at this level
     console.log("group is", group)
     include_group(cat, group)
+    console.log("group now is", group)
 
     if ("child" in cat) {
         // Loop over all the subcategories
