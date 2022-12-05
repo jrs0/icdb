@@ -28,10 +28,19 @@ index_end <- end - post
 
 ## Fetch all spells between the dates (filter by the codes defined
 ## in the acs.yaml and bleeding.yaml files)
-spells <- msrv$sus$apc_spells %>%
+all_spells <- msrv$sus$apc_spells %>%
     filter(spell_start >= !!start, spell_end <= !!index_end) %>%
-    codes_from(c("icd10/acs.yaml", "icd10/bleeding.yaml"), primary_diagnosis_icd) %>% 
     run()
+
+## Path to codes file
+code_file <- system.file("extdata/icd10/icd10_arc.yaml", package="icdb")
+
+spells <- all_spells %>%
+    mutate(p = icd10(primary_diagnosis_icd))
+
+    
+## codes_from(c("icd10/acs.yaml", "icd10/bleeding.yaml"), primary_diagnosis_icd) %>% 
+## run()
 
 ## Get sequences of spells that began with an ACS event and contained
 ## at least one subsequent ACS or bleeding event. The result is
