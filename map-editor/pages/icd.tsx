@@ -255,13 +255,21 @@ export default function Home() {
     function load_file() {
         invoke('get_yaml')
             .then(JSON.parse)
-            .then(setCodeDef)
-            .then(() => {
-                // Set the default group
-                // BUG: assumes at least
-                // one group is present
-                setGroup(code_def.groups[0])
-            })
+            .then((res) => {
+		// Note: all .then are executed
+		// asynchronously, so put
+		// sequential steps in here
+		setCodeDef(res)
+		if ("groups" in res) {
+		    if (res.groups.length > 0) {
+			setGroup(res.groups[0])
+		    } else {
+			alert("No groups found")
+		    }
+		} else {
+		    alert("Did not find groups key")
+		}
+	    })
     }
 
     const handleGroupChange = event => {
