@@ -395,8 +395,6 @@ export default function Home() {
             // first higher category that contains
             // an exclude (which may be equal to cat).
             // Remove this exclude.
-	    // BUG: this should be the include function
-            //delete get_cat(code_def_copy, indices_above).exclude
 	    include_group(get_cat(code_def_copy, indices_above),
 			  group)
 	    
