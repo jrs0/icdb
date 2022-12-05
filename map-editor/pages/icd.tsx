@@ -363,6 +363,15 @@ export default function Home() {
             // category).
             let indices_above = indices.slice();
             let cat_above = cat;
+	    // BUG: This is likely the problem --
+	    // previously, when there was only one
+	    // group, the presence of an exclude key
+	    // was equivalent to that exclude key
+	    // being true. Now, it is necessary to
+	    // actually check if the exclude array
+	    // contains the group. This bug here
+	    // will involve the interaction betwee
+	    // different groups
             while (!("exclude" in cat_above)) {
                 // Move to the category above
                 indices_above.pop()
@@ -388,7 +397,8 @@ export default function Home() {
             // get the indices of cat relative to
             // cat_above
             let rel_indices = indices.slice(indices_above.length);
-
+	    console.log("rel", rel_indices)
+	    
             // Loop over all the subcategories between
             // cat_above and cat
             cat = cat_above
