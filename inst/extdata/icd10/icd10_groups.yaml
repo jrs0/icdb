@@ -7921,6 +7921,8 @@ child:
         docs: Rheumatic chorea
         index: I02
       docs: Acute rheumatic fever
+      exclude:
+      - acs
       index:
       - I00
       - I02
@@ -8025,6 +8027,8 @@ child:
         docs: Other rheumatic heart diseases
         index: I09
       docs: Chronic rheumatic heart diseases
+      exclude:
+      - acs
       index:
       - I05
       - I09
@@ -8032,6 +8036,8 @@ child:
       child:
       - code: I10
         docs: Essential (primary) hypertension
+        exclude:
+        - acs
         index: I10
       - category: I11
         child:
@@ -8042,6 +8048,8 @@ child:
           docs: Hypertensive heart disease without (congestive) heart failure
           index: I119
         docs: Hypertensive heart disease
+        exclude:
+        - acs
         index: I11
       - category: I12
         child:
@@ -8057,15 +8065,21 @@ child:
         child:
         - code: I13.0
           docs: Hypertensive heart and renal disease with (congestive) heart failure
+          exclude:
+          - acs
           index: I130
         - code: I13.1
           docs: Hypertensive heart and renal disease with renal failure
+          exclude:
+          - acs
           index: I131
         - code: I13.2
           docs: Hypertensive heart and renal disease with both (congestive) heart failure and renal failure
           index: I132
         - code: I13.9
           docs: Hypertensive heart and renal disease, unspecified
+          exclude:
+          - acs
           index: I139
         docs: Hypertensive heart and renal disease
         index: I13
@@ -8087,6 +8101,8 @@ child:
           docs: Secondary hypertension, unspecified
           index: I159
         docs: Secondary hypertension
+        exclude:
+        - acs
         index: I15
       docs: Hypertensive diseases
       index:
@@ -8224,6 +8240,8 @@ child:
         docs: Chronic ischaemic heart disease
         index: I25
       docs: Ischaemic heart diseases
+      exclude:
+      - acs
       index:
       - I20
       - I25
@@ -8275,6 +8293,8 @@ child:
         docs: Other diseases of pulmonary vessels
         index: I28
       docs: Pulmonary heart disease and diseases of pulmonary circulation
+      exclude:
+      - acs
       index:
       - I26
       - I28
@@ -8295,26 +8315,38 @@ child:
           docs: Acute pericarditis, unspecified
           index: I309
         docs: Acute pericarditis
+        exclude:
+        - acs
         index: I30
       - category: I31
         child:
         - code: I31.0
           docs: Chronic adhesive pericarditis
+          exclude:
+          - acs
           index: I310
         - code: I31.1
           docs: Chronic constrictive pericarditis
+          exclude:
+          - acs
           index: I311
         - code: I31.2
           docs: Haemopericardium, not elsewhere classified
           index: I312
         - code: I31.3
           docs: Pericardial effusion (noninflammatory)
+          exclude:
+          - acs
           index: I313
         - code: I31.8
           docs: Other specified diseases of pericardium
+          exclude:
+          - acs
           index: I318
         - code: I31.9
           docs: Disease of pericardium, unspecified
+          exclude:
+          - acs
           index: I319
         docs: Other diseases of pericardium
         index: I31
@@ -8330,6 +8362,8 @@ child:
           docs: Pericarditis in other diseases classified elsewhere
           index: I328
         docs: Pericarditis in diseases classified elsewhere
+        exclude:
+        - acs
         index: I32
       - category: I33
         child:
@@ -8340,6 +8374,8 @@ child:
           docs: Acute endocarditis, unspecified
           index: I339
         docs: Acute and subacute endocarditis
+        exclude:
+        - acs
         index: I33
       - category: I34
         child:
@@ -8359,6 +8395,8 @@ child:
           docs: Nonrheumatic mitral valve disorder, unspecified
           index: I349
         docs: Nonrheumatic mitral valve disorders
+        exclude:
+        - acs
         index: I34
       - category: I35
         child:
@@ -8378,6 +8416,8 @@ child:
           docs: Aortic valve disorder, unspecified
           index: I359
         docs: Nonrheumatic aortic valve disorders
+        exclude:
+        - acs
         index: I35
       - category: I36
         child:
@@ -8397,6 +8437,8 @@ child:
           docs: Nonrheumatic tricuspid valve disorder, unspecified
           index: I369
         docs: Nonrheumatic tricuspid valve disorders
+        exclude:
+        - acs
         index: I36
       - category: I37
         child:
@@ -8416,9 +8458,13 @@ child:
           docs: Pulmonary valve disorder, unspecified
           index: I379
         docs: Pulmonary valve disorders
+        exclude:
+        - acs
         index: I37
       - code: I38
         docs: Endocarditis, valve unspecified
+        exclude:
+        - acs
         index: I38
       - category: I39
         child:
@@ -8441,6 +8487,8 @@ child:
           docs: Endocarditis, valve unspecified, in diseases classified elsewhere
           index: I398
         docs: Endocarditis and heart valve disorders in diseases classified elsewhere
+        exclude:
+        - acs
         index: I39
       - category: I40
         child:
@@ -8457,6 +8505,8 @@ child:
           docs: Acute myocarditis, unspecified
           index: I409
         docs: Acute myocarditis
+        exclude:
+        - acs
         index: I40
       - category: I41
         child:
@@ -8473,6 +8523,8 @@ child:
           docs: Myocarditis in other diseases classified elsewhere
           index: I418
         docs: Myocarditis in diseases classified elsewhere
+        exclude:
+        - acs
         index: I41
       - category: I42
         child:
@@ -8507,6 +8559,8 @@ child:
           docs: Cardiomyopathy, unspecified
           index: I429
         docs: Cardiomyopathy
+        exclude:
+        - acs
         index: I42
       - category: I43
         child:
@@ -8523,6 +8577,8 @@ child:
           docs: Cardiomyopathy in other diseases classified elsewhere
           index: I438
         docs: Cardiomyopathy in diseases classified elsewhere
+        exclude:
+        - acs
         index: I43
       - category: I44
         child:
@@ -8551,6 +8607,8 @@ child:
           docs: Left bundle-branch block, unspecified
           index: I447
         docs: Atrioventricular and left bundle-branch block
+        exclude:
+        - acs
         index: I44
       - category: I45
         child:
@@ -8582,6 +8640,8 @@ child:
           docs: Conduction disorder, unspecified
           index: I459
         docs: Other conduction disorders
+        exclude:
+        - acs
         index: I45
       - category: I46
         child:
@@ -8595,6 +8655,8 @@ child:
           docs: Cardiac arrest, unspecified
           index: I469
         docs: Cardiac arrest
+        exclude:
+        - acs
         index: I46
       - category: I47
         child:
@@ -8611,6 +8673,8 @@ child:
           docs: Paroxysmal tachycardia, unspecified
           index: I479
         docs: Paroxysmal tachycardia
+        exclude:
+        - acs
         index: I47
       - category: I48
         child:
@@ -8633,6 +8697,8 @@ child:
           docs: Atrial fibrillation and atrial flutter, unspecified
           index: I489
         docs: Atrial fibrillation and flutter
+        exclude:
+        - acs
         index: I48
       - category: I49
         child:
@@ -8661,6 +8727,8 @@ child:
           docs: Cardiac arrhythmia, unspecified
           index: I499
         docs: Other cardiac arrhythmias
+        exclude:
+        - acs
         index: I49
       - category: I50
         child:
@@ -8674,6 +8742,8 @@ child:
           docs: Heart failure, unspecified
           index: I509
         docs: Heart failure
+        exclude:
+        - acs
         index: I50
       - category: I51
         child:
@@ -8708,6 +8778,8 @@ child:
           docs: Heart disease, unspecified
           index: I519
         docs: Complications and ill-defined descriptions of heart disease
+        exclude:
+        - acs
         index: I51
       - category: I52
         child:
@@ -8721,6 +8793,8 @@ child:
           docs: Other heart disorders in other diseases classified elsewhere
           index: I528
         docs: Other heart disorders in diseases classified elsewhere
+        exclude:
+        - acs
         index: I52
       docs: Other forms of heart disease
       index:
@@ -8960,6 +9034,8 @@ child:
         docs: Sequelae of cerebrovascular disease
         index: I69
       docs: Cerebrovascular diseases
+      exclude:
+      - acs
       index:
       - I60
       - I69
@@ -9154,6 +9230,8 @@ child:
         docs: Disorders of arteries, arterioles and capillaries in diseases classified elsewhere
         index: I79
       docs: Diseases of arteries, arterioles and capillaries
+      exclude:
+      - acs
       index:
       - I70
       - I79
@@ -9306,6 +9384,8 @@ child:
         docs: Other noninfective disorders of lymphatic vessels and lymph nodes
         index: I89
       docs: Diseases of veins, lymphatic vessels and lymph nodes, not elsewhere classified
+      exclude:
+      - acs
       index:
       - I80
       - I89
@@ -9372,6 +9452,8 @@ child:
         docs: Other and unspecified disorders of circulatory system
         index: I99
       docs: Other and unspecified disorders of the circulatory system
+      exclude:
+      - acs
       index:
       - I95
       - I99
