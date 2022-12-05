@@ -147,7 +147,9 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
     </div>
 }
 
-// BUG: not selecting properly also happens at this level.
+// BUG: not selecting properly also happens at this level. bug occurs after
+// deselecting at the top level, and then attempting to select at a lower level.
+// Subsequent clearing then fails to remove the exclude  keys.
 function Category({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
     const { included, enabled } = visible_status(cat, group, parent_exclude)
