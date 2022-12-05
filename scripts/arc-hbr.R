@@ -36,7 +36,7 @@ all_spells <- msrv$sus$apc_spells %>%
 code_file <- system.file("extdata/icd10/icd10_arc.yaml", package="icdb")
 
 spells <- all_spells %>%
-    mutate(p = icd10(primary_diagnosis_icd))
+    mutate(p = icd10(primary_diagnosis_icd, code_file))
 
     
 ## codes_from(c("icd10/acs.yaml", "icd10/bleeding.yaml"), primary_diagnosis_icd) %>% 

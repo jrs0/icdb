@@ -237,6 +237,8 @@ icd10_load_codes <- function(codes_file)
     }
 
     ## Sort the codes
+    ## BUG: changed top level item name to child
+    ## for consistency with the other levels
     codes_def$codes <- sort_level(codes_def$codes)
 
     codes_def
