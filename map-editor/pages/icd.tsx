@@ -372,9 +372,20 @@ export default function Home() {
 	    // contains the group. This bug here
 	    // will involve the interaction betwee
 	    // different groups
-            while (!("exclude" in cat_above)) {
-                // Move to the category above
-                indices_above.pop()
+            while (true) {
+
+		// Find the first category above
+		// (or equal to) cat where there
+		// is an exclude for the current
+		// group
+		if ("exclude" in cat_above) {
+		    if (cat_above.exclude.includes(group)) {
+			break
+		    }
+		}
+		
+		// Move to the category above
+		indices_above.pop()
                 cat_above = get_cat(code_def_copy,
 				    indices_above)
             }
