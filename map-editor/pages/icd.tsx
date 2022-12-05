@@ -51,7 +51,15 @@ function visible_status(cat, group, parent_exclude) {
 // as "unexclude_group".
 function include_group(cat, group) {
     if ("exclude" in cat) {
+	// The bug must be here -- not
+	// removing the exclude tag
+	// properly.
+	// BUG: apparently group is
+	// a number here, should be
+	// a string
+	//
         const index = cat.exclude.indexOf(group);
+	console.log("Remove at", index, group)
         if (index > -1) {
             cat.exclude.splice(index, 1);
         }
