@@ -117,6 +117,7 @@ function set_first_excludes(cat, group) {
     return (cat)
 }
 
+// BUG: there is something wrong with selecting at this level
 function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
     const { included, enabled } = visible_status(cat, group, parent_exclude)
