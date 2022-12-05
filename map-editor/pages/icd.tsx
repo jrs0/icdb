@@ -59,7 +59,6 @@ function include_group(cat, group) {
 	// a string
 	//
         const index = cat.exclude.indexOf(group);
-	console.log("Remove at", index, group)
         if (index > -1) {
             cat.exclude.splice(index, 1);
         }
@@ -86,10 +85,8 @@ function remove_all_excludes(cat, group) {
 
     // Remove the group from the exclude
     // list at this level
-    console.log("group is", group)
     include_group(cat, group)
-    console.log("group now is", group)
-
+ 
     if ("child" in cat) {
         // Loop over all the subcategories
         // remove the exclude
@@ -303,16 +300,11 @@ export default function Home() {
         // problem, but it can be optimised later.
         let code_def_copy = structuredClone(code_def);
 
-        console.log(indices, included);
-        console.log(code_def_copy)
-
         // Extract the cat referred to by indices
         // (note that cat is modified by reference,
         // so changing the resulting cat will still
         // change code_def_copy)
         let cat = get_cat(code_def_copy, indices)
-
-        console.log(cat)
 
         // Check the current state of the checkbox
         if (included) {
@@ -331,7 +323,6 @@ export default function Home() {
             // Clear all the nested exclude tags
             // and then re-enable the current level
             // exclude flag
-	    console.log("Add here", group)
             cat = remove_all_excludes(cat, group)
             exclude_group(cat, group)
 
@@ -371,7 +362,6 @@ export default function Home() {
                 indices_above.pop()
                 cat_above = get_cat(code_def_copy,
                     indices_above)
-                console.log("above:", cat_above)
             }
 
             // At this point, cat is the category
@@ -389,9 +379,6 @@ export default function Home() {
             // get the indices of cat relative to
             // cat_above
             let rel_indices = indices.slice(indices_above.length);
-            console.log("indices", indices)
-            console.log("indices_above", indices_above)
-            console.log("rel:", rel_indices)
 
             // Loop over all the subcategories between
             // cat_above and cat
@@ -410,19 +397,6 @@ export default function Home() {
                 // Move down a level
                 cat = cat.child[n]
             })
-
-
-            //}
-
-
-            //cat = remove_all_excludes(cat)
-
-            // To enable higher levels, it is necessary to
-            // remove any excludes "in the way" of
-            // this category. 
-
-            console.log("Included ", cat.docs)
-            console.log(cat)
         }
 
         // Now save the new code_defs state
