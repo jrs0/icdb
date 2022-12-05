@@ -35,7 +35,7 @@ all_spells <- msrv$sus$apc_spells %>%
 ## Path to codes file
 code_file <- system.file("extdata/icd10/icd10_arc.yaml", package="icdb")
 
-spells <- all_spells %>%
+spells <- all_spells[1:100,] %>%
     mutate(p = icd10(primary_diagnosis_icd, code_file))
 
     

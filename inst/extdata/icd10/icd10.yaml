@@ -1,5 +1,5 @@
 groups: []
-codes:
+child:
 - category: ICD-10
   docs: ICD-10 codes, 2016 release
   child:
