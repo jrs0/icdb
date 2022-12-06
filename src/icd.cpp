@@ -4,7 +4,7 @@
 
 // Results structure for ICD parse
 class ParseResult {
-
+public:
     ParseResult(int type) : type_{type} {}
 
     int type() const { return type_; }
@@ -45,19 +45,14 @@ private:
 //' @return A named list containing indices, type and groups
 //' 
 //' 
-// [[Rcpp::export]]
 ParseResult icd10_str_to_indices_impl(const std::string & str,
 				     const Rcpp::List & codes,
 				     const Rcpp::CharacterVector & groups)
 {
     // Check for empty string. Return type = -1 if empty
     // and set all other fields to empty
-    if(std::all_of(str.begin(),str.end(),isspace))
-	return Rcpp::List {
-	    Rcpp::_("indices") =,
-	    Rcpp::_["type"] = "type",
-	    Rcpp::_["groups"] = "groups");
-	}
+    if(std::all_of(str.begin(),str.end(),isspace)) {
+	return ParseResult{-1};
     }
     
     // Look through the index keys at the current level

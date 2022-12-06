@@ -8,9 +8,12 @@
 #' The returned object is a list containing the following fields:
 #' - type: a integer describing the result of the parse. 0 for
 #'   success; 1 for empty string; 2 for invalid code.
-#' - indices: if success, a vector of indices locating 
-NULL
-
+#' - indices: if success, a vector of indices locating
+#' - trailing: an content at the end of the string that was not
+#'   parsed (sometimes ICD-10 codes contain trailing matter -- the
+#'   goal is to eventually interpret all of this)
+#' - groups: a character vector of groups that contain this code
+#'
 #' This function is the faster implementation of the ICD-10 parser.
 #' The input is a vector of strings to be parsed, and the output is
 #' a list of three vectors (the same length as the input) containing
@@ -24,9 +27,7 @@ NULL
 #' @return A named list containing indices, type and groups
 #' 
 #' 
-icd10_str_to_indices_impl <- function(str, codes, groups) {
-    .Call(`_icdb_icd10_str_to_indices_impl`, str, codes, groups)
-}
+NULL
 
 #' Implementation of the ICD-10 parser for vectors of ICD-10 strings
 #'

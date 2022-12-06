@@ -10,19 +10,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// icd10_str_to_indices_impl
-Rcpp::List icd10_str_to_indices_impl(const std::string& str, const Rcpp::List& codes, const Rcpp::CharacterVector& groups);
-RcppExport SEXP _icdb_icd10_str_to_indices_impl(SEXP strSEXP, SEXP codesSEXP, SEXP groupsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::string& >::type str(strSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type codes(codesSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type groups(groupsSEXP);
-    rcpp_result_gen = Rcpp::wrap(icd10_str_to_indices_impl(str, codes, groups));
-    return rcpp_result_gen;
-END_RCPP
-}
 // new_icd10_impl
 Rcpp::List new_icd10_impl(const Rcpp::CharacterVector& str, const Rcpp::List& code_def);
 RcppExport SEXP _icdb_new_icd10_impl(SEXP strSEXP, SEXP code_defSEXP) {
@@ -37,7 +24,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_icdb_icd10_str_to_indices_impl", (DL_FUNC) &_icdb_icd10_str_to_indices_impl, 3},
     {"_icdb_new_icd10_impl", (DL_FUNC) &_icdb_new_icd10_impl, 2},
     {NULL, NULL, 0}
 };
