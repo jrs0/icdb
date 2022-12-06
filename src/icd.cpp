@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 // Results structure for ICD parse
 class ParseResult
@@ -66,7 +67,6 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     if(std::all_of(std_str.begin(), std_str.end(), isspace)) {
 	return ParseResult{-1};
     }
-    return ParseResult{0};
     
     // Look through the index keys at the current level
     // and find the position of the code. Inside the codes
@@ -74,11 +74,15 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     // (using binary search) for the ICD code in str.
     
     // Extract the vector of indices 
-    // 	std::vector<Index> indices;
-    // for (std::size_t i{0}; i < codes.size(); ++i) {
-    // 	indices.emplace_back("Hello", "World");
-    // }
+	std::vector<Index> indices;
+    for (std::size_t i{0}; i < codes.size(); ++i) {
+	indices.emplace_back("Hello", "World");
+	std::cout << indices[i].start_ << "," << indices[i].end_ << std::endl;
+    }
+
     
+    return ParseResult{0};
+
 
     //return indices;
     
