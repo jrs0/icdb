@@ -9,12 +9,14 @@
 #' information about the parsed codes.
 #' 
 #' @param str The input character vector of strings that should be
-#' parsed
-#' @param codes_file The path to a codes definition file containing
-#' the ICD-10 codes and groups
+#' parsed. The strings can have leading and trailing whitespace,
+#' which will be removed before parsing by this function.
+#' @param code_def The code definition structure, which is a nested
+#' list of lists following the structure of the icd10.yaml file.
 #' @return A named list containing indices, type and groups
 #' 
-new_icd10_impl <- function(str, codes_file) {
-    .Call(`_icdb_new_icd10_impl`, str, codes_file)
+#' 
+new_icd10_impl <- function(str, code_def) {
+    .Call(`_icdb_new_icd10_impl`, str, code_def)
 }
 

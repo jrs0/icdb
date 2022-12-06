@@ -4,14 +4,15 @@
 \alias{new_icd10_impl}
 \title{Implementation of the ICD-10 parser for vectors of ICD-10 strings}
 \usage{
-new_icd10_impl(str, codes_file)
+new_icd10_impl(str, code_def)
 }
 \arguments{
 \item{str}{The input character vector of strings that should be
-parsed}
+parsed. The strings can have leading and trailing whitespace,
+which will be removed before parsing by this function.}
 
-\item{codes_file}{The path to a codes definition file containing
-the ICD-10 codes and groups}
+\item{code_def}{The code definition structure, which is a nested
+list of lists following the structure of the icd10.yaml file.}
 }
 \value{
 A named list containing indices, type and groups
