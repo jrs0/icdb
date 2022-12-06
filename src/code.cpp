@@ -2,8 +2,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-NumericVector convolveCpp(NumericVector a,
-			  NumericVector b) {
+NumericVector convolveCpp(NumericVector a, NumericVector b) {
   int na = a.size(), nb = b.size();
   int nab = na + nb - 1;
   NumericVector xab(nab);
