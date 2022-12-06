@@ -3,17 +3,9 @@
 
 
 // [[Rcpp::export]]
-Rcpp::List convolveCpp(const Rcpp::NumericVector & a,
-		       const Rcpp::NumericVector & b) {
-    // int na = a.size(), nb = b.size();
-    // int nab = na + nb - 1;
-    // NumericVector xab(nab);
-    // for (int i = 0; i < na; i++)
-    //   for (int j = 0; j < nb; j++)
-    //     xab[i + j] += a[i] * b[j];
+Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
+			  const std::string & codes_file) {
 
-    std::string s{"abc"}; 
-    auto L{Rcpp::List::create(Rcpp::Named("name1") = s , Rcpp::_["name2"] = 1.2)};
-    
-    return L;
+    return Rcpp::List::create(Rcpp::Named("str") = str,
+			      Rcpp::_["codes_file"] = codes_file);
 }

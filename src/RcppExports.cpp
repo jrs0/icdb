@@ -10,21 +10,21 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// convolveCpp
-Rcpp::List convolveCpp(const Rcpp::NumericVector& a, const Rcpp::NumericVector& b);
-RcppExport SEXP _icdb_convolveCpp(SEXP aSEXP, SEXP bSEXP) {
+// new_icd10_impl
+Rcpp::List new_icd10_impl(const Rcpp::CharacterVector& str, const std::string& codes_file);
+RcppExport SEXP _icdb_new_icd10_impl(SEXP strSEXP, SEXP codes_fileSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type a(aSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(convolveCpp(a, b));
+    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type str(strSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type codes_file(codes_fileSEXP);
+    rcpp_result_gen = Rcpp::wrap(new_icd10_impl(str, codes_file));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_icdb_convolveCpp", (DL_FUNC) &_icdb_convolveCpp, 2},
+    {"_icdb_new_icd10_impl", (DL_FUNC) &_icdb_new_icd10_impl, 2},
     {NULL, NULL, 0}
 };
 
