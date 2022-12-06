@@ -56,7 +56,7 @@ struct Index
 //' @return A named list containing indices, type and groups
 //' 
 //' 
-std::vector<Index> icd10_str_to_indices_impl(const std::string & str,
+std::vector<Index> icd10_str_to_indices_impl(const Rcpp::String & str,
 					     const Rcpp::List & codes,
 					     const Rcpp::List & groups)
 {
@@ -73,7 +73,7 @@ std::vector<Index> icd10_str_to_indices_impl(const std::string & str,
     
     // Extract the vector of indices 
 	std::vector<Index> indices;
-    for (const auto & elem : codes) {
+    for (std::size_t i{0}; i < codes.size(); ++i) {
 	indices.emplace_back("Hello", "World");
     }
     
@@ -254,10 +254,10 @@ Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
 {
     
     auto res {
-	icd10_str_to_indices_impl(Rcpp::as<std::string>(str[0]),
+	icd10_str_to_indices_impl(str[0],
 				  code_def["child"],
-				  code_def["groups"]);
-    }
+				  code_def["groups"])
+    };
     
     return Rcpp::List::create(Rcpp::_["indices"] = res,
 			      Rcpp::_["type"] = "type",
