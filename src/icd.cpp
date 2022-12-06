@@ -261,7 +261,7 @@ Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
 				  code_def["groups"])
     };
     
-    return Rcpp::List::create(Rcpp::_["indices"] = res.type,
+    return Rcpp::List::create(Rcpp::_["indices"] = res.type(),
 			      Rcpp::_["type"] = "type",
 			      Rcpp::_["groups"] = "groups");
 }
