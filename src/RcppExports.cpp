@@ -11,7 +11,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // convolveCpp
-Rcpp::NumericVector convolveCpp(const Rcpp::NumericVector& a, const Rcpp::NumericVector& b);
+Rcpp::List convolveCpp(const Rcpp::NumericVector& a, const Rcpp::NumericVector& b);
 RcppExport SEXP _icdb_convolveCpp(SEXP aSEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
