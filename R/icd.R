@@ -42,16 +42,8 @@ icd10_str_to_indices <- function(str, codes, groups)
     
     ## Look through the index keys at the current level
     ## and find the position of the code
-    indices <- codes %>%
-        purrr::map("index")
-
-
-    
-
-
-    position <- ## binary search
-
-    
+    position<- codes %>%
+         purrr::map("index") %>%
         ## to obtain the first TRUE, which is
         ## the category that str is contained in
         purrr::detect_index(function(x) {
@@ -67,14 +59,6 @@ icd10_str_to_indices <- function(str, codes, groups)
                 ## If the index is a range, check that
                 ## str lies in the range.
                 (trunc >= x[[1]]) && (trunc <= x[[2]])
-
-                ## The condition for trunc being strictly
-                ## above (in the ordering) is
-                trunc > x[[2]]
-                
-                ## Strictly less is
-                trunc < x[[1]]
-                
             }
             else
             {
@@ -296,26 +280,6 @@ new_icd10 <- function(str = character(), codes_file)
     results <- str %>%
         purrr::map(function(x)
         {
-                ## code <- tryCatch(
-                ##     error_invalid = function(cnd)
-                ##     {
-                ##         cnd$result
-                ##     },
-                ##     error = function(cnd)
-                ##     {
-                ##         ## Other error condition
-                ##         list(
-                ##             trailing = x,
-                ##             indices = list(),
-                ##             type = c(2),
-                ##             groups = list()
-                ##         )
-                ##     },
-                ##     icd10_str_to_indices(x, codes, groups)
-                ## )
-                ## code
-
-            
             res <- cache[[x]]
             if (!is.null(res))
             {
