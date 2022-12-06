@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 convolveCpp <- function(a, b) {
-    .Call('_icdb_convolveCpp', PACKAGE = 'icdb', a, b)
+    .Call(`_icdb_convolveCpp`, a, b)
 }
 
