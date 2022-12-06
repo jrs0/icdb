@@ -63,9 +63,9 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     // Check for empty string. Return type = -1 if empty
     // and set all other fields to empty
     const std::string std_str{str};
-    // if(std::all_of(std_str.begin(), std_str.end(), isspace)) {
-    // 	return ParseResult{-1};
-    // }
+    if(std::all_of(std_str.begin(), std_str.end(), isspace)) {
+	return ParseResult{-1};
+    }
     return ParseResult{0};
     
     // Look through the index keys at the current level
