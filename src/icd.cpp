@@ -24,11 +24,18 @@ private:
 
 struct Index
 {
-    std::string start_;
-    std::string end_;
-    Index(const std::string & start, const std::string & end)
-	: start_{start}, end_{end}
-    {}
+    Rcpp::String start_;
+    Rcpp::String end_;
+    Index(const Rcpp::List & index)
+    {
+	if (index.size() == 2) {
+	    start_ = index[0];
+	    end_ = index[1];
+	} else {
+	    start_ = index[0];
+	    end_ = index[0];
+	}
+    }
 };
 
 //' Parse a single ICD-10 string into a vector of indices that locates
@@ -74,12 +81,12 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     // (using binary search) for the ICD code in str.
     
     // Extract the vector of indices 
-	std::vector<Index> indices;
+	   std::vector<Index> indices;
     for (std::size_t i{0}; i < codes.size(); ++i) {
-	indices.emplace_back("Hello", "World");
+	indices.emplace_back(codes["index"]);
 	std::cout << indices[i].start_ << "," << indices[i].end_ << std::endl;
     }
-
+    
     
     return ParseResult{0};
 
