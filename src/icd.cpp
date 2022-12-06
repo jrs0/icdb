@@ -58,7 +58,7 @@ struct Index
 //' 
 std::vector<Index> icd10_str_to_indices_impl(const std::string & str,
 					     const Rcpp::List & codes,
-					     const Rcpp::CharacterVector & groups)
+					     const Rcpp::List & groups)
 {
     // Check for empty string. Return type = -1 if empty
     // and set all other fields to empty
@@ -253,8 +253,13 @@ Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
 			  const Rcpp::List & code_def)
 {
     
+    auto res {
+	icd10_str_to_indices_impl(Rcpp::as<std::string>(str[0]),
+				  code_def["child"],
+				  code_def["groups"]);
+    }
     
-    return Rcpp::List::create(Rcpp::_("indices") = "indices",
+    return Rcpp::List::create(Rcpp::_["indices"] = res,
 			      Rcpp::_["type"] = "type",
 			      Rcpp::_["groups"] = "groups");
 }
