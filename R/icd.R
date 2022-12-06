@@ -42,20 +42,22 @@ icd10_str_to_indices <- function(str, codes, groups)
     
     ## Look through the index keys at the current level
     ## and find the position of the code
-    position <- codes %>%
-        purrr::map("index") %>%
+    position<- codes %>%
+         purrr::map("index") %>%
         ## to obtain the first TRUE, which is
         ## the category that str is contained in
         purrr::detect_index(function(x) {
+
+            ## Truncate the str to the same length
+            ## as the start and end codes, because
+            ## the end of the range is interpreted
+            ## as anything beginning with this
+            ## string
+            trunc <- substr(str,1,nchar(x[[1]]))
+            
             if (length(x) == 2) {
                 ## If the index is a range, check that
-                ## str lies in the range. First,
-                ## truncate the str to the same length
-                ## as the start and end codes, because
-                ## the end of the range is interpreted
-                ## as anything beginning with this
-                ## string
-                trunc <- substr(str,1,nchar(x[[1]]))
+                ## str lies in the range.
                 (trunc >= x[[1]]) && (trunc <= x[[2]])
             }
             else
@@ -63,7 +65,6 @@ icd10_str_to_indices <- function(str, codes, groups)
                 ## If the index is a single item,
                 ## truncate str to the length of
                 ## x and compare for equality
-                trunc <- substr(str,1,nchar(x[[1]]))
                 trunc == x[[1]]
             }
         })

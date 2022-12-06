@@ -9124,16 +9124,20 @@ child:
           index: I692
         - code: I69.3
           docs: Sequelae of cerebral infarction
+          exclude:
+          - bleeding
           index: I693
         - code: I69.4
           docs: Sequelae of stroke, not specified as haemorrhage or infarction
+          exclude:
+          - bleeding
           index: I694
         - code: I69.8
           docs: Sequelae of other and unspecified cerebrovascular diseases
+          exclude:
+          - bleeding
           index: I698
         docs: Sequelae of cerebrovascular disease
-        exclude:
-        - bleeding
         index: I69
       docs: Cerebrovascular diseases
       exclude:

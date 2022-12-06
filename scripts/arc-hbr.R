@@ -17,7 +17,7 @@ msrv <- mapped_server("xsw")
 ## procedures. This script will use acute coronary syndrome (ACS)
 ## diagnosis codes in lieu of procedure codes for now.
 start <- ymd("2000-1-1")
-end <- ymd("2022-11-29")
+end <- ymd("2022-12-5")
 
 ## Define the length of the post-index window
 post <- ddays(365)
@@ -36,7 +36,7 @@ all_spells <- msrv$sus$apc_spells %>%
 ## Path to codes file
 code_file <- system.file("extdata/icd10/icd10_arc.yaml", package="icdb")
 
-spells <- all_spells[1:100,] %>%
+spells <- all_spells[1:100000,] %>%
     mutate(p = icd10(primary_diagnosis_icd, code_file))
 
     
