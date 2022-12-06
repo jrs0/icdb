@@ -1,9 +1,11 @@
 #include <Rcpp.h>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 // Results structure for ICD parse
-class ParseResult {
+class ParseResult
+{
 public:
     ParseResult(int type) : type_{type} {}
 
@@ -17,6 +19,12 @@ private:
     std::vector<std::size_t> indices_{};
     std::string trailing_{""};
     std::vector<std::string> groups_{};
+};
+
+struct Index
+{
+    std::string start;
+    std::string end;
 };
 
 //' Parse a single ICD-10 string into a vector of indices that locates
@@ -45,21 +53,31 @@ private:
 //' @return A named list containing indices, type and groups
 //' 
 //' 
-ParseResult icd10_str_to_indices_impl(const std::string & str,
-				     const Rcpp::List & codes,
-				     const Rcpp::CharacterVector & groups)
+std::vector<Index> icd10_str_to_indices_impl(const std::string & str,
+					     const Rcpp::List & codes,
+					     const Rcpp::CharacterVector & groups)
 {
     // Check for empty string. Return type = -1 if empty
     // and set all other fields to empty
-    if(std::all_of(str.begin(),str.end(),isspace)) {
-	return ParseResult{-1};
-    }
+    // if(std::all_of(str.begin(),str.end(),isspace)) {
+    // 	return ParseResult{-1};
+    // }
     
     // Look through the index keys at the current level
     // and find the position of the code. Inside the codes
     // structure, the index keys provide an array to search
     // (using binary search) for the ICD code in str.
+    
+    // Extract the vector of indices 
+	
+	const std::vector<Index> indices {
+	std::transform(codes.begin(), codes.end(), [](const Rcpp::List & x) {
+	    return Index{"Hello", "World"};
+	})
+	    };
 
+    return indices;
+    
     // === R impl to find the position ========================
     // position <- codes %>%
     //      purrr::map("index") %>%
