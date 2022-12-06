@@ -22,9 +22,6 @@ NULL
 ##' 
 icd10_str_to_indices <- function(str, codes, groups)
 {
-    ## BUG: there is a problem before this point,
-    ## because this function appears to work.
-    
     ## Check for empty string. Return -1
     ## if empty
     if (grepl("^\\s*$", str))
@@ -240,8 +237,6 @@ icd10_load_codes <- function(codes_file)
     }
 
     ## Sort the codes
-    ## BUG: changed top level item name to child
-    ## for consistency with the other levels
     codes_def$child <- sort_level(codes_def$child)
 
     codes_def
