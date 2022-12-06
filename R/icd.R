@@ -279,6 +279,26 @@ new_icd10 <- function(str = character(), codes_file)
     results <- str %>%
         purrr::map(function(x)
         {
+                ## code <- tryCatch(
+                ##     error_invalid = function(cnd)
+                ##     {
+                ##         cnd$result
+                ##     },
+                ##     error = function(cnd)
+                ##     {
+                ##         ## Other error condition
+                ##         list(
+                ##             trailing = x,
+                ##             indices = list(),
+                ##             type = c(2),
+                ##             groups = list()
+                ##         )
+                ##     },
+                ##     icd10_str_to_indices(x, codes, groups)
+                ## )
+                ## code
+
+            
             res <- cache[[x]]
             if (!is.null(res))
             {
