@@ -17,8 +17,6 @@ child:
           docs: Cholera, unspecified
           index: A009
         docs: Cholera
-        exclude:
-        - acs
         index: A00
       - category: A01
         child:
@@ -38,33 +36,23 @@ child:
           docs: Paratyphoid fever, unspecified
           index: A014
         docs: Typhoid and paratyphoid fevers
-        exclude:
-        - acs
         index: A01
       - category: A02
         child:
         - code: A02.0
           docs: Salmonella enteritis
-          exclude:
-          - acs
           index: A020
         - code: A02.1
           docs: Salmonella sepsis
-          exclude:
-          - acs
           index: A021
         - code: A02.2
           docs: Localized salmonella infections
           index: A022
         - code: A02.8
           docs: Other specified salmonella infections
-          exclude:
-          - acs
           index: A028
         - code: A02.9
           docs: Salmonella infection, unspecified
-          exclude:
-          - acs
           index: A029
         docs: Other salmonella infections
         index: A02
@@ -89,8 +77,6 @@ child:
           docs: Shigellosis, unspecified
           index: A039
         docs: Shigellosis
-        exclude:
-        - acs
         index: A03
       - category: A04
         child:
@@ -125,8 +111,6 @@ child:
           docs: Bacterial intestinal infection, unspecified
           index: A049
         docs: Other bacterial intestinal infections
-        exclude:
-        - acs
         index: A04
       - category: A05
         child:
@@ -152,8 +136,6 @@ child:
           docs: Bacterial foodborne intoxication, unspecified
           index: A059
         docs: Other bacterial foodborne intoxications, not elsewhere classified
-        exclude:
-        - acs
         index: A05
       - category: A06
         child:
@@ -188,8 +170,6 @@ child:
           docs: Amoebiasis, unspecified
           index: A069
         docs: Amoebiasis
-        exclude:
-        - acs
         index: A06
       - category: A07
         child:
@@ -212,8 +192,6 @@ child:
           docs: Protozoal intestinal disease, unspecified
           index: A079
         docs: Other protozoal intestinal diseases
-        exclude:
-        - acs
         index: A07
       - category: A08
         child:
@@ -236,8 +214,6 @@ child:
           docs: Other specified intestinal infections
           index: A085
         docs: Viral and other specified intestinal infections
-        exclude:
-        - acs
         index: A08
       - category: A09
         child:
@@ -248,8 +224,6 @@ child:
           docs: Gastroenteritis and colitis of unspecified origin
           index: A099
         docs: Other gastroenteritis and colitis of infectious and unspecified origin
-        exclude:
-        - acs
         index: A09
       docs: Intestinal infectious diseases
       index:
@@ -389,8 +363,6 @@ child:
         docs: Miliary tuberculosis
         index: A19
       docs: Tuberculosis
-      exclude:
-      - acs
       index:
       - A15
       - A19
@@ -571,8 +543,6 @@ child:
         docs: Other zoonotic bacterial diseases, not elsewhere classified
         index: A28
       docs: Certain zoonotic bacterial diseases
-      exclude:
-      - acs
       index:
       - A20
       - A28
@@ -871,8 +841,6 @@ child:
         docs: Bacterial infection of unspecified site
         index: A49
       docs: Other bacterial diseases
-      exclude:
-      - acs
       index:
       - A30
       - A49
@@ -1071,8 +1039,6 @@ child:
         docs: Unspecified sexually transmitted disease
         index: A64
       docs: Infections with a predominantly sexual mode of transmission
-      exclude:
-      - acs
       index:
       - A50
       - A64
@@ -1167,8 +1133,6 @@ child:
         docs: Other spirochaetal infections
         index: A69
       docs: Other spirochaetal diseases
-      exclude:
-      - acs
       index:
       - A65
       - A69
@@ -1204,8 +1168,6 @@ child:
         docs: Other diseases caused by chlamydiae
         index: A74
       docs: Other diseases caused by chlamydiae
-      exclude:
-      - acs
       index:
       - A70
       - A74
@@ -1272,8 +1234,6 @@ child:
         docs: Other rickettsioses
         index: A79
       docs: Rickettsioses
-      exclude:
-      - acs
       index:
       - A75
       - A79
@@ -1435,8 +1395,6 @@ child:
         docs: Unspecified viral infection of central nervous system
         index: A89
       docs: Viral infections of the central nervous system
-      exclude:
-      - acs
       index:
       - A80
       - A89
@@ -1563,8 +1521,6 @@ child:
         docs: Unspecified viral haemorrhagic fever
         index: A99
       docs: Arthropod-borne viral fevers and viral haemorrhagic fevers
-      exclude:
-      - acs
       index:
       - A92
       - A99
@@ -1721,8 +1677,6 @@ child:
         docs: Unspecified viral infection characterized by skin and mucous membrane lesions
         index: B09
       docs: Viral infections characterized by skin and mucous membrane lesions
-      exclude:
-      - acs
       index:
       - B00
       - B09
@@ -1803,8 +1757,6 @@ child:
         docs: Unspecified viral hepatitis
         index: B19
       docs: Viral hepatitis
-      exclude:
-      - acs
       index:
       - B15
       - B19
@@ -1905,8 +1857,6 @@ child:
         docs: Unspecified human immunodeficiency virus [HIV] disease
         index: B24
       docs: Human immunodeficiency virus [HIV] disease
-      exclude:
-      - acs
       index:
       - B20
       - B24
@@ -2039,8 +1989,6 @@ child:
         docs: Viral infection of unspecified site
         index: B34
       docs: Other viral diseases
-      exclude:
-      - acs
       index:
       - B25
       - B34
@@ -2382,8 +2330,6 @@ child:
         docs: Unspecified mycosis
         index: B49
       docs: Mycoses
-      exclude:
-      - acs
       index:
       - B35
       - B49
@@ -2540,8 +2486,6 @@ child:
         docs: Unspecified protozoal disease
         index: B64
       docs: Protozoal diseases
-      exclude:
-      - acs
       index:
       - B50
       - B64
@@ -2829,8 +2773,6 @@ child:
         docs: Other helminthiases
         index: B83
       docs: Helminthiases
-      exclude:
-      - acs
       index:
       - B65
       - B83
@@ -2909,8 +2851,6 @@ child:
         docs: Unspecified parasitic disease
         index: B89
       docs: Pediculosis, acariasis and other infestations
-      exclude:
-      - acs
       index:
       - B85
       - B89
@@ -2961,8 +2901,6 @@ child:
         docs: Sequelae of other and unspecified infectious and parasitic diseases
         index: B94
       docs: Sequelae of infectious and parasitic diseases
-      exclude:
-      - acs
       index:
       - B90
       - B94
@@ -3072,8 +3010,6 @@ child:
         docs: Other specified infectious agents as the cause of diseases classified to other chapters
         index: B98
       docs: Bacterial, viral and other infectious agents
-      exclude:
-      - acs
       index:
       - B95
       - B98
@@ -3083,12 +3019,13 @@ child:
         docs: Other and unspecified infectious diseases
         index: B99
       docs: Other infectious diseases
-      exclude:
-      - acs
       index:
       - B99
       - B99
     docs: Certain infectious and parasitic diseases
+    exclude:
+    - acs
+    - bleeding
     index:
     - A00
     - B99
@@ -5954,6 +5891,7 @@ child:
     docs: Neoplasms
     exclude:
     - acs
+    - bleeding
     index:
     - C00
     - D48
@@ -6035,6 +5973,8 @@ child:
         docs: Other nutritional anaemias
         index: D53
       docs: Nutritional anaemias
+      exclude:
+      - bleeding
       index:
       - D50
       - D53
@@ -6157,6 +6097,8 @@ child:
         docs: Acquired haemolytic anaemia
         index: D59
       docs: Haemolytic anaemias
+      exclude:
+      - bleeding
       index:
       - D55
       - D59
@@ -6177,6 +6119,8 @@ child:
           docs: Acquired pure red cell aplasia, unspecified
           index: D609
         docs: Acquired pure red cell aplasia [erythroblastopenia]
+        exclude:
+        - bleeding
         index: D60
       - category: D61
         child:
@@ -6199,6 +6143,8 @@ child:
           docs: Aplastic anaemia, unspecified
           index: D619
         docs: Other aplastic anaemias
+        exclude:
+        - bleeding
         index: D61
       - code: D62
         docs: Acute posthaemorrhagic anaemia
@@ -6212,6 +6158,8 @@ child:
           docs: Anaemia in other chronic diseases classified elsewhere
           index: D638
         docs: Anaemia in chronic diseases classified elsewhere
+        exclude:
+        - bleeding
         index: D63
       - category: D64
         child:
@@ -6237,6 +6185,8 @@ child:
           docs: Anaemia, unspecified
           index: D649
         docs: Other anaemias
+        exclude:
+        - bleeding
         index: D64
       docs: Aplastic and other anaemias
       index:
@@ -6246,41 +6196,63 @@ child:
       child:
       - code: D65
         docs: Disseminated intravascular coagulation [defibrination syndrome]
+        exclude:
+        - bleeding
         index: D65
       - code: D66
         docs: Hereditary factor VIII deficiency
+        exclude:
+        - bleeding
         index: D66
       - code: D67
         docs: Hereditary factor IX deficiency
+        exclude:
+        - bleeding
         index: D67
       - category: D68
         child:
         - code: D68.0
           docs: Von Willebrand disease
+          exclude:
+          - bleeding
           index: D680
         - code: D68.1
           docs: Hereditary factor XI deficiency
+          exclude:
+          - bleeding
           index: D681
         - code: D68.2
           docs: Hereditary deficiency of other clotting factors
+          exclude:
+          - bleeding
           index: D682
         - code: D68.3
           docs: Haemorrhagic disorder due to circulating anticoagulants
           index: D683
         - code: D68.4
           docs: Acquired coagulation factor deficiency
+          exclude:
+          - bleeding
           index: D684
         - code: D68.5
           docs: Primary thrombophilia
+          exclude:
+          - bleeding
           index: D685
         - code: D68.6
           docs: Other thrombophilia
+          exclude:
+          - bleeding
           index: D686
         - code: D68.8
           docs: Other specified coagulation defects
+          exclude:
+          - bleeding
           index: D688
         - code: D68.9
           docs: Coagulation defect, unspecified
+          exclude:
+          - bleeding
           index: D689
         docs: Other coagulation defects
         index: D68
@@ -6288,24 +6260,38 @@ child:
         child:
         - code: D69.0
           docs: Allergic purpura
+          exclude:
+          - bleeding
           index: D690
         - code: D69.1
           docs: Qualitative platelet defects
+          exclude:
+          - bleeding
           index: D691
         - code: D69.2
           docs: Other nonthrombocytopenic purpura
+          exclude:
+          - bleeding
           index: D692
         - code: D69.3
           docs: Idiopathic thrombocytopenic purpura
+          exclude:
+          - bleeding
           index: D693
         - code: D69.4
           docs: Other primary thrombocytopenia
+          exclude:
+          - bleeding
           index: D694
         - code: D69.5
           docs: Secondary thrombocytopenia
+          exclude:
+          - bleeding
           index: D695
         - code: D69.6
           docs: Thrombocytopenia, unspecified
+          exclude:
+          - bleeding
           index: D696
         - code: D69.8
           docs: Other specified haemorrhagic conditions
@@ -6417,6 +6403,8 @@ child:
         docs: Other disorders of blood and blood-forming organs in diseases classified elsewhere
         index: D77
       docs: Other diseases of blood and blood-forming organs
+      exclude:
+      - bleeding
       index:
       - D70
       - D77
@@ -6595,6 +6583,8 @@ child:
         docs: Other disorders involving the immune mechanism, not elsewhere classified
         index: D89
       docs: Certain disorders involving the immune mechanism
+      exclude:
+      - bleeding
       index:
       - D80
       - D89
@@ -7949,6 +7939,7 @@ child:
     docs: Endocrine, nutritional and metabolic diseases
     exclude:
     - acs
+    - bleeding
     index:
     - E00
     - E90
@@ -7989,7 +7980,9 @@ child:
         docs: Rheumatic chorea
         index: I02
       docs: Acute rheumatic fever
-      exclude: []
+      exclude:
+      - acs
+      - bleeding
       index:
       - I00
       - I02
@@ -8094,7 +8087,9 @@ child:
         docs: Other rheumatic heart diseases
         index: I09
       docs: Chronic rheumatic heart diseases
-      exclude: []
+      exclude:
+      - acs
+      - bleeding
       index:
       - I05
       - I09
@@ -8102,7 +8097,6 @@ child:
       child:
       - code: I10
         docs: Essential (primary) hypertension
-        exclude: []
         index: I10
       - category: I11
         child:
@@ -8113,7 +8107,6 @@ child:
           docs: Hypertensive heart disease without (congestive) heart failure
           index: I119
         docs: Hypertensive heart disease
-        exclude: []
         index: I11
       - category: I12
         child:
@@ -8129,18 +8122,15 @@ child:
         child:
         - code: I13.0
           docs: Hypertensive heart and renal disease with (congestive) heart failure
-          exclude: []
           index: I130
         - code: I13.1
           docs: Hypertensive heart and renal disease with renal failure
-          exclude: []
           index: I131
         - code: I13.2
           docs: Hypertensive heart and renal disease with both (congestive) heart failure and renal failure
           index: I132
         - code: I13.9
           docs: Hypertensive heart and renal disease, unspecified
-          exclude: []
           index: I139
         docs: Hypertensive heart and renal disease
         index: I13
@@ -8162,9 +8152,11 @@ child:
           docs: Secondary hypertension, unspecified
           index: I159
         docs: Secondary hypertension
-        exclude: []
         index: I15
       docs: Hypertensive diseases
+      exclude:
+      - acs
+      - bleeding
       index:
       - I10
       - I15
@@ -8177,14 +8169,22 @@ child:
           index: I200
         - code: I20.1
           docs: Angina pectoris with documented spasm
+          exclude:
+          - acs
           index: I201
         - code: I20.8
           docs: Other forms of angina pectoris
+          exclude:
+          - acs
           index: I208
         - code: I20.9
           docs: Angina pectoris, unspecified
+          exclude:
+          - acs
           index: I209
         docs: Angina pectoris
+        exclude:
+        - bleeding
         index: I20
       - category: I21
         child:
@@ -8207,6 +8207,8 @@ child:
           docs: Acute myocardial infarction, unspecified
           index: I219
         docs: Acute myocardial infarction
+        exclude:
+        - bleeding
         index: I21
       - category: I22
         child:
@@ -8223,6 +8225,8 @@ child:
           docs: Subsequent myocardial infarction of unspecified site
           index: I229
         docs: Subsequent myocardial infarction
+        exclude:
+        - bleeding
         index: I22
       - category: I23
         child:
@@ -8231,26 +8235,42 @@ child:
           index: I230
         - code: I23.1
           docs: Atrial septal defect as current complication following acute myocardial infarction
+          exclude:
+          - bleeding
           index: I231
         - code: I23.2
           docs: Ventricular septal defect as current complication following acute myocardial infarction
+          exclude:
+          - bleeding
           index: I232
         - code: I23.3
           docs: Rupture of cardiac wall without haemopericardium as current complication following acute myocardial infarction
+          exclude:
+          - bleeding
           index: I233
         - code: I23.4
           docs: Rupture of chordae tendineae as current complication following acute myocardial infarction
+          exclude:
+          - bleeding
           index: I234
         - code: I23.5
           docs: Rupture of papillary muscle as current complication following acute myocardial infarction
+          exclude:
+          - bleeding
           index: I235
         - code: I23.6
           docs: Thrombosis of atrium, auricular appendage, and ventricle as current complications following acute myocardial infarction
+          exclude:
+          - bleeding
           index: I236
         - code: I23.8
           docs: Other current complications following acute myocardial infarction
+          exclude:
+          - bleeding
           index: I238
         docs: Certain current complications following acute myocardial infarction
+        exclude:
+        - acs
         index: I23
       - category: I24
         child:
@@ -8259,6 +8279,8 @@ child:
           index: I240
         - code: I24.1
           docs: Dressler syndrome
+          exclude:
+          - acs
           index: I241
         - code: I24.8
           docs: Other forms of acute ischaemic heart disease
@@ -8267,6 +8289,8 @@ child:
           docs: Acute ischaemic heart disease, unspecified
           index: I249
         docs: Other acute ischaemic heart diseases
+        exclude:
+        - bleeding
         index: I24
       - category: I25
         child:
@@ -8298,9 +8322,11 @@ child:
           docs: Chronic ischaemic heart disease, unspecified
           index: I259
         docs: Chronic ischaemic heart disease
+        exclude:
+        - acs
+        - bleeding
         index: I25
       docs: Ischaemic heart diseases
-      exclude: []
       index:
       - I20
       - I25
@@ -8352,7 +8378,9 @@ child:
         docs: Other diseases of pulmonary vessels
         index: I28
       docs: Pulmonary heart disease and diseases of pulmonary circulation
-      exclude: []
+      exclude:
+      - acs
+      - bleeding
       index:
       - I26
       - I28
@@ -8373,32 +8401,38 @@ child:
           docs: Acute pericarditis, unspecified
           index: I309
         docs: Acute pericarditis
-        exclude: []
+        exclude:
+        - bleeding
         index: I30
       - category: I31
         child:
         - code: I31.0
           docs: Chronic adhesive pericarditis
-          exclude: []
+          exclude:
+          - bleeding
           index: I310
         - code: I31.1
           docs: Chronic constrictive pericarditis
-          exclude: []
+          exclude:
+          - bleeding
           index: I311
         - code: I31.2
           docs: Haemopericardium, not elsewhere classified
           index: I312
         - code: I31.3
           docs: Pericardial effusion (noninflammatory)
-          exclude: []
+          exclude:
+          - bleeding
           index: I313
         - code: I31.8
           docs: Other specified diseases of pericardium
-          exclude: []
+          exclude:
+          - bleeding
           index: I318
         - code: I31.9
           docs: Disease of pericardium, unspecified
-          exclude: []
+          exclude:
+          - bleeding
           index: I319
         docs: Other diseases of pericardium
         index: I31
@@ -8414,7 +8448,8 @@ child:
           docs: Pericarditis in other diseases classified elsewhere
           index: I328
         docs: Pericarditis in diseases classified elsewhere
-        exclude: []
+        exclude:
+        - bleeding
         index: I32
       - category: I33
         child:
@@ -8425,7 +8460,8 @@ child:
           docs: Acute endocarditis, unspecified
           index: I339
         docs: Acute and subacute endocarditis
-        exclude: []
+        exclude:
+        - bleeding
         index: I33
       - category: I34
         child:
@@ -8445,7 +8481,8 @@ child:
           docs: Nonrheumatic mitral valve disorder, unspecified
           index: I349
         docs: Nonrheumatic mitral valve disorders
-        exclude: []
+        exclude:
+        - bleeding
         index: I34
       - category: I35
         child:
@@ -8465,7 +8502,8 @@ child:
           docs: Aortic valve disorder, unspecified
           index: I359
         docs: Nonrheumatic aortic valve disorders
-        exclude: []
+        exclude:
+        - bleeding
         index: I35
       - category: I36
         child:
@@ -8485,7 +8523,8 @@ child:
           docs: Nonrheumatic tricuspid valve disorder, unspecified
           index: I369
         docs: Nonrheumatic tricuspid valve disorders
-        exclude: []
+        exclude:
+        - bleeding
         index: I36
       - category: I37
         child:
@@ -8505,11 +8544,13 @@ child:
           docs: Pulmonary valve disorder, unspecified
           index: I379
         docs: Pulmonary valve disorders
-        exclude: []
+        exclude:
+        - bleeding
         index: I37
       - code: I38
         docs: Endocarditis, valve unspecified
-        exclude: []
+        exclude:
+        - bleeding
         index: I38
       - category: I39
         child:
@@ -8532,7 +8573,8 @@ child:
           docs: Endocarditis, valve unspecified, in diseases classified elsewhere
           index: I398
         docs: Endocarditis and heart valve disorders in diseases classified elsewhere
-        exclude: []
+        exclude:
+        - bleeding
         index: I39
       - category: I40
         child:
@@ -8549,7 +8591,8 @@ child:
           docs: Acute myocarditis, unspecified
           index: I409
         docs: Acute myocarditis
-        exclude: []
+        exclude:
+        - bleeding
         index: I40
       - category: I41
         child:
@@ -8566,7 +8609,8 @@ child:
           docs: Myocarditis in other diseases classified elsewhere
           index: I418
         docs: Myocarditis in diseases classified elsewhere
-        exclude: []
+        exclude:
+        - bleeding
         index: I41
       - category: I42
         child:
@@ -8601,7 +8645,8 @@ child:
           docs: Cardiomyopathy, unspecified
           index: I429
         docs: Cardiomyopathy
-        exclude: []
+        exclude:
+        - bleeding
         index: I42
       - category: I43
         child:
@@ -8618,7 +8663,8 @@ child:
           docs: Cardiomyopathy in other diseases classified elsewhere
           index: I438
         docs: Cardiomyopathy in diseases classified elsewhere
-        exclude: []
+        exclude:
+        - bleeding
         index: I43
       - category: I44
         child:
@@ -8647,7 +8693,8 @@ child:
           docs: Left bundle-branch block, unspecified
           index: I447
         docs: Atrioventricular and left bundle-branch block
-        exclude: []
+        exclude:
+        - bleeding
         index: I44
       - category: I45
         child:
@@ -8679,7 +8726,8 @@ child:
           docs: Conduction disorder, unspecified
           index: I459
         docs: Other conduction disorders
-        exclude: []
+        exclude:
+        - bleeding
         index: I45
       - category: I46
         child:
@@ -8693,7 +8741,8 @@ child:
           docs: Cardiac arrest, unspecified
           index: I469
         docs: Cardiac arrest
-        exclude: []
+        exclude:
+        - bleeding
         index: I46
       - category: I47
         child:
@@ -8710,7 +8759,8 @@ child:
           docs: Paroxysmal tachycardia, unspecified
           index: I479
         docs: Paroxysmal tachycardia
-        exclude: []
+        exclude:
+        - bleeding
         index: I47
       - category: I48
         child:
@@ -8733,7 +8783,8 @@ child:
           docs: Atrial fibrillation and atrial flutter, unspecified
           index: I489
         docs: Atrial fibrillation and flutter
-        exclude: []
+        exclude:
+        - bleeding
         index: I48
       - category: I49
         child:
@@ -8762,7 +8813,8 @@ child:
           docs: Cardiac arrhythmia, unspecified
           index: I499
         docs: Other cardiac arrhythmias
-        exclude: []
+        exclude:
+        - bleeding
         index: I49
       - category: I50
         child:
@@ -8776,7 +8828,8 @@ child:
           docs: Heart failure, unspecified
           index: I509
         docs: Heart failure
-        exclude: []
+        exclude:
+        - bleeding
         index: I50
       - category: I51
         child:
@@ -8811,7 +8864,8 @@ child:
           docs: Heart disease, unspecified
           index: I519
         docs: Complications and ill-defined descriptions of heart disease
-        exclude: []
+        exclude:
+        - bleeding
         index: I51
       - category: I52
         child:
@@ -8825,9 +8879,12 @@ child:
           docs: Other heart disorders in other diseases classified elsewhere
           index: I528
         docs: Other heart disorders in diseases classified elsewhere
-        exclude: []
+        exclude:
+        - bleeding
         index: I52
       docs: Other forms of heart disease
+      exclude:
+      - acs
       index:
       - I30
       - I52
@@ -8941,9 +8998,13 @@ child:
           docs: Cerebral infarction, unspecified
           index: I639
         docs: Cerebral infarction
+        exclude:
+        - bleeding
         index: I63
       - code: I64
         docs: Stroke, not specified as haemorrhage or infarction
+        exclude:
+        - bleeding
         index: I64
       - category: I65
         child:
@@ -8966,6 +9027,8 @@ child:
           docs: Occlusion and stenosis of unspecified precerebral artery
           index: I659
         docs: Occlusion and stenosis of precerebral arteries, not resulting in cerebral infarction
+        exclude:
+        - bleeding
         index: I65
       - category: I66
         child:
@@ -8991,6 +9054,8 @@ child:
           docs: Occlusion and stenosis of unspecified cerebral artery
           index: I669
         docs: Occlusion and stenosis of cerebral arteries, not resulting in cerebral infarction
+        exclude:
+        - bleeding
         index: I66
       - category: I67
         child:
@@ -9025,6 +9090,8 @@ child:
           docs: Cerebrovascular disease, unspecified
           index: I679
         docs: Other cerebrovascular diseases
+        exclude:
+        - bleeding
         index: I67
       - category: I68
         child:
@@ -9041,6 +9108,8 @@ child:
           docs: Other cerebrovascular disorders in diseases classified elsewhere
           index: I688
         docs: Cerebrovascular disorders in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: I68
       - category: I69
         child:
@@ -9063,9 +9132,12 @@ child:
           docs: Sequelae of other and unspecified cerebrovascular diseases
           index: I698
         docs: Sequelae of cerebrovascular disease
+        exclude:
+        - bleeding
         index: I69
       docs: Cerebrovascular diseases
-      exclude: []
+      exclude:
+      - acs
       index:
       - I60
       - I69
@@ -9260,7 +9332,9 @@ child:
         docs: Disorders of arteries, arterioles and capillaries in diseases classified elsewhere
         index: I79
       docs: Diseases of arteries, arterioles and capillaries
-      exclude: []
+      exclude:
+      - acs
+      - bleeding
       index:
       - I70
       - I79
@@ -9287,9 +9361,13 @@ child:
           docs: Phlebitis and thrombophlebitis of unspecified site
           index: I809
         docs: Phlebitis and thrombophlebitis
+        exclude:
+        - bleeding
         index: I80
       - code: I81
         docs: Portal vein thrombosis
+        exclude:
+        - bleeding
         index: I81
       - category: I82
         child:
@@ -9312,6 +9390,8 @@ child:
           docs: Embolism and thrombosis of unspecified vein
           index: I829
         docs: Other venous embolism and thrombosis
+        exclude:
+        - bleeding
         index: I82
       - category: I83
         child:
@@ -9328,6 +9408,8 @@ child:
           docs: Varicose veins of lower extremities without ulcer or inflammation
           index: I839
         docs: Varicose veins of lower extremities
+        exclude:
+        - bleeding
         index: I83
       - category: I85
         child:
@@ -9336,6 +9418,8 @@ child:
           index: I850
         - code: I85.9
           docs: Oesophageal varices without bleeding
+          exclude:
+          - bleeding
           index: I859
         docs: Oesophageal varices
         index: I85
@@ -9360,6 +9444,8 @@ child:
           docs: Varicose veins of other specified sites
           index: I868
         docs: Varicose veins of other sites
+        exclude:
+        - bleeding
         index: I86
       - category: I87
         child:
@@ -9379,6 +9465,8 @@ child:
           docs: Disorder of vein, unspecified
           index: I879
         docs: Other disorders of veins
+        exclude:
+        - bleeding
         index: I87
       - category: I88
         child:
@@ -9395,6 +9483,8 @@ child:
           docs: Nonspecific lymphadenitis, unspecified
           index: I889
         docs: Nonspecific lymphadenitis
+        exclude:
+        - bleeding
         index: I88
       - category: I89
         child:
@@ -9411,9 +9501,12 @@ child:
           docs: Noninfective disorder of lymphatic vessels and lymph nodes, unspecified
           index: I899
         docs: Other noninfective disorders of lymphatic vessels and lymph nodes
+        exclude:
+        - bleeding
         index: I89
       docs: Diseases of veins, lymphatic vessels and lymph nodes, not elsewhere classified
-      exclude: []
+      exclude:
+      - acs
       index:
       - I80
       - I89
@@ -9437,6 +9530,8 @@ child:
           docs: Hypotension, unspecified
           index: I959
         docs: Hypotension
+        exclude:
+        - bleeding
         index: I95
       - category: I97
         child:
@@ -9456,37 +9551,48 @@ child:
           docs: Postprocedural disorder of circulatory system, unspecified
           index: I979
         docs: Postprocedural disorders of circulatory system, not elsewhere classified
+        exclude:
+        - bleeding
         index: I97
       - category: I98
         child:
         - code: I98.0
           docs: Cardiovascular syphilis
+          exclude:
+          - bleeding
           index: I980
         - code: I98.1
           docs: Cardiovascular disorders in other infectious and parasitic diseases classified elsewhere
+          exclude:
+          - bleeding
           index: I981
         - code: I98.2
           docs: Oesophageal varices without bleeding in diseases classified elsewhere
+          exclude:
+          - bleeding
           index: I982
         - code: I98.3
           docs: Oesophageal varices with bleeding in diseases classified elsewhere
           index: I983
         - code: I98.8
           docs: Other specified disorders of circulatory system in diseases classified elsewhere
+          exclude:
+          - bleeding
           index: I988
         docs: Other disorders of circulatory system in diseases classified elsewhere
         index: I98
       - code: I99
         docs: Other and unspecified disorders of circulatory system
+        exclude:
+        - bleeding
         index: I99
       docs: Other and unspecified disorders of the circulatory system
-      exclude: []
+      exclude:
+      - acs
       index:
       - I95
       - I99
     docs: Diseases of the circulatory system
-    exclude:
-    - acs
     index:
     - I00
     - I99
@@ -11022,6 +11128,7 @@ child:
     docs: Mental and behavioural disorders
     exclude:
     - acs
+    - bleeding
     index:
     - F00
     - F99
@@ -12321,6 +12428,7 @@ child:
     docs: Diseases of the nervous system
     exclude:
     - acs
+    - bleeding
     index:
     - G00
     - G99
@@ -12477,6 +12585,8 @@ child:
         docs: Disorders of lacrimal system and orbit in diseases classified elsewhere
         index: H06
       docs: Disorders of eyelid, lacrimal system and orbit
+      exclude:
+      - bleeding
       index:
       - H00
       - H06
@@ -12509,29 +12619,43 @@ child:
           docs: Conjunctivitis, unspecified
           index: H109
         docs: Conjunctivitis
+        exclude:
+        - bleeding
         index: H10
       - category: H11
         child:
         - code: H11.0
           docs: Pterygium
+          exclude:
+          - bleeding
           index: H110
         - code: H11.1
           docs: Conjunctival degenerations and deposits
+          exclude:
+          - bleeding
           index: H111
         - code: H11.2
           docs: Conjunctival scars
+          exclude:
+          - bleeding
           index: H112
         - code: H11.3
           docs: Conjunctival haemorrhage
           index: H113
         - code: H11.4
           docs: Other conjunctival vascular disorders and cysts
+          exclude:
+          - bleeding
           index: H114
         - code: H11.8
           docs: Other specified disorders of conjunctiva
+          exclude:
+          - bleeding
           index: H118
         - code: H11.9
           docs: Disorder of conjunctiva, unspecified
+          exclude:
+          - bleeding
           index: H119
         docs: Other disorders of conjunctiva
         index: H11
@@ -12553,6 +12677,8 @@ child:
           docs: Other disorders of conjunctiva in diseases classified elsewhere
           index: H138
         docs: Disorders of conjunctiva in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: H13
       docs: Disorders of conjunctiva
       index:
@@ -12575,6 +12701,8 @@ child:
           docs: Disorder of sclera, unspecified
           index: H159
         docs: Disorders of sclera
+        exclude:
+        - bleeding
         index: H15
       - category: H16
         child:
@@ -12600,6 +12728,8 @@ child:
           docs: Keratitis, unspecified
           index: H169
         docs: Keratitis
+        exclude:
+        - bleeding
         index: H16
       - category: H17
         child:
@@ -12616,6 +12746,8 @@ child:
           docs: Corneal scar and opacity, unspecified
           index: H179
         docs: Corneal scars and opacities
+        exclude:
+        - bleeding
         index: H17
       - category: H18
         child:
@@ -12650,6 +12782,8 @@ child:
           docs: Disorder of cornea, unspecified
           index: H189
         docs: Other disorders of cornea
+        exclude:
+        - bleeding
         index: H18
       - category: H19
         child:
@@ -12669,6 +12803,8 @@ child:
           docs: Other disorders of sclera and cornea in diseases classified elsewhere
           index: H198
         docs: Disorders of sclera and cornea in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: H19
       - category: H20
         child:
@@ -12688,6 +12824,8 @@ child:
           docs: Iridocyclitis, unspecified
           index: H209
         docs: Iridocyclitis
+        exclude:
+        - bleeding
         index: H20
       - category: H21
         child:
@@ -12696,24 +12834,38 @@ child:
           index: H210
         - code: H21.1
           docs: Other vascular disorders of iris and ciliary body
+          exclude:
+          - bleeding
           index: H211
         - code: H21.2
           docs: Degeneration of iris and ciliary body
+          exclude:
+          - bleeding
           index: H212
         - code: H21.3
           docs: Cyst of iris, ciliary body and anterior chamber
+          exclude:
+          - bleeding
           index: H213
         - code: H21.4
           docs: Pupillary membranes
+          exclude:
+          - bleeding
           index: H214
         - code: H21.5
           docs: Other adhesions and disruptions of iris and ciliary body
+          exclude:
+          - bleeding
           index: H215
         - code: H21.8
           docs: Other specified disorders of iris and ciliary body
+          exclude:
+          - bleeding
           index: H218
         - code: H21.9
           docs: Disorder of iris and ciliary body, unspecified
+          exclude:
+          - bleeding
           index: H219
         docs: Other disorders of iris and ciliary body
         index: H21
@@ -12729,6 +12881,8 @@ child:
           docs: Other disorders of iris and ciliary body in diseases classified elsewhere
           index: H228
         docs: Disorders of iris and ciliary body in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: H22
       docs: Disorders of sclera, cornea, iris and ciliary body
       index:
@@ -12813,6 +12967,8 @@ child:
         docs: Cataract and other disorders of lens in diseases classified elsewhere
         index: H28
       docs: Disorders of lens
+      exclude:
+      - bleeding
       index:
       - H25
       - H28
@@ -12836,29 +12992,43 @@ child:
           docs: Chorioretinal inflammation, unspecified
           index: H309
         docs: Chorioretinal inflammation
+        exclude:
+        - bleeding
         index: H30
       - category: H31
         child:
         - code: H31.0
           docs: Chorioretinal scars
+          exclude:
+          - bleeding
           index: H310
         - code: H31.1
           docs: Choroidal degeneration
+          exclude:
+          - bleeding
           index: H311
         - code: H31.2
           docs: Hereditary choroidal dystrophy
+          exclude:
+          - bleeding
           index: H312
         - code: H31.3
           docs: Choroidal haemorrhage and rupture
           index: H313
         - code: H31.4
           docs: Choroidal detachment
+          exclude:
+          - bleeding
           index: H314
         - code: H31.8
           docs: Other specified disorders of choroid
+          exclude:
+          - bleeding
           index: H318
         - code: H31.9
           docs: Disorder of choroid, unspecified
+          exclude:
+          - bleeding
           index: H319
         docs: Other disorders of choroid
         index: H31
@@ -12871,6 +13041,8 @@ child:
           docs: Other chorioretinal disorders in diseases classified elsewhere
           index: H328
         docs: Chorioretinal disorders in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: H32
       - category: H33
         child:
@@ -12893,6 +13065,8 @@ child:
           docs: Other retinal detachments
           index: H335
         docs: Retinal detachments and breaks
+        exclude:
+        - bleeding
         index: H33
       - category: H34
         child:
@@ -12912,38 +13086,58 @@ child:
           docs: Retinal vascular occlusion, unspecified
           index: H349
         docs: Retinal vascular occlusions
+        exclude:
+        - bleeding
         index: H34
       - category: H35
         child:
         - code: H35.0
           docs: Background retinopathy and retinal vascular changes
+          exclude:
+          - bleeding
           index: H350
         - code: H35.1
           docs: Retinopathy of prematurity
+          exclude:
+          - bleeding
           index: H351
         - code: H35.2
           docs: Other proliferative retinopathy
+          exclude:
+          - bleeding
           index: H352
         - code: H35.3
           docs: Degeneration of macula and posterior pole
+          exclude:
+          - bleeding
           index: H353
         - code: H35.4
           docs: Peripheral retinal degeneration
+          exclude:
+          - bleeding
           index: H354
         - code: H35.5
           docs: Hereditary retinal dystrophy
+          exclude:
+          - bleeding
           index: H355
         - code: H35.6
           docs: Retinal haemorrhage
           index: H356
         - code: H35.7
           docs: Separation of retinal layers
+          exclude:
+          - bleeding
           index: H357
         - code: H35.8
           docs: Other specified retinal disorders
+          exclude:
+          - bleeding
           index: H358
         - code: H35.9
           docs: Retinal disorder, unspecified
+          exclude:
+          - bleeding
           index: H359
         docs: Other retinal disorders
         index: H35
@@ -12956,6 +13150,8 @@ child:
           docs: Other retinal disorders in diseases classified elsewhere
           index: H368
         docs: Retinal disorders in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: H36
       docs: Disorders of choroid and retina
       index:
@@ -13005,6 +13201,8 @@ child:
         docs: Glaucoma in diseases classified elsewhere
         index: H42
       docs: Glaucoma
+      exclude:
+      - bleeding
       index:
       - H40
       - H42
@@ -13014,21 +13212,31 @@ child:
         child:
         - code: H43.0
           docs: Vitreous prolapse
+          exclude:
+          - bleeding
           index: H430
         - code: H43.1
           docs: Vitreous haemorrhage
           index: H431
         - code: H43.2
           docs: Crystalline deposits in vitreous body
+          exclude:
+          - bleeding
           index: H432
         - code: H43.3
           docs: Other vitreous opacities
+          exclude:
+          - bleeding
           index: H433
         - code: H43.8
           docs: Other disorders of vitreous body
+          exclude:
+          - bleeding
           index: H438
         - code: H43.9
           docs: Disorder of vitreous body, unspecified
+          exclude:
+          - bleeding
           index: H439
         docs: Disorders of vitreous body
         index: H43
@@ -13065,6 +13273,8 @@ child:
           docs: Disorder of globe, unspecified
           index: H449
         docs: Disorders of globe
+        exclude:
+        - bleeding
         index: H44
       - category: H45
         child:
@@ -13073,9 +13283,13 @@ child:
           index: H450
         - code: H45.1
           docs: Endophthalmitis in diseases classified elsewhere
+          exclude:
+          - bleeding
           index: H451
         - code: H45.8
           docs: Other disorders of vitreous body and globe in diseases classified elsewhere
+          exclude:
+          - bleeding
           index: H458
         docs: Disorders of vitreous body and globe in diseases classified elsewhere
         index: H45
@@ -13130,6 +13344,8 @@ child:
         docs: Disorders of optic [2nd] nerve and visual pathways in diseases classified elsewhere
         index: H48
       docs: Disorders of optic nerve and visual pathways
+      exclude:
+      - bleeding
       index:
       - H46
       - H48
@@ -13239,6 +13455,8 @@ child:
         docs: Disorders of refraction and accommodation
         index: H52
       docs: Disorders of ocular muscles, binocular movement, accommodation and refraction
+      exclude:
+      - bleeding
       index:
       - H49
       - H52
@@ -13304,6 +13522,8 @@ child:
         docs: Visual impairment including blindness (binocular or monocular)
         index: H54
       docs: Visual disturbances and blindness
+      exclude:
+      - bleeding
       index:
       - H53
       - H54
@@ -13355,6 +13575,8 @@ child:
         docs: Postprocedural disorders of eye and adnexa, not elsewhere classified
         index: H59
       docs: Other disorders of eye and adnexa
+      exclude:
+      - bleeding
       index:
       - H55
       - H59
@@ -13441,6 +13663,8 @@ child:
         docs: Disorders of external ear in diseases classified elsewhere
         index: H62
       docs: Diseases of external ear
+      exclude:
+      - bleeding
       index:
       - H60
       - H62
@@ -13619,6 +13843,8 @@ child:
         docs: Other disorders of middle ear and mastoid in diseases classified elsewhere
         index: H75
       docs: Diseases of middle ear and mastoid
+      exclude:
+      - bleeding
       index:
       - H65
       - H75
@@ -13694,6 +13920,8 @@ child:
         docs: Other diseases of inner ear
         index: H83
       docs: Diseases of inner ear
+      exclude:
+      - bleeding
       index:
       - H80
       - H83
@@ -13729,6 +13957,8 @@ child:
           docs: Mixed conductive and sensorineural hearing loss, unspecified
           index: H908
         docs: Conductive and sensorineural hearing loss
+        exclude:
+        - bleeding
         index: H90
       - category: H91
         child:
@@ -13751,14 +13981,20 @@ child:
           docs: Hearing loss, unspecified
           index: H919
         docs: Other hearing loss
+        exclude:
+        - bleeding
         index: H91
       - category: H92
         child:
         - code: H92.0
           docs: Otalgia
+          exclude:
+          - bleeding
           index: H920
         - code: H92.1
           docs: Otorrhoea
+          exclude:
+          - bleeding
           index: H921
         - code: H92.2
           docs: Otorrhagia
@@ -13786,6 +14022,8 @@ child:
           docs: Disorder of ear, unspecified
           index: H939
         docs: Other disorders of ear, not elsewhere classified
+        exclude:
+        - bleeding
         index: H93
       - category: H94
         child:
@@ -13796,6 +14034,8 @@ child:
           docs: Other specified disorders of ear in diseases classified elsewhere
           index: H948
         docs: Other disorders of ear in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: H94
       - category: H95
         child:
@@ -13812,6 +14052,8 @@ child:
           docs: Postprocedural disorder of ear and mastoid process, unspecified
           index: H959
         docs: Postprocedural disorders of ear and mastoid process, not elsewhere classified
+        exclude:
+        - bleeding
         index: H95
       docs: Other disorders of ear
       index:
@@ -13918,6 +14160,8 @@ child:
         docs: Acute upper respiratory infections of multiple and unspecified sites
         index: J06
       docs: Acute upper respiratory infections
+      exclude:
+      - bleeding
       index:
       - J00
       - J06
@@ -14063,6 +14307,8 @@ child:
         docs: Pneumonia, organism unspecified
         index: J18
       docs: Influenza and pneumonia
+      exclude:
+      - bleeding
       index:
       - J09
       - J18
@@ -14122,6 +14368,8 @@ child:
         docs: Unspecified acute lower respiratory infection
         index: J22
       docs: Other acute lower respiratory infections
+      exclude:
+      - bleeding
       index:
       - J20
       - J22
@@ -14305,6 +14553,8 @@ child:
         docs: Other diseases of upper respiratory tract
         index: J39
       docs: Other diseases of upper respiratory tract
+      exclude:
+      - bleeding
       index:
       - J30
       - J39
@@ -14387,6 +14637,8 @@ child:
         docs: Bronchiectasis
         index: J47
       docs: Chronic lower respiratory diseases
+      exclude:
+      - bleeding
       index:
       - J40
       - J47
@@ -14553,6 +14805,8 @@ child:
         docs: Respiratory conditions due to other external agents
         index: J70
       docs: Lung diseases due to external agents
+      exclude:
+      - bleeding
       index:
       - J60
       - J70
@@ -14584,6 +14838,8 @@ child:
         docs: Other interstitial pulmonary diseases
         index: J84
       docs: Other respiratory diseases principally affecting the interstitium
+      exclude:
+      - bleeding
       index:
       - J80
       - J84
@@ -14616,6 +14872,8 @@ child:
         docs: Pyothorax
         index: J86
       docs: Suppurative and necrotic conditions of lower respiratory tract
+      exclude:
+      - bleeding
       index:
       - J85
       - J86
@@ -14623,9 +14881,13 @@ child:
       child:
       - code: J90
         docs: Pleural effusion, not elsewhere classified
+        exclude:
+        - bleeding
         index: J90
       - code: J91
         docs: Pleural effusion in conditions classified elsewhere
+        exclude:
+        - bleeding
         index: J91
       - category: J92
         child:
@@ -14636,6 +14898,8 @@ child:
           docs: Pleural plaque without asbestos
           index: J929
         docs: Pleural plaque
+        exclude:
+        - bleeding
         index: J92
       - category: J93
         child:
@@ -14652,23 +14916,33 @@ child:
           docs: Pneumothorax, unspecified
           index: J939
         docs: Pneumothorax
+        exclude:
+        - bleeding
         index: J93
       - category: J94
         child:
         - code: J94.0
           docs: Chylous effusion
+          exclude:
+          - bleeding
           index: J940
         - code: J94.1
           docs: Fibrothorax
+          exclude:
+          - bleeding
           index: J941
         - code: J94.2
           docs: Haemothorax
           index: J942
         - code: J94.8
           docs: Other specified pleural conditions
+          exclude:
+          - bleeding
           index: J948
         - code: J94.9
           docs: Pleural condition, unspecified
+          exclude:
+          - bleeding
           index: J949
         docs: Other pleural conditions
         index: J94
@@ -14764,6 +15038,8 @@ child:
         docs: Respiratory disorders in diseases classified elsewhere
         index: J99
       docs: Other diseases of the respiratory system
+      exclude:
+      - bleeding
       index:
       - J95
       - J99
@@ -15165,6 +15441,8 @@ child:
         docs: Diseases of tongue
         index: K14
       docs: Diseases of oral cavity, salivary glands and jaws
+      exclude:
+      - bleeding
       index:
       - K00
       - K14
@@ -15172,6 +15450,8 @@ child:
       child:
       - code: K20
         docs: Oesophagitis
+        exclude:
+        - bleeding
         index: K20
       - category: K21
         child:
@@ -15182,38 +15462,58 @@ child:
           docs: Gastro-oesophageal reflux disease without oesophagitis
           index: K219
         docs: Gastro-oesophageal reflux disease
+        exclude:
+        - bleeding
         index: K21
       - category: K22
         child:
         - code: K22.0
           docs: Achalasia of cardia
+          exclude:
+          - bleeding
           index: K220
         - code: K22.1
           docs: Ulcer of oesophagus
+          exclude:
+          - bleeding
           index: K221
         - code: K22.2
           docs: Oesophageal obstruction
+          exclude:
+          - bleeding
           index: K222
         - code: K22.3
           docs: Perforation of oesophagus
+          exclude:
+          - bleeding
           index: K223
         - code: K22.4
           docs: Dyskinesia of oesophagus
+          exclude:
+          - bleeding
           index: K224
         - code: K22.5
           docs: Diverticulum of oesophagus, acquired
+          exclude:
+          - bleeding
           index: K225
         - code: K22.6
           docs: Gastro-oesophageal laceration-haemorrhage syndrome
           index: K226
         - code: K22.7
           docs: Barrett oesophagus
+          exclude:
+          - bleeding
           index: K227
         - code: K22.8
           docs: Other specified diseases of oesophagus
+          exclude:
+          - bleeding
           index: K228
         - code: K22.9
           docs: Disease of oesophagus, unspecified
+          exclude:
+          - bleeding
           index: K229
         docs: Other diseases of oesophagus
         index: K22
@@ -15229,6 +15529,8 @@ child:
           docs: Disorders of oesophagus in other diseases classified elsewhere
           index: K238
         docs: Disorders of oesophagus in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: K23
       - category: K25
         child:
@@ -15237,27 +15539,37 @@ child:
           index: K250
         - code: K25.1
           docs: 'Gastric ulcer : acute with perforation'
+          exclude:
+          - bleeding
           index: K251
         - code: K25.2
           docs: 'Gastric ulcer : acute with both haemorrhage and perforation'
           index: K252
         - code: K25.3
           docs: 'Gastric ulcer : acute without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K253
         - code: K25.4
           docs: 'Gastric ulcer : chronic or unspecified with haemorrhage'
           index: K254
         - code: K25.5
           docs: 'Gastric ulcer : chronic or unspecified with perforation'
+          exclude:
+          - bleeding
           index: K255
         - code: K25.6
           docs: 'Gastric ulcer : chronic or unspecified with both haemorrhage and perforation'
           index: K256
         - code: K25.7
           docs: 'Gastric ulcer : chronic without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K257
         - code: K25.9
           docs: 'Gastric ulcer : unspecified as acute or chronic, without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K259
         docs: Gastric ulcer
         index: K25
@@ -15268,27 +15580,37 @@ child:
           index: K260
         - code: K26.1
           docs: 'Duodenal ulcer : acute with perforation'
+          exclude:
+          - bleeding
           index: K261
         - code: K26.2
           docs: 'Duodenal ulcer : acute with both haemorrhage and perforation'
           index: K262
         - code: K26.3
           docs: 'Duodenal ulcer : acute without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K263
         - code: K26.4
           docs: 'Duodenal ulcer : chronic or unspecified with haemorrhage'
           index: K264
         - code: K26.5
           docs: 'Duodenal ulcer : chronic or unspecified with perforation'
+          exclude:
+          - bleeding
           index: K265
         - code: K26.6
           docs: 'Duodenal ulcer : chronic or unspecified with both haemorrhage and perforation'
           index: K266
         - code: K26.7
           docs: 'Duodenal ulcer : chronic without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K267
         - code: K26.9
           docs: 'Duodenal ulcer : unspecified as acute or chronic, without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K269
         docs: Duodenal ulcer
         index: K26
@@ -15299,27 +15621,37 @@ child:
           index: K270
         - code: K27.1
           docs: 'Peptic ulcer, site unspecified : acute with perforation'
+          exclude:
+          - bleeding
           index: K271
         - code: K27.2
           docs: 'Peptic ulcer, site unspecified : acute with both haemorrhage and perforation'
           index: K272
         - code: K27.3
           docs: 'Peptic ulcer, site unspecified : acute without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K273
         - code: K27.4
           docs: 'Peptic ulcer, site unspecified : chronic or unspecified with haemorrhage'
           index: K274
         - code: K27.5
           docs: 'Peptic ulcer, site unspecified : chronic or unspecified with perforation'
+          exclude:
+          - bleeding
           index: K275
         - code: K27.6
           docs: 'Peptic ulcer, site unspecified : chronic or unspecified with both haemorrhage and perforation'
           index: K276
         - code: K27.7
           docs: 'Peptic ulcer, site unspecified : chronic without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K277
         - code: K27.9
           docs: 'Peptic ulcer, site unspecified : unspecified as acute or chronic, without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K279
         docs: Peptic ulcer, site unspecified
         index: K27
@@ -15330,27 +15662,37 @@ child:
           index: K280
         - code: K28.1
           docs: 'Gastrojejunal ulcer : acute with perforation'
+          exclude:
+          - bleeding
           index: K281
         - code: K28.2
           docs: 'Gastrojejunal ulcer : acute with both haemorrhage and perforation'
           index: K282
         - code: K28.3
           docs: 'Gastrojejunal ulcer : acute without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K283
         - code: K28.4
           docs: 'Gastrojejunal ulcer : chronic or unspecified with haemorrhage'
           index: K284
         - code: K28.5
           docs: 'Gastrojejunal ulcer : chronic or unspecified with perforation'
+          exclude:
+          - bleeding
           index: K285
         - code: K28.6
           docs: 'Gastrojejunal ulcer : chronic or unspecified with both haemorrhage and perforation'
           index: K286
         - code: K28.7
           docs: 'Gastrojejunal ulcer : chronic without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K287
         - code: K28.9
           docs: 'Gastrojejunal ulcer : unspecified as acute or chronic, without haemorrhage or perforation'
+          exclude:
+          - bleeding
           index: K289
         docs: Gastrojejunal ulcer
         index: K28
@@ -15361,6 +15703,8 @@ child:
           index: K290
         - code: K29.1
           docs: Other acute gastritis
+          exclude:
+          - bleeding
           index: K291
         - code: K29.2
           docs: Alcoholic gastritis
@@ -15390,6 +15734,8 @@ child:
         index: K29
       - code: K30
         docs: Functional dyspepsia
+        exclude:
+        - bleeding
         index: K30
       - category: K31
         child:
@@ -15424,6 +15770,8 @@ child:
           docs: Disease of stomach and duodenum, unspecified
           index: K319
         docs: Other diseases of stomach and duodenum
+        exclude:
+        - bleeding
         index: K31
       docs: Diseases of oesophagus, stomach and duodenum
       index:
@@ -15473,6 +15821,8 @@ child:
         docs: Other diseases of appendix
         index: K38
       docs: Diseases of appendix
+      exclude:
+      - bleeding
       index:
       - K35
       - K38
@@ -15606,6 +15956,8 @@ child:
         docs: Unspecified abdominal hernia
         index: K46
       docs: Hernia
+      exclude:
+      - bleeding
       index:
       - K40
       - K46
@@ -15675,6 +16027,8 @@ child:
         docs: Other noninfective gastroenteritis and colitis
         index: K52
       docs: Noninfective enteritis and colitis
+      exclude:
+      - bleeding
       index:
       - K50
       - K52
@@ -15698,6 +16052,8 @@ child:
           docs: Vascular disorder of intestine, unspecified
           index: K559
         docs: Vascular disorders of intestine
+        exclude:
+        - bleeding
         index: K55
       - category: K56
         child:
@@ -15726,6 +16082,8 @@ child:
           docs: Ileus, unspecified
           index: K567
         docs: Paralytic ileus and intestinal obstruction without hernia
+        exclude:
+        - bleeding
         index: K56
       - category: K57
         child:
@@ -15737,6 +16095,8 @@ child:
           index: K571
         - code: K57.2
           docs: Diverticular disease of large intestine with perforation and abscess
+          exclude:
+          - bleeding
           index: K572
         - code: K57.3
           docs: Diverticular disease of large intestine without perforation or abscess
@@ -15764,6 +16124,8 @@ child:
           docs: Irritable bowel syndrome without diarrhoea
           index: K589
         docs: Irritable bowel syndrome
+        exclude:
+        - bleeding
         index: K58
       - category: K59
         child:
@@ -15789,6 +16151,8 @@ child:
           docs: Functional intestinal disorder, unspecified
           index: K599
         docs: Other functional intestinal disorders
+        exclude:
+        - bleeding
         index: K59
       - category: K60
         child:
@@ -15811,6 +16175,8 @@ child:
           docs: Anorectal fistula
           index: K605
         docs: Fissure and fistula of anal and rectal regions
+        exclude:
+        - bleeding
         index: K60
       - category: K61
         child:
@@ -15830,38 +16196,58 @@ child:
           docs: Intrasphincteric abscess
           index: K614
         docs: Abscess of anal and rectal regions
+        exclude:
+        - bleeding
         index: K61
       - category: K62
         child:
         - code: K62.0
           docs: Anal polyp
+          exclude:
+          - bleeding
           index: K620
         - code: K62.1
           docs: Rectal polyp
+          exclude:
+          - bleeding
           index: K621
         - code: K62.2
           docs: Anal prolapse
+          exclude:
+          - bleeding
           index: K622
         - code: K62.3
           docs: Rectal prolapse
+          exclude:
+          - bleeding
           index: K623
         - code: K62.4
           docs: Stenosis of anus and rectum
+          exclude:
+          - bleeding
           index: K624
         - code: K62.5
           docs: Haemorrhage of anus and rectum
           index: K625
         - code: K62.6
           docs: Ulcer of anus and rectum
+          exclude:
+          - bleeding
           index: K626
         - code: K62.7
           docs: Radiation proctitis
+          exclude:
+          - bleeding
           index: K627
         - code: K62.8
           docs: Other specified diseases of anus and rectum
+          exclude:
+          - bleeding
           index: K628
         - code: K62.9
           docs: Disease of anus and rectum, unspecified
+          exclude:
+          - bleeding
           index: K629
         docs: Other diseases of anus and rectum
         index: K62
@@ -15892,6 +16278,8 @@ child:
           docs: Disease of intestine, unspecified
           index: K639
         docs: Other diseases of intestine
+        exclude:
+        - bleeding
         index: K63
       - category: K64
         child:
@@ -15920,6 +16308,8 @@ child:
           docs: Haemorrhoids, unspecified
           index: K649
         docs: Haemorrhoids and perianal venous thrombosis
+        exclude:
+        - bleeding
         index: K64
       docs: Other diseases of intestines
       index:
@@ -15939,20 +16329,28 @@ child:
           docs: Peritonitis, unspecified
           index: K659
         docs: Peritonitis
+        exclude:
+        - bleeding
         index: K65
       - category: K66
         child:
         - code: K66.0
           docs: Peritoneal adhesions
+          exclude:
+          - bleeding
           index: K660
         - code: K66.1
           docs: Haemoperitoneum
           index: K661
         - code: K66.8
           docs: Other specified disorders of peritoneum
+          exclude:
+          - bleeding
           index: K668
         - code: K66.9
           docs: Disorder of peritoneum, unspecified
+          exclude:
+          - bleeding
           index: K669
         docs: Other disorders of peritoneum
         index: K66
@@ -15974,6 +16372,8 @@ child:
           docs: Other disorders of peritoneum in infectious diseases classified elsewhere
           index: K678
         docs: Disorders of peritoneum in infectious diseases classified elsewhere
+        exclude:
+        - bleeding
         index: K67
       docs: Diseases of peritoneum
       index:
@@ -16002,6 +16402,8 @@ child:
           docs: Alcoholic liver disease, unspecified
           index: K709
         docs: Alcoholic liver disease
+        exclude:
+        - bleeding
         index: K70
       - category: K71
         child:
@@ -16036,6 +16438,8 @@ child:
           docs: Toxic liver disease, unspecified
           index: K719
         docs: Toxic liver disease
+        exclude:
+        - bleeding
         index: K71
       - category: K72
         child:
@@ -16049,6 +16453,8 @@ child:
           docs: Hepatic failure, unspecified
           index: K729
         docs: Hepatic failure, not elsewhere classified
+        exclude:
+        - bleeding
         index: K72
       - category: K73
         child:
@@ -16068,6 +16474,8 @@ child:
           docs: Chronic hepatitis, unspecified
           index: K739
         docs: Chronic hepatitis, not elsewhere classified
+        exclude:
+        - bleeding
         index: K73
       - category: K74
         child:
@@ -16093,6 +16501,8 @@ child:
           docs: Other and unspecified cirrhosis of liver
           index: K746
         docs: Fibrosis and cirrhosis of liver
+        exclude:
+        - bleeding
         index: K74
       - category: K75
         child:
@@ -16118,38 +16528,58 @@ child:
           docs: Inflammatory liver disease, unspecified
           index: K759
         docs: Other inflammatory liver diseases
+        exclude:
+        - bleeding
         index: K75
       - category: K76
         child:
         - code: K76.0
           docs: Fatty (change of) liver, not elsewhere classified
+          exclude:
+          - bleeding
           index: K760
         - code: K76.1
           docs: Chronic passive congestion of liver
+          exclude:
+          - bleeding
           index: K761
         - code: K76.2
           docs: Central haemorrhagic necrosis of liver
           index: K762
         - code: K76.3
           docs: Infarction of liver
+          exclude:
+          - bleeding
           index: K763
         - code: K76.4
           docs: Peliosis hepatis
+          exclude:
+          - bleeding
           index: K764
         - code: K76.5
           docs: Hepatic veno-occlusive disease
+          exclude:
+          - bleeding
           index: K765
         - code: K76.6
           docs: Portal hypertension
+          exclude:
+          - bleeding
           index: K766
         - code: K76.7
           docs: Hepatorenal syndrome
+          exclude:
+          - bleeding
           index: K767
         - code: K76.8
           docs: Other specified diseases of liver
+          exclude:
+          - bleeding
           index: K768
         - code: K76.9
           docs: Liver disease, unspecified
+          exclude:
+          - bleeding
           index: K769
         docs: Other diseases of liver
         index: K76
@@ -16162,6 +16592,8 @@ child:
           docs: Liver disorders in other diseases classified elsewhere
           index: K778
         docs: Liver disorders in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: K77
       docs: Diseases of liver
       index:
@@ -16318,6 +16750,8 @@ child:
         docs: Disorders of gallbladder, biliary tract and pancreas in diseases classified elsewhere
         index: K87
       docs: Disorders of gallbladder, biliary tract and pancreas
+      exclude:
+      - bleeding
       index:
       - K80
       - K87
@@ -16347,6 +16781,8 @@ child:
           docs: Intestinal malabsorption, unspecified
           index: K909
         docs: Intestinal malabsorption
+        exclude:
+        - bleeding
         index: K90
       - category: K91
         child:
@@ -16375,6 +16811,8 @@ child:
           docs: Postprocedural disorder of digestive system, unspecified
           index: K919
         docs: Postprocedural disorders of digestive system, not elsewhere classified
+        exclude:
+        - bleeding
         index: K91
       - category: K92
         child:
@@ -16389,9 +16827,13 @@ child:
           index: K922
         - code: K92.8
           docs: Other specified diseases of digestive system
+          exclude:
+          - bleeding
           index: K928
         - code: K92.9
           docs: Disease of digestive system, unspecified
+          exclude:
+          - bleeding
           index: K929
         docs: Other diseases of digestive system
         index: K92
@@ -16407,6 +16849,8 @@ child:
           docs: Disorders of other specified digestive organs in diseases classified elsewhere
           index: K938
         docs: Disorders of other digestive organs in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: K93
       docs: Other diseases of the digestive system
       index:
@@ -17729,6 +18173,7 @@ child:
     docs: Diseases of the skin and subcutaneous tissue
     exclude:
     - acs
+    - bleeding
     index:
     - L00
     - L99
@@ -17824,6 +18269,8 @@ child:
           docs: Postinfective and reactive arthropathies in diseases classified elsewhere
           index: M03
         docs: Infectious arthropathies
+        exclude:
+        - bleeding
         index:
         - M00
         - M03
@@ -18053,6 +18500,8 @@ child:
           docs: Arthropathies in other diseases classified elsewhere
           index: M14
         docs: Inflammatory polyarthropathies
+        exclude:
+        - bleeding
         index:
         - M05
         - M14
@@ -18184,6 +18633,8 @@ child:
           docs: Other arthrosis
           index: M19
         docs: Arthrosis
+        exclude:
+        - bleeding
         index:
         - M15
         - M19
@@ -18213,6 +18664,8 @@ child:
             docs: Acquired deformity of toe(s), unspecified
             index: M206
           docs: Acquired deformities of fingers and toes
+          exclude:
+          - bleeding
           index: M20
         - category: M21
           child:
@@ -18247,6 +18700,8 @@ child:
             docs: Acquired deformity of limb, unspecified
             index: M219
           docs: Other acquired deformities of limbs
+          exclude:
+          - bleeding
           index: M21
         - category: M22
           child:
@@ -18272,6 +18727,8 @@ child:
             docs: Disorder of patella, unspecified
             index: M229
           docs: Disorders of patella
+          exclude:
+          - bleeding
           index: M22
         - category: M23
           child:
@@ -18303,6 +18760,8 @@ child:
             docs: Internal derangement of knee, unspecified
             index: M239
           docs: Internal derangement of knee
+          exclude:
+          - bleeding
           index: M23
         - category: M24
           child:
@@ -18337,6 +18796,8 @@ child:
             docs: Joint derangement, unspecified
             index: M249
           docs: Other specific joint derangements
+          exclude:
+          - bleeding
           index: M24
         - category: M25
           child:
@@ -18345,30 +18806,48 @@ child:
             index: M250
           - code: M25.1
             docs: Fistula of joint
+            exclude:
+            - bleeding
             index: M251
           - code: M25.2
             docs: Flail joint
+            exclude:
+            - bleeding
             index: M252
           - code: M25.3
             docs: Other instability of joint
+            exclude:
+            - bleeding
             index: M253
           - code: M25.4
             docs: Effusion of joint
+            exclude:
+            - bleeding
             index: M254
           - code: M25.5
             docs: Pain in joint
+            exclude:
+            - bleeding
             index: M255
           - code: M25.6
             docs: Stiffness of joint, not elsewhere classified
+            exclude:
+            - bleeding
             index: M256
           - code: M25.7
             docs: Osteophyte
+            exclude:
+            - bleeding
             index: M257
           - code: M25.8
             docs: Other specified joint disorders
+            exclude:
+            - bleeding
             index: M258
           - code: M25.9
             docs: Joint disorder, unspecified
+            exclude:
+            - bleeding
             index: M259
           docs: Other joint disorders, not elsewhere classified
           index: M25
@@ -18543,6 +19022,8 @@ child:
         docs: Systemic disorders of connective tissue in diseases classified elsewhere
         index: M36
       docs: Systemic connective tissue disorders
+      exclude:
+      - bleeding
       index:
       - M30
       - M36
@@ -18864,6 +19345,8 @@ child:
         - M50
         - M54
       docs: Dorsopathies
+      exclude:
+      - bleeding
       index:
       - M40
       - M54
@@ -19288,6 +19771,8 @@ child:
         - M70
         - M79
       docs: Soft tissue disorders
+      exclude:
+      - bleeding
       index:
       - M60
       - M79
@@ -19693,6 +20178,8 @@ child:
         - M91
         - M94
       docs: Osteopathies and chondropathies
+      exclude:
+      - bleeding
       index:
       - M80
       - M94
@@ -19792,6 +20279,8 @@ child:
         docs: Biomechanical lesions, not elsewhere classified
         index: M99
       docs: Other disorders of the musculoskeletal system and connective tissue
+      exclude:
+      - bleeding
       index:
       - M95
       - M99
@@ -19838,6 +20327,8 @@ child:
           docs: 'Acute nephritic syndrome : unspecified'
           index: N009
         docs: Acute nephritic syndrome
+        exclude:
+        - bleeding
         index: N00
       - category: N01
         child:
@@ -19872,6 +20363,8 @@ child:
           docs: 'Rapidly progressive nephritic syndrome : unspecified'
           index: N019
         docs: Rapidly progressive nephritic syndrome
+        exclude:
+        - bleeding
         index: N01
       - category: N02
         child:
@@ -19940,6 +20433,8 @@ child:
           docs: 'Chronic nephritic syndrome : unspecified'
           index: N039
         docs: Chronic nephritic syndrome
+        exclude:
+        - bleeding
         index: N03
       - category: N04
         child:
@@ -19974,6 +20469,8 @@ child:
           docs: 'Nephrotic syndrome : unspecified'
           index: N049
         docs: Nephrotic syndrome
+        exclude:
+        - bleeding
         index: N04
       - category: N05
         child:
@@ -20008,6 +20505,8 @@ child:
           docs: 'Unspecified nephritic syndrome : unspecified'
           index: N059
         docs: Unspecified nephritic syndrome
+        exclude:
+        - bleeding
         index: N05
       - category: N06
         child:
@@ -20042,6 +20541,8 @@ child:
           docs: 'Isolated proteinuria with specified morphological lesion : unspecified'
           index: N069
         docs: Isolated proteinuria with specified morphological lesion
+        exclude:
+        - bleeding
         index: N06
       - category: N07
         child:
@@ -20076,6 +20577,8 @@ child:
           docs: 'Hereditary nephropathy, not elsewhere classified : unspecified'
           index: N079
         docs: Hereditary nephropathy, not elsewhere classified
+        exclude:
+        - bleeding
         index: N07
       - category: N08
         child:
@@ -20101,6 +20604,8 @@ child:
           docs: Glomerular disorders in other diseases classified elsewhere
           index: N088
         docs: Glomerular disorders in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: N08
       docs: Glomerular diseases
       index:
@@ -20225,6 +20730,8 @@ child:
         docs: Renal tubulo-interstitial disorders in diseases classified elsewhere
         index: N16
       docs: Renal tubulo-interstitial diseases
+      exclude:
+      - bleeding
       index:
       - N10
       - N16
@@ -20275,6 +20782,8 @@ child:
         docs: Unspecified kidney failure
         index: N19
       docs: Renal failure
+      exclude:
+      - bleeding
       index:
       - N17
       - N19
@@ -20326,6 +20835,8 @@ child:
         docs: Unspecified renal colic
         index: N23
       docs: Urolithiasis
+      exclude:
+      - bleeding
       index:
       - N20
       - N23
@@ -20393,6 +20904,8 @@ child:
         docs: Other disorders of kidney and ureter in diseases classified elsewhere
         index: N29
       docs: Other disorders of kidney and ureter
+      exclude:
+      - bleeding
       index:
       - N25
       - N29
@@ -20567,6 +21080,8 @@ child:
         docs: Other disorders of urinary system
         index: N39
       docs: Other diseases of urinary system
+      exclude:
+      - bleeding
       index:
       - N30
       - N39
@@ -20574,6 +21089,8 @@ child:
       child:
       - code: N40
         docs: Hyperplasia of prostate
+        exclude:
+        - bleeding
         index: N40
       - category: N41
         child:
@@ -20596,26 +21113,38 @@ child:
           docs: Inflammatory disease of prostate, unspecified
           index: N419
         docs: Inflammatory diseases of prostate
+        exclude:
+        - bleeding
         index: N41
       - category: N42
         child:
         - code: N42.0
           docs: Calculus of prostate
+          exclude:
+          - bleeding
           index: N420
         - code: N42.1
           docs: Congestion and haemorrhage of prostate
           index: N421
         - code: N42.2
           docs: Atrophy of prostate
+          exclude:
+          - bleeding
           index: N422
         - code: N42.3
           docs: Dysplasia of prostate
+          exclude:
+          - bleeding
           index: N423
         - code: N42.8
           docs: Other specified disorders of prostate
+          exclude:
+          - bleeding
           index: N428
         - code: N42.9
           docs: Disorder of prostate, unspecified
+          exclude:
+          - bleeding
           index: N429
         docs: Other disorders of prostate
         index: N42
@@ -20637,9 +21166,13 @@ child:
           docs: Spermatocele
           index: N434
         docs: Hydrocele and spermatocele
+        exclude:
+        - bleeding
         index: N43
       - code: N44
         docs: Torsion of testis
+        exclude:
+        - bleeding
         index: N44
       - category: N45
         child:
@@ -20650,12 +21183,18 @@ child:
           docs: Orchitis, epididymitis and epididymo-orchitis without abscess
           index: N459
         docs: Orchitis and epididymitis
+        exclude:
+        - bleeding
         index: N45
       - code: N46
         docs: Male infertility
+        exclude:
+        - bleeding
         index: N46
       - code: N47
         docs: Redundant prepuce, phimosis and paraphimosis
+        exclude:
+        - bleeding
         index: N47
       - category: N48
         child:
@@ -20687,6 +21226,8 @@ child:
           docs: Disorder of penis, unspecified
           index: N489
         docs: Other disorders of penis
+        exclude:
+        - bleeding
         index: N48
       - category: N49
         child:
@@ -20706,6 +21247,8 @@ child:
           docs: Inflammatory disorder of unspecified male genital organ
           index: N499
         docs: Inflammatory disorders of male genital organs, not elsewhere classified
+        exclude:
+        - bleeding
         index: N49
       - category: N50
         child:
@@ -20722,6 +21265,8 @@ child:
           docs: Disorder of male genital organs, unspecified
           index: N509
         docs: Other disorders of male genital organs
+        exclude:
+        - bleeding
         index: N50
       - category: N51
         child:
@@ -20738,6 +21283,8 @@ child:
           docs: Other disorders of male genital organs in diseases classified elsewhere
           index: N518
         docs: Disorders of male genital organs in diseases classified elsewhere
+        exclude:
+        - bleeding
         index: N51
       docs: Diseases of male genital organs
       index:
@@ -20808,6 +21355,8 @@ child:
         docs: Other disorders of breast
         index: N64
       docs: Disorders of breast
+      exclude:
+      - bleeding
       index:
       - N60
       - N64
@@ -20953,6 +21502,8 @@ child:
         docs: Vulvovaginal ulceration and inflammation in diseases classified elsewhere
         index: N77
       docs: Inflammatory diseases of female pelvic organs
+      exclude:
+      - bleeding
       index:
       - N70
       - N77
@@ -20988,6 +21539,8 @@ child:
           docs: Endometriosis, unspecified
           index: N809
         docs: Endometriosis
+        exclude:
+        - bleeding
         index: N80
       - category: N81
         child:
@@ -21019,6 +21572,8 @@ child:
           docs: Female genital prolapse, unspecified
           index: N819
         docs: Female genital prolapse
+        exclude:
+        - bleeding
         index: N81
       - category: N82
         child:
@@ -21047,6 +21602,8 @@ child:
           docs: Female genital tract fistula, unspecified
           index: N829
         docs: Fistulae involving female genital tract
+        exclude:
+        - bleeding
         index: N82
       - category: N83
         child:
@@ -21081,6 +21638,8 @@ child:
           docs: Noninflammatory disorder of ovary, fallopian tube and broad ligament, unspecified
           index: N839
         docs: Noninflammatory disorders of ovary, fallopian tube and broad ligament
+        exclude:
+        - bleeding
         index: N83
       - category: N84
         child:
@@ -21103,6 +21662,8 @@ child:
           docs: Polyp of female genital tract, unspecified
           index: N849
         docs: Polyp of female genital tract
+        exclude:
+        - bleeding
         index: N84
       - category: N85
         child:
@@ -21137,9 +21698,13 @@ child:
           docs: Noninflammatory disorder of uterus, unspecified
           index: N859
         docs: Other noninflammatory disorders of uterus, except cervix
+        exclude:
+        - bleeding
         index: N85
       - code: N86
         docs: Erosion and ectropion of cervix uteri
+        exclude:
+        - bleeding
         index: N86
       - category: N87
         child:
@@ -21156,6 +21721,8 @@ child:
           docs: Dysplasia of cervix uteri, unspecified
           index: N879
         docs: Dysplasia of cervix uteri
+        exclude:
+        - bleeding
         index: N87
       - category: N88
         child:
@@ -21181,6 +21748,8 @@ child:
           docs: Noninflammatory disorder of cervix uteri, unspecified
           index: N889
         docs: Other noninflammatory disorders of cervix uteri
+        exclude:
+        - bleeding
         index: N88
       - category: N89
         child:
@@ -21215,6 +21784,8 @@ child:
           docs: Noninflammatory disorder of vagina, unspecified
           index: N899
         docs: Other noninflammatory disorders of vagina
+        exclude:
+        - bleeding
         index: N89
       - category: N90
         child:
@@ -21249,6 +21820,8 @@ child:
           docs: Noninflammatory disorder of vulva and perineum, unspecified
           index: N909
         docs: Other noninflammatory disorders of vulva and perineum
+        exclude:
+        - bleeding
         index: N90
       - category: N91
         child:
@@ -21271,6 +21844,8 @@ child:
           docs: Oligomenorrhoea, unspecified
           index: N915
         docs: Absent, scanty and rare menstruation
+        exclude:
+        - bleeding
         index: N91
       - category: N92
         child:
@@ -21282,6 +21857,8 @@ child:
           index: N921
         - code: N92.2
           docs: Excessive menstruation at puberty
+          exclude:
+          - bleeding
           index: N922
         - code: N92.3
           docs: Ovulation bleeding
@@ -21291,9 +21868,13 @@ child:
           index: N924
         - code: N92.5
           docs: Other specified irregular menstruation
+          exclude:
+          - bleeding
           index: N925
         - code: N92.6
           docs: Irregular menstruation, unspecified
+          exclude:
+          - bleeding
           index: N926
         docs: Excessive, frequent and irregular menstruation
         index: N92
@@ -21340,6 +21921,8 @@ child:
           docs: Unspecified condition associated with female genital organs and menstrual cycle
           index: N949
         docs: Pain and other conditions associated with female genital organs and menstrual cycle
+        exclude:
+        - bleeding
         index: N94
       - category: N95
         child:
@@ -21348,23 +21931,35 @@ child:
           index: N950
         - code: N95.1
           docs: Menopausal and female climacteric states
+          exclude:
+          - bleeding
           index: N951
         - code: N95.2
           docs: Postmenopausal atrophic vaginitis
+          exclude:
+          - bleeding
           index: N952
         - code: N95.3
           docs: States associated with artificial menopause
+          exclude:
+          - bleeding
           index: N953
         - code: N95.8
           docs: Other specified menopausal and perimenopausal disorders
+          exclude:
+          - bleeding
           index: N958
         - code: N95.9
           docs: Menopausal and perimenopausal disorder, unspecified
+          exclude:
+          - bleeding
           index: N959
         docs: Menopausal and other perimenopausal disorders
         index: N95
       - code: N96
         docs: Habitual aborter
+        exclude:
+        - bleeding
         index: N96
       - category: N97
         child:
@@ -21390,6 +21985,8 @@ child:
           docs: Female infertility, unspecified
           index: N979
         docs: Female infertility
+        exclude:
+        - bleeding
         index: N97
       - category: N98
         child:
@@ -21412,6 +22009,8 @@ child:
           docs: Complication associated with artificial fertilization, unspecified
           index: N989
         docs: Complications associated with artificial fertilization
+        exclude:
+        - bleeding
         index: N98
       docs: Noninflammatory disorders of female genital tract
       index:
@@ -21448,6 +22047,8 @@ child:
         docs: Postprocedural disorders of genitourinary system, not elsewhere classified
         index: N99
       docs: Other disorders of the genitourinary system
+      exclude:
+      - bleeding
       index:
       - N99
       - N99
@@ -21491,6 +22092,8 @@ child:
           docs: Superficial injury of head, part unspecified
           index: S009
         docs: Superficial injury of head
+        exclude:
+        - bleeding
         index: S00
       - category: S01
         child:
@@ -21522,6 +22125,8 @@ child:
           docs: Open wound of head, part unspecified
           index: S019
         docs: Open wound of head
+        exclude:
+        - bleeding
         index: S01
       - category: S02
         child:
@@ -21556,6 +22161,8 @@ child:
           docs: Fracture of skull and facial bones, part unspecified
           index: S029
         docs: Fracture of skull and facial bones
+        exclude:
+        - bleeding
         index: S02
       - category: S03
         child:
@@ -21578,6 +22185,8 @@ child:
           docs: Sprain and strain of joints and ligaments of other and unspecified parts of head
           index: S035
         docs: Dislocation, sprain and strain of joints and ligaments of head
+        exclude:
+        - bleeding
         index: S03
       - category: S04
         child:
@@ -21612,6 +22221,8 @@ child:
           docs: Injury of unspecified cranial nerve
           index: S049
         docs: Injury of cranial nerves
+        exclude:
+        - bleeding
         index: S04
       - category: S05
         child:
@@ -21646,17 +22257,25 @@ child:
           docs: Injury of eye and orbit, unspecified
           index: S059
         docs: Injury of eye and orbit
+        exclude:
+        - bleeding
         index: S05
       - category: S06
         child:
         - code: S06.0
           docs: Concussion
+          exclude:
+          - bleeding
           index: S060
         - code: S06.1
           docs: Traumatic cerebral oedema
+          exclude:
+          - bleeding
           index: S061
         - code: S06.2
           docs: Diffuse brain injury
+          exclude:
+          - bleeding
           index: S062
         - code: S06.3
           docs: Focal brain injury
@@ -21672,12 +22291,18 @@ child:
           index: S066
         - code: S06.7
           docs: Intracranial injury with prolonged coma
+          exclude:
+          - bleeding
           index: S067
         - code: S06.8
           docs: Other intracranial injuries
+          exclude:
+          - bleeding
           index: S068
         - code: S06.9
           docs: Intracranial injury, unspecified
+          exclude:
+          - bleeding
           index: S069
         docs: Intracranial injury
         index: S06
@@ -21696,6 +22321,8 @@ child:
           docs: Crushing injury of head, part unspecified
           index: S079
         docs: Crushing injury of head
+        exclude:
+        - bleeding
         index: S07
       - category: S08
         child:
@@ -21712,6 +22339,8 @@ child:
           docs: Traumatic amputation of unspecified part of head
           index: S089
         docs: Traumatic amputation of part of head
+        exclude:
+        - bleeding
         index: S08
       - category: S09
         child:
@@ -21734,6 +22363,8 @@ child:
           docs: Unspecified injury of head
           index: S099
         docs: Other and unspecified injuries of head
+        exclude:
+        - bleeding
         index: S09
       docs: Injuries to the head
       index:
@@ -21912,6 +22543,8 @@ child:
         docs: Other and unspecified injuries of neck
         index: S19
       docs: Injuries to the neck
+      exclude:
+      - bleeding
       index:
       - S10
       - S19
@@ -21941,6 +22574,8 @@ child:
           docs: Superficial injury of other and unspecified parts of thorax
           index: S208
         docs: Superficial injury of thorax
+        exclude:
+        - bleeding
         index: S20
       - category: S21
         child:
@@ -21963,6 +22598,8 @@ child:
           docs: Open wound of thorax, part unspecified
           index: S219
         docs: Open wound of thorax
+        exclude:
+        - bleeding
         index: S21
       - category: S22
         child:
@@ -21991,6 +22628,8 @@ child:
           docs: Fracture of bony thorax, part unspecified
           index: S229
         docs: Fracture of rib(s), sternum and thoracic spine
+        exclude:
+        - bleeding
         index: S22
       - category: S23
         child:
@@ -22013,6 +22652,8 @@ child:
           docs: Sprain and strain of other and unspecified parts of thorax
           index: S235
         docs: Dislocation, sprain and strain of joints and ligaments of thorax
+        exclude:
+        - bleeding
         index: S23
       - category: S24
         child:
@@ -22038,6 +22679,8 @@ child:
           docs: Injury of unspecified nerve of thorax
           index: S246
         docs: Injury of nerves and spinal cord at thorax level
+        exclude:
+        - bleeding
         index: S24
       - category: S25
         child:
@@ -22069,6 +22712,8 @@ child:
           docs: Injury of unspecified blood vessel of thorax
           index: S259
         docs: Injury of blood vessels of thorax
+        exclude:
+        - bleeding
         index: S25
       - category: S26
         child:
@@ -22077,9 +22722,13 @@ child:
           index: S260
         - code: S26.8
           docs: Other injuries of heart
+          exclude:
+          - bleeding
           index: S268
         - code: S26.9
           docs: Injury of heart, unspecified
+          exclude:
+          - bleeding
           index: S269
         docs: Injury of heart
         index: S26
@@ -22087,33 +22736,51 @@ child:
         child:
         - code: S27.0
           docs: Traumatic pneumothorax
+          exclude:
+          - bleeding
           index: S270
         - code: S27.1
           docs: Traumatic haemothorax
           index: S271
         - code: S27.2
           docs: Traumatic haemopneumothorax
+          exclude:
+          - bleeding
           index: S272
         - code: S27.3
           docs: Other injuries of lung
+          exclude:
+          - bleeding
           index: S273
         - code: S27.4
           docs: Injury of bronchus
+          exclude:
+          - bleeding
           index: S274
         - code: S27.5
           docs: Injury of thoracic trachea
+          exclude:
+          - bleeding
           index: S275
         - code: S27.6
           docs: Injury of pleura
+          exclude:
+          - bleeding
           index: S276
         - code: S27.7
           docs: Multiple injuries of intrathoracic organs
+          exclude:
+          - bleeding
           index: S277
         - code: S27.8
           docs: Injury of other specified intrathoracic organs
+          exclude:
+          - bleeding
           index: S278
         - code: S27.9
           docs: Injury of unspecified intrathoracic organ
+          exclude:
+          - bleeding
           index: S279
         docs: Injury of other and unspecified intrathoracic organs
         index: S27
@@ -22126,6 +22793,8 @@ child:
           docs: Traumatic amputation of part of thorax
           index: S281
         docs: Crushing injury of thorax and traumatic amputation of part of thorax
+        exclude:
+        - bleeding
         index: S28
       - category: S29
         child:
@@ -22142,6 +22811,8 @@ child:
           docs: Unspecified injury of thorax
           index: S299
         docs: Other and unspecified injuries of thorax
+        exclude:
+        - bleeding
         index: S29
       docs: Injuries to the thorax
       index:
@@ -22418,6 +23089,8 @@ child:
         docs: Other and unspecified injuries of abdomen, lower back and pelvis
         index: S39
       docs: Injuries to the abdomen, lower back, lumbar spine and pelvis
+      exclude:
+      - bleeding
       index:
       - S30
       - S39
@@ -22622,6 +23295,8 @@ child:
         docs: Other and unspecified injuries of shoulder and upper arm
         index: S49
       docs: Injuries to the shoulder and upper arm
+      exclude:
+      - bleeding
       index:
       - S40
       - S49
@@ -22830,6 +23505,8 @@ child:
         docs: Other and unspecified injuries of forearm
         index: S59
       docs: Injuries to the elbow and forearm
+      exclude:
+      - bleeding
       index:
       - S50
       - S59
@@ -23077,6 +23754,8 @@ child:
         docs: Other and unspecified injuries of wrist and hand
         index: S69
       docs: Injuries to the wrist and hand
+      exclude:
+      - bleeding
       index:
       - S60
       - S69
@@ -23261,6 +23940,8 @@ child:
         docs: Other and unspecified injuries of hip and thigh
         index: S79
       docs: Injuries to the hip and thigh
+      exclude:
+      - bleeding
       index:
       - S70
       - S79
@@ -23478,6 +24159,8 @@ child:
         docs: Other and unspecified injuries of lower leg
         index: S89
       docs: Injuries to the knee and lower leg
+      exclude:
+      - bleeding
       index:
       - S80
       - S89
@@ -23695,6 +24378,8 @@ child:
         docs: Other and unspecified injuries of ankle and foot
         index: S99
       docs: Injuries to the ankle and foot
+      exclude:
+      - bleeding
       index:
       - S90
       - S99
@@ -23897,6 +24582,8 @@ child:
         docs: Unspecified multiple injuries
         index: T07
       docs: Injuries involving multiple body regions
+      exclude:
+      - bleeding
       index:
       - T00
       - T07
@@ -24039,6 +24726,8 @@ child:
         docs: Injury of unspecified body region
         index: T14
       docs: Injuries to unspecified part of trunk, limb or body region
+      exclude:
+      - bleeding
       index:
       - T08
       - T14
@@ -24142,6 +24831,8 @@ child:
         docs: Foreign body in genitourinary tract
         index: T19
       docs: Effects of foreign body entering through natural orifice
+      exclude:
+      - bleeding
       index:
       - T15
       - T19
@@ -24554,6 +25245,8 @@ child:
         - T29
         - T32
       docs: Burns and corrosions
+      exclude:
+      - bleeding
       index:
       - T20
       - T32
@@ -24656,6 +25349,8 @@ child:
         docs: Frostbite involving multiple body regions and unspecified frostbite
         index: T35
       docs: Frostbite
+      exclude:
+      - bleeding
       index:
       - T33
       - T35
@@ -25133,6 +25828,8 @@ child:
         docs: Poisoning by diuretics and other and unspecified drugs, medicaments and biological substances
         index: T50
       docs: Poisoning by drugs, medicaments and biological substances
+      exclude:
+      - bleeding
       index:
       - T36
       - T50
@@ -25460,6 +26157,8 @@ child:
         docs: Toxic effect of other and unspecified substances
         index: T65
       docs: Toxic effects of substances chiefly nonmedicinal as to source
+      exclude:
+      - bleeding
       index:
       - T51
       - T65
@@ -25641,6 +26340,8 @@ child:
         docs: Adverse effects, not elsewhere classified
         index: T78
       docs: Other and unspecified effects of external causes
+      exclude:
+      - bleeding
       index:
       - T66
       - T78
@@ -25681,6 +26382,8 @@ child:
         docs: Certain early complications of trauma, not elsewhere classified
         index: T79
       docs: Certain early complications of trauma
+      exclude:
+      - bleeding
       index:
       - T79
       - T79
@@ -25716,6 +26419,8 @@ child:
           docs: Unspecified complication following infusion, transfusion and therapeutic injection
           index: T809
         docs: Complications following infusion, transfusion and therapeutic injection
+        exclude:
+        - bleeding
         index: T80
       - category: T81
         child:
@@ -25724,30 +26429,48 @@ child:
           index: T810
         - code: T81.1
           docs: Shock during or resulting from a procedure, not elsewhere classified
+          exclude:
+          - bleeding
           index: T811
         - code: T81.2
           docs: Accidental puncture and laceration during a procedure, not elsewhere classified
+          exclude:
+          - bleeding
           index: T812
         - code: T81.3
           docs: Disruption of operation wound, not elsewhere classified
+          exclude:
+          - bleeding
           index: T813
         - code: T81.4
           docs: Infection following a procedure, not elsewhere classified
+          exclude:
+          - bleeding
           index: T814
         - code: T81.5
           docs: Foreign body accidentally left in body cavity or operation wound following a procedure
+          exclude:
+          - bleeding
           index: T815
         - code: T81.6
           docs: Acute reaction to foreign substance accidentally left during a procedure
+          exclude:
+          - bleeding
           index: T816
         - code: T81.7
           docs: Vascular complications following a procedure, not elsewhere classified
+          exclude:
+          - bleeding
           index: T817
         - code: T81.8
           docs: Other complications of procedures, not elsewhere classified
+          exclude:
+          - bleeding
           index: T818
         - code: T81.9
           docs: Unspecified complication of procedure
+          exclude:
+          - bleeding
           index: T819
         docs: Complications of procedures, not elsewhere classified
         index: T81
@@ -25784,6 +26507,8 @@ child:
           docs: Unspecified complication of cardiac and vascular prosthetic device, implant and graft
           index: T829
         docs: Complications of cardiac and vascular prosthetic devices, implants and grafts
+        exclude:
+        - bleeding
         index: T82
       - category: T83
         child:
@@ -25815,6 +26540,8 @@ child:
           docs: Unspecified complication of genitourinary prosthetic device, implant and graft
           index: T839
         docs: Complications of genitourinary prosthetic devices, implants and grafts
+        exclude:
+        - bleeding
         index: T83
       - category: T84
         child:
@@ -25849,6 +26576,8 @@ child:
           docs: Unspecified complication of internal orthopaedic prosthetic device, implant and graft
           index: T849
         docs: Complications of internal orthopaedic prosthetic devices, implants and grafts
+        exclude:
+        - bleeding
         index: T84
       - category: T85
         child:
@@ -25883,6 +26612,8 @@ child:
           docs: Unspecified complication of internal prosthetic device, implant and graft
           index: T859
         docs: Complications of other internal prosthetic devices, implants and grafts
+        exclude:
+        - bleeding
         index: T85
       - category: T86
         child:
@@ -25908,6 +26639,8 @@ child:
           docs: Failure and rejection of unspecified transplanted organ and tissue
           index: T869
         docs: Failure and rejection of transplanted organs and tissues
+        exclude:
+        - bleeding
         index: T86
       - category: T87
         child:
@@ -25933,6 +26666,8 @@ child:
           docs: Other and unspecified complications of amputation stump
           index: T876
         docs: Complications peculiar to reattachment and amputation
+        exclude:
+        - bleeding
         index: T87
       - category: T88
         child:
@@ -25967,6 +26702,8 @@ child:
           docs: Complication of surgical and medical care, unspecified
           index: T889
         docs: Other complications of surgical and medical care, not elsewhere classified
+        exclude:
+        - bleeding
         index: T88
       docs: Complications of surgical and medical care, not elsewhere classified
       index:
@@ -26150,6 +26887,8 @@ child:
         docs: Sequelae of other and unspecified effects of external causes
         index: T98
       docs: Sequelae of injuries, of poisoning and of other consequences of external causes
+      exclude:
+      - bleeding
       index:
       - T90
       - T98
@@ -27782,6 +28521,7 @@ child:
     docs: Pregnancy, childbirth and the puerperium
     exclude:
     - acs
+    - bleeding
     index:
     - O00
     - O99
@@ -29065,6 +29805,7 @@ child:
     docs: Certain conditions originating in the perinatal period
     exclude:
     - acs
+    - bleeding
     index:
     - P00
     - P96
@@ -31340,6 +32081,7 @@ child:
     docs: Congenital malformations, deformations and chromosomal abnormalities
     exclude:
     - acs
+    - bleeding
     index:
     - Q00
     - Q99
@@ -31362,6 +32104,8 @@ child:
           docs: Other and unspecified abnormalities of heart beat
           index: R008
         docs: Abnormalities of heart beat
+        exclude:
+        - bleeding
         index: R00
       - category: R01
         child:
@@ -31375,9 +32119,13 @@ child:
           docs: Other cardiac sounds
           index: R012
         docs: Cardiac murmurs and other cardiac sounds
+        exclude:
+        - bleeding
         index: R01
       - code: R02
         docs: Gangrene, not elsewhere classified
+        exclude:
+        - bleeding
         index: R02
       - category: R03
         child:
@@ -31388,6 +32136,8 @@ child:
           docs: Nonspecific low blood-pressure reading
           index: R031
         docs: Abnormal blood-pressure reading, without diagnosis
+        exclude:
+        - bleeding
         index: R03
       - category: R04
         child:
@@ -31410,6 +32160,8 @@ child:
         index: R04
       - code: R05
         docs: Cough
+        exclude:
+        - bleeding
         index: R05
       - category: R06
         child:
@@ -31441,6 +32193,8 @@ child:
           docs: Other and unspecified abnormalities of breathing
           index: R068
         docs: Abnormalities of breathing
+        exclude:
+        - bleeding
         index: R06
       - category: R07
         child:
@@ -31460,6 +32214,8 @@ child:
           docs: Chest pain, unspecified
           index: R074
         docs: Pain in throat and chest
+        exclude:
+        - bleeding
         index: R07
       - category: R09
         child:
@@ -31479,6 +32235,8 @@ child:
           docs: Other specified symptoms and signs involving the circulatory and respiratory systems
           index: R098
         docs: Other symptoms and signs involving the circulatory and respiratory systems
+        exclude:
+        - bleeding
         index: R09
       docs: Symptoms and signs involving the circulatory and respiratory systems
       index:
@@ -31568,6 +32326,8 @@ child:
         docs: Other symptoms and signs involving the digestive system and abdomen
         index: R19
       docs: Symptoms and signs involving the digestive system and abdomen
+      exclude:
+      - bleeding
       index:
       - R10
       - R19
@@ -31643,6 +32403,8 @@ child:
         docs: Other skin changes
         index: R23
       docs: Symptoms and signs involving the skin and subcutaneous tissue
+      exclude:
+      - bleeding
       index:
       - R20
       - R23
@@ -31722,6 +32484,8 @@ child:
         docs: Other symptoms and signs involving the nervous and musculoskeletal systems
         index: R29
       docs: Symptoms and signs involving the nervous and musculoskeletal systems
+      exclude:
+      - bleeding
       index:
       - R25
       - R29
@@ -31739,24 +32503,36 @@ child:
           docs: Painful micturition, unspecified
           index: R309
         docs: Pain associated with micturition
+        exclude:
+        - bleeding
         index: R30
       - code: R31
         docs: Unspecified haematuria
         index: R31
       - code: R32
         docs: Unspecified urinary incontinence
+        exclude:
+        - bleeding
         index: R32
       - code: R33
         docs: Retention of urine
+        exclude:
+        - bleeding
         index: R33
       - code: R34
         docs: Anuria and oliguria
+        exclude:
+        - bleeding
         index: R34
       - code: R35
         docs: Polyuria
+        exclude:
+        - bleeding
         index: R35
       - code: R36
         docs: Urethral discharge
+        exclude:
+        - bleeding
         index: R36
       - category: R39
         child:
@@ -31773,6 +32549,8 @@ child:
           docs: Other and unspecified symptoms and signs involving the urinary system
           index: R398
         docs: Other symptoms and signs involving the urinary system
+        exclude:
+        - bleeding
         index: R39
       docs: Symptoms and signs involving the urinary system
       index:
@@ -31913,6 +32691,8 @@ child:
         docs: Symptoms and signs involving appearance and behaviour
         index: R46
       docs: Symptoms and signs involving cognition, perception, emotional state and behaviour
+      exclude:
+      - bleeding
       index:
       - R40
       - R46
@@ -31964,6 +32744,8 @@ child:
         docs: Voice disturbances
         index: R49
       docs: Symptoms and signs involving speech and voice
+      exclude:
+      - bleeding
       index:
       - R47
       - R49
@@ -31981,9 +32763,13 @@ child:
           docs: Fever, unspecified
           index: R509
         docs: Fever of other and unknown origin
+        exclude:
+        - bleeding
         index: R50
       - code: R51
         docs: Headache
+        exclude:
+        - bleeding
         index: R51
       - category: R52
         child:
@@ -32000,15 +32786,23 @@ child:
           docs: Pain, unspecified
           index: R529
         docs: Pain, not elsewhere classified
+        exclude:
+        - bleeding
         index: R52
       - code: R53
         docs: Malaise and fatigue
+        exclude:
+        - bleeding
         index: R53
       - code: R54
         docs: Senility
+        exclude:
+        - bleeding
         index: R54
       - code: R55
         docs: Syncope and collapse
+        exclude:
+        - bleeding
         index: R55
       - category: R56
         child:
@@ -32019,6 +32813,8 @@ child:
           docs: Other and unspecified convulsions
           index: R568
         docs: Convulsions, not elsewhere classified
+        exclude:
+        - bleeding
         index: R56
       - category: R57
         child:
@@ -32038,6 +32834,8 @@ child:
           docs: Shock, unspecified
           index: R579
         docs: Shock, not elsewhere classified
+        exclude:
+        - bleeding
         index: R57
       - code: R58
         docs: Haemorrhage, not elsewhere classified
@@ -32054,6 +32852,8 @@ child:
           docs: Enlarged lymph nodes, unspecified
           index: R599
         docs: Enlarged lymph nodes
+        exclude:
+        - bleeding
         index: R59
       - category: R60
         child:
@@ -32067,6 +32867,8 @@ child:
           docs: Oedema, unspecified
           index: R609
         docs: Oedema, not elsewhere classified
+        exclude:
+        - bleeding
         index: R60
       - category: R61
         child:
@@ -32080,6 +32882,8 @@ child:
           docs: Hyperhidrosis, unspecified
           index: R619
         docs: Hyperhidrosis
+        exclude:
+        - bleeding
         index: R61
       - category: R62
         child:
@@ -32093,6 +32897,8 @@ child:
           docs: Lack of expected normal physiological development, unspecified
           index: R629
         docs: Lack of expected normal physiological development
+        exclude:
+        - bleeding
         index: R62
       - category: R63
         child:
@@ -32121,9 +32927,13 @@ child:
           docs: Other symptoms and signs concerning food and fluid intake
           index: R638
         docs: Symptoms and signs concerning food and fluid intake
+        exclude:
+        - bleeding
         index: R63
       - code: R64
         docs: Cachexia
+        exclude:
+        - bleeding
         index: R64
       - category: R65
         child:
@@ -32143,6 +32953,8 @@ child:
           docs: Systemic Inflammatory Response Syndrome, unspecified
           index: R659
         docs: Systemic Inflammatory Response Syndrome [SIRS]
+        exclude:
+        - bleeding
         index: R65
       - category: R68
         child:
@@ -32162,9 +32974,13 @@ child:
           docs: Other specified general symptoms and signs
           index: R688
         docs: Other general symptoms and signs
+        exclude:
+        - bleeding
         index: R68
       - code: R69
         docs: Unknown and unspecified causes of morbidity
+        exclude:
+        - bleeding
         index: R69
       docs: General symptoms and signs
       index:
@@ -32300,6 +33116,8 @@ child:
         docs: Other abnormal findings of blood chemistry
         index: R79
       docs: Abnormal findings on examination of blood, without diagnosis
+      exclude:
+      - bleeding
       index:
       - R70
       - R79
@@ -32346,6 +33164,8 @@ child:
         docs: Other abnormal findings in urine
         index: R82
       docs: Abnormal findings on examination of urine, without diagnosis
+      exclude:
+      - bleeding
       index:
       - R80
       - R82
@@ -32556,6 +33376,8 @@ child:
         docs: Abnormal findings in specimens from other organs, systems and tissues
         index: R89
       docs: Abnormal findings on examination of other body fluids, substances and tissues, without diagnosis
+      exclude:
+      - bleeding
       index:
       - R83
       - R89
@@ -32640,6 +33462,8 @@ child:
         docs: Abnormal results of function studies
         index: R94
       docs: Abnormal findings on diagnostic imaging and in function studies, without diagnosis
+      exclude:
+      - bleeding
       index:
       - R90
       - R94
@@ -32672,6 +33496,8 @@ child:
         docs: Other ill-defined and unspecified causes of mortality
         index: R99
       docs: Ill-defined and unknown causes of mortality
+      exclude:
+      - bleeding
       index:
       - R95
       - R99
@@ -37632,6 +38458,7 @@ child:
     docs: External causes of morbidity and mortality
     exclude:
     - acs
+    - bleeding
     index:
     - V01
     - Y98
@@ -39900,6 +40727,7 @@ child:
     docs: Factors influencing health status and contact with health services
     exclude:
     - acs
+    - bleeding
     index:
     - Z00
     - Z99
@@ -40064,12 +40892,11 @@ child:
     docs: Codes for special purposes
     exclude:
     - acs
+    - bleeding
     index:
     - U00
     - U85
   docs: ICD-10 codes, 2016 release
-  exclude:
-  - bleeding
   index:
   - A00
   - Z99

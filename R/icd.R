@@ -237,7 +237,7 @@ icd10_load_codes <- function(codes_file)
     }
 
     ## Sort the codes
-    codes_def$codes <- sort_level(codes_def$codes)
+    codes_def$child <- sort_level(codes_def$child)
 
     codes_def
 }
@@ -267,7 +267,7 @@ new_icd10 <- function(str = character(), codes_file)
     ## a list with one item, and the main chapter level
     ## starts in the child key.
     codes_def <- icd10_load_codes(codes_file)
-    codes <- codes_def$codes
+    codes <- codes_def$child
     groups <- codes_def$groups
 
     ## strip whitespace from the code, and

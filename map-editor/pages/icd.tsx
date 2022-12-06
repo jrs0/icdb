@@ -51,17 +51,16 @@ function visible_status(cat, group, parent_exclude) {
 // as "unexclude_group".
 function include_group(cat, group) {
     if ("exclude" in cat) {
-	// The bug must be here -- not
-	// removing the exclude tag
-	// properly.
-	// BUG: apparently group is
-	// a number here, should be
-	// a string
-	//
-        const index = cat.exclude.indexOf(group);
+	// Remove the group from the exclude array
+	const index = cat.exclude.indexOf(group);
         if (index > -1) {
             cat.exclude.splice(index, 1);
         }
+	// Delete the exclude key if empty
+	if (cat.exclude.length == 0) {
+	    delete cat.exclude
+	}
+	
     }
 }
 
@@ -118,6 +117,7 @@ function set_first_excludes(cat, group) {
     return (cat)
 }
 
+// BUG: there is something wrong with selecting at this level
 function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
     const { included, enabled } = visible_status(cat, group, parent_exclude)
@@ -147,6 +147,10 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
     </div>
 }
 
+// BUG: not selecting properly also happens at this level. bug occurs after
+// deselecting at the top level, and then attempting to select at a lower level.
+// Subsequent clearing then fails to remove the exclude  keys. Also seems to
+// have something to do with when a category is expanded for the first time.
 function Category({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
 
     const { included, enabled } = visible_status(cat, group, parent_exclude)
@@ -326,6 +330,8 @@ export default function Home() {
             cat = remove_all_excludes(cat, group)
             exclude_group(cat, group)
 
+	    console.log("Included, now ", cat)
+
         } else {
             // When the current component is excluded,
             // the user is wanting to enable this level
@@ -357,20 +363,41 @@ export default function Home() {
             // category).
             let indices_above = indices.slice();
             let cat_above = cat;
-            while (!("exclude" in cat_above)) {
-                // Move to the category above
-                indices_above.pop()
+	    // BUG: This is likely the problem --
+	    // previously, when there was only one
+	    // group, the presence of an exclude key
+	    // was equivalent to that exclude key
+	    // being true. Now, it is necessary to
+	    // actually check if the exclude array
+	    // contains the group. This bug here
+	    // will involve the interaction betwee
+	    // different groups
+            while (true) {
+
+		// Find the first category above
+		// (or equal to) cat where there
+		// is an exclude for the current
+		// group
+		if ("exclude" in cat_above) {
+		    if (cat_above.exclude.includes(group)) {
+			break
+		    }
+		}
+		
+		// Move to the category above
+		indices_above.pop()
                 cat_above = get_cat(code_def_copy,
-                    indices_above)
+				    indices_above)
             }
 
             // At this point, cat is the category
-            // if interest and cat_above is the
+            // of interest and cat_above is the
             // first higher category that contains
             // an exclude (which may be equal to cat).
             // Remove this exclude.
-            delete get_cat(code_def_copy, indices_above).exclude
-
+	    include_group(get_cat(code_def_copy, indices_above),
+			  group)
+	    
             // Now walk back down the tree from
             // cat above adding
             // excludes for categories not on the
@@ -379,7 +406,8 @@ export default function Home() {
             // get the indices of cat relative to
             // cat_above
             let rel_indices = indices.slice(indices_above.length);
-
+	    console.log("rel", rel_indices)
+	    
             // Loop over all the subcategories between
             // cat_above and cat
             cat = cat_above
@@ -397,6 +425,8 @@ export default function Home() {
                 // Move down a level
                 cat = cat.child[n]
             })
+
+	    console.log("Included, now ", cat)
         }
 
         // Now save the new code_defs state
