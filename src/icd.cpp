@@ -56,15 +56,17 @@ struct Index
 //' @return A named list containing indices, type and groups
 //' 
 //' 
-std::vector<Index> icd10_str_to_indices_impl(const Rcpp::String & str,
-					     const Rcpp::List & codes,
-					     const Rcpp::List & groups)
+ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
+				      const Rcpp::List & codes,
+				      const Rcpp::List & groups)
 {
     // Check for empty string. Return type = -1 if empty
     // and set all other fields to empty
-    // if(std::all_of(str.begin(),str.end(),isspace)) {
+    const std::string std_str{str};
+    // if(std::all_of(std_str.begin(), std_str.end(), isspace)) {
     // 	return ParseResult{-1};
     // }
+    return ParseResult{0};
     
     // Look through the index keys at the current level
     // and find the position of the code. Inside the codes
@@ -72,13 +74,13 @@ std::vector<Index> icd10_str_to_indices_impl(const Rcpp::String & str,
     // (using binary search) for the ICD code in str.
     
     // Extract the vector of indices 
-	std::vector<Index> indices;
-    for (std::size_t i{0}; i < codes.size(); ++i) {
-	indices.emplace_back("Hello", "World");
-    }
+    // 	std::vector<Index> indices;
+    // for (std::size_t i{0}; i < codes.size(); ++i) {
+    // 	indices.emplace_back("Hello", "World");
+    // }
     
 
-    return indices;
+    //return indices;
     
     // === R impl to find the position ========================
     // position <- codes %>%
@@ -253,13 +255,13 @@ Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
 			  const Rcpp::List & code_def)
 {
     
-    auto res {
+    ParseResult res{
 	icd10_str_to_indices_impl(str[0],
 				  code_def["child"],
 				  code_def["groups"])
     };
     
-    return Rcpp::List::create(Rcpp::_["indices"] = res,
+    return Rcpp::List::create(Rcpp::_["indices"] = res.type,
 			      Rcpp::_["type"] = "type",
 			      Rcpp::_["groups"] = "groups");
 }
