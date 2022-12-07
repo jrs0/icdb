@@ -17,17 +17,3 @@
     display: inline;
     padding-bottom: 0.3em;
 }
-
-.load_button {
-    border-style: solid;
-    padding: 1%;
-    margin: 0 auto;
-    text-align: center;
-    width: 10em;
-}
-
-.load_button:hover {
-    background-color: lightgray;
-    transition: 0.5s;
-    cursor: pointer;
-}
