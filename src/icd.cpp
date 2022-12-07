@@ -26,7 +26,7 @@ struct Index
 {
     Rcpp::String start_;
     Rcpp::String end_;
-    Index(const Rcpp::List & index)
+    Index(const Rcpp::CharacterVector & index)
     {
 	if (index.size() == 2) {
 	    start_ = index[0];
@@ -83,7 +83,8 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     // Extract the vector of indices 
 	   std::vector<Index> indices;
     for (std::size_t i{0}; i < codes.size(); ++i) {
-	indices.emplace_back(codes["index"]);
+	const Rcpp::CharacterVector index{codes["index"]};
+	indices.emplace_back(index);
 	std::cout << indices[i].start_ << "," << indices[i].end_ << std::endl;
     }
     
