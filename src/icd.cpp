@@ -24,16 +24,16 @@ private:
 
 struct Index
 {
-    Rcpp::String start_;
-    Rcpp::String end_;
+    std::string start_;
+    std::string end_;
     Index(const Rcpp::CharacterVector & index)
     {
 	if (index.size() == 2) {
-	    start_ = Rcpp::as<Rcpp::String>(index[0]);
-	    end_ = Rcpp::as<Rcpp::String>(index[1]);
+	    start_ = Rcpp::as<std::string>(index[0]);
+	    end_ = Rcpp::as<std::string>(index[1]);
 	} else {
-	    start_ = Rcpp::as<Rcpp::String>(index[0]);
-	    end_ = Rcpp::as<Rcpp::String>(index[0]);
+	    start_ = Rcpp::as<std::string>(index[0]);
+	    end_ = Rcpp::as<std::string>(index[0]);
 	}
     }
 };
