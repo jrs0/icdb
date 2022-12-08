@@ -68,27 +68,30 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
 				      const Rcpp::List & codes,
 				      const Rcpp::List & groups)
 {
+
+   
     // Check for empty string. Return type = -1 if empty
     // and set all other fields to empty
     const std::string std_str{str};
     if(std::all_of(std_str.begin(), std_str.end(), isspace)) {
 	return ParseResult{-1};
-    }
+    }   
     
     // Look through the index keys at the current level
     // and find the position of the code. Inside the codes
     // structure, the index keys provide an array to search
     // (using binary search) for the ICD code in str.
+
+    //
     
-    // Extract the vector of indices 
-	   std::vector<Index> indices;
-    for (std::size_t i{0}; i < codes.size(); ++i) {
-	const Rcpp::CharacterVector index{codes["index"]};
-	indices.emplace_back(index);
-	Rcpp::Rcout << indices[i].start_
-		    << "," << indices[i].end_ << std::endl;
+    // Extract the vector of indices
+    std::vector<Index> indices;
+    for (long i{0}; i < codes.size(); ++i) {
+	const std::vector<std::string> index{codes["index"]};
+	// indices.push_back(Rcpp::as<Rcpp::CharacterVector>(codes["index"]));
+	// Rcpp::Rcout << indices[i].start_
+	// 	    << "," << indices[i].end_ << std::endl;
     }
-    
     
     return ParseResult{0};
 
@@ -267,7 +270,6 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
 Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
 			  const Rcpp::List & code_def)
 {
-    
     ParseResult res{
 	icd10_str_to_indices_impl(str[0],
 				  code_def["child"],
