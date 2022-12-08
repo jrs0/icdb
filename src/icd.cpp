@@ -29,11 +29,11 @@ struct Index
     Index(const Rcpp::CharacterVector & index)
     {
 	if (index.size() == 2) {
-	    start_ = index[0];
-	    end_ = index[1];
+	    start_ = Rcpp::as<Rcpp::String>(index[0]);
+	    end_ = Rcpp::as<Rcpp::String>(index[1]);
 	} else {
-	    start_ = index[0];
-	    end_ = index[0];
+	    start_ = Rcpp::as<Rcpp::String>(index[0]);
+	    end_ = Rcpp::as<Rcpp::String>(index[0]);
 	}
     }
 };
@@ -85,7 +85,8 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     for (std::size_t i{0}; i < codes.size(); ++i) {
 	const Rcpp::CharacterVector index{codes["index"]};
 	indices.emplace_back(index);
-	std::cout << indices[i].start_ << "," << indices[i].end_ << std::endl;
+	Rcpp::Rcout << indices[i].start_
+		    << "," << indices[i].end_ << std::endl;
     }
     
     
