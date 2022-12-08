@@ -90,7 +90,7 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     // Extract the vector of indices
     std::vector<Index> indices;
     for (long i{0}; i < codes.size(); ++i) {
-	const Rcpp::CharacterVector index{codes["index"]};
+	const Rcpp::CharacterVector index{codes[i]["index"]};
 	indices.push_back(index);
 	// Rcpp::Rcout << indices[i].start_
 	// 	    << "," << indices[i].end_ << std::endl;
