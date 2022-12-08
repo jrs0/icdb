@@ -26,14 +26,14 @@ struct Index
 {
     std::string start_;
     std::string end_;
-    Index(const Rcpp::CharacterVector & index)
+    Index(const std::vector<std::string> & index)
     {
 	if (index.size() == 2) {
-	    start_ = Rcpp::as<std::string>(index[0]);
-	    end_ = Rcpp::as<std::string>(index[1]);
+	    start_ = index[0];
+	    end_ = index[1];
 	} else {
-	    start_ = Rcpp::as<std::string>(index[0]);
-	    end_ = Rcpp::as<std::string>(index[0]);
+	    start_ = index[0];
+	    end_ = index[0];
 	}
     }
 };
@@ -88,9 +88,9 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     std::vector<Index> indices;
     for (long i{0}; i < codes.size(); ++i) {
 	const std::vector<std::string> index{codes["index"]};
-	// indices.push_back(Rcpp::as<Rcpp::CharacterVector>(codes["index"]));
-	// Rcpp::Rcout << indices[i].start_
-	// 	    << "," << indices[i].end_ << std::endl;
+	indices.push_back(index);
+	Rcpp::Rcout << indices[i].start_
+		    << "," << indices[i].end_ << std::endl;
     }
     
     return ParseResult{0};
