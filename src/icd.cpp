@@ -24,16 +24,19 @@ private:
 
 struct Index
 {
-    std::string start_;
-    std::string end_;
-    Index(const std::vector<std::string> & index)
+    Rcpp::String start_;
+    Rcpp::String end_;
+    Index(const Rcpp::CharacterVector & index)
     {
+	if (index.size() == 0) {
+	    throw std::logic_error("Index cannot be length zero");
+	}
 	if (index.size() == 2) {
-	    start_ = index[0];
-	    end_ = index[1];
+	    start_ = Rcpp::as<Rcpp::String>(index[0]);
+	    end_ = Rcpp::as<Rcpp::String>(index[1]);
 	} else {
-	    start_ = index[0];
-	    end_ = index[0];
+	    start_ = Rcpp::as<Rcpp::String>(index[0]);
+	    end_ = Rcpp::as<Rcpp::String>(index[0]);
 	}
     }
 };
@@ -87,10 +90,10 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     // Extract the vector of indices
     std::vector<Index> indices;
     for (long i{0}; i < codes.size(); ++i) {
-	const std::vector<std::string> index{codes["index"]};
+	const Rcpp::CharacterVector index{codes["index"]};
 	indices.push_back(index);
-	Rcpp::Rcout << indices[i].start_
-		    << "," << indices[i].end_ << std::endl;
+	// Rcpp::Rcout << indices[i].start_
+	// 	    << "," << indices[i].end_ << std::endl;
     }
     
     return ParseResult{0};
