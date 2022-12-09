@@ -310,7 +310,8 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     if (!found)
     {
 	Rcpp::Rcout << position->contains(str) << std::endl;
-	return ParseResult{2};                     
+	//return ParseResult{2};
+	throw std::logic_error("Invalid code");
     }
 
     // Convert the iterator to an integer position (indexed
@@ -427,10 +428,15 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     
     Rcpp::List results(str.size());
     for (std::size_t n{0}; n < str.size(); ++n) {
-	auto res{icd10_str_to_indices_impl(str[n],
-					   code_def["child"],
-					   groups)};	
-	results[n] = res.to_R_list();
+	try {
+	    auto res{icd10_str_to_indices_impl(str[n],
+					       code_def["child"],
+					       groups)};	
+	    results[n] = res.to_R_list();
+	} catch (const std::logic_error &) {
+	    // Catch the invalid code error
+	    results[n] = ParseResult(2, {}, {}, str[n]).to_R_list();
+	}
     }
 
     return results;
