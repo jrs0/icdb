@@ -75,9 +75,8 @@ public:
 	    (str >= idx[0]) && (str <= idx[1]);
 	} else {
 	    // Truncate the string to the length of the index
-	    Rcpp::String trunc = str
-	    
-	    trunc == 
+	    std::string trunc{str.substr(0, idx[0].size())}   
+	    trunc == idx[0];
 	}
 	
     }
