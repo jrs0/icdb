@@ -212,18 +212,27 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // Perform the binary search
     auto lower = std::lower_bound(std::begin(cats), std::end(cats), str);
     const bool found = (lower != std::end(cats)) && (lower->contains(str));
+    int position{-1};
     if (found) {
-	std::size_t position{std::distance(std::begin(cats), lower)};
+	position = std::distance(std::begin(cats), lower);
 	Rcpp::Rcout << "Found " << str << " at " << position << std::endl;
 	Rcpp::Rcout << *lower << std::endl;
     } else {
 	Rcpp::Rcout << "Did not find " << str << std::endl;	
     }
-    
+
+    // If position is -1, then a match was not found. This
+    // means that the str is not a valid member of any member
+    // of this level, so it is not a valid code. Return a
+    // type of 2 (for invalid code), and set other fields to
+    // empty
+
+    if (position == -1)
+    {
+	return ParseResult{2};                     
+    }
+
     return ParseResult{0};
-
-
-    //return indices;
     
     // === R impl to find the position ========================
     // position <- codes %>%
