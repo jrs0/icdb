@@ -86,6 +86,20 @@ public:
     {
 	return Rcpp::as<std::vector<std::string>>(cat_["exclude"]);
     }
+
+    // True if this category has subcategories (false
+    // for leaf nodes with single codes)
+    bool has_subcats()
+    {
+	// This is simpler than checking the names,
+	// can check performance later
+	try {
+	    Rcpp::List val = cat_["child"];
+	    return true;
+	} catch (const Rcpp::index_out_of_bounds &) {
+	    return false;
+	}
+    }
     
     // Return true if code is (lexicographically) contained
     // in the range specified by the index of this Cat
@@ -259,18 +273,15 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 	// No exclude tag present, no need to remove anything,
 	// groups is still valid
     }
-
-    return ParseResult{0};
    
-    
-    // ==== OLD R impl =======
-    //groups <- setdiff(groups, )
-    // ===============
-
     // If there is a subcategory, make a call to this function
-    // top process the next category down. Otherwise you are
+    // to process the next category down. Otherwise you are
     // at a leaf node, so start returning up the call graph
 
+    if (position->has_subcats()) {
+
+    }
+    
     // ==== Old R impl =================================
     // if (!is.null(codes[[position]]$category))
     // {   
@@ -353,7 +364,11 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 	//     }
 	// }
 	// ===============================
-	
+
+
+    return ParseResult{0};
+
+		      
 }
 
 
