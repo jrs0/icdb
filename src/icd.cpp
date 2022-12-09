@@ -44,6 +44,13 @@ public:
     {}
 
     ParseResult(int type) : type_{type} {}
+
+    Rcpp::List to_R_list() const {
+	return Rcpp::List::create(Rcpp::_["indices"] = indices_,
+				  Rcpp::_["type"] = type_,
+				  Rcpp::_["trailing"] = trailing_,
+				  Rcpp::_["groups"] = groups_);
+    }
     
     // The type -- whether the parse succeeded or not
     int type() const { return type_; }
@@ -404,18 +411,19 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 //' 
 //' 
 // [[Rcpp::export]]
-Rcpp::List new_icd10_impl(const std::string & str,
+Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 			  const Rcpp::List & code_def)
 {
-    
-    ParseResult res{
-	icd10_str_to_indices_impl(str,
-				  code_def["child"],
-				  code_def["groups"])
-    };
-    
-    return Rcpp::List::create(Rcpp::_["indices"] = res.indices(),
-			      Rcpp::_["type"] = res.type(),
-			      Rcpp::_["trailing"] = res.trailing(),
-			      Rcpp::_["groups"] = res.groups());
+
+    Rcpp::List results(str.size());
+    for (std::size_t n{0}; n < str.size(); ++n) {
+	auto res{icd10_str_to_indices_impl(str[n],
+					   code_def["child"],
+					   code_def["groups"])};	
+	results[n] = res.to_R_list();
+    }
+
+    return results;
+        
 }
+
