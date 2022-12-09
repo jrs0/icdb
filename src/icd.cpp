@@ -15,6 +15,8 @@
 // larger usability of C++ types. Large structures
 // like Rcpp::List (nested) are not copied into maps
 // or vectors.
+//
+// Use Rcpp::Rcout instead of std::cout
 
 #include <Rcpp.h>
 #include <string>
@@ -189,7 +191,12 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // Perform the binary search
     auto lower = std::lower_bound(std::begin(cats), std::end(cats), str);
     const bool found = (lower != std::end(cats)) && (lower->contains(str));
-    
+    if (found) {
+	std::size_t position{std::distance(std::begin(cats), lower)};
+	Rcpp::Rcout << "Found " << str << " at " << position << std::endl;
+    } else {
+	Rcpp::Rcout << "Did not find " << str << std::endl;	
+    }
     
     return ParseResult{0};
 
