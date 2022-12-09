@@ -112,7 +112,14 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     
     // Get a vector of category objects to search
     std::vector<Cat> cats;
-    Rcpp::Rcout << codes.names() << std::endl;
+
+    Rcpp::List xx{codes[0]};
+    //Rcpp::CharacterVector yy{xx.names()};
+    Rcpp::String zz = groups[0];
+    Rcpp::Rcout << zz << std::endl;
+    //std::cout << yy.size() << std::endl;
+    
+    //Rcpp::Rcout << Rcpp::as<Rcpp::List>(codes[0]) << std::endl;
     for (auto i{std::begin(codes)}; i < std::end(codes); ++i) {
 	//Rcpp::Rcout << Rcpp::as<Rcpp::String>((*i)["category"]) << std::endl;
 	// When accessing an element of a list as below,
