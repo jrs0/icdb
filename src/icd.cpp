@@ -80,6 +80,12 @@ public:
 	return Rcpp::as<std::string>(cat_["docs"]);
     }
 
+    // Get excluded groups
+    std::vector<std::string> exclude() const
+    {
+	return Rcpp::as<std::vector<std::string>>(cat_["exclude"]);
+    }
+    
     // Return true if code is (lexicographically) contained
     // in the range specified by the index of this Cat
     bool contains(const std::string & str) const
@@ -185,7 +191,7 @@ std::ostream & operator << (std::ostream & os,
 //' 
 ParseResult icd10_str_to_indices_impl(const std::string & str,
 				      const Rcpp::List & codes,
-				      const Rcpp::List & groups)
+				      const std::vector<std::string> & groups)
 {
     // Check for empty string. Return type = -1 if empty
     // and set all other fields to empty
@@ -210,30 +216,20 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     }
 
     // Perform the binary search
-    auto lower = std::lower_bound(std::begin(cats), std::end(cats), str);
-    const bool found = (lower != std::end(cats)) && (lower->contains(str));
-    int position{-1};
-    if (found) {
-	position = std::distance(std::begin(cats), lower);
-	Rcpp::Rcout << "Found " << str << " at " << position << std::endl;
-	Rcpp::Rcout << *lower << std::endl;
-    } else {
-	Rcpp::Rcout << "Did not find " << str << std::endl;	
-    }
+    auto position = std::lower_bound(std::begin(cats), std::end(cats), str);
+    const bool found = (position != std::end(cats)) &&
+	(position->contains(str));
 
-    // If position is -1, then a match was not found. This
+    // If founcd == false, then a match was not found. This
     // means that the str is not a valid member of any member
     // of this level, so it is not a valid code. Return a
     // type of 2 (for invalid code), and set other fields to
     // empty
-
-    if (position == -1)
+    if (!found)
     {
 	return ParseResult{2};                     
     }
 
-    return ParseResult{0};
-    
     // If you get here, the code was valid at the current
     // level. The remainder of the function is concerned with
     // whether the current category is the best match, or
@@ -242,9 +238,18 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // Check for any group exclusions at this level and remove
     // them from the current group list (note that if exclude
     // is not present, NULL is returned, which works fine).
+    std::vector<std::string> diff;
+    std::vector<std::string> exclude = position->exclude();
+    std::set_difference(std::begin(groups), std::end(groups),
+			std::begin(exclude), std::end(exclude),
+			std::inserter(diff, std::begin(diff)));
 
+
+    return ParseResult{0};
+   
+    
     // ==== OLD R impl =======
-    //groups <- setdiff(groups, codes[[position]]$exclude)
+    //groups <- setdiff(groups, )
     // ===============
 
     // If there is a subcategory, make a call to this function
