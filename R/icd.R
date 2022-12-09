@@ -225,19 +225,19 @@ icd10_load_codes <- function(codes_file)
     ## is U occuring after Z. The function takes
     ## a list (the contents of the child key) and
     ## returns the sorted list
-    sort_level <- function(level)
+    sort_by_index <- function(level)
     {
         ## Reorder all the child levels, if
         ## there are any
-        if (!is.null(level$child))
-        {
-            level$child <- sort_level(level$child)
-        }
+        ## if (!is.null(level$child))
+        ## {
+        ##     level$child <- sort_categories(level$child)
+        ## }
         
         ## Get the sorted order of this level 
         k <- level %>%
             purrr::map("index") %>%
-            unlist() %>%
+            ## unlist() %>%
             order()
         
         ## Use k to reorder the current level
@@ -245,7 +245,7 @@ icd10_load_codes <- function(codes_file)
     }
 
     ## Sort the codes
-    codes_def$child <- sort_level(codes_def$child)
+    codes_def$child <- sort_by_index(codes_def$child)
 
     codes_def
 }
