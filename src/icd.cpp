@@ -320,7 +320,6 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // level. The remainder of the function is concerned with
     // whether the current category is the best match, or
     // whether the next category down is better.
-
     
     // Check for any group exclusions at this level and remove
     // them from the current group list (note that if exclude
