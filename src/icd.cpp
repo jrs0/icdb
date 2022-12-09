@@ -1,3 +1,14 @@
+// Notes:
+//
+// The error "Object was created without names"
+// is some kind of out-of-bounds issue -- look for
+// places where a name doesn't exist or maybe something
+// is NULL (google the string above, with quotes, to
+// see the source code)
+//
+// When constructing things, use the = version, not
+// {} or () which do not work with Rcpp.
+
 #include <Rcpp.h>
 #include <string>
 #include <vector>
@@ -113,13 +124,8 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     // Get a vector of category objects to search
     std::vector<Cat> cats;
 
-    Rcpp::List xx{codes[0]};
-    //Rcpp::CharacterVector yy{xx.names()};
-    Rcpp::String zz = groups[0];
-    Rcpp::Rcout << zz << std::endl;
-    //std::cout << yy.size() << std::endl;
-    
-    //Rcpp::Rcout << Rcpp::as<Rcpp::List>(codes[0]) << std::endl;
+    Rcpp::List xx = codes[0];
+    Rcpp::Rcout << Rcpp::as<Rcpp::String>(xx["category"]).get_cstring() << std::endl;
     for (auto i{std::begin(codes)}; i < std::end(codes); ++i) {
 	//Rcpp::Rcout << Rcpp::as<Rcpp::String>((*i)["category"]) << std::endl;
 	// When accessing an element of a list as below,
