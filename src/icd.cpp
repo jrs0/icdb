@@ -422,7 +422,8 @@ Rcpp::List new_icd10_impl(const std::string & str,
 				  code_def["groups"])
     };
     
-    return Rcpp::List::create(Rcpp::_["indices"] = res.type(),
-			      Rcpp::_["type"] = "type",
-			      Rcpp::_["groups"] = "groups");
+    return Rcpp::List::create(Rcpp::_["indices"] = res.indices(),
+			      Rcpp::_["type"] = res.type(),
+			      Rcpp::_["trailing"] = res.trailing(),
+			      Rcpp::_["groups"] = res.groups());
 }
