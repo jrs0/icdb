@@ -278,8 +278,6 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // and find the position of the code. Inside the codes
     // structure, the index keys provide an array to search
     // (using binary search) for the ICD code in str.
-
-    //
     
     // Get a vector of category objects to search
     std::vector<Cat> cats;
@@ -414,12 +412,19 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 			  const Rcpp::List & code_def)
 {
-
+    // TODO: fix this -- there should be a proper way to handle
+    // an empty list of strings
+    std::vector<std::string> groups;
+    if (Rcpp::as<Rcpp::List>(code_def["groups"]).size() > 0) {
+	Rcpp::Rcout << "hi" << std::endl;
+	groups = Rcpp::as<std::vector<std::string>>(code_def["groups"]);
+    }
+    
     Rcpp::List results(str.size());
     for (std::size_t n{0}; n < str.size(); ++n) {
 	auto res{icd10_str_to_indices_impl(str[n],
 					   code_def["child"],
-					   code_def["groups"])};	
+					   groups)};	
 	results[n] = res.to_R_list();
     }
 
