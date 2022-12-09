@@ -44,10 +44,25 @@ struct Index
 
 class Cat
 {
+public:
+    Cat(const Rcpp::List & cat) : cat_{cat} {}
+    Rcpp::String category() const
+    {
+	return Rcpp::as<Rcpp::String>(cat_["cat"]);
+    }
 
+    
 private:
-    Rcpp::List cat_;
+    Rcpp::List cat_; ///< Pointing to the category
 };
+
+// Not sure what the 'true' means
+Rcpp::Rostream<true> & operator << (Rcpp::Rostream<true> & os, const Cat & cat)
+{
+    os << cat.category();
+    
+    return os;
+}
 
 //' Parse a single ICD-10 string into a vector of indices that locates
 //' it in the code definition structure, and handle parsing errors. This
@@ -95,9 +110,16 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
 
     //
     
-    // Extract the vector of indices
-    std::vector<Index> indices;
-    for (const auto & i{codes.begin()}; i < codes.end(); ++i) {
+    // Get a vector of category objects to search
+    std::vector<Cat> cats;
+    for (auto i{std::begin(codes)}; i < std::end(codes); ++i) {
+
+	// When accessing an element of a list as below,
+	// you need to cast to the expected type of the
+	// element (because everything is just pointers
+	// behind the scenes)
+	cats.emplace_back(Rcpp::as<Rcpp::List>(*i));
+	
 	// const Rcpp::List cat{codes[i]};
 	// const std::vector<std::string> index{cat["index"]};
 	// std::cout << "Hello" << std::endl;
