@@ -21,6 +21,7 @@
 
 #include <Rcpp.h>
 #include <string>
+#include <list>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -30,15 +31,39 @@ class ParseResult
 {
 public:
     ParseResult(int type) : type_{type} {}
+    ParseResult(int type, const std::vector<std::size_t> & indices,
+		const std::string & trailing,
+		const std::vector<std::string> & groups)
+	: type_{type}, indices_{indices},
+	  trailing_{trailing}, groups_{groups}
+    {}
 
+    // The type -- whether the parse succeeded or not
     int type() const { return type_; }
-    std::vector<std::size_t> indices() const { return indices_; }
+    
+    // The index list which shows where the code is in
+    // the codes definition structure. This is a list
+    // because of the need to push_front (this can be
+    // removed with some refactoring -- however, might
+    // not be a performance issue due to the need to copy
+    // to an Rcpp::List at the end anyway.
+    std::list<std::size_t> indices() const { return indices_; }
+
+    // Any unparsed trailing matter
     std::string trailing() const { return trailing_; }
+
+    // The set of groups associated with this code
     std::vector<std::string> groups() const { return groups_; }
+
+    // Prepend an index to the indices list
+    void add_index(std::size_t position_val)
+    {
+	indices_.push_front(position_val);
+    }
     
 private:
     int type_{0};
-    std::vector<std::size_t> indices_{};
+    std::list<std::size_t> indices_{};
     std::string trailing_{""};
     std::vector<std::string> groups_{};
 };
@@ -140,20 +165,19 @@ private:
     Rcpp::List cat_; ///< Pointing to the category
 };
 
-/**
- * \brief Comparison of category with raw code
- *
- * This function is the main comparison operator that is
- * used in the binary search to find a raw code in the ICD-10
- * codes file. The comparison is intended for use with
- * lower_bound, where categories from a vector are compared
- * with a fixed str to find the first category that does not
- * satisfy cat < str (i.e. the lowest cat such that cat >= str).
- * The meaning is clearer by thinking in terms of str > cat, which
- * means that str is larger (lexicographically) than the upper
- * element of the index of cat.
- *
- */
+//' \brief Comparison of category with raw code
+//'
+//' This function is the main comparison operator that is
+//' used in the binary search to find a raw code in the ICD-10
+//' codes file. The comparison is intended for use with
+//' lower_bound, where categories from a vector are compared
+//' with a fixed str to find the first category that does not
+//' satisfy cat < str (i.e. the lowest cat such that cat >= str).
+//' The meaning is clearer by thinking in terms of str > cat, which
+//' means that str is larger (lexicographically) than the upper
+//' element of the index of cat.
+//'
+//'
 bool operator < (const Cat & cat, const std::string & str)
 {
     auto idx{cat.index()};
@@ -263,6 +287,10 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 	return ParseResult{2};                     
     }
 
+    // Convert the iterator to an integer position (indexed
+    // from 1 for R) for use later
+    const std::size_t position_val{std::distance(std::begin(cats), position)};
+    
     // If you get here, the code was valid at the current
     // level. The remainder of the function is concerned with
     // whether the current category is the best match, or
@@ -297,95 +325,60 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     if (position->has_subcats()) {
 
 	// Query that category for the code indices
-	ParseResult res{
-	    icd10_str_to_indices_impl(str, position->get_subcats(), groups)
-	};
-
-	// Get data about the state of the parse
-	std::vector<std::size_t> x{res.indices()};
-	int t{res.type()};
-	std::string s{res.trailing()};
-	std::vector<std::string> g{res.groups()};
-        
+	ParseResult res{ icd10_str_to_indices_impl(str,
+						   position->get_subcats(),
+						   groups) };
+	
         // Code from here onwards is in the reverse pass of the
         // call tree (i.e. we are moving up the tree now, towards
-        // more general categories). The x returned above
-        // contains a -1 if the next level down was not a better
-        // match for the code. In which case, we use the current
-        // level as the best match and return the indices to
-        // this level.
-        // TODO: this whole thing is drop where == -1, replace
-        // with one liner
-	
-        val <- tail(x, n=1)
-        if (val > 0)
-        {
-            // Return the entire list
-            list(
-                indices = c(position, x),
-                type = t,
-                trailing = s,
-                groups = g
-            )
-        }
-        else if (val == -1)
-        {
-            // The code is not better matched by the next level
-            // down. In this case, drop 
-	            list(
-	            indices = c(position, head(x, n=-1)),
-	            type = t,
-	            trailing = s,
-	            groups = g
-	        )
-	    }
+        // more general categories).
+	if (res.valid()) {
+	    res.add_index(position_val);	
 	}
-	else if (!is.null(codes[[position]]$code))
-	{
-	    // This section handles two cases
-	    // 1) Codes that exactly match a code leaf node
-	    // 2) Codes that exactly match a code leaf node,
-	    //    but also contain un-parsed trailing matter
-	    // The case where a code does not match any of the
-	    // code leaf nodes is handled in the detect_index
 
-	    // Use the start of the index of the code as a pattern
-	    // to search for at the start of the string
-	    index <- codes[[position]]$index
-	    pattern <- paste0("^", index)
-	    if (grepl(pattern, str))
-	    {
-	        // Then the code index agrees with the string
-	        // at the start. Check for trailing matter
-	        if (nchar(index) < nchar(str))
-	        {
-	            list(
-	                indices = c(position),
-	                type = 3,
-	                trailing = substr(str,
-	                                  nchar(index)+1,
-	                                  nchar(str)),
-	                groups = groups
-	            )
-	        }
-	        else
-	        {
-	            // Exact match
-	            list(
-	                indices = c(position),
-	                type = 0,
-	                groups = groups
-	            )
-	        }
-	    }
-	    }
-    
+	return res;
+    }
+    else if (!is.null(codes[[position]]$code))
+    {
+        ## This section handles two cases
+        ## 1) Codes that exactly match a code leaf node
+        ## 2) Codes that exactly match a code leaf node,
+        ##    but also contain un-parsed trailing matter
+        ## The case where a code does not match any of the
+        ## code leaf nodes is handled in the detect_index
 
-    return ParseResult{0};
+        ## Use the start of the index of the code as a pattern
+        ## to search for at the start of the string
+        index <- codes[[position]]$index
+        pattern <- paste0("^", index)
+        if (grepl(pattern, str))
+        {
+            ## Then the code index agrees with the string
+            ## at the start. Check for trailing matter
+            if (nchar(index) < nchar(str))
+            {
+                list(
+                    indices = c(position),
+                    type = 3,
+                    trailing = substr(str,
+                                      nchar(index)+1,
+                                      nchar(str)),
+                    groups = groups
+                )
+            }
+            else
+            {
+                ## Exact match
+                list(
+                    indices = c(position),
+                    type = 0,
+                    groups = groups
+                )
+            }
+        }
+    }
 
-		      
 }
-
 
 //' Implementation of the ICD-10 parser for vectors of ICD-10 strings
 //'
