@@ -136,6 +136,7 @@ public:
 	} else {
 	    // Truncate the string to the length of the index
 	    std::string trunc{str.substr(0, idx[0].size())};
+	    Rcpp::Rcout << "trunc = " << trunc << std::endl; 
 	    return trunc == idx[0];
 	}
 	
@@ -272,6 +273,8 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     if (!found)
     {
 	Rcpp::Rcout << "Not found! " << str << std::endl; 
+	Rcpp::Rcout << *position  << std::endl; 
+
 	return ParseResult{2};                     
     }
 
