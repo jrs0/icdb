@@ -157,13 +157,33 @@ private:
 //'
 //' This function is the main comparison operator that is
 //' used in the binary search to find a raw code in the ICD-10
-//' codes file. The comparison is intended for use with
-//' lower_bound, where categories from a vector are compared
-//' with a fixed str to find the first category that does not
-//' satisfy cat < str (i.e. the lowest cat such that cat >= str).
-//' The meaning is clearer by thinking in terms of str > cat, which
-//' means that str is larger (lexicographically) than the upper
-//' element of the index of cat.
+//' codes file.
+//' 
+//' Each category has an index, which is the range of codes
+//' that this category contains. The index is of the form
+//' (M,N), where M and N are code roots -- e.g. (B15,B19).
+//' The top of this range is inclusive, meaning that
+//' the code B199 would be inside this category, even
+//' though B199 > B19 lexicographically. The trick is to
+//' truncate the code B199 to the length of the upper end
+//' of the range before doing the check. There are also
+//' categories that contain a degenerate range, of the
+//' form (M,) -- e.g. (A01,). Here, any code that starts
+//' with A01 is in the category (again, truncate and compare).
+//'
+//' The program below uses a binary search to find which
+//' category a code belongs to, based on the std::upper_bound
+//' function. For the purpose of this search, the categories
+//' are ordered by the first element of their index, M, because
+//' this guarantees that the upper element N is also ordered
+//' (categories do not overlap, although there are gaps between
+//' categories). For std::upper_bound to work, a str < cat
+//' function is necessary, defined between a category cat and
+//' a string str. std::upper_bound finds the first category
+//' cat such that cat > str is true. For the binary search to
+//' work, this condition "first cat s.t. cat > str" must
+//' imply "str is in cat". This will be true if cat > str
+//' is taken to mean M > str (i.e. 
 //'
 //'
 bool operator < (const Cat & cat, const std::string & str)
