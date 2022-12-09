@@ -59,7 +59,9 @@ private:
 // Not sure what the 'true' means
 Rcpp::Rostream<true> & operator << (Rcpp::Rostream<true> & os, const Cat & cat)
 {
-    os << cat.category();
+    // This shouldn't be needed (the cstring), but couldn't
+    // figure out why it wasn't working without it -- moved on.
+    Rcpp::Rcout << cat.category().get_cstring();
     
     return os;
 }
@@ -119,7 +121,7 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
 	// element (because everything is just pointers
 	// behind the scenes)
 	cats.emplace_back(Rcpp::as<Rcpp::List>(*i));
-	
+	Rcpp::Rcout << cats.back() << std::endl;
 	// const Rcpp::List cat{codes[i]};
 	// const std::vector<std::string> index{cat["index"]};
 	// std::cout << "Hello" << std::endl;
