@@ -164,8 +164,7 @@ public:
 	} else {
 	    // Truncate the string to the length of the index
 	    return trunc == idx[0];
-	}
-	
+	}	
     }
     
     // Return the index (either one string or two for a range)
@@ -387,7 +386,7 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 	// at the start. Check for trailing matter
 	if (index.size() < str.size()) {
 	    std::string trailing{
-		str.substr(index.size() + 1, str.size())
+		str.substr(index.size(), str.size())
 	    };
 	    
 	    return ParseResult(3, {position_val},
