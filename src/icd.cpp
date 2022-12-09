@@ -16,7 +16,8 @@
 // like Rcpp::List (nested) are not copied into maps
 // or vectors.
 //
-// Use Rcpp::Rcout instead of std::cout
+// Use Rcpp::Rcout instead of std::cout. However, still
+// overload output to std::ostream -- that just works.
 
 #include <Rcpp.h>
 #include <string>
