@@ -211,7 +211,10 @@ icd10_load_codes <- function(codes_file)
 
     ## BUG: somewhere here, an empty element
     ## is getting added to the top level
-    ## of child (and probably all levels too)
+    ## of child (and probably all levels too).
+    ## This function is just nonsense, I'm
+    ## amazed anything based on it works! Currently
+    ## nothing is being sorted.
     
     ## The structure must be ordered by index at
     ## every level. Most levels is already ordered
