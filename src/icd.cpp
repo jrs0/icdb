@@ -65,10 +65,40 @@ public:
     {
 	return Rcpp::as<Rcpp::String>(cat_["category"]);
     }
+
+    // Return true if code is (lexicographically) contained
+    // in the range specified by the index of this Cat
+    bool contains(const std::string & str)
+    {
+	auto idx{index()};
+	if (idx.size() == 2) {
+	    (str >= idx[0]) && (str <= idx[1]);
+	} else {
+	    // Truncate the string to the length of the index
+	    Rcpp::String trunc = str
+	    
+	    trunc == 
+	}
+	
+    }
+    
+    // Return the index (either one string or two for a range)
+    std::vector<std::string> index() const
+    {
+	return Rcpp::as<std::vector<std::string>>(cat_["index"]);
+    }
+
     
 private:
     Rcpp::List cat_; ///< Pointing to the category
 };
+
+bool operator < (const Rcpp::String & str, const Cat & cat)
+{
+    Rcpp::List idx = cat.index();
+    // Only need the first 
+    return str < Rcpp::as<Rcpp::String>(idx[0]); 
+}
 
 // Not sure what the 'true' means
 Rcpp::Rostream<true> & operator << (Rcpp::Rostream<true> & os, const Cat & cat)
@@ -130,13 +160,12 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
 	const Rcpp::List cat = *i;
 	cats.emplace_back(cat);
 	Rcpp::Rcout << cats.back() << std::endl;
-	// const Rcpp::List cat{codes[i]};
-	// const std::vector<std::string> index{cat["index"]};
-	// std::cout << "Hello" << std::endl;
-	// indices.push_back(index);
-	// Rcpp::Rcout << indices[i].start_
-	// 	    << "," << indices[i].end_ << std::endl;
     }
+
+    // Perform the binary search
+    auto lower = std::lower_bound(std::begin(cats), std::end(cats), str);
+    const bool found = (lower != std::end(cats)) && (*lower == str);
+    
     
     return ParseResult{0};
 
