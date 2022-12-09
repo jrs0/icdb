@@ -209,6 +209,10 @@ icd10_load_codes <- function(codes_file)
 {
     codes_def <- yaml::read_yaml(codes_file)
 
+    ## BUG: somewhere here, an empty element
+    ## is getting added to the top level
+    ## of child (and probably all levels too)
+    
     ## The structure must be ordered by index at
     ## every level. Most levels is already ordered
     ## by category, which is fine except for the
