@@ -68,26 +68,6 @@ private:
     std::vector<std::string> groups_{};
 };
 
-// Remove
-struct Index
-{
-    std::string start_;
-    std::string end_;
-    Index(const std::vector<std::string> & index)
-    {
-	if (index.size() == 0) {
-	    throw std::logic_error("Index cannot be length zero");
-	}
-	if (index.size() == 2) {
-	    start_ = index[0];
-	    end_ = index[1];
-	} else {
-	    start_ = index[0];
-	    end_ = index[0];
-	}
-    }
-};
-
 class Cat
 {
 public:
@@ -338,18 +318,18 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 
 	return res;
     }
-    else if (!is.null(codes[[position]]$code))
+    else // the category is a leaf node (a single-code category)
     {
-        ## This section handles two cases
-        ## 1) Codes that exactly match a code leaf node
-        ## 2) Codes that exactly match a code leaf node,
-        ##    but also contain un-parsed trailing matter
-        ## The case where a code does not match any of the
-        ## code leaf nodes is handled in the detect_index
+        // This section handles two cases
+        // 1) Codes that exactly match a code leaf node
+        // 2) Codes that exactly match a code leaf node,
+        //    but also contain un-parsed trailing matter
+        // The case where a code does not match any of the
+        // code leaf nodes is handled in the detect_index
 
-        ## Use the start of the index of the code as a pattern
-        ## to search for at the start of the string
-        index <- codes[[position]]$index
+        // Use the start of the index of the code as a pattern
+        // to search for at the start of the string
+	std::string index <- position->index
         pattern <- paste0("^", index)
         if (grepl(pattern, str))
         {
