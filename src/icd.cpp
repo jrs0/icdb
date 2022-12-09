@@ -27,7 +27,6 @@
 #include <iostream>
 #include <regex>
 
-
 std::ostream & operator << (std::ostream & os,
 			    const std::vector<std::string> & v)
 {
@@ -160,12 +159,10 @@ public:
 	// Truncates to the length of the first part of
 	// the range, assuming the two parts are equal length
 	std::string trunc{str.substr(0, idx[0].size())};
-	Rcpp::Rcout << idx << std::endl;
 	if (idx.size() == 2) {
 	    return (str >= idx[0]) && (trunc <= idx[1]);
 	} else {
 	    // Truncate the string to the length of the index
-	    Rcpp::Rcout << "trunc -" << trunc << std::endl;
 	    return trunc == idx[0];
 	}
 	
