@@ -70,14 +70,18 @@ public:
 	// This is only here because I need to use =
 	cat_ = cat;
     }
-    Rcpp::String category() const
+    std::string category() const
     {
-	return Rcpp::as<Rcpp::String>(cat_["category"]);
+	return Rcpp::as<std::string>(cat_["category"]);
+    } 
+    std::string docs() const
+    {
+	return Rcpp::as<std::string>(cat_["docs"]);
     }
 
     // Return true if code is (lexicographically) contained
     // in the range specified by the index of this Cat
-    bool contains(const std::string & str)
+    bool contains(const std::string & str) const
     {
 	auto idx{index()};
 	if (idx.size() == 2) {
@@ -126,12 +130,28 @@ bool operator < (const Cat & cat, const std::string & str)
     }
 }
 
+std::ostream & operator << (std::ostream & os,
+			    const std::vector<std::string> & v)
+{
+    os << "(";
+    for (const auto & str : v) {
+	os << str << ",";
+    }
+    os << ")";
+    return os;
+}
+
 // Not sure what the 'true' means
-Rcpp::Rostream<true> & operator << (Rcpp::Rostream<true> & os, const Cat & cat)
+std::ostream & operator << (std::ostream & os,
+			    const Cat & cat)
 {
     // This shouldn't be needed (the cstring), but couldn't
     // figure out why it wasn't working without it -- moved on.
-    Rcpp::Rcout << cat.category().get_cstring();
+    os << cat.category()
+       << " -- "
+       << cat.docs()
+       << " "
+       << cat.index();
     
     return os;
 }
@@ -194,6 +214,7 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     if (found) {
 	std::size_t position{std::distance(std::begin(cats), lower)};
 	Rcpp::Rcout << "Found " << str << " at " << position << std::endl;
+	Rcpp::Rcout << *lower << std::endl;
     } else {
 	Rcpp::Rcout << "Did not find " << str << std::endl;	
     }
@@ -375,9 +396,13 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 Rcpp::List new_icd10_impl(const std::string & str,
 			  const Rcpp::List & code_def)
 {
+
+    Rcpp::List xx = code_def["child"];
+    Rcpp::List yy = xx[0];
+    
     ParseResult res{
 	icd10_str_to_indices_impl(str,
-				  code_def["child"],
+				  yy["child"],//code_def["child"],
 				  code_def["groups"])
     };
     
