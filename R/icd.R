@@ -248,7 +248,8 @@ icd10_load_codes <- function(codes_file)
         k <- level %>%
             purrr::map("index") %>%
             purrr::map(~ .[[1]]) %>%
-            unlist()
+            unlist() %>%
+            order()
         
         ## Use k to reorder the current level
         level[k]
