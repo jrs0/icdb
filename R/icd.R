@@ -292,8 +292,8 @@ new_icd10 <- function(str = character(), codes_file)
     ## strip whitespace from the code, and
     ## remove any dots.
     
-    ##str <- stringr::str_replace_all(str, "\\.", "") %>%
-    ##    trimws()
+    str <- stringr::str_replace_all(str, "\\.", "") %>%
+        trimws()
 
     ## -----
     ## THIS IS WHERE new_icd10_impl is going
