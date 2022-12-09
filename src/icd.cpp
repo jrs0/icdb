@@ -177,24 +177,27 @@ private:
 //' are ordered by the first element of their index, M, because
 //' this guarantees that the upper element N is also ordered
 //' (categories do not overlap, although there are gaps between
-//' categories). For std::upper_bound to work, a str < cat
-//' function is necessary, defined between a category cat and
-//' a string str. std::upper_bound finds the first category
-//' cat such that cat > str is true. For the binary search to
-//' work, this condition "first cat s.t. cat > str" must
-//' imply "str is in cat". This will be true if cat > str
-//' is taken to mean M > str (i.e. 
+//' categories). For the particular string str of interest,
+//' the upper bound category is the first cat such that
+//' cat > str. This means that the previous cat was the last
+//' cat where cat <= str. If this is applied to the start
+//' of the range M, then this is the right condition to
+//' find the best candidate category (where M <= str, and
+//' M is maximal)
 //'
+//' The upper bound is enough to guarantee that "if str is
+//' in any category, it is in this one". It is still necessary
+//' to check that the str is not larger than the upper end
+//' of the range, N. This check is performed after the search
+//' is complete.
 //'
-bool operator < (const Cat & cat, const std::string & str)
+bool operator < (const std::string & str, const Cat & cat)
 {
     auto idx{cat.index()};
-    // Only need the first element for < operator
-    if (idx.size() == 1) {
-	return str > idx[0];
-    } else {
-	return str > idx[1];
-    }
+    // Only need the first element M for < operator
+    // (see the comments above)
+    return str < idx[0];
+    
 }
 
 std::ostream & operator << (std::ostream & os,
@@ -281,9 +284,12 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     }
 
     // Perform the binary search
-    auto position = std::lower_bound(std::begin(cats), std::end(cats), str);
-    const bool found = (position != std::end(cats)) &&
-	(position->contains(str));
+    auto position = std::upper_bound(std::begin(cats), std::end(cats), str);
+    const bool found = (position != std::begin(cats)) &&
+	((position-1)->contains(str));
+    // Decrement the position to point to the largest category
+    // cat such that cat <= str    
+    position--;
 
     // If founcd == false, then a match was not found. This
     // means that the str is not a valid member of any member

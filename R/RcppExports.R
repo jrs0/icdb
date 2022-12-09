@@ -5,14 +5,39 @@
 #'
 #' This function is the main comparison operator that is
 #' used in the binary search to find a raw code in the ICD-10
-#' codes file. The comparison is intended for use with
-#' lower_bound, where categories from a vector are compared
-#' with a fixed str to find the first category that does not
-#' satisfy cat < str (i.e. the lowest cat such that cat >= str).
-#' The meaning is clearer by thinking in terms of str > cat, which
-#' means that str is larger (lexicographically) than the upper
-#' element of the index of cat.
+#' codes file.
+#' 
+#' Each category has an index, which is the range of codes
+#' that this category contains. The index is of the form
+#' (M,N), where M and N are code roots -- e.g. (B15,B19).
+#' The top of this range is inclusive, meaning that
+#' the code B199 would be inside this category, even
+#' though B199 > B19 lexicographically. The trick is to
+#' truncate the code B199 to the length of the upper end
+#' of the range before doing the check. There are also
+#' categories that contain a degenerate range, of the
+#' form (M,) -- e.g. (A01,). Here, any code that starts
+#' with A01 is in the category (again, truncate and compare).
 #'
+#' The program below uses a binary search to find which
+#' category a code belongs to, based on the std::upper_bound
+#' function. For the purpose of this search, the categories
+#' are ordered by the first element of their index, M, because
+#' this guarantees that the upper element N is also ordered
+#' (categories do not overlap, although there are gaps between
+#' categories). For the particular string str of interest,
+#' the upper bound category is the first cat such that
+#' cat > str. This means that the previous cat was the last
+#' cat where cat <= str. If this is applied to the start
+#' of the range M, then this is the right condition to
+#' find the best candidate category (where M <= str, and
+#' M is maximal)
+#'
+#' The upper bound is enough to guarantee that "if str is
+#' in any category, it is in this one". It is still necessary
+#' to check that the str is not larger than the upper end
+#' of the range, N. This check is performed after the search
+#' is complete.
 #'
 NULL
 
