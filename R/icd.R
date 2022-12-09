@@ -218,24 +218,18 @@ icd10_indices_to_code <- function(indices, codes)
 ## Taken this function out to debug it properly
 sort_by_index <- function(level)
 {
-    ## BUG: this function is still not correctly
-    ## sorting the indices. It is not showing up
-    ## in the tests because the current implementation
-    ## is not using binary search.
-    
     ## Reorder all the child levels, if
     ## there are any
-    ## if (!is.null(level$child))
-    ## {
-    ##     level$child <- sort_categories(level$child)
-    ## }
-    ## for (cat in level)
-    ## {
-    ##     if (!is.null(cat$child))
-    ##     {
-    ##         cat$child <- sort_by_index(cat$child)
-    ##     }
-    ## }
+    ## BUG: none of these inner levels are being
+    ## saved in level -- so only the top (
+    ## singleton) level is being reordered)
+    for (cat in level)
+    {
+        if (!is.null(cat$child))
+        {
+            cat$child <- sort_by_index(cat$child)
+        }
+    }
     
     ## Get the sorted order of this list of
     ## categories. The intention here is to sort
