@@ -287,8 +287,8 @@ new_icd10 <- function(str = character(), codes_file)
     ## a list with one item, and the main chapter level
     ## starts in the child key.
     codes_def <- icd10_load_codes(codes_file)
-    codes <- codes_def$child
-    groups <- codes_def$groups
+    ## codes <- codes_def$child
+    ## groups <- codes_def$groups
 
     ## strip whitespace from the code, and
     ## remove any dots.
@@ -300,40 +300,40 @@ new_icd10 <- function(str = character(), codes_file)
     ## THIS IS WHERE new_icd10_impl is going
     ## new_icd10_impl(str, )
     ##---
-    result <- new_icd10_impl(str, )
+    result <- new_icd10_impl(str, codes_def)
     
     ## Get the indices for each code
-    results <- str %>%
-        purrr::map(function(x)
-        {
-            res <- cache[[x]]
-            if (!is.null(res))
-            {
-                res
-            }
-            else
-            {
-                code <- tryCatch(
-                    error_invalid = function(cnd)
-                    {
-                        cnd$result
-                    },
-                    error = function(cnd)
-                    {
-                        ## Other error condition
-                        list(
-                            trailing = x,
-                            indices = list(),
-                            type = c(2),
-                            groups = list()
-                        )
-                    },
-                    icd10_str_to_indices(x, codes, groups)
-                )
-                cache[[x]] <- code
-                code
-            }
-        })
+    ## results <- str %>%
+    ##     purrr::map(function(x)
+    ##     {
+    ##         res <- cache[[x]]
+    ##         if (!is.null(res))
+    ##         {
+    ##             res
+    ##         }
+    ##         else
+    ##         {
+    ##             code <- tryCatch(
+    ##                 error_invalid = function(cnd)
+    ##                 {
+    ##                     cnd$result
+    ##                 },
+    ##                 error = function(cnd)
+    ##                 {
+    ##                     ## Other error condition
+    ##                     list(
+    ##                         trailing = x,
+    ##                         indices = list(),
+    ##                         type = c(2),
+    ##                         groups = list()
+    ##                     )
+    ##                 },
+    ##                 icd10_str_to_indices(x, codes, groups)
+    ##             )
+    ##             cache[[x]] <- code
+    ##             code
+    ##         }
+    ##     })
         
     indices <- results %>% purrr::map("indices")
     types <- results %>% purrr::map("type")
