@@ -65,7 +65,6 @@ public:
     {
 	return Rcpp::as<Rcpp::String>(cat_["category"]);
     }
-
     
 private:
     Rcpp::List cat_; ///< Pointing to the category
@@ -127,9 +126,6 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     
     // Get a vector of category objects to search
     std::vector<Cat> cats;
-
-    Rcpp::List xx = codes[0];
-    Rcpp::Rcout << Rcpp::as<Rcpp::String>(xx["category"]).get_cstring() << std::endl;
     for (auto i{std::begin(codes)}; i < std::end(codes); ++i) {
 	const Rcpp::List cat = *i;
 	cats.emplace_back(cat);
