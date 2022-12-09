@@ -234,56 +234,6 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 
     return ParseResult{0};
     
-    // === R impl to find the position ========================
-    // position <- codes %>%
-    //      purrr::map("index") %>%
-    //     // to obtain the first TRUE, which is
-    //     // the category that str is contained in
-    //     purrr::detect_index(function(x) {
-
-    //         // Truncate the str to the same length
-    //         // as the start and end codes, because
-    //         // the end of the range is interpreted
-    //         // as anything beginning with this
-    //         // string
-    //         trunc <- substr(str,1,nchar(x[[1]]))
-            
-    //         if (length(x) == 2) {
-    //             // If the index is a range, check that
-    //             // str lies in the range.
-    //             (trunc >= x[[1]]) && (trunc <= x[[2]])
-    //         }
-    //         else
-    //         {
-    //             // If the index is a single item,
-    //             // truncate str to the length of
-    //             // x and compare for equality
-    //             trunc == x[[1]]
-    //         }
-    //     })
-    // ==============================================
-    
-    // If position is 0, then a match was not found. This
-    // means that the str is not a valid member of any member
-    // of this level, so it is not a valid code. Return a
-    // type of 2 (for invalid code), and set other fields to
-    // empty
-
-    // === Old R impl ================================
-    // if (position == 0)
-    // {
-    //     rlang::abort("error_invalid",
-    //                  message = "ICD-10 code was not valid",
-    //                  result = list(
-    //                      indices = list(),
-    //                      type = c(2),
-    //                      trailing = str,
-    //                      groups = list()
-    //                  ))
-                     
-    // }
-    //==============================================
-
     // If you get here, the code was valid at the current
     // level. The remainder of the function is concerned with
     // whether the current category is the best match, or
