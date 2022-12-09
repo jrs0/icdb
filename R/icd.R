@@ -224,32 +224,32 @@ icd10_indices_to_code <- function(indices, codes)
 ##' @return The modified category
 icd10_sort_by_index <- function(cat)
 {
-    ## Reorder all the child levels, if
-    ## there are any
-    ## BUG: none of these inner levels are being
-    ## saved in level -- so only the top (
-    ## singleton) level is being reordered)
+    ## Only perform the reordering if this
+    ## is a proper category -- do not reorder
+    ## anything for leaf (code) nodes
     if (!is.null(cat$child))
     {
+        ## Reorder all the child levels, if
+        ## there are any
         for (n in seq_along(cat$child))
         {
             cat$child[[n]] <- icd10_sort_by_index(cat$child[[n]])
         }
+
+        ## Get the sorted order of this list of
+        ## categories. The intention here is to sort
+        ## by the first element of the index (the
+        ## unlist is used to flatten the resulting list)
+        k <- cat$child %>%
+            purrr::map("index") %>%
+            purrr::map(~ .[[1]]) %>%
+            unlist() %>%
+            order()
+        
+        ## Use k to reorder the current level
+        cat$child <- cat$child[k]
     }
     
-    ## Get the sorted order of this list of
-    ## categories. The intention here is to sort
-    ## by the first element of the index (the
-    ## unlist is used to flatten the resulting list)
-    k <- cat$child %>%
-        purrr::map("index") %>%
-        purrr::map(~ .[[1]]) %>%
-        unlist() %>%
-        order()
-    
-    ## Use k to reorder the current level
-    cat$child <- cat$child[k]
-
     ## Return the modified category
     cat
 }
