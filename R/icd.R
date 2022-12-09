@@ -241,12 +241,14 @@ icd10_load_codes <- function(codes_file)
             }
         }
         
-        
-        ## Get the sorted order of this level 
+        ## Get the sorted order of this list of
+        ## categories. The intention here is to sort
+        ## by the first element of the index (the
+        ## unlist is used to flatten the resulting list)
         k <- level %>%
             purrr::map("index") %>%
-            ## unlist() %>%
-            order()
+            purrr::map(~ .[[1]]) %>%
+            unlist()
         
         ## Use k to reorder the current level
         level[k]
