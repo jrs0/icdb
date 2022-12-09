@@ -56,7 +56,11 @@ struct Index
 class Cat
 {
 public:
-    Cat(const Rcpp::List & cat) : cat_{cat} {}
+    Cat(const Rcpp::List & cat)
+    {
+	// This is only here because I need to use =
+	cat_ = cat;
+    }
     Rcpp::String category() const
     {
 	return Rcpp::as<Rcpp::String>(cat_["category"]);
@@ -127,15 +131,9 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     Rcpp::List xx = codes[0];
     Rcpp::Rcout << Rcpp::as<Rcpp::String>(xx["category"]).get_cstring() << std::endl;
     for (auto i{std::begin(codes)}; i < std::end(codes); ++i) {
-	//Rcpp::Rcout << Rcpp::as<Rcpp::String>((*i)["category"]) << std::endl;
-	// When accessing an element of a list as below,
-	// you need to cast to the expected type of the
-	// element (because everything is just pointers
-	// behind the scenes)
-	const Rcpp::List cat{*i};
-	//Rcpp::Rcout << *i.names() << std::endl;
+	const Rcpp::List cat = *i;
 	cats.emplace_back(cat);
-	//Rcpp::Rcout << cats.back() << std::endl;
+	Rcpp::Rcout << cats.back() << std::endl;
 	// const Rcpp::List cat{codes[i]};
 	// const std::vector<std::string> index{cat["index"]};
 	// std::cout << "Hello" << std::endl;
