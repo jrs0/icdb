@@ -359,7 +359,6 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
             }
         }
     }
-
 }
 
 //' Implementation of the ICD-10 parser for vectors of ICD-10 strings
