@@ -27,6 +27,19 @@
 #include <iostream>
 #include <regex>
 
+
+std::ostream & operator << (std::ostream & os,
+			    const std::vector<std::string> & v)
+{
+    os << "(";
+    for (const auto & str : v) {
+	os << str << ",";
+    }
+    os << ")";
+    return os;
+}
+
+
 // Results structure for ICD parse
 class ParseResult
 {
@@ -144,11 +157,15 @@ public:
     bool contains(const std::string & str) const
     {
 	auto idx{index()};
+	// Truncates to the length of the first part of
+	// the range, assuming the two parts are equal length
+	std::string trunc{str.substr(0, idx[0].size())};
+	Rcpp::Rcout << idx << std::endl;
 	if (idx.size() == 2) {
-	    return (str >= idx[0]) && (str <= idx[1]);
+	    return (str >= idx[0]) && (trunc <= idx[1]);
 	} else {
 	    // Truncate the string to the length of the index
-	    std::string trunc{str.substr(0, idx[0].size())};
+	    Rcpp::Rcout << "trunc -" << trunc << std::endl;
 	    return trunc == idx[0];
 	}
 	
@@ -210,17 +227,6 @@ bool operator < (const std::string & str, const Cat & cat)
     // (see the comments above)
     return str < idx[0];
     
-}
-
-std::ostream & operator << (std::ostream & os,
-			    const std::vector<std::string> & v)
-{
-    os << "(";
-    for (const auto & str : v) {
-	os << str << ",";
-    }
-    os << ")";
-    return os;
 }
 
 // Not sure what the 'true' means
@@ -307,6 +313,7 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // empty
     if (!found)
     {
+	Rcpp::Rcout << position->contains(str) << std::endl;
 	return ParseResult{2};                     
     }
 
