@@ -8,6 +8,13 @@
 //
 // When constructing things, use the = version, not
 // {} or () which do not work with Rcpp.
+//
+// The code below converts to a native C++ type as
+// quickly as possible, despite a possible dip in
+// performance due to copying, because of the much
+// larger usability of C++ types. Large structures
+// like Rcpp::List (nested) are not copied into maps
+// or vectors.
 
 #include <Rcpp.h>
 #include <string>
@@ -92,11 +99,29 @@ private:
     Rcpp::List cat_; ///< Pointing to the category
 };
 
-bool operator < (const std::string & str, const Cat & cat)
+/**
+ * \brief Comparison of category with raw code
+ *
+ * This function is the main comparison operator that is
+ * used in the binary search to find a raw code in the ICD-10
+ * codes file. The comparison is intended for use with
+ * lower_bound, where categories from a vector are compared
+ * with a fixed str to find the first category that does not
+ * satisfy cat < str (i.e. the lowest cat such that cat >= str).
+ * The meaning is clearer by thinking in terms of str > cat, which
+ * means that str is larger (lexicographically) than the upper
+ * element of the index of cat.
+ *
+ */
+bool operator < (const Cat & cat, const std::string & str)
 {
     auto idx{cat.index()};
     // Only need the first element for < operator
-    return str < idx[0]; 
+    if (idx.size() == 1) {
+	return str > idx[0];
+    } else {
+	return str > idx[1];
+    }
 }
 
 // Not sure what the 'true' means
@@ -135,7 +160,7 @@ Rcpp::Rostream<true> & operator << (Rcpp::Rostream<true> & os, const Cat & cat)
 //' @return A named list containing indices, type and groups
 //' 
 //' 
-ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
+ParseResult icd10_str_to_indices_impl(const std::string & str,
 				      const Rcpp::List & codes,
 				      const Rcpp::List & groups)
 {
@@ -340,11 +365,11 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
 //' 
 //' 
 // [[Rcpp::export]]
-Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
+Rcpp::List new_icd10_impl(const std::string & str,
 			  const Rcpp::List & code_def)
 {
     ParseResult res{
-	icd10_str_to_indices_impl(str[0],
+	icd10_str_to_indices_impl(str,
 				  code_def["child"],
 				  code_def["groups"])
     };
