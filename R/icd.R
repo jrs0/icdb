@@ -209,6 +209,13 @@ icd10_load_codes <- function(codes_file)
 {
     codes_def <- yaml::read_yaml(codes_file)
 
+    ## BUG: somewhere here, an empty element
+    ## is getting added to the top level
+    ## of child (and probably all levels too).
+    ## This function is just nonsense, I'm
+    ## amazed anything based on it works! Currently
+    ## nothing is being sorted.
+    
     ## The structure must be ordered by index at
     ## every level. Most levels is already ordered
     ## by category, which is fine except for the
@@ -218,18 +225,29 @@ icd10_load_codes <- function(codes_file)
     ## is U occuring after Z. The function takes
     ## a list (the contents of the child key) and
     ## returns the sorted list
-    sort_level <- function(level)
+    sort_by_index <- function(level)
     {
         ## Reorder all the child levels, if
         ## there are any
-        if (!is.null(level$child))
+        ## if (!is.null(level$child))
+        ## {
+        ##     level$child <- sort_categories(level$child)
+        ## }
+        for (cat in level)
         {
-            level$child <- sort_level(level$child)
+            if (!is.null(cat$child))
+            {
+                cat$child <- sort_by_index(cat$child)
+            }
         }
         
-        ## Get the sorted order of this level 
+        ## Get the sorted order of this list of
+        ## categories. The intention here is to sort
+        ## by the first element of the index (the
+        ## unlist is used to flatten the resulting list)
         k <- level %>%
             purrr::map("index") %>%
+            purrr::map(~ .[[1]]) %>%
             unlist() %>%
             order()
         
@@ -238,7 +256,7 @@ icd10_load_codes <- function(codes_file)
     }
 
     ## Sort the codes
-    codes_def$child <- sort_level(codes_def$child)
+    codes_def$child <- sort_by_index(codes_def$child)
 
     codes_def
 }
@@ -273,8 +291,15 @@ new_icd10 <- function(str = character(), codes_file)
 
     ## strip whitespace from the code, and
     ## remove any dots.
+    
     str <- stringr::str_replace_all(str, "\\.", "") %>%
         trimws()
+
+    ## -----
+    ## THIS IS WHERE new_icd10_impl is going
+    ## new_icd10_impl(str, )
+    ##---
+    
     
     ## Get the indices for each code
     results <- str %>%

@@ -137,8 +137,8 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
     return <div>
         <div>
             <Checkbox onChange={handleChange}
-                checked={included}
-                enabled={enabled} />
+                      checked={included}
+                      enabled={enabled} />
             <span onClick={() => setHidden(!hidden)}>
                 <span className={styles.cat_name}>{cat.code}</span>
                 <span>{cat.docs}</span>
@@ -179,10 +179,10 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term, group }
     let show = (search_term.trim().length != 0) || !hidden
 
     return <div>
-        <div>
+        <div className={styles.cat_row}>
             <Checkbox onChange={handleChange}
-                checked={included}
-                enabled={enabled} />
+                      checked={included}
+                      enabled={enabled} />
             <span onClick={() => setHidden(!hidden)}>
                 <span className={styles.cat_name}>{cat.category}</span>
                 <span>{cat.docs}</span>
@@ -190,34 +190,34 @@ function Category({ index, cat, parent_exclude, toggle_cat, search_term, group }
         </div>
         <ol className={styles.cat_list}> {
             cat.child
-                .filter((node) => {
-                    //let in_title = node.category.includes(search_term);
-                    let in_docs = node.docs.includes(search_term);
-                    return in_docs;
-                })
-                .map((node, index) => {
-                    if (show) {
-                        if ("category" in node) {
-                            return <li>
-                                <Category index={index}
-                                    cat={node}
-                                    parent_exclude={!included}
-                                    toggle_cat={toggle_cat_sub}
-                                    search_term={search_term}
-                                    group={group} />
-                            </li>
-                        } else {
-                            return <li>
-                                <Code index={index}
-                                    cat={node}
-                                    parent_exclude={!included}
-                                    toggle_cat={toggle_cat_sub}
-                                    search_term={search_term}
-                                    group={group} />
-                            </li>
-                        }
-                    }
-                })
+               .filter((node) => {
+                   //let in_title = node.category.includes(search_term);
+                   let in_docs = node.docs.includes(search_term);
+                   return in_docs;
+               })
+               .map((node, index) => {
+                   if (show) {
+                       if ("category" in node) {
+                           return <li>
+                               <Category index={index}
+					 cat={node}
+					 parent_exclude={!included}
+					 toggle_cat={toggle_cat_sub}
+					 search_term={search_term}
+					 group={group} />
+                           </li>
+                       } else {
+                           return <li>
+                               <Code index={index}
+                                     cat={node}
+                                     parent_exclude={!included}
+                                     toggle_cat={toggle_cat_sub}
+                                     search_term={search_term}
+                                     group={group} />
+                           </li>
+                       }
+                   }
+               })
         } </ol>
     </div >
 }
@@ -435,33 +435,37 @@ export default function Home() {
     
     if (code_def == 0) {
         return <div>
-            <Link href="/">Back</Link><br />
-            <h1>ICD-10</h1>
-            <button onClick={load_file}>Load file</button>
-        </div>
+            <h1>ICD-10 Editor</h1>
+	    <p className={styles.info}>Load a codes file to edit groups of ICD-10 codes</p>
+	    <div>
+		<span className={styles.button}
+		      onClick={load_file}>Load file</span>
+		<Link className={styles.button} href="/">Back</Link>
+	    </div>
+	</div>
     } else {
 	
         return <div>
-            <Link href="/">Back</Link><br />
-            <button onClick={save_file}>Save as</button>
-            <h1>ICD-10</h1>
-            <div>
+            <h1>ICD-10 Editor</h1>
+	    <p className={styles.info}>Use the groups selector to pick a group, and then use the checkboxes to include or exclude categories or codes from the group. When you are finished, save the resulting groups to a file.</p>
+	    <div>
+		<span className={styles.button}
+		      onClick={save_file}>Save as</span>
+		<Link className={styles.button} href="/">Back</Link>
+	    </div>
+	    <div className={styles.groups}>
                 Groups: <select onChange={handleGroupChange}> {
-                    get_groups().map((grp) => (
+		    get_groups().map((grp) => (
                         <option>{grp}</option>
-                    ))
+		    ))
                 } </select>
-            </div>
-            <ol className={styles.cat_list}>
-                <li>
-                    <Category index={0}
-                              cat={code_def.child[0]}
-                              parent_exclude={false}
-                              toggle_cat={toggle_cat}
-                              search_term={searchTerm}
-                              group={group} />
-                </li>
-            </ol>
-        </div >
+	    </div>
+	    <Category index={0}
+		      cat={code_def.child[0]}
+		      parent_exclude={false}
+		      toggle_cat={toggle_cat}
+		      search_term={searchTerm}
+		      group={group} />
+        </div>
     }
 }

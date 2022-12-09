@@ -23,6 +23,7 @@ Imports:
     mockthat,
     odbc,
     purrr,
+    Rcpp,
     readr,
     readxl,
     rlang,
@@ -44,3 +45,5 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 URL: https://jrs0.github.io/icdb/
+LinkingTo: 
+    Rcpp
