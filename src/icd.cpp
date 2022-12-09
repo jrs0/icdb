@@ -275,11 +275,11 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 				      const Rcpp::List & codes,
 				      std::vector<std::string> groups)
 {
-    // Check for empty string. Return type = -1 if empty
+    // Check for empty string. Return type = 1 if empty
     // and set all other fields to empty
     const std::string std_str{str};
     if(std::all_of(std_str.begin(), std_str.end(), isspace)) {
-	return ParseResult{-1};
+	return ParseResult{1};
     }   
     
     // Look through the index keys at the current level
@@ -440,6 +440,5 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     }
 
     return results;
-        
 }
 
