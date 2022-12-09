@@ -71,9 +71,17 @@ public:
 	// This is only here because I need to use =
 	cat_ = cat;
     }
+
+    // This function returns the string for the category
+    // key and the code key (both of which will probably
+    // be called category in a future version)
     std::string category() const
     {
-	return Rcpp::as<std::string>(cat_["category"]);
+	try {
+	    return Rcpp::as<std::string>(cat_["category"]);
+	} catch(Rcpp::index_out_of_bounds &) {    
+	    return Rcpp::as<std::string>(cat_["code"]);
+	}
     } 
     std::string docs() const
     {
@@ -89,7 +97,7 @@ public:
 
     // True if this category has subcategories (false
     // for leaf nodes with single codes)
-    bool has_subcats()
+    bool has_subcats() const
     {
 	// This is simpler than checking the names,
 	// can check performance later
@@ -99,6 +107,11 @@ public:
 	} catch (const Rcpp::index_out_of_bounds &) {
 	    return false;
 	}
+    }
+
+    Rcpp::List get_subcats()
+    {
+	return Rcpp::as<Rcpp::List>(cat_["child"]);
     }
     
     // Return true if code is (lexicographically) contained
@@ -276,11 +289,96 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
    
     // If there is a subcategory, make a call to this function
     // to process the next category down. Otherwise you are
-    // at a leaf node, so start returning up the call graph
+    // at a leaf node, so start returning up the call graph.
+    // TODO: since this function is linearly recursive,
+    // there should be a tail-call optimisation available here
+    // somewhere.
 
     if (position->has_subcats()) {
 
-    }
+	// Query that category for the code indices
+	ParseResult res{
+	    icd10_str_to_indices_impl(str, position->get_subcats(), groups)
+	};
+	
+	    
+    //     res <- icd10_str_to_indices(str, codes[[position]]$child, groups)
+    //     x <- res$indices
+    //     t <- res$type
+    //     s <- res$trailing
+    //     g <- res$groups
+        
+    //     // Code from here onwards is in the reverse pass of the
+    //     // call tree (i.e. we are moving up the tree now, towards
+    //     // more general categories). The x returned above
+    //     // contains a -1 if the next level down was not a better
+    //     // match for the code. In which case, we use the current
+    //     // level as the best match and return the indices to
+    //     // this level.
+    //     // TODO: this whole thing is drop where == -1, replace
+    //     // with one liner
+    //     val <- tail(x, n=1)
+    //     if (val > 0)
+    //     {
+    //         // Return the entire list
+    //         list(
+    //             indices = c(position, x),
+    //             type = t,
+    //             trailing = s,
+    //             groups = g
+    //         )
+    //     }
+    //     else if (val == -1)
+    //     {
+    //         // The code is not better matched by the next level
+    //         // down. In this case, drop 
+	    //         list(
+	//             indices = c(position, head(x, n=-1)),
+	//             type = t,
+	//             trailing = s,
+	//             groups = g
+	//         )
+	//     }
+	// }
+	// else if (!is.null(codes[[position]]$code))
+	// {
+	//     // This section handles two cases
+	//     // 1) Codes that exactly match a code leaf node
+	//     // 2) Codes that exactly match a code leaf node,
+	//     //    but also contain un-parsed trailing matter
+	//     // The case where a code does not match any of the
+	//     // code leaf nodes is handled in the detect_index
+
+	//     // Use the start of the index of the code as a pattern
+	//     // to search for at the start of the string
+	//     index <- codes[[position]]$index
+	//     pattern <- paste0("^", index)
+	//     if (grepl(pattern, str))
+	//     {
+	//         // Then the code index agrees with the string
+	//         // at the start. Check for trailing matter
+	//         if (nchar(index) < nchar(str))
+	//         {
+	//             list(
+	//                 indices = c(position),
+	//                 type = 3,
+	//                 trailing = substr(str,
+	//                                   nchar(index)+1,
+	//                                   nchar(str)),
+	//                 groups = groups
+	//             )
+	//         }
+	//         else
+	//         {
+	//             // Exact match
+	//             list(
+	//                 indices = c(position),
+	//                 type = 0,
+	//                 groups = groups
+	//             )
+	//         }
+	//     }
+	    }
     
     // ==== Old R impl =================================
     // if (!is.null(codes[[position]]$category))
