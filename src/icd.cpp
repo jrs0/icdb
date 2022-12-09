@@ -80,7 +80,8 @@ public:
 	return Rcpp::as<std::string>(cat_["docs"]);
     }
 
-    // Get excluded groups
+    // Get excluded groups (will throw std::out_of_range
+    // on no exclude key)
     std::vector<std::string> exclude() const
     {
 	return Rcpp::as<std::vector<std::string>>(cat_["exclude"]);
@@ -180,6 +181,11 @@ std::ostream & operator << (std::ostream & os,
 //' The input is a vector of strings to be parsed, and the output is
 //' a list of three vectors (the same length as the input) containing
 //' information about the parsed codes.
+//'
+//' Note: passing groups by value is deliberate, because it is
+//' modified and should not modify the caller's version. Todo:
+//' try to remove this, it might be possible to keep only one
+//' copy and modify it globally.
 //' 
 //' @param str The input character vector of strings that should be
 //' parsed. The strings can have leading and trailing whitespace,
@@ -191,7 +197,7 @@ std::ostream & operator << (std::ostream & os,
 //' 
 ParseResult icd10_str_to_indices_impl(const std::string & str,
 				      const Rcpp::List & codes,
-				      const std::vector<std::string> & groups)
+				      std::vector<std::string> groups)
 {
     // Check for empty string. Return type = -1 if empty
     // and set all other fields to empty
@@ -238,12 +244,21 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // Check for any group exclusions at this level and remove
     // them from the current group list (note that if exclude
     // is not present, NULL is returned, which works fine).
-    std::vector<std::string> diff;
-    std::vector<std::string> exclude = position->exclude();
-    std::set_difference(std::begin(groups), std::end(groups),
-			std::begin(exclude), std::end(exclude),
-			std::inserter(diff, std::begin(diff)));
+    try {
+	std::vector<std::string> diff;
+	std::vector<std::string> exclude = position->exclude();
 
+	// Move the elements to diff, and then swap diff with
+	// groups afterwords.
+	std::set_difference(std::make_move_iterator(std::begin(groups)),
+			    std::make_move_iterator(std::end(groups)),
+			    std::begin(exclude), std::end(exclude),
+			    std::inserter(diff, std::begin(diff)));
+	groups.swap(diff);
+    } catch (const Rcpp::index_out_of_bounds &) {
+	// No exclude tag present, no need to remove anything,
+	// groups is still valid
+    }
 
     return ParseResult{0};
    

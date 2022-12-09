@@ -18,6 +18,11 @@
 #' The input is a vector of strings to be parsed, and the output is
 #' a list of three vectors (the same length as the input) containing
 #' information about the parsed codes.
+#'
+#' Note: passing groups by value is deliberate, because it is
+#' modified and should not modify the caller's version. Todo:
+#' try to remove this, it might be possible to keep only one
+#' copy and modify it globally.
 #' 
 #' @param str The input character vector of strings that should be
 #' parsed. The strings can have leading and trailing whitespace,
