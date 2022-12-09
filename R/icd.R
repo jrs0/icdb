@@ -218,6 +218,11 @@ icd10_indices_to_code <- function(indices, codes)
 ## Taken this function out to debug it properly
 sort_by_index <- function(level)
 {
+    ## BUG: this function is still not correctly
+    ## sorting the indices. It is not showing up
+    ## in the tests because the current implementation
+    ## is not using binary search.
+    
     ## Reorder all the child levels, if
     ## there are any
     ## if (!is.null(level$child))
