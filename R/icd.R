@@ -205,29 +205,35 @@ icd10_indices_to_code <- function(indices, codes)
     codes %>% purrr::chuck(!!!k)
 }
 
-## The codes structure must be ordered by index at
-## every level. Most levels is already ordered
-## by category, which is fine except for the
-## chapter level (where the numerical order
-## of Roman numerals does not coincide with
-## the lexicographical order). Another exception
-## is U occuring after Z. The function takes
-## a list (the contents of the child key) and
-## returns the sorted list
-##
-## Taken this function out to debug it properly
-sort_by_index <- function(level)
+##' The codes structure must be ordered by index at
+##' every level. Most levels is already ordered
+##' by category, which is fine except for the
+##' chapter level (where the numerical order
+##' of Roman numerals does not coincide with
+##' the lexicographical order). Another exception
+##' is U occuring after Z. The function takes
+##' a category and sorts the child array (if it
+##' exists), retuning the modified category.
+##'
+##' This function calls itself recursively and
+##' modifies all child categories inside the
+##' argument cat.
+##'
+##' @title Reorder the child categories in a category
+##' @param cat The category to reorder 
+##' @return The modified category
+icd10_sort_by_index <- function(cat)
 {
     ## Reorder all the child levels, if
     ## there are any
     ## BUG: none of these inner levels are being
     ## saved in level -- so only the top (
     ## singleton) level is being reordered)
-    for (cat in level)
+    if (!is.null(cat$child))
     {
-        if (!is.null(cat$child))
+        for (n in seq_along(cat$child))
         {
-            cat$child <- sort_by_index(cat$child)
+            cat$child[[n]] <- icd10_sort_by_index(cat$child[[n]])
         }
     }
     
@@ -235,21 +241,24 @@ sort_by_index <- function(level)
     ## categories. The intention here is to sort
     ## by the first element of the index (the
     ## unlist is used to flatten the resulting list)
-    k <- level %>%
+    k <- cat$child %>%
         purrr::map("index") %>%
         purrr::map(~ .[[1]]) %>%
         unlist() %>%
         order()
     
     ## Use k to reorder the current level
-    level[k]
+    cat$child <- cat$child[k]
+
+    ## Return the modified category
+    cat
 }
 
 
 icd10_load_codes <- function(codes_file)
 {
     codes_def <- yaml::read_yaml(codes_file)
-    codes_def$child <- sort_by_index(codes_def$child)
+    codes_def <- icd10_sort_by_index(codes_def)
     codes_def
 }
 
