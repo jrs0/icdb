@@ -48,7 +48,7 @@ public:
     Cat(const Rcpp::List & cat) : cat_{cat} {}
     Rcpp::String category() const
     {
-	return Rcpp::as<Rcpp::String>(cat_["cat"]);
+	return Rcpp::as<Rcpp::String>(cat_["category"]);
     }
 
     
@@ -96,8 +96,6 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
 				      const Rcpp::List & codes,
 				      const Rcpp::List & groups)
 {
-
-   
     // Check for empty string. Return type = -1 if empty
     // and set all other fields to empty
     const std::string std_str{str};
@@ -114,14 +112,17 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     
     // Get a vector of category objects to search
     std::vector<Cat> cats;
+    Rcpp::Rcout << codes.names() << std::endl;
     for (auto i{std::begin(codes)}; i < std::end(codes); ++i) {
-
+	//Rcpp::Rcout << Rcpp::as<Rcpp::String>((*i)["category"]) << std::endl;
 	// When accessing an element of a list as below,
 	// you need to cast to the expected type of the
 	// element (because everything is just pointers
 	// behind the scenes)
-	cats.emplace_back(Rcpp::as<Rcpp::List>(*i));
-	Rcpp::Rcout << cats.back() << std::endl;
+	const Rcpp::List cat{*i};
+	//Rcpp::Rcout << *i.names() << std::endl;
+	cats.emplace_back(cat);
+	//Rcpp::Rcout << cats.back() << std::endl;
 	// const Rcpp::List cat{codes[i]};
 	// const std::vector<std::string> index{cat["index"]};
 	// std::cout << "Hello" << std::endl;
