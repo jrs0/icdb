@@ -46,10 +46,16 @@ public:
     ParseResult(int type) : type_{type} {}
 
     Rcpp::List to_R_list() const {
-	return Rcpp::List::create(Rcpp::_["indices"] = indices_,
-				  Rcpp::_["type"] = type_,
-				  Rcpp::_["trailing"] = trailing_,
-				  Rcpp::_["groups"] = groups_);
+	Rcpp::List res = Rcpp::List::create(Rcpp::_["indices"] = indices_,
+					    Rcpp::_["type"] = type_,
+					    Rcpp::_["groups"] = groups_);
+
+	// Only store trailing matter if non-empty
+	if (trailing_.size() > 0) {
+	    res["trailing"] = trailing_;
+	}
+	
+	return res;
     }
     
     // The type -- whether the parse succeeded or not

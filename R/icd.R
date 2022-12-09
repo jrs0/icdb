@@ -197,8 +197,7 @@ icd10_indices_to_code <- function(indices, codes_def)
         purrr::flatten() %>%
         ## Remove the final "child" key to
         ## get the entire category or code
-        head(-1)
-        
+        head(-1)   
 
     ## Note the first 1 is to get down into the
     ## first level (where there is a child key)
