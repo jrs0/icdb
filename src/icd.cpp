@@ -136,7 +136,6 @@ public:
 	} else {
 	    // Truncate the string to the length of the index
 	    std::string trunc{str.substr(0, idx[0].size())};
-	    Rcpp::Rcout << "trunc = " << trunc << std::endl; 
 	    return trunc == idx[0];
 	}
 	
@@ -280,7 +279,6 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     for (auto i{std::begin(codes)}; i < std::end(codes); ++i) {
 	const Rcpp::List cat = *i;
 	cats.emplace_back(cat);
-	Rcpp::Rcout << cats.back() << std::endl;
     }
 
     // Perform the binary search
@@ -298,9 +296,6 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // empty
     if (!found)
     {
-	Rcpp::Rcout << "Not found! " << str << std::endl; 
-	Rcpp::Rcout << *position  << std::endl; 
-
 	return ParseResult{2};                     
     }
 
@@ -412,13 +407,10 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 Rcpp::List new_icd10_impl(const std::string & str,
 			  const Rcpp::List & code_def)
 {
-
-    Rcpp::List xx = code_def["child"];
-    Rcpp::List yy = xx[0];
     
     ParseResult res{
 	icd10_str_to_indices_impl(str,
-				  yy["child"],//code_def["child"],
+				  code_def["child"],
 				  code_def["groups"])
     };
     
