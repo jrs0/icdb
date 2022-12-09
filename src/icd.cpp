@@ -321,6 +321,7 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // whether the current category is the best match, or
     // whether the next category down is better.
 
+    
     // Check for any group exclusions at this level and remove
     // them from the current group list (note that if exclude
     // is not present, NULL is returned, which works fine).
@@ -375,27 +376,23 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
         // to search for at the start of the string (the
 	// leaf node only has a single index value, hence [0])
 	const std::string index{position->index()[0]};
-	const std::regex pattern{"^" + index};
-        if (std::regex_search(index, pattern))
-        {
-            // Then the code index agrees with the string
-            // at the start. Check for trailing matter
-            if (index.size() < str.size())
-            {
-		std::string trailing{
-		    str.substr(index.size() + 1, str.size())
-		};
-		
-		return ParseResult(3, {position_val},
-				   groups, trailing);
-		    }
-            else
-		{
-		    // Exact match (no need for trailing)
-		return ParseResult(0, {position_val},
-				   groups);
-            }
-        }
+	// const std::regex pattern{"^" + index};
+	// int type{0};
+        // if (std::regex_search(index, pattern))
+        // {
+	// Then the code index agrees with the string
+	// at the start. Check for trailing matter
+	if (index.size() < str.size()) {
+	    std::string trailing{
+		str.substr(index.size() + 1, str.size())
+	    };
+	    
+	    return ParseResult(3, {position_val},
+			       groups, trailing);
+	} else {
+	    
+	    return ParseResult(0, {position_val}, groups);
+	}
     }
 }
 
