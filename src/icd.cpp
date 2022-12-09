@@ -30,14 +30,20 @@
 class ParseResult
 {
 public:
-    ParseResult(int type) : type_{type} {}
     ParseResult(int type, const std::vector<std::size_t> & indices,
-		const std::string & trailing,
-		const std::vector<std::string> & groups)
+		const std::vector<std::string> & groups,
+		const std::string & trailing)
 	: type_{type}, indices_{indices},
 	  trailing_{trailing}, groups_{groups}
     {}
 
+    ParseResult(int type, const std::vector<std::size_t> & indices,
+		const std::vector<std::string> & groups)
+	: type_{type}, indices_{indices}, groups_{groups}
+    {}
+
+    ParseResult(int type) : type_{type} {}
+    
     // The type -- whether the parse succeeded or not
     int type() const { return type_; }
     
@@ -269,7 +275,9 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 
     // Convert the iterator to an integer position (indexed
     // from 1 for R) for use later
-    const std::size_t position_val{std::distance(std::begin(cats), position)};
+    const std::size_t position_val {
+	std::distance(std::begin(cats), position) + 1
+    };
     
     // If you get here, the code was valid at the current
     // level. The remainder of the function is concerned with
@@ -328,32 +336,28 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
         // code leaf nodes is handled in the detect_index
 
         // Use the start of the index of the code as a pattern
-        // to search for at the start of the string
-	std::string index <- position->index
-        pattern <- paste0("^", index)
-        if (grepl(pattern, str))
+        // to search for at the start of the string (the
+	// leaf node only has a single index value, hence [0])
+	const std::string index{position->index()[0]};
+	const std::regex pattern{"^" + index};
+        if (std::regex_search(index, pattern))
         {
-            ## Then the code index agrees with the string
-            ## at the start. Check for trailing matter
+            // Then the code index agrees with the string
+            // at the start. Check for trailing matter
             if (nchar(index) < nchar(str))
             {
-                list(
-                    indices = c(position),
-                    type = 3,
-                    trailing = substr(str,
-                                      nchar(index)+1,
-                                      nchar(str)),
-                    groups = groups
-                )
+		std::string trailing{
+		    str.substr(index.size() + 1, str.size())
+		};
+		
+		return ParseResult(3, {position_val},
+				   groups, trailing)
             }
             else
             {
-                ## Exact match
-                list(
-                    indices = c(position),
-                    type = 0,
-                    groups = groups
-                )
+		// Exact match (no need for trailing)
+		return ParseResult(0, {position_val},
+				   groups)
             }
         }
     }
