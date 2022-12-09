@@ -184,7 +184,7 @@ icd10_str_to_indices <- function(str, codes, groups)
 ##' @param codes The codes definition structure
 ##' @return The named list containing the corresponding code
 ##' or category for these indices
-icd10_indices_to_code <- function(indices, codes)
+icd10_indices_to_code <- function(indices, codes_def)
 {
     ## The structure of the codes file is
     ## a nested list of lists. At each level,
@@ -202,7 +202,7 @@ icd10_indices_to_code <- function(indices, codes)
 
     ## Note the first 1 is to get down into the
     ## first level (where there is a child key)
-    codes %>% purrr::chuck(!!!k)
+    codes_def$child %>% purrr::chuck(!!!k)
 }
 
 ##' The codes structure must be ordered by index at
@@ -349,7 +349,7 @@ new_icd10 <- function(str = character(), codes_file)
             {
                 ## This element is either a code or
                 ## a category
-                elem <- icd10_indices_to_code(x$indices, codes)
+                elem <- icd10_indices_to_code(x$indices, codes_def)
                 if (!is.null(elem$code)) {
                     res <- elem$code
                 }
