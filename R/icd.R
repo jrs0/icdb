@@ -339,9 +339,9 @@ new_icd10 <- function(str = character(), codes_file)
     str <- stringr::str_replace_all(str, "\\.", "") %>%
         trimws()
 
-    ## Parse the codes
-    ##results <- new_icd10_impl(str, codes_def)
-    results <- new_icd10_impl_R(str, codes_def)
+    ## Parse the codes (pick C++ or R)
+    results <- new_icd10_impl(str, codes_def)
+    ##results <- new_icd10_impl_R(str, codes_def)
     
         
     indices <- results %>% purrr::map("indices")
