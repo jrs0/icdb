@@ -181,10 +181,10 @@ icd10_str_to_indices <- function(str, codes, groups)
 ##'
 ##' @title Convert indices lists to ICD-10 codes
 ##' @param indices A list of indices (itself a list) 
-##' @param codes The codes definition structure
+##' @param codes_def The codes definition structure
 ##' @return The named list containing the corresponding code
 ##' or category for these indices
-icd10_indices_to_code <- function(indices, codes)
+icd10_indices_to_code <- function(indices, codes_def)
 {
     ## The structure of the codes file is
     ## a nested list of lists. At each level,
@@ -197,109 +197,81 @@ icd10_indices_to_code <- function(indices, codes)
         purrr::flatten() %>%
         ## Remove the final "child" key to
         ## get the entire category or code
-        head(-1)
-        
+        head(-1)   
 
     ## Note the first 1 is to get down into the
     ## first level (where there is a child key)
-    codes %>% purrr::chuck(!!!k)
+    codes_def$child %>% purrr::chuck(!!!k)
 }
 
-icd10_load_codes <- function(codes_file)
+##' The codes structure must be ordered by index at
+##' every level. Most levels is already ordered
+##' by category, which is fine except for the
+##' chapter level (where the numerical order
+##' of Roman numerals does not coincide with
+##' the lexicographical order). Another exception
+##' is U occuring after Z. The function takes
+##' a category and sorts the child array (if it
+##' exists), retuning the modified category.
+##'
+##' This function calls itself recursively and
+##' modifies all child categories inside the
+##' argument cat.
+##'
+##' @title Reorder the child categories in a category
+##' @param cat The category to reorder 
+##' @return The modified category
+icd10_sort_by_index <- function(cat)
 {
-    codes_def <- yaml::read_yaml(codes_file)
-
-    ## BUG: somewhere here, an empty element
-    ## is getting added to the top level
-    ## of child (and probably all levels too).
-    ## This function is just nonsense, I'm
-    ## amazed anything based on it works! Currently
-    ## nothing is being sorted.
-    
-    ## The structure must be ordered by index at
-    ## every level. Most levels is already ordered
-    ## by category, which is fine except for the
-    ## chapter level (where the numerical order
-    ## of Roman numerals does not coincide with
-    ## the lexicographical order). Another exception
-    ## is U occuring after Z. The function takes
-    ## a list (the contents of the child key) and
-    ## returns the sorted list
-    sort_by_index <- function(level)
+    ## Only perform the reordering if this
+    ## is a proper category -- do not reorder
+    ## anything for leaf (code) nodes
+    if (!is.null(cat$child))
     {
         ## Reorder all the child levels, if
         ## there are any
-        ## if (!is.null(level$child))
-        ## {
-        ##     level$child <- sort_categories(level$child)
-        ## }
-        for (cat in level)
+        for (n in seq_along(cat$child))
         {
-            if (!is.null(cat$child))
-            {
-                cat$child <- sort_by_index(cat$child)
-            }
+            cat$child[[n]] <- icd10_sort_by_index(cat$child[[n]])
         }
-        
+
         ## Get the sorted order of this list of
         ## categories. The intention here is to sort
         ## by the first element of the index (the
         ## unlist is used to flatten the resulting list)
-        k <- level %>%
+        k <- cat$child %>%
             purrr::map("index") %>%
             purrr::map(~ .[[1]]) %>%
             unlist() %>%
             order()
         
         ## Use k to reorder the current level
-        level[k]
+        cat$child <- cat$child[k]
     }
+    
+    ## Return the modified category
+    cat
+}
 
-    ## Sort the codes
-    codes_def$child <- sort_by_index(codes_def$child)
 
+icd10_load_codes <- function(codes_file)
+{
+    codes_def <- yaml::read_yaml(codes_file)
+    codes_def <- icd10_sort_by_index(codes_def)
     codes_def
 }
 
-##' Create a new icd10 (S3) object from a string
-##'
-##' @title Make an ICD-10 object from a string
-##' @param str The input string to parse
-##' @param codes_file The path of the codes definition
-##' file to use
-##' @return The new icd10 S3 object
-##' 
-new_icd10 <- function(str = character(), codes_file)
-{
-    vctrs::vec_assert(str, character())
 
+## The R version of the icd10 parser
+new_icd10_impl_R <- function(str, codes_def)
+{
     ## A store mapping strings to icd10 objects
     ## to reduce computation of the same codes
     ## multiple times
-    cache <- list()
-    
-    ## Open the file. This is a long operation, but
-    ## provided this function is called in a vectorised
-    ## way (i.e. str is a vector), the file will only
-    ## be opened once. If it turns out to be a performace
-    ## problem, it can be fixed later. The top level is
-    ## a list with one item, and the main chapter level
-    ## starts in the child key.
-    codes_def <- icd10_load_codes(codes_file)
+    cache <- list()   
+
     codes <- codes_def$child
     groups <- codes_def$groups
-
-    ## strip whitespace from the code, and
-    ## remove any dots.
-    
-    str <- stringr::str_replace_all(str, "\\.", "") %>%
-        trimws()
-
-    ## -----
-    ## THIS IS WHERE new_icd10_impl is going
-    ## new_icd10_impl(str, )
-    ##---
-    
     
     ## Get the indices for each code
     results <- str %>%
@@ -333,6 +305,44 @@ new_icd10 <- function(str = character(), codes_file)
                 code
             }
         })
+
+    ## Return the results
+    results
+}
+
+##' Create a new icd10 (S3) object from a string
+##'
+##' @title Make an ICD-10 object from a string
+##' @param str The input string to parse
+##' @param codes_file The path of the codes definition
+##' file to use
+##' @return The new icd10 S3 object
+##' 
+new_icd10 <- function(str = character(), codes_file)
+{
+    vctrs::vec_assert(str, character())
+
+    ## Open the file. This is a long operation, but
+    ## provided this function is called in a vectorised
+    ## way (i.e. str is a vector), the file will only
+    ## be opened once. If it turns out to be a performace
+    ## problem, it can be fixed later. The top level is
+    ## a list with one item, and the main chapter level
+    ## starts in the child key.
+    codes_def <- icd10_load_codes(codes_file)
+    ## codes <- codes_def$child
+    ## groups <- codes_def$groups
+
+    ## strip whitespace from the code, and
+    ## remove any dots.
+    
+    str <- stringr::str_replace_all(str, "\\.", "") %>%
+        trimws()
+
+    ## Parse the codes
+    ##results <- new_icd10_impl(str, codes_def)
+    results <- new_icd10_impl_R(str, codes_def)
+    
         
     indices <- results %>% purrr::map("indices")
     types <- results %>% purrr::map("type")
@@ -348,7 +358,7 @@ new_icd10 <- function(str = character(), codes_file)
             {
                 ## This element is either a code or
                 ## a category
-                elem <- icd10_indices_to_code(x$indices, codes)
+                elem <- icd10_indices_to_code(x$indices, codes_def)
                 if (!is.null(elem$code)) {
                     res <- elem$code
                 }

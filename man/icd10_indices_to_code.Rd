@@ -4,12 +4,12 @@
 \alias{icd10_indices_to_code}
 \title{Convert indices lists to ICD-10 codes}
 \usage{
-icd10_indices_to_code(indices, codes)
+icd10_indices_to_code(indices, codes_def)
 }
 \arguments{
 \item{indices}{A list of indices (itself a list)}
 
-\item{codes}{The codes definition structure}
+\item{codes_def}{The codes definition structure}
 }
 \value{
 The named list containing the corresponding code
