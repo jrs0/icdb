@@ -300,7 +300,7 @@ new_icd10 <- function(str = character(), codes_file)
     ## THIS IS WHERE new_icd10_impl is going
     ## new_icd10_impl(str, )
     ##---
-    result <- new_icd10_impl(str, codes_def)
+    results <- new_icd10_impl(str, codes_def)
     
     ## Get the indices for each code
     ## results <- str %>%
