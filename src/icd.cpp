@@ -22,6 +22,7 @@ private:
     std::vector<std::string> groups_{};
 };
 
+// Remove
 struct Index
 {
     std::string start_;
@@ -39,6 +40,13 @@ struct Index
 	    end_ = index[0];
 	}
     }
+};
+
+class Cat
+{
+
+private:
+    Rcpp::List cat_;
 };
 
 //' Parse a single ICD-10 string into a vector of indices that locates
@@ -89,13 +97,13 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
     
     // Extract the vector of indices
     std::vector<Index> indices;
-    for (long i{0}; i < codes.size(); ++i) {
-	const Rcpp::List cat{codes[i]};
-	const std::vector<std::string> index{cat["index"]};
-	std::cout << "Hello" << std::endl;
-	indices.push_back(index);
-	Rcpp::Rcout << indices[i].start_
-		    << "," << indices[i].end_ << std::endl;
+    for (const auto & i{codes.begin()}; i < codes.end(); ++i) {
+	// const Rcpp::List cat{codes[i]};
+	// const std::vector<std::string> index{cat["index"]};
+	// std::cout << "Hello" << std::endl;
+	// indices.push_back(index);
+	// Rcpp::Rcout << indices[i].start_
+	// 	    << "," << indices[i].end_ << std::endl;
     }
     
     return ParseResult{0};
