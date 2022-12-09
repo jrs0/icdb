@@ -233,6 +233,14 @@ icd10_load_codes <- function(codes_file)
         ## {
         ##     level$child <- sort_categories(level$child)
         ## }
+        for (cat in level)
+        {
+            if (!is.null(cat$child))
+            {
+                cat$child <- sort_by_index(cat$child)
+            }
+        }
+        
         
         ## Get the sorted order of this level 
         k <- level %>%
