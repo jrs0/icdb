@@ -261,6 +261,55 @@ icd10_load_codes <- function(codes_file)
     codes_def
 }
 
+
+## The R version of the icd10 parser
+new_icd10_impl_R <- function(str, codes_def)
+{
+    ## A store mapping strings to icd10 objects
+    ## to reduce computation of the same codes
+    ## multiple times
+    cache <- list()   
+
+    codes <- codes_def$child
+    groups <- codes_def$groups
+    
+    ## Get the indices for each code
+    results <- str %>%
+        purrr::map(function(x)
+        {
+            res <- cache[[x]]
+            if (!is.null(res))
+            {
+                res
+            }
+            else
+            {
+                code <- tryCatch(
+                    error_invalid = function(cnd)
+                    {
+                        cnd$result
+                    },
+                    error = function(cnd)
+                    {
+                        ## Other error condition
+                        list(
+                            trailing = x,
+                            indices = list(),
+                            type = c(2),
+                            groups = list()
+                        )
+                    },
+                    icd10_str_to_indices(x, codes, groups)
+                )
+                cache[[x]] <- code
+                code
+            }
+        })
+
+    ## Return the results
+    results
+}
+
 ##' Create a new icd10 (S3) object from a string
 ##'
 ##' @title Make an ICD-10 object from a string
@@ -273,11 +322,6 @@ new_icd10 <- function(str = character(), codes_file)
 {
     vctrs::vec_assert(str, character())
 
-    ## A store mapping strings to icd10 objects
-    ## to reduce computation of the same codes
-    ## multiple times
-    cache <- list()
-    
     ## Open the file. This is a long operation, but
     ## provided this function is called in a vectorised
     ## way (i.e. str is a vector), the file will only
@@ -295,44 +339,10 @@ new_icd10 <- function(str = character(), codes_file)
     str <- stringr::str_replace_all(str, "\\.", "") %>%
         trimws()
 
-    ## -----
-    ## THIS IS WHERE new_icd10_impl is going
-    ## new_icd10_impl(str, )
-    ##---
-    results <- new_icd10_impl(str, codes_def)
+    ## Parse the codes
+    ##results <- new_icd10_impl(str, codes_def)
+    results <- new_icd10_impl_R(str, codes_def)
     
-    ## Get the indices for each code
-    ## results <- str %>%
-    ##     purrr::map(function(x)
-    ##     {
-    ##         res <- cache[[x]]
-    ##         if (!is.null(res))
-    ##         {
-    ##             res
-    ##         }
-    ##         else
-    ##         {
-    ##             code <- tryCatch(
-    ##                 error_invalid = function(cnd)
-    ##                 {
-    ##                     cnd$result
-    ##                 },
-    ##                 error = function(cnd)
-    ##                 {
-    ##                     ## Other error condition
-    ##                     list(
-    ##                         trailing = x,
-    ##                         indices = list(),
-    ##                         type = c(2),
-    ##                         groups = list()
-    ##                     )
-    ##                 },
-    ##                 icd10_str_to_indices(x, codes, groups)
-    ##             )
-    ##             cache[[x]] <- code
-    ##             code
-    ##         }
-    ##     })
         
     indices <- results %>% purrr::map("indices")
     types <- results %>% purrr::map("type")
