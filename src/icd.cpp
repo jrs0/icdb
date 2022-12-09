@@ -72,11 +72,11 @@ public:
     {
 	auto idx{index()};
 	if (idx.size() == 2) {
-	    (str >= idx[0]) && (str <= idx[1]);
+	    return (str >= idx[0]) && (str <= idx[1]);
 	} else {
 	    // Truncate the string to the length of the index
-	    std::string trunc{str.substr(0, idx[0].size())}   
-	    trunc == idx[0];
+	    std::string trunc{str.substr(0, idx[0].size())};
+	    return trunc == idx[0];
 	}
 	
     }
@@ -92,11 +92,11 @@ private:
     Rcpp::List cat_; ///< Pointing to the category
 };
 
-bool operator < (const Rcpp::String & str, const Cat & cat)
+bool operator < (const std::string & str, const Cat & cat)
 {
-    Rcpp::List idx = cat.index();
-    // Only need the first 
-    return str < Rcpp::as<Rcpp::String>(idx[0]); 
+    auto idx{cat.index()};
+    // Only need the first element for < operator
+    return str < idx[0]; 
 }
 
 // Not sure what the 'true' means
@@ -163,7 +163,7 @@ ParseResult icd10_str_to_indices_impl(const Rcpp::String & str,
 
     // Perform the binary search
     auto lower = std::lower_bound(std::begin(cats), std::end(cats), str);
-    const bool found = (lower != std::end(cats)) && (*lower == str);
+    const bool found = (lower != std::end(cats)) && (lower->contains(str));
     
     
     return ParseResult{0};
