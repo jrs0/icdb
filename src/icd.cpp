@@ -271,6 +271,7 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // empty
     if (!found)
     {
+	Rcpp::Rcout << "Not found! " << str << std::endl; 
 	return ParseResult{2};                     
     }
 
@@ -314,9 +315,11 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     if (position->has_subcats()) {
 
 	// Query that category for the code indices
-	ParseResult res{ icd10_str_to_indices_impl(str,
-						   position->get_subcats(),
-						   groups) };
+	ParseResult res {
+	    icd10_str_to_indices_impl(str,
+				      position->get_subcats(),
+				      groups)
+	};
 	
         // Code from here onwards is in the reverse pass of the
         // call tree (i.e. we are moving up the tree now, towards
@@ -359,7 +362,6 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
             }
         }
     }
-
 }
 
 //' Implementation of the ICD-10 parser for vectors of ICD-10 strings
