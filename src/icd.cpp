@@ -46,14 +46,16 @@ class ParseResult
 public:
     ParseResult(int type, const std::list<std::size_t> & indices,
 		const std::vector<std::string> & groups,
+		const std::string & name,
 		const std::string & trailing)
 	: type_{type}, indices_{indices},
-	  trailing_{trailing}, groups_{groups}
+	  trailing_{trailing}, groups_{groups}, name_{name}
     {}
 
     ParseResult(int type, const std::list<std::size_t> & indices,
-		const std::vector<std::string> & groups)
-	: type_{type}, indices_{indices}, groups_{groups}
+		const std::vector<std::string> & groups,
+		const std::string & name)
+	: type_{type}, indices_{indices}, groups_{groups}, name_{name}
     {}
 
     ParseResult(int type) : type_{type} {}
@@ -63,11 +65,16 @@ public:
 					    Rcpp::_["type"] = type_,
 					    Rcpp::_["groups"] = groups_);
 
-	// Only store trailing matter if non-empty
-	if (trailing_.size() > 0) {
-	    res["trailing"] = trailing_;
+	if (indices_.size() == 0) {
+	    res["name"] = "(" + trailing_ + ")";
+	} else {
+	    if (trailing_.size() > 0) {
+		res["name"] = name_ + "(" + trailing_ + ")";
+	    } else {
+		res["name"] = name_;
+	    }
 	}
-	
+		
 	return res;
     }
     
@@ -99,6 +106,7 @@ private:
     std::list<std::size_t> indices_{};
     std::string trailing_{""};
     std::vector<std::string> groups_{};
+    std::string name_{""};
 };
 
 class Cat
@@ -380,6 +388,7 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
         // to search for at the start of the string (the
 	// leaf node only has a single index value, hence [0])
 	const std::string index{position->index()[0]};
+	const std::string name{position->category()};
 	// const std::regex pattern{"^" + index};
 	// int type{0};
         // if (std::regex_search(index, pattern))
@@ -390,12 +399,12 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 	    std::string trailing{
 		str.substr(index.size(), str.size())
 	    };
-	    
 	    return ParseResult(3, {position_val},
-			       groups, trailing);
+			       groups, name, trailing);
 	} else {
 	    
-	    return ParseResult(0, {position_val}, groups);
+	    return ParseResult(0, {position_val},
+			       groups, name);
 	}
     }
 }
@@ -432,8 +441,13 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     //#pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
 
+	// BUG? Runtime still scales with the length of the
+	// input vector, even when the cache is used. This
+	// doesn't seem right -- either the cache is not
+	// being used, or the cost of the parse is the cost
+	// of a cache hit (seems unlikely)
 	std::map<std::string, Rcpp::List> cache;
-
+	
 	// Try the cache first, then parse the string
 	try {
 	    results[n] = cache.at(str[n]);
@@ -446,7 +460,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 		results[n] = res.to_R_list();		
 	    } catch (const std::logic_error &) {
 		// Catch the invalid code error
-		ParseResult res = ParseResult(2, {}, {}, str[n]);
+		ParseResult res = ParseResult(2, {}, {}, "", str[n]);
 		results[n] = res.to_R_list();		
 	    }
 	    cache[str[n]] = results[n];
