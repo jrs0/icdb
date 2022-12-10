@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <iostream>
 #include <regex>
+#include <map>
 
 std::ostream & operator << (std::ostream & os,
 			    const std::vector<std::string> & v)
@@ -43,6 +44,7 @@ std::ostream & operator << (std::ostream & os,
 class ParseResult
 {
 public:
+    ParseResult() = default;
     ParseResult(int type, const std::list<std::size_t> & indices,
 		const std::vector<std::string> & groups,
 		const std::string & trailing)
@@ -430,14 +432,25 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 
     //#pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
+
+	std::map<std::string, Rcpp::List> cache;
+
+	// Try the cache first, then parse the string
 	try {
-	    auto res{icd10_str_to_indices_impl(str[n],
-					       code_def["child"],
-					       groups)};	
-	    results[n] = res.to_R_list();
-	} catch (const std::logic_error &) {
-	    // Catch the invalid code error
-	    results[n] = ParseResult(2, {}, {}, str[n]).to_R_list();
+	    results[n] = cache.at(str[n]);
+	} catch (const std::out_of_range &) {	
+	    ParseResult res;
+	    try {
+		res = icd10_str_to_indices_impl(str[n],
+						code_def["child"],
+						groups);	
+	    } catch (const std::logic_error &) {
+		// Catch the invalid code error
+		res = ParseResult(2, {}, {}, str[n]);
+	    }
+	    Rcpp::List res_R_list{ res.to_R_list() }; 
+	    cache[str[n]] = res_R_list;
+	    results[n] = res_R_list;
 	}
     }
 
