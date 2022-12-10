@@ -44,7 +44,6 @@ std::ostream & operator << (std::ostream & os,
 class ParseResult
 {
 public:
-    ParseResult() = default;
     ParseResult(int type, const std::list<std::size_t> & indices,
 		const std::vector<std::string> & groups,
 		const std::string & trailing)
@@ -439,18 +438,18 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	try {
 	    results[n] = cache.at(str[n]);
 	} catch (const std::out_of_range &) {	
-	    ParseResult res;
 	    try {
-		res = icd10_str_to_indices_impl(str[n],
-						code_def["child"],
-						groups);	
+		
+		ParseResult res = icd10_str_to_indices_impl(str[n],
+							    code_def["child"],
+							    groups);	
+		results[n] = res.to_R_list();		
 	    } catch (const std::logic_error &) {
 		// Catch the invalid code error
-		res = ParseResult(2, {}, {}, str[n]);
+		ParseResult res = ParseResult(2, {}, {}, str[n]);
+		results[n] = res.to_R_list();		
 	    }
-	    Rcpp::List res_R_list{ res.to_R_list() }; 
-	    cache[str[n]] = res_R_list;
-	    results[n] = res_R_list;
+	    cache[str[n]] = results[n];
 	}
     }
 
