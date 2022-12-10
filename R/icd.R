@@ -348,38 +348,39 @@ new_icd10 <- function(str = character(), codes_file)
     indices <- results %>% purrr::map("indices")
     types <- results %>% purrr::map("type")
     groups <- results %>% purrr::map("groups")
+    name <- results %>% purrr::map("name")
     
     ## Get the proper name
     ## Need to move this into the c++ impl
-    name <- results %>%
-        purrr::map(function(x) {
-            if (length(x$indices) == 0) {
-                paste0("(", x$trailing, ")")
-            }
-            else
-            {
-                ## This element is either a code or
-                ## a category
-                elem <- icd10_indices_to_code(x$indices, codes_def)
-                if (!is.null(elem$code)) {
-                    res <- elem$code
-                }
-                else
-                {
-                    res <- elem$category
-                }
+    ## name <- results %>%
+    ##     purrr::map(function(x) {
+    ##         if (length(x$indices) == 0) {
+    ##             paste0("(", x$trailing, ")")
+    ##         }
+    ##         else
+    ##         {
+    ##             ## This element is either a code or
+    ##             ## a category
+    ##             elem <- icd10_indices_to_code(x$indices, codes_def)
+    ##             if (!is.null(elem$code)) {
+    ##                 res <- elem$code
+    ##             }
+    ##             else
+    ##             {
+    ##                 res <- elem$category
+    ##             }
 
-                ## Now append any trailing matter, if
-                ## there is any
-                if (!is.null(x$trailing))
-                {
-                    res <- paste0(res, "(", x$trailing ,")")
-                }
+    ##             ## Now append any trailing matter, if
+    ##             ## there is any
+    ##             if (!is.null(x$trailing))
+    ##             {
+    ##                 res <- paste0(res, "(", x$trailing ,")")
+    ##             }
 
-                ## Return the name
-                res
-            }
-        })
+    ##             ## Return the name
+    ##             res
+    ##         }
+    ##     })
 
     obj <- list(
         name = name,
