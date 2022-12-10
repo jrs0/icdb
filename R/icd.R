@@ -330,19 +330,20 @@ new_icd10 <- function(str = character(), codes_file)
     ## a list with one item, and the main chapter level
     ## starts in the child key.
     codes_def <- icd10_load_codes(codes_file)
-    ## codes <- codes_def$child
-    ## groups <- codes_def$groups
 
     ## strip whitespace from the code, and
-    ## remove any dots.
-    
+    ## remove any dots.    
     str <- stringr::str_replace_all(str, "\\.", "") %>%
         trimws()
 
-    ## Parse the codes
-    ##results <- new_icd10_impl(str, codes_def)
-    results <- new_icd10_impl_R(str, codes_def)
-    
+    ## Parse the codes (pick C++ or R)
+    ## Profiling the cpp code shows only 49% of
+    ## the time is the .Call function (of which
+    ## 40% is the impl function),
+    ## and 40% is due to the purrr::map (of which
+    ## 30% is the .f function)
+    ##results <- new_icd10_impl_R(str, codes_def)
+    results <- new_icd10_impl(str, codes_def)
         
     indices <- results %>% purrr::map("indices")
     types <- results %>% purrr::map("type")
