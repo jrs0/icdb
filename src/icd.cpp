@@ -27,8 +27,6 @@
 #include <iostream>
 #include <regex>
 
-// [[Rcpp::plugins(openmp)]]
-
 std::ostream & operator << (std::ostream & os,
 			    const std::vector<std::string> & v)
 {
