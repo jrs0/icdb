@@ -350,6 +350,7 @@ new_icd10 <- function(str = character(), codes_file)
     groups <- results %>% purrr::map("groups")
     
     ## Get the proper name
+    ## Need to move this into the c++ impl
     name <- results %>%
         purrr::map(function(x) {
             if (length(x$indices) == 0) {
