@@ -330,19 +330,15 @@ new_icd10 <- function(str = character(), codes_file)
     ## a list with one item, and the main chapter level
     ## starts in the child key.
     codes_def <- icd10_load_codes(codes_file)
-    ## codes <- codes_def$child
-    ## groups <- codes_def$groups
 
     ## strip whitespace from the code, and
-    ## remove any dots.
-    
+    ## remove any dots.    
     str <- stringr::str_replace_all(str, "\\.", "") %>%
         trimws()
 
     ## Parse the codes (pick C++ or R)
     results <- new_icd10_impl(str, codes_def)
     ##results <- new_icd10_impl_R(str, codes_def)
-    
         
     indices <- results %>% purrr::map("indices")
     types <- results %>% purrr::map("type")
