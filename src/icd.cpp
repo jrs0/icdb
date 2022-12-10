@@ -27,6 +27,8 @@
 #include <iostream>
 #include <regex>
 
+// [[Rcpp::plugins(openmp)]]
+
 std::ostream & operator << (std::ostream & os,
 			    const std::vector<std::string> & v)
 {
@@ -427,7 +429,9 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     }
     
     Rcpp::List results(str.size());
-    for (std::size_t n{0}; n < str.size(); ++n) {
+
+    //#pragma omp parallel for
+    for (std::size_t n = 0; n < str.size(); ++n) {
 	try {
 	    auto res{icd10_str_to_indices_impl(str[n],
 					       code_def["child"],
