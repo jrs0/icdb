@@ -455,11 +455,11 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	    results[n] = cache.at(str[n]);
 	} catch (const std::out_of_range &) {	
 	    try {
-		
 		ParseResult res = icd10_str_to_indices_impl(str[n],
 							    code_def["child"],
 							    groups);	
 		results[n] = res.to_R_list();		
+
 	    } catch (const std::logic_error &) {
 		// Catch the invalid code error
 		ParseResult res = ParseResult(2, {}, {}, "", str[n]);
