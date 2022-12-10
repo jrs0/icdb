@@ -337,8 +337,13 @@ new_icd10 <- function(str = character(), codes_file)
         trimws()
 
     ## Parse the codes (pick C++ or R)
-    results <- new_icd10_impl(str, codes_def)
+    ## Profiling the cpp code shows only 49% of
+    ## the time is the .Call function (of which
+    ## 40% is the impl function),
+    ## and 40% is due to the purrr::map (of which
+    ## 30% is the .f function)
     ##results <- new_icd10_impl_R(str, codes_def)
+    results <- new_icd10_impl(str, codes_def)
         
     indices <- results %>% purrr::map("indices")
     types <- results %>% purrr::map("type")
