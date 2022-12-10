@@ -455,7 +455,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 		results[n] = res.to_R_list();		
 	    } catch (const std::logic_error &) {
 		// Catch the invalid code error
-		ParseResult res = ParseResult(2, {}, {}, str[n]);
+		ParseResult res = ParseResult(2, {}, {}, "", str[n]);
 		results[n] = res.to_R_list();		
 	    }
 	    cache[str[n]] = results[n];
