@@ -25,20 +25,22 @@ function Checkbox({ checked, enabled, onChange }: CategorySelector) {
     );
 };
 
-// Category or Code
+// TODO: Should really combine this with Code below, because
+// the are the same apart from the child and category renamed
+// to code
 interface Cat {
     exclude?: string[];
-    child?: Cat[];
-
-    // TODO: These two fields represent the same information,
-    // should really rename in the file. Not putting these
-    // as optional is also a bug because only one or the other
-    // is available at once.
+    child: Cat[];
     category: string;
-    code: string;
-
     docs: string;
 }
+
+interface Code {
+    exclude?: string[];
+    code: string;
+    docs: string;
+}
+
 
 // Establish whether the component should be included
 // (i.e. ticked) and whether it should be enabled
@@ -200,43 +202,41 @@ function Category({ index, cat, parent_exclude,
 
     // TODO: The child should always be present here -- this is a
     // code structure issue
-    if (cat.child !== undefined) {
-	return <div>
-            <div className={styles.cat_row}>
-		<Checkbox onChange={handleChange}
-			  checked={included}
-			  enabled={enabled} />
-		<span onClick={() => setHidden(!hidden)}>
-                    <span className={styles.cat_name}>{cat.category}</span>
-                    <span>{cat.docs}</span>
-		</span>
-            </div>
-            <ol className={styles.cat_list}> {
-		cat.child
-		   .map((node, index) => {
-		       if ("category" in node) {
-                           return <li>
-			       <Category index={index}
-					 cat={node}
-					 parent_exclude={!included}
-					 toggle_cat={toggle_cat_sub}
-					 search_term={search_term}
-					 group={group} />
-                           </li>
-		       } else {
-                           return <li>
-			       <Code index={index}
+    return <div>
+        <div className={styles.cat_row}>
+	    <Checkbox onChange={handleChange}
+		      checked={included}
+		      enabled={enabled} />
+	    <span onClick={() => setHidden(!hidden)}>
+                <span className={styles.cat_name}>{cat.category}</span>
+                <span>{cat.docs}</span>
+	    </span>
+        </div>
+        <ol className={styles.cat_list}> {
+	    cat.child
+	       .map((node, index) => {
+		   if ("category" in node) {
+                       return <li>
+			   <Category index={index}
 				     cat={node}
 				     parent_exclude={!included}
 				     toggle_cat={toggle_cat_sub}
 				     search_term={search_term}
 				     group={group} />
-                           </li>
-		       }
-		   })
-            } </ol>
-	</div >
-    }
+                       </li>
+		   } else {
+                       return <li>
+			   <Code index={index}
+				 cat={node}
+				 parent_exclude={!included}
+				 toggle_cat={toggle_cat_sub}
+				 search_term={search_term}
+				 group={group} />
+                       </li>
+		   }
+	       })
+        } </ol>
+    </div >
 }
 
 // Get the category at nesting level
