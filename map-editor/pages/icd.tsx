@@ -29,8 +29,8 @@ function Checkbox({ checked, enabled, onChange }: CategorySelector) {
 // (i.e. ticked) and whether it should be enabled
 // (grayed out or not)
 function visible_status(cat,
-			group,
-			parent_exclude) {
+			group: string[],
+			parent_exclude: boolean) {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
     // the parent is excluded
@@ -50,7 +50,7 @@ function visible_status(cat,
 // excludes in cat (modifies cat by
 // reference). Think of this function
 // as "unexclude_group".
-function include_group(cat, group) {
+function include_group(cat, group: string[]) {
     if ("exclude" in cat) {
 	// Remove the group from the exclude array
 	const index = cat.exclude.indexOf(group);
@@ -65,12 +65,11 @@ function include_group(cat, group) {
     }
 }
 
-
 // Add a group to the list of excludes
 // in cat, creating the exclude key
 // if nececessary (cat is modified
 // by reference)
-function exclude_group(cat, group) {
+function exclude_group(cat, group: string[]) {
     if ("exclude" in cat) {
         cat.exclude.push(group)
     } else {
@@ -78,10 +77,9 @@ function exclude_group(cat, group) {
     }
 }
 
-
 // Remove all the exclude tags in all
 // sublevels of cat and return the result
-function remove_all_excludes(cat, group) {
+function remove_all_excludes(cat, group: string[]) {
 
     // Remove the group from the exclude
     // list at this level
@@ -105,7 +103,7 @@ function remove_all_excludes(cat, group) {
 // Set the top-level excludes for the
 // subcategories in the current category,
 // and return the modified object
-function set_first_excludes(cat, group) {
+function set_first_excludes(cat, group: string[]) {
     if ("child" in cat) {
         cat.child = cat.child.map((subcat) => {
             // Add the group to the excludes key,
@@ -118,8 +116,16 @@ function set_first_excludes(cat, group) {
     return (cat)
 }
 
+interface CategoryData {
+    index: number;
+    cat: any;
+    parent_exclude: boolean;
+    toggle_cat: 
+}
+
 // BUG: there is something wrong with selecting at this level
-function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
+function Code({ index, cat, parent_exclude,
+		toggle_cat, search_term, group }) {
 
     const { included, enabled } = visible_status(cat, group, parent_exclude)
 
@@ -148,11 +154,8 @@ function Code({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
     </div>
 }
 
-// BUG: not selecting properly also happens at this level. bug occurs after
-// deselecting at the top level, and then attempting to select at a lower level.
-// Subsequent clearing then fails to remove the exclude  keys. Also seems to
-// have something to do with when a category is expanded for the first time.
-function Category({ index, cat, parent_exclude, toggle_cat, search_term, group }) {
+function Category({ index, cat, parent_exclude,
+		    toggle_cat, search_term, group }) {
 
     const { included, enabled } = visible_status(cat, group, parent_exclude)
 
