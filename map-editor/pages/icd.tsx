@@ -169,12 +169,18 @@ function Category({ index, cat, parent_exclude,
 	// cat is a category
 	return <div>
 	    <Checkbox checked={included}
-		      enabled={enabled}
-		      onChange={handleChange}></Checkbox>
-	    <div onClick = {() => setHidden(!hidden) }>
-		<span>{cat.category}</span><span>{cat.docs}</span>
-	    </div>
-	    <ol> {
+		enabled={enabled}
+		onChange={handleChange}></Checkbox>
+	    <span className={styles.cat_row}
+		  onClick = {() => setHidden(!hidden) }>
+		<span className={styles.cat_name}>
+		    {cat.category}
+		</span>
+		<span className={styles.cat_desc}>
+		    {cat.docs}
+		</span>
+	    </span>
+	    <ol className={styles.cat_list}> {
 		cat.child.map((node,index) => {
 		    if (!hidden) {
 			return <li>
