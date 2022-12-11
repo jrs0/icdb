@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect, useMemo, ChangeEvent } from 'react';
 import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
@@ -320,12 +320,12 @@ export default function Home() {
 	    })
     }
 
-    const handleGroupChange = event => {
+    const handleGroupChange = (event: ChangeEvent<HTMLSelectElement>) => {
         //console.log(event.target.value)
         setGroup(event.target.value);
     };
 
-    function toggle_cat(indices, included) {
+    function toggle_cat(indices: number[], included: boolean) {
 
         // Copy the codes definition structure
         // to modify it. This may be a performance
@@ -406,7 +406,7 @@ export default function Home() {
 		// (or equal to) cat where there
 		// is an exclude for the current
 		// group
-		if ("exclude" in cat_above) {
+		if (cat_above.exclude !== undefined) {
 		    if (cat_above.exclude.includes(group)) {
 			break
 		    }
@@ -443,12 +443,16 @@ export default function Home() {
 
                 // Add an exclude key to all the
                 // subcategories which are not on the path
-                cat.child = cat.child.map((subcat, index) => {
-                    if (index != n) {
-                        exclude_group(subcat, group)
-                    }
-                    return (subcat)
-                })
+		if (cat.child !== undefined) {
+                    cat.child = cat.child.map((subcat, index) => {
+			if (index != n) {
+                            exclude_group(subcat, group)
+			}
+			return (subcat)
+                    })
+		} else {
+		    throw new Error("Expected to find child key")
+		}
 
                 // Move down a level
                 cat = cat.child[n]
@@ -460,8 +464,10 @@ export default function Home() {
         // Now save the new code_defs state
         setCodeDef(code_def_copy)
     }
-    
-    if (code_def == 0) {
+
+    // TODO: fix this -- currently using the presence of
+    // child key to tell whether the file is loaded
+    if (code_def.child == undefined) {
         return <div>
             <h1>ICD-10 Editor</h1>
 	    <p className={styles.info}>Load a codes file to edit groups of ICD-10 codes</p>
@@ -472,7 +478,6 @@ export default function Home() {
 	    </div>
 	</div>
     } else {
-	
         return <div>
             <h1>ICD-10 Editor</h1>
 	    <p className={styles.info}>Use the groups selector to pick a group, and then use the checkboxes to include or exclude categories or codes from the group. When you are finished, save the resulting groups to a file.</p>
