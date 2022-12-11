@@ -25,12 +25,16 @@ function Checkbox({ checked, enabled, onChange }: CategorySelector) {
     );
 };
 
+// Category or Code
+interface Cat {
+    exclude?: string[];
+    child?: Cat[];
+}
+
 // Establish whether the component should be included
 // (i.e. ticked) and whether it should be enabled
 // (grayed out or not)
-function visible_status(cat,
-			group: string[],
-			parent_exclude: boolean) {
+function visible_status(cat: Cat, group: string, parent_exclude: boolean) {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
     // the parent is excluded
@@ -50,7 +54,7 @@ function visible_status(cat,
 // excludes in cat (modifies cat by
 // reference). Think of this function
 // as "unexclude_group".
-function include_group(cat, group: string[]) {
+function include_group(cat: Cat, group: string) {
     if ("exclude" in cat) {
 	// Remove the group from the exclude array
 	const index = cat.exclude.indexOf(group);
@@ -69,7 +73,7 @@ function include_group(cat, group: string[]) {
 // in cat, creating the exclude key
 // if nececessary (cat is modified
 // by reference)
-function exclude_group(cat, group: string[]) {
+function exclude_group(cat: Cat, group: string) {
     if ("exclude" in cat) {
         cat.exclude.push(group)
     } else {
@@ -79,7 +83,7 @@ function exclude_group(cat, group: string[]) {
 
 // Remove all the exclude tags in all
 // sublevels of cat and return the result
-function remove_all_excludes(cat, group: string[]) {
+function remove_all_excludes(cat: Cat, group: string) {
 
     // Remove the group from the exclude
     // list at this level
@@ -103,7 +107,7 @@ function remove_all_excludes(cat, group: string[]) {
 // Set the top-level excludes for the
 // subcategories in the current category,
 // and return the modified object
-function set_first_excludes(cat, group: string[]) {
+function set_first_excludes(cat: Cat, group: string[]) {
     if ("child" in cat) {
         cat.child = cat.child.map((subcat) => {
             // Add the group to the excludes key,
@@ -114,13 +118,6 @@ function set_first_excludes(cat, group: string[]) {
         })
     }
     return (cat)
-}
-
-interface CategoryData {
-    index: number;
-    cat: any;
-    parent_exclude: boolean;
-    toggle_cat: 
 }
 
 // BUG: there is something wrong with selecting at this level
