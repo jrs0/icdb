@@ -29,6 +29,15 @@ function Checkbox({ checked, enabled, onChange }: CategorySelector) {
 interface Cat {
     exclude?: string[];
     child?: Cat[];
+
+    // TODO: These two fields represent the same information,
+    // should really rename in the file. Not putting these
+    // as optional is also a bug because only one or the other
+    // is available at once.
+    category: string;
+    code: string;
+
+    docs: string;
 }
 
 // Establish whether the component should be included
@@ -164,7 +173,7 @@ function Code({ index, cat, parent_exclude,
 }
 
 function Category({ index, cat, parent_exclude,
-		    toggle_cat, search_term, group }) {
+		    toggle_cat, group }: CategoryData) {
 
     const { included, enabled } = visible_status(cat, group, parent_exclude)
 
@@ -184,55 +193,50 @@ function Category({ index, cat, parent_exclude,
     // The indices argument represents the tail of the indices
     // list, and included is passed from the subcomponent
     // upwards
-    function toggle_cat_sub(indices, included) {
+    function toggle_cat_sub(indices: number[], included: boolean) {
         let new_indices = [index].concat(indices)
         toggle_cat(new_indices, included)
     }
 
-    let show = (search_term.trim().length != 0) || !hidden
-
-    return <div>
-        <div className={styles.cat_row}>
-            <Checkbox onChange={handleChange}
-                      checked={included}
-                      enabled={enabled} />
-            <span onClick={() => setHidden(!hidden)}>
-                <span className={styles.cat_name}>{cat.category}</span>
-                <span>{cat.docs}</span>
-            </span>
-        </div>
-        <ol className={styles.cat_list}> {
-            cat.child
-               .filter((node) => {
-                   //let in_title = node.category.includes(search_term);
-                   let in_docs = node.docs.includes(search_term);
-                   return in_docs;
-               })
-               .map((node, index) => {
-                   if (show) {
-                       if ("category" in node) {
+    // TODO: The child should always be present here -- this is a
+    // code structure issue
+    if (cat.child !== undefined) {
+	return <div>
+            <div className={styles.cat_row}>
+		<Checkbox onChange={handleChange}
+			  checked={included}
+			  enabled={enabled} />
+		<span onClick={() => setHidden(!hidden)}>
+                    <span className={styles.cat_name}>{cat.category}</span>
+                    <span>{cat.docs}</span>
+		</span>
+            </div>
+            <ol className={styles.cat_list}> {
+		cat.child
+		   .map((node, index) => {
+		       if ("category" in node) {
                            return <li>
-                               <Category index={index}
+			       <Category index={index}
 					 cat={node}
 					 parent_exclude={!included}
 					 toggle_cat={toggle_cat_sub}
 					 search_term={search_term}
 					 group={group} />
                            </li>
-                       } else {
+		       } else {
                            return <li>
-                               <Code index={index}
-                                     cat={node}
-                                     parent_exclude={!included}
-                                     toggle_cat={toggle_cat_sub}
-                                     search_term={search_term}
-                                     group={group} />
+			       <Code index={index}
+				     cat={node}
+				     parent_exclude={!included}
+				     toggle_cat={toggle_cat_sub}
+				     search_term={search_term}
+				     group={group} />
                            </li>
-                       }
-                   }
-               })
-        } </ol>
-    </div >
+		       }
+		   })
+            } </ol>
+	</div >
+    }
 }
 
 // Get the category at nesting level
