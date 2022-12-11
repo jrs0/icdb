@@ -295,12 +295,15 @@ export default function Home() {
     // Function to load the codes yaml file
     function load_file() {
         invoke('get_yaml')
-            .then(JSON.parse)
-            .then((res) => {
+        /* .then(JSON.parse) */
+	    .then((result: unknown) => {
+
+		let res = result as Cat;
+		
 		// Note: all .then are executed
 		// asynchronously, so put
 		// sequential steps in here
-		if ("groups" in res) {
+		if (res.groups !== undefined) {
 		    if (res.groups.length > 0) {
 			setGroup(res.groups[0])
 		    } else {
