@@ -139,37 +139,6 @@ interface CategoryData {
     group: string; // The currently selected group
 }
 
-// BUG: there is something wrong with selecting at this level
-/* function Code({ index, cat, parent_exclude,
- * 		toggle_cat, group }: CategoryData) {
- * 
- *     const { included, enabled } = visible_status(cat, group, parent_exclude)
- * 
- *     // Whether the children of this element are hidden
- *     let [hidden, setHidden] = useState(true);
- * 
- *     // Take action when the user clicks the checkbox. Note that
- *     // this function cannot be called for a grayed out box,
- *     // because it cannot change. This means you can assume the
- *     // current level is enabled, meaning that none of the parents
- *     // are excluded.
- *     function handleChange() {
- *         toggle_cat([index], included)
- *     }
- * 
- *     return <div>
- *         <div>
- *             <Checkbox onChange={handleChange}
- *                       checked={included}
- *                       enabled={enabled} />
- *             <span onClick={() => setHidden(!hidden)}>
- *                 <span className={styles.cat_name}>{cat.code}</span>
- *                 <span>{cat.docs}</span>
- *             </span>
- *         </div>
- *     </div>
- * } */
-
 function Category({ index, cat, parent_exclude,
 		    toggle_cat, group }: CategoryData) {
 
@@ -198,16 +167,34 @@ function Category({ index, cat, parent_exclude,
 
     if (cat.child !== undefined) {
 	return <div>
-	    <Checkbox checked={included} enabled={enabled} onChange={handleChange}></Checkbox>
+	    <Checkbox checked={included}
+		      enabled={enabled}
+		      onChange={handleChange}></Checkbox>
 	    <div onClick = {() => setHidden(!hidden) }>
 		<span>{cat.category}</span><span>{cat.docs}</span>
 	    </div>
-	    
+	    <ol> {
+		cat.child.map((node,index) => {
+		    if (!hidden) {
+			return <li>
+			    <Category index={index}
+				      cat={node}
+				      parent_exclude={!included}
+				      toggle_cat={toggle_cat_sub}
+				      group={group} />
+			</li>
+		    }
+		})
+	    } </ol>	    
 	</div>
     } else {
 	return <div>
-
-	    
+	    <Checkbox checked={included}
+		      enabled={enabled}
+		      onChange={handleChange}></Checkbox>
+	    <div onClick = {() => setHidden(!hidden) }>
+		<span>{cat.code}</span><span>{cat.docs}</span>
+	    </div>
 	</div>	
     }
 
