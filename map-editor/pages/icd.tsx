@@ -119,12 +119,22 @@ function set_first_excludes(cat: Cat, group: string) {
             return (subcat)
         })
     }
-    return (cat)
+    return cat
+}
+
+// Props for a category or code element
+interface CategoryData {
+    index: number; // Where is this category in the parent child list
+    cat: Cat; // The data for this category
+    parent_exclude: boolean; // Whether the parent is excluded
+    toggle_cat: (indices: number[],
+		 included: boolean) => void; // Callback to enable/disable
+    group: string; // The currently selected group
 }
 
 // BUG: there is something wrong with selecting at this level
 function Code({ index, cat, parent_exclude,
-		toggle_cat, search_term, group }) {
+		toggle_cat, group }: CategoryData) {
 
     const { included, enabled } = visible_status(cat, group, parent_exclude)
 
