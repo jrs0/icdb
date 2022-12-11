@@ -196,48 +196,21 @@ function Category({ index, cat, parent_exclude,
         toggle_cat(new_indices, included)
     }
 
-    
     if (cat.child !== undefined) {
-
-	return <div>Hello</div>
-
-	/* <div>
-	   <div className={styles.cat_row}>
-	   <Checkbox onChange={handleChange}
-	   checked={included}
-	   enabled={enabled} />
-	   <span onClick={() => setHidden(!hidden)}>
-	   <span className={styles.cat_name}>{cat.category}</span>
-	   <span>{cat.docs}</span>
-	   </span>
-	   </div>
-	   <ol className={styles.cat_list}> {
-	   cat.child
-	   .map((node, index) => {
-	   <li>Hi</li>
-	   {/* <li>
-	   <Category index={index}
-	   cat={node}
-	   parent_exclude={!included}
-	   toggle_cat={toggle_cat_sub}
-	   group={group} />
-	   </li> */
-    /* })
-     * } </ol>
-     * </div> */
+	return <div>
+	    <Checkbox checked={included} enabled={enabled} onChange={handleChange}></Checkbox>
+	    <div onClick = {() => setHidden(!hidden) }>
+		<span>{cat.category}</span><span>{cat.docs}</span>
+	    </div>
+	    
+	</div>
     } else {
 	return <div>
-	    <div>
-	        <Checkbox onChange={handleChange}
-			  checked={included}
-			  enabled={enabled} />
-	        <span onClick={() => setHidden(!hidden)}>
-	            <span className={styles.cat_name}>{cat.code}</span>
-	            <span>{cat.docs}</span>
-	        </span>
-	    </div>
-	</div>
+
+	    
+	</div>	
     }
+
 }
 
 interface CodeDef {
@@ -295,9 +268,9 @@ export default function Home() {
     // Function to load the codes yaml file
     function load_file() {
         invoke('get_yaml')
-	    .then((result: unknown) => {
+	    .then((result) => {
 
-		let res: Cat = JSON.parse(result);
+		let res: Cat = JSON.parse(result as string);
 		console.log(res)
 		// Note: all .then are executed
 		// asynchronously, so put
