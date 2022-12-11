@@ -30,14 +30,9 @@ function Checkbox({ checked, enabled, onChange }: CategorySelector) {
 // to code
 interface Cat {
     exclude?: string[];
-    child: Cat[];
-    category: string;
-    docs: string;
-}
-
-interface Code {
-    exclude?: string[];
-    code: string;
+    child?: Cat[];
+    category?: string;
+    code?: string;
     docs: string;
 }
 
@@ -200,32 +195,32 @@ function Category({ index, cat, parent_exclude,
         toggle_cat(new_indices, included)
     }
 
+    
     if (cat.child !== undefined) {
-	// Category element
+
 	return <div>
-            <div className={styles.cat_row}>
-		<Checkbox onChange={handleChange}
-		checked={included}
-		enabled={enabled} />
-		<span onClick={() => setHidden(!hidden)}>
-		    <span className={styles.cat_name}>{cat.category}</span>
-		    <span>{cat.docs}</span>
-		</span>
-            </div>
-            <ol className={styles.cat_list}> {
-		cat.child
-		   .map((node, index) => {
-		       {/* if ("category" in node) { */}
-                       <li>
-			   <Category index={index}
-				     cat={node}
-				     parent_exclude={!included}
-				     toggle_cat={toggle_cat_sub}
-				     group={group} />
-                       </li>
-		   })
-            } </ol>
-	</div >
+	<div className={styles.cat_row}>
+	<Checkbox onChange={handleChange}
+	checked={included}
+	enabled={enabled} />
+	<span onClick={() => setHidden(!hidden)}>
+	<span className={styles.cat_name}>{cat.category}</span>
+	<span>{cat.docs}</span>
+	</span>
+	</div>
+	<ol className={styles.cat_list}> {
+	    cat.child
+	       .map((node, index) => {
+		   <li>
+		       <Category index={index}
+				 cat={node}
+				 parent_exclude={!included}
+				 toggle_cat={toggle_cat_sub}
+				 group={group} />
+		   </li>
+	       })
+	} </ol>
+	</div>
     } else {
 	return <div>
 	    <div>
