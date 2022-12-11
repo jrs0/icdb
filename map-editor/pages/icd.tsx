@@ -262,7 +262,7 @@ function get_cat(code_def: Cat, indices: number[]) {
 	if (cat.child !== undefined) {
 	    cat = cat.child[n]
 	} else {
-	    alert("Expected to find cat")
+	    throw new Error("Expected to find cat");
 	}
     })
     return cat;
@@ -270,17 +270,20 @@ function get_cat(code_def: Cat, indices: number[]) {
 
 export default function Home() {
 
-    let [code_def, setCodeDef] = useState(0);
+    let [code_def, setCodeDef] = useState<Cat>({docs: "None"});
 
     // Function to save the codes yaml file
     function save_file() {
         invoke('save_yaml', { codeDef: code_def })
-            .then(console.log("done"))
     }
 
     // Function to get the list of groups
     function get_groups() {
-        return code_def.groups
+	if (code_def.groups !== undefined) {
+            return code_def.groups
+	} else {
+	    throw new Error("Cannot get groups before loading a file");
+	}
     }
 
     // State for the current group
