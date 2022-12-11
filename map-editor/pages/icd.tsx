@@ -4,13 +4,9 @@ import Link from 'next/link'
 
 import styles from '../styles/Category.module.css'
 
-const CHECKBOX_STATES = {
-    Checked: 'Checked',
-    Indeterminate: 'Indeterminate',
-    Empty: 'Empty',
-};
-
-function Checkbox({ checked, enabled, onChange }) {
+function Checkbox({ checked, enabled, onChange }:
+		  { checked: Boolean; enabled: Boolean;
+		      onChange: () => void}) {
 
     const checkboxRef = useRef();
 
