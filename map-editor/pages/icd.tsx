@@ -295,11 +295,10 @@ export default function Home() {
     // Function to load the codes yaml file
     function load_file() {
         invoke('get_yaml')
-        /* .then(JSON.parse) */
 	    .then((result: unknown) => {
 
-		let res = result as Cat;
-		
+		let res: Cat = JSON.parse(result);
+		console.log(res)
 		// Note: all .then are executed
 		// asynchronously, so put
 		// sequential steps in here
