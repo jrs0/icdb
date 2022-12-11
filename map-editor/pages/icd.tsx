@@ -38,7 +38,10 @@ function visible_status(cat: Cat, group: string, parent_exclude: boolean) {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
     // the parent is excluded
-    let exclude_tag = ("exclude" in cat) && cat.exclude.includes(group);
+    let exclude_tag = true
+    if (cat.exclude !== undefined) {
+	exclude_tag = cat.exclude.includes(group);
+    }
     let included = !exclude_tag && !parent_exclude
 
     // Checkbox is enabled if the parent is not excluded
@@ -55,7 +58,7 @@ function visible_status(cat: Cat, group: string, parent_exclude: boolean) {
 // reference). Think of this function
 // as "unexclude_group".
 function include_group(cat: Cat, group: string) {
-    if ("exclude" in cat) {
+    if (cat.exclude !== undefined) {
 	// Remove the group from the exclude array
 	const index = cat.exclude.indexOf(group);
         if (index > -1) {
@@ -64,8 +67,7 @@ function include_group(cat: Cat, group: string) {
 	// Delete the exclude key if empty
 	if (cat.exclude.length == 0) {
 	    delete cat.exclude
-	}
-	
+	}	
     }
 }
 
@@ -74,7 +76,7 @@ function include_group(cat: Cat, group: string) {
 // if nececessary (cat is modified
 // by reference)
 function exclude_group(cat: Cat, group: string) {
-    if ("exclude" in cat) {
+    if (cat.exclude !== undefined) {
         cat.exclude.push(group)
     } else {
         cat.exclude = [group]
@@ -89,7 +91,7 @@ function remove_all_excludes(cat: Cat, group: string) {
     // list at this level
     include_group(cat, group)
  
-    if ("child" in cat) {
+    if (cat.child !== undefined) {
         // Loop over all the subcategories
         // remove the exclude
 	// BUG: what even is the line blow?
@@ -107,8 +109,8 @@ function remove_all_excludes(cat: Cat, group: string) {
 // Set the top-level excludes for the
 // subcategories in the current category,
 // and return the modified object
-function set_first_excludes(cat: Cat, group: string[]) {
-    if ("child" in cat) {
+function set_first_excludes(cat: Cat, group: string) {
+    if (cat.child !== undefined) {
         cat.child = cat.child.map((subcat) => {
             // Add the group to the excludes key,
             // or create a new excludes list if
