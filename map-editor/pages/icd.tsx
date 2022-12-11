@@ -5,10 +5,10 @@ import Link from 'next/link'
 import styles from '../styles/Category.module.css'
 
 function Checkbox({ checked, enabled, onChange }:
-		  { checked: Boolean; enabled: Boolean;
+		  { checked: boolean; enabled: boolean;
 		      onChange: () => void}) {
 
-    const checkboxRef = useRef();
+    const checkboxRef = useRef<HTMLInputElement>(null);
 
     return (
         <label>
