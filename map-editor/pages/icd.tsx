@@ -200,9 +200,14 @@ function Category({ index, cat, parent_exclude,
 	    <Checkbox checked={included}
 		      enabled={enabled}
 		      onChange={handleChange}></Checkbox>
-	    <div onClick = {() => setHidden(!hidden) }>
-		<span>{cat.code}</span><span>{cat.docs}</span>
-	    </div>
+	    <span onClick = {() => setHidden(!hidden) }>
+		<span className={styles.cat_name}>
+		    {cat.code}
+		</span>
+		<span className={styles.cat_desc}>
+		    {cat.docs}
+		</span>
+	    </span>
 	</div>	
     }
 
