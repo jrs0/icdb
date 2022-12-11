@@ -45,7 +45,7 @@ function visible_status(cat: Cat, group: string, parent_exclude: boolean) {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
     // the parent is excluded
-    let exclude_tag = true
+    let exclude_tag = false
     if (cat.exclude !== undefined) {
 	exclude_tag = cat.exclude.includes(group);
     }
@@ -166,6 +166,7 @@ function Category({ index, cat, parent_exclude,
     }
 
     if (cat.child !== undefined) {
+	// cat is a category
 	return <div>
 	    <Checkbox checked={included}
 		      enabled={enabled}
@@ -188,6 +189,7 @@ function Category({ index, cat, parent_exclude,
 	    } </ol>	    
 	</div>
     } else {
+	// cat is a code (leaf node)
 	return <div>
 	    <Checkbox checked={included}
 		      enabled={enabled}
