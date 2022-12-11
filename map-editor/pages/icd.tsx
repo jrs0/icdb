@@ -35,6 +35,7 @@ interface Cat {
     category?: string;
     code?: string;
     docs: string;
+    index: string;
 }
 
 
@@ -183,7 +184,7 @@ function Category({ index, cat, parent_exclude,
 	    <ol className={styles.cat_list}> {
 		cat.child.map((node,index) => {
 		    if (!hidden) {
-			return <li>
+			return <li key={node.index}>
 			    <Category index={index}
 				      cat={node}
 				      parent_exclude={!included}
@@ -243,7 +244,8 @@ function get_cat(code_def: Cat, indices: number[]) {
 
 export default function Home() {
 
-    let [code_def, setCodeDef] = useState<Cat>({docs: "None"});
+    let [code_def, setCodeDef] = useState<Cat>({docs: "None",
+						index: "None"});
 
     // Function to save the codes yaml file
     function save_file() {
