@@ -4,12 +4,15 @@ import Link from 'next/link'
 
 import styles from '../styles/Category.module.css'
 
-function Checkbox({ checked, enabled, onChange }:
-		  { checked: boolean; enabled: boolean;
-		      onChange: () => void}) {
+// Information for the tick box that selects categories or codes
+interface CategorySelector {
+    checked: boolean;
+    enabled: boolean;
+    onChange: () => void;
+}
 
+function Checkbox({ checked, enabled, onChange }: CategorySelector) {
     const checkboxRef = useRef<HTMLInputElement>(null);
-
     return (
         <label>
             <input
@@ -25,7 +28,9 @@ function Checkbox({ checked, enabled, onChange }:
 // Establish whether the component should be included
 // (i.e. ticked) and whether it should be enabled
 // (grayed out or not)
-function visible_status(cat, group, parent_exclude) {
+function visible_status(cat,
+			group,
+			parent_exclude) {
     // Component is included by default, unless there
     // is an exclude tag at the current level, or
     // the parent is excluded
