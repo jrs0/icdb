@@ -29,6 +29,7 @@ function Checkbox({ checked, enabled, onChange }: CategorySelector) {
 // the are the same apart from the child and category renamed
 // to code
 interface Cat {
+    groups?: string[];
     exclude?: string[];
     child?: Cat[];
     category?: string;
@@ -239,6 +240,11 @@ function Category({ index, cat, parent_exclude,
     }
 }
 
+interface CodeDef {
+    groups: string[]
+    child: Cat[]
+}
+
 // Get the category at nesting level
 // defined by indices from code_def
 // structure. A reference to a
@@ -250,20 +256,19 @@ function Category({ index, cat, parent_exclude,
 // a subcategory relative to any
 // (non-root) category, provided you
 // also pass the relative indices
-function get_cat(code_def, indices) {
+function get_cat(code_def: Cat, indices: number[]) {
     let cat = code_def;
-    indices.forEach((n) => { cat = cat.child[n] })
+    indices.forEach((n) => {
+	if (cat.child !== undefined) {
+	    cat = cat.child[n]
+	} else {
+	    alert("Expected to find cat")
+	}
+    })
     return cat;
 }
 
 export default function Home() {
-
-    // State of the search bar
-    const [searchTerm, setSearchTerm] = useState('');
-
-    const handleSearch = event => {
-        //setSearchTerm(event.target.value);
-    };
 
     let [code_def, setCodeDef] = useState(0);
 
