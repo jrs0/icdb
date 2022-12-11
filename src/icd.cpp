@@ -445,19 +445,21 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	// input vector, even when the cache is used. This
 	// doesn't seem right -- either the cache is not
 	// being used, or the cost of the parse is the cost
-	// of a cache hit (seems unlikely)
+	// of a cache hit (seems unlikely).
 	std::map<std::string, Rcpp::List> cache;
 	
 	// Try the cache first, then parse the string
+	// Checked that the cache makes almost no difference
+	// to the runtime of the function.
 	try {
 	    results[n] = cache.at(str[n]);
 	} catch (const std::out_of_range &) {	
 	    try {
-		
 		ParseResult res = icd10_str_to_indices_impl(str[n],
 							    code_def["child"],
 							    groups);	
 		results[n] = res.to_R_list();		
+
 	    } catch (const std::logic_error &) {
 		// Catch the invalid code error
 		ParseResult res = ParseResult(2, {}, {}, "", str[n]);
