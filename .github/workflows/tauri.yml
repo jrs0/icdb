@@ -1,11 +1,10 @@
 name: 'test-on-pr'
 on: [pull_request]
 
-inputs:
-  projectPath: "map-editor"
-
 jobs:
   test-tauri:
+    inputs:
+      projectPath: "map-editor"
     strategy:
       fail-fast: false
       matrix:
