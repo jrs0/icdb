@@ -23,7 +23,14 @@ test_that("all valid Xnnn.n ICD-10 codes parse", {
 })
 
 test_that("a selection of invalid ICD-10 codes throw errors", {
-    expect_false(is_valid(icd10("I222"))) ## There is no I22.2
+
+    ## There is no I22.2
+    expect_false(is_valid(icd10("I222")))
+
+    ## This code is an example where the binary search will
+    ## fail at the start of the category -- tests that edge
+    ## case (previous version of function crashed program)
+    expect_false(is_valid(icd10("N180")))
 })
 
 test_that("the format of invalid codes is correct (including trailing matter)", {

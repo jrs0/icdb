@@ -306,7 +306,7 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // Perform the binary search
     auto position = std::upper_bound(std::begin(cats), std::end(cats), str);
     const bool found = (position != std::begin(cats)) &&
-	((position-1)->contains(str));
+ 	((position-1)->contains(str));
     // Decrement the position to point to the largest category
     // cat such that cat <= str    
     position--;
@@ -318,8 +318,6 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // empty
     if (!found)
     {
-	Rcpp::Rcout << position->contains(str) << std::endl;
-	//return ParseResult{2};
 	throw std::logic_error("Invalid code");
     }
 
@@ -432,7 +430,6 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     // an empty list of strings
     std::vector<std::string> groups;
     if (Rcpp::as<Rcpp::List>(code_def["groups"]).size() > 0) {
-	Rcpp::Rcout << "hi" << std::endl;
 	groups = Rcpp::as<std::vector<std::string>>(code_def["groups"]);
     }
     

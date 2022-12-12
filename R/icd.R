@@ -342,6 +342,11 @@ new_icd10 <- function(str = character(), codes_file)
     ## 40% is the impl function),
     ## and 40% is due to the purrr::map (of which
     ## 30% is the .f function)
+    ##
+    ## BUG: code N180 fails with seg fault, due to
+    ## non-existent code (however, should fail with
+    ## error)
+    ##
     ##results <- new_icd10_impl_R(str, codes_def)
     results <- new_icd10_impl(str, codes_def)
         
