@@ -20,3 +20,11 @@ new_icd10_impl <- function(str, code_def) {
     .Call(`_icdb_new_icd10_impl`, str, code_def)
 }
 
+start_profiler <- function(str) {
+    .Call(`_icdb_start_profiler`, str)
+}
+
+stop_profiler <- function() {
+    .Call(`_icdb_stop_profiler`)
+}
+
