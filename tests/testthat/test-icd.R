@@ -1,7 +1,7 @@
 test_that("a selection of ICD-10 codes that have previously failed to parse", {
     ## This worked OK from the beginning
     expect_equal(format(icd10("A000")), "[C] A00.0")
-
+    
     ## This tests the out-of-order location of
     ## Z near the end of the codes
     expect_equal(format(icd10("Z380")), "[C] Z38.0")
