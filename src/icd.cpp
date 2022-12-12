@@ -432,7 +432,6 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     // an empty list of strings
     std::vector<std::string> groups;
     if (Rcpp::as<Rcpp::List>(code_def["groups"]).size() > 0) {
-	Rcpp::Rcout << "hi" << std::endl;
 	groups = Rcpp::as<std::vector<std::string>>(code_def["groups"]);
     }
     
