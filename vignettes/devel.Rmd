@@ -65,7 +65,16 @@ code_you_want_to_profile_involving_cpp()
 stop_profiler()
 ```
 
+Once the code has completed, run:
 
+```bash
+# For text output
+pprof --text src/icdb.so /tmp/prof.out
+
+# For graphical output
+sudo apt install gv
+pprof --gv src/icdb.so /tmp/prof.out 
+```
 
 ### Todo list
 
