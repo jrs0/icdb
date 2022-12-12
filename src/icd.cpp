@@ -305,9 +305,10 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 
     // Perform the binary search
     auto position = std::upper_bound(std::begin(cats), std::end(cats), str);
-    Rcpp::Rcout << 
+    Rcpp::Rcout << std::distance(std::begin(cats), position) << std::endl;
     const bool found = (position != std::begin(cats)) &&
-	((position-1)->contains(str));
+ 	((position-1)->contains(str));
+    Rcpp::Rcout << "found - " << found << std::endl;
     // Decrement the position to point to the largest category
     // cat such that cat <= str    
     position--;
@@ -462,7 +463,9 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 
 	    } catch (const std::logic_error &) {
 		// Catch the invalid code error
+		Rcpp::Rcout << "There?" << std::endl;
 		ParseResult res = ParseResult(2, {}, {}, "", str[n]);
+		Rcpp::Rcout << "Here?" << std::endl;
 		results[n] = res.to_R_list();		
 	    }
 	    cache[str[n]] = results[n];
