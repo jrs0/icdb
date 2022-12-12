@@ -305,6 +305,7 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 
     // Perform the binary search
     auto position = std::upper_bound(std::begin(cats), std::end(cats), str);
+    Rcpp::Rcout << 
     const bool found = (position != std::begin(cats)) &&
 	((position-1)->contains(str));
     // Decrement the position to point to the largest category
