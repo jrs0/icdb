@@ -320,7 +320,7 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // empty
     if (!found)
     {
-	Rcpp::Rcout << position->contains(str) << std::endl;
+	//Rcpp::Rcout << position->contains(str) << std::endl;
 	//return ParseResult{2};
 	throw std::logic_error("Invalid code");
     }
