@@ -14,3 +14,4 @@ SEXP stop_profiler() {
   ProfilerStop();
   return R_NilValue;
 }
+

@@ -24,3 +24,5 @@ secret
 
 ## Ignore profiler output
 Rprof.out
+
+tmp/
