@@ -6,6 +6,7 @@
 use tauri_api::dialog::{select, save_file, Response};
 
 use clap::Parser;
+use tauri::Manager;
 
 /// Search for a pattern in a file and display the lines that contain it.
 #[derive(Parser)]
@@ -59,7 +60,16 @@ fn main() {
     }
     
     tauri::Builder::default()
+        .setup(|app| {
+	    let main_window = app.get_window("main").unwrap();
+	    main_window.eval(&format!(
+		"window.location.replace('icd')"))
+		.expect("Failed to navigate to icd page");
+	    Ok(())
+	})
         .invoke_handler(tauri::generate_handler![get_yaml, save_yaml])
 	.run(tauri::generate_context!())
 	.expect("error while running tauri application");
+
+    
 }
