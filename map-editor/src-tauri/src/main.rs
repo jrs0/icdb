@@ -4,7 +4,18 @@
 )]
 
 use tauri_api::dialog::{select, save_file, Response};
-    
+
+use clap::Parser;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(Parser)]
+struct Cli {
+    /// The pattern to look for
+    name: Option<String>,
+    /// The path to the file to read
+    path: Option<std::path::PathBuf>,
+}
+
 #[tauri::command]
 fn get_yaml() -> String {
     let result = match select(Some("yaml"), Some("~")).unwrap() {
@@ -34,6 +45,19 @@ fn save_yaml(code_def: serde_yaml::Value) {
 
 fn main() {
 
+    let cli = Cli::parse();
+
+    // You can check the value provided by positional arguments, or option arguments
+    if let Some(name) = cli.name.as_deref() {
+        println!("Value for name: {}", name);
+	return;
+    }
+
+    if let Some(path) = cli.path.as_deref() {
+        println!("Value for config: {}", path.display());
+	return
+    }
+    
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![get_yaml, save_yaml])
 	.run(tauri::generate_context!())
