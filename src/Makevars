@@ -3,6 +3,13 @@ CXX_STD=CXX17
 # gdwarf2 for profiling on Windows -- see:
 # "https://www.r-bloggers.com/2016/09/
 #  profiling-rcpp-package-code-on-windows/"
-PKG_CXXFLAGS = $(SHLIB_OPENMP_CFLAGS) -gdwarf-2
-PKG_LIBS = $(SHLIB_OPENMP_CFLAGS)
+# 
+# On Linux, install gperftools (see the development
+# page in the documentation) The github CI cannot
+# build with gperftools, so pass the NO_GPERFTOOLS
+# define for pushing to main (also comment out the
+# -lprofiler library too)
+#
+PKG_CXXFLAGS = $(SHLIB_OPENMP_CFLAGS) -gdwarf-2 -DNO_GPERFTOOLS
+PKG_LIBS = $(SHLIB_OPENMP_CFLAGS) #-lprofiler
 PKG_DLLFLAGS =

@@ -36,7 +36,10 @@ all_spells <- msrv$sus$apc_spells %>%
 ## Path to codes file
 code_file <- system.file("extdata/icd10/icd10_arc.yaml", package="icdb")
 
-spells <- all_spells[1:100000,] %>%
+## 100,000 codes takes about 16 seconds currently
+## 200,000 - 32 seconds
+## 300,000 - 47 seconds
+spells <- all_spells[1:300000,] %>%
     mutate(p = icd10(primary_diagnosis_icd, code_file))
 
     

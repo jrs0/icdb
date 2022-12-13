@@ -53,6 +53,29 @@ cargo tauri dev
 
 The installation of dependencies and first-time compilation may take a bit of time. When developing the map editor, you may need to add node dependencies. Do this by installing them using "npm install package-name" -- this will automatically update package.json, which will add the dependency to the project. Running "npm uninstall package-name" will remove the package from node_modules and delete the dependency from package.json. 
 
+### Profiling
+
+To profile C++ code, use gperftools on Linux. Download and build gperftools from source (obtaining libprofiler.so and the pprof binary as a result). You do not need to pass any options to the configure script. See the [gperftools page](https://gperftools.github.io/gperftools/cpuprofile.html), and the README and INSTALL files in the repository for more information. See also [this page](http://minimallysufficient.github.io/r/programming/c++/2018/02/16/profiling-rcpp-packages.html) for more a guide on how to set things up.
+
+Once gperftools is installed (run pprof --version to check), run an R snippet like the following:
+
+```R
+start_profiler("/tmp/profile.out")
+code_you_want_to_profile_involving_cpp()
+stop_profiler()
+```
+
+Once the code has completed, run:
+
+```bash
+# For text output
+pprof --text src/icdb.so /tmp/prof.out
+
+# For graphical output
+sudo apt install gv
+pprof --gv src/icdb.so /tmp/prof.out 
+```
+
 ### Todo list
 
 This is the list of most important things:
