@@ -1,22 +1,25 @@
+#include <Rcpp.h>
+
 // Disable this file when compiling
 // without gperftools
 #ifndef NO_GPERFTOOLS
-
-#include <Rcpp.h>
 #include "gperftools/profiler.h"
+#endif
 
 using namespace Rcpp;
 
 // [[Rcpp::export]]
 SEXP start_profiler(SEXP str) {
-  ProfilerStart(as<const char*>(str));
-  return R_NilValue;
+#ifndef NO_GPERFTOOLS
+    ProfilerStart(as<const char*>(str));
+#endif
+    return R_NilValue;
 }
 
 // [[Rcpp::export]]
 SEXP stop_profiler() {
-  ProfilerStop();
-  return R_NilValue;
-}
-
+#ifndef NO_GPERFTOOLS
+    ProfilerStop();
 #endif
+    return R_NilValue;
+}
