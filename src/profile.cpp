@@ -1,3 +1,7 @@
+// Disable this file when compiling
+// without gperftools
+#ifndef NO_GPERFTOOLS
+
 #include <Rcpp.h>
 #include "gperftools/profiler.h"
 
@@ -15,3 +19,4 @@ SEXP stop_profiler() {
   return R_NilValue;
 }
 
+#endif
