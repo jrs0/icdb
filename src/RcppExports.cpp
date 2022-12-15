@@ -11,12 +11,12 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // new_icd10_impl
-Rcpp::List new_icd10_impl(const Rcpp::CharacterVector& str, const Rcpp::List& code_def);
+Rcpp::List new_icd10_impl(const std::vector<std::string>& str, const Rcpp::List& code_def);
 RcppExport SEXP _icdb_new_icd10_impl(SEXP strSEXP, SEXP code_defSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type str(strSEXP);
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type str(strSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List& >::type code_def(code_defSEXP);
     rcpp_result_gen = Rcpp::wrap(new_icd10_impl(str, code_def));
     return rcpp_result_gen;
