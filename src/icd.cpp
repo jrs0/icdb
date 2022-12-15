@@ -26,7 +26,6 @@
 #include <iostream>
 #include <regex>
 #include <map>
-#include <omp.h>
 
 std::ostream & operator << (std::ostream & os,
 			    const std::vector<std::string> & v)
@@ -59,27 +58,6 @@ public:
     {}
 
     ParseResult(int type) : type_{type} {}
-
-    // Rcpp::List to_R_list() const {
-
-    // 	// Reverse the indices list for R
-    // 	Rcpp::List res = Rcpp::List::create(
-    // 	    Rcpp::_["indices"] = Rcpp::List(indices_.rbegin(), indices_.rend()),
-    // 	    Rcpp::_["type"] = type_,
-    // 	    Rcpp::_["groups"] = groups_);
-	
-    // 	if (indices_.size() == 0) {
-    // 	    res["name"] = "(" + trailing_ + ")";
-    // 	} else {
-    // 	    if (trailing_.size() > 0) {
-    // 		res["name"] = name_ + "(" + trailing_ + ")";
-    // 	    } else {
-    // 		res["name"] = name_;
-    // 	    }
-    // 	}
-		
-    // 	return res;
-    // }
 
     Rcpp::NumericVector indices() const {
 	return Rcpp::NumericVector(std::rbegin(indices_), std::rend(indices_));
@@ -465,9 +443,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     // (seriously)
     std::map<std::string, ParseResult> cache;       
 
-    omp_set_num_threads(8);
-    
-#pragma omp parallel for
+    //#pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
 
 	// Try the cache first, then parse the string
