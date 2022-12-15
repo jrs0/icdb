@@ -414,7 +414,6 @@ is_valid.icdb_icd10 <- function(x)
     vctrs::field(x, "types") %>%
         purrr::map(~ .x == 0) %>%
         unlist()
-    
 }
 
 get_type <- function(x)

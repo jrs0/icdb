@@ -103,7 +103,10 @@ public:
     std::string trailing() const { return trailing_; }
 
     // The set of groups associated with this code
-    std::vector<std::string> groups() const { return groups_; }
+    Rcpp::CharacterVector groups() const {
+	return Rcpp::CharacterVector(std::begin(groups_),
+				     std::end(groups_));
+    }
 
     // Prepend an index to the indices list
     void add_index(std::size_t position_val)
