@@ -80,8 +80,8 @@ public:
     // 	return res;
     // }
 
-    Rcpp::List indices() const {
-	return Rcpp::List(std::rbegin(indices_), std::rend(indices_));
+    Rcpp::NumericVector indices() const {
+	return Rcpp::NumericVector(std::rbegin(indices_), std::rend(indices_));
     }
     
     // The type -- whether the parse succeeded or not
@@ -505,7 +505,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     // Pre-allocating seems faster than push_back
     Rcpp::List results = Rcpp::List::create(
 	Rcpp::_["indices"] = lst_indices,
-	Rcpp::_["type"] = lst_type,
+	Rcpp::_["types"] = lst_type,
 	Rcpp::_["groups"] = lst_groups,
 	Rcpp::_["name"] = lst_name);
     
