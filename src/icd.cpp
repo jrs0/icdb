@@ -423,6 +423,8 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 			  const Rcpp::List & code_def)
 {
+    Rcpp::Rcout << "Started" << std::endl;
+    
     // TODO: fix this -- there should be a proper way to handle
     // an empty list of strings
     std::vector<std::string> groups;
@@ -466,6 +468,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	}
     }
 
+    Rcpp::Rcout << "ended" << std::endl;
     return results;
 }
 
