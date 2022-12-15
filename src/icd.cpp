@@ -103,6 +103,10 @@ public:
     
 private:
     int type_{0};
+
+    // PERF: Profiling shows a large chunk of time is spent in
+    // the destructor or ParseResult, mostly in functions
+    // relating to std::list. Going to replace with std::vector.
     std::list<std::size_t> indices_{};
     std::string trailing_{""};
     std::vector<std::string> groups_{};

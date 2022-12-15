@@ -82,7 +82,15 @@ An alternatie method of profiling is to use valgrind directly on an R script. Ru
 R -d "valgrind --tool=callgrind" -f script.R
 ```
 
-The -d flag runs R through the specified debugger. Since valgrind is a virtual machine, this will take much longer than just running the regular R script, so keep it as small as possible. The profile will also include things like devtools::load_all(), which is not of interest, but can also be easily ignored in kcachegrind later. Once the 
+The -d flag runs R through the specified debugger. Since valgrind is a virtual machine, this will take much longer than just running the regular R script, so keep it as small as possible. The profile will also include things like devtools::load_all(), which is not of interest, but can also be easily ignored in kcachegrind later. Once the process is finished, open the output using 
+
+```bash
+kcachegrind callgrind.out.PID # Replace PID with the number
+```
+
+You will need to do some digging to find the function of interest. Look in the callee map for references to Rcpp, then work up or down from there.
+
+
 
 ### Todo list
 
