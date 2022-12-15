@@ -21,7 +21,6 @@
 
 #include <Rcpp.h>
 #include <string>
-#include <list>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -44,7 +43,7 @@ std::ostream & operator << (std::ostream & os,
 class ParseResult
 {
 public:
-    ParseResult(int type, const std::list<std::size_t> & indices,
+    ParseResult(int type, const std::vector<std::size_t> & indices,
 		const std::vector<std::string> & groups,
 		const std::string & name,
 		const std::string & trailing)
@@ -52,7 +51,7 @@ public:
 	  trailing_{trailing}, groups_{groups}, name_{name}
     {}
 
-    ParseResult(int type, const std::list<std::size_t> & indices,
+    ParseResult(int type, const std::vector<std::size_t> & indices,
 		const std::vector<std::string> & groups,
 		const std::string & name)
 	: type_{type}, indices_{indices}, groups_{groups}, name_{name}
@@ -61,10 +60,12 @@ public:
     ParseResult(int type) : type_{type} {}
 
     Rcpp::List to_R_list() const {
-	Rcpp::List res = Rcpp::List::create(Rcpp::_["indices"] = indices_,
-					    Rcpp::_["type"] = type_,
-					    Rcpp::_["groups"] = groups_);
 
+	Rcpp::List res = Rcpp::List::create(
+	    Rcpp::_["indices"] = Rcpp::List(indices_.rbegin(), indices_.rend()),
+	    Rcpp::_["type"] = type_,
+	    Rcpp::_["groups"] = groups_);
+	
 	if (indices_.size() == 0) {
 	    res["name"] = "(" + trailing_ + ")";
 	} else {
@@ -80,14 +81,9 @@ public:
     
     // The type -- whether the parse succeeded or not
     int type() const { return type_; }
+
     
-    // The index list which shows where the code is in
-    // the codes definition structure. This is a list
-    // because of the need to push_front (this can be
-    // removed with some refactoring -- however, might
-    // not be a performance issue due to the need to copy
-    // to an Rcpp::List at the end anyway.
-    std::list<std::size_t> indices() const { return indices_; }
+    //std::vector<std::size_t> indices() const { return indices_; }
 
     // Any unparsed trailing matter
     std::string trailing() const { return trailing_; }
@@ -98,7 +94,7 @@ public:
     // Prepend an index to the indices list
     void add_index(std::size_t position_val)
     {
-	indices_.push_front(position_val);
+	indices_.push_back(position_val);
     }
     
 private:
@@ -107,7 +103,7 @@ private:
     // PERF: Profiling shows a large chunk of time is spent in
     // the destructor or ParseResult, mostly in functions
     // relating to std::list. Going to replace with std::vector.
-    std::list<std::size_t> indices_{};
+    std::vector<std::size_t> indices_{};
     std::string trailing_{""};
     std::vector<std::string> groups_{};
     std::string name_{""};
