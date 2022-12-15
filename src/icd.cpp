@@ -450,9 +450,9 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 
     // Create separate lists for each output (to avoid doing it in R)
     Rcpp::List lst_indices(str.size());
-    Rcpp::List lst_type(str.size());
+    Rcpp::NumericVector lst_type(str.size());
     Rcpp::List lst_groups(str.size());
-    Rcpp::List lst_name(str.size());
+    Rcpp::CharacterVector lst_name(str.size());
     
     // BUG? Runtime still scales with the length of the
     // input vector, even when the cache is used. This
