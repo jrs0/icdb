@@ -447,42 +447,37 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 #pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
 
-	lst_indices[n] = 1;
-	lst_type[n] = 2;
-	lst_groups[n] = 3;
-	lst_name[n] = 4;
-	
-	// // Try the cache first, then parse the string
-	// // Checked that the cache makes almost no difference
-	// // to the runtime of the function.
-	// try {
-	//     ParseResult res = cache.at(str[n]);
-	//     lst_indices[n] = res.indices();
-	//     lst_type[n] = res.type();
-	//     lst_groups[n] = res.groups();
-	//     lst_name[n] = res.name();
-	// } catch (const std::out_of_range &) {	
-	//     try {
-	// 	ParseResult res = icd10_str_to_indices_impl(str[n],
-	// 						    code_def["child"],
-	// 						    groups);	
-	// 	lst_indices[n] = res.indices();
-	// 	lst_type[n] = res.type();
-	// 	lst_groups[n] = res.groups();
-	// 	lst_name[n] = res.name();
+	// Try the cache first, then parse the string
+	// Checked that the cache makes almost no difference
+	// to the runtime of the function.
+	try {
+	    ParseResult res = cache.at(str[n]);
+	    lst_indices[n] = res.indices();
+	    lst_type[n] = res.type();
+	    lst_groups[n] = res.groups();
+	    lst_name[n] = res.name();
+	} catch (const std::out_of_range &) {	
+	    try {
+		ParseResult res = icd10_str_to_indices_impl(str[n],
+							    code_def["child"],
+							    groups);	
+		lst_indices[n] = res.indices();
+		lst_type[n] = res.type();
+		lst_groups[n] = res.groups();
+		lst_name[n] = res.name();
 
-	// 	cache.insert({str[n], res});
-	//     } catch (const std::logic_error &) {
-	// 	// Catch the invalid code error
-	// 	ParseResult res = ParseResult(2, {}, {}, "", str[n]);
-	// 	lst_indices[n] = res.indices();
-	// 	lst_type[n] = res.type();
-	// 	lst_groups[n] = res.groups();
-	// 	lst_name[n] = res.name();
+		cache.insert({str[n], res});
+	    } catch (const std::logic_error &) {
+		// Catch the invalid code error
+		ParseResult res = ParseResult(2, {}, {}, "", str[n]);
+		lst_indices[n] = res.indices();
+		lst_type[n] = res.type();
+		lst_groups[n] = res.groups();
+		lst_name[n] = res.name();
 
-	// 	cache.insert({str[n], res});
-	//     }
-	// }
+		cache.insert({str[n], res});
+	    }
+	}
     }
 
     // Pre-allocating seems faster than push_back
