@@ -423,8 +423,6 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 			  const Rcpp::List & code_def)
 {
-    Rcpp::Rcout << "Started" << std::endl;
-    
     // TODO: fix this -- there should be a proper way to handle
     // an empty list of strings
     std::vector<std::string> groups;
@@ -436,7 +434,11 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     Rcpp::List results(str.size());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     std::map<Rcpp::String, Rcpp::List> cache;       
+=======
+    std::map<std::string, Rcpp::List> cache;       
+>>>>>>> parent of 13a0d71... Changed to CharacterVector input -- no difference, perhaps because CharacterVector is already contiguous. A simple check shows most of the bottleneck is on the ther side, with the purrr::maps
 
     int thingy = 0;
 =======
@@ -451,7 +453,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 >>>>>>> parent of cc7003d... Started converting the interface to use native R types, because the R profiler shows the that only 20% of the time is now spent in the C++ function
     
     //#pragma omp parallel for
-    for (long int n = 0; n < str.size(); ++n) {
+    for (std::size_t n = 0; n < str.size(); ++n) {
 
 	// Try the cache first, then parse the string
 	// Checked that the cache makes almost no difference
@@ -459,16 +461,15 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	try {
 	    results[n] = cache.at(str[n]);
 	} catch (const std::out_of_range &) {	
-	    std::string std_str{str[n]};
 	    try {
-		ParseResult res = icd10_str_to_indices_impl(std_str,
+		ParseResult res = icd10_str_to_indices_impl(str[n],
 							    code_def["child"],
 							    groups);	
 		results[n] = res.to_R_list();		
 
 	    } catch (const std::logic_error &) {
 		// Catch the invalid code error
-		ParseResult res = ParseResult(2, {}, {}, "", std_str);
+		ParseResult res = ParseResult(2, {}, {}, "", str[n]);
 		results[n] = res.to_R_list();		
 	    }
 	    cache[str[n]] = results[n];
