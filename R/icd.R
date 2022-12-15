@@ -193,7 +193,7 @@ icd10_indices_to_code <- function(indices, codes_def)
     ## for use with pluck, to descend through
     ## the nested structure in one go
     k <- indices %>%
-        purrr::map(~ list(.x, "child")) %>%
+        purrr::map(~ list(as.list(.x), "child")) %>%
         purrr::flatten() %>%
         ## Remove the final "child" key to
         ## get the entire category or code
@@ -446,10 +446,36 @@ is_icd10 <- function(x) {
   inherits(x, "icdb_icd10")
 }
 
-groups <- function(x)
+groups <- function(x) {
+    UseMethod("groups")
+}
+
+##' @export
+groups.icdb_icd10 <- function(x)
 {
     vctrs::field(x, "groups")
 }
+
+docs <- function(x)  {
+    UseMethod("docs")
+}
+
+##' @export
+docs.icdb_icd10 <- function(x)
+{
+    ## Move this to an argument, consistent with the others
+    codes_file = system.file("extdata",
+                             "icd10/icd10.yaml",
+                             package = "icdb")
+    
+    codes_def <- icd10_load_codes(codes_file)
+
+    indices <- vctrs::field(x, "indices")
+    icd10_indices_to_code(indices, codes_def) %>%
+        purrr::map("docs")
+    
+}
+
 
 ##' @export
 format.icdb_icd10 <- function(x, ...)

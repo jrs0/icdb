@@ -370,7 +370,6 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     }
     else // the category is a leaf node (a single-code category)
     {
-	Rcpp::Rcout << "Got here" << std::endl;
         // This section handles two cases
         // 1) Codes that exactly match a code leaf node
         // 2) Codes that exactly match a code leaf node,
@@ -444,7 +443,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     // (seriously)
     std::map<std::string, ParseResult> cache;       
 
-#pragma omp parallel for
+    //#pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
 
 	// Try the cache first, then parse the string
