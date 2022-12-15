@@ -423,6 +423,8 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
 			  const Rcpp::List & code_def)
 {
+    Rcpp::Rcout << "Started" << std::endl;
+    
     // TODO: fix this -- there should be a proper way to handle
     // an empty list of strings
     std::vector<std::string> groups;
@@ -433,12 +435,12 @@ Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
     // Pre-allocating seems faster than push_back
     Rcpp::List results(str.size());
 
-    std::map<std::string, Rcpp::List> cache;       
+    std::map<Rcpp::String, Rcpp::List> cache;       
 
     int thingy = 0;
     
     //#pragma omp parallel for
-    for (std::size_t n = 0; n < str.size(); ++n) {
+    for (long int n = 0; n < str.size(); ++n) {
 
 	// Try the cache first, then parse the string
 	// Checked that the cache makes almost no difference
@@ -447,15 +449,16 @@ Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
 	    results[n] = cache.at(str[n]);
 	    thingy++;
 	} catch (const std::out_of_range &) {	
+	    std::string std_str{str[n]};
 	    try {
-		ParseResult res = icd10_str_to_indices_impl(str[n],
+		ParseResult res = icd10_str_to_indices_impl(std_str,
 							    code_def["child"],
 							    groups);	
 		results[n] = res.to_R_list();		
 
 	    } catch (const std::logic_error &) {
 		// Catch the invalid code error
-		ParseResult res = ParseResult(2, {}, {}, "", str[n]);
+		ParseResult res = ParseResult(2, {}, {}, "", std_str);
 		results[n] = res.to_R_list();		
 	    }
 	    cache[str[n]] = results[n];
