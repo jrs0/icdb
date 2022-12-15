@@ -420,7 +420,7 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 //' 
 //' 
 // [[Rcpp::export]]
-Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
+Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 			  const Rcpp::List & code_def)
 {
     Rcpp::Rcout << "Started" << std::endl;
@@ -435,9 +435,20 @@ Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
     // Pre-allocating seems faster than push_back
     Rcpp::List results(str.size());
 
+<<<<<<< HEAD
     std::map<Rcpp::String, Rcpp::List> cache;       
 
     int thingy = 0;
+=======
+    // BUG? Runtime still scales with the length of the
+    // input vector, even when the cache is used. This
+    // doesn't seem right -- either the cache is not
+    // being used, or the cost of the parse is the cost
+    // of a cache hit (seems unlikely).
+    // FIXED: moved this line outside the for loop
+    // (seriously)
+    std::map<std::string, Rcpp::List> cache;       
+>>>>>>> parent of cc7003d... Started converting the interface to use native R types, because the R profiler shows the that only 20% of the time is now spent in the C++ function
     
     //#pragma omp parallel for
     for (long int n = 0; n < str.size(); ++n) {
@@ -447,7 +458,6 @@ Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
 	// to the runtime of the function.
 	try {
 	    results[n] = cache.at(str[n]);
-	    thingy++;
 	} catch (const std::out_of_range &) {	
 	    std::string std_str{str[n]};
 	    try {
@@ -465,8 +475,6 @@ Rcpp::List new_icd10_impl(const Rcpp::CharacterVector & str,
 	}
     }
 
-    Rcpp::Rcout << thingy << std::endl;
-    
     return results;
 }
 
