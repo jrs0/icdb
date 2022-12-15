@@ -3,4 +3,4 @@ codes <- read.csv(system.file("testdata",
                               "icd10/icd10_code_list.txt",
                               package="icdb"))
 raw <- codes %>% unlist()
-parsed <- raw %>% icd10()
+parsed <- rep(raw,5) %>% icd10()

@@ -61,6 +61,7 @@ public:
 
     Rcpp::List to_R_list() const {
 
+	// Reverse the indices list for R
 	Rcpp::List res = Rcpp::List::create(
 	    Rcpp::_["indices"] = Rcpp::List(indices_.rbegin(), indices_.rend()),
 	    Rcpp::_["type"] = type_,
@@ -82,9 +83,6 @@ public:
     // The type -- whether the parse succeeded or not
     int type() const { return type_; }
 
-    
-    //std::vector<std::size_t> indices() const { return indices_; }
-
     // Any unparsed trailing matter
     std::string trailing() const { return trailing_; }
 
@@ -101,8 +99,7 @@ private:
     int type_{0};
 
     // PERF: Profiling shows a large chunk of time is spent in
-    // the destructor or ParseResult, mostly in functions
-    // relating to std::list. Going to replace with std::vector.
+    // the destructor or ParseResult
     std::vector<std::size_t> indices_{};
     std::string trailing_{""};
     std::vector<std::string> groups_{};
@@ -432,24 +429,28 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     if (Rcpp::as<Rcpp::List>(code_def["groups"]).size() > 0) {
 	groups = Rcpp::as<std::vector<std::string>>(code_def["groups"]);
     }
-    
+
+    // Pre-allocating seems faster than push_back
     Rcpp::List results(str.size());
 
+
+    // BUG? Runtime still scales with the length of the
+    // input vector, even when the cache is used. This
+    // doesn't seem right -- either the cache is not
+    // being used, or the cost of the parse is the cost
+    // of a cache hit (seems unlikely).
+    std::map<std::string, Rcpp::List> cache;
+	
+    
     //#pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
-
-	// BUG? Runtime still scales with the length of the
-	// input vector, even when the cache is used. This
-	// doesn't seem right -- either the cache is not
-	// being used, or the cost of the parse is the cost
-	// of a cache hit (seems unlikely).
-	std::map<std::string, Rcpp::List> cache;
 	
 	// Try the cache first, then parse the string
 	// Checked that the cache makes almost no difference
 	// to the runtime of the function.
 	try {
 	    results[n] = cache.at(str[n]);
+	    Rcpp::Rcout << "Result in cache" << std::endl;
 	} catch (const std::out_of_range &) {	
 	    try {
 		ParseResult res = icd10_str_to_indices_impl(str[n],
