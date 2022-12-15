@@ -10,6 +10,6 @@ CXX_STD=CXX17
 # define for pushing to main (also comment out the
 # -lprofiler library too)
 #
-PKG_CXXFLAGS = $(SHLIB_OPENMP_CFLAGS) -gdwarf-2 #-DNO_GPERFTOOLS
-PKG_LIBS = $(SHLIB_OPENMP_CFLAGS) -lprofiler
+PKG_CXXFLAGS = $(SHLIB_OPENMP_CFLAGS) -gdwarf-2 -DNO_GPERFTOOLS
+PKG_LIBS = $(SHLIB_OPENMP_CFLAGS) #-lprofiler
 PKG_DLLFLAGS =
