@@ -60,7 +60,7 @@ To profile C++ code, use gperftools on Linux. Download and build gperftools from
 Once gperftools is installed (run pprof --version to check), run an R snippet like the following:
 
 ```R
-start_profiler("/tmp/profile.out")
+start_profiler("/tmp/prof.out")
 code_you_want_to_profile_involving_cpp()
 stop_profiler()
 ```
@@ -75,6 +75,14 @@ pprof --text src/icdb.so /tmp/prof.out
 sudo apt install gv
 pprof --gv src/icdb.so /tmp/prof.out 
 ```
+
+An alternatie method of profiling is to use valgrind directly on an R script. Run:
+
+```bash
+R -d "valgrind --tool=callgrind" -f script.R
+```
+
+The -d flag runs R through the specified debugger. Since valgrind is a virtual machine, this will take much longer than just running the regular R script, so keep it as small as possible. The profile will also include things like devtools::load_all(), which is not of interest, but can also be easily ignored in kcachegrind later. Once the 
 
 ### Todo list
 

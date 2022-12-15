@@ -60,5 +60,7 @@ navbar:
         href: articles/cicd.html
       - text: Style Guide
         href: articles/style-guide.html
+      - text: General information
+        href: articles/devel.html
       - text: Changelog
         href: news/index.html
