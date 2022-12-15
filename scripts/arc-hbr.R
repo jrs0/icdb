@@ -36,12 +36,13 @@ all_spells <- msrv$sus$apc_spells %>%
 ## Path to codes file
 code_file <- system.file("extdata/icd10/icd10_arc.yaml", package="icdb")
 
-## 100,000 codes takes about 16 seconds currently
-## 200,000 - 32 seconds
-## 300,000 - 47 seconds
-spells <- all_spells[1:300000,] %>%
+## 100,000 codes takes about 16 seconds currently (now 4 seconds, now 3s)
+## 200,000 - 32 seconds (7 seconds, now 3s)
+## 300,000 - 47 seconds (9 seconds, now 4s)
+## 1,000,000 - not measured before (26 seconds, 7s)
+## 6.5m - 15mins (2 minutes 24 seconds, 26s)
+spells <- all_spells %>%
     mutate(p = icd10(primary_diagnosis_icd, code_file))
-
     
 ## codes_from(c("icd10/acs.yaml", "icd10/bleeding.yaml"), primary_diagnosis_icd) %>% 
 ## run()

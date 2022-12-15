@@ -349,11 +349,15 @@ new_icd10 <- function(str = character(), codes_file)
     ##
     ##results <- new_icd10_impl_R(str, codes_def)
     results <- new_icd10_impl(str, codes_def)
-        
-    indices <- results %>% purrr::map("indices")
-    types <- results %>% purrr::map("type")
-    groups <- results %>% purrr::map("groups")
-    name <- results %>% purrr::map("name")
+
+    ## print(results["groups"])
+    ## print(class(results["indices"][[1]]))
+    ## stop()
+    
+    ## indices <- results %>% purrr::map("indices")
+    ## types <- results %>% purrr::map("type")
+    ## groups <- results %>% purrr::map("groups")
+    ## name <- results %>% purrr::map("name")
     
     ## Get the proper name
     ## Need to move this into the c++ impl
@@ -387,12 +391,12 @@ new_icd10 <- function(str = character(), codes_file)
     ##         }
     ##     })
 
-    obj <- list(
-        name = name,
-        types = types,
-        indices = indices,
-        groups = groups)
-    vctrs::new_rcrd(obj, class = "icdb_icd10")
+    ## obj <- list(
+    ##     name = results["name"],
+    ##     types = results["type"],
+    ##     indices = results["indices"],
+    ##     groups = results["groups"])
+    vctrs::new_rcrd(results, class = "icdb_icd10")
 }
 
 icd10 <- function(str = character(),
@@ -414,7 +418,6 @@ is_valid.icdb_icd10 <- function(x)
     vctrs::field(x, "types") %>%
         purrr::map(~ .x == 0) %>%
         unlist()
-    
 }
 
 get_type <- function(x)

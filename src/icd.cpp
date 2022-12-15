@@ -21,7 +21,6 @@
 
 #include <Rcpp.h>
 #include <string>
-#include <list>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -44,7 +43,7 @@ std::ostream & operator << (std::ostream & os,
 class ParseResult
 {
 public:
-    ParseResult(int type, const std::list<std::size_t> & indices,
+    ParseResult(int type, const std::vector<std::size_t> & indices,
 		const std::vector<std::string> & groups,
 		const std::string & name,
 		const std::string & trailing)
@@ -52,7 +51,7 @@ public:
 	  trailing_{trailing}, groups_{groups}, name_{name}
     {}
 
-    ParseResult(int type, const std::list<std::size_t> & indices,
+    ParseResult(int type, const std::vector<std::size_t> & indices,
 		const std::vector<std::string> & groups,
 		const std::string & name)
 	: type_{type}, indices_{indices}, groups_{groups}, name_{name}
@@ -60,50 +59,46 @@ public:
 
     ParseResult(int type) : type_{type} {}
 
-    Rcpp::List to_R_list() const {
-	Rcpp::List res = Rcpp::List::create(Rcpp::_["indices"] = indices_,
-					    Rcpp::_["type"] = type_,
-					    Rcpp::_["groups"] = groups_);
-
-	if (indices_.size() == 0) {
-	    res["name"] = "(" + trailing_ + ")";
-	} else {
-	    if (trailing_.size() > 0) {
-		res["name"] = name_ + "(" + trailing_ + ")";
-	    } else {
-		res["name"] = name_;
-	    }
-	}
-		
-	return res;
+    Rcpp::NumericVector indices() const {
+	return Rcpp::NumericVector(std::rbegin(indices_), std::rend(indices_));
     }
     
     // The type -- whether the parse succeeded or not
     int type() const { return type_; }
-    
-    // The index list which shows where the code is in
-    // the codes definition structure. This is a list
-    // because of the need to push_front (this can be
-    // removed with some refactoring -- however, might
-    // not be a performance issue due to the need to copy
-    // to an Rcpp::List at the end anyway.
-    std::list<std::size_t> indices() const { return indices_; }
 
+    std::string name() const {
+    	if (indices_.size() == 0) {
+    	    return "(" + trailing_ + ")";
+    	} else {
+    	    if (trailing_.size() > 0) {
+    		return name_ + "(" + trailing_ + ")";
+    	    } else {
+    		return name_;
+    	    }
+    	}
+    }
+    
     // Any unparsed trailing matter
     std::string trailing() const { return trailing_; }
 
     // The set of groups associated with this code
-    std::vector<std::string> groups() const { return groups_; }
+    Rcpp::CharacterVector groups() const {
+	return Rcpp::CharacterVector(std::begin(groups_),
+				     std::end(groups_));
+    }
 
     // Prepend an index to the indices list
     void add_index(std::size_t position_val)
     {
-	indices_.push_front(position_val);
+	indices_.push_back(position_val);
     }
     
 private:
     int type_{0};
-    std::list<std::size_t> indices_{};
+
+    // PERF: Profiling shows a large chunk of time is spent in
+    // the destructor or ParseResult
+    std::vector<std::size_t> indices_{};
     std::string trailing_{""};
     std::vector<std::string> groups_{};
     std::string name_{""};
@@ -425,46 +420,71 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 // [[Rcpp::export]]
 Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 			  const Rcpp::List & code_def)
-{
+{    
     // TODO: fix this -- there should be a proper way to handle
     // an empty list of strings
     std::vector<std::string> groups;
     if (Rcpp::as<Rcpp::List>(code_def["groups"]).size() > 0) {
 	groups = Rcpp::as<std::vector<std::string>>(code_def["groups"]);
     }
+
+    // Create separate lists for each output (to avoid doing it in R)
+    Rcpp::List lst_indices(str.size());
+    Rcpp::NumericVector lst_type(str.size());
+    Rcpp::List lst_groups(str.size());
+    Rcpp::CharacterVector lst_name(str.size());
     
-    Rcpp::List results(str.size());
+    // BUG? Runtime still scales with the length of the
+    // input vector, even when the cache is used. This
+    // doesn't seem right -- either the cache is not
+    // being used, or the cost of the parse is the cost
+    // of a cache hit (seems unlikely).
+    // FIXED: moved this line outside the for loop
+    // (seriously)
+    std::map<std::string, ParseResult> cache;       
 
     //#pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
 
-	// BUG? Runtime still scales with the length of the
-	// input vector, even when the cache is used. This
-	// doesn't seem right -- either the cache is not
-	// being used, or the cost of the parse is the cost
-	// of a cache hit (seems unlikely).
-	std::map<std::string, Rcpp::List> cache;
-	
 	// Try the cache first, then parse the string
 	// Checked that the cache makes almost no difference
 	// to the runtime of the function.
 	try {
-	    results[n] = cache.at(str[n]);
+	    ParseResult res = cache.at(str[n]);
+	    lst_indices[n] = res.indices();
+	    lst_type[n] = res.type();
+	    lst_groups[n] = res.groups();
+	    lst_name[n] = res.name();
 	} catch (const std::out_of_range &) {	
 	    try {
 		ParseResult res = icd10_str_to_indices_impl(str[n],
 							    code_def["child"],
 							    groups);	
-		results[n] = res.to_R_list();		
+		lst_indices[n] = res.indices();
+		lst_type[n] = res.type();
+		lst_groups[n] = res.groups();
+		lst_name[n] = res.name();
 
+		cache.insert({str[n], res});
 	    } catch (const std::logic_error &) {
 		// Catch the invalid code error
 		ParseResult res = ParseResult(2, {}, {}, "", str[n]);
-		results[n] = res.to_R_list();		
+		lst_indices[n] = res.indices();
+		lst_type[n] = res.type();
+		lst_groups[n] = res.groups();
+		lst_name[n] = res.name();
+
+		cache.insert({str[n], res});
 	    }
-	    cache[str[n]] = results[n];
 	}
     }
+
+    // Pre-allocating seems faster than push_back
+    Rcpp::List results = Rcpp::List::create(
+	Rcpp::_["indices"] = lst_indices,
+	Rcpp::_["types"] = lst_type,
+	Rcpp::_["groups"] = lst_groups,
+	Rcpp::_["name"] = lst_name);
 
     return results;
 }

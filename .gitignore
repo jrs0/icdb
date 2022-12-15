@@ -26,3 +26,6 @@ secret
 Rprof.out
 
 tmp/
+
+## Ignore valgrind output
+callgrind.out*
