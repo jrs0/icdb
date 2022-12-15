@@ -433,24 +433,23 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     // Pre-allocating seems faster than push_back
     Rcpp::List results(str.size());
 
-
     // BUG? Runtime still scales with the length of the
     // input vector, even when the cache is used. This
     // doesn't seem right -- either the cache is not
     // being used, or the cost of the parse is the cost
     // of a cache hit (seems unlikely).
-    std::map<std::string, Rcpp::List> cache;
-	
+    // FIXED: moved this line outside the for loop
+    // (seriously)
+    std::map<std::string, Rcpp::List> cache;       
     
     //#pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
-	
+
 	// Try the cache first, then parse the string
 	// Checked that the cache makes almost no difference
 	// to the runtime of the function.
 	try {
 	    results[n] = cache.at(str[n]);
-	    Rcpp::Rcout << "Result in cache" << std::endl;
 	} catch (const std::out_of_range &) {	
 	    try {
 		ParseResult res = icd10_str_to_indices_impl(str[n],
