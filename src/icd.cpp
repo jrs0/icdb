@@ -26,6 +26,7 @@
 #include <iostream>
 #include <regex>
 #include <map>
+#include <omp.h>
 
 std::ostream & operator << (std::ostream & os,
 			    const std::vector<std::string> & v)
@@ -463,8 +464,10 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     // FIXED: moved this line outside the for loop
     // (seriously)
     std::map<std::string, ParseResult> cache;       
+
+    omp_set_num_threads(8);
     
-    //#pragma omp parallel for
+#pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
 
 	// Try the cache first, then parse the string
