@@ -59,30 +59,46 @@ public:
 
     ParseResult(int type) : type_{type} {}
 
-    Rcpp::List to_R_list() const {
+    // Rcpp::List to_R_list() const {
 
-	// Reverse the indices list for R
-	Rcpp::List res = Rcpp::List::create(
-	    Rcpp::_["indices"] = Rcpp::List(indices_.rbegin(), indices_.rend()),
-	    Rcpp::_["type"] = type_,
-	    Rcpp::_["groups"] = groups_);
+    // 	// Reverse the indices list for R
+    // 	Rcpp::List res = Rcpp::List::create(
+    // 	    Rcpp::_["indices"] = Rcpp::List(indices_.rbegin(), indices_.rend()),
+    // 	    Rcpp::_["type"] = type_,
+    // 	    Rcpp::_["groups"] = groups_);
 	
-	if (indices_.size() == 0) {
-	    res["name"] = "(" + trailing_ + ")";
-	} else {
-	    if (trailing_.size() > 0) {
-		res["name"] = name_ + "(" + trailing_ + ")";
-	    } else {
-		res["name"] = name_;
-	    }
-	}
+    // 	if (indices_.size() == 0) {
+    // 	    res["name"] = "(" + trailing_ + ")";
+    // 	} else {
+    // 	    if (trailing_.size() > 0) {
+    // 		res["name"] = name_ + "(" + trailing_ + ")";
+    // 	    } else {
+    // 		res["name"] = name_;
+    // 	    }
+    // 	}
 		
-	return res;
+    // 	return res;
+    // }
+
+    Rcpp::List indices() const {
+	return Rcpp::List(std::rbegin(indices_), std::rend(indices_));
     }
     
     // The type -- whether the parse succeeded or not
     int type() const { return type_; }
 
+    std::string name() const {
+    	if (indices_.size() == 0) {
+    	    return "(" + trailing_ + ")";
+    	} else {
+    	    if (trailing_.size() > 0) {
+    		return name_ + "(" + trailing_ + ")";
+    	    } else {
+    		return name_;
+    	    }
+    	}
+    }
+    
     // Any unparsed trailing matter
     std::string trailing() const { return trailing_; }
 
@@ -432,9 +448,12 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	groups = Rcpp::as<std::vector<std::string>>(code_def["groups"]);
     }
 
-    // Pre-allocating seems faster than push_back
-    Rcpp::List results(str.size());
-
+    // Create separate lists for each output (to avoid doing it in R)
+    Rcpp::List lst_indices(str.size());
+    Rcpp::List lst_type(str.size());
+    Rcpp::List lst_groups(str.size());
+    Rcpp::List lst_name(str.size());
+    
     // BUG? Runtime still scales with the length of the
     // input vector, even when the cache is used. This
     // doesn't seem right -- either the cache is not
@@ -442,7 +461,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     // of a cache hit (seems unlikely).
     // FIXED: moved this line outside the for loop
     // (seriously)
-    std::map<std::string, Rcpp::List> cache;       
+    std::map<std::string, ParseResult> cache;       
     
     //#pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
@@ -451,24 +470,46 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	// Checked that the cache makes almost no difference
 	// to the runtime of the function.
 	try {
-	    results[n] = cache.at(str[n]);
+	    ParseResult res = cache.at(str[n]);
+	    lst_indices[n] = res.indices();
+	    lst_type[n] = res.type();
+	    lst_groups[n] = res.groups();
+	    lst_name[n] = res.name();
 	} catch (const std::out_of_range &) {	
 	    try {
 		ParseResult res = icd10_str_to_indices_impl(str[n],
 							    code_def["child"],
 							    groups);	
-		results[n] = res.to_R_list();		
+		lst_indices[n] = res.indices();
+		lst_type[n] = res.type();
+		lst_groups[n] = res.groups();
+		lst_name[n] = res.name();
 
+		cache.insert({str[n], res});
 	    } catch (const std::logic_error &) {
 		// Catch the invalid code error
 		ParseResult res = ParseResult(2, {}, {}, "", str[n]);
-		results[n] = res.to_R_list();		
+		lst_indices[n] = res.indices();
+		lst_type[n] = res.type();
+		lst_groups[n] = res.groups();
+		lst_name[n] = res.name();
+
+		cache.insert({str[n], res});
 	    }
-	    cache[str[n]] = results[n];
 	}
     }
 
+    // Pre-allocating seems faster than push_back
+    Rcpp::List results = Rcpp::List::create(
+	Rcpp::_["indices"] = lst_indices,
+	Rcpp::_["type"] = lst_type,
+	Rcpp::_["groups"] = lst_groups,
+	Rcpp::_["name"] = lst_name);
+    
     Rcpp::Rcout << "ended" << std::endl;
+
+
+
     return results;
 }
 
