@@ -94,10 +94,16 @@
     <loc>https://jrs0.github.io/icdb/reference/codes_from.html</loc>
   </url>
   <url>
+    <loc>https://jrs0.github.io/icdb/reference/count_type.html</loc>
+  </url>
+  <url>
     <loc>https://jrs0.github.io/icdb/reference/drop_detail.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/drop_tags.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/editor.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/gen_casewhen.html</loc>
@@ -121,10 +127,22 @@
     <loc>https://jrs0.github.io/icdb/reference/get_metadata.html</loc>
   </url>
   <url>
+    <loc>https://jrs0.github.io/icdb/reference/get_parse_stats.html</loc>
+  </url>
+  <url>
     <loc>https://jrs0.github.io/icdb/reference/get_tbl.html</loc>
   </url>
   <url>
+    <loc>https://jrs0.github.io/icdb/reference/get_types.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/grapes-in_group-grapes.html</loc>
+  </url>
+  <url>
     <loc>https://jrs0.github.io/icdb/reference/has_tag.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/has_type.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/icd10_index_codes.html</loc>
@@ -155,6 +173,9 @@
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/icdb_example.html</loc>
+  </url>
+  <url>
+    <loc>https://jrs0.github.io/icdb/reference/in_group.html</loc>
   </url>
   <url>
     <loc>https://jrs0.github.io/icdb/reference/index.html</loc>

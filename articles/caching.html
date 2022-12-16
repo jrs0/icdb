@@ -197,7 +197,7 @@ automatically store the query results behind the scenes:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 7</span></span></span>
 <span><span class="co">#&gt;   hash         data   hits write_time          last_access         time  in_me…¹</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;drt&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> a7e17be4bcf… <span style="color: #949494;">"</span>\u0…     1 2022-12-15 <span style="color: #949494;">21:32:05</span> 2022-12-15 <span style="color: #949494;">21:32:05</span> 0.01… TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> a7e17be4bcf… <span style="color: #949494;">"</span>\u0…     1 2022-12-16 <span style="color: #949494;">16:33:18</span> 2022-12-16 <span style="color: #949494;">16:33:18</span> 0.01… TRUE   </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable name ¹​in_memory</span></span></span></code></pre></div>
 <p>When you run the same query again, the server will not be queried.
 Instead, the cached results will be used. You can tell that the cache
@@ -207,7 +207,7 @@ one.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Do the same query again</span></span>
 <span><span class="va">srv</span><span class="op">$</span><span class="va">APC_SYNTH</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">NHSNumber</span>, <span class="va">HospitalProviderSpellIdentifier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Found cached results for this query, using that</span></span>
+<span><span class="co">#&gt; Found cached results in memory, using that</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 405 × 2</span></span></span>
 <span><span class="co">#&gt;    NHSNumber  HospitalProviderSpellIdentifier</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
@@ -228,7 +228,7 @@ one.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 7</span></span></span>
 <span><span class="co">#&gt;   hash         data   hits write_time          last_access         time  in_me…¹</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;drt&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> a7e17be4bcf… <span style="color: #949494;">"</span>\u0…     2 2022-12-15 <span style="color: #949494;">21:32:05</span> 2022-12-15 <span style="color: #949494;">21:32:05</span> 0.01… TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> a7e17be4bcf… <span style="color: #949494;">"</span>\u0…     2 2022-12-16 <span style="color: #949494;">16:33:18</span> 2022-12-16 <span style="color: #949494;">16:33:18</span> 0.01… TRUE   </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable name ¹​in_memory</span></span></span></code></pre></div>
 <p>In addition to storing the number of hits, various other pieces of
 information are stored, including the last time you used the query, the
@@ -261,7 +261,7 @@ removal from the cache, as shown below:</p>
 <span></span>
 <span><span class="co">## Perform a query</span></span>
 <span><span class="va">srv</span><span class="op">$</span><span class="va">APC_SYNTH</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">NHSNumber</span>, <span class="va">HospitalProviderSpellIdentifier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Found cached results for this query, using that</span></span>
+<span><span class="co">#&gt; Found cached results in memory, using that</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 405 × 2</span></span></span>
 <span><span class="co">#&gt;    NHSNumber  HospitalProviderSpellIdentifier</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
@@ -282,6 +282,7 @@ removal from the cache, as shown below:</p>
 <span></span>
 <span><span class="co">## Do the same query again -- the cached result will not be used</span></span>
 <span><span class="va">srv</span><span class="op">$</span><span class="va">APC_SYNTH</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">NHSNumber</span>, <span class="va">HospitalProviderSpellIdentifier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Found cached results in memory, using that</span></span>
 <span><span class="co">#&gt; Cached object has expired, removing from the cache</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 405 × 2</span></span></span>
 <span><span class="co">#&gt;    NHSNumber  HospitalProviderSpellIdentifier</span></span>
