@@ -420,7 +420,17 @@ is_valid.icdb_icd10 <- function(x)
         unlist()
 }
 
-get_type <- function(x)
+
+##' Returns a character vector containing single letters that
+##' represent the type (the parse status) of the icd10 code.
+##' The valid types are: C = code correctly parsed; X = code
+##' is invalid; E = code is empty string; T = code parsed
+##' correctly, but contains trailing matter.
+##'
+##' @title Get a character vector or types of icd10 codes
+##' @param x The input vector of icd10 codes to parse
+##' @return A character vector or types
+get_types <- function(x)
 {
     vctrs::field(x, "types") %>%
         purrr::map(function(y) {
@@ -439,7 +449,8 @@ get_type <- function(x)
             {
                 "T" ## With trailing matter
             }
-        })
+        }) %>%
+        unlist()
 }
 
 is_icd10 <- function(x) {
@@ -450,18 +461,69 @@ groups <- function(x) {
     UseMethod("groups")
 }
 
+
+##' @title Count the number of valid codes
+##' @param x The icd10 vector to count
+##' @return The total number
+num_valid <- function(x)
+{
+    get_type(x) %>% stringr::str_count("C")
+}
+
+##' @title Count the number of empty codes
+##' @param x The icd10 vector to count
+##' @return The total number
+num_empty <- function(x)
+{
+    get_type(x) %>% stringr::str_count("E")
+}
+
+##' @title Count the number of invalid codes
+##' @param x The icd10 vector to count
+##' @return The total number
+num_invalid <- function(x)
+{
+    get_type(x) %>% stringr::str_count("X")
+}
+
+##' @title Count the number of valid codes with
+##' trailing matter
+##' @param x The icd10 vector to count
+##' @return The total number
+num_trailing <- function(x)
+{
+    get_type(x) %>% stringr::str_count("T")
+}
+
+##' Get the parse statistics for a vector of icd10
+##' codes. The statistics include the number of valid
+##' and invalid codes, codes with trailing matter, and
+##' empty strings.
+##'
+##' @title Get ICD-10 parse statistics
+##' @return A list contains counts of each class
+##'
+##' @export
+get_parse_stats <- function()
+{
+    list (
+        valid_count = num_valid(x),
+        invalid_count = num_invalid(x), 
+        empty_count = num_empty(x), 
+        trailing_count = num_trailing(x)        
+    )
+}
+
 ##' @export
 groups.icdb_icd10 <- function(x)
 {
     vctrs::field(x, "groups")
 }
 
-
-
 ##' @export
 summary.icdb_icd10 <- function(object, ...)
 {
-    print("hello")
+    c(get_parse_stats(object))
 }
 
 ##' Check whether an icd10 code is in a particular group.
@@ -490,7 +552,7 @@ in_group <- function(x, group)
 format.icdb_icd10 <- function(x, ...)
 {
     name <- vctrs::field(x, "name")
-    type <- get_type(x)
+    types <- get_types(x)
 
     groups <- vctrs::field(x, "groups") %>%
         purrr::map(~ if(length(.x) > 0) {
@@ -503,7 +565,7 @@ format.icdb_icd10 <- function(x, ...)
                          ""
                      })
     
-    out <- paste0( "[", type, "] ", name, groups)
+    out <- paste0( "[", types, "] ", name, groups)
     out
 }
 
