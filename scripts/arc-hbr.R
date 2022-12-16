@@ -61,7 +61,7 @@ subsequent <- spells %>%
 ## occured within less than the post-index window. This makes
 ## the assumption that the most recent ACS event before the
 ## bleeding event is the cause of the bleeding event.
-next_bleed <- subsequent[200000:218758,] %>%
+next_bleed <- subsequent %>%
     ## For each bleeding event, calculate the time to the nearest
     ## (most recent) ACS event. The times
     ## to next bleeding are stored in the ACS rows (an NA is used
@@ -73,7 +73,7 @@ next_bleed <- subsequent[200000:218758,] %>%
     ## bleeding event.
     mutate(bleed_type = if_else(diagnosis %in_group% "bleeding", diagnosis, NULL)) %>%
     fill(bleed_type, .direction = "up")
-
+## Currently takes 6mins to get to here -- need to fix this.
 
     ## Keep only the most recent ACS event before a bleeding event,
     ## and also ACS events with no subsequent bleeding event
