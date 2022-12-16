@@ -11,6 +11,11 @@
 ## Tauri (Rust) framework, with Next.js as the frontend. See the folder
 ## map-editor in the root of the repository for the source code.
 
+##' Start the editor program (opens in a new window) for editing database
+##' mappings and ICD-10 groupings.
+##'
+##' @title Start the editor
+##' @export
 editor <- function()
 {
     editor_path <- system.file("extdata/bin", "editor.exe", package="icdb")
