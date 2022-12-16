@@ -583,6 +583,7 @@ format.icdb_icd10 <- function(x, ...)
                      })
     
     out <- paste0( "[", types, "] ", name, groups)
+    out[is.na(types)] <- NA # Store NA only wherever the type is NA
     out
 }
 
