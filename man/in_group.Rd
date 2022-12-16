@@ -7,13 +7,15 @@
 in_group(x, group)
 }
 \arguments{
-\item{x}{The icd10 code (icd10 S3 class) to test}
+\item{x}{The icd10 codes (icd10 vector) to test}
 
-\item{group}{A character vector of groups. If there are multiple
-groups, codes will be returned for all the groups listed.}
+\item{group}{A character vector of groups. If there
+are multiple groups, codes will be returned for all
+the groups listed.}
 }
 \value{
-TRUE if the code is in the group, false otherwise
+TRUE where the code is in the group,
+FALSE otherwise
 }
 \description{
 Check whether an icd10 code is in a particular group.

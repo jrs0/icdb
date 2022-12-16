@@ -457,11 +457,6 @@ is_icd10 <- function(x) {
   inherits(x, "icdb_icd10")
 }
 
-groups <- function(x) {
-    UseMethod("groups")
-}
-
-
 ##' Valid type
 ##' 
 ##' @title Count the number of occurances of type
@@ -492,17 +487,34 @@ get_parse_stats <- function(x)
     )
 }
 
+groups <- function(x) {
+    UseMethod("groups")
+}
+
 ##' @export
 groups.icdb_icd10 <- function(x)
 {
     vctrs::field(x, "groups")
 }
 
+name <- function(x) {
+    UseMethod("name")
+}
+
+##' @export
+name.icdb_icd10 <- function(x)
+{
+    vctrs::field(x, "name")
+}
+
+
 ##' @export
 summary.icdb_icd10 <- function(object, ...)
 {
     c(get_parse_stats(object))
 }
+
+
 
 ##' Check whether an icd10 code is in a particular group.
 ##' Suitable for use in the data masking arguments of
