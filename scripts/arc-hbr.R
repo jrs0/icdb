@@ -42,22 +42,18 @@ code_file <- system.file("extdata/icd10/icd10_arc.yaml", package="icdb")
 ## 1,000,000 - not measured before (26 seconds, 7s)
 ## 6.5m - 15mins (2 minutes 24 seconds, 26s)
 spells <- all_spells %>%
-    mutate(p = icd10(primary_diagnosis_icd, code_file))
-    
-## codes_from(c("icd10/acs.yaml", "icd10/bleeding.yaml"), primary_diagnosis_icd) %>% 
-## run()
+    mutate(diagnosis = icd10(primary_diagnosis_icd, code_file)) %>%
+    filter(diagnosis %in_group% c("acs", "bleeding"))
 
 ## Get sequences of spells that began with an ACS event and contained
 ## at least one subsequent ACS or bleeding event. The result is
 ## a tibble grouped by patient, containing a chronological record
 ## of all ACS and bleeding events
 subsequent <- spells %>%
-    ## Add a column "type" that contains either "acs" or "bleeding"
-    mutate(type = drop_detail(primary_diagnosis_icd, 1)) %>% 
     ## Group by patient
     group_by(nhs_number) %>%
-    ## Arrange in order of spell start and event type
-    arrange(spell_start, type, .by_group = TRUE)
+    ## Arrange in order of spell start
+    arrange(spell_start, .by_group = TRUE)
 
 ## Find ACS events that were followed by bleeding events
 ## within the post-index window. The result contains the most
@@ -70,13 +66,15 @@ next_bleed <- subsequent %>%
     ## (most recent) ACS event. The times
     ## to next bleeding are stored in the ACS rows (an NA is used
     ## if there is not subsequent bleeding event
-    mutate(val = if_else(type == "bleeding", spell_start, NULL)) %>%
+    mutate(val = if_else(diagnosis %in_group% "bleeding", spell_start, NULL)) %>%
     fill(val, .direction = "up") %>%
     mutate(time_to_bleed = as.numeric((val - spell_start)/lubridate::ddays(1))) %>%
     ## In addition, store the bleeding diagnosis for the subsequent
     ## bleeding event.
-    mutate(bleed_type = if_else(type == "bleeding", primary_diagnosis_icd, NULL)) %>%
-    fill(bleed_type, .direction = "up") %>%
+    mutate(bleed_type = if_else(diagnosis %in_group% "bleeding", diagnosis, NULL)) %>%
+    fill(bleed_type, .direction = "up")
+## Currently takes 6mins to get to here -- need to fix this.
+
     ## Keep only the most recent ACS event before a bleeding event,
     ## and also ACS events with no subsequent bleeding event
     filter(type == "acs") %>%

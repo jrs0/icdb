@@ -193,7 +193,7 @@ icd10_indices_to_code <- function(indices, codes_def)
     ## for use with pluck, to descend through
     ## the nested structure in one go
     k <- indices %>%
-        purrr::map(~ list(.x, "child")) %>%
+        purrr::map(~ list(as.list(.x), "child")) %>%
         purrr::flatten() %>%
         ## Remove the final "child" key to
         ## get the entire category or code
@@ -420,11 +420,24 @@ is_valid.icdb_icd10 <- function(x)
         unlist()
 }
 
-get_type <- function(x)
+
+##' Returns a character vector containing single letters that
+##' represent the type (the parse status) of the icd10 code.
+##' The valid types are: C = code correctly parsed; X = code
+##' is invalid; E = code is empty string; T = code parsed
+##' correctly, but contains trailing matter.
+##'
+##' @title Get a character vector or types of icd10 codes
+##' @param x The input vector of icd10 codes to parse
+##' @return A character vector or types
+get_types <- function(x)
 {
     vctrs::field(x, "types") %>%
         purrr::map(function(y) {
-            if (y == 2) {
+            if (is.na(y)) {
+                NA ## Return NA
+            }
+            else if (y == 2) {
                 "X" ## Invalid (meaningless)
             }
             else if (y == 1)
@@ -439,23 +452,130 @@ get_type <- function(x)
             {
                 "T" ## With trailing matter
             }
-        })
+        }) %>%
+        unlist()
 }
 
 is_icd10 <- function(x) {
   inherits(x, "icdb_icd10")
 }
 
-groups <- function(x)
+##' Valid type
+##' 
+##' @title Count the number of occurances of type
+##' @param x The icd10 vector to count
+##' @param type Character, One of "C", "E", "X", "T" 
+##' @return The total number of matching types
+count_type <- function(x, type)
+{
+    sum(get_types(x) == type)
+}
+
+##' Get the parse statistics for a vector of icd10
+##' codes. The statistics include the number of valid
+##' and invalid codes, codes with trailing matter, and
+##' empty strings.
+##'
+##' @title Get ICD-10 parse statistics
+##' @param x The icd10 codes list to process
+##' @return A list contains counts of each class
+##'
+##' @export
+get_parse_stats <- function(x)
+{
+    list (
+        valid_count = count_type(x, "C"),
+        invalid_count = count_type(x, "X"),
+        empty_count = count_type(x, "E"),
+        trailing_count = count_type(x, "T")       
+    )
+}
+
+groups <- function(x) {
+    UseMethod("groups")
+}
+
+##' @export
+groups.icdb_icd10 <- function(x)
 {
     vctrs::field(x, "groups")
 }
+
+name <- function(x) {
+    UseMethod("name")
+}
+
+##' @export
+name.icdb_icd10 <- function(x)
+{
+    vctrs::field(x, "name")
+}
+
+
+##' @export
+summary.icdb_icd10 <- function(object, ...)
+{
+    c(get_parse_stats(object))
+}
+
+##' Check whether an icd10 code is in a particular group.
+##' Suitable for use in the data masking arguments of
+##' dplyr calls. The function will throw an error if
+##' it is supplied a column which is not class icd10.
+##'
+##' @title Check if ICD-10 code is in a group 
+##' @param x The icd10 codes (icd10 vector) to test
+##' @param group A character vector of groups. If there
+##' are multiple groups, codes will be returned for all
+##' the groups listed.
+##' @return TRUE where the code is in the group,
+##' FALSE otherwise
+##' @export
+in_group <- function(x, group)
+{
+    stopifnot("icdb_icd10" %in% class(x))
+
+    g <- groups({{x}})
+    g %>% purrr::map(~ any(group %in% .x)) %>% unlist()
+}
+
+##' @title Binary operator version of in_groups
+##' @param x The icd10 codes (icd10 vector) to test
+##' @param group A character vector of groups. If there
+##' are multiple groups, codes will be returned for all
+##' the groups listed.
+##' @export
+`%in_group%` <- function(x, group) in_group(x,group)
+
+##' Check whether an icd10 code has a particular type
+##' (parse status). This function can be used in the
+##' data masking argument of dplyr::filter to extract
+##' codes that parsed correctly (type == "C"), empty
+##' codes (type == "E"), parsed correctly but with
+##' trailing matter (type == "T"), or are invalid
+##' (type == "X").
+##'
+##' @title Check if ICD-10 codes have a particular type
+##' @param x The icd10 codes (icd10 vector) to test
+##' @param type Character, One of "C", "E", "X", "T" 
+##' @return TRUE where the code has the specified type,
+##' FALSE otherwise
+##' 
+##' @export 
+has_type <- function(x, type)
+{
+    vctrs::vec_assert({{x}}, icd10())
+
+    tt <- get_types({{x}})
+    tt == type
+}
+
 
 ##' @export
 format.icdb_icd10 <- function(x, ...)
 {
     name <- vctrs::field(x, "name")
-    type <- get_type(x)
+    types <- get_types(x)
 
     groups <- vctrs::field(x, "groups") %>%
         purrr::map(~ if(length(.x) > 0) {
@@ -468,7 +588,8 @@ format.icdb_icd10 <- function(x, ...)
                          ""
                      })
     
-    out <- paste0( "[", type, "] ", name, groups)
+    out <- paste0( "[", types, "] ", name, groups)
+    out[is.na(types)] <- NA # Store NA only wherever the type is NA
     out
 }
 

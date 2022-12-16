@@ -29,3 +29,7 @@ tmp/
 
 ## Ignore valgrind output
 callgrind.out*
+
+## Ignore the binary folder. Programs are compiled
+## in github and will be present in downloaded releases.
+bin/

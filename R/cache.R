@@ -254,6 +254,8 @@ read_cache <- function(data, lifetime = NULL)
 
     if (nrow(res) == 1)
     {
+        message("Found cached results in memory, using that")
+        
         ## Get the record as a list
         metadata <- as.list(res)
 
@@ -328,6 +330,8 @@ read_cache <- function(data, lifetime = NULL)
     {
         if (file.exists(obj_file))
         {
+            message("Found cached results on disk, reading RDS...")
+            
             ## Open the meta file and check for expiry
             metadata <- readRDS(meta_file)
             now <- lubridate::now()
