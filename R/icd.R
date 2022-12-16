@@ -434,7 +434,10 @@ get_types <- function(x)
 {
     vctrs::field(x, "types") %>%
         purrr::map(function(y) {
-            if (y == 2) {
+            if (is.na(y)) {
+                NA ## Return NA
+            }
+            else if (y == 2) {
                 "X" ## Invalid (meaningless)
             }
             else if (y == 1)
