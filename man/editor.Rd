@@ -10,6 +10,3 @@ editor()
 Start the editor program (opens in a new window) for editing database
 mappings and ICD-10 groupings.
 }
-\details{
-.. content for \details{} ..
-}
