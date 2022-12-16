@@ -11,3 +11,8 @@
 ## Tauri (Rust) framework, with Next.js as the frontend. See the folder
 ## map-editor in the root of the repository for the source code.
 
+editor <- function()
+{
+    editor_path <- system.file("extdata/bin", "editor.exe", package="icdb")
+    system2(editor_path)
+}
