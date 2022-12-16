@@ -66,22 +66,13 @@ subsequent <- spells %>%
 
 ## Tidyverse version takes 40 seconds, base R version takes
 ## 2 seconds. 
-next_bleed <- subsequent
-
-## For each bleeding event, calculate the time to the nearest
-## (most recent) ACS event. The times
-## to next bleeding are stored in the ACS rows (an NA is used
-## if there is not subsequent bleeding event
-next_bleed$val <- next_bleed$spell_start
-idx <- !(next_bleed$diagnosis %in_group% "bleeding")
-next_bleed$val[idx] <- NA
-## mutate(val = if_else(diagnosis %in_group% "bleeding",
-##                          spell_start, NULL))
-
-next_bleed <- fill(next_bleed, val, .direction = "up")
-
-
-%>%
+next_bleed <- subsequent %>% head(10000) %>%
+    ## For each bleeding event, calculate the time to the nearest
+    ## (most recent) ACS event. The times
+    ## to next bleeding are stored in the ACS rows (an NA is used
+    ## if there is not subsequent bleeding event
+    mutate(val = if_else(diagnosis %in_group% "bleeding",
+                         spell_start, NULL)) %>%
     mutate(time_to_bleed = as.numeric((val - spell_start)/lubridate::ddays(1))) %>%
     ## In addition, store the bleeding diagnosis for the subsequent
     ## bleeding event.
