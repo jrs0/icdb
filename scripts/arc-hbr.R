@@ -66,11 +66,10 @@ next_bleed <- subsequent %>%
     ## (most recent) ACS event. The times
     ## to next bleeding are stored in the ACS rows (an NA is used
     ## if there is not subsequent bleeding event
-    mutate(val = if_else(diagnosis %in_group% "bleeding", spell_start, NULL))
+    mutate(val = if_else(diagnosis %in_group% "bleeding", spell_start, NULL)) %>%
+    fill(val, .direction = "up")
 
 
-%>%
-    fill(val, .direction = "up") %>%
     mutate(time_to_bleed = as.numeric((val - spell_start)/lubridate::ddays(1))) %>%
     ## In addition, store the bleeding diagnosis for the subsequent
     ## bleeding event.
