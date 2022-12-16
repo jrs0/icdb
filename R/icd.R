@@ -514,8 +514,6 @@ summary.icdb_icd10 <- function(object, ...)
     c(get_parse_stats(object))
 }
 
-
-
 ##' Check whether an icd10 code is in a particular group.
 ##' Suitable for use in the data masking arguments of
 ##' dplyr calls. The function will throw an error if
@@ -531,7 +529,7 @@ summary.icdb_icd10 <- function(object, ...)
 ##' @export
 in_group <- function(x, group)
 {
-    vctrs::vec_assert({{x}}, icd10())
+    stopifnot("icdb_icd10" %in% class(x))
 
     g <- groups({{x}})
     g %>% purrr::map(~ any(group %in% .x)) %>% unlist()
