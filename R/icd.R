@@ -510,10 +510,12 @@ summary.icdb_icd10 <- function(object, ...)
 ##' it is supplied a column which is not class icd10.
 ##'
 ##' @title Check if ICD-10 code is in a group 
-##' @param x The icd10 code (icd10 S3 class) to test
-##' @param group A character vector of groups. If there are multiple
-##' groups, codes will be returned for all the groups listed.
-##' @return TRUE if the code is in the group, false otherwise
+##' @param x The icd10 codes (icd10 vector) to test
+##' @param group A character vector of groups. If there
+##' are multiple groups, codes will be returned for all
+##' the groups listed.
+##' @return TRUE where the code is in the group,
+##' FALSE otherwise
 ##' @export
 in_group <- function(x, group)
 {
@@ -525,6 +527,30 @@ in_group <- function(x, group)
 
 ##' @export
 `%in_group%` <- function(x, group) in_group(x,group)
+
+##' Check whether an icd10 code has a particular type
+##' (parse status). This function can be used in the
+##' data masking argument of dplyr::filter to extract
+##' codes that parsed correctly (type == "C"), empty
+##' codes (type == "E"), parsed correctly but with
+##' trailing matter (type == "T"), or are invalid
+##' (type == "X").
+##'
+##' @title Check if ICD-10 codes have a particular type
+##' @param x The icd10 codes (icd10 vector) to test
+##' @param type Character, One of "C", "E", "X", "T" 
+##' @return TRUE where the code has the specified type,
+##' FALSE otherwise
+##' 
+##' @export 
+has_type <- function(x, type)
+{
+    vctrs::vec_assert({{x}}, icd10())
+
+    tt <- get_types({{x}})
+    tt == type
+}
+
 
 ##' @export
 format.icdb_icd10 <- function(x, ...)
