@@ -61,7 +61,7 @@ subsequent <- spells %>%
 ## occured within less than the post-index window. This makes
 ## the assumption that the most recent ACS event before the
 ## bleeding event is the cause of the bleeding event.
-next_bleed <- subsequent %>%
+next_bleed <- subsequent %>% head(1000) %>%
     ## For each bleeding event, calculate the time to the nearest
     ## (most recent) ACS event. The times
     ## to next bleeding are stored in the ACS rows (an NA is used
@@ -72,12 +72,10 @@ next_bleed <- subsequent %>%
     ## In addition, store the bleeding diagnosis for the subsequent
     ## bleeding event.
     mutate(bleed_type = if_else(diagnosis %in_group% "bleeding", diagnosis, NULL)) %>%
-    fill(bleed_type, .direction = "up")
-## Currently takes 6mins to get to here -- need to fix this.
-
+    fill(bleed_type, .direction = "up") %>%
     ## Keep only the most recent ACS event before a bleeding event,
     ## and also ACS events with no subsequent bleeding event
-    filter(type == "acs") %>%
+    filter(diagnosis %in_group% "acs") %>%
     filter((time_to_bleed == min(time_to_bleed)) | is.na(time_to_bleed)) %>%
     ## Create a column for whether the row is right-censored or not.
     ## An NA in the time_to_bleed means that no bleeding event
@@ -94,10 +92,10 @@ next_bleed <- subsequent %>%
                                    time_to_bleed)) %>%
     ## Clean up by dropping temporary columns and renaming
     ungroup() %>%
-    select(-val, -type, -spell_end, -nhs_number) %>%
-    rename(acs_type = primary_diagnosis_icd,
-           age = age_on_admission) %>%
-    relocate(age, spell_start, acs_type, status, time_to_bleed, bleed_type)
+    select(-val, -primary_diagnosis_icd, -spell_end, -nhs_number) %>%
+    rename(acs_diagnosis = diagnosis, age = age_on_admission) %>%
+    relocate(age, spell_start, acs_diagnosis,
+             status, time_to_bleed, bleed_type)
 
 ## Age is a minor ARC-HBR criterion: score = 0.5 if age >= 75,
 ## else score is zero (higher means more at risk)

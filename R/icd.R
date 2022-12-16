@@ -511,7 +511,6 @@ name.icdb_icd10 <- function(x)
     vctrs::field(x, "name")
 }
 
-
 ##' @export
 summary.icdb_icd10 <- function(object, ...)
 {
