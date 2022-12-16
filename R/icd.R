@@ -462,37 +462,15 @@ groups <- function(x) {
 }
 
 
-##' @title Count the number of valid codes
+##' Valid type
+##' 
+##' @title Count the number of occurances of type
 ##' @param x The icd10 vector to count
-##' @return The total number
-num_valid <- function(x)
+##' @param type Character, One of "C", "E", "X", "T" 
+##' @return The total number of matching types
+count_type <- function(x, type)
 {
-    get_type(x) %>% stringr::str_count("C")
-}
-
-##' @title Count the number of empty codes
-##' @param x The icd10 vector to count
-##' @return The total number
-num_empty <- function(x)
-{
-    get_type(x) %>% stringr::str_count("E")
-}
-
-##' @title Count the number of invalid codes
-##' @param x The icd10 vector to count
-##' @return The total number
-num_invalid <- function(x)
-{
-    get_type(x) %>% stringr::str_count("X")
-}
-
-##' @title Count the number of valid codes with
-##' trailing matter
-##' @param x The icd10 vector to count
-##' @return The total number
-num_trailing <- function(x)
-{
-    get_type(x) %>% stringr::str_count("T")
+    sum(get_types(x) == type)
 }
 
 ##' Get the parse statistics for a vector of icd10
@@ -504,13 +482,13 @@ num_trailing <- function(x)
 ##' @return A list contains counts of each class
 ##'
 ##' @export
-get_parse_stats <- function()
+get_parse_stats <- function(x)
 {
     list (
-        valid_count = num_valid(x),
-        invalid_count = num_invalid(x), 
-        empty_count = num_empty(x), 
-        trailing_count = num_trailing(x)        
+        valid_count = count_type(x, "C"),
+        invalid_count = count_type(x, "X"),
+        empty_count = count_type(x, "E"),
+        trailing_count = count_type(x, "T")       
     )
 }
 
