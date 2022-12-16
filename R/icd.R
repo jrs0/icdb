@@ -477,6 +477,7 @@ count_type <- function(x, type)
 ##' empty strings.
 ##'
 ##' @title Get ICD-10 parse statistics
+##' @param x The icd10 codes list to process
 ##' @return A list contains counts of each class
 ##'
 ##' @export
@@ -538,6 +539,11 @@ in_group <- function(x, group)
     g %>% purrr::map(~ any(group %in% .x)) %>% unlist()
 }
 
+##' @title Binary operator version of in_groups
+##' @param x The icd10 codes (icd10 vector) to test
+##' @param group A character vector of groups. If there
+##' are multiple groups, codes will be returned for all
+##' the groups listed.
 ##' @export
 `%in_group%` <- function(x, group) in_group(x,group)
 

@@ -6,6 +6,9 @@
 \usage{
 get_parse_stats(x)
 }
+\arguments{
+\item{x}{The icd10 codes list to process}
+}
 \value{
 A list contains counts of each class
 }
