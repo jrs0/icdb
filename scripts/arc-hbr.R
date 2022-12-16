@@ -70,7 +70,7 @@ next_bleed <- subsequent
 next_bleed$val <- next_bleed$spell_start
 idx <- !(next_bleed$diagnosis %in_group% "bleeding")
 next_bleed$val[idx] <- NA
-
+    
     ## For each bleeding event, calculate the time to the nearest
     ## (most recent) ACS event. The times
     ## to next bleeding are stored in the ACS rows (an NA is used
