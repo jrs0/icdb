@@ -71,10 +71,10 @@ next_bleed <- subsequent %>%
     mutate(time_to_bleed = as.numeric((val - spell_start)/lubridate::ddays(1))) %>%
     ## In addition, store the bleeding diagnosis for the subsequent
     ## bleeding event.
-    mutate(bleed_type = if_else(diagnosis %in_group% "bleeding", diagnosis, NULL))
+    mutate(bleed_type = if_else(diagnosis %in_group% "bleeding", diagnosis, NULL)) %>%
+    fill(bleed_type, .direction = "up")
 
 
-    fill(bleed_type, .direction = "up") %>%
     ## Keep only the most recent ACS event before a bleeding event,
     ## and also ACS events with no subsequent bleeding event
     filter(type == "acs") %>%
