@@ -8,4 +8,6 @@
 ## This file contains the interface that enables the graphical program to be
 ## opened within R. The binary for the program is stored in the inst/extdata/bin
 ## folder, with a version for Windows, Mac and Linux. The application uses the
-## Tauri (Rust) framework, with Next.js as the frontend.
+## Tauri (Rust) framework, with Next.js as the frontend. See the folder
+## map-editor in the root of the repository for the source code.
+
