@@ -471,7 +471,8 @@ summary.icdb_icd10 <- function(object, ...)
 ##'
 ##' @title Check if ICD-10 code is in a group 
 ##' @param x The icd10 code (icd10 S3 class) to test
-##' @param group The group as a string 
+##' @param group A character vector of groups. If there are multiple
+##' groups, codes will be returned for all the groups listed.
 ##' @return TRUE if the code is in the group, false otherwise
 ##' @export
 in_group <- function(x, group)
@@ -479,7 +480,7 @@ in_group <- function(x, group)
     vctrs::vec_assert({{x}}, icd10())
 
     g <- groups({{x}})
-    g %>% purrr::map(~ group %in% .x) %>% unlist()
+    g %>% purrr::map(~ any(group %in% .x)) %>% unlist()
 }
 
 ##' @export
