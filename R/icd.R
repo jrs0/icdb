@@ -456,26 +456,31 @@ groups.icdb_icd10 <- function(x)
     vctrs::field(x, "groups")
 }
 
-docs <- function(x)  {
-    UseMethod("docs")
-}
+
 
 ##' @export
-docs.icdb_icd10 <- function(x)
+summary.icdb_icd10 <- function(object, ...)
 {
-    ## Move this to an argument, consistent with the others
-    codes_file = system.file("extdata",
-                             "icd10/icd10.yaml",
-                             package = "icdb")
-    
-    codes_def <- icd10_load_codes(codes_file)
-
-    indices <- vctrs::field(x, "indices")
-    icd10_indices_to_code(indices, codes_def) %>%
-        purrr::map("docs")
-    
+    print("hello")
 }
 
+##' Check whether an icd10 code is in a particular group.
+##' Suitable for use in the data masking arguments of
+##' dplyr calls. The function will throw an error if
+##' it is supplied a column which is not class icd10.
+##'
+##' @title Check if ICD-10 code is in a group 
+##' @param x The icd10 code (icd10 S3 class) to test
+##' @param group The group as a string 
+##' @return TRUE if the code is in the group, false otherwise
+##' @export
+in_group <- function(x, group)
+{
+    vctrs::vec_assert({{x}}, icd10())
+
+    g <- groups({{x}})
+    g %>% purrr::map(~ group %in% .x) %>% unlist()
+}
 
 ##' @export
 format.icdb_icd10 <- function(x, ...)
