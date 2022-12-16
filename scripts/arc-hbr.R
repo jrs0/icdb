@@ -61,19 +61,19 @@ subsequent <- spells %>%
 ## occured within less than the post-index window. This makes
 ## the assumption that the most recent ACS event before the
 ## bleeding event is the cause of the bleeding event.
-next_bleed <- subsequent %>%
+next_bleed <- subsequent %>% head(10000) %>%
     ## For each bleeding event, calculate the time to the nearest
     ## (most recent) ACS event. The times
     ## to next bleeding are stored in the ACS rows (an NA is used
     ## if there is not subsequent bleeding event
     mutate(val = if_else(diagnosis %in_group% "bleeding", spell_start, NULL)) %>%
-    fill(val, .direction = "up")
-
-
+    fill(val, .direction = "up") %>%
     mutate(time_to_bleed = as.numeric((val - spell_start)/lubridate::ddays(1))) %>%
     ## In addition, store the bleeding diagnosis for the subsequent
     ## bleeding event.
-    mutate(bleed_type = if_else(type == "bleeding", primary_diagnosis_icd, NULL)) %>%
+    mutate(bleed_type = if_else(diagnosis %in_group% "bleeding", diagnosis, NULL))
+
+
     fill(bleed_type, .direction = "up") %>%
     ## Keep only the most recent ACS event before a bleeding event,
     ## and also ACS events with no subsequent bleeding event
