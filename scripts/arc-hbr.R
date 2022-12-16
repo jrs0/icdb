@@ -61,7 +61,7 @@ subsequent <- spells %>%
 ## occured within less than the post-index window. This makes
 ## the assumption that the most recent ACS event before the
 ## bleeding event is the cause of the bleeding event.
-next_bleed <- subsequent %>% head(200000) %>%
+next_bleed <- subsequent[200000:218758,] %>%
     ## For each bleeding event, calculate the time to the nearest
     ## (most recent) ACS event. The times
     ## to next bleeding are stored in the ACS rows (an NA is used
