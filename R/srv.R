@@ -523,8 +523,6 @@ setMethod("sql_query", c("server", "character"), function(db, query) {
     result <- read_cache(query)
     if (!is.null(result))
     {
-        message("Found cached results for this query, using that")
-
         ## Return the cached data
         result
     }
@@ -648,8 +646,6 @@ run <- function(x, lifetime = NULL, ...)
 
     if (!is.null(result))
     {
-        message("Found cached results for this query, using that")
-
         ## Return the cached data
         result
     }
