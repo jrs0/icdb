@@ -501,6 +501,11 @@ groups.icdb_icd10 <- function(x)
     vctrs::field(x, "groups")
 }
 
+group_string <- function(x)
+{
+    groups(x) %>% purrr::map(~ paste(.x, collapse=","))
+}
+
 name <- function(x) {
     UseMethod("name")
 }

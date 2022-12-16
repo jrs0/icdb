@@ -50,6 +50,10 @@ spells <- all_spells %>%
 ## a tibble grouped by patient, containing a chronological record
 ## of all ACS and bleeding events
 subsequent <- spells %>%
+    ## Add a column "type" that contains either "acs" or "bleeding"
+    mutate(type = group_string(diagnosis)) %>%
+    ## Drop the diagnosis column
+    select(-diagnosis) %>%
     ## Group by patient
     group_by(nhs_number) %>%
     ## Arrange in order of spell start
@@ -62,25 +66,28 @@ subsequent <- spells %>%
 ## the assumption that the most recent ACS event before the
 ## bleeding event is the cause of the bleeding event.
 ##
-## takes 16mins currently
+## takes 16mins using the icd10 class to identify the groups.
+## Using a specific character vector reduces time to about 11
+## mins. Dropping the diagnosis column does not appear to help
+## much.
 
 ## Tidyverse version takes 40 seconds, base R version takes
 ## 2 seconds. 
-next_bleed <- subsequent %>% head(10000) %>%
+next_bleed <- subsequent %>%
     ## For each bleeding event, calculate the time to the nearest
     ## (most recent) ACS event. The times
     ## to next bleeding are stored in the ACS rows (an NA is used
     ## if there is not subsequent bleeding event
-    mutate(val = if_else(diagnosis %in_group% "bleeding",
-                         spell_start, NULL)) %>%
+    mutate(val = if_else(type == "bleeding", spell_start, NULL)) %>%
+    fill(val, .direction = "up") %>%
     mutate(time_to_bleed = as.numeric((val - spell_start)/lubridate::ddays(1))) %>%
     ## In addition, store the bleeding diagnosis for the subsequent
     ## bleeding event.
-    mutate(bleed_type = if_else(diagnosis %in_group% "bleeding", diagnosis, NULL)) %>%
+    mutate(bleed_type = if_else(type == "bleeding", primary_diagnosis_icd, NULL)) %>%
     fill(bleed_type, .direction = "up") %>%
     ## Keep only the most recent ACS event before a bleeding event,
     ## and also ACS events with no subsequent bleeding event
-    filter(diagnosis %in_group% "acs") %>%
+    filter(type == "acs") %>%
     filter((time_to_bleed == min(time_to_bleed)) | is.na(time_to_bleed)) %>%
     ## Create a column for whether the row is right-censored or not.
     ## An NA in the time_to_bleed means that no bleeding event
@@ -97,15 +104,17 @@ next_bleed <- subsequent %>% head(10000) %>%
                                    time_to_bleed)) %>%
     ## Clean up by dropping temporary columns and renaming
     ungroup() %>%
-    select(-val, -primary_diagnosis_icd, -spell_end, -nhs_number) %>%
-    rename(acs_diagnosis = diagnosis, age = age_on_admission) %>%
-    relocate(age, spell_start, acs_diagnosis,
-             status, time_to_bleed, bleed_type)
+    select(-val, -type, -spell_end, -nhs_number) %>%
+    rename(acs_type = primary_diagnosis_icd,
+           age = age_on_admission) %>%
+    relocate(age, spell_start, acs_type, status, time_to_bleed, bleed_type)
 
 ## Age is a minor ARC-HBR criterion: score = 0.5 if age >= 75,
 ## else score is zero (higher means more at risk)
 hbr <- next_bleed %>%
     mutate(hbr_age = case_when(age >= 75 ~ 0.5, TRUE ~ 0))
+
+
 
 ## Use survival analysis to model the likelihood of bleeding
 ## within 12-months of an ACS event, based on age
