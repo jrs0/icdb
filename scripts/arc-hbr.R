@@ -42,7 +42,8 @@ code_file <- system.file("extdata/icd10/icd10_arc.yaml", package="icdb")
 ## 1,000,000 - not measured before (26 seconds, 7s)
 ## 6.5m - 15mins (2 minutes 24 seconds, 26s)
 spells <- all_spells %>%
-    mutate(p = icd10(primary_diagnosis_icd, code_file))
+    mutate(diagnosis = icd10(primary_diagnosis_icd, code_file)) %>%
+    filter(diagnosis %in_group% c("acs", "bleeding"))
     
 ## codes_from(c("icd10/acs.yaml", "icd10/bleeding.yaml"), primary_diagnosis_icd) %>% 
 ## run()

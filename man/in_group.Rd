@@ -9,7 +9,8 @@ in_group(x, group)
 \arguments{
 \item{x}{The icd10 code (icd10 S3 class) to test}
 
-\item{group}{The group as a string}
+\item{group}{A character vector of groups. If there are multiple
+groups, codes will be returned for all the groups listed.}
 }
 \value{
 TRUE if the code is in the group, false otherwise
@@ -17,5 +18,6 @@ TRUE if the code is in the group, false otherwise
 \description{
 Check whether an icd10 code is in a particular group.
 Suitable for use in the data masking arguments of
-dplyr calls
+dplyr calls. The function will throw an error if
+it is supplied a column which is not class icd10.
 }

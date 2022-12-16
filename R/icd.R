@@ -484,6 +484,9 @@ in_group <- function(x, group)
 }
 
 ##' @export
+`%in_group%` <- function(x, group) in_group(x,group)
+
+##' @export
 format.icdb_icd10 <- function(x, ...)
 {
     name <- vctrs::field(x, "name")
