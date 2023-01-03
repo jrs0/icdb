@@ -416,7 +416,7 @@ is_valid <- function(x) {
 is_valid.icdb_icd10 <- function(x)
 {
     vctrs::field(x, "types") %>%
-        purrr::map(~ .x == 0) %>%
+        purrr::map(~ (.x == 0 || .x == 3)) %>%
         unlist()
 }
 
@@ -515,7 +515,9 @@ groups.icdb_icd10 <- function(x)
 
 group_string <- function(x)
 {
-    groups(x) %>% purrr::map(~ paste(.x, collapse=","))
+    groups(x) %>%
+        purrr::map(~ paste(.x, collapse=",")) %>%
+        unlist()
 }
 
 name <- function(x) {

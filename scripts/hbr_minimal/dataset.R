@@ -4,8 +4,12 @@
 
 library(tidyverse)
 library(lubridate)
+library(ggplot2)
 
-## Run either devtools::load_all() or library(icdb), depending
+## To run this script, make sure the working directory is set
+## to the location of this file.
+
+## Run either devtools::load_all("../../") or library(icdb), depending
 ## whether you are developing the package or have an installed version
 
 ## Remember that you have to rerun use_cache after
@@ -51,8 +55,19 @@ valid_icd <- parsed_icd %>%
     filter(is_valid(diagnosis)) %>% 
     select(-primary_diagnosis_icd, -spell_end)
 
-    ##     filter(diagnosis %in_group% c("acs", "bleeding"))
+## Filter the valid ICD codes only keeping the ones in a specified
+## ICD-10 group (set by using the map-editor tool). In addition,
+## extract the groups as strings and drop the original diagnosis
+## column.
+spells_of_interest <- valid_icd %>%
+    filter(in_any_group(diagnosis)) %>%
+    mutate(group = group_string(diagnosis)) %>%
+    select(-diagnosis)
+message("Total spells of interest (those in groups): ",
+        nrow(spells_of_interest))
 
+ggplot(data=spells_of_interest) +
+    geom_bar(mapping = aes(x = group), stat="count")
 
 ## Define the length of the post-index window
 post <- ddays(365)
