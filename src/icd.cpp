@@ -339,8 +339,11 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 	}
 	// Move the elements to diff, and then swap diff with
 	// groups afterwords.
-	std::set_difference(std::make_move_iterator(std::begin(groups)),
-			    std::make_move_iterator(std::end(groups)),
+	Rcpp::Rcout << "Before:" << std::endl;
+	for (const auto & g : exclude) {
+	    Rcpp::Rcout << "- " << g << std::endl;
+	}
+	std::set_difference(std::begin(groups), std::end(groups),
 			    std::begin(exclude), std::end(exclude),
 			    std::inserter(diff, std::begin(diff)));
 	groups.swap(diff);
