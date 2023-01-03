@@ -333,7 +333,10 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     try {
 	std::vector<std::string> diff;
 	std::vector<std::string> exclude = position->exclude();
-
+	Rcpp::Rcout << "Exl:" << std::endl;
+	for (const auto & g : exclude) {
+	    Rcpp::Rcout << "- " << g << std::endl;
+	}
 	// Move the elements to diff, and then swap diff with
 	// groups afterwords.
 	std::set_difference(std::make_move_iterator(std::begin(groups)),
@@ -341,6 +344,10 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
 			    std::begin(exclude), std::end(exclude),
 			    std::inserter(diff, std::begin(diff)));
 	groups.swap(diff);
+	Rcpp::Rcout << "Rem:" << std::endl;
+	for (const auto & g : groups) {
+	    Rcpp::Rcout << "- " << g << std::endl;
+	}
     } catch (const Rcpp::index_out_of_bounds &) {
 	// No exclude tag present, no need to remove anything,
 	// groups is still valid

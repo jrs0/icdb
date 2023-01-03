@@ -41324,14 +41324,14 @@ child:
     - U85
   docs: ICD-10 codes, 2016 release
   exclude:
-  - atrial
+  - att
   index:
   - A00
   - Z99
 groups:
 - acs
 - bleeding
-- atrial
+- att
 - ckd.1
 - ckd.2
 - ckd.3
