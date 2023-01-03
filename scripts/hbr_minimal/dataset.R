@@ -66,9 +66,26 @@ spells_of_interest <- valid_icd %>%
 message("Total spells of interest (those in groups): ",
         nrow(spells_of_interest))
 
+## Plot the distribution of different conditions (note the
+## log scale)
 ggplot(data=spells_of_interest) +
     geom_bar(mapping = aes(x = group), stat="count") +
     scale_y_log10()
+
+## Print a summary of the breakdown of each condition
+spells_of_interest %>%
+    select(group) %>%
+    group_by(group) %>%
+    count()
+
+saveRDS(spells_of_interest, "gendata/spells_of_interest.rds")
+
+## Save Point 1 ============================================
+## If you get here, save the result so that you can pick up
+## without needing to redo the parsing steps
+spells_of_interest <- readRDS("gendata/spells_of_interest.rds")
+
+
 
 ## Define the length of the post-index window
 post <- ddays(365)
