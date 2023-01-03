@@ -3026,7 +3026,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -5900,7 +5899,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -6607,7 +6605,6 @@ child:
     docs: Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
     exclude:
     - acs
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -7964,7 +7961,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -8015,7 +8011,6 @@ child:
       exclude:
       - acs
       - bleeding
-      - af
       - ckd.other
       index:
       - I00
@@ -8124,7 +8119,6 @@ child:
       exclude:
       - acs
       - bleeding
-      - af
       - ckd.other
       index:
       - I05
@@ -8199,7 +8193,6 @@ child:
       exclude:
       - acs
       - bleeding
-      - af
       index:
       - I10
       - I15
@@ -8371,7 +8364,6 @@ child:
         index: I25
       docs: Ischaemic heart diseases
       exclude:
-      - af
       - ckd.other
       index:
       - I20
@@ -8427,7 +8419,6 @@ child:
       exclude:
       - acs
       - bleeding
-      - af
       - ckd.other
       index:
       - I26
@@ -8451,7 +8442,6 @@ child:
         docs: Acute pericarditis
         exclude:
         - bleeding
-        - af
         index: I30
       - category: I31
         child:
@@ -8484,8 +8474,6 @@ child:
           - bleeding
           index: I319
         docs: Other diseases of pericardium
-        exclude:
-        - af
         index: I31
       - category: I32
         child:
@@ -8501,7 +8489,6 @@ child:
         docs: Pericarditis in diseases classified elsewhere
         exclude:
         - bleeding
-        - af
         index: I32
       - category: I33
         child:
@@ -8514,7 +8501,6 @@ child:
         docs: Acute and subacute endocarditis
         exclude:
         - bleeding
-        - af
         index: I33
       - category: I34
         child:
@@ -8536,7 +8522,6 @@ child:
         docs: Nonrheumatic mitral valve disorders
         exclude:
         - bleeding
-        - af
         index: I34
       - category: I35
         child:
@@ -8558,7 +8543,6 @@ child:
         docs: Nonrheumatic aortic valve disorders
         exclude:
         - bleeding
-        - af
         index: I35
       - category: I36
         child:
@@ -8580,7 +8564,6 @@ child:
         docs: Nonrheumatic tricuspid valve disorders
         exclude:
         - bleeding
-        - af
         index: I36
       - category: I37
         child:
@@ -8602,13 +8585,11 @@ child:
         docs: Pulmonary valve disorders
         exclude:
         - bleeding
-        - af
         index: I37
       - code: I38
         docs: Endocarditis, valve unspecified
         exclude:
         - bleeding
-        - af
         index: I38
       - category: I39
         child:
@@ -8633,7 +8614,6 @@ child:
         docs: Endocarditis and heart valve disorders in diseases classified elsewhere
         exclude:
         - bleeding
-        - af
         index: I39
       - category: I40
         child:
@@ -8652,7 +8632,6 @@ child:
         docs: Acute myocarditis
         exclude:
         - bleeding
-        - af
         index: I40
       - category: I41
         child:
@@ -8671,7 +8650,6 @@ child:
         docs: Myocarditis in diseases classified elsewhere
         exclude:
         - bleeding
-        - af
         index: I41
       - category: I42
         child:
@@ -8708,7 +8686,6 @@ child:
         docs: Cardiomyopathy
         exclude:
         - bleeding
-        - af
         index: I42
       - category: I43
         child:
@@ -8727,7 +8704,6 @@ child:
         docs: Cardiomyopathy in diseases classified elsewhere
         exclude:
         - bleeding
-        - af
         index: I43
       - category: I44
         child:
@@ -8758,7 +8734,6 @@ child:
         docs: Atrioventricular and left bundle-branch block
         exclude:
         - bleeding
-        - af
         index: I44
       - category: I45
         child:
@@ -8792,7 +8767,6 @@ child:
         docs: Other conduction disorders
         exclude:
         - bleeding
-        - af
         index: I45
       - category: I46
         child:
@@ -8808,7 +8782,6 @@ child:
         docs: Cardiac arrest
         exclude:
         - bleeding
-        - af
         index: I46
       - category: I47
         child:
@@ -8827,7 +8800,6 @@ child:
         docs: Paroxysmal tachycardia
         exclude:
         - bleeding
-        - af
         index: I47
       - category: I48
         child:
@@ -8882,7 +8854,6 @@ child:
         docs: Other cardiac arrhythmias
         exclude:
         - bleeding
-        - af
         index: I49
       - category: I50
         child:
@@ -8898,7 +8869,6 @@ child:
         docs: Heart failure
         exclude:
         - bleeding
-        - af
         index: I50
       - category: I51
         child:
@@ -8935,7 +8905,6 @@ child:
         docs: Complications and ill-defined descriptions of heart disease
         exclude:
         - bleeding
-        - af
         index: I51
       - category: I52
         child:
@@ -8951,7 +8920,6 @@ child:
         docs: Other heart disorders in diseases classified elsewhere
         exclude:
         - bleeding
-        - af
         index: I52
       docs: Other forms of heart disease
       exclude:
@@ -9214,7 +9182,6 @@ child:
       docs: Cerebrovascular diseases
       exclude:
       - acs
-      - af
       - ckd.other
       index:
       - I60
@@ -9413,7 +9380,6 @@ child:
       exclude:
       - acs
       - bleeding
-      - af
       - ckd.other
       index:
       - I70
@@ -9587,7 +9553,6 @@ child:
       docs: Diseases of veins, lymphatic vessels and lymph nodes, not elsewhere classified
       exclude:
       - acs
-      - af
       - ckd.other
       index:
       - I80
@@ -9671,7 +9636,6 @@ child:
       docs: Other and unspecified disorders of the circulatory system
       exclude:
       - acs
-      - af
       - ckd.other
       index:
       - I95
@@ -11220,7 +11184,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -12528,7 +12491,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -13690,7 +13652,6 @@ child:
     docs: Diseases of the eye and adnexa
     exclude:
     - acs
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -14177,7 +14138,6 @@ child:
     docs: Diseases of the ear and mastoid process
     exclude:
     - acs
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -15169,7 +15129,6 @@ child:
     docs: Diseases of the respiratory system
     exclude:
     - acs
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -16990,7 +16949,6 @@ child:
     docs: Diseases of the digestive system
     exclude:
     - acs
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -18313,7 +18271,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -20434,7 +20391,6 @@ child:
     docs: Diseases of the musculoskeletal system and connective tissue
     exclude:
     - acs
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -22339,7 +22295,6 @@ child:
     docs: Diseases of the genitourinary system
     exclude:
     - acs
-    - af
     index:
     - N00
     - N99
@@ -27180,7 +27135,6 @@ child:
     docs: Injury, poisoning and certain other consequences of external causes
     exclude:
     - acs
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -28815,7 +28769,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -30107,7 +30060,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -32419,7 +32371,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -33848,7 +33799,6 @@ child:
     docs: Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified
     exclude:
     - acs
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -38811,7 +38761,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -41192,7 +41141,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -41364,7 +41312,6 @@ child:
     exclude:
     - acs
     - bleeding
-    - af
     - ckd.1
     - ckd.2
     - ckd.3
@@ -41376,13 +41323,15 @@ child:
     - U00
     - U85
   docs: ICD-10 codes, 2016 release
+  exclude:
+  - catrial
   index:
   - A00
   - Z99
 groups:
 - acs
 - bleeding
-- af
+- catrial
 - ckd.1
 - ckd.2
 - ckd.3
