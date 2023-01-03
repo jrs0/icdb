@@ -5,8 +5,11 @@
 library(tidyverse)
 library(lubridate)
 
+## Run either devtools::load_all() or library(icdb), depending
+## whether you are developing the package or have an installed version
+
 ## Remember that you have to rerun use_cache after
-## a load_all()
+## a load_all() or a library(icdb)
 use_cache(TRUE, size = 1, lifetime = ddays(30))
 
 msrv <- mapped_server("xsw")
@@ -21,19 +24,36 @@ end <- ymd("2023-1-1")
 all_spells <- msrv$sus$apc_spells %>%
     filter(spell_start >= !!start, spell_start <= !!end) %>%
     run()
+message("Total spells: ", nrow(all_spells))
 
 ## Parse (read and interpret) the primary diagnosis ICD code field.
 ## After this step, certain codes are kept (the ones the program knows
 ## how to interpret), and these are guaranteed to have been interpreted
 ## correctly. It rejects codes where it unsure of the meaning of the code.
 code_file <- system.file("extdata/icd10/icd10_arc.yaml", package="icdb")
-spells <- all_spells %>%
+parsed_icd <- all_spells %>%
     mutate(diagnosis = icd10(primary_diagnosis_icd, code_file))
+parse_stats <- parsed_icd$diagnosis %>% get_parse_stats()
+total_valid <- parse_stats$valid_count + parse_stats$trailing_count
+total_excluded <- parse_stats$empty_count + parse_stats$invalid_count
+message("Total valid ICD codes: ", total_valid)
+message("Total invalid/non-interpreted ICD codes: ", total_excluded)
+message("Percentage excluded: ",
+        round(100*total_excluded/nrow(all_spells), 2), "%")
 
-## Print basic statistics on the parsing results
+## Keep only the ICD codes that were parse correctly (with optional
+## trailing matter). Reject empty/invalid codes. Drop the original
+## diagnosis column.
+valid_icd <- parsed_icd %>%
+    filter(is_valid(diagnosis)) %>% 
+    select(-primary_diagnosis_icd, -spell_end)
+    
+## Extract the ICD category into a character column, and drop the
+## original diagnosis column. The ICD-10 category contains all the
+## information required for the analysis
 
-## %>%
-##     filter(diagnosis %in_group% c("acs", "bleeding"))
+
+    ##     filter(diagnosis %in_group% c("acs", "bleeding"))
 
 
 ## Define the length of the post-index window
