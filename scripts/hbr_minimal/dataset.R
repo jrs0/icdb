@@ -60,9 +60,10 @@ valid_icd <- parsed_icd %>%
 ## extract the groups as strings and drop the original diagnosis
 ## column.
 spells_of_interest <- valid_icd %>%
-    filter(in_any_group(diagnosis)) %>%
-    mutate(group = group_string(diagnosis)) %>%
-    select(-diagnosis)
+    filter(in_any_group(diagnosis)) %>% 
+    mutate(group = group_string(diagnosis))
+
+select(-diagnosis)
 message("Total spells of interest (those in groups): ",
         nrow(spells_of_interest))
 
