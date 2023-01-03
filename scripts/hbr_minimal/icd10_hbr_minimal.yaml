@@ -41324,14 +41324,14 @@ child:
     - U85
   docs: ICD-10 codes, 2016 release
   exclude:
-  - catrial
+  - att
   index:
   - A00
   - Z99
 groups:
 - acs
 - bleeding
-- catrial
+- att
 - ckd.1
 - ckd.2
 - ckd.3
