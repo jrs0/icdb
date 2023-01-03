@@ -67,7 +67,10 @@ message("Total spells of interest (those in groups): ",
         nrow(spells_of_interest))
 
 ## Plot the distribution of different conditions (note the
-## log scale)
+## log scale). In viewing this graph, note that some conditions
+## have a greater spells-per-person-per-time than others -- a
+## acute condition may have one spell, but a chronic condition
+## may have many.
 ggplot(data=spells_of_interest) +
     geom_bar(mapping = aes(x = group), stat="count") +
     scale_y_log10()
@@ -85,6 +88,17 @@ saveRDS(spells_of_interest, "gendata/spells_of_interest.rds")
 ## without needing to redo the parsing steps
 spells_of_interest <- readRDS("gendata/spells_of_interest.rds")
 
+## Group by nhs number and arrange by date to obtain the sequence
+## of events for each patient. Label each acs condition with a
+## unique id, and then fill forwards and backwards to label each
+## other spell with the closest ACS event 
+val <- spells_of_interest %>%
+    group_by(nhs_number) %>%
+    arrange(spell_start, .by_group = TRUE)
+
+a <- val %>% mutate(id = row_number())
+b <- a %>% mutate(acs_id = case_when(grepl("acs", group) ~ id))
+c <- b %>% mutate(next_acs_id = acs_id) %>% fill(next_acs_id, .direction = "up") %>% mutate(prev_acs_id = acs_id) %>% fill(prev_acs_id, .direction = "down")
 
 
 ## Define the length of the post-index window
