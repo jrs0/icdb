@@ -63,7 +63,6 @@ spells_of_interest <- valid_icd %>%
     filter(in_any_group(diagnosis)) %>% 
     mutate(group = group_string(diagnosis)) %>%
     select(-diagnosis)
-
 message("Total spells of interest (those in groups): ",
         nrow(spells_of_interest))
 
