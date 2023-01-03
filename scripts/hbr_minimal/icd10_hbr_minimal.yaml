@@ -3026,11 +3026,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -5900,11 +5900,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -6607,11 +6607,11 @@ child:
     docs: Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
     exclude:
     - acs
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -7964,11 +7964,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -9678,11 +9678,11 @@ child:
       - I99
     docs: Diseases of the circulatory system
     exclude:
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     index:
     - I00
@@ -11220,11 +11220,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -12528,11 +12528,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -13690,11 +13690,11 @@ child:
     docs: Diseases of the eye and adnexa
     exclude:
     - acs
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -14177,11 +14177,11 @@ child:
     docs: Diseases of the ear and mastoid process
     exclude:
     - acs
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -15169,11 +15169,11 @@ child:
     docs: Diseases of the respiratory system
     exclude:
     - acs
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -16990,11 +16990,11 @@ child:
     docs: Diseases of the digestive system
     exclude:
     - acs
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -18313,11 +18313,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -20434,11 +20434,11 @@ child:
     docs: Diseases of the musculoskeletal system and connective tissue
     exclude:
     - acs
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -20765,11 +20765,11 @@ child:
         index: N08
       docs: Glomerular diseases
       exclude:
-      - ckd.1
-      - ckd.2
-      - ckd.3
-      - ckd.4
-      - ckd.5
+      - ckd1
+      - ckd2
+      - ckd3
+      - ckd4
+      - ckd5
       - ckd
       index:
       - N00
@@ -20899,11 +20899,11 @@ child:
       docs: Renal tubulo-interstitial diseases
       exclude:
       - bleeding
-      - ckd.1
-      - ckd.2
-      - ckd.3
-      - ckd.4
-      - ckd.5
+      - ckd1
+      - ckd2
+      - ckd3
+      - ckd4
+      - ckd5
       - ckd
       index:
       - N10
@@ -20929,11 +20929,11 @@ child:
           index: N179
         docs: Acute renal failure
         exclude:
-        - ckd.1
-        - ckd.2
-        - ckd.3
-        - ckd.4
-        - ckd.5
+        - ckd1
+        - ckd2
+        - ckd3
+        - ckd4
+        - ckd5
         - ckd
         index: N17
       - category: N18
@@ -20941,67 +20941,67 @@ child:
         - code: N18.1
           docs: Chronic kidney disease, stage 1
           exclude:
-          - ckd.2
-          - ckd.3
-          - ckd.4
-          - ckd.5
+          - ckd2
+          - ckd3
+          - ckd4
+          - ckd5
           - ckd
           index: N181
         - code: N18.2
           docs: Chronic kidney disease, stage 2
           exclude:
-          - ckd.1
-          - ckd.3
-          - ckd.4
-          - ckd.5
+          - ckd1
+          - ckd3
+          - ckd4
+          - ckd5
           - ckd
           index: N182
         - code: N18.3
           docs: Chronic kidney disease, stage 3
           exclude:
-          - ckd.1
-          - ckd.2
-          - ckd.4
-          - ckd.5
+          - ckd1
+          - ckd2
+          - ckd4
+          - ckd5
           - ckd
           index: N183
         - code: N18.4
           docs: Chronic kidney disease, stage 4
           exclude:
-          - ckd.1
-          - ckd.2
-          - ckd.3
-          - ckd.5
+          - ckd1
+          - ckd2
+          - ckd3
+          - ckd5
           - ckd
           index: N184
         - code: N18.5
           docs: Chronic kidney disease, stage 5
           exclude:
-          - ckd.1
-          - ckd.2
-          - ckd.3
-          - ckd.4
+          - ckd1
+          - ckd2
+          - ckd3
+          - ckd4
           - ckd
           index: N185
         - code: N18.9
           docs: Chronic kidney disease, unspecified
           exclude:
-          - ckd.1
-          - ckd.2
-          - ckd.3
-          - ckd.4
-          - ckd.5
+          - ckd1
+          - ckd2
+          - ckd3
+          - ckd4
+          - ckd5
           index: N189
         docs: Chronic kidney disease
         index: N18
       - code: N19
         docs: Unspecified kidney failure
         exclude:
-        - ckd.1
-        - ckd.2
-        - ckd.3
-        - ckd.4
-        - ckd.5
+        - ckd1
+        - ckd2
+        - ckd3
+        - ckd4
+        - ckd5
         index: N19
       docs: Renal failure
       exclude:
@@ -21060,11 +21060,11 @@ child:
       docs: Urolithiasis
       exclude:
       - bleeding
-      - ckd.1
-      - ckd.2
-      - ckd.3
-      - ckd.4
-      - ckd.5
+      - ckd1
+      - ckd2
+      - ckd3
+      - ckd4
+      - ckd5
       - ckd
       - ckd.other
       index:
@@ -21140,11 +21140,11 @@ child:
       docs: Other disorders of kidney and ureter
       exclude:
       - bleeding
-      - ckd.1
-      - ckd.2
-      - ckd.3
-      - ckd.4
-      - ckd.5
+      - ckd1
+      - ckd2
+      - ckd3
+      - ckd4
+      - ckd5
       - ckd
       index:
       - N25
@@ -21322,11 +21322,11 @@ child:
       docs: Other diseases of urinary system
       exclude:
       - bleeding
-      - ckd.1
-      - ckd.2
-      - ckd.3
-      - ckd.4
-      - ckd.5
+      - ckd1
+      - ckd2
+      - ckd3
+      - ckd4
+      - ckd5
       - ckd
       - ckd.other
       index:
@@ -21535,11 +21535,11 @@ child:
         index: N51
       docs: Diseases of male genital organs
       exclude:
-      - ckd.1
-      - ckd.2
-      - ckd.3
-      - ckd.4
-      - ckd.5
+      - ckd1
+      - ckd2
+      - ckd3
+      - ckd4
+      - ckd5
       - ckd
       - ckd.other
       index:
@@ -21612,11 +21612,11 @@ child:
       docs: Disorders of breast
       exclude:
       - bleeding
-      - ckd.1
-      - ckd.2
-      - ckd.3
-      - ckd.4
-      - ckd.5
+      - ckd1
+      - ckd2
+      - ckd3
+      - ckd4
+      - ckd5
       - ckd
       - ckd.other
       index:
@@ -21766,11 +21766,11 @@ child:
       docs: Inflammatory diseases of female pelvic organs
       exclude:
       - bleeding
-      - ckd.1
-      - ckd.2
-      - ckd.3
-      - ckd.4
-      - ckd.5
+      - ckd1
+      - ckd2
+      - ckd3
+      - ckd4
+      - ckd5
       - ckd
       - ckd.other
       index:
@@ -22283,11 +22283,11 @@ child:
         index: N98
       docs: Noninflammatory disorders of female genital tract
       exclude:
-      - ckd.1
-      - ckd.2
-      - ckd.3
-      - ckd.4
-      - ckd.5
+      - ckd1
+      - ckd2
+      - ckd3
+      - ckd4
+      - ckd5
       - ckd
       - ckd.other
       index:
@@ -22326,11 +22326,11 @@ child:
       docs: Other disorders of the genitourinary system
       exclude:
       - bleeding
-      - ckd.1
-      - ckd.2
-      - ckd.3
-      - ckd.4
-      - ckd.5
+      - ckd1
+      - ckd2
+      - ckd3
+      - ckd4
+      - ckd5
       - ckd
       - ckd.other
       index:
@@ -27180,11 +27180,11 @@ child:
     docs: Injury, poisoning and certain other consequences of external causes
     exclude:
     - acs
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -28815,11 +28815,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -30107,11 +30107,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -32419,11 +32419,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - af
     index:
@@ -33848,11 +33848,11 @@ child:
     docs: Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified
     exclude:
     - acs
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -38811,11 +38811,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -41192,11 +41192,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd.other
     - af
     index:
@@ -41364,11 +41364,11 @@ child:
     exclude:
     - acs
     - bleeding
-    - ckd.1
-    - ckd.2
-    - ckd.3
-    - ckd.4
-    - ckd.5
+    - ckd1
+    - ckd2
+    - ckd3
+    - ckd4
+    - ckd5
     - ckd
     - ckd.other
     - af
@@ -41383,10 +41383,10 @@ groups:
 - acs
 - bleeding
 - af
-- ckd.1
-- ckd.2
-- ckd.3
-- ckd.4
-- ckd.5
+- ckd1
+- ckd2
+- ckd3
+- ckd4
+- ckd5
 - ckd
 - ckd.other
