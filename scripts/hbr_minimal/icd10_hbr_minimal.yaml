@@ -3033,6 +3033,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - A00
     - B99
@@ -5906,6 +5907,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - C00
     - D48
@@ -6612,6 +6614,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - D50
     - D89
@@ -7968,6 +7971,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - E00
     - E90
@@ -8012,6 +8016,7 @@ child:
       - acs
       - bleeding
       - af
+      - ckd.other
       index:
       - I00
       - I02
@@ -8120,6 +8125,7 @@ child:
       - acs
       - bleeding
       - af
+      - ckd.other
       index:
       - I05
       - I09
@@ -8127,6 +8133,8 @@ child:
       child:
       - code: I10
         docs: Essential (primary) hypertension
+        exclude:
+        - ckd.other
         index: I10
       - category: I11
         child:
@@ -8137,6 +8145,8 @@ child:
           docs: Hypertensive heart disease without (congestive) heart failure
           index: I119
         docs: Hypertensive heart disease
+        exclude:
+        - ckd.other
         index: I11
       - category: I12
         child:
@@ -8182,6 +8192,8 @@ child:
           docs: Secondary hypertension, unspecified
           index: I159
         docs: Secondary hypertension
+        exclude:
+        - ckd.other
         index: I15
       docs: Hypertensive diseases
       exclude:
@@ -8360,6 +8372,7 @@ child:
       docs: Ischaemic heart diseases
       exclude:
       - af
+      - ckd.other
       index:
       - I20
       - I25
@@ -8415,6 +8428,7 @@ child:
       - acs
       - bleeding
       - af
+      - ckd.other
       index:
       - I26
       - I28
@@ -8942,6 +8956,7 @@ child:
       docs: Other forms of heart disease
       exclude:
       - acs
+      - ckd.other
       index:
       - I30
       - I52
@@ -9200,6 +9215,7 @@ child:
       exclude:
       - acs
       - af
+      - ckd.other
       index:
       - I60
       - I69
@@ -9398,6 +9414,7 @@ child:
       - acs
       - bleeding
       - af
+      - ckd.other
       index:
       - I70
       - I79
@@ -9571,6 +9588,7 @@ child:
       exclude:
       - acs
       - af
+      - ckd.other
       index:
       - I80
       - I89
@@ -9654,6 +9672,7 @@ child:
       exclude:
       - acs
       - af
+      - ckd.other
       index:
       - I95
       - I99
@@ -11208,6 +11227,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - F00
     - F99
@@ -12515,6 +12535,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - G00
     - G99
@@ -13676,6 +13697,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - H00
     - H59
@@ -14162,6 +14184,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - H60
     - H95
@@ -15153,6 +15176,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - J00
     - J99
@@ -16973,6 +16997,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - K00
     - K93
@@ -18295,6 +18320,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - L00
     - L99
@@ -20415,6 +20441,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - M00
     - M99
@@ -20457,6 +20484,7 @@ child:
         docs: Acute nephritic syndrome
         exclude:
         - bleeding
+        - ckd.other
         index: N00
       - category: N01
         child:
@@ -20750,6 +20778,8 @@ child:
       child:
       - code: N10
         docs: Acute tubulo-interstitial nephritis
+        exclude:
+        - ckd.other
         index: N10
       - category: N11
         child:
@@ -20803,6 +20833,8 @@ child:
           docs: Obstructive and reflux uropathy, unspecified
           index: N139
         docs: Obstructive and reflux uropathy
+        exclude:
+        - ckd.other
         index: N13
       - category: N14
         child:
@@ -20974,6 +21006,7 @@ child:
       docs: Renal failure
       exclude:
       - bleeding
+      - ckd.other
       index:
       - N17
       - N19
@@ -21033,6 +21066,7 @@ child:
       - ckd.4
       - ckd.5
       - ckd
+      - ckd.other
       index:
       - N20
       - N23
@@ -21085,6 +21119,8 @@ child:
           docs: Disorder of kidney and ureter, unspecified
           index: N289
         docs: Other disorders of kidney and ureter, not elsewhere classified
+        exclude:
+        - ckd.other
         index: N28
       - category: N29
         child:
@@ -21098,6 +21134,8 @@ child:
           docs: Other disorders of kidney and ureter in other diseases classified elsewhere
           index: N298
         docs: Other disorders of kidney and ureter in diseases classified elsewhere
+        exclude:
+        - ckd.other
         index: N29
       docs: Other disorders of kidney and ureter
       exclude:
@@ -21290,6 +21328,7 @@ child:
       - ckd.4
       - ckd.5
       - ckd
+      - ckd.other
       index:
       - N30
       - N39
@@ -21502,6 +21541,7 @@ child:
       - ckd.4
       - ckd.5
       - ckd
+      - ckd.other
       index:
       - N40
       - N51
@@ -21578,6 +21618,7 @@ child:
       - ckd.4
       - ckd.5
       - ckd
+      - ckd.other
       index:
       - N60
       - N64
@@ -21731,6 +21772,7 @@ child:
       - ckd.4
       - ckd.5
       - ckd
+      - ckd.other
       index:
       - N70
       - N77
@@ -22247,6 +22289,7 @@ child:
       - ckd.4
       - ckd.5
       - ckd
+      - ckd.other
       index:
       - N80
       - N98
@@ -22289,6 +22332,7 @@ child:
       - ckd.4
       - ckd.5
       - ckd
+      - ckd.other
       index:
       - N99
       - N99
@@ -27143,6 +27187,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - S00
     - T98
@@ -28777,6 +28822,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - O00
     - O99
@@ -30068,6 +30114,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - P00
     - P96
@@ -30230,6 +30277,8 @@ child:
         docs: Other congenital malformations of nervous system
         index: Q07
       docs: Congenital malformations of the nervous system
+      exclude:
+      - ckd.other
       index:
       - Q00
       - Q07
@@ -30455,6 +30504,8 @@ child:
         docs: Other congenital malformations of face and neck
         index: Q18
       docs: Congenital malformations of eye, ear, face and neck
+      exclude:
+      - ckd.other
       index:
       - Q10
       - Q18
@@ -30716,6 +30767,8 @@ child:
         docs: Other congenital malformations of circulatory system
         index: Q28
       docs: Congenital malformations of the circulatory system
+      exclude:
+      - ckd.other
       index:
       - Q20
       - Q28
@@ -30835,6 +30888,8 @@ child:
         docs: Other congenital malformations of respiratory system
         index: Q34
       docs: Congenital malformations of the respiratory system
+      exclude:
+      - ckd.other
       index:
       - Q30
       - Q34
@@ -30901,6 +30956,8 @@ child:
         docs: Cleft palate with cleft lip
         index: Q37
       docs: Cleft lip and cleft palate
+      exclude:
+      - ckd.other
       index:
       - Q35
       - Q37
@@ -31116,6 +31173,8 @@ child:
         docs: Other congenital malformations of digestive system
         index: Q45
       docs: Other congenital malformations of the digestive system
+      exclude:
+      - ckd.other
       index:
       - Q38
       - Q45
@@ -31306,6 +31365,8 @@ child:
         docs: Indeterminate sex and pseudohermaphroditism
         index: Q56
       docs: Congenital malformations of genital organs
+      exclude:
+      - ckd.other
       index:
       - Q50
       - Q56
@@ -31335,6 +31396,8 @@ child:
           docs: Potter syndrome
           index: Q606
         docs: Renal agenesis and other reduction defects of kidney
+        exclude:
+        - ckd.other
         index: Q60
       - category: Q61
         child:
@@ -31394,6 +31457,8 @@ child:
           docs: Other congenital malformations of ureter
           index: Q628
         docs: Congenital obstructive defects of renal pelvis and congenital malformations of ureter
+        exclude:
+        - ckd.other
         index: Q62
       - category: Q63
         child:
@@ -31416,6 +31481,8 @@ child:
           docs: Congenital malformation of kidney, unspecified
           index: Q639
         docs: Other congenital malformations of kidney
+        exclude:
+        - ckd.other
         index: Q63
       - category: Q64
         child:
@@ -31450,6 +31517,8 @@ child:
           docs: Congenital malformation of urinary system, unspecified
           index: Q649
         docs: Other congenital malformations of urinary system
+        exclude:
+        - ckd.other
         index: Q64
       docs: Congenital malformations of the urinary system
       index:
@@ -31875,6 +31944,8 @@ child:
         docs: Congenital malformations of the musculoskeletal system, not elsewhere classified
         index: Q79
       docs: Congenital malformations and deformations of the musculoskeletal system
+      exclude:
+      - ckd.other
       index:
       - Q65
       - Q79
@@ -32091,6 +32162,8 @@ child:
         docs: Other congenital malformations, not elsewhere classified
         index: Q89
       docs: Other congenital malformations
+      exclude:
+      - ckd.other
       index:
       - Q80
       - Q89
@@ -32337,6 +32410,8 @@ child:
         docs: Other chromosome abnormalities, not elsewhere classified
         index: Q99
       docs: Chromosomal abnormalities, not elsewhere classified
+      exclude:
+      - ckd.other
       index:
       - Q90
       - Q99
@@ -33780,6 +33855,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - R00
     - R99
@@ -38742,6 +38818,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - V01
     - Y98
@@ -41121,6 +41198,7 @@ child:
     - ckd.3
     - ckd.4
     - ckd.5
+    - ckd.other
     index:
     - Z00
     - Z99
@@ -41293,6 +41371,7 @@ child:
     - ckd.4
     - ckd.5
     - ckd
+    - ckd.other
     index:
     - U00
     - U85
@@ -41310,3 +41389,4 @@ groups:
 - ckd.4
 - ckd.5
 - ckd
+- ckd.other
