@@ -335,29 +335,9 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // them from the current group list (note that if exclude
     // is not present, NULL is returned, which works fine).
     try {
-	//std::vector<std::string> diff;
 	std::set<std::string> exclude = position->exclude();
-	Rcpp::Rcout << "Exl:" << std::endl;
-	for (const auto & g : exclude) {
-	    Rcpp::Rcout << "- " << g << std::endl;
-	}
-	Rcpp::Rcout << "Before:" << std::endl;
-	for (const auto & g : groups) {
-	    Rcpp::Rcout << "- " << g << std::endl;
-	}
-	// Move the elements to diff, and then swap diff with
-	// groups afterwords.
 	for (const auto & e : exclude) {
 	    groups.erase(e);
-	}
-	// std::set_difference(std::make_move_iterator(std::begin(groups)),
-	// 		    std::make_move_iterator(std::end(groups)),
-	// 		    std::begin(exclude), std::end(exclude),
-	// 		    std::inserter(diff, std::begin(diff)));
-	// groups.swap(diff);
-	Rcpp::Rcout << "Rem:" << std::endl;
-	for (const auto & g : groups) {
-	    Rcpp::Rcout << "- " << g << std::endl;
 	}
     } catch (const Rcpp::index_out_of_bounds &) {
 	// No exclude tag present, no need to remove anything,
