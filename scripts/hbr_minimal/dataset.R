@@ -30,7 +30,7 @@ message("Total spells: ", nrow(all_spells))
 ## After this step, certain codes are kept (the ones the program knows
 ## how to interpret), and these are guaranteed to have been interpreted
 ## correctly. It rejects codes where it unsure of the meaning of the code.
-code_file <- system.file("extdata/icd10/icd10_arc.yaml", package="icdb")
+code_file <- system.file("icd10_hbr_minimal.yaml", package="icdb")
 parsed_icd <- all_spells %>%
     mutate(diagnosis = icd10(primary_diagnosis_icd, code_file))
 parse_stats <- parsed_icd$diagnosis %>% get_parse_stats()
