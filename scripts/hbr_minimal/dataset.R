@@ -47,16 +47,6 @@ message("Percentage excluded: ",
 valid_icd <- parsed_icd %>%
     filter(is_valid(diagnosis)) %>% 
     select(-primary_diagnosis_icd, -spell_end)
-    
-## Extract the ICD category into a character column, and drop the
-## original diagnosis column. The ICD-10 category contains all the
-## information required for the analysis
-saveRDS(valid_icd, "gendata/valid_icd.rds")
-
-## Save point 1 ===
-## Start here if you have the gendata/valid_icd.rds file, which
-## contains the validly parsed ICD-10 codes from the script above.
-valid_icd <- readRDS("gendata/valid_icd.rds")
 
     ##     filter(diagnosis %in_group% c("acs", "bleeding"))
 
