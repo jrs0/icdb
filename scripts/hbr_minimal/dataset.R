@@ -55,6 +55,11 @@ valid_icd <- parsed_icd %>%
     filter(is_valid(diagnosis)) %>% 
     select(-primary_diagnosis_icd, -spell_end)
 
+## Get the data range covered by the spells -- this is the range
+## for which it is assumed data is present
+first_spell_date <- min(valid_icd$spell_start)
+last_spell_date <- max(valid_icd$spell_start)
+
 ## Filter the valid ICD codes only keeping the ones in a specified
 ## ICD-10 group (set by using the map-editor tool). In addition,
 ## extract the groups as strings and drop the original diagnosis
@@ -96,9 +101,25 @@ val <- spells_of_interest %>%
     group_by(nhs_number) %>%
     arrange(spell_start, .by_group = TRUE)
 
+## Add an id to every row
 a <- val %>% mutate(id = row_number())
+
+## Pull out the ACS ids
 b <- a %>% mutate(acs_id = case_when(grepl("acs", group) ~ id))
+
+## Store the next and previous acs id for every other spell
 c <- b %>% mutate(next_acs_id = acs_id) %>% fill(next_acs_id, .direction = "up") %>% mutate(prev_acs_id = acs_id) %>% fill(prev_acs_id, .direction = "down")
+
+## Add a timestamp for the acs events
+d <- c %>% mutate(acs_date = case_when(grepl("acs", group) ~ spell_start))
+
+## Fill the date for the next/previous acs upwards and downwards
+e <- d %>% mutate(next_acs_date = acs_date) %>% fill(next_acs_date, .direction = "up") %>% mutate(prev_acs_date = acs_date) %>% fill(prev_acs_date, .direction = "down")
+
+## Drop groups not containing an acs event
+f <- e %>% filter(any(grepl("acs", group)))
+
+## Drop any groups 
 
 
 ## Define the length of the post-index window
