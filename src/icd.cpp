@@ -136,9 +136,10 @@ public:
     // on no exclude key)
     std::set<std::string> exclude() const
     {
-	return Rcpp::as<std::set<std::string>>(cat_["exclude"]);
+	auto val{Rcpp::as<std::vector<std::string>>(cat_["exclude"])};
+	return std::set<std::string>(val.begin(), val.end());
     }
-
+    
     // True if this category has subcategories (false
     // for leaf nodes with single codes)
     bool has_subcats() const
@@ -442,7 +443,8 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     // an empty list of strings
     std::set<std::string> groups;
     if (Rcpp::as<Rcpp::List>(code_def["groups"]).size() > 0) {
-	groups = Rcpp::as<std::set<std::string>>(code_def["groups"]);
+	auto val{Rcpp::as<std::vector<std::string>>(code_def["groups"])};
+	groups = std::set<std::string>(val.begin(), val.end());
     }
 
     // Create separate lists for each output (to avoid doing it in R)
