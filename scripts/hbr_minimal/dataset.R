@@ -99,28 +99,29 @@ spells_of_interest <- readRDS("gendata/spells_of_interest.rds")
 ## other spell with the closest ACS event 
 val <- spells_of_interest %>%
     group_by(nhs_number) %>%
-    arrange(spell_start, .by_group = TRUE)
+    arrange(spell_start, .by_group = TRUE) %>%
+    ## Add an id to every row
+    mutate(id = row_number()) %>%
+    ## Pull out the ACS ids
+    mutate(acs_id = case_when(grepl("acs", group) ~ id)) %>%
+    ## Store the next and previous acs id for every other spell
+    mutate(next_acs_id = acs_id) %>%
+    fill(next_acs_id, .direction = "up") %>%
+    mutate(prev_acs_id = acs_id) %>%
+    fill(prev_acs_id, .direction = "down") %>%
+    ## Add a timestamp for the acs events
+    mutate(acs_date = case_when(grepl("acs", group) ~ spell_start)) %>%
+    ## Fill the date for the next/previous acs upwards and downwards
+    mutate(next_acs_date = acs_date) %>%
+    fill(next_acs_date, .direction = "up") %>%
+    mutate(prev_acs_date = acs_date) %>%
+    fill(prev_acs_date, .direction = "down") %>%
+    ## Drop groups not containing an acs event
+    filter(any(grepl("acs", group)))
 
-## Add an id to every row
-a <- val %>% mutate(id = row_number())
-
-## Pull out the ACS ids
-b <- a %>% mutate(acs_id = case_when(grepl("acs", group) ~ id))
-
-## Store the next and previous acs id for every other spell
-c <- b %>% mutate(next_acs_id = acs_id) %>% fill(next_acs_id, .direction = "up") %>% mutate(prev_acs_id = acs_id) %>% fill(prev_acs_id, .direction = "down")
-
-## Add a timestamp for the acs events
-d <- c %>% mutate(acs_date = case_when(grepl("acs", group) ~ spell_start))
-
-## Fill the date for the next/previous acs upwards and downwards
-e <- d %>% mutate(next_acs_date = acs_date) %>% fill(next_acs_date, .direction = "up") %>% mutate(prev_acs_date = acs_date) %>% fill(prev_acs_date, .direction = "down")
-
-## Drop groups not containing an acs event
-f <- e %>% filter(any(grepl("acs", group)))
-
-## Drop any groups 
-
+## Begin building up the data set rows, starting with the acs
+## event (the index events)
+dataset <- val %>% filter(grepl("acs", group))
 
 ## Define the length of the post-index window
 post <- ddays(365)
