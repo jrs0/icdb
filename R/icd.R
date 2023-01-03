@@ -420,6 +420,18 @@ is_valid.icdb_icd10 <- function(x)
         unlist()
 }
 
+in_any_group <- function(x) {
+  UseMethod("in_any_group")
+}
+
+##' @export
+in_any_group.icdb_icd10 <- function(x)
+{
+    vctrs::field(x, "groups") %>%
+        purrr::map(~ (length(.x) > 0)) %>%
+        unlist()
+}
+
 
 ##' Returns a character vector containing single letters that
 ##' represent the type (the parse status) of the icd10 code.
@@ -550,6 +562,8 @@ in_group <- function(x, group)
 ##' the groups listed.
 ##' @export
 `%in_group%` <- function(x, group) in_group(x,group)
+
+
 
 ##' Check whether an icd10 code has a particular type
 ##' (parse status). This function can be used in the
