@@ -67,7 +67,8 @@ message("Total spells of interest (those in groups): ",
         nrow(spells_of_interest))
 
 ggplot(data=spells_of_interest) +
-    geom_bar(mapping = aes(x = group), stat="count")
+    geom_bar(mapping = aes(x = group), stat="count") +
+    scale_y_log10()
 
 ## Define the length of the post-index window
 post <- ddays(365)
