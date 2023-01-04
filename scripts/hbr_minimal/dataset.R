@@ -94,10 +94,45 @@ saveRDS(spells_of_interest, "gendata/spells_of_interest.rds")
 ## without needing to redo the parsing steps
 spells_of_interest <- readRDS("gendata/spells_of_interest.rds")
 
-## Group by nhs number and arrange by date to obtain the sequence
-## of events for each patient. Label each acs condition with a
-## unique id, and then fill forwards and backwards to label each
-## other spell with the closest ACS event 
+## Create the dataset from the spells event list. The procedure is
+## as follows:
+##
+## 1) Each acs event in the spells defines a row in the dataset.
+##    The spells of interest are those in the 12months before that
+##    event, called the prior period; and those in the 12months
+##    after the event, or the time to the next acs event, whichever
+##    is shorter (this is called the post period)
+## 2) Each row has the following predictors: age, atrial
+##    fibrillation (af), chronic kidney disease (ckd.n), ckd,
+##    ckd.other, acs, and bleed. All but ckd.n are defined as
+##    1 if that event occurs in the 12month prior to the acs,
+##    and 0 otherwise. ckd.n is defined as the largest n that
+##    occurs in the 12months prior period, or 0 otherwise.
+## 3) Each row contains the response bleed, which is 1 if a
+##    a bleed occurs in the post period, and 0 otherwise
+##
+val <- spells_of_interest %>%
+    mutate(id = row_number())
+acs_spells <- val %>%
+    filter(grepl("acs", group))
+my_tibble <- tibble(
+    id = numeric()
+    age = numeric(),
+    af = numeric(),
+    acs = numeric(),
+    ckd.n = numeric(),
+    prior_bleed = numeric(),
+    bleed = numeric()
+)
+post <- ddays(365)
+for (n in 1:nrow(acs_spells))
+{
+    index_time <- acs_spells$spell_start[[n]]
+    acs_spells %>%
+        filter(spell_start >= index_time - post,
+               spell_start <= index_time + post)
+}
+
 val <- spells_of_interest %>%
     ## Add an id to every row
     mutate(id = row_number()) %>%
@@ -112,14 +147,18 @@ val <- spells_of_interest %>%
     ## Drop groups not containing an acs event
     filter(any(grepl("acs", group)))
 
+
 ## Begin building up the data set rows, starting with the acs
 ## event (the index events)
-dataset <- val %>%
+prior <- val %>%
     filter(grepl("acs", group)) %>%
-    left_join(val, by=c("next_acs_id")) %>%
+    left_join(val, by=c("id"="next_acs_id"))
+    ## Drop any spells that occur more than 12months
+    ## before the index acs event
+    ##filter(spell_start.y >= spell_start.x - ddays(365))
+    ## Calculate new predictors from the 
 
 ## Define the length of the post-index window
-post <- ddays(365)
 
 ## Subtract one year from the end to get the date of
 ## the last valid index event (where there is one complete
