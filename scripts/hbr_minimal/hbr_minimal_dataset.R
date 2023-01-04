@@ -314,40 +314,48 @@ geom_density(alpha = 0.3)
 ## Distribution of prior AF in the bleeding and non-bleeding
 ## groups (potentially a proxy for long-term oral anticoagulant
 ## therapy, the second biggest risk factor according to ARC-HBR). 
-tab <- table(hbr_minimal_dataset$af, hbr_minimal_dataset$bleed)
+tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$af)
 message("Number of bleeds with and without prior AF:")
 tab
 message("Now with normalised proportions between bleed and non-bleed:")
-prop.table(tab, margin=2)
+prop.table(tab, margin = 2)
 
 ## Distribution of CKD stage in the bleeding and non-bleeding groups
 ## (the third most important risk factor according to ARC-HBR)
-tab <- table(hbr_minimal_dataset$ckd_n, hbr_minimal_dataset$bleed)
+tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$ckd_n)
 message("Number of bleeds with stage of CKD:")
 tab
 message("Now with normalised proportions between bleed and non-bleed:")
 prop.table(tab, margin=2)
 
 ## Distribution of the CKD (non-stage) codes 
-tab <- table(hbr_minimal_dataset$ckd, hbr_minimal_dataset$bleed)
+tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$ckd)
 message("Number of bleeds with prior CKD code:")
 tab
 message("Now with normalised proportions between bleed and non-bleed:")
 prop.table(tab, margin=2)
 
 ## Distribution of the other CKD (non-stage) codes 
-tab <- table(hbr_minimal_dataset$ckd_other, hbr_minimal_dataset$bleed)
-message("Number of bleeds with prior CKD code:")
+tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$ckd_other)
+message("Number of bleeds with prior (other) CKD code:")
 tab
 message("Now with normalised proportions between bleed and non-bleed:")
 prop.table(tab, margin=2)
-
 
 ## Distribution of prior bleeding in the bleeding and non-bleeding
 ## groups. Prior bleeding makes sense as a predictor of future bleeding.
-tab <- table(hbr_minimal_dataset$prior_bleed, hbr_minimal_dataset$bleed)
-message("Number of bleeds with stage of CKD:")
+tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$prior_bleed)
+message("Number of bleeds with prior bleed:")
 tab
 message("Now with normalised proportions between bleed and non-bleed:")
 prop.table(tab, margin=2)
+
+## Distribution of prior acs in the bleeding and non-bleeding
+## groups.
+tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$acs)
+message("Number of bleeds with prior acs:")
+tab
+message("Now with normalised proportions between bleed and non-bleed:")
+prop.table(tab, margin=2)
+
 
