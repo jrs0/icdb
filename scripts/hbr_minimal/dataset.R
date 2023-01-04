@@ -126,23 +126,30 @@ index_acs <- spells_of_interest %>%
 events_by_acs <- index_acs %>%
     left_join(spells_of_interest, by=c("nhs_number"="nhs_number")) %>%
     ## Group this table by id.x, which is the index acs id
-    group_by(id.x)
+    group_by(id.x) %>%
     ## Note: do not remove the duplicated acs index event row,
     ## because this will remove acs events with no prior and post
-    ## events.
+    ## events. Perform some cleanup of column names here. Note that
+    ## each column represents an index acs event
+    rename(acs_id = id.x,
+           age = age_on_admission.x,
+           other_spell_group = group.y,
+           acs_date = spell_start.x,
+           other_spell_date = spell_start.y) %>%
+    select(acs_id, age, acs_date, other_spell_date, other_spell_group)
 
 ## Keep only spells which are within 12 months of the index
 ## acs event (before or after)
 window <- ddays(365)
 events_in_window <- events_by_acs %>%
-    filter(spell_start.y >= spell_start.x - window,
-           spell_start.y <= spell_start.x + window)
+    filter(other_spell_date >= acs_date - window,
+           other_spell_date <= acs_date + window)
 
 ## Create new columns for the predictors (spells in the prior
 ## 12 months
 with_predictors <- events_in_window %>%
-    mutate(af = if_else(any(grepl("af", group.y) &
-                            (spell_start.y < spell_start.x)),
+    mutate(af = if_else(any(grepl("af", other_spell_group) &
+                            (other_spell_date < acs_date)),
                         1, 0)
            )
 
