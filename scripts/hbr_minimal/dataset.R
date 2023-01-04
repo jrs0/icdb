@@ -121,6 +121,9 @@ spells_of_interest <- spells_of_interest %>%
 index_acs <- spells_of_interest %>%
     filter(grepl("acs", group))
 
+total_acs_events <- nrow(index_acs)
+message("Total acs events: ", total_acs_events)
+
 ## Join back all the other spells onto the index
 ## events by nhs number
 events_by_acs <- index_acs %>%
@@ -145,15 +148,31 @@ events_in_window <- events_by_acs %>%
     filter(other_spell_date >= acs_date - window,
            other_spell_date <= acs_date + window)
 
+## Count the number of acs events without any other spells in +- 12 months 
+total_isolated_acs <- events_in_window %>%
+    count(acs_id) %>%
+    filter(n == 1) %>%
+    nrow()
+total_isolated_proportion <- total_isolated_acs / total_acs_events
+message("ACS events with no other spell in +- 12 months: ",
+        total_isolated_acs,
+        " (", round(100*total_isolated_proportion, 2), "%)")
+
 ## Create new columns for the predictors (spells in the prior
 ## 12 months
 with_predictors <- events_in_window %>%
-    mutate(af = if_else(any(grepl("af", other_spell_group) &
-                            (other_spell_date < acs_date)),
-                        1, 0)
-           )
+    mutate(af = if_else(any((other_spell_group == "af") &
+                            (other_spell_date < acs_date)), 1, 0)) %>%
+    mutate(ckd = if_else(any((other_spell_group == "ckd") &
+                             (other_spell_date < acs_date)), 1, 0)) %>%
+    mutate(ckd.other = if_else(any((other_spell_group == "ckd.other") &
+                                   (other_spell_date < acs_date)), 1, 0)) %>%
+    mutate(ckd.n = if_else(any((other_spell_group == "ckd.other") &
+                               (other_spell_date < acs_date)), 1, 0))
+    
 
 
+    
 val <- spells_of_interest %>%
     ## Add an id to every row
     mutate(id = row_number()) %>%
