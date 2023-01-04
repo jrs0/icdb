@@ -10,27 +10,27 @@
 ##'               coronary syndrome (acs) occured
 ##' age         - the age of the patient at the time of acs (integer)
 ##' af          - whether the patient had an atrial fibrillation
-##'               spell in the 12months prior to the acs (1 for yes,
-##'               0 for no)
+##'               spell in the 12months prior to the acs
+##'               ("prior_af" for yes, "none" for no)
 ##' ckd_n       - the highest stage chronic kidney disease (ckd) spell
-##'               recorded for the patient in the last 12months (0 for
-##'               no ckd stage recorded, 1, 2, 3, 4 or 5 depending on
-##'               stage)
+##'               recorded for the patient in the last 12months ("none"
+##'               for no ckd stage recorded. "stage_n" for prior stage n
+##'               recorded.
 ##' ckd 
 ##' ckd_other   - whether various other ckd-related codes were seen
 ##'               in the last 12months before acs (see
-##'               icd10_hbr_minimal.yaml for groups) (1 for yes, 0
-##'               for no)
+##'               icd10_hbr_minimal.yaml for groups) ("prior_ckd" or
+##'               "prior_ckd_other" for yes, "none" for no)
 ##' prior_bleed - was there a bleeding spell recorded in the previous
-##'               12months (1 for yes, 0 for no)
+##'               12months ("prior_bleed" for yes, "none" for no)
 ##' acs         - Did an prior acs event occur in the previous 12months
-##'               (1 for yes, 0 for no)
+##'               ("prior_acs" for yes, "none" for no)
 ##'
 ##' -- RESPONSE --
 ##' bleed       - does a bleed occur in the period between the index
 ##'               acs event and the next acs event, or in period 12months
 ##'               after the index acs event if there is no subsequent acs
-##'               event. 1 for yes, 0 for no.
+##'               event. "bleed_occured" for yes, "no_bleed" for no.
 ##'
 ##' Spells are collected from the period 2000-1-1 to 2023-1-1.
 ##' ICD codes are parsed from these spells, and grouped according to
@@ -195,7 +195,8 @@ events_by_acs <- index_acs %>%
            other_spell_id = id.y,
            other_spell_group = group.y,
            other_spell_date = spell_start.y) %>%
-    select(age, acs_id, acs_date, other_spell_id, other_spell_date, other_spell_group)
+    select(age, acs_id, acs_date, other_spell_id,
+           other_spell_date, other_spell_group)
 
 ## Keep only spells which are within 12 months of the index
 ## acs event (before or after)
@@ -218,36 +219,31 @@ message("ACS events with no other spell in +- 12 months: ",
 ## occured in the previous 12-months)
 with_predictors <- events_in_window %>%
     mutate(af = if_else(any((other_spell_group == "af") &
-                            (other_spell_date < acs_date)),
-                        "prior_af", "none")) %>%
+                            (other_spell_date < acs_date)), 1, 0)) %>%
     mutate(ckd = if_else(any((other_spell_group == "ckd") &
-                             (other_spell_date < acs_date)),
-                         "prior_ckd", "none")) %>%
+                             (other_spell_date < acs_date)), 1, 0)) %>%
     mutate(ckd_other = if_else(any((other_spell_group == "ckd.other") &
-                                   (other_spell_date < acs_date)),
-                               "prior_other_ckd", "none")) %>%
+                                   (other_spell_date < acs_date)), 1, 0)) %>%
     mutate(acs = if_else(any((other_spell_group == "acs") &
-                             (other_spell_date < acs_date)),
-                         "prior_acs", "none")) %>%
+                             (other_spell_date < acs_date)), 1, 0)) %>%
     mutate(prior_bleed = if_else(any((other_spell_group == "bleeding") &
-                                     (other_spell_date < acs_date)),
-                                 "prior_bleed", "none"))
+                                     (other_spell_date < acs_date)), 1, 0))
     
 ## Compute the numeric ckd_n score (the maximum ckd stage that
 ## occured in the previous 12-months). This is really slow and
 ## inelegant, 
 with_ckd_n <- with_predictors %>% 
     mutate(ckd_n_tmp = case_when((other_spell_group == "ckd1") &
-                                 (other_spell_date < acs_date) ~ "stage_1",
+                                 (other_spell_date < acs_date) ~ 1,
                                  (other_spell_group == "ckd2") &
-                                 (other_spell_date < acs_date) ~ "stage_2",
+                                 (other_spell_date < acs_date) ~ 2,
                                  (other_spell_group == "ckd3") &
-                                 (other_spell_date < acs_date) ~ "stage_3",
+                                 (other_spell_date < acs_date) ~ 3,
                                  (other_spell_group == "ckd4") &
-                                 (other_spell_date < acs_date) ~ "stage_4",
+                                 (other_spell_date < acs_date) ~ 4,
                                  (other_spell_group == "ckd5") &
-                                 (other_spell_date < acs_date) ~ "stage_5",
-                                 TRUE ~ "none")) %>%
+                                 (other_spell_date < acs_date) ~ 5,
+                                 TRUE ~ 0)) %>%
     mutate(ckd_n = max(ckd_n_tmp)) %>%
     select(-ckd_n_tmp)
     
@@ -265,8 +261,7 @@ dataset <- with_ckd_n %>%
     ## response (bleed) variable as 1 if there is a bleeding spell
     ## in the (two event) group consisting of the index acs spell
     ## and the next spell
-    mutate(bleed = if_else(any(other_spell_group == "bleeding"),
-                           "bleed_occured", "no_bleed")) %>%
+    mutate(bleed = if_else(any(other_spell_group == "bleeding"), 1, 0)) %>%
     ## Only keep the index acs row (maybe this should be done by id)
     filter(other_spell_id == acs_id)
 
@@ -282,15 +277,23 @@ hbr_minimal_dataset <- pruned_dataset %>%
     rename(date = acs_date) %>%
     select(date, age, af, ckd_n, ckd, ckd_other, prior_bleed, acs, bleed)
 
-## Convert variables to factors
+## Convert variables to factors (note that all the numerical values
+## above are ordered, which fixes the order of these factors)
 hbr_minimal_dataset <- hbr_minimal_dataset %>%
-    mutate(af = as.factor(af)) %>% 
-    mutate(ckd_n = as.factor(ckd_n)) %>% 
-    mutate(ckd = as.factor(ckd)) %>% 
-    mutate(ckd_other = as.factor(ckd_other)) %>% 
-    mutate(prior_bleed = as.factor(prior_bleed)) %>% 
-    mutate(acs = as.factor(acs)) %>% 
-    mutate(bleed = as.factor(bleed))
+    mutate(af = factor(af, levels = c( "none", "prior_af"))) %>% 
+    mutate(ckd_n = factor(ckd_n, levels = c("none",
+                                            "stage_1",
+                                            "stage_2",
+                                            "stage_3",
+                                            "stage_4",
+                                            "stage_5"))) %>% 
+    mutate(ckd = factor(ckd, levels = c("none", "prior_ckd"))) %>% 
+    mutate(ckd_other = factor(ckd_other, levels = c("none",
+                                                    "prior_ckd"))) %>% 
+    mutate(prior_bleed = factor(prior_bleed, levels = c("none",
+                                                        "prior_bleed"))) %>% 
+    mutate(acs = factor(acs, levels = c("none", "prior_acs"))) %>% 
+    mutate(bleed = factor(bleed, levels = c("no_bleed", "bleed_occured")))
 
 ## Save the dataset
 saveRDS(hbr_minimal_dataset, "gendata/hbr_minimal_dataset.rds")
@@ -300,10 +303,6 @@ hbr_minimal_dataset <- readRDS("gendata/hbr_minimal_dataset.rds")
 
 ## Brief summary and plots
 summary(hbr_minimal_dataset)
-
-## Correlations among predictors
-cor <- cor(hbr_minimal_dataset[,2:8])
-corrplot(cor)
 
 ## Distribution of age in the bleeding and non-bleeding
 ## groups (the biggest risk factor according to ARC-HBF)
