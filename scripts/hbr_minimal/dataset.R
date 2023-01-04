@@ -31,18 +31,28 @@
 ##'               acs event and the next acs event, or in period 12months
 ##'               after the index acs event if there is no subsequent acs
 ##'               event. 1 for yes, 0 for no.
-##'         
+##'
+##' Spells are collected from the period 2000-1-1 to 2023-1-1.
+##' ICD codes are parsed from these spells, and grouped according to
+##' the categories defined in the response variables, and only spells
+##' of interest are retained. All acs spells from this collection are
+##' retained in the dataset, apart from those where a full 12months
+##' prior period and a full 12months follow up period is not available.
+##' Predictors and response are calculated by analysing the window
+##' surrounding the index acs event.
 ##' 
+##' To run this script, make sure the working directory is set
+##' to the location of this file.
+##'
 
 library(tidyverse)
 library(lubridate)
 library(ggplot2)
 
-## To run this script, make sure the working directory is set
-## to the location of this file.
-
 ## Run either devtools::load_all("../../") or library(icdb), depending
 ## whether you are developing the package or have an installed version
+##devtools::load_all("../../")
+##library(icdb)
 
 ## Remember that you have to rerun use_cache after
 ## a load_all() or a library(icdb)
@@ -262,6 +272,11 @@ pruned_dataset <- dataset %>%
 
 ## Drop unnecessary columns
 hbr_minimal_dataset <- pruned_dataset %>%
+    ungroup() %>% 
+    rename(date = acs_date) %>%
     select(date, age, af, ckd_n, ckd, ckd_other, prior_bleed, acs, bleed)
 
+summary(hbr_minimal_dataset)
 
+## Save the dataset
+saveRDS(hbr_minimal_dataset, "gendata/hbr_minimal_dataset.rds")
