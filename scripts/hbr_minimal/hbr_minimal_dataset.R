@@ -218,32 +218,36 @@ message("ACS events with no other spell in +- 12 months: ",
 ## occured in the previous 12-months)
 with_predictors <- events_in_window %>%
     mutate(af = if_else(any((other_spell_group == "af") &
-                            (other_spell_date < acs_date)), 1, 0)) %>%
+                            (other_spell_date < acs_date)),
+                        "prior_af", "none")) %>%
     mutate(ckd = if_else(any((other_spell_group == "ckd") &
-                             (other_spell_date < acs_date)), 1, 0)) %>%
+                             (other_spell_date < acs_date)),
+                         "prior_ckd", "none")) %>%
     mutate(ckd_other = if_else(any((other_spell_group == "ckd.other") &
-                                   (other_spell_date < acs_date)), 1, 0)) %>%
+                                   (other_spell_date < acs_date)),
+                               "prior_other_ckd", "none")) %>%
     mutate(acs = if_else(any((other_spell_group == "acs") &
-                                   (other_spell_date < acs_date)), 1, 0)) %>%
+                             (other_spell_date < acs_date)),
+                         "prior_acs", "none")) %>%
     mutate(prior_bleed = if_else(any((other_spell_group == "bleeding") &
-                                     (other_spell_date < acs_date)), 1, 0))
-    
+                                     (other_spell_date < acs_date)),
+                                 "prior_bleed", "none"))
     
 ## Compute the numeric ckd_n score (the maximum ckd stage that
 ## occured in the previous 12-months). This is really slow and
 ## inelegant, 
 with_ckd_n <- with_predictors %>% 
     mutate(ckd_n_tmp = case_when((other_spell_group == "ckd1") &
-                                 (other_spell_date < acs_date) ~ 1,
+                                 (other_spell_date < acs_date) ~ "stage_1",
                                  (other_spell_group == "ckd2") &
-                                 (other_spell_date < acs_date) ~ 2,
+                                 (other_spell_date < acs_date) ~ "stage_2",
                                  (other_spell_group == "ckd3") &
-                                 (other_spell_date < acs_date) ~ 3,
+                                 (other_spell_date < acs_date) ~ "stage_3",
                                  (other_spell_group == "ckd4") &
-                                 (other_spell_date < acs_date) ~ 4,
+                                 (other_spell_date < acs_date) ~ "stage_4",
                                  (other_spell_group == "ckd5") &
-                                 (other_spell_date < acs_date) ~ 5,
-                                 TRUE ~ 0)) %>%
+                                 (other_spell_date < acs_date) ~ "stage_5",
+                                 TRUE ~ "none")) %>%
     mutate(ckd_n = max(ckd_n_tmp)) %>%
     select(-ckd_n_tmp)
     
@@ -261,7 +265,8 @@ dataset <- with_ckd_n %>%
     ## response (bleed) variable as 1 if there is a bleeding spell
     ## in the (two event) group consisting of the index acs spell
     ## and the next spell
-    mutate(bleed = if_else(any(other_spell_group == "bleeding"), 1, 0)) %>%
+    mutate(bleed = if_else(any(other_spell_group == "bleeding"),
+                           "bleed_occured", "no_bleed")) %>%
     ## Only keep the index acs row (maybe this should be done by id)
     filter(other_spell_id == acs_id)
 
@@ -308,8 +313,7 @@ geom_density(alpha = 0.3)
 ## Distribution of at in the bleeding and non-bleeding
 ## groups (potentially a proxy for long-term oral anticoagulant
 ## therapy, the second biggest risk factor according to ARC-HBF)
-ggplot(hbr_minimal_dataset, aes(x=af, fill=bleed)) +
-geom_bar(alpha = 0.3)
-
+tab <- table(hbr_minimal_dataset$af, hbr_minimal_dataset$bleed)
+prop.table(tab)
 
 ## Relative 
