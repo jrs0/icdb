@@ -111,23 +111,44 @@ spells_of_interest <- readRDS("gendata/spells_of_interest.rds")
 ## 3) Each row contains the response bleed, which is 1 if a
 ##    a bleed occurs in the post period, and 0 otherwise
 ##
-index_acs <- spells_of_interest %>%
-    ## Add an id to every row that will become
-    ## the id for index acs events
-    mutate(id = row_number()) %>%    
-    filter(grepl("acs", group))
 
-## Cut down the spells of interest by removing those patients
-## with no acs event
-reduced_spells <- spells_of_interest %>%
-    group_by(nhs_number) %>%
-    ## Drop groups not containing an acs event
-    filter(any(grepl("acs", group)))
+## Add an id to every row that will become
+## the id for index acs events
+spells_of_interest <- spells_of_interest %>%
+    mutate(id = row_number())
+
+## Make the table of index acs events
+index_acs <- spells_of_interest %>%
+    filter(grepl("acs", group))
 
 ## Join back all the other spells onto the index
 ## events by nhs number
 events_by_acs <- index_acs %>%
-    left_join(spells_of_interest, by=c("nhs_number"="nhs_number")
+    left_join(spells_of_interest, by=c("nhs_number"="nhs_number")) %>%
+    ## Group this table by id.x, which is the index acs id
+    group_by(id.x)
+    ## Note: do not remove the duplicated acs index event row,
+    ## because this will remove acs events with no prior and post
+    ## events.
+
+## Keep only spells which are within 12 months of the index
+## acs event (before or after)
+window <- ddays(365)
+events_in_window <- events_by_acs %>%
+    filter(spell_start.y >= spell_start.x - window,
+           spell_start.y <= spell_start.x + window)
+
+## Create new columns for the predictors (spells in the prior
+## 12 months
+with_predictors <- events_in_window %>%
+    mutate(af = case_when(
+               any(grepl("af", group.y) &&
+                   (spell_start.y < spell_start.x))
+               ~ 1,
+               TRUE
+               ~ 0)
+           )
+
 
 val <- spells_of_interest %>%
     ## Add an id to every row
