@@ -111,27 +111,23 @@ spells_of_interest <- readRDS("gendata/spells_of_interest.rds")
 ## 3) Each row contains the response bleed, which is 1 if a
 ##    a bleed occurs in the post period, and 0 otherwise
 ##
-val <- spells_of_interest %>%
-    mutate(id = row_number())
-acs_spells <- val %>%
+index_acs <- spells_of_interest %>%
+    ## Add an id to every row that will become
+    ## the id for index acs events
+    mutate(id = row_number()) %>%    
     filter(grepl("acs", group))
-my_tibble <- tibble(
-    id = numeric()
-    age = numeric(),
-    af = numeric(),
-    acs = numeric(),
-    ckd.n = numeric(),
-    prior_bleed = numeric(),
-    bleed = numeric()
-)
-post <- ddays(365)
-for (n in 1:nrow(acs_spells))
-{
-    index_time <- acs_spells$spell_start[[n]]
-    acs_spells %>%
-        filter(spell_start >= index_time - post,
-               spell_start <= index_time + post)
-}
+
+## Cut down the spells of interest by removing those patients
+## with no acs event
+reduced_spells <- spells_of_interest %>%
+    group_by(nhs_number) %>%
+    ## Drop groups not containing an acs event
+    filter(any(grepl("acs", group)))
+
+## Join back all the other spells onto the index
+## events by nhs number
+events_by_acs <- index_acs %>%
+    left_join(spells_of_interest, by=c("nhs_number"="nhs_number")
 
 val <- spells_of_interest %>%
     ## Add an id to every row
@@ -139,13 +135,12 @@ val <- spells_of_interest %>%
     ## Group by patient
     group_by(nhs_number) %>%
     arrange(spell_start, .by_group = TRUE) %>%
-    ## Pull out the ACS ids
-    mutate(acs_id = case_when(grepl("acs", group) ~ id)) %>%
-    ## Store the next acs id for every other spell
-    mutate(next_acs_id = acs_id) %>%
-    fill(next_acs_id, .direction = "up") %>%
     ## Drop groups not containing an acs event
     filter(any(grepl("acs", group)))
+
+
+a <- val %>%
+    left_join(spells_of_interest, by=c("nhs_number"="nhs_number"))
 
 
 ## Begin building up the data set rows, starting with the acs
