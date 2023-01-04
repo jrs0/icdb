@@ -141,12 +141,9 @@ events_in_window <- events_by_acs %>%
 ## Create new columns for the predictors (spells in the prior
 ## 12 months
 with_predictors <- events_in_window %>%
-    mutate(af = case_when(
-               any(grepl("af", group.y) &&
-                   (spell_start.y < spell_start.x))
-               ~ 1,
-               TRUE
-               ~ 0)
+    mutate(af = if_else(any(grepl("af", group.y) &
+                            (spell_start.y < spell_start.x)),
+                        1, 0)
            )
 
 
