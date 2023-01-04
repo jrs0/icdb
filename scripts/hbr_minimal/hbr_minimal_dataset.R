@@ -278,22 +278,24 @@ hbr_minimal_dataset <- pruned_dataset %>%
     select(date, age, af, ckd_n, ckd, ckd_other, prior_bleed, acs, bleed)
 
 ## Convert variables to factors (note that all the numerical values
-## above are ordered, which fixes the order of these factors)
-hbr_minimal_dataset <- hbr_minimal_dataset %>%
-    mutate(af = factor(af, levels = c( "none", "prior_af"))) %>% 
-    mutate(ckd_n = factor(ckd_n, levels = c("none",
-                                            "stage_1",
-                                            "stage_2",
-                                            "stage_3",
-                                            "stage_4",
-                                            "stage_5"))) %>% 
-    mutate(ckd = factor(ckd, levels = c("none", "prior_ckd"))) %>% 
-    mutate(ckd_other = factor(ckd_other, levels = c("none",
-                                                    "prior_ckd"))) %>% 
-    mutate(prior_bleed = factor(prior_bleed, levels = c("none",
-                                                        "prior_bleed"))) %>% 
-    mutate(acs = factor(acs, levels = c("none", "prior_acs"))) %>% 
-    mutate(bleed = factor(bleed, levels = c("no_bleed", "bleed_occured")))
+## above are ordered, which fixes the order of these factors). This
+## is very verbose and error prone, but there seems no way to convert
+## directly from a 0/1 vector to an ordered factor (surprise!)
+hbr_minimal_dataset$af <- factor(hbr_minimal_dataset$af)
+levels(hbr_minimal_dataset$af) <- c("none", "prior_af")
+hbr_minimal_dataset$ckd_n <- factor(hbr_minimal_dataset$ckd_n)
+levels(hbr_minimal_dataset$ckd_n) <- c("none", "stage_1", "stage_2",
+                                       "stage_3", "stage_4", "stage_5")
+hbr_minimal_dataset$ckd_other <- factor(hbr_minimal_dataset$ckd_other)
+levels(hbr_minimal_dataset$ckd_other) <- c("none", "prior_ckd_other")
+hbr_minimal_dataset$ckd <- factor(hbr_minimal_dataset$ckd)
+levels(hbr_minimal_dataset$ckd) <- c("none", "prior_ckd")
+hbr_minimal_dataset$acs <- factor(hbr_minimal_dataset$acs)
+levels(hbr_minimal_dataset$acs) <- c("none", "prior_acs")
+hbr_minimal_dataset$prior_bleed <- factor(hbr_minimal_dataset$prior_bleed)
+levels(hbr_minimal_dataset$prior_bleed) <- c("none", "prior_bleed")
+hbr_minimal_dataset$bleed <- factor(hbr_minimal_dataset$bleed)
+levels(hbr_minimal_dataset$bleed) <- c("no_bleed", "bleed_occured")
 
 ## Save the dataset
 saveRDS(hbr_minimal_dataset, "gendata/hbr_minimal_dataset.rds")
