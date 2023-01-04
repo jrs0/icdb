@@ -1,6 +1,38 @@
 ##' This file contains a script to obtain the dataset used for
-##' minimal modelling of HBR from the primary diagnosis ICD field
-##' of APC spell data. 
+##' minimal modelling of high bleeding risk (HBR) from the primary
+##' diagnosis ICD field of APC spell data.
+##'
+##' The output of this file is a dataset called hbr_minimal_dataset,
+##' which contains the following columns:
+##'
+##' -- PREDICTORS --
+##' date        - the date at which the index acute
+##'               coronary syndrome (acs) occured
+##' age         - the age of the patient at the time of acs (integer)
+##' af          - whether the patient had an atrial fibrillation
+##'               spell in the 12months prior to the acs (1 for yes,
+##'               0 for no)
+##' ckd_n       - the highest stage chronic kidney disease (ckd) spell
+##'               recorded for the patient in the last 12months (0 for
+##'               no ckd stage recorded, 1, 2, 3, 4 or 5 depending on
+##'               stage)
+##' ckd 
+##' ckd_other   - whether various other ckd-related codes were seen
+##'               in the last 12months before acs (see
+##'               icd10_hbr_minimal.yaml for groups) (1 for yes, 0
+##'               for no)
+##' prior_bleed - was there a bleeding spell recorded in the previous
+##'               12months (1 for yes, 0 for no)
+##' acs         - Did an prior acs event occur in the previous 12months
+##'               (1 for yes, 0 for no)
+##'
+##' -- RESPONSE --
+##' bleed       - does a bleed occur in the period between the index
+##'               acs event and the next acs event, or in period 12months
+##'               after the index acs event if there is no subsequent acs
+##'               event. 1 for yes, 0 for no.
+##'         
+##' 
 
 library(tidyverse)
 library(lubridate)
@@ -87,12 +119,19 @@ spells_of_interest %>%
     count() %>%
     ungroup()
 
-saveRDS(spells_of_interest, "gendata/spells_of_interest.rds")
+save_data <- list(spells_of_interest = spells_of_interest,
+                  first_spell_date = first_spell_date,
+                  last_spell_date = last_spell_date)                  
+saveRDS(save_data, "gendata/spells_of_interest.rds")
 
 ## Save Point 1 ============================================
 ## If you get here, save the result so that you can pick up
 ## without needing to redo the parsing steps
-spells_of_interest <- readRDS("gendata/spells_of_interest.rds")
+save_data <- readRDS("gendata/spells_of_interest.rds")
+spells_of_interest = save_data$spells_of_interest
+first_spell_date = save_data$first_spell_date
+last_spell_date = save_data$last_spell_date
+
 
 ## Create the dataset from the spells event list. The procedure is
 ## as follows:
@@ -103,18 +142,22 @@ spells_of_interest <- readRDS("gendata/spells_of_interest.rds")
 ##    after the event, or the time to the next acs event, whichever
 ##    is shorter (this is called the post period)
 ## 2) Each row has the following predictors: age, atrial
-##    fibrillation (af), chronic kidney disease (ckd.n), ckd,
-##    ckd.other, acs, and bleed. All but ckd.n are defined as
+##    fibrillation (af), chronic kidney disease (ckd_n), ckd,
+##    ckd_other, acs, and bleed. All but ckd_n are defined as
 ##    1 if that event occurs in the 12month prior to the acs,
-##    and 0 otherwise. ckd.n is defined as the largest n that
+##    and 0 otherwise. ckd_n is defined as the largest n that
 ##    occurs in the 12months prior period, or 0 otherwise.
 ## 3) Each row contains the response bleed, which is 1 if a
 ##    a bleed occurs in the post period, and 0 otherwise
 ##
 
 ## Add an id to every row that will become
-## the id for index acs events
+## the id for index acs events. The data is
+## arranged by nhs number and date so that
+## grouping by id later will also perform this
+## arrangement.
 spells_of_interest <- spells_of_interest %>%
+    arrange(nhs_number, spell_start) %>%
     mutate(id = row_number())
 
 ## Make the table of index acs events
@@ -130,16 +173,18 @@ events_by_acs <- index_acs %>%
     left_join(spells_of_interest, by=c("nhs_number"="nhs_number")) %>%
     ## Group this table by id.x, which is the index acs id
     group_by(id.x) %>%
+    arrange(spell_start.x, .by_group = TRUE) %>%
     ## Note: do not remove the duplicated acs index event row,
     ## because this will remove acs events with no prior and post
     ## events. Perform some cleanup of column names here. Note that
     ## each column represents an index acs event
-    rename(acs_id = id.x,
-           age = age_on_admission.x,
-           other_spell_group = group.y,
+    rename(age = age_on_admission.x,
+           acs_id = id.x,
            acs_date = spell_start.x,
+           other_spell_id = id.y,
+           other_spell_group = group.y,
            other_spell_date = spell_start.y) %>%
-    select(acs_id, age, acs_date, other_spell_date, other_spell_group)
+    select(age, acs_id, acs_date, other_spell_id, other_spell_date, other_spell_group)
 
 ## Keep only spells which are within 12 months of the index
 ## acs event (before or after)
@@ -158,57 +203,65 @@ message("ACS events with no other spell in +- 12 months: ",
         total_isolated_acs,
         " (", round(100*total_isolated_proportion, 2), "%)")
 
-## Create new columns for the predictors (spells in the prior
-## 12 months
+## Compute all the binary predictors (whether or not an event
+## occured in the previous 12-months)
 with_predictors <- events_in_window %>%
     mutate(af = if_else(any((other_spell_group == "af") &
                             (other_spell_date < acs_date)), 1, 0)) %>%
     mutate(ckd = if_else(any((other_spell_group == "ckd") &
                              (other_spell_date < acs_date)), 1, 0)) %>%
-    mutate(ckd.other = if_else(any((other_spell_group == "ckd.other") &
+    mutate(ckd_other = if_else(any((other_spell_group == "ckd.other") &
                                    (other_spell_date < acs_date)), 1, 0)) %>%
-    mutate(ckd.n = if_else(any((other_spell_group == "ckd.other") &
-                               (other_spell_date < acs_date)), 1, 0))
+    mutate(acs = if_else(any((other_spell_group == "acs") &
+                                   (other_spell_date < acs_date)), 1, 0)) %>%
+    mutate(prior_bleed = if_else(any((other_spell_group == "bleeding") &
+                                     (other_spell_date < acs_date)), 1, 0))
     
-
-
     
-val <- spells_of_interest %>%
-    ## Add an id to every row
-    mutate(id = row_number()) %>%
-    ## Group by patient
-    group_by(nhs_number) %>%
-    arrange(spell_start, .by_group = TRUE) %>%
-    ## Drop groups not containing an acs event
-    filter(any(grepl("acs", group)))
+## Compute the numeric ckd_n score (the maximum ckd stage that
+## occured in the previous 12-months). This is really slow and
+## inelegant, 
+with_ckd_n <- with_predictors %>% 
+    mutate(ckd_n_tmp = case_when((other_spell_group == "ckd1") &
+                                 (other_spell_date < acs_date) ~ 1,
+                                 (other_spell_group == "ckd2") &
+                                 (other_spell_date < acs_date) ~ 2,
+                                 (other_spell_group == "ckd3") &
+                                 (other_spell_date < acs_date) ~ 3,
+                                 (other_spell_group == "ckd4") &
+                                 (other_spell_date < acs_date) ~ 4,
+                                 (other_spell_group == "ckd5") &
+                                 (other_spell_date < acs_date) ~ 5,
+                                 TRUE ~ 0)) %>%
+    mutate(ckd_n = max(ckd_n_tmp)) %>%
+    select(-ckd_n_tmp)
+    
+## Add the bleed response variable. The variable is 1 if a
+## bleed occurs within 12 months of the index acs event,
+## and also before the next acs event
+dataset <- with_ckd_n %>%
+    ## Only keep acs and bleeding spells -- all the other
+    ## spells have already been used and are no longer needed
+    filter(grepl("(acs|bleeding)", other_spell_group)) %>%
+    ## Drop all prior spells, and keep only one subsequent spell
+    filter(other_spell_date >= acs_date) %>%
+    slice_min(n = 2, order_by = other_spell_date) %>%
+    ## In each group (arranged by increasing date), mark the
+    ## response (bleed) variable as 1 if there is a bleeding spell
+    ## in the (two event) group consisting of the index acs spell
+    ## and the next spell
+    mutate(bleed = if_else(any(other_spell_group == "bleeding"), 1, 0)) %>%
+    ## Only keep the index acs row (maybe this should be done by id)
+    filter(other_spell_id == acs_id)
 
+## Remove acs index events that do not have at least 12 months
+## prior time, and do not have at least 12 months follow up time
+pruned_dataset <- dataset %>%
+    filter(acs_date >= first_spell_date + window,
+           acs_date <= last_spell_date - window)
 
-a <- val %>%
-    left_join(spells_of_interest, by=c("nhs_number"="nhs_number"))
+## Drop unnecessary columns
+hbr_minimal_dataset <- pruned_dataset %>%
+    select(date, age, af, ckd_n, ckd, ckd_other, prior_bleed, acs, bleed)
 
-
-## Begin building up the data set rows, starting with the acs
-## event (the index events)
-prior <- val %>%
-    filter(grepl("acs", group)) %>%
-    left_join(val, by=c("id"="next_acs_id"))
-    ## Drop any spells that occur more than 12months
-    ## before the index acs event
-    ##filter(spell_start.y >= spell_start.x - ddays(365))
-    ## Calculate new predictors from the 
-
-## Define the length of the post-index window
-
-## Subtract one year from the end to get the date of
-## the last valid index event (where there is one complete
-## follow-up year).
-index_end <- end - post
-
-
-
-## 100,000 codes takes about 16 seconds currently (now 4 seconds, now 3s)
-## 200,000 - 32 seconds (7 seconds, now 3s)
-## 300,000 - 47 seconds (9 seconds, now 4s)
-## 1,000,000 - not measured before (26 seconds, 7s)
-## 6.5m - 15mins (2 minutes 24 seconds, 26s)
 
