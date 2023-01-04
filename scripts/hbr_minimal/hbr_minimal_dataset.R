@@ -48,6 +48,7 @@
 library(tidyverse)
 library(lubridate)
 library(ggplot2)
+library(corrplot)
 
 ## Run either devtools::load_all("../../") or library(icdb), depending
 ## whether you are developing the package or have an installed version
@@ -276,7 +277,39 @@ hbr_minimal_dataset <- pruned_dataset %>%
     rename(date = acs_date) %>%
     select(date, age, af, ckd_n, ckd, ckd_other, prior_bleed, acs, bleed)
 
-summary(hbr_minimal_dataset)
+## Convert variables to factors
+hbr_minimal_dataset <- hbr_minimal_dataset %>%
+    mutate(af = as.factor(af)) %>% 
+    mutate(ckd_n = as.factor(ckd_n)) %>% 
+    mutate(ckd = as.factor(ckd)) %>% 
+    mutate(ckd_other = as.factor(ckd_other)) %>% 
+    mutate(prior_bleed = as.factor(prior_bleed)) %>% 
+    mutate(acs = as.factor(acs)) %>% 
+    mutate(bleed = as.factor(bleed))
 
 ## Save the dataset
 saveRDS(hbr_minimal_dataset, "gendata/hbr_minimal_dataset.rds")
+
+## Save Point 2 ============================
+hbr_minimal_dataset <- readRDS("gendata/hbr_minimal_dataset.rds")
+
+## Brief summary and plots
+summary(hbr_minimal_dataset)
+
+## Correlations among predictors
+cor <- cor(hbr_minimal_dataset[,2:8])
+corrplot(cor)
+
+## Distribution of age in the bleeding and non-bleeding
+## groups (the biggest risk factor according to ARC-HBF)
+ggplot(hbr_minimal_dataset, aes(x=age, fill=bleed)) +
+geom_density(alpha = 0.3)
+
+## Distribution of at in the bleeding and non-bleeding
+## groups (potentially a proxy for long-term oral anticoagulant
+## therapy, the second biggest risk factor according to ARC-HBF)
+ggplot(hbr_minimal_dataset, aes(x=af, fill=bleed)) +
+geom_bar(alpha = 0.3)
+
+
+## Relative 
