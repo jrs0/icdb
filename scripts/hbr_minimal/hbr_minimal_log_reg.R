@@ -58,9 +58,11 @@ dataset$bleed <- factor(dataset$bleed,
                         levels=rev(levels(dataset$bleed)))
 
 ## Use 10-fold cross validation
-ctrl <- trainControl(method = "cv",
+ctrl <- trainControl(summaryFunction = twoClassSummary,
+                     method = "cv",
                      number = 10,
-                     classProbs = TRUE)
+                     classProbs = TRUE,
+                     savePredictions = TRUE)
 set.seed(476)
 lr_full <- train(dataset[,1:2],
                  y = dataset$bleed,
@@ -69,8 +71,26 @@ lr_full <- train(dataset[,1:2],
                  trControl = ctrl)
 
 
+## Predict the class probabilities and add the probability of
+lr_full_pred_prob <- predict(lr_full, new_data = dataset, type = "prob")
+dataset$lr_bleed_prob <- lr_full_pred_prob[,"bleed_occured"]
 
-prediction <- predict(lr_full, new_data = dataset)
+
+## Plot the ROC curve from the predicted probabilities
+roc_curve <- roc(response = dataset$bleed,
+                predictor = dataset$lr_bleed_prob)
+
+## Show the area under the ROC curve with a confidence interval
+auc(roc_curve)
+ci(roc_curve)
+
+## Plot the ROC curve
+plot(roc_curve, legacy.axes = TRUE)
+
+## Predict the class from the LR model
+dataset$lr_bleed <- predict(lr_full, new_data = dataset)
+
+## Plot the confusion matrix 
 confusionMatrix(prediction, dataset$bleed)
 
 
