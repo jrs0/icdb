@@ -6,6 +6,7 @@
 library(tidyverse)
 library(caret)
 library(corrplot)
+library(pROC)
 
 hbr_minimal_dataset <- readRDS("gendata/hbr_minimal_dataset.rds")
 
@@ -51,11 +52,17 @@ predictors %>% colnames()
 dataset <- predictors
 dataset$bleed <- without_date$bleed
 
-## Do the logistic regression
-ctrl <- trainControl(summaryFunction = twoClassSummary,
+## Reverse the order of the factors to fit with the
+## twoClassSummary below
+dataset$bleed <- factor(dataset$bleed,
+                        levels=rev(levels(dataset$bleed)))
+
+## Use 10-fold cross validation
+ctrl <- trainControl(method = "cv",
+                     number = 10,
                      classProbs = TRUE)
 set.seed(476)
-lr_full <- train(dataset,
+lr_full <- train(dataset[,1:2],
                  y = dataset$bleed,
                  method = "glm",
                  metric = "ROC",
@@ -67,6 +74,8 @@ prediction <- predict(lr_full, new_data = dataset)
 confusionMatrix(prediction, dataset$bleed)
 
 
+
+## Basic LR
 
 glm_model <- glm(bleed ~ .,
                  ## Select the rows for the pre-2008 data:
