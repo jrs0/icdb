@@ -13,6 +13,14 @@ hbr_minimal_dataset <- readRDS("gendata/hbr_minimal_dataset.rds")
 without_date <- hbr_minimal_dataset %>%
     select(-date)
 
+model_fit <- glm(bleed ~ .,
+                 ## Select the rows for the pre-2008 data:
+                 data = without_date,
+                 ## 'family' relates to the distribution of the data.
+                 ## A value of 'binomial' is used for logistic regression
+                 family = binomial)
+
+
 predictors <- without_date %>%
     select(-bleed)
 
@@ -39,6 +47,10 @@ predictors %>% colnames()
 
 ## Remove zero variance
 
+## Make the dataset
+dataset <- predictors
+dataset$bleed <- without_date$bleed
+
 ## Do the logistic regression
 ctrl <- trainControl(summaryFunction = twoClassSummary,
                      classProbs = TRUE)
@@ -51,10 +63,12 @@ lr_full <- train(dataset,
 
 
 
+prediction <- predict(lr_full, new_data = dataset)
+confusionMatrix(prediction, dataset$bleed)
 
 
-## Stuff
-model_fit <- glm(bleed ~ .,
+
+glm_model <- glm(bleed ~ .,
                  ## Select the rows for the pre-2008 data:
                  data = dataset,
                  ## 'family' relates to the distribution of the data.
