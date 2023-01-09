@@ -8,7 +8,7 @@
 ##' this event model (where bleeding event probability is equal to
 ##' bleeding risk) because the occurance of bleeding does not depend
 ##' deterministically (or nearly-deterministically) on the input
-##' categories
+##' categories.
 ##' 
 
 library(tidyverse)
@@ -23,18 +23,37 @@ n <- 10000
 ## Proportion of population at high bleeding risk (HBR)
 p_hbr <- 0.444
 
-## Proportion of various major criteria, given HBR
+## In the HBR group, the breakdown of different major
+## criteria is as follows. 
 p_anemia_hbr <- 0.332
 p_oac_hbr <- 0.185
 p_malignancy_hbr <- 0.168
 p_ckd_hbr <- 0.137
 p_surgery_hbr <- 0.082
 
+## Hazard ratios due to presence of multiple ARC HBR
+## criteria. Each value in this vector represents the
+## hazard ration of having that ARC HBR "score". The
+## score is defined by adding up major criteria as
+## 1 and minor criteria as 0.5. (See Central Illustration
+## in paper)
+arc_hr <- c(1, 2.1, 3.88, 6.98, 12.26)
+
 ## Probability of bleed occurance for the baseline
 ## population (baseline bleeding risk), vs probability
 ## of bleed occurance for HBR
 p_bleed_base <- 0.032
-p_bleed_hbr <- 0.091
+
+## The bleeding risk is derived from the hazard ratio
+## for each ARC HBR score
+p_bleed_arc <- p_bleed_base * arc_hr
+
+## Proportion of different ARC HBR "score" present in the
+## data. The vector represents the total proportion of
+## the HBR population have the specified value of ARC
+## HBR score
+arc_prop <- c(0.014, 0.079, 0.291, 0.616)
+
 
 set.seed(1023)
 
