@@ -30,6 +30,7 @@ p_oac_hbr <- 0.185
 p_malignancy_hbr <- 0.168
 p_ckd_hbr <- 0.137
 p_surgery_hbr <- 0.082
+p_thrombocytopenia <- 0.043
 
 ## Hazard ratios due to presence of multiple ARC HBR
 ## criteria. Each value in this vector represents the
@@ -52,13 +53,25 @@ p_bleed_arc <- p_bleed_base * arc_hr
 ## data. The vector represents the total proportion of
 ## the HBR population have the specified value of ARC
 ## HBR score
-arc_prop <- c(0.014, 0.079, 0.291, 0.616)
+arc_hbr_prop <- c(0.014, 0.079, 0.291, 0.616)
 
-
+## ================= END OF INPUT DATA ===============
 set.seed(1023)
 
+## Calculate the breakdown of ARC scores, including the
+## possibility of 0
+arc_score_dist <- c(1 - p_hbr, p_hbr * arc_hbr_prop)
+
+## Sanity-check the distribution against arc_score_dist
+hbr %>% select(arc_score) %>%
+    group_by(arc_score) %>%
+    count()
+
+
+
 ## Generate normally distributed ages
-hbr <- tibble(age = rnorm(n = n, mean = 75, sd = 7))
+hbr <- tibble(arc_score = sample(x = c(0,1,2,3,4), n, replace = T,
+                                 prob = arc_score_dist))
 
 ## Generate HBR based deterministically on age
 hbr <- hbr %>%
