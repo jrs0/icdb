@@ -14,14 +14,6 @@ hbr_minimal_dataset <- readRDS("gendata/hbr_minimal_dataset.rds")
 without_date <- hbr_minimal_dataset %>%
     select(-date)
 
-model_fit <- glm(bleed ~ .,
-                 ## Select the rows for the pre-2008 data:
-                 data = without_date,
-                 ## 'family' relates to the distribution of the data.
-                 ## A value of 'binomial' is used for logistic regression
-                 family = binomial)
-
-
 predictors <- without_date %>%
     select(-bleed)
 
@@ -52,6 +44,8 @@ predictors %>% colnames()
 dataset <- predictors
 dataset$bleed <- without_date$bleed
 
+set.seed(476)
+
 ## Reverse the order of the factors to fit with the
 ## twoClassSummary below
 dataset$bleed <- factor(dataset$bleed,
@@ -63,18 +57,19 @@ ctrl <- trainControl(summaryFunction = twoClassSummary,
                      number = 10,
                      classProbs = TRUE,
                      savePredictions = TRUE)
-set.seed(476)
 lr_full <- train(dataset[,1:2],
                  y = dataset$bleed,
                  method = "glm",
                  metric = "ROC",
                  trControl = ctrl)
 
+## View the summary, look for ROC area, which is the average
+## over the n folds of the cross validation
+lr_full
 
 ## Predict the class probabilities and add the probability of
 lr_full_pred_prob <- predict(lr_full, new_data = dataset, type = "prob")
 dataset$lr_bleed_prob <- lr_full_pred_prob[,"bleed_occured"]
-
 
 ## Plot the ROC curve from the predicted probabilities
 roc_curve <- roc(response = dataset$bleed,
@@ -93,13 +88,3 @@ dataset$lr_bleed <- predict(lr_full, new_data = dataset)
 ## Plot the confusion matrix 
 confusionMatrix(prediction, dataset$bleed)
 
-
-
-## Basic LR
-
-glm_model <- glm(bleed ~ .,
-                 ## Select the rows for the pre-2008 data:
-                 data = dataset,
-                 ## 'family' relates to the distribution of the data.
-                 ## A value of 'binomial' is used for logistic regression
-                 family = binomial)
