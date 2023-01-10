@@ -25,12 +25,14 @@ p_hbr <- 0.444
 
 ## In the HBR group, the breakdown of different major
 ## criteria is as follows. 
-p_anemia_hbr <- 0.332
-p_oac_hbr <- 0.185
-p_malignancy_hbr <- 0.168
-p_ckd_hbr <- 0.137
-p_surgery_hbr <- 0.082
-p_thrombocytopenia <- 0.043
+arc_hbr_criteria_prob = list(
+    anemia = 0.332,
+    oac = 0.185,
+    malignancy = 0.168,
+    ckd = 0.137,
+    surgery = 0.082,
+    thrombocytopenia = 0.043
+)
 
 ## Hazard ratios due to presence of multiple ARC HBR
 ## criteria. Each value in this vector represents the
@@ -53,10 +55,46 @@ p_bleed_arc <- p_bleed_base * arc_hr
 ## data. The vector represents the total proportion of
 ## the HBR population have the specified value of ARC
 ## HBR score
-arc_hbr_prop <- c(0.014, 0.079, 0.291, 0.616)
+arc_hbr_score_prob <- c(0.014, 0.079, 0.291, 0.616)
 
 ## ================= END OF INPUT DATA ===============
 set.seed(1023)
+
+## Calculate the probability of getting an all-zero row
+## (a non-HBR row), to correct the major factor probabilities
+## (this is necessary so that the probabilities come out right
+## within the HBR group)
+all_zero_prob <- arc_hbr_criteria_prob %>%
+    map(~ 1 - .x) %>%
+    reduce(`*`)
+
+## Generate independent columns of predictors, distributed
+## correctly according to predictor (binomial) distribution.
+hbr <- tibble(anemia = rbinom(n = n, size = 1,
+                              prob = arc_hbr_criteria_prob$anemia * (1 - all_zero_prob)),
+              oac = rbinom(n = n, size = 1,
+                           prob = arc_hbr_criteria_prob$oac * (1 - all_zero_prob)),
+              malignancy = rbinom(n = n, size = 1,
+                                  prob = arc_hbr_criteria_prob$malignancy * (1 - all_zero_prob)),
+              ckd = rbinom(n = n, size = 1,
+                           prob = arc_hbr_criteria_prob$ckd * (1 - all_zero_prob)),
+              surgery = rbinom(n = n, size = 1,
+                               prob = arc_hbr_criteria_prob$surgery * (1 - all_zero_prob)),
+              thrombocytopenia = rbinom(n = n, size = 1,
+                                        prob = arc_hbr_criteria_prob$thrombocytopenia * (1 - all_zero_prob)))
+
+## Check 
+summary(hbr)
+
+## Create ARC HBR "score" (add up the major factors)
+hbr <- hbr %>%
+    mutate(arc_score = rowSums(across(where(is.numeric))))
+
+## Filter out the rows with no major criteria (keep only HBR rows)
+## TODO: this will change the distribution of the major criteria --
+## need to fix
+hbr <- hbr %>% filter(arc_score > 0)
+
 
 ## Calculate the breakdown of ARC scores, including the
 ## possibility of 0
@@ -65,7 +103,10 @@ arc_score_dist <- c(1 - p_hbr, p_hbr * arc_hbr_prop)
 ## Sanity-check the distribution against arc_score_dist
 hbr %>% select(arc_score) %>%
     group_by(arc_score) %>%
-    count()
+    count() %>%
+    mutate(true_prob = n/nrow(hbr))
+print("The target probability distribution (for score 1..4):")
+arc_hbr_score_prob
 
 
 
