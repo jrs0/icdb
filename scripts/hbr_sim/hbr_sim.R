@@ -62,27 +62,36 @@ arc_hbr_score_prob <- c(0.014, 0.079, 0.291, 0.616)
 set.seed(1023)
 
 ## The function whose root is to be used as the initial
-## probability of the major criteria
-fn <- function(p)
+## probability of the major criteria (in the general
+## population)
+fn <- function(p_pop)
 {
-    ## The input to the function is the proposed population
-    ## probability
+    ## The input to the function is a candidate set of proportions
+    ## of major events in the general population. This should
+    ## be such that, after removing the zero rows, the resulting
+    ## proportions are the target proportions (p_target)
     
     ## Calculate the probability of getting an all-zero row
-    ## (a non-HBR row), to correct the major factor probabilities
-    ## (this is necessary so that the probabilities come out right
-    ## within the HBR group)
-    all_zero_prob <- p %>%
+    ## (a non-HBR row) in the full population (HBR and non-HBR)
+    all_zero_prob <- p_pop %>%
         map(~ 1 - .x) %>%
         reduce(`*`)
 
-    ## Use the scaling factor to get the new probabilities
-    alpha <- 1 - all_zero_prob
-    new_p <- alpha * p
-    new_p - p
+    ## Use the all_zero probability to compute the proportion
+    ## of the population that is HBR, and adjust the p_hbr
+    ## to 
+    alpha <- 1 - all_zero_prob ## min(max(0, all_zero_prob), 1)
+    p_hbr <- p_pop / alpha
+
+    ## Compare the resulting probabilities with the target
+    p_hbr[[1]] - arc_hbr_criteria_prob[[1]] ##unlist(arc_hbr_criteria_prob)
 }
 
-out <- nleqslv(unlist(arc_hbr_criteria_prob), fn)
+## Solve the nonlinear system. This is a bit unstable it seems, hence the
+## low step size (otherwise it tries to converge on negative probability)
+out <- nleqslv(unlist(arc_hbr_criteria_prob),
+               fn,
+               ##control = list(stepmax = 0.005))
 
 ## Generate independent columns of predictors, distributed
 ## correctly according to predictor (binomial) distribution.
