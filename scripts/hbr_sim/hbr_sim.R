@@ -16,7 +16,7 @@ library(corrplot)
 library(caret)
 library(pROC)
 library(ggplot2)
-library(nleqslv)
+library(stats)
 
 ## Total number of patients
 n <- 10000
@@ -69,7 +69,7 @@ fn <- function(p_pop)
     ## The input to the function is a candidate set of proportions
     ## of major events in the general population. This should
     ## be such that, after removing the zero rows, the resulting
-    ## proportions are the target proportions (p_target)
+    ## proportions are the target proportions
     
     ## Calculate the probability of getting an all-zero row
     ## (a non-HBR row) in the full population (HBR and non-HBR)
@@ -84,29 +84,30 @@ fn <- function(p_pop)
     p_hbr <- p_pop / alpha
 
     ## Compare the resulting probabilities with the target
-    p_hbr[[1]] - arc_hbr_criteria_prob[[1]] ##unlist(arc_hbr_criteria_prob)
+    norm(as.matrix(p_hbr - unlist(arc_hbr_criteria_prob)))
 }
 
-## Solve the nonlinear system. This is a bit unstable it seems, hence the
-## low step size (otherwise it tries to converge on negative probability)
-out <- nleqslv(unlist(arc_hbr_criteria_prob),
-               fn,
-               ##control = list(stepmax = 0.005))
+## Find the input probability values
+num_major_criteria <- length(arc_hbr_criteria_prob)
+interval <- c(rep(0,num_major_criteria), rep(1,num_major_criteria))
+out <- optim(unlist(arc_hbr_criteria_prob), fn)
+p_input <- as.list(out$par)
+names(p_input) <- names(arc_hbr_criteria_prob)
 
 ## Generate independent columns of predictors, distributed
 ## correctly according to predictor (binomial) distribution.
 hbr <- tibble(anemia = rbinom(n = n, size = 1,
-                              prob = arc_hbr_criteria_prob$anemia * (1 - all_zero_prob)),
+                              prob = p_input$anemia * (1 - all_zero_prob)),
               oac = rbinom(n = n, size = 1,
-                           prob = arc_hbr_criteria_prob$oac * (1 - all_zero_prob)),
+                           prob = p_input$oac * (1 - all_zero_prob)),
               malignancy = rbinom(n = n, size = 1,
-                                  prob = arc_hbr_criteria_prob$malignancy * (1 - all_zero_prob)),
+                                  prob = p_input$malignancy * (1 - all_zero_prob)),
               ckd = rbinom(n = n, size = 1,
-                           prob = arc_hbr_criteria_prob$ckd * (1 - all_zero_prob)),
+                           prob = p_input$ckd * (1 - all_zero_prob)),
               surgery = rbinom(n = n, size = 1,
-                               prob = arc_hbr_criteria_prob$surgery * (1 - all_zero_prob)),
+                               prob = p_input$surgery * (1 - all_zero_prob)),
               thrombocytopenia = rbinom(n = n, size = 1,
-                                        prob = arc_hbr_criteria_prob$thrombocytopenia * (1 - all_zero_prob)))
+                                        prob = p_input$thrombocytopenia * (1 - all_zero_prob)))
 
 ## Check 
 summary(hbr)
@@ -114,12 +115,6 @@ summary(hbr)
 ## Create ARC HBR "score" (add up the major factors)
 hbr <- hbr %>%
     mutate(arc_score = rowSums(across(where(is.numeric))))
-
-## Filter out the rows with no major criteria (keep only HBR rows)
-## TODO: this will change the distribution of the major criteria --
-## need to fix
-hbr <- hbr %>% filter(arc_score > 0)
-
 
 ## Calculate the breakdown of ARC scores, including the
 ## possibility of 0
