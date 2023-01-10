@@ -100,7 +100,7 @@ arc_score_breakdown <- hbr %>% select(arc_score) %>%
     filter(arc_score > 0) %>%
     group_by(arc_score) %>%
     count() %>%
-    mutate(true_prob = n/n_hbr)
+    mutate(true_prob = n/nrow(.))
 
 ## Manually for now, automate later
 n_anemia = hbr %>% filter(anemia == 1) %>% nrow()
