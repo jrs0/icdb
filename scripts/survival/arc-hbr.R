@@ -50,6 +50,10 @@ spells <- all_spells %>%
 ## a tibble grouped by patient, containing a chronological record
 ## of all ACS and bleeding events
 subsequent <- spells %>%
+    ## Add a column "type" that contains either "acs" or "bleeding"
+    mutate(type = group_string(diagnosis)) %>%
+    ## Drop the diagnosis column
+    select(-diagnosis) %>%
     ## Group by patient
     group_by(nhs_number) %>%
     ## Arrange in order of spell start
@@ -61,20 +65,26 @@ subsequent <- spells %>%
 ## occured within less than the post-index window. This makes
 ## the assumption that the most recent ACS event before the
 ## bleeding event is the cause of the bleeding event.
+##
+## takes 16mins using the icd10 class to identify the groups.
+## Using a specific character vector reduces time to about 11
+## mins. Dropping the diagnosis column does not appear to help
+## much.
+
+## Tidyverse version takes 40 seconds, base R version takes
+## 2 seconds. 
 next_bleed <- subsequent %>%
     ## For each bleeding event, calculate the time to the nearest
     ## (most recent) ACS event. The times
     ## to next bleeding are stored in the ACS rows (an NA is used
     ## if there is not subsequent bleeding event
-    mutate(val = if_else(diagnosis %in_group% "bleeding", spell_start, NULL)) %>%
+    mutate(val = if_else(type == "bleeding", spell_start, NULL)) %>%
     fill(val, .direction = "up") %>%
     mutate(time_to_bleed = as.numeric((val - spell_start)/lubridate::ddays(1))) %>%
     ## In addition, store the bleeding diagnosis for the subsequent
     ## bleeding event.
-    mutate(bleed_type = if_else(diagnosis %in_group% "bleeding", diagnosis, NULL)) %>%
-    fill(bleed_type, .direction = "up")
-## Currently takes 6mins to get to here -- need to fix this.
-
+    mutate(bleed_type = if_else(type == "bleeding", primary_diagnosis_icd, NULL)) %>%
+    fill(bleed_type, .direction = "up") %>%
     ## Keep only the most recent ACS event before a bleeding event,
     ## and also ACS events with no subsequent bleeding event
     filter(type == "acs") %>%
@@ -103,6 +113,8 @@ next_bleed <- subsequent %>%
 ## else score is zero (higher means more at risk)
 hbr <- next_bleed %>%
     mutate(hbr_age = case_when(age >= 75 ~ 0.5, TRUE ~ 0))
+
+
 
 ## Use survival analysis to model the likelihood of bleeding
 ## within 12-months of an ACS event, based on age

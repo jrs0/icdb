@@ -416,7 +416,19 @@ is_valid <- function(x) {
 is_valid.icdb_icd10 <- function(x)
 {
     vctrs::field(x, "types") %>%
-        purrr::map(~ .x == 0) %>%
+        purrr::map(~ (.x == 0 || .x == 3)) %>%
+        unlist()
+}
+
+in_any_group <- function(x) {
+  UseMethod("in_any_group")
+}
+
+##' @export
+in_any_group.icdb_icd10 <- function(x)
+{
+    vctrs::field(x, "groups") %>%
+        purrr::map(~ (length(.x) > 0)) %>%
         unlist()
 }
 
@@ -501,6 +513,13 @@ groups.icdb_icd10 <- function(x)
     vctrs::field(x, "groups")
 }
 
+group_string <- function(x)
+{
+    groups(x) %>%
+        purrr::map(~ paste(.x, collapse=",")) %>%
+        unlist()
+}
+
 name <- function(x) {
     UseMethod("name")
 }
@@ -510,7 +529,6 @@ name.icdb_icd10 <- function(x)
 {
     vctrs::field(x, "name")
 }
-
 
 ##' @export
 summary.icdb_icd10 <- function(object, ...)
@@ -546,6 +564,8 @@ in_group <- function(x, group)
 ##' the groups listed.
 ##' @export
 `%in_group%` <- function(x, group) in_group(x,group)
+
+
 
 ##' Check whether an icd10 code has a particular type
 ##' (parse status). This function can be used in the

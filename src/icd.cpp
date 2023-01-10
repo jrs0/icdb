@@ -26,6 +26,7 @@
 #include <iostream>
 #include <regex>
 #include <map>
+#include <set>
 
 std::ostream & operator << (std::ostream & os,
 			    const std::vector<std::string> & v)
@@ -44,17 +45,19 @@ class ParseResult
 {
 public:
     ParseResult(int type, const std::vector<std::size_t> & indices,
-		const std::vector<std::string> & groups,
+		const std::set<std::string> & groups,
 		const std::string & name,
 		const std::string & trailing)
 	: type_{type}, indices_{indices},
-	  trailing_{trailing}, groups_{groups}, name_{name}
+	  trailing_{trailing}, groups_(groups.begin(), groups.end()),
+	  name_{name}
     {}
 
     ParseResult(int type, const std::vector<std::size_t> & indices,
-		const std::vector<std::string> & groups,
+		const std::set<std::string> & groups,
 		const std::string & name)
-	: type_{type}, indices_{indices}, groups_{groups}, name_{name}
+	: type_{type}, indices_{indices},
+	  groups_(groups.begin(), groups.end()), name_{name}
     {}
 
     ParseResult(int type) : type_{type} {}
@@ -131,11 +134,12 @@ public:
 
     // Get excluded groups (will throw std::out_of_range
     // on no exclude key)
-    std::vector<std::string> exclude() const
+    std::set<std::string> exclude() const
     {
-	return Rcpp::as<std::vector<std::string>>(cat_["exclude"]);
+	auto val{Rcpp::as<std::vector<std::string>>(cat_["exclude"])};
+	return std::set<std::string>(val.begin(), val.end());
     }
-
+    
     // True if this category has subcategories (false
     // for leaf nodes with single codes)
     bool has_subcats() const
@@ -277,7 +281,7 @@ std::ostream & operator << (std::ostream & os,
 // 
 ParseResult icd10_str_to_indices_impl(const std::string & str,
 				      const Rcpp::List & codes,
-				      std::vector<std::string> groups)
+				      std::set<std::string> groups)
 {
     // Check for empty string. Return type = 1 if empty
     // and set all other fields to empty
@@ -331,16 +335,10 @@ ParseResult icd10_str_to_indices_impl(const std::string & str,
     // them from the current group list (note that if exclude
     // is not present, NULL is returned, which works fine).
     try {
-	std::vector<std::string> diff;
-	std::vector<std::string> exclude = position->exclude();
-
-	// Move the elements to diff, and then swap diff with
-	// groups afterwords.
-	std::set_difference(std::make_move_iterator(std::begin(groups)),
-			    std::make_move_iterator(std::end(groups)),
-			    std::begin(exclude), std::end(exclude),
-			    std::inserter(diff, std::begin(diff)));
-	groups.swap(diff);
+	std::set<std::string> exclude = position->exclude();
+	for (const auto & e : exclude) {
+	    groups.erase(e);
+	}
     } catch (const Rcpp::index_out_of_bounds &) {
 	// No exclude tag present, no need to remove anything,
 	// groups is still valid
@@ -423,9 +421,10 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 {    
     // TODO: fix this -- there should be a proper way to handle
     // an empty list of strings
-    std::vector<std::string> groups;
+    std::set<std::string> groups;
     if (Rcpp::as<Rcpp::List>(code_def["groups"]).size() > 0) {
-	groups = Rcpp::as<std::vector<std::string>>(code_def["groups"]);
+	auto val{Rcpp::as<std::vector<std::string>>(code_def["groups"])};
+	groups = std::set<std::string>(val.begin(), val.end());
     }
 
     // Create separate lists for each output (to avoid doing it in R)
