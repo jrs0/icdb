@@ -16,6 +16,7 @@ library(corrplot)
 library(caret)
 library(pROC)
 library(ggplot2)
+library(nleqslv)
 
 ## Total number of patients
 n <- 10000
@@ -60,13 +61,28 @@ arc_hbr_score_prob <- c(0.014, 0.079, 0.291, 0.616)
 ## ================= END OF INPUT DATA ===============
 set.seed(1023)
 
-## Calculate the probability of getting an all-zero row
-## (a non-HBR row), to correct the major factor probabilities
-## (this is necessary so that the probabilities come out right
-## within the HBR group)
-all_zero_prob <- arc_hbr_criteria_prob %>%
-    map(~ 1 - .x) %>%
-    reduce(`*`)
+## The function whose root is to be used as the initial
+## probability of the major criteria
+fn <- function(p)
+{
+    ## The input to the function is the proposed population
+    ## probability
+    
+    ## Calculate the probability of getting an all-zero row
+    ## (a non-HBR row), to correct the major factor probabilities
+    ## (this is necessary so that the probabilities come out right
+    ## within the HBR group)
+    all_zero_prob <- p %>%
+        map(~ 1 - .x) %>%
+        reduce(`*`)
+
+    ## Use the scaling factor to get the new probabilities
+    alpha <- 1 - all_zero_prob
+    new_p <- alpha * p
+    new_p - p
+}
+
+out <- nleqslv(unlist(arc_hbr_criteria_prob), fn)
 
 ## Generate independent columns of predictors, distributed
 ## correctly according to predictor (binomial) distribution.
