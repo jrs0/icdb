@@ -83,6 +83,7 @@ message("Total spells: ", nrow(all_spells))
 code_file <- "icd10_hbr_minimal.yaml"
 parsed_icd <- all_spells %>%
     mutate(diagnosis = icd10(primary_diagnosis_icd, code_file))
+
 parse_stats <- parsed_icd$diagnosis %>% get_parse_stats()
 total_valid <- parse_stats$valid_count + parse_stats$trailing_count
 total_excluded <- parse_stats$empty_count + parse_stats$invalid_count

@@ -55,79 +55,65 @@ p_bleed_arc <- p_bleed_base * arc_hr
 ## Proportion of different ARC HBR "score" present in the
 ## data. The vector represents the total proportion of
 ## the HBR population have the specified value of ARC
-## HBR score
-arc_hbr_score_prob <- c(0.014, 0.079, 0.291, 0.616)
+## HBR score. The vector is list in order score = 1, 2,
+## 3, 4 (5 and above are omitted)
+arc_hbr_score_prob <- c(0.616, 0.291, 0.079, 0.014, 0, 0)
 
 ## ================= END OF INPUT DATA ===============
 set.seed(1023)
 
-## The function whose root is to be used as the initial
-## probability of the major criteria (in the general
-## population)
-fn <- function(p_pop)
-{
-    ## The input to the function is a candidate set of proportions
-    ## of major events in the general population. This should
-    ## be such that, after removing the zero rows, the resulting
-    ## proportions are the target proportions
-    
-    ## Calculate the probability of getting an all-zero row
-    ## (a non-HBR row) in the full population (HBR and non-HBR)
-    all_zero_prob <- p_pop %>%
-        map(~ 1 - .x) %>%
-        reduce(`*`)
-
-    ## Use the all_zero probability to compute the proportion
-    ## of the population that is HBR, and adjust the p_hbr
-    ## to 
-    alpha <- 1 - all_zero_prob ## min(max(0, all_zero_prob), 1)
-    p_hbr <- p_pop / alpha
-
-    ## Compare the resulting probabilities with the target
-    norm(as.matrix(p_hbr - unlist(arc_hbr_criteria_prob)))
-}
-
-## Find the input probability values
-num_major_criteria <- length(arc_hbr_criteria_prob)
-interval <- c(rep(0,num_major_criteria), rep(1,num_major_criteria))
-out <- optim(unlist(arc_hbr_criteria_prob), fn)
-p_input <- as.list(out$par)
-names(p_input) <- names(arc_hbr_criteria_prob)
+## Generate a baseline HBR/non-HBR list
+hbr <- tibble(hbr = rbinom(n = n, size = 1, prob = p_hbr))
 
 ## Generate independent columns of predictors, distributed
 ## correctly according to predictor (binomial) distribution.
-hbr <- tibble(anemia = rbinom(n = n, size = 1,
-                              prob = p_input$anemia * (1 - all_zero_prob)),
-              oac = rbinom(n = n, size = 1,
-                           prob = p_input$oac * (1 - all_zero_prob)),
-              malignancy = rbinom(n = n, size = 1,
-                                  prob = p_input$malignancy * (1 - all_zero_prob)),
-              ckd = rbinom(n = n, size = 1,
-                           prob = p_input$ckd * (1 - all_zero_prob)),
-              surgery = rbinom(n = n, size = 1,
-                               prob = p_input$surgery * (1 - all_zero_prob)),
-              thrombocytopenia = rbinom(n = n, size = 1,
-                                        prob = p_input$thrombocytopenia * (1 - all_zero_prob)))
-
-## Check 
-summary(hbr)
+hbr <- hbr %>%
+    mutate(anemia = rbinom(n = n, size = 1,
+                           prob = hbr*arc_hbr_criteria_prob$anemia),
+           oac = rbinom(n = n, size = 1,
+                        prob = hbr*arc_hbr_criteria_prob$oac),
+           malignancy = rbinom(n = n, size = 1,
+                               prob = hbr*arc_hbr_criteria_prob$malignancy),
+           ckd = rbinom(n = n, size = 1,
+                        prob = hbr*arc_hbr_criteria_prob$ckd),
+           surgery = rbinom(n = n, size = 1,
+                            prob = hbr*arc_hbr_criteria_prob$surgery),
+           thrombocytopenia = rbinom(n = n, size = 1,
+                                     prob = hbr*arc_hbr_criteria_prob$thrombocytopenia))
 
 ## Create ARC HBR "score" (add up the major factors)
 hbr <- hbr %>%
     mutate(arc_score = rowSums(across(where(is.numeric))))
 
-## Calculate the breakdown of ARC scores, including the
-## possibility of 0
+
+## Calculate the breakdown of ARC scores in the HBR group
 arc_score_dist <- c(1 - p_hbr, p_hbr * arc_hbr_prop)
 
-## Sanity-check the distribution against arc_score_dist
-hbr %>% select(arc_score) %>%
+## Compute the number of HBR and non-HBR in the generated data
+n_hbr <- hbr %>% filter(arc_score > 0) %>% nrow()
+n_non_hbr <- hbr %>% filter(arc_score == 0) %>% nrow()
+print(paste0("The prevelance of HBR in the generated data is ", n_hbr/n))
+
+## Sanity-check the distribution of different ARC scores against the
+## specified input distribution (see Central Illustration, left)
+arc_score_breakdown <- hbr %>% select(arc_score) %>%
+    filter(arc_score > 0) %>%
     group_by(arc_score) %>%
     count() %>%
-    mutate(true_prob = n/nrow(hbr))
+    mutate(true_prob = n/n_hbr)
+
+## Manually for now, automate later
+n_anemia = hbr %>% filter(anemia == 1) %>% nrow()
+
+arc_score_breakdown %>%
+    mutate(new_n = )
+
+    mutate(prop = 1)
+
+
 print("The target probability distribution (for score 1..4):")
 arc_hbr_score_prob
-
+print("Scores show correct trend, but are numerically a bit wrong -- to fix")
 
 
 ## Generate normally distributed ages
