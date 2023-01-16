@@ -1,5 +1,4 @@
-##' Perform a logistic regression to attempt to predict bleeding outcome from the
-##' minimal HBR dataset
+##' Use trees to predict bleeding
 ##'
 ##' 
 
@@ -21,17 +20,8 @@ data_test <- hbr_minimal_dataset_test %>%
 data_train <- hbr_minimal_dataset_train %>%
     select(-date)
 
-## Logistic regression requires preprocessing of the predictors
-## for sparse/unbalanced variables (p. 285, APM). 
-
-## Remove zero-variance predictors from the test and train sets
-predictors_train <- hbr_minimal_dataset_train %>%
-    select(-bleed)
-near_zero_var_indices <- nearZeroVar(predictors_train)
-data_test <- data_test %>%
-    select(-near_zero_var_indices)
-data_train <- data_train %>%
-    select(-near_zero_var_indices)
+## Trees are more insensitive to predictor characteristics
+## (0. 27 APM), so leave the predictors alone.
 
 ## Drop rows with missing values in the training and test sets
 data_train <- data_train %>%
@@ -60,7 +50,8 @@ ctrl <- trainControl(summaryFunction = twoClassSummary,
                      savePredictions = TRUE)
 fit <- train(bleed ~ .,
              data = data_train,
-             method = "glm",
+             ##tune_length = 30,
+             method = "rpart",
              metric = "ROC",
              trControl = ctrl)
 
