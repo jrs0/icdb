@@ -8,65 +8,7 @@ library(corrplot)
 library(pROC)
 library(tidyverse)
 
-##' @title Get ROC curves for the cross-validation folds
-##' @return A tibble containing columns for the sensitivities,
-##' specificities, and cross-validation fold in the label column
-get_cv_roc <- function(fit)
-{
-    ## From "https://stackoverflow.com/questions/69246553/
-    ## plot-the-average-cross-validated-auc-from-caret-package"
-    ##
-    ## sapply roc(), bind as tibble with Resample as .id
-    tbl <- sapply(X = unique(fit$pred$Resample),
-           FUN = function(x) {
-               r <- fit$pred[fit$pred$Resample == x,]
-               R <- roc(response = r$obs, predictor = r$bleed_occured)
-               data.frame(sensitivities = R$sensitivities,
-                          specificities = R$specificities)
-           }, simplify = F) %>%
-        bind_rows(.id = "Resample") %>%
-        as_tibble() %>%
-        rename(label = Resample)
-}
-
-##' @title Add predictions and class probabilities to the data
-##' @param data A tibble containing the predictors used in fit
-##' and the response column 
-##' @param fit The model to use
-##' @param response_name The string name of the column to use as
-##' the response (a factor)
-##' @param positive_event Which level of response to use as the
-##' positive event for the purpose of probabilities
-##' @param response The response column to predict. The argument is
-##' a string. 
-##' @return A tibble containing the new columns response_pred for
-##' predictions, and response_prob for the prediction probabilities
-##' 
-add_predictions <- function(data, fit, response, positive_event)
-{
-
-    ## What is going on here? Apparently putting paste0 into the mutate
-    ## does not work
-    response_pred <- paste0(response, "_pred") 
-    data[[response_pred]] = predict(fit, newdata = data)
-
-    response_prob <- paste0(response, "_prob") 
-    data[[response_prob]] = predict(fit, newdata = data,
-                                    type = "prob")[,positive_event]
-
-    data
-}
-
-
-get_roc <- function(data, response, label)
-{
-    response_prob <- paste0(response, "_prob")
-    roc <- roc(response = data[[response]],
-               predictor = data[[response_prob]])
-    roc_test_tbl <- tibble(label = label,
-                           sensitivities = roc$sensitivities,
-                           specificities = roc$specificities)
-}
+source("utils.R")
 
 hbr_minimal_dataset_test <- readRDS("gendata/hbr_minimal_dataset_test.rds")
 hbr_minimal_dataset_train <- readRDS("gendata/hbr_minimal_dataset_train.rds")
@@ -134,6 +76,7 @@ roc_cv <- get_cv_roc(fit)
 data_train <- data_train %>%
     add_predictions(fit, response = "bleed", positive_event = "bleed_occured")
 
+## Get the ROC curve for the training set reprediction
 roc_train <- data_train %>%
     get_roc(response = "bleed", label = "train")
 
@@ -142,6 +85,7 @@ roc_train <- data_train %>%
 data_test <- data_test %>%
     add_predictions(fit, response = "bleed", positive_event = "bleed_occured")
 
+## Store the ROC curve for the testing set prediction
 roc_test <- data_test %>%
     get_roc(response = "bleed", label = "test")
 
@@ -165,8 +109,3 @@ ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
 ## Summary the performance
 message("-- Summary of the model --")
 fit
-message("\n-- Model performance when repredicting training set --")
-message("AUC (ROC) for full training set ", auc(roc_train))
-ci(roc_train)
-message("\n-- Model performance on test set --")
-message("AUC (ROC) for test set ", auc(roc_test))
