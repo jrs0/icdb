@@ -78,6 +78,36 @@ l_ply(split(fit$pred, fit$pred$Resample), function(d) {
     plot(roc(predictor = d$bleed_occured, response = d$obs))
 })
 
+## From "https://stackoverflow.com/questions/69246553/
+## plot-the-average-cross-validated-auc-from-caret-package"
+##
+## sapply roc(), bind as tibble with Resample as .id
+dd.roc <- sapply(X = unique(fit$pred$Resample),
+                 FUN = function(x) {
+                     r <- fit$pred[fit$pred$Resample == x,]
+                     R <- roc(response = r$obs, predictor = r$bleed_occured)
+                     data.frame(sensitivities = R$sensitivities,
+                                specificities = R$specificities)
+                 }, simplify = F) %>%
+    bind_rows(.id = "Resample") %>%
+    as_tibble() %>%
+    arrange(specificities)
+
+d.roc <- roc(response = fit$pred$obs, predictor = fit$pred$bleed_occured)
+
+ggplot(dd.roc, aes(x=specificities,y=sensitivities)) +
+    ## geom_point(colour = "tomato", alpha = 0.1) +
+    ## geom_density2d() +
+    geom_path(aes(group = Resample, colour = "ROC per resample"), alpha = 0.1) +
+    geom_smooth(colour = "tomato", size = 1.5) +
+    ##    geom_line(data = d.roc, aes(colour = "ROC over all resamples"), size = 1.5) +
+    ylim(0,1) +
+    geom_abline(aes(slope = 1, intercept = 1)) +
+    scale_x_reverse(limit = c(1,0)) +
+    scale_colour_manual(values = c("seagreen","tomato"), name = "") +
+    theme_classic() +
+    theme(legend.position = "bottom")
+
 ## Use the model to make predictions on the test data, and record
 ## the class probabilities.
 data_test <- data_test %>%
