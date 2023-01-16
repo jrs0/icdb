@@ -3,10 +3,70 @@
 ##'
 ##' 
 
-library(tidyverse)
 library(caret)
 library(corrplot)
 library(pROC)
+library(tidyverse)
+
+##' @title Get ROC curves for the cross-validation folds
+##' @return A tibble containing columns for the sensitivities,
+##' specificities, and cross-validation fold
+get_cv_roc <- function(fit)
+{
+    ## From "https://stackoverflow.com/questions/69246553/
+    ## plot-the-average-cross-validated-auc-from-caret-package"
+    ##
+    ## sapply roc(), bind as tibble with Resample as .id
+    tbl <- sapply(X = unique(fit$pred$Resample),
+           FUN = function(x) {
+               r <- fit$pred[fit$pred$Resample == x,]
+               R <- roc(response = r$obs, predictor = r$bleed_occured)
+               data.frame(sensitivities = R$sensitivities,
+                          specificities = R$specificities)
+           }, simplify = F) %>%
+        bind_rows(.id = "Resample") %>%
+        as_tibble() %>%
+        rename(label = Resample)
+}
+
+##' @title Add predictions and class probabilities to the data
+##' @param data A tibble containing the predictors used in fit
+##' and the response column 
+##' @param fit The model to use
+##' @param response_name The string name of the column to use as
+##' the response (a factor)
+##' @param positive_event Which level of response to use as the
+##' positive event for the purpose of probabilities
+##' @param response The response column to predict. The argument is
+##' a string. 
+##' @return A tibble containing the new columns response_pred for
+##' predictions, and response_prob for the prediction probabilities
+##' 
+add_predictions <- function(data, fit, response, positive_event)
+{
+
+    ## What is going on here? Apparently putting paste0 into the mutate
+    ## does not work
+    response_pred <- paste0(response, "_pred") 
+    data[[response_pred]] = predict(fit, newdata = data)
+
+    response_prob <- paste0(response, "_prob") 
+    data[[response_prob]] = predict(fit, newdata = data,
+                                    type = "prob")[,positive_event]
+
+    data
+}
+
+
+get_roc <- function(data, response, label)
+{
+    response_prob <- paste0(response, "_prob")
+    roc_test <- roc(response = data[[response]],
+                    predictor = data[[response_prob)
+    roc_test_tbl <- tibble(Resample = label,
+                           sensitivities = roc_test$sensitivities,
+                           specificities = roc_test$specificities)
+}
 
 hbr_minimal_dataset_test <- readRDS("gendata/hbr_minimal_dataset_test.rds")
 hbr_minimal_dataset_train <- readRDS("gendata/hbr_minimal_dataset_train.rds")
@@ -68,60 +128,28 @@ fit <- train(bleed ~ .,
 fit
 message("The SD of the AUC for the ROC is: ", fit$results$ROCSD)
 
-## From "https://stackoverflow.com/questions/69246553/
-## plot-the-average-cross-validated-auc-from-caret-package"
-##
-## sapply roc(), bind as tibble with Resample as .id
-roc_cv <- sapply(X = unique(fit$pred$Resample),
-                 FUN = function(x) {
-                     r <- fit$pred[fit$pred$Resample == x,]
-                     R <- roc(response = r$obs, predictor = r$bleed_occured)
-                     data.frame(sensitivities = R$sensitivities,
-                                specificities = R$specificities)
-                 }, simplify = F) %>%
-    bind_rows(.id = "Resample") %>%
-    as_tibble() %>%
-    arrange(specificities)
-
+roc_cv <- get_cv_roc(fit)
+    
 ## Repredict the training dataset using the model
 data_train <- data_train %>%
-    mutate(bleed_prediction = predict(fit,
-                                      newdata = data_train)) %>%
-    mutate(bleed_prediction_prob = predict(fit,
-                                           newdata = data_train,
-                                           type = "prob")[,"bleed_occured"])
+    add_predictions(fit, response = "bleed", positive_event = "bleed_occured")
 
 roc_train <- roc(response = data_train$bleed,
-                 predictor = data_train$bleed_prediction_prob)
+                 predictor = data_train$bleed_prob)
 roc_train_tbl <- tibble(Resample = "train",
                         sensitivities = roc_train$sensitivities,
                         specificities = roc_train$specificities)
 
-
-## Show the area under the ROC curve with a confidence interval
-## For repredicting the training set
-auc(roc_train)
-ci(roc_train)
-
 ## Use the model to make predictions on the test data, and record
 ## the class probabilities.
 data_test <- data_test %>%
-    mutate(bleed_prediction = predict(fit,
-                                      newdata = data_test)) %>%
-    mutate(bleed_prediction_prob = predict(fit,
-                                      newdata = data_test,
-                                      type = "prob")[,"bleed_occured"])
+    add_predictions(fit, response = "bleed", positive_event = "bleed_occured")
 
 roc_test <- roc(response = data_test$bleed,
                 predictor = data_test$bleed_prediction_prob)
 roc_test_tbl <- tibble(Resample = "test",
                        sensitivities = roc_test$sensitivities,
                        specificities = roc_test$specificities)
-
-## Show the area under the ROC curve with a confidence interval
-## For repredicting the test set
-auc(roc_test)
-ci(roc_test)
 
 ## Combine all the ROC curves
 roc_curves <- rbind(roc_train_tbl, roc_test_tbl, roc_cv) %>%
