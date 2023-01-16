@@ -140,9 +140,11 @@ ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
     theme_classic() +
     theme(legend.position = "bottom")
 
-
-## Plot the ROC curve
-plot(roc_curve, legacy.axes = TRUE)
-
-## Plot the confusion matrix 
-confusionMatrix(data_test$bleed, data_test$bleed_prediction)
+## Summary the performance
+message("-- Summary of the model --")
+fit
+message("\n-- Model performance when repredicting training set --")
+message("AUC (ROC) for full training set ", auc(roc_train))
+ci(roc_train)
+message("\n-- Model performance on test set --")
+message("AUC (ROC) for test set ", auc(roc_test))
