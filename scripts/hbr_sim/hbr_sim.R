@@ -98,9 +98,10 @@ print(paste0("The prevelance of HBR in the generated data is ", n_hbr/n))
 ## specified input distribution (see Central Illustration, left)
 arc_score_breakdown <- hbr %>% select(arc_score) %>%
     filter(arc_score > 0) %>%
+    mutate(n=n())%>%
     group_by(arc_score) %>%
     count() %>%
-    mutate(true_prob = n/nrow(.))
+    mutate(true_prob = n()/n[[1]])
 
 ## Manually for now, automate later
 n_anemia = hbr %>% filter(anemia == 1) %>% nrow()
