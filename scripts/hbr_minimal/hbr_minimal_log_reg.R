@@ -43,7 +43,8 @@ message("Kept ", nrow(data_test), " rows out of ",
 
 
 ## TODO Deal with class inbalance here
-
+## See this: "https://datascience.stackexchange.com/questions/82073/
+## why-you-shouldnt-upsample-before-cross-validation"
 
 ## Randomness is used below this point (for the cross-validation)
 set.seed(476)
@@ -67,22 +68,11 @@ fit <- train(bleed ~ .,
 fit
 message("The SD of the AUC for the ROC is: ", fit$results$ROCSD)
 
-## Plot the average cross-validated ROC curve across folds,
-## for re-predicting the training data.
-## Look here: "https://stackoverflow.com/questions/37215366
-## /plot-roc-curve-from-cross-validation-training-data-in-r"
-plot(roc(predictor = fit$pred$bleed_occured, response = fit$pred$obs))
-
-library(plyr)
-l_ply(split(fit$pred, fit$pred$Resample), function(d) {
-    plot(roc(predictor = d$bleed_occured, response = d$obs))
-})
-
 ## From "https://stackoverflow.com/questions/69246553/
 ## plot-the-average-cross-validated-auc-from-caret-package"
 ##
 ## sapply roc(), bind as tibble with Resample as .id
-dd.roc <- sapply(X = unique(fit$pred$Resample),
+roc_cv <- sapply(X = unique(fit$pred$Resample),
                  FUN = function(x) {
                      r <- fit$pred[fit$pred$Resample == x,]
                      R <- roc(response = r$obs, predictor = r$bleed_occured)
@@ -93,20 +83,25 @@ dd.roc <- sapply(X = unique(fit$pred$Resample),
     as_tibble() %>%
     arrange(specificities)
 
-d.roc <- roc(response = fit$pred$obs, predictor = fit$pred$bleed_occured)
+## Repredict the training dataset using the model
+data_train <- data_train %>%
+    mutate(bleed_prediction = predict(fit,
+                                      newdata = data_train)) %>%
+    mutate(bleed_prediction_prob = predict(fit,
+                                           newdata = data_train,
+                                           type = "prob")[,"bleed_occured"])
 
-ggplot(dd.roc, aes(x=specificities,y=sensitivities)) +
-    ## geom_point(colour = "tomato", alpha = 0.1) +
-    ## geom_density2d() +
-    geom_path(aes(group = Resample, colour = "ROC per resample"), alpha = 0.1) +
-    geom_smooth(colour = "tomato", size = 1.5) +
-    ##    geom_line(data = d.roc, aes(colour = "ROC over all resamples"), size = 1.5) +
-    ylim(0,1) +
-    geom_abline(aes(slope = 1, intercept = 1)) +
-    scale_x_reverse(limit = c(1,0)) +
-    scale_colour_manual(values = c("seagreen","tomato"), name = "") +
-    theme_classic() +
-    theme(legend.position = "bottom")
+roc_train <- roc(response = data_train$bleed,
+                 predictor = data_train$bleed_prediction_prob)
+roc_train_tbl <- tibble(Resample = "train",
+                        sensitivities = roc_train$sensitivities,
+                        specificities = roc_train$specificities)
+
+
+## Show the area under the ROC curve with a confidence interval
+## For repredicting the training set
+auc(roc_train)
+ci(roc_train)
 
 ## Use the model to make predictions on the test data, and record
 ## the class probabilities.
@@ -116,14 +111,35 @@ data_test <- data_test %>%
     mutate(bleed_prediction_prob = predict(fit,
                                       newdata = data_test,
                                       type = "prob")[,"bleed_occured"])
-    
-## Plot the ROC curve from the predicted probabilities
-roc_curve <- roc(response = data_test$bleed,
-                 predictor = data_test$bleed_prediction_prob)
+
+roc_test <- roc(response = data_test$bleed,
+                predictor = data_test$bleed_prediction_prob)
+roc_test_tbl <- tibble(Resample = "test",
+                       sensitivities = roc_test$sensitivities,
+                       specificities = roc_test$specificities)
 
 ## Show the area under the ROC curve with a confidence interval
-auc(roc_curve)
-ci(roc_curve)
+## For repredicting the test set
+auc(roc_test)
+ci(roc_test)
+
+## Combine all the ROC curves
+roc_curves <- rbind(roc_train_tbl, roc_test_tbl, roc_cv) %>%
+    mutate(type = case_when(Resample == "train" ~ "train",
+                            Resample == "test" ~ "test",
+                            TRUE ~ "fold"))
+
+## Plot the ROC curves for each fold, the ROC curve for repredicting
+## the training set, and the ROC curve for predicting the test set
+ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
+    geom_path(aes(group = Resample, colour = type)) +
+    ylim(0,1) +
+    geom_abline(aes(slope = 1, intercept = 1)) +
+    scale_x_reverse(limit = c(1,0)) +
+    scale_colour_manual(values = c("test"="green", "train"="red", "fold"="gray")) +
+    theme_classic() +
+    theme(legend.position = "bottom")
+
 
 ## Plot the ROC curve
 plot(roc_curve, legacy.axes = TRUE)
