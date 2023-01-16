@@ -8,41 +8,31 @@ library(caret)
 library(corrplot)
 library(pROC)
 
-hbr_minimal_dataset <- readRDS("gendata/hbr_minimal_dataset.rds")
+hbr_minimal_dataset_test <- readRDS("gendata/hbr_minimal_dataset_test.rds")
+hbr_minimal_dataset_train <- readRDS("gendata/hbr_minimal_dataset_train.rds")
 
-## Drop the date from the predictors
-without_date <- hbr_minimal_dataset %>%
-    select(-date)
+## Get the predictors for the test and train sets
+predictors_test <- hbr_minimal_dataset_test %>%
+    select(-date, -bleed)
+predictors_train <- hbr_minimal_dataset_train %>%
+    select(-date, -bleed)
 
-predictors <- without_date %>%
-    select(-bleed)
+## Get the response from the test and train sets
+response_test <- hbr_minimal_dataset_test %>%
+    select(bleed)
+response_train <- hbr_minimal_dataset_train %>%
+    select(bleed)
 
-## Remove zero variance predictors
-near_zero_indices <- nearZeroVar(predictors)
-predictors <- predictors %>%
-    select(-near_zero_indices)
+## Logistic regression requires preprocessing of the predictors
+## for sparse/unbalanced variables (p. 285, APM). 
 
-## Show the remaining columns
-predictors %>% colnames()
+## Remove zero-variance predictors
+near_zero_var_indices <- nearZeroVar(predictors_train)
+predictors_train <- predictors_train %>%
+    select(-near_zero_var_indices)
 
-## ## Encode the remaining factor columns as dummy variables
-## dummy_mod <- dummyVars(~ ., data = predictors)
-## dummy_predictors <- predict(dummy_mod, predictors)
-## dummy_predictors <- as.data.frame(dummy_predictors)
-## dummy_predictors <- as_tibble(dummy_predictors)
+## TODO Deal with class inbalance here
 
-## dataset$age <- without_date$age
-## dataset$bleed <- without_date$bleed
-
-## View correlations in the predictors
-## cor <- cor(predictors)
-## corrplot(cor)
-
-## Remove zero variance
-
-## Make the dataset
-dataset <- predictors
-dataset$bleed <- without_date$bleed
 
 set.seed(476)
 
