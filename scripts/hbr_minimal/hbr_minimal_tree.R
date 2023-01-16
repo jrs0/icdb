@@ -50,17 +50,18 @@ ctrl <- trainControl(summaryFunction = twoClassSummary,
                      savePredictions = TRUE)
 fit <- train(bleed ~ .,
              data = data_train,
-             ##tune_length = 30,
+             tuneLength = 30,
              method = "rpart",
              metric = "ROC",
              trControl = ctrl)
+
+## View the ROC metric as a function of the tuning parameter
+plot(fit)
 
 ## View the summary, look for ROC area, which is the average
 ## over the n folds of the cross validation
 fit
 message("The SD of the AUC for the ROC is: ", fit$results$ROCSD)
-
-roc_cv <- get_cv_roc(fit)
     
 ## Repredict the training dataset using the model
 data_train <- data_train %>%
@@ -80,15 +81,12 @@ roc_test <- data_test %>%
     get_roc(response = "bleed", label = "test")
 
 ## Combine all the ROC curves
-roc_curves <- rbind(roc_train, roc_test, roc_cv) %>%
-    mutate(type = case_when(label == "train" ~ "train",
-                            label == "test" ~ "test",
-                            TRUE ~ "fold"))
+roc_curves <- rbind(roc_train, roc_test)
 
 ## Plot the ROC curves for each fold, the ROC curve for repredicting
 ## the training set, and the ROC curve for predicting the test set
 ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
-    geom_path(aes(group = label, colour = type)) +
+    geom_path(aes(group = label, colour = label)) +
     ylim(0,1) +
     geom_abline(aes(slope = 1, intercept = 1)) +
     scale_x_reverse(limit = c(1,0)) +
