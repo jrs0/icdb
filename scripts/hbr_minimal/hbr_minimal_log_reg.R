@@ -10,7 +10,7 @@ library(tidyverse)
 
 ##' @title Get ROC curves for the cross-validation folds
 ##' @return A tibble containing columns for the sensitivities,
-##' specificities, and cross-validation fold
+##' specificities, and cross-validation fold in the label column
 get_cv_roc <- function(fit)
 {
     ## From "https://stackoverflow.com/questions/69246553/
@@ -61,11 +61,11 @@ add_predictions <- function(data, fit, response, positive_event)
 get_roc <- function(data, response, label)
 {
     response_prob <- paste0(response, "_prob")
-    roc_test <- roc(response = data[[response]],
-                    predictor = data[[response_prob)
-    roc_test_tbl <- tibble(Resample = label,
-                           sensitivities = roc_test$sensitivities,
-                           specificities = roc_test$specificities)
+    roc <- roc(response = data[[response]],
+               predictor = data[[response_prob]])
+    roc_test_tbl <- tibble(label = label,
+                           sensitivities = roc$sensitivities,
+                           specificities = roc$specificities)
 }
 
 hbr_minimal_dataset_test <- readRDS("gendata/hbr_minimal_dataset_test.rds")
@@ -134,33 +134,27 @@ roc_cv <- get_cv_roc(fit)
 data_train <- data_train %>%
     add_predictions(fit, response = "bleed", positive_event = "bleed_occured")
 
-roc_train <- roc(response = data_train$bleed,
-                 predictor = data_train$bleed_prob)
-roc_train_tbl <- tibble(Resample = "train",
-                        sensitivities = roc_train$sensitivities,
-                        specificities = roc_train$specificities)
+roc_train <- data_train %>%
+    get_roc(response = "bleed", label = "train")
 
 ## Use the model to make predictions on the test data, and record
 ## the class probabilities.
 data_test <- data_test %>%
     add_predictions(fit, response = "bleed", positive_event = "bleed_occured")
 
-roc_test <- roc(response = data_test$bleed,
-                predictor = data_test$bleed_prediction_prob)
-roc_test_tbl <- tibble(Resample = "test",
-                       sensitivities = roc_test$sensitivities,
-                       specificities = roc_test$specificities)
+roc_test <- data_test %>%
+    get_roc(response = "bleed", label = "test")
 
 ## Combine all the ROC curves
-roc_curves <- rbind(roc_train_tbl, roc_test_tbl, roc_cv) %>%
-    mutate(type = case_when(Resample == "train" ~ "train",
-                            Resample == "test" ~ "test",
+roc_curves <- rbind(roc_train, roc_test, roc_cv) %>%
+    mutate(type = case_when(label == "train" ~ "train",
+                            label == "test" ~ "test",
                             TRUE ~ "fold"))
 
 ## Plot the ROC curves for each fold, the ROC curve for repredicting
 ## the training set, and the ROC curve for predicting the test set
 ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
-    geom_path(aes(group = Resample, colour = type)) +
+    geom_path(aes(group = label, colour = type)) +
     ylim(0,1) +
     geom_abline(aes(slope = 1, intercept = 1)) +
     scale_x_reverse(limit = c(1,0)) +
