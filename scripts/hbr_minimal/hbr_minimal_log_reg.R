@@ -11,59 +11,85 @@ library(pROC)
 hbr_minimal_dataset_test <- readRDS("gendata/hbr_minimal_dataset_test.rds")
 hbr_minimal_dataset_train <- readRDS("gendata/hbr_minimal_dataset_train.rds")
 
-## Get the predictors for the test and train sets
-predictors_test <- hbr_minimal_dataset_test %>%
-    select(-date, -bleed)
-predictors_train <- hbr_minimal_dataset_train %>%
-    select(-date, -bleed)
-
-## Get the response from the test and train sets
-response_test <- hbr_minimal_dataset_test %>%
-    select(bleed)
-response_train <- hbr_minimal_dataset_train %>%
-    select(bleed)
+## Get the predictors and response variable for the test and
+## training set (all column except date; response is the last
+## column
+data_test <- hbr_minimal_dataset_test %>%
+    select(-date)
+data_train <- hbr_minimal_dataset_train %>%
+    select(-date)
 
 ## Logistic regression requires preprocessing of the predictors
 ## for sparse/unbalanced variables (p. 285, APM). 
 
-## Remove zero-variance predictors
+## Remove zero-variance predictors from the test and train sets
+predictors_train <- hbr_minimal_dataset_train %>%
+    select(-bleed)
 near_zero_var_indices <- nearZeroVar(predictors_train)
-predictors_train <- predictors_train %>%
+data_test <- data_test %>%
     select(-near_zero_var_indices)
+data_train <- data_train %>%
+    select(-near_zero_var_indices)
+
+## Drop rows with missing values in the training and test sets
+data_train <- data_train %>%
+    drop_na()
+message("Kept ", nrow(data_train), " rows out of ",
+        nrow(hbr_minimal_dataset_train), " (missingness, train)")
+data_test <- data_test %>%
+    drop_na()
+message("Kept ", nrow(data_test), " rows out of ",
+        nrow(hbr_minimal_dataset_test), " (missingness, test)")
+
 
 ## TODO Deal with class inbalance here
 
 
+## Randomness is used below this point (for the cross-validation)
 set.seed(476)
 
-## Reverse the order of the factors to fit with the
-## twoClassSummary below
-dataset$bleed <- factor(dataset$bleed,
-                        levels=rev(levels(dataset$bleed)))
-
-## Use 10-fold cross validation
+## Fit the logistic regression model. There are no tuning parameters for
+## logistic regression. Use cross-validation to assess average model
+## performance within the training set
 ctrl <- trainControl(summaryFunction = twoClassSummary,
                      method = "cv",
                      number = 10,
                      classProbs = TRUE,
                      savePredictions = TRUE)
-lr_full <- train(dataset[,1:2],
-                 y = dataset$bleed,
-                 method = "glm",
-                 metric = "ROC",
-                 trControl = ctrl)
+fit <- train(bleed ~ .,
+             data = data_train,
+             method = "glm",
+             metric = "ROC",
+             trControl = ctrl)
 
 ## View the summary, look for ROC area, which is the average
 ## over the n folds of the cross validation
-lr_full
+fit
+message("The SD of the AUC for the ROC is: ", fit$results$ROCSD)
 
-## Predict the class probabilities and add the probability of
-lr_full_pred_prob <- predict(lr_full, new_data = dataset, type = "prob")
-dataset$lr_bleed_prob <- lr_full_pred_prob[,"bleed_occured"]
+## Plot the average cross-validated ROC curve across folds,
+## for re-predicting the training data.
+## Look here: "https://stackoverflow.com/questions/37215366
+## /plot-roc-curve-from-cross-validation-training-data-in-r"
+plot(roc(predictor = fit$pred$bleed_occured, response = fit$pred$obs))
 
+library(plyr)
+l_ply(split(fit$pred, fit$pred$Resample), function(d) {
+    plot(roc(predictor = d$bleed_occured, response = d$obs))
+})
+
+## Use the model to make predictions on the test data, and record
+## the class probabilities.
+data_test <- data_test %>%
+    mutate(bleed_prediction = predict(fit,
+                                      newdata = data_test)) %>%
+    mutate(bleed_prediction_prob = predict(fit,
+                                      newdata = data_test,
+                                      type = "prob")[,"bleed_occured"])
+    
 ## Plot the ROC curve from the predicted probabilities
-roc_curve <- roc(response = dataset$bleed,
-                predictor = dataset$lr_bleed_prob)
+roc_curve <- roc(response = data_test$bleed,
+                 predictor = data_test$bleed_prediction_prob)
 
 ## Show the area under the ROC curve with a confidence interval
 auc(roc_curve)
@@ -72,9 +98,5 @@ ci(roc_curve)
 ## Plot the ROC curve
 plot(roc_curve, legacy.axes = TRUE)
 
-## Predict the class from the LR model
-dataset$lr_bleed <- predict(lr_full, new_data = dataset)
-
 ## Plot the confusion matrix 
-confusionMatrix(prediction, dataset$bleed)
-
+confusionMatrix(data_test$bleed, data_test$bleed_prediction)
