@@ -48,10 +48,14 @@ ctrl <- trainControl(summaryFunction = twoClassSummary,
                      number = 10,
                      classProbs = TRUE,
                      savePredictions = TRUE)
+## Models you can insert here
+## - rpart (CART, using complexity tuning parameter)
+## - rpart2 (CART, using max tree depth tuning parameter)
+## - 
 fit <- train(bleed ~ .,
              data = data_train,
              tuneLength = 30,
-             method = "rpart",
+             method = "M5",
              metric = "ROC",
              trControl = ctrl)
 
@@ -62,6 +66,8 @@ plot(fit)
 ## over the n folds of the cross validation
 fit
 message("The SD of the AUC for the ROC is: ", fit$results$ROCSD)
+
+roc_cv <- get_cv_roc(fit)
     
 ## Repredict the training dataset using the model
 data_train <- data_train %>%
@@ -81,12 +87,15 @@ roc_test <- data_test %>%
     get_roc(response = "bleed", label = "test")
 
 ## Combine all the ROC curves
-roc_curves <- rbind(roc_train, roc_test)
+roc_curves <- rbind(roc_train, roc_test, roc_cv) %>%
+    mutate(type = case_when(label == "train" ~ "train",
+                            label == "test" ~ "test",
+                            TRUE ~ "fold"))
 
 ## Plot the ROC curves for each fold, the ROC curve for repredicting
 ## the training set, and the ROC curve for predicting the test set
 ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
-    geom_path(aes(group = label, colour = label)) +
+    geom_path(aes(group = label, colour = type)) +
     ylim(0,1) +
     geom_abline(aes(slope = 1, intercept = 1)) +
     scale_x_reverse(limit = c(1,0)) +
