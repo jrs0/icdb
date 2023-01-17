@@ -69,6 +69,7 @@ fit <- train(bleed ~ .,
 fit
 message("The SD of the AUC for the ROC is: ", fit$results$ROCSD)
 
+## Get the ROC curves for the models fitted in each fold
 roc_cv <- get_cv_roc(fit)
     
 ## Repredict the training dataset using the model
@@ -104,6 +105,10 @@ ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
     scale_colour_manual(values = c("test"="green", "train"="red", "fold"="gray")) +
     theme_classic() +
     theme(legend.position = "bottom")
+
+## Make a prediction based on a particular threshold
+pt <- 
+
 
 ## Summary the performance
 message("-- Summary of the model --")
