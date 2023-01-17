@@ -20,17 +20,17 @@ p_arc_hbr = c("0"=0, "1"=0.616, "2"=0.291, "3"=0.079, "4"=0.014, "5"=0, "6"=0, "
 
 ## Define the proportions of HBR patients to be in each HBR score category - central illustration figure
 p_hbr_criteria = list(
-    major_oac = 0.185,
-    major_sev_ckd = 0.137,
-    minor_mod_ckd = 0.396,
     major_sev_anaemia = 0.332,
-    minor_mild_anaemia = 0.369,
-    minor_bleed = 0.037,
-    major_thrmcyt = 0.043,
-    major_surgery = 0.082,
-    major_cva = 0.207,
+    major_oac = 0.185,
     major_malig = 0.168,
-    minor_age = 0.468
+    major_sev_ckd = 0.137,
+    major_surgery = 0.082,
+    major_thrmcyt = 0.043,
+    minor_age = 0.468,
+    minor_mod_ckd = 0.396,
+    minor_mild_anaemia = 0.369,
+    minor_cva = 0.207,
+    minor_bleed = 0.037
 )
 
 ## Probability of bleed occurance for the baseline
@@ -95,11 +95,11 @@ hbr_data <- tibble(
     major_sev_ckd = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["major_sev_ckd"]]),
     major_surgery = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["major_surgery"]]),
     major_thrmcyt = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["major_thrmcyt"]]),
-    ## MIn_sampleOR criteria - from figure 1
+    ## Min_sampleOR criteria - from figure 1
     minor_age = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["minor_age"]]),
     minor_mod_ckd = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["minor_mod_ckd"]]),
     minor_mild_anaemia = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["minor_mild_anaemia"]]),
-    major_cva = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["major_cva"]]),
+    minor_cva = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["minor_cva"]]),
     minor_bleed = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["minor_bleed"]])) %>%
     ## Calculate the number of times the HBR category has been satisfied (1 for a major and 0.5 for minor)
     mutate(maj_score = rowSums(select(., starts_with("major"))),
@@ -146,10 +146,11 @@ hbr_score_prop <- hbr_dataset %>%
     group_by(arc_hbr_score) %>%
     summarise(prop = n()/first(n)) %>%
     mutate(arc_hbr_score = as.character(arc_hbr_score)) %>%
-    left_join(data.frame(arc_hbr_score = names(config$arc_hbr_pct),
-                         cao_prop = unname(config$arc_hbr_pct)),
+    left_join(data.frame(arc_hbr_score = names(p_arc_hbr),
+                         cao_prop = unname(p_arc_hbr)),
               by = "arc_hbr_score") %>%
     pivot_longer(cols = c("prop","cao_prop"), names_to = "label", values_to = "value")
+
 ## Plot comparison
 ggplot(data = hbr_score_prop) +
     geom_bar(mapping = aes(x = arc_hbr_score, y = value, fill = label), stat = "identity", position = "dodge") +
@@ -161,12 +162,29 @@ hbr_criteria_prop <- hbr_dataset %>%
     summarise(across(matches("major|minor"), ~ sum(.x)/first(n))) %>%
     pivot_longer(cols = colnames(.), names_to = "label", values_to = "value") %>%
     mutate(class = "prop")
-hbr_criteria <- config[grepl("^pct", names(config))]
-hbr_criteria_target <- tibble(label = paste0(names(hbr_criteria)),
-                              value = unlist(hbr_criteria),
+hbr_criteria_target <- tibble(label = paste0(names(p_hbr_criteria)),
+                              value = unlist(p_hbr_criteria),
                               class = "target")
 hbr_criteria_full <- rbind(hbr_criteria_prop, hbr_criteria_target)
+
+## Reorder the factors
+hbr_criteria_full <- hbr_criteria_full %>%
+    mutate(label = factor(label, levels=c("minor_bleed",
+                                          "minor_cva",
+                                          "minor_mild_anaemia",                                   
+                                          "minor_mod_ckd",
+                                          "minor_age",
+                                          "major_thrmcyt",
+                                          "major_surgery",
+                                          "major_sev_ckd",
+                                          "major_malig",
+                                          "major_oac",
+                                          "major_sev_anaemia")))
+
+
 ## Plot the comparison
 ggplot(data = hbr_criteria_full) +
     geom_bar(mapping = aes(x = label, y = value, fill = class), stat = "identity", position = "dodge") +
-    theme_bw()
+    theme_bw() +
+    coord_flip() +
+    ggtitle("Prevalence of the ARC-HBR Criteria vs Cao et al. Within HBR Group")
