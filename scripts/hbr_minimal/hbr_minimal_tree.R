@@ -1,5 +1,4 @@
-##' Perform a logistic regression to attempt to predict bleeding outcome from the
-##' minimal HBR dataset
+##' Use trees to predict bleeding
 ##'
 ##' 
 
@@ -21,17 +20,8 @@ data_test <- hbr_minimal_dataset_test %>%
 data_train <- hbr_minimal_dataset_train %>%
     select(-date)
 
-## Logistic regression requires preprocessing of the predictors
-## for sparse/unbalanced variables (p. 285, APM). 
-
-## Remove zero-variance predictors from the test and train sets
-predictors_train <- hbr_minimal_dataset_train %>%
-    select(-bleed)
-near_zero_var_indices <- nearZeroVar(predictors_train)
-data_test <- data_test %>%
-    select(-near_zero_var_indices)
-data_train <- data_train %>%
-    select(-near_zero_var_indices)
+## Trees are more insensitive to predictor characteristics
+## (0. 27 APM), so leave the predictors alone.
 
 ## Drop rows with missing values in the training and test sets
 data_train <- data_train %>%
@@ -58,18 +48,25 @@ ctrl <- trainControl(summaryFunction = twoClassSummary,
                      number = 10,
                      classProbs = TRUE,
                      savePredictions = TRUE)
+## Models you can insert here
+## - rpart (CART, using complexity tuning parameter)
+## - rpart2 (CART, using max tree depth tuning parameter)
+## - 
 fit <- train(bleed ~ .,
              data = data_train,
-             method = "glm",
+             tuneLength = 30,
+             method = "M5",
              metric = "ROC",
              trControl = ctrl)
+
+## View the ROC metric as a function of the tuning parameter
+plot(fit)
 
 ## View the summary, look for ROC area, which is the average
 ## over the n folds of the cross validation
 fit
 message("The SD of the AUC for the ROC is: ", fit$results$ROCSD)
 
-## Get the ROC curves for the models fitted in each fold
 roc_cv <- get_cv_roc(fit)
     
 ## Repredict the training dataset using the model
@@ -105,10 +102,6 @@ ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
     scale_colour_manual(values = c("test"="green", "train"="red", "fold"="gray")) +
     theme_classic() +
     theme(legend.position = "bottom")
-
-## Make a prediction based on a particular threshold
-pt <- 
-
 
 ## Summary the performance
 message("-- Summary of the model --")

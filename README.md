@@ -36,11 +36,12 @@ web browser.
 
 ## Installation
 
-First clone or download this repository. Open an R session in the icdb/
-folder and run the following command
+The library should install directly from the GitHub repo using the
+following command (you will need to ensure that devtools is installed
+first):
 
 ``` r
-devtools::install()
+devtools::install_github("https://github.com/jrs0/icdb")
 ```
 
 Once you have installed the library, you should be able to load the ICDB
