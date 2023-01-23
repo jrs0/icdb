@@ -20,9 +20,6 @@ n = 1e6
 ## Proportion of population at high bleeding risk (HBR)
 p_hbr <- 0.444
 
-n_hbr <- p_hbr * n
-n_non_hbr <- n - n_hbr
-
 ## Proportion of the HBR population at different bleeding risks
 p_arc_hbr = c("0"=0, "1"=0.616, "2"=0.291, "3"=0.079, "4"=0.014, "5"=0, "6"=0, "7"=0, "8"=0, "9"=0)
 
@@ -103,7 +100,7 @@ hbr_data <- tibble(
     major_sev_ckd = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["major_sev_ckd"]]),
     major_surgery = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["major_surgery"]]),
     major_thrmcyt = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["major_thrmcyt"]]),
-    ## Min_sampleOR criteria - from figure 1
+    ## MINOR criteria - from figure 1
     minor_age = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["minor_age"]]),
     minor_mod_ckd = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["minor_mod_ckd"]]),
     minor_mild_anaemia = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["minor_mild_anaemia"]]),
@@ -122,6 +119,10 @@ hbr_data <- tibble(
     group_modify(~ slice_head(.x, n = n_hbr * p_arc_hbr[[as.character(.y)]])) %>%
     ungroup()
 
+## Compute the proportion of HBR vs. non-HBR rows
+n_hbr <- nrow(hbr_data)
+n_non_hbr <- n - n_hbr
+
 ## Insert zero rows to make up proportion of non-HBR
 n_cols <- hbr_data %>% ncol()
 mat <- matrix(integer(n_non_hbr * n_cols), nrow = n_non_hbr)
@@ -136,7 +137,7 @@ full_data <- full_data %>%
 ## Generate subsequent 12-month bleeding for each patient based
 ## on the bleeding risk (Bernoulli with p = bleeding risk)
 full_data <- full_data %>%
-    mutate(bleed = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["major_oac"]]))
+    mutate(bleed = rbinom(n = n, size = 1, prob = p_hbr_criteria[["major_oac"]]))
 
 saveRDS(full_data, "gendata/hbr_sim_dataset.R")
 
