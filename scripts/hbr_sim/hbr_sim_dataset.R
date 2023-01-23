@@ -1,3 +1,11 @@
+##' This script creates a simulated dataset of high bleeding risk
+##' based on the numbers in the paper "2020 Cao et al. - Validation of the
+##' Academic Research Consortium High Bleeding Risk Definition in
+##' Contemporary PCI Patients". The purpose is to provide a base level of
+##' understanding of the performance of bleeding risk simulation in the
+##' case where the exact risk is known.
+##'
+
 library(fabricatr)
 library(GGally)
 library(ggplot2)
@@ -120,15 +128,15 @@ mat <- matrix(integer(n_non_hbr * n_cols), nrow = n_non_hbr)
 non_hbr_data <- as_tibble(mat)
 names(non_hbr_data) <- hbr_data %>% colnames()
 full_data <- rbind(hbr_data, non_hbr_data)
-
-## Check the size of the HBR group
-full_data %>%
-    filter(arc_hbr_score > 0) %>%
-    nrow() / nrow(full_data)
     
 ## Add the risk computed using the quadratic risk model
 full_data <- full_data %>%
     mutate(risk = estimate_risk(arc_hbr_score))
+
+## Generate subsequent 12-month bleeding for each patient based
+## on the bleeding risk (Bernoulli with p = bleeding risk)
+full_data <- full_data %>%
+    mutate(bleed = rbinom(n = n_sample, size = 1, prob = p_hbr_criteria[["major_oac"]]))
 
 saveRDS(full_data, "gendata/hbr_sim_dataset.R")
 
@@ -138,6 +146,11 @@ hbr_sim_dataset <- readRDS("gendata/hbr_sim_dataset.R")
 
 hbr_dataset <- hbr_sim_dataset %>%
     filter(arc_hbr_score > 0)
+
+## Check the size of the HBR group
+hbr_dataset %>%
+    filter(arc_hbr_score > 0) %>%
+    nrow() / nrow(hbr_sim_dataset)
 
 ## Plot the proportion of different HBR scores, compared
 ## to the target values in Cao et al.
@@ -188,3 +201,4 @@ ggplot(data = hbr_criteria_full) +
     theme_bw() +
     coord_flip() +
     ggtitle("Prevalence of the ARC-HBR Criteria vs Cao et al. Within HBR Group")
+
