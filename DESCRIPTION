@@ -22,7 +22,7 @@ Imports:
     mockthat,
     odbc,
     purrr,
-    Rcpp,
+    Rcpp (>=1.0.10),
     readr,
     readxl,
     rlang,
