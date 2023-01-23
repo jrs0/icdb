@@ -6,6 +6,7 @@
 ##' case where the exact risk is known.
 ##'
 
+library(tidyverse)
 library(fabricatr)
 library(GGally)
 library(ggplot2)
@@ -168,6 +169,7 @@ hbr_score_prop <- hbr_dataset %>%
 ## Plot comparison
 ggplot(data = hbr_score_prop) +
     geom_bar(mapping = aes(x = arc_hbr_score, y = value, fill = label), stat = "identity", position = "dodge") +
+    ggtitle("Proportion of different ARC-HBR scores in the HBR group") + 
     theme_bw()
 
 ## Check the prevalence of each major/minor criterion in the HBR group
