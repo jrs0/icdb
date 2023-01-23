@@ -2,7 +2,7 @@
 title: "Contributing"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{CI/CD Information}
+  %\VignetteIndexEntry{Contributing}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
