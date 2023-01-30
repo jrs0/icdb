@@ -46,6 +46,16 @@ message("Kept ", nrow(data_test), " rows out of ",
 ## TODO Deal with class inbalance here
 ## See this: "https://datascience.stackexchange.com/questions/82073/
 ## why-you-shouldnt-upsample-before-cross-validation"
+## Upsampling appears to reduce the variance in the training fold ROCs
+upsample = FALSE
+if (upsample)
+{
+    data_train <- data_train %>%
+        upSample(y = data_train$bleed, yname = "bleed_upsampled") %>%
+        as_tibble() %>%
+        select(-bleed) %>%
+        rename(bleed = bleed_upsampled)
+}
 
 ## Randomness is used below this point (for the cross-validation)
 set.seed(476)
