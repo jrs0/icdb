@@ -68,6 +68,8 @@ ctrl <- trainControl(summaryFunction = twoClassSummary,
                      number = 10,
                      classProbs = TRUE,
                      savePredictions = TRUE)
+
+## Try mixed effects in here
 fit <- train(bleed ~ .,
              data = data_train,
              method = "glm",

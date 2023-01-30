@@ -6,7 +6,6 @@ library(caret)
 library(corrplot)
 library(pROC)
 library(tidyverse)
-library(RWeka)
 
 source("utils.R")
 
@@ -37,7 +36,7 @@ message("Kept ", nrow(data_test), " rows out of ",
 ## TODO Deal with class inbalance here
 ## See this: "https://datascience.stackexchange.com/questions/82073/
 ## why-you-shouldnt-upsample-before-cross-validation"
-upsample = FALSE
+upsample = TRUE
 if (upsample)
 {
     data_train <- data_train %>%
@@ -58,7 +57,8 @@ ctrl <- trainControl(summaryFunction = twoClassSummary,
                      number = 10,
                      classProbs = TRUE,
                      savePredictions = TRUE)
-## Models you can insert here
+
+## Models you can insert here (replace the method parameter)
 ## - rpart (CART, using complexity tuning parameter)
 ## - rpart2 (CART, using max tree depth tuning parameter)
 ## - 

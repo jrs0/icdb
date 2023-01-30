@@ -84,5 +84,5 @@ print_confusion <- function(data, reference, probs, threshold)
     levels <- data %>% pull({{ reference }}) %>% levels()
     tbl <- data %>%
         mutate(predict = factor(findInterval({{ probs }}, threshold), labels = levels))
-    confusionMatrix(tbl$predict, tbl %>% pull({{ reference }}), levels[[2]]) 
+    confusionMatrix(tbl$predict, mode = "everything", tbl %>% pull({{ reference }}), levels[[2]]) 
 }
