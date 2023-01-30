@@ -62,6 +62,7 @@ fit <- train(bleed ~ .,
              data = data_train,
              method = "glm",
              metric = "ROC",
+             preProcess = c("center", "scale"),
              trControl = ctrl)
 
 ## View the summary, look for ROC area, which is the average
@@ -109,8 +110,10 @@ ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
          x = "Specificity", y = "Sensitivity") + 
     theme(legend.position = "bottom")
 
+## Compute the "best" threshold value (ROC curve point closest to top level)
+roc <- roc(data_test$bleed, data_test$bleed_prob)
+p_tr <- coords(roc, x = "best", best.method = "closest.topleft")
+
 ## Make predictions based on a particular manually chosen threshold
-p_tr = 0.03
-data_test_predict <- data_test %>%
-    mutate(bleed_predict = cut(bleed_prob, breaks = c(0, p_tr, 1), labels = c("no_bleed", "bleed_occured")))
-confusionMatrix(data_test_predict$bleed_predict, data_test_predict$bleed, "bleed_occured") 
+data_test %>% print_confusion(bleed, bleed_prob, p_tr$threshold)
+
