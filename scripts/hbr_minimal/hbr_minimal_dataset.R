@@ -42,18 +42,17 @@
 ##' surrounding the index acs event.
 ##' 
 ##' To run this script, make sure the working directory is set
-##' to the location of this file.
+##' to the location of this file. Ensure you have ICDB installed
+##' (see the documentation for install instructions). You will need
+##' to set up a database connection called "xsw" using the ODBC
+##' data sources program. By default, mapped_server will use the
+##' bnssg mapping files defined in inst/.
 ##'
 
 library(tidyverse)
 library(lubridate)
 library(ggplot2)
-library(corrplot)
-
-## Run either devtools::load_all("../../") or library(icdb), depending
-## whether you are developing the package or have an installed version
-##devtools::load_all("../../")
-##library(icdb)
+library(icdb)
 
 ## Remember that you have to rerun use_cache after
 ## a load_all() or a library(icdb)
