@@ -61,3 +61,28 @@ get_roc <- function(data, response, label)
                            sensitivities = roc$sensitivities,
                            specificities = roc$specificities)
 }
+
+##' @title Print confusion matrix based on threshold
+##' 
+##' Print the confusion matrix obtained from choosing a particular prediction
+##' threshold.
+##'
+##' Use this function to process a set of prediction probabilities, along with
+##' a set of reference (true) predictions (for example, from a test set), into
+##' a confusion matrix. The first argument is the data frame (a tibble), and
+##' the other arguments specify the reference and probability columns, and the
+##' threshold
+##' @param data The input tibble containing probabilities and reference
+##' @param reference The true predictions (factor, tidyselect compatible column name)
+##' @param probs The set of predicted probabilities for the positive outcome
+##' (numeric, tidyselect compatible column name). It is important that the positive
+##' outcome is the *second* factor level in reference.
+##' @param threshold The manual threshold to use for the predictions
+##' 
+print_confusion <- function(data, reference, probs, threshold)
+{
+    levels <- data %>% pull({{ reference }}) %>% levels()
+    tbl <- data %>%
+        mutate(predict = cut({{ probs }}, breaks = c(0, threshold, 1), labels = levels))
+    confusionMatrix(tbl$predict, tbl %>% pull({{ reference }}), levels[[2]]) 
+}

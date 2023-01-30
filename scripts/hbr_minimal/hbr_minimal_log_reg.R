@@ -109,7 +109,6 @@ ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
          x = "Specificity", y = "Sensitivity") + 
     theme(legend.position = "bottom")
 
-
 ## Make predictions based on a particular manually chosen threshold
 p_tr = 0.03
 data_test_predict <- data_test %>%
