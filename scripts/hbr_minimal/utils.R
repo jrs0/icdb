@@ -19,7 +19,8 @@ get_cv_roc <- function(fit)
         rename(label = Resample)
 }
 
-##' @title Add predictions and class probabilities to the data
+##' @title Add predicted class probabilities to the data
+##' 
 ##' @param data A tibble containing the predictors used in fit
 ##' and the response column 
 ##' @param fit The model to use
@@ -29,21 +30,17 @@ get_cv_roc <- function(fit)
 ##' positive event for the purpose of probabilities
 ##' @param response The response column to predict. The argument is
 ##' a string. 
-##' @return A tibble containing the new columns response_pred for
-##' predictions, and response_prob for the prediction probabilities
+##' @return A tibble containing the new columns response_prob
+##' for the prediction probabilities
 ##' 
-add_predictions <- function(data, fit, response, positive_event)
+add_prediction_probs <- function(data, fit, response, positive_event)
 {
 
     ## What is going on here? Apparently putting paste0 into the mutate
     ## does not work
-    response_pred <- paste0(response, "_pred") 
-    data[[response_pred]] = predict(fit, newdata = data)
-
     response_prob <- paste0(response, "_prob") 
     data[[response_prob]] = predict(fit, newdata = data,
                                     type = "prob")[,positive_event]
-
     data
 }
 

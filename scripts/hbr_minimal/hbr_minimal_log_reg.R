@@ -71,19 +71,20 @@ message("The SD of the AUC for the ROC is: ", fit$results$ROCSD)
 
 ## Get the ROC curves for the models fitted in each fold
 roc_cv <- get_cv_roc(fit)
-    
-## Repredict the training dataset using the model
+
+## Get the (re-)predicted class probabilities for the training set,
+## in order to ocmpute ROC curves
 data_train <- data_train %>%
-    add_predictions(fit, response = "bleed", positive_event = "bleed_occured")
+    add_prediction_probs(fit, response = "bleed", positive_event = "bleed_occured")
 
 ## Get the ROC curve for the training set reprediction
 roc_train <- data_train %>%
     get_roc(response = "bleed", label = "train")
 
-## Use the model to make predictions on the test data, and record
-## the class probabilities.
+## Get the predicted class probabilities for the test set,
+## in order to ocmpute ROC curves
 data_test <- data_test %>%
-    add_predictions(fit, response = "bleed", positive_event = "bleed_occured")
+    add_prediction_probs(fit, response = "bleed", positive_event = "bleed_occured")
 
 ## Store the ROC curve for the testing set prediction
 roc_test <- data_test %>%
@@ -91,9 +92,9 @@ roc_test <- data_test %>%
 
 ## Combine all the ROC curves
 roc_curves <- rbind(roc_train, roc_test, roc_cv) %>%
-    mutate(type = case_when(label == "train" ~ "train",
-                            label == "test" ~ "test",
-                            TRUE ~ "fold"))
+    mutate(type = case_when(label == "train" ~ "Train",
+                            label == "test" ~ "Test",
+                            TRUE ~ "Fold"))
 
 ## Plot the ROC curves for each fold, the ROC curve for repredicting
 ## the training set, and the ROC curve for predicting the test set
@@ -102,14 +103,15 @@ ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
     ylim(0,1) +
     geom_abline(aes(slope = 1, intercept = 1)) +
     scale_x_reverse(limit = c(1,0)) +
-    scale_colour_manual(values = c("test"="green", "train"="red", "fold"="gray")) +
-    theme_classic() +
+    scale_colour_manual(values = c("Test"="green", "Train"="red", "Fold"="gray")) +
+    theme_bw() +
+    labs(title = "ROC curves for the test and train sets (including each cross-validation fold)",
+         x = "Specificity", y = "Sensitivity") + 
     theme(legend.position = "bottom")
 
-## Make a prediction based on a particular threshold
-pt <- 
 
-
-## Summary the performance
-message("-- Summary of the model --")
-fit
+## Make predictions based on a particular manually chosen threshold
+p_tr = 0.03
+data_test_predict <- data_test %>%
+    mutate(bleed_predict = cut(bleed_prob, breaks = c(0, p_tr, 1), labels = c("no_bleed", "bleed_occured")))
+confusionMatrix(data_test_predict$bleed_predict, data_test_predict$bleed, "bleed_occured") 
