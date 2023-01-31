@@ -12,8 +12,10 @@ icd10_indices_to_code(indices, codes_def)
 \item{codes_def}{The codes definition structure}
 }
 \value{
-The named list containing the corresponding code
-or category for these indices
+A vector of named lists containing the
+corresponding code or category for these indices. If
+the indices list is empty, then the structure contains
+an NA_character_ in the code element
 }
 \description{
 Convert a list of indices to a list of codes

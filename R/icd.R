@@ -183,7 +183,9 @@ icd10_str_to_indices <- function(str, codes, groups)
 ##' @param indices A list of indices (itself a list) 
 ##' @param codes_def The codes definition structure
 ##' @return A vector of named lists containing the
-##' corresponding code or category for these indices
+##' corresponding code or category for these indices. If
+##' the indices list is empty, then the structure contains
+##' an NA_character_ in the code element
 icd10_indices_to_code <- function(indices, codes_def)
 {
     ## The structure of the codes file is
@@ -206,8 +208,18 @@ icd10_indices_to_code <- function(indices, codes_def)
 
     ## Note the first 1 is to get down into the
     ## first level (where there is a child key)
-    k %>% purrr::map(~ codes_def$child %>%
-                         purrr::chuck(!!!.x))
+    k %>% purrr::map(function(loc)
+    {
+        if (length(loc) > 0)
+        {
+            codes_def$child %>%
+                purrr::chuck(!!!loc)
+        }
+        else
+        {
+            list(code = NA_character_)
+        }
+    })
 }
 
 ##' The codes structure must be ordered by index at
@@ -383,14 +395,21 @@ in_any_group.icdb_icd10 <- function(x)
         unlist()
 }
 
+##' Convert a list of ICD10 codes to a character vector
+##' Invalid ICD codes are returned as NA.
+##'
+##' @param x The icd10 vector object to convert 
+##' @param ... Unused addition parameters
 ##' @export
 as.character.icdb_icd10 <- function(x, ...)
 {
     codes_file <- attr(x, "codes_file")
     codes_def <- icd10_load_codes(codes_file)
     indices <- vctrs::field(x, "indices")
-    icd10_indices_to_code(indices, codes_def)
+    codes <- icd10_indices_to_code(indices, codes_def)
+    codes %>% purrr::map("code") %>% unlist()
 }
+
 
 ##' Returns a character vector containing single letters that
 ##' represent the type (the parse status) of the icd10 code.
