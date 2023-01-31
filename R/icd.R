@@ -399,6 +399,18 @@ new_icd10 <- function(str = character(), codes_file)
     vctrs::new_rcrd(results, class = "icdb_icd10")
 }
 
+##' An icd10 object is a vector class containing parsed ICD codes,
+##' along with optional groups defined by a codes mapping file. The
+##' codes are parsed from an input string, which contains ICD codes
+##' that may have leading/trailing whitespace, may not contain
+##' complete ICD codes, or may contain invalid codes. These codes
+##' are categorised as part of the parsing process.
+##'
+##' @title Create a new icd10 object
+##' @param str The input character vector of ICD code strings to parse
+##' @param codes_file The reference codes file (defining codes and groupings)
+##' @return A new icd10 vector
+##' @export
 icd10 <- function(str = character(),
                   codes_file = system.file("extdata",
                                            "icd10/icd10.yaml",

@@ -39,6 +39,8 @@ p_hbr_criteria = list(
     minor_bleed = 0.037
 )
 
+dplyr::fi
+
 ## Probability of bleed occurance for the baseline
 ## population (baseline bleeding risk), vs probability
 ## of bleed occurance for HBR
