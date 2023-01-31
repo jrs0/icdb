@@ -193,15 +193,21 @@ icd10_indices_to_code <- function(indices, codes_def)
     ## for use with pluck, to descend through
     ## the nested structure in one go
     k <- indices %>%
-        purrr::map(~ list(as.list(.x), "child")) %>%
-        purrr::flatten() %>%
-        ## Remove the final "child" key to
-        ## get the entire category or code
-        head(-1)   
+        purrr::map(function(item)
+        {
+            item %>%
+                purrr::map(~ list(as.list(.x), "child")) %>%
+                purrr::flatten() %>%
+                purrr::flatten() %>%
+                ## Remove the final "child" key to
+                ## get the entire category or code
+                head(-1)
+        })
 
     ## Note the first 1 is to get down into the
     ## first level (where there is a child key)
-    codes_def$child %>% purrr::chuck(!!!k)
+    k %>% purrr::map(~ codes_def$child %>%
+                         purrr::chuck(!!!.x))
 }
 
 ##' The codes structure must be ordered by index at
@@ -380,7 +386,10 @@ in_any_group.icdb_icd10 <- function(x)
 ##' @export
 as.character.icdb_icd10 <- function(x, ...)
 {
-    c("a","b")
+    codes_file <- attr(x, "codes_file")
+    codes_def <- icd10_load_codes(codes_file)
+    indices <- vctrs::field(x, "indices")
+    icd10_indices_to_code(indices, codes_def)
 }
 
 ##' Returns a character vector containing single letters that
