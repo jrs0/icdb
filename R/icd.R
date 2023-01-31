@@ -403,7 +403,8 @@ in_any_group.icdb_icd10 <- function(x)
 ##' @export
 as.character.icdb_icd10 <- function(x, ...)
 {
-    vctrs::field(x, "basic_name")
+    vctrs::field(x, "basic_name") %>%
+        stringr::str_replace("NA", NA_character_)
 }
 
 
