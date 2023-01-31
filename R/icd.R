@@ -182,8 +182,8 @@ icd10_str_to_indices <- function(str, codes, groups)
 ##' @title Convert indices lists to ICD-10 codes
 ##' @param indices A list of indices (itself a list) 
 ##' @param codes_def The codes definition structure
-##' @return The named list containing the corresponding code
-##' or category for these indices
+##' @return A vector of named lists containing the
+##' corresponding code or category for these indices
 icd10_indices_to_code <- function(indices, codes_def)
 {
     ## The structure of the codes file is
