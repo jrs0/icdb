@@ -49,10 +49,11 @@ message("Percentage excluded: ",
 
 ## Keep only the ICD codes that were parse correctly (with optional
 ## trailing matter). Reject empty/invalid codes. Drop the original
-## diagnosis column.
+## diagnosis column. Conversion to character vectors is very slow!
 valid_icd <- parsed_icd %>%
     filter(is_valid(diagnosis)) %>% 
-    select(-primary_diagnosis_icd, -spell_end)
+    select(-primary_diagnosis_icd, -spell_end) %>%
+    mutate(diagnosis = as.character(diagnosis))
 
 ## Get the data range covered by the spells -- this is the range
 ## for which it is assumed data is present
