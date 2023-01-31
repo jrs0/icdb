@@ -53,14 +53,33 @@ message("Percentage excluded: ",
 valid_icd <- parsed_icd %>%
     filter(is_valid(diagnosis)) %>% 
     select(-primary_diagnosis_icd, -spell_end) %>%
+    mutate(group = group_string(diagnosis)) %>%
     mutate(diagnosis = as.character(diagnosis))
-
+    
 ## Get the data range covered by the spells -- this is the range
 ## for which it is assumed data is present
 first_spell_date <- min(valid_icd$spell_start)
 last_spell_date <- max(valid_icd$spell_start)
 
+## Plot the distribution of different ICD codes
+ggplot(data=valid_icd) +
+    geom_bar(mapping = aes(x = diagnosis), stat="count") +
+    scale_y_log10()
 
+### SAVE POINT GOES HERE
+
+## Add an id to every row that will become
+## the id for index acs events. The data is
+## arranged by nhs number and date so that
+## grouping by id later will also perform this
+## arrangement.
+spells_of_interest <- valid_icd %>%
+    arrange(nhs_number, spell_start) %>%
+    mutate(id = row_number())
+
+## Make the table of index acs events
+index_acs <- spells_of_interest %>%
+    filter(grepl("acs", group))
 
 
 
