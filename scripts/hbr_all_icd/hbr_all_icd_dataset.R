@@ -33,7 +33,9 @@ message("Total spells: ", nrow(all_spells))
 ## After this step, certain codes are kept (the ones the program knows
 ## how to interpret), and these are guaranteed to have been interpreted
 ## correctly. It rejects codes where it unsure of the meaning of the code.
-code_file <- "icd10_hbr_minimal.yaml"
+## Note the codes file groupings are not used in this script, but the
+## codes file must still be present
+code_file <- "icd10.yaml"
 parsed_icd <- all_spells %>%
     mutate(diagnosis = icd10(primary_diagnosis_icd, code_file))
 
