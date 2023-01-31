@@ -403,11 +403,7 @@ in_any_group.icdb_icd10 <- function(x)
 ##' @export
 as.character.icdb_icd10 <- function(x, ...)
 {
-    codes_file <- attr(x, "codes_file")
-    codes_def <- icd10_load_codes(codes_file)
-    indices <- vctrs::field(x, "indices")
-    codes <- icd10_indices_to_code(indices, codes_def)
-    codes %>% purrr::map("code") %>% unlist()
+    vctrs::field(x, "basic_name")
 }
 
 

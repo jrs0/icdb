@@ -69,6 +69,15 @@ public:
     // The type -- whether the parse succeeded or not
     int type() const { return type_; }
 
+    std::string basic_name() const {
+    	if (indices_.size() == 0) {
+    	    return "NA";
+    	} else {
+	    return name_;
+    	}
+    }
+   
+    
     std::string name() const {
     	if (indices_.size() == 0) {
     	    return "(" + trailing_ + ")";
@@ -432,6 +441,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     Rcpp::NumericVector lst_type(str.size());
     Rcpp::List lst_groups(str.size());
     Rcpp::CharacterVector lst_name(str.size());
+    Rcpp::CharacterVector lst_basic_name(str.size());
     
     // BUG? Runtime still scales with the length of the
     // input vector, even when the cache is used. This
@@ -454,6 +464,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	    lst_type[n] = res.type();
 	    lst_groups[n] = res.groups();
 	    lst_name[n] = res.name();
+	    lst_basic_name[n] = res.basic_name();
 	} catch (const std::out_of_range &) {	
 	    try {
 		ParseResult res = icd10_str_to_indices_impl(str[n],
@@ -463,6 +474,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 		lst_type[n] = res.type();
 		lst_groups[n] = res.groups();
 		lst_name[n] = res.name();
+		lst_basic_name[n] = res.basic_name();
 
 		cache.insert({str[n], res});
 	    } catch (const std::logic_error &) {
@@ -472,6 +484,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 		lst_type[n] = res.type();
 		lst_groups[n] = res.groups();
 		lst_name[n] = res.name();
+		lst_basic_name[n] = res.basic_name();
 
 		cache.insert({str[n], res});
 	    }
@@ -483,7 +496,8 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	Rcpp::_["indices"] = lst_indices,
 	Rcpp::_["types"] = lst_type,
 	Rcpp::_["groups"] = lst_groups,
-	Rcpp::_["name"] = lst_name);
+	Rcpp::_["name"] = lst_name,
+	Rcpp::_["basic_name"] = lst_basic_name);
 
     return results;
 }
