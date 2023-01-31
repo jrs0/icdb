@@ -182,8 +182,8 @@ icd10_str_to_indices <- function(str, codes, groups)
 ##' @title Convert indices lists to ICD-10 codes
 ##' @param indices A list of indices (itself a list) 
 ##' @param codes_def The codes definition structure
-##' @return The named list containing the corresponding code
-##' or category for these indices
+##' @return A vector of named lists containing the
+##' corresponding code or category for these indices
 icd10_indices_to_code <- function(indices, codes_def)
 {
     ## The structure of the codes file is
@@ -193,15 +193,21 @@ icd10_indices_to_code <- function(indices, codes_def)
     ## for use with pluck, to descend through
     ## the nested structure in one go
     k <- indices %>%
-        purrr::map(~ list(as.list(.x), "child")) %>%
-        purrr::flatten() %>%
-        ## Remove the final "child" key to
-        ## get the entire category or code
-        head(-1)   
+        purrr::map(function(item)
+        {
+            item %>%
+                purrr::map(~ list(as.list(.x), "child")) %>%
+                purrr::flatten() %>%
+                purrr::flatten() %>%
+                ## Remove the final "child" key to
+                ## get the entire category or code
+                head(-1)
+        })
 
     ## Note the first 1 is to get down into the
     ## first level (where there is a child key)
-    codes_def$child %>% purrr::chuck(!!!k)
+    k %>% purrr::map(~ codes_def$child %>%
+                         purrr::chuck(!!!.x))
 }
 
 ##' The codes structure must be ordered by index at
@@ -321,82 +327,11 @@ new_icd10_impl_R <- function(str, codes_def)
 new_icd10 <- function(str = character(), codes_file)
 {
     vctrs::vec_assert(str, character())
-
-    ## Open the file. This is a long operation, but
-    ## provided this function is called in a vectorised
-    ## way (i.e. str is a vector), the file will only
-    ## be opened once. If it turns out to be a performace
-    ## problem, it can be fixed later. The top level is
-    ## a list with one item, and the main chapter level
-    ## starts in the child key.
-    codes_def <- icd10_load_codes(codes_file)
-
-    ## strip whitespace from the code, and
-    ## remove any dots.    
+    codes_def <- icd10_load_codes(codes_file) 
     str <- stringr::str_replace_all(str, "\\.", "") %>%
         trimws()
-
-    ## Parse the codes (pick C++ or R)
-    ## Profiling the cpp code shows only 49% of
-    ## the time is the .Call function (of which
-    ## 40% is the impl function),
-    ## and 40% is due to the purrr::map (of which
-    ## 30% is the .f function)
-    ##
-    ## BUG: code N180 fails with seg fault, due to
-    ## non-existent code (however, should fail with
-    ## error)
-    ##
-    ##results <- new_icd10_impl_R(str, codes_def)
     results <- new_icd10_impl(str, codes_def)
-
-    ## print(results["groups"])
-    ## print(class(results["indices"][[1]]))
-    ## stop()
-    
-    ## indices <- results %>% purrr::map("indices")
-    ## types <- results %>% purrr::map("type")
-    ## groups <- results %>% purrr::map("groups")
-    ## name <- results %>% purrr::map("name")
-    
-    ## Get the proper name
-    ## Need to move this into the c++ impl
-    ## name <- results %>%
-    ##     purrr::map(function(x) {
-    ##         if (length(x$indices) == 0) {
-    ##             paste0("(", x$trailing, ")")
-    ##         }
-    ##         else
-    ##         {
-    ##             ## This element is either a code or
-    ##             ## a category
-    ##             elem <- icd10_indices_to_code(x$indices, codes_def)
-    ##             if (!is.null(elem$code)) {
-    ##                 res <- elem$code
-    ##             }
-    ##             else
-    ##             {
-    ##                 res <- elem$category
-    ##             }
-
-    ##             ## Now append any trailing matter, if
-    ##             ## there is any
-    ##             if (!is.null(x$trailing))
-    ##             {
-    ##                 res <- paste0(res, "(", x$trailing ,")")
-    ##             }
-
-    ##             ## Return the name
-    ##             res
-    ##         }
-    ##     })
-
-    ## obj <- list(
-    ##     name = results["name"],
-    ##     types = results["type"],
-    ##     indices = results["indices"],
-    ##     groups = results["groups"])
-    vctrs::new_rcrd(results, class = "icdb_icd10")
+    vctrs::new_rcrd(results, codes_file = codes_file, class = "icdb_icd10")
 }
 
 ##' An icd10 object is a vector class containing parsed ICD codes,
@@ -448,6 +383,14 @@ in_any_group.icdb_icd10 <- function(x)
         unlist()
 }
 
+##' @export
+as.character.icdb_icd10 <- function(x, ...)
+{
+    codes_file <- attr(x, "codes_file")
+    codes_def <- icd10_load_codes(codes_file)
+    indices <- vctrs::field(x, "indices")
+    icd10_indices_to_code(indices, codes_def)
+}
 
 ##' Returns a character vector containing single letters that
 ##' represent the type (the parse status) of the icd10 code.
