@@ -420,6 +420,7 @@ icd10 <- function(str = character(),
     new_icd10(str, codes_file)
 }
 
+##' @export
 is_valid <- function(x) {
   UseMethod("is_valid")
 }
