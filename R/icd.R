@@ -420,6 +420,10 @@ icd10 <- function(str = character(),
     new_icd10(str, codes_file)
 }
 
+##' @title Return which ICD codes are valid as a logical vector
+##' @param x The icd10 codes to read
+##' @return A logical vector containing which codes are valid
+##' @export
 is_valid <- function(x) {
   UseMethod("is_valid")
 }
