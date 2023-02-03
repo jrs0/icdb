@@ -60,7 +60,7 @@ valid_icd <- parsed_icd %>%
 saveRDS(valid_icd, "gendata/valid_icd.rds")
 
 ## Save point 1 ==============================================
-valid_icd = readRDS("gendata/valid_icd.rds")
+valid_icd <- readRDS("gendata/valid_icd.rds")
 
 ## Get the data range covered by the spells -- this is the range
 ## for which it is assumed data is present
