@@ -55,7 +55,13 @@ valid_icd <- parsed_icd %>%
     select(-primary_diagnosis_icd, -spell_end) %>%
     mutate(group = group_string(diagnosis)) %>%
     mutate(diagnosis = as.character(diagnosis))
-    
+
+
+saveRDS(valid_icd, "gendata/valid_icd.rds")
+
+## Save point 1 ==============================================
+valid_icd = readRDS("gendata/valid_icd.rds")
+
 ## Get the data range covered by the spells -- this is the range
 ## for which it is assumed data is present
 first_spell_date <- min(valid_icd$spell_start)
@@ -67,6 +73,7 @@ ggplot(data=valid_icd) +
     scale_y_log10()
 
 ### SAVE POINT GOES HERE
+
 
 ## Add an id to every row that will become
 ## the id for index acs events. The data is
