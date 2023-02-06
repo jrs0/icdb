@@ -126,4 +126,32 @@ events_by_acs <- index_acs %>%
            other_spell_date, other_spell_diagnosis, other_spell_group)
 
 
+## Keep only spells which are within 12 months of the index
+## acs event (before or after)
+window <- ddays(365)
+events_in_window <- events_by_acs %>%
+    filter(other_spell_date >= acs_date - window,
+           other_spell_date <= acs_date + window)
 
+## Total number of different ICD codes after filtering +-12months around
+## an ACS event.
+total_codes <- events_in_window %>%
+    ungroup() %>%
+    count(other_spell_diagnosis) %>%
+    nrow()
+message("Total distinct diagnosis codes reduced to ", total_codes, " around ACS events")
+
+## Count the number of acs events without any other spells in +- 12 months 
+total_isolated_acs <- events_in_window %>%
+    count(acs_id) %>%
+    filter(n == 1) %>%
+    nrow()
+total_isolated_proportion <- total_isolated_acs / total_acs_events
+message("ACS events with no other spell in +- 12 months: ",
+        total_isolated_acs,
+        " (", round(100*total_isolated_proportion, 2), "%)")
+
+## Convert into a format where each diagnosis code is a column containing the
+## date of that spell. 
+with_code_columns <- events_in_window %>%
+    pivot_wider(names_from = other_spell_diagnosis, values_from = other_spell_date)
