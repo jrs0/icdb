@@ -24,7 +24,7 @@ end <- ymd("2023-1-1")
 all_spells <- msrv$sus$apc_spells %>%
     filter(spell_start >= !!start, spell_start <= !!end) %>%
     run()
-message("Total spells: ", nrow(all_spells))
+message("Total spells: ", nrow(all_spells))icd_exampleicd_example
 
 ## Note: before running the parts below, make sure the working
 ## directory is set to the location of this script
@@ -55,7 +55,6 @@ valid_icd <- parsed_icd %>%
     select(-primary_diagnosis_icd, -spell_end) %>%
     mutate(group = group_string(diagnosis)) %>%
     mutate(diagnosis = as.character(diagnosis))
-
 
 saveRDS(valid_icd, "gendata/valid_icd.rds")
 
@@ -154,4 +153,5 @@ message("ACS events with no other spell in +- 12 months: ",
 ## Convert into a format where each diagnosis code is a column containing the
 ## date of that spell. 
 with_code_columns <- events_in_window %>%
-    pivot_wider(names_from = other_spell_diagnosis, values_from = other_spell_date)
+    pivot_wider(names_from = other_spell_diagnosis,
+                values_from = other_spell_date)
