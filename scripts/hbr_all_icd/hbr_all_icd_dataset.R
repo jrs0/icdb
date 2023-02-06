@@ -150,8 +150,20 @@ message("ACS events with no other spell in +- 12 months: ",
         total_isolated_acs,
         " (", round(100*total_isolated_proportion, 2), "%)")
 
-## Convert into a format where each diagnosis code is a column containing the
-## date of that spell. 
+## Want one column per ICD code containing the number of occurances
+## of that code before the ACS event. 
 with_code_columns <- events_in_window %>%
-    pivot_wider(names_from = other_spell_diagnosis,
+    ## Group by the other spell ID to count the number of occurances
+    ## of that group in the previous 12 months
+    group_by(other_spell_diagnosis, .add=TRUE) %>%
+    ## Count how many times each diagnosis code occurs before the ACS.
+    mutate(count_before = sum(other_spell_date < acs_date )) %>%
+    ## Do the same for all subsequent spells
+    mutate(count_after = sum(other_spell_date >= acs_date )) %>%
+    ## Only keep one instance of each diagnosis code, because the
+    ## count information is all we need
+    
+
+
+pivot_wider(names_from = other_spell_diagnosis,
                 values_from = other_spell_date)
