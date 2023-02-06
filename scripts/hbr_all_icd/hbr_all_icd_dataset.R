@@ -152,18 +152,30 @@ message("ACS events with no other spell in +- 12 months: ",
 
 ## Want one column per ICD code containing the number of occurances
 ## of that code before the ACS event. 
-with_code_columns <- events_in_window %>%
+with_code_columns <- events_in_window %>% 
     ## Group by the other spell ID to count the number of occurances
     ## of that group in the previous 12 months
     group_by(other_spell_diagnosis, .add=TRUE) %>%
     ## Count how many times each diagnosis code occurs before the ACS.
-    mutate(count_before = sum(other_spell_date < acs_date )) %>%
+    mutate(before = sum(other_spell_date < acs_date )) %>%
     ## Do the same for all subsequent spells
-    mutate(count_after = sum(other_spell_date >= acs_date )) %>%
+    mutate(after = sum(other_spell_date >= acs_date )) %>%
+    ## Also keep a specific flag to indicate whether a subsequent
+    ## bleed occured after the ACS
+    mutate(bleed_after_count = sum((other_spell_date >= acs_date) &
+                                   (other_spell_group == "bleeding"))) %>%
     ## Only keep one instance of each diagnosis code, because the
-    ## count information is all we need
-    
+    ## count information is all we need.
+    slice(1) %>%
+    ## Filter out the ACS row itself
+    filter(acs_id != other_spell_id) %>%
+    ## Convert into a wide format where every diagnosis code becomes
+    ## two columns of the form <code_name>_before and <code_name>_after,
+    ## which store the number of times that diagnosis occured before
+    ## and after the ACS    
+    pivot_wider(names_from = other_spell_diagnosis,
+                values_from = c(before, after),
+                values_fill = list(before = 0, after = 0),
+                names_glue = "{other_spell_diagnosis}_{.value}")
 
-
-pivot_wider(names_from = other_spell_diagnosis,
-                values_from = other_spell_date)
+## 
