@@ -78,13 +78,14 @@ total_codes <- distinct_codes %>% nrow()
 message("Total distinct diagnosis codes: ", total_codes)
 
 ## Find the coverage by keeping the most common codes
-keep_proportion = 0.25
+keep_proportion = 0.10
 total_spells <- valid_icd %>% nrow()
 kept_spells <- distinct_codes %>%
     head(keep_proportion * nrow(distinct_codes)) %>%
     pull(n) %>%
     sum()
 message("Keeping ", keep_proportion, " of the distinct codes retains ", kept_spells/total_spells, " of spells")
+message("Total codes reduced from ", total_codes, " to ", keep_proportion * total_codes)
 
 ## Add an id to every row that will become
 ## the id for index acs events. The data is
@@ -99,7 +100,30 @@ spells_of_interest <- valid_icd %>%
 index_acs <- spells_of_interest %>%
     filter(grepl("acs", group))
 
+total_acs_events <- nrow(index_acs)
+message("Total acs events: ", total_acs_events)
 
+## Join back all the other spells onto the index
+## events by nhs number
+events_by_acs <- index_acs %>%
+    left_join(spells_of_interest, by=c("nhs_number"="nhs_number")) %>%
+    ## Group this table by id.x, which is the index acs id
+    group_by(id.x) %>%
+    arrange(spell_start.x, .by_group = TRUE) %>%
+    ## Note: do not remove the duplicated acs index event row,
+    ## because this will remove acs events with no prior and post
+    ## events. Perform some cleanup of column names here. Note that
+    ## each column represents an index acs event
+    rename(age = age_on_admission.x,
+           acs_id = id.x,
+           acs_date = spell_start.x,
+           acs_diagnosis = diagnosis.x,
+           other_spell_id = id.y,
+           other_spell_group = group.y,
+           other_spell_diagnosis = diagnosis.y,
+           other_spell_date = spell_start.y) %>%
+    select(age, acs_id, acs_diagnosis, acs_date, other_spell_id,
+           other_spell_date, other_spell_diagnosis, other_spell_group)
 
 
 
