@@ -72,8 +72,19 @@ ggplot(data=valid_icd) +
     geom_bar(mapping = aes(x = diagnosis), stat="count") +
     scale_y_log10()
 
-### SAVE POINT GOES HERE
+## Distint diagnosis codes
+distinct_codes <- valid_icd %>% count(diagnosis) %>% arrange(desc(n))
+total_codes <- distinct_codes %>% nrow()
+message("Total distinct diagnosis codes: ", total_codes)
 
+## Find the coverage by keeping the most common codes
+keep_proportion = 0.25
+total_spells <- valid_icd %>% nrow()
+kept_spells <- distinct_codes %>%
+    head(keep_proportion * nrow(distinct_codes)) %>%
+    pull(n) %>%
+    sum()
+message("Keeping ", keep_proportion, " of the distinct codes retains ", kept_spells/total_spells, " of spells")
 
 ## Add an id to every row that will become
 ## the id for index acs events. The data is
@@ -87,6 +98,8 @@ spells_of_interest <- valid_icd %>%
 ## Make the table of index acs events
 index_acs <- spells_of_interest %>%
     filter(grepl("acs", group))
+
+
 
 
 
