@@ -28,7 +28,7 @@ dataset_test <- testing(dataset_split)
 ## for sparse/unbalanced variables (p. 285, APM).
 dataset_rec <- recipe(bleed ~ ., data = dataset_train) %>%
     update_role(date, new_role = "date") %>%
-    step_nzv(all_predictors()) %>%
+    step_zv(all_predictors()) %>%
     step_center(all_predictors()) %>%
     step_scale(all_predictors())    
 
