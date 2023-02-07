@@ -66,11 +66,6 @@ valid_icd <- readRDS("gendata/valid_icd.rds")
 first_spell_date <- min(valid_icd$spell_start)
 last_spell_date <- max(valid_icd$spell_start)
 
-## Plot the distribution of different ICD codes
-ggplot(data=valid_icd) +
-    geom_bar(mapping = aes(x = diagnosis), stat="count") +
-    scale_y_log10()
-
 ## Distint diagnosis codes
 distinct_codes <- valid_icd %>% count(diagnosis) %>% arrange(desc(n))
 total_codes <- distinct_codes %>% nrow()
@@ -177,5 +172,3 @@ with_code_columns <- events_in_window %>%
                 values_from = c(before, after),
                 values_fill = list(before = 0, after = 0),
                 names_glue = "{other_spell_diagnosis}_{.value}")
-
-## 
