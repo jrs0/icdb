@@ -34,6 +34,8 @@
 ##' data sources program. By default, mapped_server will use the
 ##' bnssg mapping files defined in inst/.
 ##'
+##' WARNING: This script is currently untested. Use with caution.
+##'
 
 library(tidyverse)
 library(lubridate)
@@ -178,7 +180,7 @@ message("ACS events with no other spell in +- 12 months: ",
 
 ## Want one column per ICD code containing the number of occurances
 ## of that code before the ACS event. 
-with_code_columns <- events_in_window %>% head(1000) %>%
+with_code_columns <- events_in_window %>%
     ## Group by the other spell ID to count the number of occurances
     ## of that group in the previous 12 months
     group_by(other_spell_diagnosis, .add=TRUE) %>%
@@ -188,17 +190,23 @@ with_code_columns <- events_in_window %>% head(1000) %>%
     mutate(after = sum(other_spell_date >= acs_date )) %>%
     ## Also keep a specific flag to indicate whether a subsequent
     ## bleed occured after the ACS
+    group_by(acs_id, other_spell_group) %>%
     mutate(bleed_after = sum((other_spell_date >= acs_date) &
                              (other_spell_group == "bleeding"))) %>%
     ## Only keep one instance of each diagnosis code, because the
     ## count information is all we need.
-    slice(1) %>%
+    group_by(acs_id, other_spell_diagnosis) %>%
+    slice(1) %>%    
     ## Filter out the ACS row itself
     filter(acs_id != other_spell_id) %>%
+    ## In order to make the pivot wider step work later, the
+    ## bleed_after count needs to be filled up and down in the acs
+    ## group
+    group_by(acs_id) %>%
+    mutate(bleed_after = max(bleed_after)) %>%
     ## Drop the other_spell_icd column so that the pivot wider works
     ## (i.e. the column values are unique)
-    select(-other_spell_id, -other_spell_date)
-
+    select(-other_spell_id, -other_spell_date, -other_spell_group) %>%
     ## Convert into a wide format where every diagnosis code becomes
     ## two columns of the form <code_name>_before and <code_name>_after,
     ## which store the number of times that diagnosis occured before

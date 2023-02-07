@@ -48,6 +48,8 @@
 ##' data sources program. By default, mapped_server will use the
 ##' bnssg mapping files defined in inst/.
 ##'
+##' WARNING: This script is currently untested. Use with caution.
+##' 
 
 library(tidyverse)
 library(lubridate)
