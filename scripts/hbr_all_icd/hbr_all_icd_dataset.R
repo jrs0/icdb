@@ -1,6 +1,38 @@
-3##' This file contains a script to obtain a dataset containing
+##' This file contains a script to obtain a dataset containing
 ##' the most commonly occuring prior ICD codes before a bleeding
 ##' event.
+##'
+##' The output of this file is a dataset called hbr_all_icd_dataset,
+##' which contains the following columns:
+##'
+##' -- PREDICTORS --
+##' date           - the date at which the index acute
+##'                  coronary syndrome (acs) occured
+##' age            - the age of the patient at the time of acs (integer)
+##' <code>_before  - how many of the ICD code <code> occured in the 12
+##'                  months before the acs event
+##'
+##' -- RESPONSE --
+##' bleed_after    - how many bleeding events occur in the 12 months
+##'                  following the ACS event (integer). Bleeding codes
+##'                  included are defined in the icd10.yaml codes file.
+##' 
+##' -- ADDITIONAL --
+##' <code>_after   - how many of the ICD code <code> occured in the 12
+##'                  months after the acs event.
+##' 
+##' Spells are collected from the period 2000-1-1 to 2023-1-1.
+##' ICD codes are parsed from these spells, and only codes in the
+##' +-12 months around an acs are retained. The number of occurances
+##' of each type of code is counted. Rows are only kept if the acs has
+##' a full +- 12 months window in the dataset.
+##' 
+##' To run this script, make sure the working directory is set
+##' to the location of this file. Ensure you have ICDB installed
+##' (see the documentation for install instructions). You will need
+##' to set up a database connection called "xsw" using the ODBC
+##' data sources program. By default, mapped_server will use the
+##' bnssg mapping files defined in inst/.
 ##'
 
 library(tidyverse)
@@ -119,7 +151,6 @@ events_by_acs <- index_acs %>%
     select(age, acs_id, acs_diagnosis, acs_date, other_spell_id,
            other_spell_date, other_spell_diagnosis, other_spell_group)
 
-
 ## Keep only spells which are within 12 months of the index
 ## acs event (before or after)
 window <- ddays(365)
@@ -157,8 +188,8 @@ with_code_columns <- events_in_window %>%
     mutate(after = sum(other_spell_date >= acs_date )) %>%
     ## Also keep a specific flag to indicate whether a subsequent
     ## bleed occured after the ACS
-    mutate(bleed_after_count = sum((other_spell_date >= acs_date) &
-                                   (other_spell_group == "bleeding"))) %>%
+    mutate(bleed_after = sum((other_spell_date >= acs_date) &
+                             (other_spell_group == "bleeding"))) %>%
     ## Only keep one instance of each diagnosis code, because the
     ## count information is all we need.
     slice(1) %>%
@@ -172,3 +203,17 @@ with_code_columns <- events_in_window %>%
                 values_from = c(before, after),
                 values_fill = list(before = 0, after = 0),
                 names_glue = "{other_spell_diagnosis}_{.value}")
+
+## Remove acs index events that do not have at least 12 months
+## prior time, and do not have at least 12 months follow up time
+pruned_dataset <- with_code_columns %>%
+    ungroup() %>%
+    filter(acs_date >= first_spell_date + window,
+           acs_date <= last_spell_date - window)
+
+## Prepare the final dataset
+hbr_all_icd_dataset <- pruned_dataset %>%
+    rename(date = acs_date) %>%
+    select(date, age, matches("(_before|_after)$"))
+
+saveRDS(hbr_all_icd_dataset, "gendata/hbr_all_icd_dataset.rds")
