@@ -14,25 +14,38 @@ library(tidymodels)
 hbr_all_icd_dataset <- readRDS("gendata/hbr_all_icd_dataset.rds")
 dataset <- hbr_all_icd_dataset %>%
     mutate(bleed = factor(bleed_after == 0, labels = c("no_bleed", "bleed_occured"))) %>%
-    select(-date, -matches("_after$"))
+    select(-bleed_after)
 
+set.seed(47)
 
-# Create the training and test data
+## Create the training and test data
 dataset_split <- initial_split(dataset, prop = 0.75,
                                strata = bleed)
-dataset_train <- dataset_split %>% 
-    training()
-dataset_test <- dataset_split %>% 
-    testing()
+dataset_train <- training(dataset_split)
+dataset_test <- testing(dataset_split)
+
+## Logistic regression requires preprocessing of the predictors
+## for sparse/unbalanced variables (p. 285, APM).
+dataset_rec <- recipe(bleed ~ ., data = dataset_train) %>%
+    add_role(date, new_role = "date") %>%
+    step_nzv(all_predictors()) %>%
+    step_center(all_predictors()) %>%
+    step_scale(all_predictors())
+    
 
 # Specify a logistic regression model
-logistic_model <- logistic_reg() %>% 
+lr_model <- logistic_reg() %>% 
     set_engine('glm') %>% 
     set_mode('classification')
 
+dataset_workflow <- 
+    workflow() %>% 
+    add_model(lr_model) %>% 
+    add_recipe(dataset_rec)
+
 # Fit to training data
-logistic_fit <- logistic_model %>% 
-    fit(bleed ~ ., data = dataset_train)
+dataset_fit <- dataset_workflow %>%
+    fit(data = dataset_train)
 
 # Print model fit object
 logistic_fit
