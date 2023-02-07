@@ -186,22 +186,22 @@ with_code_columns <- events_in_window %>%
     group_by(other_spell_diagnosis, .add=TRUE) %>%
     ## Count how many times each diagnosis code occurs before the ACS.
     mutate(before = sum(other_spell_date < acs_date )) %>%
-    ## Do the same for all subsequent spells
-    mutate(after = sum(other_spell_date >= acs_date )) %>%
+    ## Do the same for all subsequent spells. The strict inequality is
+    ## important here, in order to not include the ACS code itself
+    ## as a subsequent event.
+    mutate(after = sum(other_spell_date > acs_date )) %>%
     ## Also keep a specific flag to indicate whether a subsequent
-    ## bleed occured after the ACS
+    ## bleed occured after the ACS. 
     group_by(acs_id, other_spell_group) %>%
-    mutate(bleed_after = sum((other_spell_date >= acs_date) &
+    mutate(bleed_after = sum((other_spell_date > acs_date) &
                              (other_spell_group == "bleeding"))) %>%
     ## Only keep one instance of each diagnosis code, because the
     ## count information is all we need.
     group_by(acs_id, other_spell_diagnosis) %>%
     slice(1) %>%    
-    ## Filter out the ACS row itself
-    filter(acs_id != other_spell_id) %>%
     ## In order to make the pivot wider step work later, the
     ## bleed_after count needs to be filled up and down in the acs
-    ## group
+    ## group.
     group_by(acs_id) %>%
     mutate(bleed_after = max(bleed_after)) %>%
     ## Drop the other_spell_icd column so that the pivot wider works
@@ -214,12 +214,12 @@ with_code_columns <- events_in_window %>%
     pivot_wider(names_from = other_spell_diagnosis,
                 values_from = c(before, after),
                 values_fill = list(before = 0, after = 0),
-                names_glue = "{other_spell_diagnosis}_{.value}")
+                names_glue = "{other_spell_diagnosis}_{.value}") %>%
+    ungroup()
 
 ## Remove acs index events that do not have at least 12 months
 ## prior time, and do not have at least 12 months follow up time
 pruned_dataset <- with_code_columns %>%
-    ungroup() %>%
     filter(acs_date >= first_spell_date + window,
            acs_date <= last_spell_date - window)
 
