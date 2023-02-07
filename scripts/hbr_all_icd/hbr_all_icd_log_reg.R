@@ -14,7 +14,7 @@ library(tidymodels)
 hbr_all_icd_dataset <- readRDS("gendata/hbr_all_icd_dataset.rds")
 dataset <- hbr_all_icd_dataset %>%
     mutate(bleed = factor(bleed_after == 0, labels = c("no_bleed", "bleed_occured"))) %>%
-    select(-bleed_after)
+    select(-bleed_after, -matches("_after$"))
 
 set.seed(47)
 
@@ -27,11 +27,10 @@ dataset_test <- testing(dataset_split)
 ## Logistic regression requires preprocessing of the predictors
 ## for sparse/unbalanced variables (p. 285, APM).
 dataset_rec <- recipe(bleed ~ ., data = dataset_train) %>%
-    add_role(date, new_role = "date") %>%
+    update_role(date, new_role = "date") %>%
     step_nzv(all_predictors()) %>%
     step_center(all_predictors()) %>%
-    step_scale(all_predictors())
-    
+    step_scale(all_predictors())    
 
 # Specify a logistic regression model
 lr_model <- logistic_reg() %>% 
