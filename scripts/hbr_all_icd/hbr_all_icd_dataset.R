@@ -153,8 +153,8 @@ message("ACS events with no other spell in +- 12 months: ",
 ## Obtain the counts of each ICD code before and after the ACS event,
 ## and only keep the codes which occur most often (a fixed proportion
 ## of all codes). This dataframe contains the index ACS row in addition
-## to the before/after spells, so that when ICD codes are dropped,
-## the index event is retained.
+## to the before/after spells, to make sure that 
+to_keep <- 0.25
 before_after_spells <- with_code_columns <- events_in_window %>% 
     ## Group by the other spell ID to count the number of occurances
     ## of that group in the previous 12 months
@@ -169,22 +169,10 @@ before_after_spells <- with_code_columns <- events_in_window %>%
                                    (other_spell_group == "bleeding"))) %>%
     ## Only keep one instance of each diagnosis code, because the
     ## count information is all we need.
-    slice(1)
+    slice(1) %>%
 
-## Find the codes to keep
-proportion_to_keep <- 0.25
-to_keep <- before_after_spells %>%
-    ungroup() %>%
-    count(other_spell_diagnosis) %>%
-    slice_head(prop = proportion_to_keep)
 
-## Filter out codes. Keep the ACS index rows
-after_code_filter <- before_after_spells %>%
-    filter(other_spell_diagnosis %in% (to_keep %>% pull(other_spell_diagnosis)) |
-           acs_id == other_spell_id) %>%
-    
 
-    
     
     ## Filter out the ACS row itself
     filter(acs_id != other_spell_id)
@@ -206,3 +194,8 @@ saveRDS(with_code_columns, "gendata/with_code_columns.rds")
 
 ## Save point 1 ==============================================
 with_code_columns <- readRDS("gendata/with_code_columns.rds")
+
+## Remove columns containing only zeros
+cols_before <- ncol(with_code_columns)
+without_zero_cols <- with_code_columns %>%
+    select_if(colSums(.) != 0)
