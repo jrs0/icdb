@@ -7,27 +7,27 @@ NULL
 ## Currently using an environment to prototype, can change to an R6 class to
 ## make it slightly better. What would be even better is if a global variable
 ## (local to the package) just worked, but that might not be possible.
-pkg_env <- new.env(parent = emptyenv())
-pkg_env$cache <- list(
-    level1 = list(meta = dplyr::tibble(hash=character(), # The key
-                                       data = character(), # Used to generate the key
-                                       hits = numeric(), # Number of times the cache entry was read
-                                       write_time = as.Date(character()), # When the entry was written
-                                       last_access = as.Date(character()), # When the entry was last accessed
-                                       time = as.difftime(1, units="hours") # How long did the original computation take
-                                       ),
-                  max_size = 5,
-                  objects = list()
-                  ),
-    path = "cache/",
-    use_cache = FALSE,
-    lifetime = lubridate::dhours(24)
-)
+## pkg_env <- new.env(parent = emptyenv())
+## pkg_env$cache <- list(
+##     level1 = list(meta = dplyr::tibble(hash=character(), # The key
+##                                        data = character(), # Used to generate the key
+##                                        hits = numeric(), # Number of times the cache entry was read
+##                                        write_time = as.Date(character()), # When the entry was written
+##                                        last_access = as.Date(character()), # When the entry was last accessed
+##                                        time = as.difftime(1, units="hours") # How long did the original computation take
+##                                        ),
+##                   max_size = 5,
+##                   objects = list()
+##                   ),
+##     path = "cache/",
+##     use_cache = FALSE,
+##     lifetime = lubridate::dhours(24)
+## )
 
 Cache <- R6::R6Class(
     "Cache",
     list(
-        level1 = list(meta = dplyr::tibble(hash=character(), # The key
+        level1 = list(meta = tibble::tibble(hash = character(), # The key
                                            data = character(), # Used to generate the key
                                            hits = numeric(), # Number of times the cache entry was read
                                            write_time = as.Date(character()), # When the entry was written
@@ -42,6 +42,8 @@ Cache <- R6::R6Class(
         lifetime = lubridate::dhours(24)
     )
 )
+
+cache <- Cache$new()
 
 ##' Use this function to turn the cache on or off. If the cache is
 ##' on, then data will be written to and read from the cache. If
@@ -89,9 +91,9 @@ Cache <- R6::R6Class(
 ##'
 use_cache <- function(state, lifetime = lubridate::dhours(24), size = 5)
 {
-    pkg_env$cache$use_cache <- state
-    pkg_env$cache$lifetime <- lifetime
-    pkg_env$cache$level1$max_size <- size
+    cache@use_cache <- state
+    cache@lifetime <- lifetime
+    cache@level1$max_size <- size
 }
 
 record_hit <- function(metadata)
