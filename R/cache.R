@@ -91,10 +91,9 @@ cache <- Cache$new()
 ##'
 use_cache <- function(state, lifetime = lubridate::dhours(24), size = 5)
 {
-    print(cache)
-    cache@use_cache <- state
-    ## cache@lifetime <- lifetime
-    ## cache@level1$max_size <- size
+    cache$use_cache <- state
+    cache$lifetime <- lifetime
+    cache$level1$max_size <- size
 }
 
 record_hit <- function(metadata)
@@ -104,7 +103,7 @@ record_hit <- function(metadata)
     metadata
 }
 
-##' Write en entry from the leve1 cache to the level2 cache
+##' Write en entry from the leve1 1 cache to the level 2 cache
 ##'
 ##' @title Flush entry to the level2 cache
 ##' @param metadata The metadata as a named list
