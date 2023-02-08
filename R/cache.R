@@ -207,32 +207,23 @@ write_cache <- function(data, object, time)
 flush_level1 <- function()
 {
     message("Flushing all cached items to disk")
-    ## This is a hack for now, need to redesign write_level2 to take a tibble
-    a <- cache$level1$meta
-    split(a, seq_along(nrow(a))) %>% map(~ write_level2(as.list(.x)))
+    cache$level1$meta %>%
+        write_level2()
+    ## And also delete the level1 here too...
 }
 
 ##' If the level 1 cache is full, move older entries to the level 2 cache.
-##'
+##' The element that is moved is the oldest element.
+##' 
 ##' @title Prune the level 1 cache
 ##' @importFrom rlang .data
 prune_level1 <- function()
 {
-    ## After writing to the level 1 cache, check whether anything needs
-    ## to be deleted (currently, if it has too many elements)
     if (nrow(cache$level1$meta) > cache$level1$max_size)
     {
-        ## Find the oldest element in the cache, and write it to
-        ## the level 2 cache. This assumes that it is dirty -- could
-        ## add a flag to indicate whether the entry needs to be flushed
         metadata <- cache$level1$meta %>%
             dplyr::filter(.data$last_access == min(.data$last_access)) %>%
-            as.list()
-
-        ## Write the row to the level2 cache
-        write_level2(metadata)
-
-        ## Now delete the entry from the level1 cache
+            write_level2()
         cache$level1$meta <- cache$level1$meta %>%
             dplyr::filter(.data$hash != metadata$hash)
     }
