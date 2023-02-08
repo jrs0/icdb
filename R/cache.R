@@ -20,10 +20,10 @@ Cache <- R6::R6Class(
         path = "cache/",
         use_cache = FALSE,
         lifetime = lubridate::dhours(24)
-        finalize = function() {
-            message("Writing cached items to disk")
-            prune_level1()
-        }
+        ## finalize = function() {
+        ##     message("Writing cached items to disk")
+        ##     prune_level1()
+        ## }
     )
 )
 
