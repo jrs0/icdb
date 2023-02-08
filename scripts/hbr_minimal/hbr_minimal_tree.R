@@ -65,7 +65,7 @@ ctrl <- trainControl(summaryFunction = twoClassSummary,
 fit <- train(bleed ~ .,
              data = data_train,
              tuneLength = 30,
-             method = "rpart",
+             method = "rpart2",
              metric = "ROC",
              trControl = ctrl)
 

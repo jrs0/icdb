@@ -22,7 +22,7 @@ data_train <- hbr_minimal_dataset_train %>%
     select(-date)
 
 ## Logistic regression requires preprocessing of the predictors
-## for sparse/unbalanced variables (p. 285, APM). 
+## for sparse/unbalanced variables (p. 285, APM).
 
 ## Remove zero-variance predictors from the test and train sets
 predictors_train <- hbr_minimal_dataset_train %>%
