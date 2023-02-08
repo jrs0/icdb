@@ -113,30 +113,30 @@ write_level2 <- function(metadata)
     hash <- metadata$hash
 
     ## Create the level 2 directory if it does not exist
-    if (!dir.exists(pkg_env$cache$path))
+    if (!dir.exists(cache$path))
     {
-        dir.create(pkg_env$cache$path)
+        dir.create(cache$path)
     }
 
     ## Create the object filename and the metadata filename
-    obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
-    meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
+    obj_file <- paste0(cache$path, "/", hash, ".obj.rds")
+    meta_file <- paste0(cache$path, "/", hash, ".meta.rds")
 
-    ## Store the metadata and the object to the level 2 pkg_env$cache directory
+    ## Store the metadata and the object to the level 2 cache directory
     saveRDS(metadata, file = meta_file)
-    saveRDS(pkg_env$cache$level1$objects[[hash]], file = obj_file)
+    saveRDS(cache$level1$objects[[hash]], file = obj_file)
 }
 
 write_level1 <- function(metadata, object)
 {
     ## The metadata is not saved directly. Instead, it is encapsulated inside a
-    ## structure that also holds information generic to all pkg_env$cache entries: the
+    ## structure that also holds information generic to all cache entries: the
     ## number of hits, last access, etc. This information is used to track how
     ## the entry is used, and provide summary information.
     now <- lubridate::now()
 
     ## Write the object to the level 1 cache first here
-    pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+    cache$level1$meta <- cache$level1$meta %>%
         dplyr::add_row(hash = metadata$hash,
                        data = metadata$data,
                        hits = metadata$hits,
@@ -145,7 +145,7 @@ write_level1 <- function(metadata, object)
                        last_access = metadata$last_access)
 
     ## Write the new object to the level 1 cache
-    pkg_env$cache$level1$objects[[metadata$hash]] <- object
+    cache$level1$objects[[metadata$hash]] <- object
 
     ## Prune the level 1 cache
     prune_level1()
@@ -157,7 +157,7 @@ write_level1 <- function(metadata, object)
 ##' @param hash The hash of the cache entry
 get_metadata <- function(hash)
 {
-    tbl <- pkg_env$cache$level1$meta %>%
+    tbl <- cache$level1$meta %>%
         dplyr::filter(hash == !!hash)
     stopifnot(nrow(tbl) == 1)
     as.list(tbl[1,])
@@ -192,7 +192,7 @@ get_metadata <- function(hash)
 write_cache <- function(data, object, time)
 {
     ## If the cache is disabled, return without doing anything
-    if (pkg_env$cache$use_cache == FALSE)
+    if (cache$use_cache == FALSE)
 
     {
         return(NULL)
@@ -224,12 +224,12 @@ prune_level1 <- function()
 {
     ## After writing to the level 1 cache, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
-    if (nrow(pkg_env$cache$level1$meta) > pkg_env$cache$level1$max_size)
+    if (nrow(cache$level1$meta) > cache$level1$max_size)
     {
         ## Find the oldest element in the cache, and write it to
         ## the level 2 cache. This assumes that it is dirty -- could
         ## add a flag to indicate whether the entry needs to be flushed
-        metadata <- pkg_env$cache$level1$meta %>%
+        metadata <- cache$level1$meta %>%
             dplyr::filter(.data$last_access == min(.data$last_access)) %>%
             as.list()
 
@@ -237,7 +237,7 @@ prune_level1 <- function()
         write_level2(metadata)
 
         ## Now delete the entry from the level1 cache
-        pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+        cache$level1$meta <- cache$level1$meta %>%
             dplyr::filter(.data$hash != metadata$hash)
     }
 }
@@ -260,7 +260,7 @@ prune_level1 <- function()
 read_cache <- function(data, lifetime = NULL)
 {
     ## If the cache is disabled, return NULL
-    if (pkg_env$cache$use_cache == FALSE)
+    if (cache$use_cache == FALSE)
     {
         return(NULL)
     }
@@ -270,7 +270,7 @@ read_cache <- function(data, lifetime = NULL)
     now <- lubridate::now()
 
     ## First, attempt to read the data from the level 1 cache here
-    res <- pkg_env$cache$level1$meta %>%
+    res <- cache$level1$meta %>%
         dplyr::filter(hash == !!hash)
 
     if (nrow(res) == 1)
@@ -286,7 +286,7 @@ read_cache <- function(data, lifetime = NULL)
         now <- lubridate::now()
         if (is.null(lifetime))
         {
-            lifetime <- pkg_env$cache$lifetime
+            lifetime <- cache$lifetime
         }
         if (now - metadata$write_time >= lifetime)
         {
@@ -294,17 +294,17 @@ read_cache <- function(data, lifetime = NULL)
 
             ## Cached object has expired, delete it from
             ## the level 1 cache
-            pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+            cache$level1$meta <- cache$level1$meta %>%
                 dplyr::filter(hash != !!hash)
-            pkg_env$cache$level1$objects$hash <- NULL
+            cache$level1$objects$hash <- NULL
 
             ## Also delete the entry from the level 2 cache, if
             ## it exists there
-            if (dir.exists(pkg_env$cache$path))
+            if (dir.exists(cache$path))
             {
                 ## Create the object filename and the metadata filename
-                obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
-                meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
+                obj_file <- paste0(cache$path, "/", hash, ".obj.rds")
+                meta_file <- paste0(cache$path, "/", hash, ".meta.rds")
 
                 ## Now remove the files if they exist
                 if (fs::file_exists(obj_file))
@@ -320,15 +320,15 @@ read_cache <- function(data, lifetime = NULL)
         metadata <- record_hit(metadata)
 
         ## Delete the entry from the level 1 cache
-        pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+        cache$level1$meta <- cache$level1$meta %>%
             dplyr::filter(hash != !!hash)
 
         ## Now re-add the entry from the list
-        pkg_env$cache$level1$meta <-
-            dplyr::bind_rows(pkg_env$cache$level1$meta, metadata)
+        cache$level1$meta <-
+            dplyr::bind_rows(cache$level1$meta, metadata)
 
         ## Data present in level 1 cache
-        return(pkg_env$cache$level1$objects[[hash]])
+        return(cache$level1$objects[[hash]])
     }
     else if (nrow(res) != 0)
     {
@@ -336,15 +336,15 @@ read_cache <- function(data, lifetime = NULL)
              "cache is corrupt (report bug).")
     }
 
-    ## If data is not in the L1 pkg_env$cache, check if L2 directory exists
-    if (!dir.exists(pkg_env$cache$path))
+    ## If data is not in the L1 cache, check if L2 directory exists
+    if (!dir.exists(cache$path))
     {
         return(NULL)
     }
 
     ## Create the object filename and the metadata filename
-    obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
-    meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
+    obj_file <- paste0(cache$path, "/", hash, ".obj.rds")
+    meta_file <- paste0(cache$path, "/", hash, ".meta.rds")
 
     ## Check to see if the files exist
     if (file.exists(meta_file))
@@ -358,7 +358,7 @@ read_cache <- function(data, lifetime = NULL)
             now <- lubridate::now()
             if (is.null(lifetime))
             {
-                lifetime <- pkg_env$cache$lifetime
+                lifetime <- cache$lifetime
             }
             if (now - metadata$write_time >= lifetime)
             {
@@ -385,7 +385,7 @@ read_cache <- function(data, lifetime = NULL)
         }
         else
         {
-            stop("The pkg_env$cache is corrupt: missing .obj.rds file for .meta.rds file.")
+            stop("The cache is corrupt: missing .obj.rds file for .meta.rds file.")
         }
     }
     else
@@ -402,12 +402,12 @@ read_cache <- function(data, lifetime = NULL)
 ##' @export
 show_cache <-function()
 {
-    tbl <- pkg_env$cache$level1$meta
+    tbl <- cache$level1$meta
 
     tbl <- tbl %>% tibble::add_column(in_memory = TRUE)
 
     ## Next, get the level 2 files and remove those that are in level 1
-    file_list <- list.files(pkg_env$cache$path, pattern = "meta\\.rds") %>%
+    file_list <- list.files(cache$path, pattern = "meta\\.rds") %>%
         dplyr::as_tibble() %>%
         dplyr::mutate(value = stringr::str_replace(.data$value, ".meta.rds", "")) %>%
         dplyr::filter(!(.data$value %in% tbl$hash)) %>%
@@ -415,7 +415,7 @@ show_cache <-function()
 
     ## Make a function to get the data
     fn <- function(file) {
-        meta_file <- paste0(pkg_env$cache$path, "/", file)
+        meta_file <- paste0(cache$path, "/", file)
         readRDS(meta_file)
     }
 
@@ -448,42 +448,42 @@ clear_cache <- function(tbl = NULL)
         ## Delete everything in the cache
 
         ## Clear the level 1 cache
-        pkg_env$cache$level1$meta = dplyr::tibble(hash=character(),
+        cache$level1$meta = dplyr::tibble(hash=character(),
                                                   data = character(),
                                                   hits = numeric(),
                                                   write_time = as.Date(character()),
                                                   last_access = as.Date(character()),
                                                   time = as.difftime(1, units="hours"))
-        pkg_env$cache$level1$objects = list()
+        cache$level1$objects = list()
 
         ## Check if directory exists
-        if (dir.exists(pkg_env$cache$path) && length(list.files(pkg_env$cache$path)) > 0)
+        if (dir.exists(cache$path) && length(list.files(cache$path)) > 0)
         {
-            list.files(pkg_env$cache$path) %>%
-                stringr::str_c(pkg_env$cache$path,.) %>%
+            list.files(cache$path) %>%
+                stringr::str_c(cache$path,.) %>%
                 purrr::map(file.remove)
         }
         message("Cleared cache.")
-        invisible(pkg_env$cache)
+        invisible(cache)
     }
     else
     {
         ## Delete the elements listed in tbl
 
         ## Clear results from level1 cache
-        pkg_env$cache$level1$meta <- pkg_env$cache$level1$meta %>%
+        cache$level1$meta <- cache$level1$meta %>%
             dplyr::filter(!(hash %in% tbl$hash))
-        pkg_env$cache$level1$objects <-
-            pkg_env$cache$level1$objects[!(names(pkg_env$cache$level1$objects) %in% tbl$hash)]
+        cache$level1$objects <-
+            cache$level1$objects[!(names(cache$level1$objects) %in% tbl$hash)]
 
         ## Clear the results from the level2 cache
-        if (dir.exists(pkg_env$cache$path))
+        if (dir.exists(cache$path))
         {
             for (hash in tbl$hash)
             {
                 ## Create the object filename and the metadata filename
-                obj_file <- paste0(pkg_env$cache$path, "/", hash, ".obj.rds")
-                meta_file <- paste0(pkg_env$cache$path, "/", hash, ".meta.rds")
+                obj_file <- paste0(cache$path, "/", hash, ".obj.rds")
+                meta_file <- paste0(cache$path, "/", hash, ".meta.rds")
 
                 file.remove(c(obj_file, meta_file))
             }
