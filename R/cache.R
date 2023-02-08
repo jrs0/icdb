@@ -88,28 +88,28 @@ record_hit <- function(metadata)
     metadata
 }
 
-##' Write en entry from the leve1 1 cache to the level 2 cache
+##' Write entries from the level 1 cache to the level 2 cache.
+##' The entries are supplied a rows of a tibble.
 ##'
-##' @title Flush entry to the level2 cache
-##' @param metadata The metadata as a named list
+##' @title Write entries to the level2 cache
+##' @param metadata The metadata as a tibble
 write_level2 <- function(metadata)
 {
-    ## Get the hash key of the cache entry
-    hash <- metadata$hash
-
-    ## Create the level 2 directory if it does not exist
     if (!dir.exists(cache$path))
     {
         dir.create(cache$path)
     }
-
-    ## Create the object filename and the metadata filename
-    obj_file <- paste0(cache$path, "/", hash, ".obj.rds")
-    meta_file <- paste0(cache$path, "/", hash, ".meta.rds")
-
-    ## Store the metadata and the object to the level 2 cache directory
-    saveRDS(metadata, file = meta_file)
-    saveRDS(cache$level1$objects[[hash]], file = obj_file)
+    metadata %>%
+        dplyr::pull(hash) %>%
+        purrr::map(function(this_hash)
+        {
+            obj_file_name <- paste0(cache$path, "/", this_hash, ".obj.rds")
+            meta_file_name <- paste0(cache$path, "/", this_hash, ".meta.rds")
+            metadata_row <- metadata %>%
+                dplyr::filter(hash == this_hash)
+            saveRDS(metadata_row, file = meta_file_name)
+            saveRDS(cache$level1$objects[[this_hash]], file = obj_file_name)
+        })
 }
 
 write_level1 <- function(metadata, object)
