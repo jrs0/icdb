@@ -10,5 +10,5 @@ write_level2(metadata)
 \item{metadata}{The metadata as a named list}
 }
 \description{
-Write en entry from the leve1 cache to the level2 cache
+Write en entry from the leve1 1 cache to the level 2 cache
 }

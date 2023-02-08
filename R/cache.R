@@ -4,29 +4,9 @@
 ##' @export
 NULL
 
-## Currently using an environment to prototype, can change to an R6 class to
-## make it slightly better. What would be even better is if a global variable
-## (local to the package) just worked, but that might not be possible.
-## pkg_env <- new.env(parent = emptyenv())
-## pkg_env$cache <- list(
-##     level1 = list(meta = dplyr::tibble(hash=character(), # The key
-##                                        data = character(), # Used to generate the key
-##                                        hits = numeric(), # Number of times the cache entry was read
-##                                        write_time = as.Date(character()), # When the entry was written
-##                                        last_access = as.Date(character()), # When the entry was last accessed
-##                                        time = as.difftime(1, units="hours") # How long did the original computation take
-##                                        ),
-##                   max_size = 5,
-##                   objects = list()
-##                   ),
-##     path = "cache/",
-##     use_cache = FALSE,
-##     lifetime = lubridate::dhours(24)
-## )
-
 Cache <- R6::R6Class(
     "Cache",
-    list(
+    public = list(
         level1 = list(meta = tibble::tibble(hash = character(), # The key
                                            data = character(), # Used to generate the key
                                            hits = numeric(), # Number of times the cache entry was read
@@ -39,7 +19,11 @@ Cache <- R6::R6Class(
                       ),
         path = "cache/",
         use_cache = FALSE,
-        lifetime = lubridate::dhours(24)
+        lifetime = lubridate::dhours(24),
+        ## finalize = function() {
+        ##     message("Writing cached items to disk")
+        ##     prune_level1()
+        ## }
     )
 )
 
@@ -89,7 +73,7 @@ cache <- Cache$new()
 ##'
 ##' @export
 ##'
-use_cache <- function(state, lifetime = lubridate::dhours(24), size = 1)
+use_cache <- function(state, lifetime = lubridate::dhours(24), size = 5)
 {
     cache$use_cache <- state
     cache$lifetime <- lifetime
