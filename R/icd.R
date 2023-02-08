@@ -488,10 +488,14 @@ groups.icdb_icd10 <- function(x)
     vctrs::field(x, "groups")
 }
 
-##' @export
+##' If a code has multiple groups, the resulting item in the
+##' character vector is a comma separated list of groups.
+##'
 ##' @title Extract groups character vector from icd10 object 
 ##' @param x The the vector of icd10 objects to obtain groups
 ##' from
+##' @return The groups as a character vector
+##' @export
 group_string <- function(x)
 {
     groups(x) %>%
