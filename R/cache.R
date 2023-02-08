@@ -466,8 +466,6 @@ clear_cache <- function(tbl = NULL)
     }
     else
     {
-        ## Delete the elements listed in tbl
-
         ## Clear results from level1 cache
         cache$level1$meta <- cache$level1$meta %>%
             dplyr::filter(!(hash %in% tbl$hash))
