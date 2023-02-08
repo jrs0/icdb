@@ -200,4 +200,3 @@ test_that("the ICD-10 code file generation process works", {
     expect_equal(res, correct)
     
 })
-
