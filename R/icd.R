@@ -489,6 +489,9 @@ groups.icdb_icd10 <- function(x)
 }
 
 ##' @export
+##' @title Extract groups character vector from icd10 object 
+##' @param x The the vector of icd10 objects to obtain groups
+##' from
 group_string <- function(x)
 {
     groups(x) %>%
