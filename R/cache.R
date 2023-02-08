@@ -89,7 +89,7 @@ cache <- Cache$new()
 ##'
 ##' @export
 ##'
-use_cache <- function(state, lifetime = lubridate::dhours(24), size = 5)
+use_cache <- function(state, lifetime = lubridate::dhours(24), size = 1)
 {
     cache$use_cache <- state
     cache$lifetime <- lifetime
