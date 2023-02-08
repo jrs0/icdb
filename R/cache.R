@@ -23,6 +23,7 @@ Cache <- R6::R6Class(
         finalize = function() {
             message("Writing cached items to disk")
             prune_level1()
+            message("Done")
         }
     )
 )
@@ -206,10 +207,12 @@ write_cache <- function(data, object, time)
 ##' @importFrom rlang .data
 prune_level1 <- function()
 {
+    message("Got to prune")
     ## After writing to the level 1 cache, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
     if (nrow(cache$level1$meta) > cache$level1$max_size)
     {
+        message("Found something")
         ## Find the oldest element in the cache, and write it to
         ## the level 2 cache. This assumes that it is dirty -- could
         ## add a flag to indicate whether the entry needs to be flushed
