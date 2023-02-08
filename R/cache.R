@@ -24,6 +24,25 @@ pkg_env$cache <- list(
     lifetime = lubridate::dhours(24)
 )
 
+Cache <- R6::R6Class(
+    "Cache",
+    list(
+        level1 = list(meta = dplyr::tibble(hash=character(), # The key
+                                           data = character(), # Used to generate the key
+                                           hits = numeric(), # Number of times the cache entry was read
+                                           write_time = as.Date(character()), # When the entry was written
+                                           last_access = as.Date(character()), # When the entry was last accessed
+                                           time = as.difftime(1, units="hours") # How long did the original computation take
+                                           ),
+                      max_size = 5,
+                      objects = list()
+                      ),
+        path = "cache/",
+        use_cache = FALSE,
+        lifetime = lubridate::dhours(24)
+    )
+)
+
 ##' Use this function to turn the cache on or off. If the cache is
 ##' on, then data will be written to and read from the cache. If
 ##' the cache is off, then the read_cache function will always
