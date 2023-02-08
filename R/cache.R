@@ -4,28 +4,43 @@
 ##' @export
 NULL
 
+##' This function creates an empty level 1 cache tibble, containing
+##' the the columns: hash (for the unique key for the item);
+##' data (the thing that is hashed, e.g. an sql query string);
+##' hits (the number of times the entry was used); write_time;
+##' last_access; and time (how long the original computation of
+##' the cached data took).
+##'
+##' @title Make an empty level 1 metadata tibble
+##' @return The empty cache tibble
+make_empty_metadata <- function()
+{
+    tibble::tibble(
+                hash = character(),
+                data = character(),
+                hits = numeric(),
+                write_time = as.Date(character()),
+                last_access = as.Date(character()),
+                time = as.difftime(1, units="hours")
+            )
+}
+
 Cache <- R6::R6Class(
-    "Cache",
-    public = list(
-        level1 = list(meta = tibble::tibble(hash = character(), # The key
-                                           data = character(), # Used to generate the key
-                                           hits = numeric(), # Number of times the cache entry was read
-                                           write_time = as.Date(character()), # When the entry was written
-                                           last_access = as.Date(character()), # When the entry was last accessed
-                                           time = as.difftime(1, units="hours") # How long did the original computation take
-                                           ),
-                      max_size = 5,
-                      objects = list()
-                      ),
-        path = "cache/",
-        use_cache = FALSE,
-        lifetime = lubridate::dhours(24)
-        ## finalize = function() {
-        ##     message("Writing cached items to disk")
-        ##     prune_level1()
-        ## }
-    )
-)
+                 "Cache",
+                 public = list(
+                     level1 = list(
+                         meta = make_empty_metadata(),
+                         max_size = 5,
+                         objects = list()
+                     ),
+                     path = "cache/",
+                     use_cache = FALSE,
+                     lifetime = lubridate::dhours(24),
+                     finalize = function() {
+                         flush_level1()
+                     }
+                 )
+             )
 
 cache <- Cache$new()
 
@@ -87,28 +102,28 @@ record_hit <- function(metadata)
     metadata
 }
 
-##' Write en entry from the leve1 1 cache to the level 2 cache
+##' Write entries from the level 1 cache to the level 2 cache.
+##' The entries are supplied a rows of a tibble.
 ##'
-##' @title Flush entry to the level2 cache
-##' @param metadata The metadata as a named list
+##' @title Write entries to the level2 cache
+##' @param metadata The metadata as a tibble
 write_level2 <- function(metadata)
 {
-    ## Get the hash key of the cache entry
-    hash <- metadata$hash
-
-    ## Create the level 2 directory if it does not exist
     if (!dir.exists(cache$path))
     {
         dir.create(cache$path)
     }
-
-    ## Create the object filename and the metadata filename
-    obj_file <- paste0(cache$path, "/", hash, ".obj.rds")
-    meta_file <- paste0(cache$path, "/", hash, ".meta.rds")
-
-    ## Store the metadata and the object to the level 2 cache directory
-    saveRDS(metadata, file = meta_file)
-    saveRDS(cache$level1$objects[[hash]], file = obj_file)
+    metadata %>%
+        dplyr::pull(hash) %>%
+        purrr::map(function(this_hash)
+        {
+            obj_file_name <- paste0(cache$path, "/", this_hash, ".obj.rds")
+            meta_file_name <- paste0(cache$path, "/", this_hash, ".meta.rds")
+            metadata_row <- metadata %>%
+                dplyr::filter(hash == this_hash)
+            saveRDS(metadata_row, file = meta_file_name)
+            saveRDS(cache$level1$objects[[this_hash]], file = obj_file_name)
+        })
 }
 
 write_level1 <- function(metadata, object)
@@ -200,29 +215,31 @@ write_cache <- function(data, object, time)
     write_level1(metadata, object)
 }
 
-##' Remove entries from the level 1 cache, flushing them to level 2
-##'
-##' @title Flush and prune the level 1 cache
-##' @importFrom rlang .data
+##' Move all items in the level 1 cache to level 2
+##' 
+##' @title Flush the level 1 cache
+flush_level1 <- function()
+{
+    message("Flushing all cached items to disk")
+    cache$level1$meta %>%
+        write_level2()
+    clear_level1()
+}
+
+##' If the level 1 cache is full, move older entries to the level 2 cache.
+##' The element that is moved is the oldest element.
+##' 
+##' @title Prune the level 1 cache
+##' 
 prune_level1 <- function()
 {
-    ## After writing to the level 1 cache, check whether anything needs
-    ## to be deleted (currently, if it has too many elements)
     if (nrow(cache$level1$meta) > cache$level1$max_size)
     {
-        ## Find the oldest element in the cache, and write it to
-        ## the level 2 cache. This assumes that it is dirty -- could
-        ## add a flag to indicate whether the entry needs to be flushed
-        metadata <- cache$level1$meta %>%
-            dplyr::filter(.data$last_access == min(.data$last_access)) %>%
-            as.list()
-
-        ## Write the row to the level2 cache
-        write_level2(metadata)
-
-        ## Now delete the entry from the level1 cache
+        to_remove <- cache$level1$meta %>%
+            dplyr::filter(last_access == min(last_access))
+        write_level2(to_remove)
         cache$level1$meta <- cache$level1$meta %>%
-            dplyr::filter(.data$hash != metadata$hash)
+            dplyr::filter(!hash %in% to_remove$hash)
     }
 }
 
@@ -413,6 +430,12 @@ show_cache <-function()
 }
 
 
+clear_level1 <- function()
+{
+    cache$level1$meta = make_empty_metadata()
+    cache$level1$objects = list()
+}
+
 ##' Use this function to delete entries from the cache based on a
 ##' tibble returned by show_cache(). You can filter the tibble
 ##' prior to using the function to delete based on specific
@@ -429,16 +452,7 @@ clear_cache <- function(tbl = NULL)
 {
     if (is.null(tbl))
     {
-        ## Delete everything in the cache
-
-        ## Clear the level 1 cache
-        cache$level1$meta = dplyr::tibble(hash=character(),
-                                                  data = character(),
-                                                  hits = numeric(),
-                                                  write_time = as.Date(character()),
-                                                  last_access = as.Date(character()),
-                                                  time = as.difftime(1, units="hours"))
-        cache$level1$objects = list()
+        clear_level1()
 
         ## Check if directory exists
         if (dir.exists(cache$path) && length(list.files(cache$path)) > 0)
@@ -452,8 +466,6 @@ clear_cache <- function(tbl = NULL)
     }
     else
     {
-        ## Delete the elements listed in tbl
-
         ## Clear results from level1 cache
         cache$level1$meta <- cache$level1$meta %>%
             dplyr::filter(!(hash %in% tbl$hash))
