@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 Complicated SQL queries can often take a long time to execute. This can be inconvenient for developing scripts, where it is necessary to rerun the same code over and over again while debugging it.
 
-In order to speed up deveopment of code containing SQL queries, it is possible to download the results of the SQL query first, and store them locally in a file or R object. Then, when development of the script is finished, the code to read from the local object can be replaced with the true SQL query.
+In order to speed up development of code containing SQL queries, it is possible to download the results of the SQL query first, and store them locally in a file or R object. Then, when development of the script is finished, the code to read from the local object can be replaced with the true SQL query.
 
 ICDB automates this mechanism by using a query cache. A [cache](https://en.wikipedia.org/wiki/Cache_(computing)) is a system which speeds up repeated long-running tasks by saving the results of the task the first time it is performed, and reusing the saved results when the task is performed again.
 
@@ -123,13 +123,6 @@ You may use any dplyr filter functions to reduce the cache tibble; just make sur
 This section describes in detail how the cache behaves. The cache is formed from two parts: a memory cache; and a disk cache. The memory cache is faster (query results load very quickly), whereas the disk cache persists across restarts of R. The disk cache is stored in the `cache/` directory in the R working directory, so you should ensure you use the same working directory if you want the cache to persist across R sessions. You can see which cached objects are in the memory cache or the disk cache by looking at the `in_memory` column of the cache tibble.
 
 When a query is fetched for the first time, the results are placed in the memory cache. As more and more queries are fetched, the number of queries in the memory cache increases. When it exceeds a predefined size, results from the memory cache are demoted to the disk cache. The query that is demoted first is the one that was accessed last.
-
-Currently, when you close the R session, the contents of the memory cache is not flushed to the disk. This means that you may see some queries fetched when you were expecting to see them in the cache. This behaviour will be fixed in a future library version.
-
-More details coming soon...
-
-
-
 
 
 
