@@ -91,9 +91,10 @@ cache <- Cache$new()
 ##'
 use_cache <- function(state, lifetime = lubridate::dhours(24), size = 5)
 {
+    print(cache)
     cache@use_cache <- state
-    cache@lifetime <- lifetime
-    cache@level1$max_size <- size
+    ## cache@lifetime <- lifetime
+    ## cache@level1$max_size <- size
 }
 
 record_hit <- function(metadata)
