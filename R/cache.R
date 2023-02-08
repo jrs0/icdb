@@ -207,9 +207,9 @@ write_cache <- function(data, object, time)
 flush_level1 <- function()
 {
     message("Flushing all cached items to disk")
-    cache$level1$meta %>%
-        purrr::map(~ write_level2(as.list(.x)))
-        
+    ## This is a hack for now, need to redesign write_level2 to take a tibble
+    a <- cache$level1$meta
+    split(a, seq_along(nrow(a))) %>% map(~ write_level2(as.list(.x)))
 }
 
 ##' If the level 1 cache is full, move older entries to the level 2 cache.
