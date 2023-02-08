@@ -5,28 +5,28 @@
 NULL
 
 Cache <- R6::R6Class(
-    "Cache",
-    public = list(
-        level1 = list(meta = tibble::tibble(hash = character(), # The key
-                                           data = character(), # Used to generate the key
-                                           hits = numeric(), # Number of times the cache entry was read
-                                           write_time = as.Date(character()), # When the entry was written
-                                           last_access = as.Date(character()), # When the entry was last accessed
-                                           time = as.difftime(1, units="hours") # How long did the original computation take
-                                           ),
-                      max_size = 5,
-                      objects = list()
-                      ),
-        path = "cache/",
-        use_cache = FALSE,
-        lifetime = lubridate::dhours(24),
-        finalize = function() {
-            message("Writing cached items to disk")
-            prune_level1()
-            message("Done")
-        }
-    )
-)
+                 "Cache",
+                 public = list(
+                     level1 = list(
+                         meta = tibble::tibble(
+                                            hash = character(), # The key
+                                            data = character(), # Used to generate the key
+                                            hits = numeric(), # Number of times the cache entry was read
+                                            write_time = as.Date(character()), # When the entry was written
+                                            last_access = as.Date(character()), # When the entry was last accessed
+                                            time = as.difftime(1, units="hours") # How long did the original computation take
+                                        ),
+                         max_size = 5,
+                         objects = list()
+                     ),
+                     path = "cache/",
+                     use_cache = FALSE,
+                     lifetime = lubridate::dhours(24),
+                     finalize = function() {
+                         flush_level1()
+                     }
+                 )
+             )
 
 cache <- Cache$new()
 
@@ -201,18 +201,27 @@ write_cache <- function(data, object, time)
     write_level1(metadata, object)
 }
 
-##' Remove entries from the level 1 cache, flushing them to level 2
+##' Move all items in the level 1 cache to level 2
+##' 
+##' @title Flush the level 1 cache
+flush_level1 <- function()
+{
+    message("Flushing all cached items to disk")
+    cache$level1$meta %>%
+        purrr::map(~ write_level2(as.list(.x)))
+        
+}
+
+##' If the level 1 cache is full, move older entries to the level 2 cache.
 ##'
-##' @title Flush and prune the level 1 cache
+##' @title Prune the level 1 cache
 ##' @importFrom rlang .data
 prune_level1 <- function()
 {
-    message("Got to prune")
     ## After writing to the level 1 cache, check whether anything needs
     ## to be deleted (currently, if it has too many elements)
     if (nrow(cache$level1$meta) > cache$level1$max_size)
     {
-        message("Found something")
         ## Find the oldest element in the cache, and write it to
         ## the level 2 cache. This assumes that it is dirty -- could
         ## add a flag to indicate whether the entry needs to be flushed
