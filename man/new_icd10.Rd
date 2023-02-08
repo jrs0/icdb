@@ -16,5 +16,5 @@ file to use}
 The new icd10 S3 object
 }
 \description{
-Create a new icd10 (S3) object from a string
+Create a new icd10 <-(S3) object from a string
 }

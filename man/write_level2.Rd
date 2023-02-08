@@ -2,13 +2,14 @@
 % Please edit documentation in R/cache.R
 \name{write_level2}
 \alias{write_level2}
-\title{Flush entry to the level2 cache}
+\title{Write entries to the level2 cache}
 \usage{
 write_level2(metadata)
 }
 \arguments{
-\item{metadata}{The metadata as a named list}
+\item{metadata}{The metadata as a tibble}
 }
 \description{
-Write en entry from the leve1 1 cache to the level 2 cache
+Write entries from the level 1 cache to the level 2 cache.
+The entries are supplied a rows of a tibble.
 }
