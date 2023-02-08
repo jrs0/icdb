@@ -223,7 +223,7 @@ flush_level1 <- function()
     message("Flushing all cached items to disk")
     cache$level1$meta %>%
         write_level2()
-    ## And also delete the level1 here too...
+    clear_level1()
 }
 
 ##' If the level 1 cache is full, move older entries to the level 2 cache.
@@ -235,11 +235,11 @@ prune_level1 <- function()
 {
     if (nrow(cache$level1$meta) > cache$level1$max_size)
     {
-        metadata <- cache$level1$meta %>%
-            dplyr::filter(last_access == min(last_access)) %>%
-            write_level2()
+        to_remove <- cache$level1$meta %>%
+            dplyr::filter(last_access == min(last_access))
+        write_level2(to_remove)
         cache$level1$meta <- cache$level1$meta %>%
-            dplyr::filter(last_access != min(last_access))
+            dplyr::filter(!hash %in% to_remove$hash)
     }
 }
 
@@ -430,6 +430,12 @@ show_cache <-function()
 }
 
 
+clear_level1 <- function()
+{
+    cache$level1$meta = make_empty_metadata()
+    cache$level1$objects = list()
+}
+
 ##' Use this function to delete entries from the cache based on a
 ##' tibble returned by show_cache(). You can filter the tibble
 ##' prior to using the function to delete based on specific
@@ -446,11 +452,7 @@ clear_cache <- function(tbl = NULL)
 {
     if (is.null(tbl))
     {
-        ## Delete everything in the cache
-
-        ## Clear the level 1 cache
-        cache$level1$meta = make_empty_cache()
-        cache$level1$objects = list()
+        clear_level1()
 
         ## Check if directory exists
         if (dir.exists(cache$path) && length(list.files(cache$path)) > 0)
