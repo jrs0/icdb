@@ -10,6 +10,10 @@ group_string(x)
 \item{x}{The the vector of icd10 objects to obtain groups
 from}
 }
+\value{
+The groups as a character vector
+}
 \description{
-Extract groups character vector from icd10 object
+If a code has multiple groups, the resulting item in the
+character vector is a comma separated list of groups.
 }
