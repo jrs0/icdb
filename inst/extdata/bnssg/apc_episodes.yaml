@@ -1900,7 +1900,7 @@
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
     use: yes
     source:
-    - Diagnosis2ndecondary_ICD
+    - Diagnosis2ndSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_3_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
@@ -2033,19 +2033,19 @@
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
     use: yes
     source:
-    - Diagnosis21thSecondary_ICD
+    - Diagnosis21stSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_22_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
     use: yes
     source:
-    - Diagnosis22thSecondary_ICD
+    - Diagnosis22ndSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_23_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
     use: yes
     source:
-    - Diagnosis23thSecondary_ICD
+    - Diagnosis23rdSecondary_ICD
     strategy: coalesce
