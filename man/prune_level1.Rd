@@ -2,10 +2,11 @@
 % Please edit documentation in R/cache.R
 \name{prune_level1}
 \alias{prune_level1}
-\title{Flush and prune the level 1 cache}
+\title{Prune the level 1 cache}
 \usage{
 prune_level1()
 }
 \description{
-Remove entries from the level 1 cache, flushing them to level 2
+If the level 1 cache is full, move older entries to the level 2 cache.
+The element that is moved is the oldest element.
 }
