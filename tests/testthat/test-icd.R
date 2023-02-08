@@ -10,6 +10,7 @@ test_that("a selection of ICD-10 codes that have previously failed to parse", {
     ## is lexicographically outside the stated
     ## range of its class (B25-B34)
     expect_equal(format(icd10("B349")), "[C] B34.9")
+
 })
 
 test_that("all valid Xnnn.n ICD-10 codes parse", {
@@ -198,19 +199,5 @@ test_that("the ICD-10 code file generation process works", {
     ## Compare the correct structure with the generated file
     expect_equal(res, correct)
     
-})
-
-test_that("the indices to code function works", {
-    x <- icd10("A000")
-    
-    ## This tests the out-of-order location of
-    ## Z near the end of the codes
-    expect_equal(format(icd10("Z380")), "[C] Z38.0")
-
-    ## This tests a case where the code (B34.9)
-    ## is lexicographically outside the stated
-    ## range of its class (B25-B34)
-    expect_equal(format(icd10("B349")), "[C] B34.9")
-
 })
 

@@ -3,6 +3,51 @@
 ##'
 NULL
 
+##' Convert a list of indices to a list of codes
+##'
+##' @title Convert indices lists to ICD-10 codes
+##' @param indices A list of indices (itself a list) 
+##' @param codes_def The codes definition structure
+##' @return A vector of named lists containing the
+##' corresponding code or category for these indices. If
+##' the indices list is empty, then the structure contains
+##' an NA_character_ in the code element
+icd10_indices_to_code <- function(indices, codes_def)
+{
+    ## The structure of the codes file is
+    ## a nested list of lists. At each level,
+    ## there is a key called child, which holds
+    ## the next list down. Generate the arguments
+    ## for use with pluck, to descend through
+    ## the nested structure in one go
+    k <- indices %>%
+        purrr::map(function(item)
+        {
+            item %>%
+                purrr::map(~ list(as.list(.x), "child")) %>%
+                purrr::flatten() %>%
+                purrr::flatten() %>%
+                ## Remove the final "child" key to
+                ## get the entire category or code
+                head(-1)
+        })
+
+    ## Note the first 1 is to get down into the
+    ## first level (where there is a child key)
+    k %>% purrr::map(function(loc)
+    {
+        if (length(loc) > 0)
+        {
+            codes_def$child %>%
+                purrr::chuck(!!!loc)
+        }
+        else
+        {
+            list(code = NA_character_)
+        }
+    })
+}
+
 ##' The codes structure must be ordered by index at
 ##' every level. Most levels is already ordered
 ##' by category, which is fine except for the
