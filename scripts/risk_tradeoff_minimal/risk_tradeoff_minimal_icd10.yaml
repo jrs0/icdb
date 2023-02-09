@@ -3042,6 +3042,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - A00
     - B99
@@ -5929,6 +5930,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - C00
     - D48
@@ -6664,6 +6666,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - D50
     - D89
@@ -8029,6 +8032,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - E00
     - E90
@@ -8075,6 +8079,7 @@ child:
       - atrial_fib
       - portal_hypertension
       - acs_stemi
+      - acs_nstemi
       index:
       - I00
       - I02
@@ -8185,6 +8190,7 @@ child:
       - atrial_fib
       - portal_hypertension
       - acs_stemi
+      - acs_nstemi
       index:
       - I05
       - I09
@@ -8260,6 +8266,7 @@ child:
       - atrial_fib
       - portal_hypertension
       - acs_stemi
+      - acs_nstemi
       index:
       - I10
       - I15
@@ -8283,20 +8290,29 @@ child:
         exclude:
         - bleeding
         - acs_stemi
+        - acs_nstemi
         index: I20
       - category: I21
         child:
         - code: I21.0
           docs: Acute transmural myocardial infarction of anterior wall
+          exclude:
+          - acs_nstemi
           index: I210
         - code: I21.1
           docs: Acute transmural myocardial infarction of inferior wall
+          exclude:
+          - acs_nstemi
           index: I211
         - code: I21.2
           docs: Acute transmural myocardial infarction of other sites
+          exclude:
+          - acs_nstemi
           index: I212
         - code: I21.3
           docs: Acute transmural myocardial infarction of unspecified site
+          exclude:
+          - acs_nstemi
           index: I213
         - code: I21.4
           docs: Acute subendocardial myocardial infarction
@@ -8307,6 +8323,7 @@ child:
           docs: Acute myocardial infarction, unspecified
           exclude:
           - acs_stemi
+          - acs_nstemi
           index: I219
         docs: Acute myocardial infarction
         exclude:
@@ -8316,12 +8333,18 @@ child:
         child:
         - code: I22.0
           docs: Subsequent myocardial infarction of anterior wall
+          exclude:
+          - acs_nstemi
           index: I220
         - code: I22.1
           docs: Subsequent myocardial infarction of inferior wall
+          exclude:
+          - acs_nstemi
           index: I221
         - code: I22.8
           docs: Subsequent myocardial infarction of other sites
+          exclude:
+          - acs_nstemi
           index: I228
         - code: I22.9
           docs: Subsequent myocardial infarction of unspecified site
@@ -8375,6 +8398,7 @@ child:
         docs: Certain current complications following acute myocardial infarction
         exclude:
         - acs_stemi
+        - acs_nstemi
         index: I23
       - category: I24
         child:
@@ -8394,6 +8418,7 @@ child:
         exclude:
         - bleeding
         - acs_stemi
+        - acs_nstemi
         index: I24
       - category: I25
         child:
@@ -8428,6 +8453,7 @@ child:
         exclude:
         - bleeding
         - acs_stemi
+        - acs_nstemi
         index: I25
       docs: Ischaemic heart diseases
       exclude:
@@ -8491,6 +8517,7 @@ child:
       - atrial_fib
       - portal_hypertension
       - acs_stemi
+      - acs_nstemi
       index:
       - I26
       - I28
@@ -9020,6 +9047,7 @@ child:
       - ckd.other
       - portal_hypertension
       - acs_stemi
+      - acs_nstemi
       index:
       - I30
       - I52
@@ -9280,6 +9308,7 @@ child:
       - atrial_fib
       - portal_hypertension
       - acs_stemi
+      - acs_nstemi
       index:
       - I60
       - I69
@@ -9480,6 +9509,7 @@ child:
       - atrial_fib
       - portal_hypertension
       - acs_stemi
+      - acs_nstemi
       index:
       - I70
       - I79
@@ -9671,6 +9701,7 @@ child:
       - ckd.other
       - atrial_fib
       - acs_stemi
+      - acs_nstemi
       index:
       - I80
       - I89
@@ -9761,6 +9792,7 @@ child:
       - ckd.other
       - atrial_fib
       - acs_stemi
+      - acs_nstemi
       index:
       - I95
       - I99
@@ -11384,6 +11416,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - F00
     - F99
@@ -12700,6 +12733,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - G00
     - G99
@@ -13870,6 +13904,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - H00
     - H59
@@ -14365,6 +14400,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - H60
     - H95
@@ -15388,6 +15424,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - J00
     - J99
@@ -17333,6 +17370,7 @@ child:
     - copd
     - cancer
     - acs_stemi
+    - acs_nstemi
     index:
     - K00
     - K93
@@ -18664,6 +18702,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - L00
     - L99
@@ -20793,6 +20832,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - M00
     - M99
@@ -22699,6 +22739,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - N00
     - N99
@@ -27555,6 +27596,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - S00
     - T98
@@ -29198,6 +29240,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - O00
     - O99
@@ -30498,6 +30541,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - P00
     - P96
@@ -32817,6 +32861,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - Q00
     - Q99
@@ -34255,6 +34300,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - R00
     - R99
@@ -39226,6 +39272,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - V01
     - Y98
@@ -41614,6 +41661,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - Z00
     - Z99
@@ -41795,6 +41843,7 @@ child:
     - hepatic_failure
     - portal_hypertension
     - acs_stemi
+    - acs_nstemi
     index:
     - U00
     - U85
