@@ -79,14 +79,15 @@
 ##' treated with insulin), but this may not catch all cases of insulin/oral
 ##' medication use in patients with diabetes.
 ##' 
-##' Spells are collected from the period 2000-1-1 to 2023-1-1.
-##' ICD codes are parsed from these spells, and grouped according to
-##' the categories defined in the response variables, and only spells
-##' of interest are retained. All acs spells from this collection are
-##' retained in the dataset, apart from those where a full 12months
+##' Spells are collected from the period 2000-1-1 to 2023-1-1. 
+##' ICD codes are parsed from the primary diagnosis of these spells,
+##' and grouped according to the categories defined in the response
+##' variables. Only spells of interest are retained. All acs spells from
+##' this collection are kept, apart from those where a full 12months
 ##' prior period and a full 12months follow up period is not available.
 ##' Predictors and response are calculated by analysing the window
-##' surrounding the index acs event.
+##' surrounding the index acs event. The spell_start date is used as
+##' the occurance date for all spells. Secondary diagnoses are ignored.
 ##' 
 ##' To run this script, make sure the working directory is set
 ##' to the location of this file. Ensure you have ICDB installed
@@ -243,7 +244,7 @@ with_reduced_groups <- with_id %>%
                str_detect(group, "(portal_hypertension|cirrhosis|hepatic_failure)") ~ "cirrhosis_portal_htn",
                TRUE ~ group)) %>%
     ## Drop excluded predictors
-    filter(!str_detect(predictor_group, "type_2_diabetes")) %>%
+    filter(!str_detect(predictor_group, "(type_2_diabetes|diabetes_unspecified)")) %>%
     ## Create response column
     ## mutate(bleed_response = if_else(str_detect(group, "bleeding"), "bleeding", NA_character_)) %>%
     ## mutate(ischaemia_response = if_else(str_detect(group, "(acs|ischaemic_stroke)"), "ischaemia", NA_character_))
@@ -318,147 +319,15 @@ with_code_columns <- events_in_window %>%
     ungroup()
 
 
-## Compute all the binary predictors (whether or not an event
-## occured in the previous 12-months)
-with_predictors <- events_in_window %>%
-    mutate(af = if_else(any((other_spell_group == "af") &
-                            (other_spell_date < acs_date)), 1, 0)) %>%
-    mutate(ckd = if_else(any((other_spell_group == "ckd") &
-                             (other_spell_date < acs_date)), 1, 0)) %>%
-    mutate(ckd_other = if_else(any((other_spell_group == "ckd.other") &
-                                   (other_spell_date < acs_date)), 1, 0)) %>%
-    mutate(acs = if_else(any((other_spell_group == "acs") &
-                             (other_spell_date < acs_date)), 1, 0)) %>%
-    mutate(prior_bleed = if_else(any((other_spell_group == "bleeding") &
-                                     (other_spell_date < acs_date)), 1, 0))
-    
-## Compute the numeric ckd_n score (the maximum ckd stage that
-## occured in the previous 12-months). This is really slow and
-## inelegant, 
-with_ckd_n <- with_predictors %>% 
-    mutate(ckd_n_tmp = case_when((other_spell_group == "ckd1") &
-                                 (other_spell_date < acs_date) ~ 1,
-                                 (other_spell_group == "ckd2") &
-                                 (other_spell_date < acs_date) ~ 2,
-                                 (other_spell_group == "ckd3") &
-                                 (other_spell_date < acs_date) ~ 3,
-                                 (other_spell_group == "ckd4") &
-                                 (other_spell_date < acs_date) ~ 4,
-                                 (other_spell_group == "ckd5") &
-                                 (other_spell_date < acs_date) ~ 5,
-                                 TRUE ~ 0)) %>%
-    mutate(ckd_n = max(ckd_n_tmp)) %>%
-    select(-ckd_n_tmp)
-    
-## Add the bleed response variable. The variable is 1 if a
-## bleed occurs within 12 months of the index acs event,
-## and also before the next acs event
-dataset <- with_ckd_n %>%
-    ## Only keep acs and bleeding spells -- all the other
-    ## spells have already been used and are no longer needed
-    filter(grepl("(acs|bleeding)", other_spell_group)) %>%
-    ## Drop all prior spells, and keep only one subsequent spell
-    filter(other_spell_date >= acs_date) %>%
-    slice_min(n = 2, order_by = other_spell_date) %>%
-    ## In each group (arranged by increasing date), mark the
-    ## response (bleed) variable as 1 if there is a bleeding spell
-    ## in the (two event) group consisting of the index acs spell
-    ## and the next spell
-    mutate(bleed = if_else(any(other_spell_group == "bleeding"), 1, 0)) %>%
-    ## Only keep the index acs row (maybe this should be done by id)
-    filter(other_spell_id == acs_id)
-
 ## Remove acs index events that do not have at least 12 months
 ## prior time, and do not have at least 12 months follow up time
-pruned_dataset <- dataset %>%
+pruned_dataset <- with_code_columns %>%
     filter(acs_date >= first_spell_date + window,
            acs_date <= last_spell_date - window)
 
-## Drop unnecessary columns
-hbr_minimal_dataset <- pruned_dataset %>%
-    ungroup() %>% 
+risk_tradeoff_minimal_dataset <- pruned_dataset %>%
     rename(date = acs_date) %>%
-    select(date, age, af, ckd_n, ckd, ckd_other, prior_bleed, acs, bleed)
-
-## Convert variables to factors (note that all the numerical values
-## above are ordered, which fixes the order of these factors). This
-## is very verbose and error prone, but there seems no way to convert
-## directly from a 0/1 vector to an ordered factor (surprise!)
-hbr_minimal_dataset$af <- factor(hbr_minimal_dataset$af)
-levels(hbr_minimal_dataset$af) <- c("none", "prior_af")
-hbr_minimal_dataset$ckd_n <- factor(hbr_minimal_dataset$ckd_n)
-levels(hbr_minimal_dataset$ckd_n) <- c("none", "stage_1", "stage_2",
-                                       "stage_3", "stage_4", "stage_5")
-hbr_minimal_dataset$ckd_other <- factor(hbr_minimal_dataset$ckd_other)
-levels(hbr_minimal_dataset$ckd_other) <- c("none", "prior_ckd_other")
-hbr_minimal_dataset$ckd <- factor(hbr_minimal_dataset$ckd)
-levels(hbr_minimal_dataset$ckd) <- c("none", "prior_ckd")
-hbr_minimal_dataset$acs <- factor(hbr_minimal_dataset$acs)
-levels(hbr_minimal_dataset$acs) <- c("none", "prior_acs")
-hbr_minimal_dataset$prior_bleed <- factor(hbr_minimal_dataset$prior_bleed)
-levels(hbr_minimal_dataset$prior_bleed) <- c("none", "prior_bleed")
-hbr_minimal_dataset$bleed <- factor(hbr_minimal_dataset$bleed)
-levels(hbr_minimal_dataset$bleed) <- c("no_bleed", "bleed_occured")
+    select(date, age, bleed_after, ischaemia_after, everything(), -nhs_number, -acs_id)
 
 ## Save the dataset
-saveRDS(hbr_minimal_dataset, "gendata/hbr_minimal_dataset.rds")
-
-## Save Point 2 ============================
-hbr_minimal_dataset <- readRDS("gendata/hbr_minimal_dataset.rds")
-
-## Brief summary and plots
-summary(hbr_minimal_dataset)
-
-## Distribution of age in the bleeding and non-bleeding
-## groups (the biggest risk factor according to ARC-HBF)
-ggplot(hbr_minimal_dataset, aes(x=age, fill=bleed)) +
-geom_density(alpha = 0.3)
-
-## Distribution of prior AF in the bleeding and non-bleeding
-## groups (potentially a proxy for long-term oral anticoagulant
-## therapy, the second biggest risk factor according to ARC-HBR). 
-tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$af)
-message("Number of bleeds with and without prior AF:")
-tab
-message("Now with normalised proportions between bleed and non-bleed:")
-prop.table(tab, margin = 2)
-
-## Distribution of CKD stage in the bleeding and non-bleeding groups
-## (the third most important risk factor according to ARC-HBR)
-tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$ckd_n)
-message("Number of bleeds with stage of CKD:")
-tab
-message("Now with normalised proportions between bleed and non-bleed:")
-prop.table(tab, margin=2)
-
-## Distribution of the CKD (non-stage) codes 
-tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$ckd)
-message("Number of bleeds with prior CKD code:")
-tab
-message("Now with normalised proportions between bleed and non-bleed:")
-prop.table(tab, margin=2)
-
-## Distribution of the other CKD (non-stage) codes 
-tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$ckd_other)
-message("Number of bleeds with prior (other) CKD code:")
-tab
-message("Now with normalised proportions between bleed and non-bleed:")
-prop.table(tab, margin=2)
-
-## Distribution of prior bleeding in the bleeding and non-bleeding
-## groups. Prior bleeding makes sense as a predictor of future bleeding.
-tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$prior_bleed)
-message("Number of bleeds with prior bleed:")
-tab
-message("Now with normalised proportions between bleed and non-bleed:")
-prop.table(tab, margin=2)
-
-## Distribution of prior acs in the bleeding and non-bleeding
-## groups.
-tab <- table(hbr_minimal_dataset$bleed, hbr_minimal_dataset$acs)
-message("Number of bleeds with prior acs:")
-tab
-message("Now with normalised proportions between bleed and non-bleed:")
-prop.table(tab, margin=2)
-
-
+saveRDS(risk_tradeoff_minimal_dataset, "gendata/risk_tradeoff_minimal_dataset.rds")
