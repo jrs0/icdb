@@ -45,12 +45,14 @@
 ##' - Current smoker
 ##'
 ##' Bleeding-specific risks
+##' - Prior bleeding
 ##' - COPD
 ##' - Cancer
 ##' - Cirrhosis with portal hypertension (severe liver disease)
 ##' - Oral anticoagulant use (using atrial fibrillation as proxy)
 ##'
 ##' Ischaemia-specific risks
+##' - Prior ischaemia
 ##' - Diabetes treated with insulin/oral medication (using type-1 diabetes
 ##'   as proxy)
 ##' - STEMI presentation of ACS
@@ -191,9 +193,14 @@ spells_of_interest = save_data$spells_of_interest
 first_spell_date = save_data$first_spell_date
 last_spell_date = save_data$last_spell_date
 
-## Add a column for each response variable (bleeding
-## and ischaemic). 
-with_response <- spells_of_interest %>%
+## Reduce the ICD groups to the relevant groups of
+## interest for the predictors and the response
+with_reduced_groups <- spells_of_interest %>%
+    ## Seperate diagnosis rows that fall into two categories
+    ## (e.g. anaemia,bleeding), into two rows, one for each
+    ## group. This is so that they can be accounted for properly
+    ## when the groups are accounted for in the pivot below.
+    separate_rows(group, sep = ",") %>%
     ## Add an id to every row that will become
     ## the id for index acs events. The data is
     ## arranged by nhs number and date so that
@@ -202,12 +209,17 @@ with_response <- spells_of_interest %>%
     arrange(nhs_number, spell_start) %>%
     mutate(id = row_number()) %>%
     ## Add response variables
-    mutate(bleed_response = str_detect(group, "bleeding")) %>%
-    mutate(ischaemia_response = str_detect(group, "(acs|ischaemic_stroke)"))
-
-## Compute predictors from the ICD codes.
-with_predictors <- with_response %>%
+    mutate(reduced_group = case_when(
+               ## Class any CKD as renal
+               str_detect(group, "ckd") ~ "renal",
+               ## Consider unstable angina as nstemi
+               str_detect(group, "unstable_angina") ~ "acs_nstemi",               
+               TRUE ~ group))
     
+## Print the reduced groups
+with_reduced_groups %>%
+    count(reduced_group) %>%
+    print(n=30)
 
 
 ## Make the table of index acs events, and record whether
