@@ -3035,6 +3035,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - A00
     - B99
@@ -5910,6 +5911,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - C00
     - D48
@@ -5993,6 +5995,7 @@ child:
       docs: Nutritional anaemias
       exclude:
       - bleeding
+      - thrombocytopenia
       index:
       - D50
       - D53
@@ -6117,6 +6120,7 @@ child:
       docs: Haemolytic anaemias
       exclude:
       - bleeding
+      - thrombocytopenia
       index:
       - D55
       - D59
@@ -6207,6 +6211,8 @@ child:
         - bleeding
         index: D64
       docs: Aplastic and other anaemias
+      exclude:
+      - thrombocytopenia
       index:
       - D60
       - D64
@@ -6216,16 +6222,19 @@ child:
         docs: Disseminated intravascular coagulation [defibrination syndrome]
         exclude:
         - bleeding
+        - thrombocytopenia
         index: D65
       - code: D66
         docs: Hereditary factor VIII deficiency
         exclude:
         - bleeding
+        - thrombocytopenia
         index: D66
       - code: D67
         docs: Hereditary factor IX deficiency
         exclude:
         - bleeding
+        - thrombocytopenia
         index: D67
       - category: D68
         child:
@@ -6273,6 +6282,8 @@ child:
           - bleeding
           index: D689
         docs: Other coagulation defects
+        exclude:
+        - thrombocytopenia
         index: D68
       - category: D69
         child:
@@ -6280,16 +6291,19 @@ child:
           docs: Allergic purpura
           exclude:
           - bleeding
+          - thrombocytopenia
           index: D690
         - code: D69.1
           docs: Qualitative platelet defects
           exclude:
           - bleeding
+          - thrombocytopenia
           index: D691
         - code: D69.2
           docs: Other nonthrombocytopenic purpura
           exclude:
           - bleeding
+          - thrombocytopenia
           index: D692
         - code: D69.3
           docs: Idiopathic thrombocytopenic purpura
@@ -6313,9 +6327,13 @@ child:
           index: D696
         - code: D69.8
           docs: Other specified haemorrhagic conditions
+          exclude:
+          - thrombocytopenia
           index: D698
         - code: D69.9
           docs: Haemorrhagic condition, unspecified
+          exclude:
+          - thrombocytopenia
           index: D699
         docs: Purpura and other haemorrhagic conditions
         index: D69
@@ -6426,6 +6444,7 @@ child:
       exclude:
       - bleeding
       - anaemia
+      - thrombocytopenia
       index:
       - D70
       - D77
@@ -6607,6 +6626,7 @@ child:
       exclude:
       - bleeding
       - anaemia
+      - thrombocytopenia
       index:
       - D80
       - D89
@@ -7979,6 +7999,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - E00
     - E90
@@ -9692,6 +9713,7 @@ child:
     - ckd5
     - ckd
     - anaemia
+    - thrombocytopenia
     index:
     - I00
     - I99
@@ -11237,6 +11259,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - F00
     - F99
@@ -12546,6 +12569,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - G00
     - G99
@@ -13709,6 +13733,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - H00
     - H59
@@ -14197,6 +14222,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - H60
     - H95
@@ -15190,6 +15216,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - J00
     - J99
@@ -17012,6 +17039,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - K00
     - K93
@@ -18336,6 +18364,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - L00
     - L99
@@ -20458,6 +20487,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - M00
     - M99
@@ -22357,6 +22387,7 @@ child:
     - acs_stemi
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - N00
     - N99
@@ -27206,6 +27237,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - S00
     - T98
@@ -28842,6 +28874,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - O00
     - O99
@@ -30135,6 +30168,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - P00
     - P96
@@ -32447,6 +32481,7 @@ child:
     - ckd
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - Q00
     - Q99
@@ -33878,6 +33913,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - R00
     - R99
@@ -38842,6 +38878,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - V01
     - Y98
@@ -41223,6 +41260,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - Z00
     - Z99
@@ -41397,6 +41435,7 @@ child:
     - ckd.other
     - atrial_fib
     - anaemia
+    - thrombocytopenia
     index:
     - U00
     - U85
