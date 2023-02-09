@@ -109,6 +109,7 @@ all_spells <- msrv$sus$apc_spells %>%
     filter(spell_start >= !!start, spell_start <= !!end) %>%
     run()
 message("Total spells: ", nrow(all_spells))
+flush_level1()
 
 ## Note: before running the parts below, make sure the working
 ## directory is set to the location of this script
@@ -146,8 +147,8 @@ last_spell_date <- max(valid_icd$spell_start)
 ## extract the groups as strings and drop the original diagnosis
 ## column.
 spells_of_interest <- valid_icd %>%
-    filter(in_any_group(diagnosis)) %>% 
     mutate(group = group_string(diagnosis)) %>%
+    filter(group != "") %>%
     select(-diagnosis)
 message("Total spells of interest (those in groups): ",
         nrow(spells_of_interest))
