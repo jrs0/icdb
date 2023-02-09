@@ -48,11 +48,12 @@
 ##' - COPD
 ##' - Cancer
 ##' - Cirrhosis with portal hypertension (severe liver disease)
-##' - Atrial fibrillation (proxy for oral anticoagulant use)
+##' - Oral anticoagulant use (using atrial fibrillation as proxy)
 ##'
 ##' Ischaemia-specific risks
-##' - Diabetes
-##' - STEMI presentation
+##' - Diabetes treated with insulin/oral medication (using type-1 diabetes
+##'   as proxy)
+##' - STEMI presentation of ACS
 ##' 
 ##' 
 ##' These are designed to map to the risk factors identified in "2021
@@ -60,11 +61,13 @@
 ##' in Patients at High Bleeding Risk After Coronary Stent Implantation
 ##' The ARC-High Bleeding Risk Trade-off Model". The mappings often do
 ##' not exactly map to the precise concept required, but some of the
-##' grouping may correlate sufficiently to be useful. (For example,
-##' diab
-##'
-##' 
-##' 
+##' grouping may correlate sufficiently to be useful. For example,
+##' OAC are most commonly indicated by atrial fibrillation [2019 Urban],
+##' but not all cases of AF may entail OAC use. Another example is that
+##' use of insulin/oral medication may not be equivalent to having a
+##' diabetes ICD code -- in this case, type-1 diabetes is used (often
+##' treated with insulin), but this may not catch all cases of insulin/oral
+##' medication use in patients with diabetes.
 ##' 
 ##' 
 ##' Spells are collected from the period 2000-1-1 to 2023-1-1.
