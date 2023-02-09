@@ -58,7 +58,10 @@
 ##' These are designed to map to the risk factors identified in "2021
 ##' Urban et al. - Assessing the Risks of Bleeding vs Thrombotic Events
 ##' in Patients at High Bleeding Risk After Coronary Stent Implantation
-##' The ARC-High Bleeding Risk Trade-off Model":
+##' The ARC-High Bleeding Risk Trade-off Model". The mappings often do
+##' not exactly map to the precise concept required, but some of the
+##' grouping may correlate sufficiently to be useful. (For example,
+##' diab
 ##'
 ##' 
 ##' 

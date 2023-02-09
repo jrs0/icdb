@@ -3044,6 +3044,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - A00
     - B99
@@ -5933,6 +5934,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - C00
     - D48
@@ -6670,6 +6672,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - D50
     - D89
@@ -6829,6 +6832,8 @@ child:
         docs: Other disorders of thyroid
         index: E07
       docs: Disorders of thyroid gland
+      exclude:
+      - type_1_diabetes
       index:
       - E00
       - E07
@@ -6901,6 +6906,8 @@ child:
           docs: Type 2 diabetes mellitus without complications
           index: E119
         docs: Type 2 diabetes mellitus
+        exclude:
+        - type_1_diabetes
         index: E11
       - category: E12
         child:
@@ -6935,6 +6942,8 @@ child:
           docs: Malnutrition-related diabetes mellitus without complications
           index: E129
         docs: Malnutrition-related diabetes mellitus
+        exclude:
+        - type_1_diabetes
         index: E12
       - category: E13
         child:
@@ -6969,6 +6978,8 @@ child:
           docs: Other specified diabetes mellitus without complications
           index: E139
         docs: Other specified diabetes mellitus
+        exclude:
+        - type_1_diabetes
         index: E13
       - category: E14
         child:
@@ -7003,6 +7014,8 @@ child:
           docs: Unspecified diabetes mellitus without complications
           index: E149
         docs: Unspecified diabetes mellitus
+        exclude:
+        - type_1_diabetes
         index: E14
       docs: Diabetes mellitus
       index:
@@ -7039,6 +7052,8 @@ child:
         docs: Other disorders of pancreatic internal secretion
         index: E16
       docs: Other disorders of glucose regulation and pancreatic internal secretion
+      exclude:
+      - type_1_diabetes
       index:
       - E15
       - E16
@@ -7333,6 +7348,8 @@ child:
         docs: Disorders of endocrine glands in diseases classified elsewhere
         index: E35
       docs: Disorders of other endocrine glands
+      exclude:
+      - type_1_diabetes
       index:
       - E20
       - E35
@@ -7367,6 +7384,8 @@ child:
         docs: Unspecified protein-energy malnutrition
         index: E46
       docs: Malnutrition
+      exclude:
+      - type_1_diabetes
       index:
       - E40
       - E46
@@ -7552,6 +7571,8 @@ child:
         docs: Sequelae of malnutrition and other nutritional deficiencies
         index: E64
       docs: Other nutritional deficiencies
+      exclude:
+      - type_1_diabetes
       index:
       - E50
       - E64
@@ -7602,6 +7623,8 @@ child:
         docs: Sequelae of hyperalimentation
         index: E68
       docs: Obesity and other hyperalimentation
+      exclude:
+      - type_1_diabetes
       index:
       - E65
       - E68
@@ -8012,6 +8035,8 @@ child:
         docs: Nutritional and metabolic disorders in diseases classified elsewhere
         index: E90
       docs: Metabolic disorders
+      exclude:
+      - type_1_diabetes
       index:
       - E70
       - E90
@@ -9835,6 +9860,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - type_1_diabetes
     index:
     - I00
     - I99
@@ -11442,6 +11468,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - F00
     - F99
@@ -12760,6 +12787,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - G00
     - G99
@@ -13932,6 +13960,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - H00
     - H59
@@ -14429,6 +14458,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - H60
     - H95
@@ -15454,6 +15484,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - J00
     - J99
@@ -17401,6 +17432,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - K00
     - K93
@@ -18734,6 +18766,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - L00
     - L99
@@ -20865,6 +20898,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - M00
     - M99
@@ -22773,6 +22807,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - N00
     - N99
@@ -27631,6 +27666,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - S00
     - T98
@@ -29276,6 +29312,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - O00
     - O99
@@ -30578,6 +30615,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - P00
     - P96
@@ -32899,6 +32937,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - Q00
     - Q99
@@ -34339,6 +34378,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - R00
     - R99
@@ -39312,6 +39352,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - V01
     - Y98
@@ -41702,6 +41743,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - Z00
     - Z99
@@ -41885,6 +41927,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - type_1_diabetes
     index:
     - U00
     - U85
@@ -41913,4 +41956,6 @@ groups:
 - cirrhosis
 - hepatic_failure
 - portal_hypertension
-- diabetes
+- type_1_diabetes
+- type_2_diabetes
+- diabetes_other
