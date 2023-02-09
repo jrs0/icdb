@@ -208,8 +208,12 @@ with_id <- spells_of_interest %>%
 ## the presentation was stemi or nstemi
 index_acs <- with_id %>%
     filter(str_detect(group, "acs")) %>%
-    mutate(stemi_presentation = str_detect(group, "acs_stemi"))
-
+    mutate(stemi_presentation = str_detect(group, "acs_stemi")) %>%
+    rename(age = age_on_admission,
+           acs_date = spell_start,
+           acs_id = id) %>%
+    select(-group)
+    
 total_acs_events <- nrow(index_acs)
 message("Total acs events: ", total_acs_events)
 
@@ -220,6 +224,10 @@ message("Total acs events: ", total_acs_events)
 ## not to separate rows before finding the index events,
 ## in case any ACS events are double counted.
 with_reduced_groups <- with_id %>%
+    rename(other_spell_date = spell_start,
+           other_spell_id = id) %>%
+    ## Drop unnecessary columns
+    select(-age_on_admission) %>%
     ## Seperate diagnosis rows that fall into two categories
     ## (e.g. anaemia,bleeding), into two rows, one for each
     ## group. This is so that they can be accounted for properly
@@ -235,11 +243,12 @@ with_reduced_groups <- with_id %>%
                str_detect(group, "(portal_hypertension|cirrhosis|hepatic_failure)") ~ "cirrhosis_portal_htn",
                TRUE ~ group)) %>%
     ## Drop excluded predictors
-    filter(!str_detect(predictor_group, "type_2_diabetes"))
+    filter(!str_detect(predictor_group, "type_2_diabetes")) %>%
     ## Create response column
     ## mutate(bleed_response = if_else(str_detect(group, "bleeding"), "bleeding", NA_character_)) %>%
     ## mutate(ischaemia_response = if_else(str_detect(group, "(acs|ischaemic_stroke)"), "ischaemia", NA_character_))
-           
+    ## Drop unnecessary columns
+    select(-group)
            
 ## Print the reduced groups
 with_reduced_groups %>%
@@ -251,20 +260,8 @@ with_reduced_groups %>%
 events_by_acs <- index_acs %>%
     left_join(with_reduced_groups, by=c("nhs_number"="nhs_number")) %>%
     ## Group this table by id.x, which is the index acs id
-    group_by(id.x) %>%
-    arrange(spell_start.x, .by_group = TRUE) %>%
-    ## Note: do not remove the duplicated acs index event row,
-    ## because this will remove acs events with no prior and post
-    ## events. Perform some cleanup of column names here. Note that
-    ## each column represents an index acs event
-    rename(age = age_on_admission.x,
-           acs_id = id.x,
-           acs_date = spell_start.x,
-           other_spell_id = id.y,
-           other_spell_group = group.y,
-           other_spell_date = spell_start.y) %>%
-    select(age, acs_id, acs_date, other_spell_id,
-           other_spell_date, other_spell_group)
+    group_by(acs_id) %>%
+    arrange(acs_date, .by_group = TRUE) %>%
 
 ## Keep only spells which are within 12 months of the index
 ## acs event (before or after)
@@ -282,6 +279,47 @@ total_isolated_proportion <- total_isolated_acs / total_acs_events
 message("ACS events with no other spell in +- 12 months: ",
         total_isolated_acs,
         " (", round(100*total_isolated_proportion, 2), "%)")
+
+
+## Want one column per ICD code containing the number of occurances
+## of that code before the ACS event. 
+with_code_columns <- events_in_window %>%
+    ## Group by the other spell ID to count the number of occurances
+    ## of that group in the previous 12 months
+    group_by(other_spell_diagnosis, .add=TRUE) %>%
+    ## Count how many times each group occurs before the ACS.
+    mutate(before = sum(other_spell_date < acs_date )) %>%
+    ## Do the same for all subsequent spells. The strict inequality is
+    ## important here, in order to not include the ACS code itself
+    ## as a subsequent event.
+    mutate(after = sum(other_spell_date > acs_date )) %>%
+    ## Also keep a specific flag to indicate whether a subsequent
+    ## bleed occured after the ACS. 
+    group_by(acs_id, other_spell_group) %>%
+    mutate(bleed_after = sum((other_spell_date > acs_date) &
+                             (other_spell_group == "bleeding"))) %>%
+    ## Only keep one instance of each diagnosis code, because the
+    ## count information is all we need.
+    group_by(acs_id, other_spell_diagnosis) %>%
+    slice(1) %>%    
+    ## In order to make the pivot wider step work later, the
+    ## bleed_after count needs to be filled up and down in the acs
+    ## group.
+    group_by(acs_id) %>%
+    mutate(bleed_after = max(bleed_after)) %>%
+    ## Drop the other_spell_icd column so that the pivot wider works
+    ## (i.e. the column values are unique)
+    select(-other_spell_id, -other_spell_date, -other_spell_group) %>%
+    ## Convert into a wide format where every diagnosis code becomes
+    ## two columns of the form <code_name>_before and <code_name>_after,
+    ## which store the number of times that diagnosis occured before
+    ## and after the ACS    
+    pivot_wider(names_from = other_spell_diagnosis,
+                values_from = c(before, after),
+                values_fill = list(before = 0, after = 0),
+                names_glue = "{other_spell_diagnosis}_{.value}") %>%
+    ungroup()
+
 
 ## Compute all the binary predictors (whether or not an event
 ## occured in the previous 12-months)
