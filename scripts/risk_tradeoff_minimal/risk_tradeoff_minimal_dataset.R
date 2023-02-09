@@ -36,11 +36,24 @@
 ##' 
 ##' The dataset is created by looking at the primary diagnosis column in
 ##' HES spells data. The codes are collected into the following groups,
-##' defined in the *icd10.yaml file:
+##' defined in the *icd10.yaml file.
 ##'
 ##' Bleeding/ischaemia risk factors:
-##' - Anaemia
+##' - Anaemia (low haemoglobin)
+##' - Thrombocytopenia (low platelet count)
+##' - Renal (kidney function)
+##' - Current smoker
 ##'
+##' Bleeding-specific risks
+##' - COPD
+##' - Cancer
+##' - Severe liver disease
+##' - Atrial fibrillation (proxy for oral anticoagulant use)
+##'
+##' Ischaemia-specific risks
+##' - Diabetes
+##' - STEMI presentation
+##' 
 ##' 
 ##' These are designed to map to the risk factors identified in "2021
 ##' Urban et al. - Assessing the Risks of Bleeding vs Thrombotic Events

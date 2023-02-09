@@ -41382,7 +41382,7 @@ child:
 groups:
 - acs
 - bleeding
-- af
+- atrial_fib
 - ckd1
 - ckd2
 - ckd3
@@ -41390,3 +41390,4 @@ groups:
 - ckd5
 - ckd
 - ckd.other
+- 
