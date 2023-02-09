@@ -3041,6 +3041,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - A00
     - B99
@@ -5927,6 +5928,7 @@ child:
     - copd
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - C00
     - D48
@@ -6661,6 +6663,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - D50
     - D89
@@ -8025,6 +8028,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - E00
     - E90
@@ -8070,6 +8074,7 @@ child:
       - bleeding
       - ckd.other
       - atrial_fib
+      - portal_hypertension
       index:
       - I00
       - I02
@@ -8179,6 +8184,7 @@ child:
       - bleeding
       - ckd.other
       - atrial_fib
+      - portal_hypertension
       index:
       - I05
       - I09
@@ -8253,6 +8259,7 @@ child:
       - acs_stemi
       - bleeding
       - atrial_fib
+      - portal_hypertension
       index:
       - I10
       - I15
@@ -8426,6 +8433,7 @@ child:
       exclude:
       - ckd.other
       - atrial_fib
+      - portal_hypertension
       index:
       - I20
       - I25
@@ -8482,6 +8490,7 @@ child:
       - bleeding
       - ckd.other
       - atrial_fib
+      - portal_hypertension
       index:
       - I26
       - I28
@@ -9010,6 +9019,7 @@ child:
       exclude:
       - acs_stemi
       - ckd.other
+      - portal_hypertension
       index:
       - I30
       - I52
@@ -9269,6 +9279,7 @@ child:
       - acs_stemi
       - ckd.other
       - atrial_fib
+      - portal_hypertension
       index:
       - I60
       - I69
@@ -9468,6 +9479,7 @@ child:
       - bleeding
       - ckd.other
       - atrial_fib
+      - portal_hypertension
       index:
       - I70
       - I79
@@ -9496,11 +9508,13 @@ child:
         docs: Phlebitis and thrombophlebitis
         exclude:
         - bleeding
+        - portal_hypertension
         index: I80
       - code: I81
         docs: Portal vein thrombosis
         exclude:
         - bleeding
+        - portal_hypertension
         index: I81
       - category: I82
         child:
@@ -9525,6 +9539,7 @@ child:
         docs: Other venous embolism and thrombosis
         exclude:
         - bleeding
+        - portal_hypertension
         index: I82
       - category: I83
         child:
@@ -9543,6 +9558,7 @@ child:
         docs: Varicose veins of lower extremities
         exclude:
         - bleeding
+        - portal_hypertension
         index: I83
       - category: I85
         child:
@@ -9560,21 +9576,31 @@ child:
         child:
         - code: I86.0
           docs: Sublingual varices
+          exclude:
+          - portal_hypertension
           index: I860
         - code: I86.1
           docs: Scrotal varices
+          exclude:
+          - portal_hypertension
           index: I861
         - code: I86.2
           docs: Pelvic varices
+          exclude:
+          - portal_hypertension
           index: I862
         - code: I86.3
           docs: Vulval varices
+          exclude:
+          - portal_hypertension
           index: I863
         - code: I86.4
           docs: Gastric varices
           index: I864
         - code: I86.8
           docs: Varicose veins of other specified sites
+          exclude:
+          - portal_hypertension
           index: I868
         docs: Varicose veins of other sites
         exclude:
@@ -9600,6 +9626,7 @@ child:
         docs: Other disorders of veins
         exclude:
         - bleeding
+        - portal_hypertension
         index: I87
       - category: I88
         child:
@@ -9618,6 +9645,7 @@ child:
         docs: Nonspecific lymphadenitis
         exclude:
         - bleeding
+        - portal_hypertension
         index: I88
       - category: I89
         child:
@@ -9636,6 +9664,7 @@ child:
         docs: Other noninfective disorders of lymphatic vessels and lymph nodes
         exclude:
         - bleeding
+        - portal_hypertension
         index: I89
       docs: Diseases of veins, lymphatic vessels and lymph nodes, not elsewhere classified
       exclude:
@@ -9667,6 +9696,7 @@ child:
         docs: Hypotension
         exclude:
         - bleeding
+        - portal_hypertension
         index: I95
       - category: I97
         child:
@@ -9688,6 +9718,7 @@ child:
         docs: Postprocedural disorders of circulatory system, not elsewhere classified
         exclude:
         - bleeding
+        - portal_hypertension
         index: I97
       - category: I98
         child:
@@ -9695,11 +9726,13 @@ child:
           docs: Cardiovascular syphilis
           exclude:
           - bleeding
+          - portal_hypertension
           index: I980
         - code: I98.1
           docs: Cardiovascular disorders in other infectious and parasitic diseases classified elsewhere
           exclude:
           - bleeding
+          - portal_hypertension
           index: I981
         - code: I98.2
           docs: Oesophageal varices without bleeding in diseases classified elsewhere
@@ -9713,6 +9746,7 @@ child:
           docs: Other specified disorders of circulatory system in diseases classified elsewhere
           exclude:
           - bleeding
+          - portal_hypertension
           index: I988
         docs: Other disorders of circulatory system in diseases classified elsewhere
         index: I98
@@ -9720,6 +9754,7 @@ child:
         docs: Other and unspecified disorders of circulatory system
         exclude:
         - bleeding
+        - portal_hypertension
         index: I99
       docs: Other and unspecified disorders of the circulatory system
       exclude:
@@ -11348,6 +11383,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - F00
     - F99
@@ -12663,6 +12699,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - G00
     - G99
@@ -13832,6 +13869,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - H00
     - H59
@@ -14326,6 +14364,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - H60
     - H95
@@ -15348,6 +15387,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - J00
     - J99
@@ -15747,6 +15787,7 @@ child:
       - bleeding
       - cirrhosis
       - hepatic_failure
+      - portal_hypertension
       index:
       - K00
       - K14
@@ -16081,6 +16122,7 @@ child:
       exclude:
       - cirrhosis
       - hepatic_failure
+      - portal_hypertension
       index:
       - K20
       - K31
@@ -16132,6 +16174,7 @@ child:
       - bleeding
       - cirrhosis
       - hepatic_failure
+      - portal_hypertension
       index:
       - K35
       - K38
@@ -16269,6 +16312,7 @@ child:
       - bleeding
       - cirrhosis
       - hepatic_failure
+      - portal_hypertension
       index:
       - K40
       - K46
@@ -16342,6 +16386,7 @@ child:
       - bleeding
       - cirrhosis
       - hepatic_failure
+      - portal_hypertension
       index:
       - K50
       - K52
@@ -16628,6 +16673,7 @@ child:
       exclude:
       - cirrhosis
       - hepatic_failure
+      - portal_hypertension
       index:
       - K55
       - K64
@@ -16695,6 +16741,7 @@ child:
       exclude:
       - cirrhosis
       - hepatic_failure
+      - portal_hypertension
       index:
       - K65
       - K67
@@ -16739,6 +16786,7 @@ child:
         docs: Alcoholic liver disease
         exclude:
         - bleeding
+        - portal_hypertension
         index: K70
       - category: K71
         child:
@@ -16803,6 +16851,7 @@ child:
         docs: Toxic liver disease
         exclude:
         - bleeding
+        - portal_hypertension
         index: K71
       - category: K72
         child:
@@ -16819,6 +16868,7 @@ child:
         exclude:
         - bleeding
         - cirrhosis
+        - portal_hypertension
         index: K72
       - category: K73
         child:
@@ -16842,6 +16892,7 @@ child:
         - bleeding
         - cirrhosis
         - hepatic_failure
+        - portal_hypertension
         index: K73
       - category: K74
         child:
@@ -16878,6 +16929,7 @@ child:
         exclude:
         - bleeding
         - hepatic_failure
+        - portal_hypertension
         index: K74
       - category: K75
         child:
@@ -16907,6 +16959,7 @@ child:
         - bleeding
         - cirrhosis
         - hepatic_failure
+        - portal_hypertension
         index: K75
       - category: K76
         child:
@@ -16915,35 +16968,41 @@ child:
           exclude:
           - bleeding
           - hepatic_failure
+          - portal_hypertension
           index: K760
         - code: K76.1
           docs: Chronic passive congestion of liver
           exclude:
           - bleeding
           - hepatic_failure
+          - portal_hypertension
           index: K761
         - code: K76.2
           docs: Central haemorrhagic necrosis of liver
           exclude:
           - hepatic_failure
+          - portal_hypertension
           index: K762
         - code: K76.3
           docs: Infarction of liver
           exclude:
           - bleeding
           - hepatic_failure
+          - portal_hypertension
           index: K763
         - code: K76.4
           docs: Peliosis hepatis
           exclude:
           - bleeding
           - hepatic_failure
+          - portal_hypertension
           index: K764
         - code: K76.5
           docs: Hepatic veno-occlusive disease
           exclude:
           - bleeding
           - hepatic_failure
+          - portal_hypertension
           index: K765
         - code: K76.6
           docs: Portal hypertension
@@ -16955,18 +17014,21 @@ child:
           docs: Hepatorenal syndrome
           exclude:
           - bleeding
+          - portal_hypertension
           index: K767
         - code: K76.8
           docs: Other specified diseases of liver
           exclude:
           - bleeding
           - hepatic_failure
+          - portal_hypertension
           index: K768
         - code: K76.9
           docs: Liver disease, unspecified
           exclude:
           - bleeding
           - hepatic_failure
+          - portal_hypertension
           index: K769
         docs: Other diseases of liver
         exclude:
@@ -16985,6 +17047,7 @@ child:
         - bleeding
         - cirrhosis
         - hepatic_failure
+        - portal_hypertension
         index: K77
       docs: Diseases of liver
       index:
@@ -17145,6 +17208,7 @@ child:
       - bleeding
       - cirrhosis
       - hepatic_failure
+      - portal_hypertension
       index:
       - K80
       - K87
@@ -17249,6 +17313,7 @@ child:
       exclude:
       - cirrhosis
       - hepatic_failure
+      - portal_hypertension
       index:
       - K90
       - K93
@@ -18598,6 +18663,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - L00
     - L99
@@ -20726,6 +20792,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - M00
     - M99
@@ -22631,6 +22698,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - N00
     - N99
@@ -27486,6 +27554,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - S00
     - T98
@@ -29128,6 +29197,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - O00
     - O99
@@ -30427,6 +30497,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - P00
     - P96
@@ -32745,6 +32816,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - Q00
     - Q99
@@ -34182,6 +34254,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - R00
     - R99
@@ -39152,6 +39225,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - V01
     - Y98
@@ -41539,6 +41613,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - Z00
     - Z99
@@ -41719,6 +41794,7 @@ child:
     - cancer
     - cirrhosis
     - hepatic_failure
+    - portal_hypertension
     index:
     - U00
     - U85
