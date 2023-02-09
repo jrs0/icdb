@@ -261,7 +261,7 @@ events_by_acs <- index_acs %>%
     left_join(with_reduced_groups, by=c("nhs_number"="nhs_number")) %>%
     ## Group this table by id.x, which is the index acs id
     group_by(acs_id) %>%
-    arrange(acs_date, .by_group = TRUE) %>%
+    arrange(acs_date, .by_group = TRUE)
 
 ## Keep only spells which are within 12 months of the index
 ## acs event (before or after)
@@ -286,38 +286,35 @@ message("ACS events with no other spell in +- 12 months: ",
 with_code_columns <- events_in_window %>%
     ## Group by the other spell ID to count the number of occurances
     ## of that group in the previous 12 months
-    group_by(other_spell_diagnosis, .add=TRUE) %>%
+    group_by(predictor_group, .add=TRUE) %>%
     ## Count how many times each group occurs before the ACS.
-    mutate(before = sum(other_spell_date < acs_date )) %>%
-    ## Do the same for all subsequent spells. The strict inequality is
-    ## important here, in order to not include the ACS code itself
-    ## as a subsequent event.
-    mutate(after = sum(other_spell_date > acs_date )) %>%
-    ## Also keep a specific flag to indicate whether a subsequent
-    ## bleed occured after the ACS. 
-    group_by(acs_id, other_spell_group) %>%
+    mutate(before = sum(other_spell_date < acs_date)) %>%
+    ## Compute the response columns (whether a bleeding event or
+    ## an ischaemic event occur after the ACS)
     mutate(bleed_after = sum((other_spell_date > acs_date) &
-                             (other_spell_group == "bleeding"))) %>%
-    ## Only keep one instance of each diagnosis code, because the
+                             str_detect(predictor_group, "bleeding"))) %>%
+    mutate(ischaemia_after = sum((other_spell_date > acs_date) &
+                                 str_detect(predictor_group, "(acs|ischaemic_stroke)"))) %>%    
+    ## Only keep one instance of each predictor group, because the
     ## count information is all we need.
-    group_by(acs_id, other_spell_diagnosis) %>%
     slice(1) %>%    
     ## In order to make the pivot wider step work later, the
     ## bleed_after count needs to be filled up and down in the acs
     ## group.
     group_by(acs_id) %>%
     mutate(bleed_after = max(bleed_after)) %>%
+    mutate(ischaemia_after = max(ischaemia_after)) %>%
     ## Drop the other_spell_icd column so that the pivot wider works
     ## (i.e. the column values are unique)
-    select(-other_spell_id, -other_spell_date, -other_spell_group) %>%
-    ## Convert into a wide format where every diagnosis code becomes
+    select(-other_spell_id, -other_spell_date) %>%
+    ## Convert into a wide format where every predictor group becomes
     ## two columns of the form <code_name>_before and <code_name>_after,
-    ## which store the number of times that diagnosis occured before
+    ## which store the number of times that diagnosis group occured before
     ## and after the ACS    
-    pivot_wider(names_from = other_spell_diagnosis,
-                values_from = c(before, after),
-                values_fill = list(before = 0, after = 0),
-                names_glue = "{other_spell_diagnosis}_{.value}") %>%
+    pivot_wider(names_from = predictor_group,
+                values_from = before,
+                values_fill = list(before = 0),
+                names_glue = "{predictor_group}_{.value}") %>%
     ungroup()
 
 
