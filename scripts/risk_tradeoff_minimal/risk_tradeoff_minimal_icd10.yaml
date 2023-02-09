@@ -3038,6 +3038,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - A00
     - B99
@@ -5043,6 +5044,8 @@ child:
         docs: Carcinoma in situ of other and unspecified sites
         index: D09
       docs: In situ neoplasms
+      exclude:
+      - cancer
       index:
       - D00
       - D09
@@ -5613,6 +5616,8 @@ child:
         docs: Benign neoplasm of other and unspecified sites
         index: D36
       docs: Benign neoplasms
+      exclude:
+      - cancer
       index:
       - D10
       - D36
@@ -5897,6 +5902,8 @@ child:
         docs: Neoplasm of uncertain or unknown behaviour of other and unspecified sites
         index: D48
       docs: Neoplasms of uncertain or unknown behaviour
+      exclude:
+      - cancer
       index:
       - D37
       - D48
@@ -6647,6 +6654,7 @@ child:
     - atrial_fib
     - smoking
     - copd
+    - cancer
     index:
     - D50
     - D89
@@ -8008,6 +8016,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - E00
     - E90
@@ -9724,6 +9733,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - I00
     - I99
@@ -11325,6 +11335,7 @@ child:
     - anaemia
     - thrombocytopenia
     - copd
+    - cancer
     index:
     - F00
     - F99
@@ -12637,6 +12648,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - G00
     - G99
@@ -13803,6 +13815,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - H00
     - H59
@@ -14294,6 +14307,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - H60
     - H95
@@ -15313,6 +15327,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - cancer
     index:
     - J00
     - J99
@@ -17138,6 +17153,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - K00
     - K93
@@ -18465,6 +18481,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - L00
     - L99
@@ -20590,6 +20607,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - M00
     - M99
@@ -22492,6 +22510,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - N00
     - N99
@@ -27344,6 +27363,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - S00
     - T98
@@ -28983,6 +29003,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - O00
     - O99
@@ -30279,6 +30300,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - P00
     - P96
@@ -32594,6 +32616,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - Q00
     - Q99
@@ -34028,6 +34051,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - R00
     - R99
@@ -38995,6 +39019,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - V01
     - Y98
@@ -41379,6 +41404,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - Z00
     - Z99
@@ -41556,6 +41582,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cancer
     index:
     - U00
     - U85
