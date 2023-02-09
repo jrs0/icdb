@@ -3047,6 +3047,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - A00
     - B99
@@ -5939,6 +5940,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - C00
     - D48
@@ -6679,6 +6681,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - D50
     - D89
@@ -8091,6 +8094,7 @@ child:
     - acs_stemi
     - acs_nstemi
     - acs_unstable_angina
+    - ischaemic_stroke
     index:
     - E00
     - E90
@@ -8139,6 +8143,7 @@ child:
       - acs_stemi
       - acs_nstemi
       - acs_unstable_angina
+      - ischaemic_stroke
       index:
       - I00
       - I02
@@ -8251,6 +8256,7 @@ child:
       - acs_stemi
       - acs_nstemi
       - acs_unstable_angina
+      - ischaemic_stroke
       index:
       - I05
       - I09
@@ -8328,6 +8334,7 @@ child:
       - acs_stemi
       - acs_nstemi
       - acs_unstable_angina
+      - ischaemic_stroke
       index:
       - I10
       - I15
@@ -8532,6 +8539,7 @@ child:
       - ckd.other
       - atrial_fib
       - portal_hypertension
+      - ischaemic_stroke
       index:
       - I20
       - I25
@@ -8591,6 +8599,7 @@ child:
       - acs_stemi
       - acs_nstemi
       - acs_unstable_angina
+      - ischaemic_stroke
       index:
       - I26
       - I28
@@ -9122,6 +9131,7 @@ child:
       - acs_stemi
       - acs_nstemi
       - acs_unstable_angina
+      - ischaemic_stroke
       index:
       - I30
       - I52
@@ -9160,6 +9170,8 @@ child:
           docs: Subarachnoid haemorrhage, unspecified
           index: I609
         docs: Subarachnoid haemorrhage
+        exclude:
+        - ischaemic_stroke
         index: I60
       - category: I61
         child:
@@ -9191,6 +9203,8 @@ child:
           docs: Intracerebral haemorrhage, unspecified
           index: I619
         docs: Intracerebral haemorrhage
+        exclude:
+        - ischaemic_stroke
         index: I61
       - category: I62
         child:
@@ -9204,6 +9218,8 @@ child:
           docs: Intracranial haemorrhage (nontraumatic), unspecified
           index: I629
         docs: Other nontraumatic intracranial haemorrhage
+        exclude:
+        - ischaemic_stroke
         index: I62
       - category: I63
         child:
@@ -9242,6 +9258,7 @@ child:
         docs: Stroke, not specified as haemorrhage or infarction
         exclude:
         - bleeding
+        - ischaemic_stroke
         index: I64
       - category: I65
         child:
@@ -9266,6 +9283,7 @@ child:
         docs: Occlusion and stenosis of precerebral arteries, not resulting in cerebral infarction
         exclude:
         - bleeding
+        - ischaemic_stroke
         index: I65
       - category: I66
         child:
@@ -9293,6 +9311,7 @@ child:
         docs: Occlusion and stenosis of cerebral arteries, not resulting in cerebral infarction
         exclude:
         - bleeding
+        - ischaemic_stroke
         index: I66
       - category: I67
         child:
@@ -9329,6 +9348,7 @@ child:
         docs: Other cerebrovascular diseases
         exclude:
         - bleeding
+        - ischaemic_stroke
         index: I67
       - category: I68
         child:
@@ -9347,6 +9367,7 @@ child:
         docs: Cerebrovascular disorders in diseases classified elsewhere
         exclude:
         - bleeding
+        - ischaemic_stroke
         index: I68
       - category: I69
         child:
@@ -9375,6 +9396,8 @@ child:
           - bleeding
           index: I698
         docs: Sequelae of cerebrovascular disease
+        exclude:
+        - ischaemic_stroke
         index: I69
       docs: Cerebrovascular diseases
       exclude:
@@ -9586,6 +9609,7 @@ child:
       - acs_stemi
       - acs_nstemi
       - acs_unstable_angina
+      - ischaemic_stroke
       index:
       - I70
       - I79
@@ -9779,6 +9803,7 @@ child:
       - acs_stemi
       - acs_nstemi
       - acs_unstable_angina
+      - ischaemic_stroke
       index:
       - I80
       - I89
@@ -9871,6 +9896,7 @@ child:
       - acs_stemi
       - acs_nstemi
       - acs_unstable_angina
+      - ischaemic_stroke
       index:
       - I95
       - I99
@@ -11502,6 +11528,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - F00
     - F99
@@ -12823,6 +12850,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - G00
     - G99
@@ -13998,6 +14026,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - H00
     - H59
@@ -14498,6 +14527,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - H60
     - H95
@@ -15526,6 +15556,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - J00
     - J99
@@ -17476,6 +17507,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - K00
     - K93
@@ -18812,6 +18844,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - L00
     - L99
@@ -20946,6 +20979,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - M00
     - M99
@@ -22857,6 +22891,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - N00
     - N99
@@ -27718,6 +27753,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - S00
     - T98
@@ -29366,6 +29402,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - O00
     - O99
@@ -30671,6 +30708,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - P00
     - P96
@@ -32995,6 +33033,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - Q00
     - Q99
@@ -34438,6 +34477,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - R00
     - R99
@@ -39414,6 +39454,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - V01
     - Y98
@@ -41807,6 +41848,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - Z00
     - Z99
@@ -41993,6 +42035,7 @@ child:
     - type_1_diabetes
     - type_2_diabetes
     - diabetes_unspecified
+    - ischaemic_stroke
     index:
     - U00
     - U85
@@ -42024,3 +42067,4 @@ groups:
 - type_1_diabetes
 - type_2_diabetes
 - diabetes_unspecified
+- ischaemic_stroke

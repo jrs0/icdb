@@ -54,6 +54,15 @@
 ##' - Diabetes treated with insulin/oral medication (using type-1 diabetes
 ##'   as proxy)
 ##' - STEMI presentation of ACS
+##'
+##' Index event
+##' - Acute coronary syndromes (ACS)
+##'
+##' Response (death is currently excluded)
+##' - Bleeding codes
+##' - ACS (includes stent thrombosis?)
+##' - Ischaemic stroke
+##'
 ##' 
 ##' These are designed to map to the risk factors identified in "2021
 ##' Urban et al. - Assessing the Risks of Bleeding vs Thrombotic Events
@@ -153,6 +162,14 @@ spells_of_interest <- valid_icd %>%
 message("Total spells of interest (those in groups): ",
         nrow(spells_of_interest))
 
+## Aggregate certain ICD groups into predictor/response groups
+with_variable_groups <- spells_of_interest %>%
+    mutate(variable_group = case_when(
+               ## Classify unstable angina as nstemi
+               group == "acs_unstable_angina" ~ "acs_nstemi",
+               ## 
+               group == "")
+
 ## Plot the distribution of different conditions (note the
 ## log scale). In viewing this graph, note that some conditions
 ## have a greater spells-per-person-per-time than others -- a
@@ -165,6 +182,7 @@ spells_of_interest %>%
     scale_y_log10()
 
 ## Print a summary of the breakdown of each condition
+
 spells_of_interest %>%
     select(group) %>%
     group_by(group) %>%
