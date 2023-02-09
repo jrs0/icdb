@@ -218,6 +218,7 @@ write_cache <- function(data, object, time)
 ##' Move all items in the level 1 cache to level 2
 ##' 
 ##' @title Flush the level 1 cache
+##' @export
 flush_level1 <- function()
 {
     message("Flushing all cached items to disk")

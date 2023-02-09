@@ -34,6 +34,22 @@
 ##'               after the index acs event if there is no subsequent acs
 ##'               event. "bleed_occured" for yes, "no_bleed" for no.
 ##' 
+##' The dataset is created by looking at the primary diagnosis column in
+##' HES spells data. The codes are collected into the following groups,
+##' defined in the *icd10.yaml file:
+##'
+##' Bleeding/ischaemia risk factors:
+##' - Anaemia
+##'
+##' 
+##' These are designed to map to the risk factors identified in "2021
+##' Urban et al. - Assessing the Risks of Bleeding vs Thrombotic Events
+##' in Patients at High Bleeding Risk After Coronary Stent Implantation
+##' The ARC-High Bleeding Risk Trade-off Model":
+##'
+##' 
+##' 
+##' 
 ##' 
 ##' Spells are collected from the period 2000-1-1 to 2023-1-1.
 ##' ICD codes are parsed from these spells, and grouped according to
@@ -84,7 +100,7 @@ message("Total spells: ", nrow(all_spells))
 ## After this step, certain codes are kept (the ones the program knows
 ## how to interpret), and these are guaranteed to have been interpreted
 ## correctly. It rejects codes where it unsure of the meaning of the code.
-code_file <- "icd10_hbr_minimal.yaml"
+code_file <- "risk_tradeoff_minimal_icd10.yaml"
 parsed_icd <- all_spells %>%
     mutate(diagnosis = icd10(primary_diagnosis_icd, code_file))
 
