@@ -162,14 +162,6 @@ spells_of_interest <- valid_icd %>%
 message("Total spells of interest (those in groups): ",
         nrow(spells_of_interest))
 
-## Aggregate certain ICD groups into predictor/response groups
-with_variable_groups <- spells_of_interest %>%
-    mutate(variable_group = case_when(
-               ## Classify unstable angina as nstemi
-               group == "acs_unstable_angina" ~ "acs_nstemi",
-               ## 
-               group == "")
-
 ## Plot the distribution of different conditions (note the
 ## log scale). In viewing this graph, note that some conditions
 ## have a greater spells-per-person-per-time than others -- a
@@ -182,12 +174,9 @@ spells_of_interest %>%
     scale_y_log10()
 
 ## Print a summary of the breakdown of each condition
-
 spells_of_interest %>%
-    select(group) %>%
-    group_by(group) %>%
-    count() %>%
-    ungroup()
+    count(group) %>%
+    print(n=30)
 
 save_data <- list(spells_of_interest = spells_of_interest,
                   first_spell_date = first_spell_date,
@@ -202,37 +191,30 @@ spells_of_interest = save_data$spells_of_interest
 first_spell_date = save_data$first_spell_date
 last_spell_date = save_data$last_spell_date
 
-
-## Create the dataset from the spells event list. The procedure is
-## as follows:
-##
-## 1) Each acs event in the spells defines a row in the dataset.
-##    The spells of interest are those in the 12months before that
-##    event, called the prior period; and those in the 12months
-##    after the event, or the time to the next acs event, whichever
-##    is shorter (this is called the post period)
-## 2) Each row has the following predictors: age, atrial
-##    fibrillation (af), chronic kidney disease (ckd_n), ckd,
-##    ckd_other, acs, and bleed. All but ckd_n are defined as
-##    1 if that event occurs in the 12month prior to the acs,
-##    and 0 otherwise. ckd_n is defined as the largest n that
-##    occurs in the 12months prior period, or 0 otherwise.
-## 3) Each row contains the response bleed, which is 1 if a
-##    a bleed occurs in the post period, and 0 otherwise
-##
-
-## Add an id to every row that will become
-## the id for index acs events. The data is
-## arranged by nhs number and date so that
-## grouping by id later will also perform this
-## arrangement.
-spells_of_interest <- spells_of_interest %>%
+## Add a column for each response variable (bleeding
+## and ischaemic). 
+with_response <- spells_of_interest %>%
+    ## Add an id to every row that will become
+    ## the id for index acs events. The data is
+    ## arranged by nhs number and date so that
+    ## grouping by id later will also perform this
+    ## arrangement.
     arrange(nhs_number, spell_start) %>%
-    mutate(id = row_number())
+    mutate(id = row_number()) %>%
+    ## Add response variables
+    mutate(bleed_response = str_detect(group, "bleeding")) %>%
+    mutate(ischaemia_response = str_detect(group, "(acs|ischaemic_stroke)"))
 
-## Make the table of index acs events
+## Compute predictors from the ICD codes.
+with_predictors <- with_response %>%
+    
+
+
+## Make the table of index acs events, and record whether
+## the presentation was stemi or nstemi
 index_acs <- spells_of_interest %>%
-    filter(grepl("acs", group))
+    filter(grepl("acs", group)) %>%
+    mutate(stemi = str_detect(group, "_stemi$"))
 
 total_acs_events <- nrow(index_acs)
 message("Total acs events: ", total_acs_events)
