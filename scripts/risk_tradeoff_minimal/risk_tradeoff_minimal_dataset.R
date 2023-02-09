@@ -55,7 +55,6 @@
 ##'   as proxy)
 ##' - STEMI presentation of ACS
 ##' 
-##' 
 ##' These are designed to map to the risk factors identified in "2021
 ##' Urban et al. - Assessing the Risks of Bleeding vs Thrombotic Events
 ##' in Patients at High Bleeding Risk After Coronary Stent Implantation
@@ -68,7 +67,6 @@
 ##' diabetes ICD code -- in this case, type-1 diabetes is used (often
 ##' treated with insulin), but this may not catch all cases of insulin/oral
 ##' medication use in patients with diabetes.
-##' 
 ##' 
 ##' Spells are collected from the period 2000-1-1 to 2023-1-1.
 ##' ICD codes are parsed from these spells, and grouped according to
