@@ -3037,6 +3037,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - A00
     - B99
@@ -5914,6 +5915,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - C00
     - D48
@@ -6644,6 +6646,7 @@ child:
     - ckd.other
     - atrial_fib
     - smoking
+    - copd
     index:
     - D50
     - D89
@@ -8004,6 +8007,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - E00
     - E90
@@ -9719,6 +9723,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - I00
     - I99
@@ -11319,6 +11324,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - copd
     index:
     - F00
     - F99
@@ -12630,6 +12636,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - G00
     - G99
@@ -13795,6 +13802,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - H00
     - H59
@@ -14285,6 +14293,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - H60
     - H95
@@ -14385,6 +14394,7 @@ child:
       docs: Acute upper respiratory infections
       exclude:
       - bleeding
+      - copd
       index:
       - J00
       - J06
@@ -14532,6 +14542,7 @@ child:
       docs: Influenza and pneumonia
       exclude:
       - bleeding
+      - copd
       index:
       - J09
       - J18
@@ -14593,6 +14604,7 @@ child:
       docs: Other acute lower respiratory infections
       exclude:
       - bleeding
+      - copd
       index:
       - J20
       - J22
@@ -14778,6 +14790,7 @@ child:
       docs: Other diseases of upper respiratory tract
       exclude:
       - bleeding
+      - copd
       index:
       - J30
       - J39
@@ -14785,6 +14798,8 @@ child:
       child:
       - code: J40
         docs: Bronchitis, not specified as acute or chronic
+        exclude:
+        - copd
         index: J40
       - category: J41
         child:
@@ -14798,9 +14813,13 @@ child:
           docs: Mixed simple and mucopurulent chronic bronchitis
           index: J418
         docs: Simple and mucopurulent chronic bronchitis
+        exclude:
+        - copd
         index: J41
       - code: J42
         docs: Unspecified chronic bronchitis
+        exclude:
+        - copd
         index: J42
       - category: J43
         child:
@@ -14820,6 +14839,8 @@ child:
           docs: Emphysema, unspecified
           index: J439
         docs: Emphysema
+        exclude:
+        - copd
         index: J43
       - category: J44
         child:
@@ -14852,12 +14873,18 @@ child:
           docs: Asthma, unspecified
           index: J459
         docs: Asthma
+        exclude:
+        - copd
         index: J45
       - code: J46
         docs: Status asthmaticus
+        exclude:
+        - copd
         index: J46
       - code: J47
         docs: Bronchiectasis
+        exclude:
+        - copd
         index: J47
       docs: Chronic lower respiratory diseases
       exclude:
@@ -15030,6 +15057,7 @@ child:
       docs: Lung diseases due to external agents
       exclude:
       - bleeding
+      - copd
       index:
       - J60
       - J70
@@ -15063,6 +15091,7 @@ child:
       docs: Other respiratory diseases principally atrial_fibfecting the interstitium
       exclude:
       - bleeding
+      - copd
       index:
       - J80
       - J84
@@ -15097,6 +15126,7 @@ child:
       docs: Suppurative and necrotic conditions of lower respiratory tract
       exclude:
       - bleeding
+      - copd
       index:
       - J85
       - J86
@@ -15170,6 +15200,8 @@ child:
         docs: Other pleural conditions
         index: J94
       docs: Other diseases of pleura
+      exclude:
+      - copd
       index:
       - J90
       - J94
@@ -15263,6 +15295,7 @@ child:
       docs: Other diseases of the respiratory system
       exclude:
       - bleeding
+      - copd
       index:
       - J95
       - J99
@@ -17104,6 +17137,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - K00
     - K93
@@ -18430,6 +18464,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - L00
     - L99
@@ -20554,6 +20589,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - M00
     - M99
@@ -22455,6 +22491,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - N00
     - N99
@@ -27306,6 +27343,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - S00
     - T98
@@ -28944,6 +28982,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - O00
     - O99
@@ -30239,6 +30278,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - P00
     - P96
@@ -32553,6 +32593,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - Q00
     - Q99
@@ -33986,6 +34027,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - R00
     - R99
@@ -38952,6 +38994,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - V01
     - Y98
@@ -41335,6 +41378,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - Z00
     - Z99
@@ -41511,6 +41555,7 @@ child:
     - anaemia
     - thrombocytopenia
     - smoking
+    - copd
     index:
     - U00
     - U85
