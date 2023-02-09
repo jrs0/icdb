@@ -3046,6 +3046,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - A00
     - B99
@@ -5937,6 +5938,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - C00
     - D48
@@ -6676,6 +6678,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - D50
     - D89
@@ -6838,6 +6841,7 @@ child:
       exclude:
       - type_1_diabetes
       - type_2_diabetes
+      - diabetes_unspecified
       index:
       - E00
       - E07
@@ -6878,6 +6882,7 @@ child:
         docs: Type 1 diabetes mellitus
         exclude:
         - type_2_diabetes
+        - diabetes_unspecified
         index: E10
       - category: E11
         child:
@@ -6914,6 +6919,7 @@ child:
         docs: Type 2 diabetes mellitus
         exclude:
         - type_1_diabetes
+        - diabetes_unspecified
         index: E11
       - category: E12
         child:
@@ -6951,6 +6957,7 @@ child:
         exclude:
         - type_1_diabetes
         - type_2_diabetes
+        - diabetes_unspecified
         index: E12
       - category: E13
         child:
@@ -6988,6 +6995,7 @@ child:
         exclude:
         - type_1_diabetes
         - type_2_diabetes
+        - diabetes_unspecified
         index: E13
       - category: E14
         child:
@@ -7064,6 +7072,7 @@ child:
       exclude:
       - type_1_diabetes
       - type_2_diabetes
+      - diabetes_unspecified
       index:
       - E15
       - E16
@@ -7361,6 +7370,7 @@ child:
       exclude:
       - type_1_diabetes
       - type_2_diabetes
+      - diabetes_unspecified
       index:
       - E20
       - E35
@@ -7398,6 +7408,7 @@ child:
       exclude:
       - type_1_diabetes
       - type_2_diabetes
+      - diabetes_unspecified
       index:
       - E40
       - E46
@@ -7586,6 +7597,7 @@ child:
       exclude:
       - type_1_diabetes
       - type_2_diabetes
+      - diabetes_unspecified
       index:
       - E50
       - E64
@@ -7639,6 +7651,7 @@ child:
       exclude:
       - type_1_diabetes
       - type_2_diabetes
+      - diabetes_unspecified
       index:
       - E65
       - E68
@@ -8052,6 +8065,7 @@ child:
       exclude:
       - type_1_diabetes
       - type_2_diabetes
+      - diabetes_unspecified
       index:
       - E70
       - E90
@@ -9877,6 +9891,7 @@ child:
     - hepatic_failure
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - I00
     - I99
@@ -11486,6 +11501,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - F00
     - F99
@@ -12806,6 +12822,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - G00
     - G99
@@ -13980,6 +13997,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - H00
     - H59
@@ -14479,6 +14497,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - H60
     - H95
@@ -15506,6 +15525,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - J00
     - J99
@@ -17455,6 +17475,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - K00
     - K93
@@ -18790,6 +18811,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - L00
     - L99
@@ -20923,6 +20945,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - M00
     - M99
@@ -22833,6 +22856,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - N00
     - N99
@@ -27693,6 +27717,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - S00
     - T98
@@ -29340,6 +29365,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - O00
     - O99
@@ -30644,6 +30670,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - P00
     - P96
@@ -32967,6 +32994,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - Q00
     - Q99
@@ -34409,6 +34437,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - R00
     - R99
@@ -39384,6 +39413,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - V01
     - Y98
@@ -41776,6 +41806,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - Z00
     - Z99
@@ -41961,6 +41992,7 @@ child:
     - acs_unstable_angina
     - type_1_diabetes
     - type_2_diabetes
+    - diabetes_unspecified
     index:
     - U00
     - U85
@@ -41991,4 +42023,4 @@ groups:
 - portal_hypertension
 - type_1_diabetes
 - type_2_diabetes
-- diabetes_other
+- diabetes_unspecified
