@@ -3036,6 +3036,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - A00
     - B99
@@ -5912,6 +5913,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - C00
     - D48
@@ -6641,6 +6643,7 @@ child:
     - ckd
     - ckd.other
     - atrial_fib
+    - smoking
     index:
     - D50
     - D89
@@ -8000,6 +8003,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - E00
     - E90
@@ -9714,6 +9718,7 @@ child:
     - ckd
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - I00
     - I99
@@ -9860,6 +9865,8 @@ child:
         docs: Unspecified organic or symptomatic mental disorder
         index: F09
       docs: Organic, including symptomatic, mental disorders
+      exclude:
+      - smoking
       index:
       - F00
       - F09
@@ -9898,6 +9905,8 @@ child:
           docs: 'Mental and behavioural disorders due to use of alcohol : unspecified mental and behavioural disorder'
           index: F109
         docs: Mental and behavioural disorders due to use of alcohol
+        exclude:
+        - smoking
         index: F10
       - category: F11
         child:
@@ -9932,6 +9941,8 @@ child:
           docs: 'Mental and behavioural disorders due to use of opioids : unspecified mental and behavioural disorder'
           index: F119
         docs: Mental and behavioural disorders due to use of opioids
+        exclude:
+        - smoking
         index: F11
       - category: F12
         child:
@@ -9966,6 +9977,8 @@ child:
           docs: 'Mental and behavioural disorders due to use of cannabinoids : unspecified mental and behavioural disorder'
           index: F129
         docs: Mental and behavioural disorders due to use of cannabinoids
+        exclude:
+        - smoking
         index: F12
       - category: F13
         child:
@@ -10000,6 +10013,8 @@ child:
           docs: 'Mental and behavioural disorders due to use of sedatives or hypnotics : unspecified mental and behavioural disorder'
           index: F139
         docs: Mental and behavioural disorders due to use of sedatives or hypnotics
+        exclude:
+        - smoking
         index: F13
       - category: F14
         child:
@@ -10034,6 +10049,8 @@ child:
           docs: 'Mental and behavioural disorders due to use of cocaine : unspecified mental and behavioural disorder'
           index: F149
         docs: Mental and behavioural disorders due to use of cocaine
+        exclude:
+        - smoking
         index: F14
       - category: F15
         child:
@@ -10068,6 +10085,8 @@ child:
           docs: 'Mental and behavioural disorders due to use of other stimulants, including catrial_fibfeine : unspecified mental and behavioural disorder'
           index: F159
         docs: Mental and behavioural disorders due to use of other stimulants, including catrial_fibfeine
+        exclude:
+        - smoking
         index: F15
       - category: F16
         child:
@@ -10102,11 +10121,15 @@ child:
           docs: 'Mental and behavioural disorders due to use of hallucinogens : unspecified mental and behavioural disorder'
           index: F169
         docs: Mental and behavioural disorders due to use of hallucinogens
+        exclude:
+        - smoking
         index: F16
       - category: F17
         child:
         - code: F17.0
           docs: 'Mental and behavioural disorders due to use of tobacco : acute intoxication'
+          exclude:
+          - smoking
           index: F170
         - code: F17.1
           docs: 'Mental and behavioural disorders due to use of tobacco : harmful use'
@@ -10116,24 +10139,38 @@ child:
           index: F172
         - code: F17.3
           docs: Mental and behavioural disorders due to use of tobacco withdrawal state
+          exclude:
+          - smoking
           index: F173
         - code: F17.4
           docs: Mental and behavioural disorders due to use of tobacco withdrawal state with delirium
+          exclude:
+          - smoking
           index: F174
         - code: F17.5
           docs: 'Mental and behavioural disorders due to use of tobacco : psychotic disorder'
+          exclude:
+          - smoking
           index: F175
         - code: F17.6
           docs: 'Mental and behavioural disorders due to use of tobacco : amnesic syndrome'
+          exclude:
+          - smoking
           index: F176
         - code: F17.7
           docs: 'Mental and behavioural disorders due to use of tobacco : residual and late-onset psychotic disorder'
+          exclude:
+          - smoking
           index: F177
         - code: F17.8
           docs: 'Mental and behavioural disorders due to use of tobacco : other mental and behavioural disorders'
+          exclude:
+          - smoking
           index: F178
         - code: F17.9
           docs: 'Mental and behavioural disorders due to use of tobacco : unspecified mental and behavioural disorder'
+          exclude:
+          - smoking
           index: F179
         docs: Mental and behavioural disorders due to use of tobacco
         index: F17
@@ -10170,6 +10207,8 @@ child:
           docs: 'Mental and behavioural disorders due to use of volatile solvents : unspecified mental and behavioural disorder'
           index: F189
         docs: Mental and behavioural disorders due to use of volatile solvents
+        exclude:
+        - smoking
         index: F18
       - category: F19
         child:
@@ -10204,6 +10243,8 @@ child:
           docs: 'Mental and behavioural disorders due to multiple drug use and use of other psychoactive substances : unspecified mental and behavioural disorder'
           index: F199
         docs: Mental and behavioural disorders due to multiple drug use and use of other psychoactive substances
+        exclude:
+        - smoking
         index: F19
       docs: Mental and behavioural disorders due to psychoactive substance use
       index:
@@ -10309,6 +10350,8 @@ child:
         docs: Unspecified nonorganic psychosis
         index: F29
       docs: Schizophrenia, schizotypal and delusional disorders
+      exclude:
+      - smoking
       index:
       - F20
       - F29
@@ -10447,6 +10490,8 @@ child:
         docs: Unspecified mood [atrial_fibfective] disorder
         index: F39
       docs: Mood [atrial_fibfective] disorders
+      exclude:
+      - smoking
       index:
       - F30
       - F39
@@ -10607,6 +10652,8 @@ child:
         docs: Other neurotic disorders
         index: F48
       docs: Neurotic, stress-related and somatoform disorders
+      exclude:
+      - smoking
       index:
       - F40
       - F48
@@ -10728,6 +10775,8 @@ child:
         docs: Unspecified behavioural syndromes associated with physiological disturbances and physical factors
         index: F59
       docs: Behavioural syndromes associated with physiological disturbances and physical factors
+      exclude:
+      - smoking
       index:
       - F50
       - F59
@@ -10894,6 +10943,8 @@ child:
         docs: Unspecified disorder of adult personality and behaviour
         index: F69
       docs: Disorders of adult personality and behaviour
+      exclude:
+      - smoking
       index:
       - F60
       - F69
@@ -10996,6 +11047,8 @@ child:
         docs: Unspecified mental retardation
         index: F79
       docs: Mental retardation
+      exclude:
+      - smoking
       index:
       - F70
       - F79
@@ -11086,6 +11139,8 @@ child:
         docs: Unspecified disorder of psychological development
         index: F89
       docs: Disorders of psychological development
+      exclude:
+      - smoking
       index:
       - F80
       - F89
@@ -11234,6 +11289,8 @@ child:
         docs: Other behavioural and emotional disorders with onset usually occurring in childhood and adolescence
         index: F98
       docs: Behavioural and emotional disorders with onset usually occurring in childhood and adolescence
+      exclude:
+      - smoking
       index:
       - F90
       - F98
@@ -11243,6 +11300,8 @@ child:
         docs: Mental disorder, not otherwise specified
         index: F99
       docs: Unspecified mental disorder
+      exclude:
+      - smoking
       index:
       - F99
       - F99
@@ -12570,6 +12629,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - G00
     - G99
@@ -13734,6 +13794,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - H00
     - H59
@@ -14223,6 +14284,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - H60
     - H95
@@ -15217,6 +15279,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - J00
     - J99
@@ -17040,6 +17103,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - K00
     - K93
@@ -18365,6 +18429,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - L00
     - L99
@@ -20488,6 +20553,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - M00
     - M99
@@ -22388,6 +22454,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - N00
     - N99
@@ -27238,6 +27305,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - S00
     - T98
@@ -28875,6 +28943,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - O00
     - O99
@@ -30169,6 +30238,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - P00
     - P96
@@ -32482,6 +32552,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - Q00
     - Q99
@@ -33914,6 +33985,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - R00
     - R99
@@ -38879,6 +38951,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - V01
     - Y98
@@ -41261,6 +41334,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - Z00
     - Z99
@@ -41436,6 +41510,7 @@ child:
     - atrial_fib
     - anaemia
     - thrombocytopenia
+    - smoking
     index:
     - U00
     - U85
