@@ -3043,6 +3043,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - A00
     - B99
@@ -5931,6 +5932,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - C00
     - D48
@@ -6667,6 +6669,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - D50
     - D89
@@ -8033,6 +8036,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - E00
     - E90
@@ -8080,6 +8084,7 @@ child:
       - portal_hypertension
       - acs_stemi
       - acs_nstemi
+      - acs_unstable_angina
       index:
       - I00
       - I02
@@ -8191,6 +8196,7 @@ child:
       - portal_hypertension
       - acs_stemi
       - acs_nstemi
+      - acs_unstable_angina
       index:
       - I05
       - I09
@@ -8267,6 +8273,7 @@ child:
       - portal_hypertension
       - acs_stemi
       - acs_nstemi
+      - acs_unstable_angina
       index:
       - I10
       - I15
@@ -8279,12 +8286,18 @@ child:
           index: I200
         - code: I20.1
           docs: Angina pectoris with documented spasm
+          exclude:
+          - acs_unstable_angina
           index: I201
         - code: I20.8
           docs: Other forms of angina pectoris
+          exclude:
+          - acs_unstable_angina
           index: I208
         - code: I20.9
           docs: Angina pectoris, unspecified
+          exclude:
+          - acs_unstable_angina
           index: I209
         docs: Angina pectoris
         exclude:
@@ -8328,6 +8341,7 @@ child:
         docs: Acute myocardial infarction
         exclude:
         - bleeding
+        - acs_unstable_angina
         index: I21
       - category: I22
         child:
@@ -8354,6 +8368,7 @@ child:
         docs: Subsequent myocardial infarction
         exclude:
         - bleeding
+        - acs_unstable_angina
         index: I22
       - category: I23
         child:
@@ -8399,6 +8414,7 @@ child:
         exclude:
         - acs_stemi
         - acs_nstemi
+        - acs_unstable_angina
         index: I23
       - category: I24
         child:
@@ -8419,6 +8435,7 @@ child:
         - bleeding
         - acs_stemi
         - acs_nstemi
+        - acs_unstable_angina
         index: I24
       - category: I25
         child:
@@ -8454,6 +8471,7 @@ child:
         - bleeding
         - acs_stemi
         - acs_nstemi
+        - acs_unstable_angina
         index: I25
       docs: Ischaemic heart diseases
       exclude:
@@ -8518,6 +8536,7 @@ child:
       - portal_hypertension
       - acs_stemi
       - acs_nstemi
+      - acs_unstable_angina
       index:
       - I26
       - I28
@@ -9048,6 +9067,7 @@ child:
       - portal_hypertension
       - acs_stemi
       - acs_nstemi
+      - acs_unstable_angina
       index:
       - I30
       - I52
@@ -9309,6 +9329,7 @@ child:
       - portal_hypertension
       - acs_stemi
       - acs_nstemi
+      - acs_unstable_angina
       index:
       - I60
       - I69
@@ -9510,6 +9531,7 @@ child:
       - portal_hypertension
       - acs_stemi
       - acs_nstemi
+      - acs_unstable_angina
       index:
       - I70
       - I79
@@ -9702,6 +9724,7 @@ child:
       - atrial_fib
       - acs_stemi
       - acs_nstemi
+      - acs_unstable_angina
       index:
       - I80
       - I89
@@ -9793,6 +9816,7 @@ child:
       - atrial_fib
       - acs_stemi
       - acs_nstemi
+      - acs_unstable_angina
       index:
       - I95
       - I99
@@ -11417,6 +11441,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - F00
     - F99
@@ -12734,6 +12759,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - G00
     - G99
@@ -13905,6 +13931,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - H00
     - H59
@@ -14401,6 +14428,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - H60
     - H95
@@ -15425,6 +15453,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - J00
     - J99
@@ -17371,6 +17400,7 @@ child:
     - cancer
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - K00
     - K93
@@ -18703,6 +18733,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - L00
     - L99
@@ -20833,6 +20864,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - M00
     - M99
@@ -22740,6 +22772,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - N00
     - N99
@@ -27597,6 +27630,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - S00
     - T98
@@ -29241,6 +29275,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - O00
     - O99
@@ -30542,6 +30577,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - P00
     - P96
@@ -32862,6 +32898,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - Q00
     - Q99
@@ -34301,6 +34338,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - R00
     - R99
@@ -39273,6 +39311,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - V01
     - Y98
@@ -41662,6 +41701,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - Z00
     - Z99
@@ -41844,6 +41884,7 @@ child:
     - portal_hypertension
     - acs_stemi
     - acs_nstemi
+    - acs_unstable_angina
     index:
     - U00
     - U85
