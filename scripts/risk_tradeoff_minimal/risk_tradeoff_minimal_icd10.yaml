@@ -3040,6 +3040,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - A00
     - B99
@@ -5925,6 +5926,7 @@ child:
     - smoking
     - copd
     - cirrhosis
+    - hepatic_failure
     index:
     - C00
     - D48
@@ -6658,6 +6660,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - D50
     - D89
@@ -8021,6 +8024,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - E00
     - E90
@@ -9739,6 +9743,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - I00
     - I99
@@ -11342,6 +11347,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - F00
     - F99
@@ -12656,6 +12662,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - G00
     - G99
@@ -13824,6 +13831,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - H00
     - H59
@@ -14317,6 +14325,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - H60
     - H95
@@ -15338,6 +15347,7 @@ child:
     - smoking
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - J00
     - J99
@@ -15736,6 +15746,7 @@ child:
       exclude:
       - bleeding
       - cirrhosis
+      - hepatic_failure
       index:
       - K00
       - K14
@@ -16069,6 +16080,7 @@ child:
       docs: Diseases of oesophagus, stomach and duodenum
       exclude:
       - cirrhosis
+      - hepatic_failure
       index:
       - K20
       - K31
@@ -16119,6 +16131,7 @@ child:
       exclude:
       - bleeding
       - cirrhosis
+      - hepatic_failure
       index:
       - K35
       - K38
@@ -16255,6 +16268,7 @@ child:
       exclude:
       - bleeding
       - cirrhosis
+      - hepatic_failure
       index:
       - K40
       - K46
@@ -16327,6 +16341,7 @@ child:
       exclude:
       - bleeding
       - cirrhosis
+      - hepatic_failure
       index:
       - K50
       - K52
@@ -16612,6 +16627,7 @@ child:
       docs: Other diseases of intestines
       exclude:
       - cirrhosis
+      - hepatic_failure
       index:
       - K55
       - K64
@@ -16678,6 +16694,7 @@ child:
       docs: Diseases of peritoneum
       exclude:
       - cirrhosis
+      - hepatic_failure
       index:
       - K65
       - K67
@@ -16689,19 +16706,24 @@ child:
           docs: Alcoholic fatty liver
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K700
         - code: K70.1
           docs: Alcoholic hepatitis
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K701
         - code: K70.2
           docs: Alcoholic fibrosis and sclerosis of liver
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K702
         - code: K70.3
           docs: Alcoholic cirrhosis of liver
+          exclude:
+          - hepatic_failure
           index: K703
         - code: K70.4
           docs: Alcoholic hepatic failure
@@ -16712,6 +16734,7 @@ child:
           docs: Alcoholic liver disease, unspecified
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K709
         docs: Alcoholic liver disease
         exclude:
@@ -16723,6 +16746,7 @@ child:
           docs: Toxic liver disease with cholestasis
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K710
         - code: K71.1
           docs: Toxic liver disease with hepatic necrosis
@@ -16733,39 +16757,48 @@ child:
           docs: Toxic liver disease with acute hepatitis
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K712
         - code: K71.3
           docs: Toxic liver disease with chronic persistent hepatitis
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K713
         - code: K71.4
           docs: Toxic liver disease with chronic lobular hepatitis
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K714
         - code: K71.5
           docs: Toxic liver disease with chronic active hepatitis
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K715
         - code: K71.6
           docs: Toxic liver disease with hepatitis, not elsewhere classified
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K716
         - code: K71.7
           docs: Toxic liver disease with fibrosis and cirrhosis of liver
+          exclude:
+          - hepatic_failure
           index: K717
         - code: K71.8
           docs: Toxic liver disease with other disorders of liver
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K718
         - code: K71.9
           docs: Toxic liver disease, unspecified
           exclude:
           - cirrhosis
+          - hepatic_failure
           index: K719
         docs: Toxic liver disease
         exclude:
@@ -16808,6 +16841,7 @@ child:
         exclude:
         - bleeding
         - cirrhosis
+        - hepatic_failure
         index: K73
       - category: K74
         child:
@@ -16843,6 +16877,7 @@ child:
         docs: Fibrosis and cirrhosis of liver
         exclude:
         - bleeding
+        - hepatic_failure
         index: K74
       - category: K75
         child:
@@ -16871,6 +16906,7 @@ child:
         exclude:
         - bleeding
         - cirrhosis
+        - hepatic_failure
         index: K75
       - category: K76
         child:
@@ -16878,34 +16914,42 @@ child:
           docs: Fatty (change of) liver, not elsewhere classified
           exclude:
           - bleeding
+          - hepatic_failure
           index: K760
         - code: K76.1
           docs: Chronic passive congestion of liver
           exclude:
           - bleeding
+          - hepatic_failure
           index: K761
         - code: K76.2
           docs: Central haemorrhagic necrosis of liver
+          exclude:
+          - hepatic_failure
           index: K762
         - code: K76.3
           docs: Infarction of liver
           exclude:
           - bleeding
+          - hepatic_failure
           index: K763
         - code: K76.4
           docs: Peliosis hepatis
           exclude:
           - bleeding
+          - hepatic_failure
           index: K764
         - code: K76.5
           docs: Hepatic veno-occlusive disease
           exclude:
           - bleeding
+          - hepatic_failure
           index: K765
         - code: K76.6
           docs: Portal hypertension
           exclude:
           - bleeding
+          - hepatic_failure
           index: K766
         - code: K76.7
           docs: Hepatorenal syndrome
@@ -16916,11 +16960,13 @@ child:
           docs: Other specified diseases of liver
           exclude:
           - bleeding
+          - hepatic_failure
           index: K768
         - code: K76.9
           docs: Liver disease, unspecified
           exclude:
           - bleeding
+          - hepatic_failure
           index: K769
         docs: Other diseases of liver
         exclude:
@@ -16938,6 +16984,7 @@ child:
         exclude:
         - bleeding
         - cirrhosis
+        - hepatic_failure
         index: K77
       docs: Diseases of liver
       index:
@@ -17097,6 +17144,7 @@ child:
       exclude:
       - bleeding
       - cirrhosis
+      - hepatic_failure
       index:
       - K80
       - K87
@@ -17200,6 +17248,7 @@ child:
       docs: Other diseases of the digestive system
       exclude:
       - cirrhosis
+      - hepatic_failure
       index:
       - K90
       - K93
@@ -18548,6 +18597,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - L00
     - L99
@@ -20675,6 +20725,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - M00
     - M99
@@ -22579,6 +22630,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - N00
     - N99
@@ -27433,6 +27485,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - S00
     - T98
@@ -29074,6 +29127,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - O00
     - O99
@@ -30372,6 +30426,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - P00
     - P96
@@ -32689,6 +32744,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - Q00
     - Q99
@@ -34125,6 +34181,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - R00
     - R99
@@ -39094,6 +39151,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - V01
     - Y98
@@ -41480,6 +41538,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - Z00
     - Z99
@@ -41659,6 +41718,7 @@ child:
     - copd
     - cancer
     - cirrhosis
+    - hepatic_failure
     index:
     - U00
     - U85
