@@ -158,8 +158,10 @@ message("Total spells of interest (those in groups): ",
 ## have a greater spells-per-person-per-time than others -- a
 ## acute condition may have one spell, but a chronic condition
 ## may have many.
-ggplot(data=spells_of_interest) +
-    geom_bar(mapping = aes(x = group), stat="count") +
+spells_of_interest %>%
+    count(group) %>%
+    ggplot() +
+    geom_bar(mapping = aes(x = reorder(group, -n), y = n), stat="identity") +
     scale_y_log10()
 
 ## Print a summary of the breakdown of each condition
