@@ -41,8 +41,8 @@
 ##' Bleeding/ischaemia risk factors:
 ##' - Anaemia (low haemoglobin)
 ##' - Thrombocytopenia (low platelet count)
-##' - Renal (kidney function)
-##' - Current smoker
+##' - Renal (chronic kidney disease codes)
+##' - Current smoker (using smoking ICD codes as proxy)
 ##'
 ##' Bleeding-specific risks
 ##' - Prior bleeding
@@ -52,7 +52,7 @@
 ##' - Oral anticoagulant use (using atrial fibrillation as proxy)
 ##'
 ##' Ischaemia-specific risks
-##' - Prior ischaemia
+##' - Prior ischaemic stroke
 ##' - Diabetes treated with insulin/oral medication (using type-1 diabetes
 ##'   as proxy)
 ##' - STEMI presentation of ACS
@@ -195,46 +195,61 @@ last_spell_date = save_data$last_spell_date
 
 ## Reduce the ICD groups to the relevant groups of
 ## interest for the predictors and the response
-with_reduced_groups <- spells_of_interest %>%
-    ## Seperate diagnosis rows that fall into two categories
-    ## (e.g. anaemia,bleeding), into two rows, one for each
-    ## group. This is so that they can be accounted for properly
-    ## when the groups are accounted for in the pivot below.
-    separate_rows(group, sep = ",") %>%
+with_id <- spells_of_interest %>%
     ## Add an id to every row that will become
     ## the id for index acs events. The data is
     ## arranged by nhs number and date so that
     ## grouping by id later will also perform this
     ## arrangement.
     arrange(nhs_number, spell_start) %>%
-    mutate(id = row_number()) %>%
-    ## Add response variables
-    mutate(reduced_group = case_when(
-               ## Class any CKD as renal
-               str_detect(group, "ckd") ~ "renal",
-               ## Consider unstable angina as nstemi
-               str_detect(group, "unstable_angina") ~ "acs_nstemi",               
-               TRUE ~ group))
-    
-## Print the reduced groups
-with_reduced_groups %>%
-    count(reduced_group) %>%
-    print(n=30)
-
+    mutate(id = row_number())
 
 ## Make the table of index acs events, and record whether
 ## the presentation was stemi or nstemi
-index_acs <- spells_of_interest %>%
-    filter(grepl("acs", group)) %>%
-    mutate(stemi = str_detect(group, "_stemi$"))
+index_acs <- with_id %>%
+    filter(str_detect(group, "acs")) %>%
+    mutate(stemi_presentation = str_detect(group, "acs_stemi"))
 
 total_acs_events <- nrow(index_acs)
 message("Total acs events: ", total_acs_events)
 
+## Reduce the ICD groups to the relevant groups of
+## interest for the predictors and the response, prior to
+## joining the other spells and accounting for the number
+## of occurances of each reduced group. It is important
+## not to separate rows before finding the index events,
+## in case any ACS events are double counted.
+with_reduced_groups <- with_id %>%
+    ## Seperate diagnosis rows that fall into two categories
+    ## (e.g. anaemia,bleeding), into two rows, one for each
+    ## group. This is so that they can be accounted for properly
+    ## when the groups are accounted for in the pivot below.
+    separate_rows(group, sep = ",") %>%
+    ## Add predictor reduced groups
+    mutate(predictor_group = case_when(
+               ## Class any CKD as renal
+               str_detect(group, "ckd") ~ "renal",
+               ## Consider unstable angina as nstemi
+               str_detect(group, "unstable_angina") ~ "acs_nstemi",
+               ## Group cirrhosis, portal hypertension and hepatic failure
+               str_detect(group, "(portal_hypertension|cirrhosis|hepatic_failure)") ~ "cirrhosis_portal_htn",
+               TRUE ~ group)) %>%
+    ## Drop excluded predictors
+    filter(!str_detect(predictor_group, "type_2_diabetes"))
+    ## Create response column
+    ## mutate(bleed_response = if_else(str_detect(group, "bleeding"), "bleeding", NA_character_)) %>%
+    ## mutate(ischaemia_response = if_else(str_detect(group, "(acs|ischaemic_stroke)"), "ischaemia", NA_character_))
+           
+           
+## Print the reduced groups
+with_reduced_groups %>%
+    count(predictor_group) %>%
+    print(n=30)
+
 ## Join back all the other spells onto the index
 ## events by nhs number
 events_by_acs <- index_acs %>%
-    left_join(spells_of_interest, by=c("nhs_number"="nhs_number")) %>%
+    left_join(with_reduced_groups, by=c("nhs_number"="nhs_number")) %>%
     ## Group this table by id.x, which is the index acs id
     group_by(id.x) %>%
     arrange(spell_start.x, .by_group = TRUE) %>%
