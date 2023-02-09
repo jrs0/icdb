@@ -10,7 +10,7 @@ library(tidymodels)
 ## all the ICD <code>_before columns, and a response variable bleed.
 risk_tradeoff_minimal_dataset <- readRDS("gendata/risk_tradeoff_minimal_dataset.rds")
 dataset <- risk_tradeoff_minimal_dataset %>%
-    mutate(bleed_after = factor(bleed_after == 0, labels = c("no_bleed", "bleed_occured")))
+    mutate(bleed_after = factor(bleed_after == 0, labels = c("bleed_occured", "no_bleed")))
 
 set.seed(47)
 
@@ -31,7 +31,7 @@ dataset_rec <- recipe(bleed_after ~ ., data = dataset_train) %>%
     step_scale(all_predictors())    
 summary(dataset_rec)
 
-# Specify a logistic regression model
+## Specify a logistic regression model
 lr_model <- logistic_reg() %>% 
     set_engine('glm') %>% 
     set_mode('classification')
@@ -41,11 +41,19 @@ dataset_workflow <-
     add_model(lr_model) %>% 
     add_recipe(dataset_rec)
 
-# Fit to training data
+## Fit to training data
 dataset_fit <- dataset_workflow %>%
     fit(data = dataset_train)
 
-# Print model fit object
-logistic_fit
+## View the fit
+dataset_fit %>%
+    extract_fit_parsnip() %>% 
+    tidy()
 
+## Predict using the test dataset
+dataset_aug <- augment(dataset_fit, dataset_test)
 
+## Plot the ROC curve
+dataset_aug %>% 
+  roc_curve(truth = bleed_after, .pred_bleed_occured) %>% 
+  autoplot()
