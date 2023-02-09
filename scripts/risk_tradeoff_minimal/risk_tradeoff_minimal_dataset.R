@@ -47,7 +47,7 @@
 ##' Bleeding-specific risks
 ##' - COPD
 ##' - Cancer
-##' - Severe liver disease
+##' - Cirrhosis with portal hypertension (severe liver disease)
 ##' - Atrial fibrillation (proxy for oral anticoagulant use)
 ##'
 ##' Ischaemia-specific risks

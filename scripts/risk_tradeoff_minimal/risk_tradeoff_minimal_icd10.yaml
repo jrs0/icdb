@@ -3039,6 +3039,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - A00
     - B99
@@ -5923,6 +5924,7 @@ child:
     - thrombocytopenia
     - smoking
     - copd
+    - cirrhosis
     index:
     - C00
     - D48
@@ -6655,6 +6657,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - D50
     - D89
@@ -8017,6 +8020,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - E00
     - E90
@@ -9734,6 +9738,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - I00
     - I99
@@ -11336,6 +11341,7 @@ child:
     - thrombocytopenia
     - copd
     - cancer
+    - cirrhosis
     index:
     - F00
     - F99
@@ -12649,6 +12655,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - G00
     - G99
@@ -13816,6 +13823,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - H00
     - H59
@@ -14308,6 +14316,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - H60
     - H95
@@ -15328,6 +15337,7 @@ child:
     - thrombocytopenia
     - smoking
     - cancer
+    - cirrhosis
     index:
     - J00
     - J99
@@ -15725,6 +15735,7 @@ child:
       docs: Diseases of oral cavity, salivary glands and jaws
       exclude:
       - bleeding
+      - cirrhosis
       index:
       - K00
       - K14
@@ -16056,6 +16067,8 @@ child:
         - bleeding
         index: K31
       docs: Diseases of oesophagus, stomach and duodenum
+      exclude:
+      - cirrhosis
       index:
       - K20
       - K31
@@ -16105,6 +16118,7 @@ child:
       docs: Diseases of appendix
       exclude:
       - bleeding
+      - cirrhosis
       index:
       - K35
       - K38
@@ -16240,6 +16254,7 @@ child:
       docs: Hernia
       exclude:
       - bleeding
+      - cirrhosis
       index:
       - K40
       - K46
@@ -16311,6 +16326,7 @@ child:
       docs: Noninfective enteritis and colitis
       exclude:
       - bleeding
+      - cirrhosis
       index:
       - K50
       - K52
@@ -16594,6 +16610,8 @@ child:
         - bleeding
         index: K64
       docs: Other diseases of intestines
+      exclude:
+      - cirrhosis
       index:
       - K55
       - K64
@@ -16658,6 +16676,8 @@ child:
         - bleeding
         index: K67
       docs: Diseases of peritoneum
+      exclude:
+      - cirrhosis
       index:
       - K65
       - K67
@@ -16667,21 +16687,31 @@ child:
         child:
         - code: K70.0
           docs: Alcoholic fatty liver
+          exclude:
+          - cirrhosis
           index: K700
         - code: K70.1
           docs: Alcoholic hepatitis
+          exclude:
+          - cirrhosis
           index: K701
         - code: K70.2
           docs: Alcoholic fibrosis and sclerosis of liver
+          exclude:
+          - cirrhosis
           index: K702
         - code: K70.3
           docs: Alcoholic cirrhosis of liver
           index: K703
         - code: K70.4
           docs: Alcoholic hepatic failure
+          exclude:
+          - cirrhosis
           index: K704
         - code: K70.9
           docs: Alcoholic liver disease, unspecified
+          exclude:
+          - cirrhosis
           index: K709
         docs: Alcoholic liver disease
         exclude:
@@ -16691,33 +16721,51 @@ child:
         child:
         - code: K71.0
           docs: Toxic liver disease with cholestasis
+          exclude:
+          - cirrhosis
           index: K710
         - code: K71.1
           docs: Toxic liver disease with hepatic necrosis
+          exclude:
+          - cirrhosis
           index: K711
         - code: K71.2
           docs: Toxic liver disease with acute hepatitis
+          exclude:
+          - cirrhosis
           index: K712
         - code: K71.3
           docs: Toxic liver disease with chronic persistent hepatitis
+          exclude:
+          - cirrhosis
           index: K713
         - code: K71.4
           docs: Toxic liver disease with chronic lobular hepatitis
+          exclude:
+          - cirrhosis
           index: K714
         - code: K71.5
           docs: Toxic liver disease with chronic active hepatitis
+          exclude:
+          - cirrhosis
           index: K715
         - code: K71.6
           docs: Toxic liver disease with hepatitis, not elsewhere classified
+          exclude:
+          - cirrhosis
           index: K716
         - code: K71.7
           docs: Toxic liver disease with fibrosis and cirrhosis of liver
           index: K717
         - code: K71.8
           docs: Toxic liver disease with other disorders of liver
+          exclude:
+          - cirrhosis
           index: K718
         - code: K71.9
           docs: Toxic liver disease, unspecified
+          exclude:
+          - cirrhosis
           index: K719
         docs: Toxic liver disease
         exclude:
@@ -16737,6 +16785,7 @@ child:
         docs: Hepatic failure, not elsewhere classified
         exclude:
         - bleeding
+        - cirrhosis
         index: K72
       - category: K73
         child:
@@ -16758,20 +16807,29 @@ child:
         docs: Chronic hepatitis, not elsewhere classified
         exclude:
         - bleeding
+        - cirrhosis
         index: K73
       - category: K74
         child:
         - code: K74.0
           docs: Hepatic fibrosis
+          exclude:
+          - cirrhosis
           index: K740
         - code: K74.1
           docs: Hepatic sclerosis
+          exclude:
+          - cirrhosis
           index: K741
         - code: K74.2
           docs: Hepatic fibrosis with hepatic sclerosis
+          exclude:
+          - cirrhosis
           index: K742
         - code: K74.3
           docs: Primary biliary cirrhosis
+          exclude:
+          - cirrhosis
           index: K743
         - code: K74.4
           docs: Secondary biliary cirrhosis
@@ -16812,6 +16870,7 @@ child:
         docs: Other inflammatory liver diseases
         exclude:
         - bleeding
+        - cirrhosis
         index: K75
       - category: K76
         child:
@@ -16864,6 +16923,8 @@ child:
           - bleeding
           index: K769
         docs: Other diseases of liver
+        exclude:
+        - cirrhosis
         index: K76
       - category: K77
         child:
@@ -16876,6 +16937,7 @@ child:
         docs: Liver disorders in diseases classified elsewhere
         exclude:
         - bleeding
+        - cirrhosis
         index: K77
       docs: Diseases of liver
       index:
@@ -17034,6 +17096,7 @@ child:
       docs: Disorders of gallbladder, biliary tract and pancreas
       exclude:
       - bleeding
+      - cirrhosis
       index:
       - K80
       - K87
@@ -17135,6 +17198,8 @@ child:
         - bleeding
         index: K93
       docs: Other diseases of the digestive system
+      exclude:
+      - cirrhosis
       index:
       - K90
       - K93
@@ -18482,6 +18547,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - L00
     - L99
@@ -20608,6 +20674,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - M00
     - M99
@@ -22511,6 +22578,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - N00
     - N99
@@ -27364,6 +27432,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - S00
     - T98
@@ -29004,6 +29073,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - O00
     - O99
@@ -30301,6 +30371,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - P00
     - P96
@@ -32617,6 +32688,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - Q00
     - Q99
@@ -34052,6 +34124,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - R00
     - R99
@@ -39020,6 +39093,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - V01
     - Y98
@@ -41405,6 +41479,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - Z00
     - Z99
@@ -41583,6 +41658,7 @@ child:
     - smoking
     - copd
     - cancer
+    - cirrhosis
     index:
     - U00
     - U85
@@ -41607,5 +41683,7 @@ groups:
 - smoking
 - copd
 - cancer
-- liver
+- cirrhosis
+- hepatic_failure
+- portal_hypertension
 - diabetes
