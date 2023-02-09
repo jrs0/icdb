@@ -3024,7 +3024,6 @@ child:
       - B99
     docs: Certain infectious and parasitic diseases
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -3042,6 +3041,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - A00
     - B99
@@ -5912,7 +5912,6 @@ child:
       - D48
     docs: Neoplasms
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -5929,6 +5928,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - C00
     - D48
@@ -6649,7 +6649,6 @@ child:
       - D89
     docs: Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
     exclude:
-    - acs_stemi
     - ckd1
     - ckd2
     - ckd3
@@ -6664,6 +6663,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - D50
     - D89
@@ -8011,7 +8011,6 @@ child:
       - E90
     docs: Endocrine, nutritional and metabolic diseases
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -8029,6 +8028,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - E00
     - E90
@@ -8070,11 +8070,11 @@ child:
         index: I02
       docs: Acute rheumatic fever
       exclude:
-      - acs_stemi
       - bleeding
       - ckd.other
       - atrial_fib
       - portal_hypertension
+      - acs_stemi
       index:
       - I00
       - I02
@@ -8180,11 +8180,11 @@ child:
         index: I09
       docs: Chronic rheumatic heart diseases
       exclude:
-      - acs_stemi
       - bleeding
       - ckd.other
       - atrial_fib
       - portal_hypertension
+      - acs_stemi
       index:
       - I05
       - I09
@@ -8256,10 +8256,10 @@ child:
         index: I15
       docs: Hypertensive diseases
       exclude:
-      - acs_stemi
       - bleeding
       - atrial_fib
       - portal_hypertension
+      - acs_stemi
       index:
       - I10
       - I15
@@ -8272,22 +8272,17 @@ child:
           index: I200
         - code: I20.1
           docs: Angina pectoris with documented spasm
-          exclude:
-          - acs_stemi
           index: I201
         - code: I20.8
           docs: Other forms of angina pectoris
-          exclude:
-          - acs_stemi
           index: I208
         - code: I20.9
           docs: Angina pectoris, unspecified
-          exclude:
-          - acs_stemi
           index: I209
         docs: Angina pectoris
         exclude:
         - bleeding
+        - acs_stemi
         index: I20
       - category: I21
         child:
@@ -8305,9 +8300,13 @@ child:
           index: I213
         - code: I21.4
           docs: Acute subendocardial myocardial infarction
+          exclude:
+          - acs_stemi
           index: I214
         - code: I21.9
           docs: Acute myocardial infarction, unspecified
+          exclude:
+          - acs_stemi
           index: I219
         docs: Acute myocardial infarction
         exclude:
@@ -8326,6 +8325,8 @@ child:
           index: I228
         - code: I22.9
           docs: Subsequent myocardial infarction of unspecified site
+          exclude:
+          - acs_stemi
           index: I229
         docs: Subsequent myocardial infarction
         exclude:
@@ -8382,8 +8383,6 @@ child:
           index: I240
         - code: I24.1
           docs: Dressler syndrome
-          exclude:
-          - acs_stemi
           index: I241
         - code: I24.8
           docs: Other forms of acute ischaemic heart disease
@@ -8394,6 +8393,7 @@ child:
         docs: Other acute ischaemic heart diseases
         exclude:
         - bleeding
+        - acs_stemi
         index: I24
       - category: I25
         child:
@@ -8426,8 +8426,8 @@ child:
           index: I259
         docs: Chronic ischaemic heart disease
         exclude:
-        - acs_stemi
         - bleeding
+        - acs_stemi
         index: I25
       docs: Ischaemic heart diseases
       exclude:
@@ -8486,11 +8486,11 @@ child:
         index: I28
       docs: Pulmonary heart disease and diseases of pulmonary circulation
       exclude:
-      - acs_stemi
       - bleeding
       - ckd.other
       - atrial_fib
       - portal_hypertension
+      - acs_stemi
       index:
       - I26
       - I28
@@ -9017,9 +9017,9 @@ child:
         index: I52
       docs: Other forms of heart disease
       exclude:
-      - acs_stemi
       - ckd.other
       - portal_hypertension
+      - acs_stemi
       index:
       - I30
       - I52
@@ -9276,10 +9276,10 @@ child:
         index: I69
       docs: Cerebrovascular diseases
       exclude:
-      - acs_stemi
       - ckd.other
       - atrial_fib
       - portal_hypertension
+      - acs_stemi
       index:
       - I60
       - I69
@@ -9475,11 +9475,11 @@ child:
         index: I79
       docs: Diseases of arteries, arterioles and capillaries
       exclude:
-      - acs_stemi
       - bleeding
       - ckd.other
       - atrial_fib
       - portal_hypertension
+      - acs_stemi
       index:
       - I70
       - I79
@@ -9668,9 +9668,9 @@ child:
         index: I89
       docs: Diseases of veins, lymphatic vessels and lymph nodes, not elsewhere classified
       exclude:
-      - acs_stemi
       - ckd.other
       - atrial_fib
+      - acs_stemi
       index:
       - I80
       - I89
@@ -9758,9 +9758,9 @@ child:
         index: I99
       docs: Other and unspecified disorders of the circulatory system
       exclude:
-      - acs_stemi
       - ckd.other
       - atrial_fib
+      - acs_stemi
       index:
       - I95
       - I99
@@ -11367,7 +11367,6 @@ child:
       - F99
     docs: Mental and behavioural disorders
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -11384,6 +11383,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - F00
     - F99
@@ -12682,7 +12682,6 @@ child:
       - G99
     docs: Diseases of the nervous system
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -12700,6 +12699,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - G00
     - G99
@@ -13853,7 +13853,6 @@ child:
       - H59
     docs: Diseases of the eye and adnexa
     exclude:
-    - acs_stemi
     - ckd1
     - ckd2
     - ckd3
@@ -13870,6 +13869,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - H00
     - H59
@@ -14348,7 +14348,6 @@ child:
       - H95
     docs: Diseases of the ear and mastoid process
     exclude:
-    - acs_stemi
     - ckd1
     - ckd2
     - ckd3
@@ -14365,6 +14364,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - H60
     - H95
@@ -15372,7 +15372,6 @@ child:
       - J99
     docs: Diseases of the respiratory system
     exclude:
-    - acs_stemi
     - ckd1
     - ckd2
     - ckd3
@@ -15388,6 +15387,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - J00
     - J99
@@ -17319,7 +17319,6 @@ child:
       - K93
     docs: Diseases of the digestive system
     exclude:
-    - acs_stemi
     - ckd1
     - ckd2
     - ckd3
@@ -17333,6 +17332,7 @@ child:
     - smoking
     - copd
     - cancer
+    - acs_stemi
     index:
     - K00
     - K93
@@ -18646,7 +18646,6 @@ child:
       - L99
     docs: Diseases of the skin and subcutaneous tissue
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -18664,6 +18663,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - L00
     - L99
@@ -20776,7 +20776,6 @@ child:
       - M99
     docs: Diseases of the musculoskeletal system and connective tissue
     exclude:
-    - acs_stemi
     - ckd1
     - ckd2
     - ckd3
@@ -20793,6 +20792,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - M00
     - M99
@@ -22689,7 +22689,6 @@ child:
       - N99
     docs: Diseases of the genitourinary system
     exclude:
-    - acs_stemi
     - atrial_fib
     - anaemia
     - thrombocytopenia
@@ -22699,6 +22698,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - N00
     - N99
@@ -27538,7 +27538,6 @@ child:
       - T98
     docs: Injury, poisoning and certain other consequences of external causes
     exclude:
-    - acs_stemi
     - ckd1
     - ckd2
     - ckd3
@@ -27555,6 +27554,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - S00
     - T98
@@ -29180,7 +29180,6 @@ child:
       - O99
     docs: Pregnancy, childbirth and the puerperium
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -29198,6 +29197,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - O00
     - O99
@@ -30480,7 +30480,6 @@ child:
       - P96
     docs: Certain conditions originating in the perinatal period
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -30498,6 +30497,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - P00
     - P96
@@ -32800,7 +32800,6 @@ child:
       - Q99
     docs: Congenital malformations, deformations and chromosomal abnormalities
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -32817,6 +32816,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - Q00
     - Q99
@@ -34238,7 +34238,6 @@ child:
       - R99
     docs: Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified
     exclude:
-    - acs_stemi
     - ckd1
     - ckd2
     - ckd3
@@ -34255,6 +34254,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - R00
     - R99
@@ -39208,7 +39208,6 @@ child:
       - Y98
     docs: External causes of morbidity and mortality
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -39226,6 +39225,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - V01
     - Y98
@@ -41597,7 +41597,6 @@ child:
       - Z99
     docs: Factors influencing health status and contact with health services
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -41614,6 +41613,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - Z00
     - Z99
@@ -41777,7 +41777,6 @@ child:
       - U85
     docs: Codes for special purposes
     exclude:
-    - acs_stemi
     - bleeding
     - ckd1
     - ckd2
@@ -41795,6 +41794,7 @@ child:
     - cirrhosis
     - hepatic_failure
     - portal_hypertension
+    - acs_stemi
     index:
     - U00
     - U85
@@ -41805,6 +41805,7 @@ child:
 groups:
 - acs_stemi
 - acs_nstemi
+- acs_unstable_angina
 - bleeding
 - atrial_fib
 - ckd1
