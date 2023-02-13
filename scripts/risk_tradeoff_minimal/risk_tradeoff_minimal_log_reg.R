@@ -193,7 +193,7 @@ pred <- list(fits, names(models)) %>%
                                         # plot ROC curves
 roc <- pred %>%
     group_by(model) %>%
-    roc_curve(event_level = 'second', truth = truth, pred_prob)
+    roc_curve(truth = truth, pred_prob)
 
 ggplot(roc, aes(x = 1 - specificity, y = sensitivity, color = model)) +
     geom_line() +
@@ -232,7 +232,7 @@ auc <- pred %>%
                    bleed = .x$bleed %>%
                        roc_auc(truth =  bleed_after, .pred_bleed_occured),
                    ischaemia = .x$ischaemia %>%
-                       roc_auc(truth = ischaemia_after, .pred_ischaemia_occured)
+                       roc_auc(truth = ischaemia_after, .pred_ischaemia_occured)))
 
 
 
