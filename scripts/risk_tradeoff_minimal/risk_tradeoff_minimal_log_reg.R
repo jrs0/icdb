@@ -37,18 +37,25 @@ bleed_rec <- recipe(bleed_after ~ ., data = train) %>%
     step_integer(stemi_presentation) %>%
     step_nzv(all_predictors()) %>%
     step_center(all_predictors()) %>%
-    step_scale(all_predictors())    
+    step_scale(all_predictors()) %>%
+    step_naomit(all_predictors(), all_outcomes())
 summary(bleed_rec)
 
 ## Specify a logistic regression model
 ## bleed_model <- logistic_reg() %>% 
 ##     set_engine('glm') %>% 
 ##     set_mode('classification')
-bleed_model <- discrim_linear(
+## bleed_model <- discrim_linear(
+##   mode = "classification",
+##   penalty = NULL,
+##   regularization_method = NULL,
+##   engine = "MASS"
+## )
+bleed_model <- naive_Bayes(
   mode = "classification",
-  penalty = NULL,
-  regularization_method = NULL,
-  engine = "MASS"
+  smoothness = NULL,
+  Laplace = NULL,
+  engine = "klaR"
 )
 
 bleed_workflow <- 
@@ -89,18 +96,25 @@ ischaemia_rec <- recipe(ischaemia_after ~ ., data = train) %>%
     step_integer(stemi_presentation) %>%
     step_nzv(all_predictors()) %>%
     step_center(all_predictors()) %>%
-    step_scale(all_predictors())    
+    step_scale(all_predictors()) %>%
+    step_naomit(all_predictors(), all_outcomes())
 summary(ischaemia_rec)
 
 ## Specify a logistic regression model
 ## ischaemia_model <- logistic_reg() %>% 
 ##     set_engine('glm') %>% 
 ##     set_mode('classification')
-ischaemia_model <- discrim_linear(
+## ischaemia_model <- discrim_linear(
+##   mode = "classification",
+##   penalty = NULL,
+##   regularization_method = NULL,
+##   engine = "MASS"
+## )
+ischaemia_model <- naive_Bayes(
   mode = "classification",
-  penalty = NULL,
-  regularization_method = NULL,
-  engine = "MASS"
+  smoothness = NULL,
+  Laplace = NULL,
+  engine = "klaR"
 )
 
 ischaemia_workflow <- 
@@ -115,7 +129,7 @@ ischaemia_fit <- ischaemia_workflow %>%
 ## View the fit
 ischaemia_fit %>%
     extract_fit_parsnip() %>% 
-    ##tidy() %>%
+    ## tidy() %>%
     identity()
     
 ## Predict using the test set
@@ -129,7 +143,6 @@ ischaemia_aug %>%
 ## Plot the calibration plot
 ischaemia_aug %>%
     cal_plot_breaks(ischaemia_after, .pred_ischaemia_occured, num_breaks = 10)
-
 
 ## ======== Combine predictions ============
 
