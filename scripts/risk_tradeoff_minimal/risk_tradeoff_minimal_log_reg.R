@@ -172,29 +172,21 @@ pred <- list(fits, names(models)) %>%
         bleed_pred <- fit$bleed %>%
             augment(test) %>%
             mutate(outcome = "bleed", model = model_name, pred_prob = .pred_bleed_occured) %>%
-            mutate(truth = as.factor(case_match(bleed_after, "bleed_occured" ~ "occured", "no_bleed" ~ "none")))
+            mutate(truth = recode_factor(bleed_after, "bleed_occured" = "occured", "no_bleed" = "none"))
         ischaemia_pred <- fit$ischaemia %>%
             augment(test) %>%
             mutate(outcome = "ischaemia", model = model_name, pred_prob = .pred_ischaemia_occured) %>%
-            mutate(truth = as.factor(case_match(ischaemia_after, "ischaemia_occured" ~ "occured", "no_ischaemia" ~ "none")))
+            mutate(truth = recode_factor(ischaemia_after, "ischaemia_occured" = "occured", "no_ischaemia" = "none"))
         bind_rows(bleed_pred, ischaemia_pred)
     }) %>%
     purrr::list_rbind()
 
-
-## ## Compute the ROC curves
-## roc <- pred %>%
-##     purrr::map(~ roc_curve(truth =  bleed_after, .pred_bleed_occured),
-##                    ischaemia = .x$ischaemia %>%
-##                        roc_curve(truth = ischaemia_after, .pred_ischaemia_occured)
-##                ))
-
-## Plot the ROC curves
-                                        # plot ROC curves
+## Calculate ROC curves
 roc <- pred %>%
     group_by(model) %>%
     roc_curve(truth = truth, pred_prob)
 
+## Plot the ROC curves
 ggplot(roc, aes(x = 1 - specificity, y = sensitivity, color = model)) +
     geom_line() +
     geom_abline(slope = 1, intercept = 0, size = 0.4) +
@@ -204,9 +196,6 @@ ggplot(roc, aes(x = 1 - specificity, y = sensitivity, color = model)) +
 ## do it in tidymodels yet)
 bleed_threshold <- 0.03
 ischaemia_threshold <- 0.05
-
-##bleed_roc %>%
-##coords(x = "best", best.method = "closest.topleft")
 
 ## Repredict the classes based on the custom threshold
 truth_levels <- levels(pred$truth)
@@ -224,16 +213,6 @@ multi_metrics <- metric_set(accuracy, kap, sens, spec, ppv, npv, roc_auc)
 metrics <- pred_custom %>%
     group_by(outcome, model) %>%
     multi_metrics(truth = truth, pred_prob, estimate = pred)
-
-
-## Get the AUC
-auc <- pred %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>%
-                       roc_auc(truth =  bleed_after, .pred_bleed_occured),
-                   ischaemia = .x$ischaemia %>%
-                       roc_auc(truth = ischaemia_after, .pred_ischaemia_occured)))
-
 
 
 ## Plot the calibration plot
