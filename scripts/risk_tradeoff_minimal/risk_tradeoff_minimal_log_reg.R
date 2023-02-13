@@ -172,11 +172,11 @@ pred <- list(fits, names(models)) %>%
         bleed_pred <- fit$bleed %>%
             augment(test) %>%
             mutate(outcome = "bleed", model = model_name, pred_prob = .pred_bleed_occured) %>%
-            mutate(truth = bleed_after)
+            mutate(truth = as.factor(case_match(bleed_after, "bleed_occured" ~ "occured", "no_bleed" ~ "none")))
         ischaemia_pred <- fit$ischaemia %>%
             augment(test) %>%
             mutate(outcome = "ischaemia", model = model_name, pred_prob = .pred_ischaemia_occured) %>%
-            mutate(truth = ischaemia_after)
+            mutate(truth = as.factor(case_match(ischaemia_after, "ischaemia_occured" ~ "occured", "no_ischaemia" ~ "none")))
         bind_rows(bleed_pred, ischaemia_pred)
     }) %>%
     purrr::list_rbind()
@@ -203,9 +203,7 @@ pred %>%
     ) + # plot with 2 ROC curves for each model
     geom_line(size = 1.1) +
     geom_abline(slope = 1, intercept = 0, size = 0.4) +
-    scale_color_manual(values = c("#48466D", "#3D84A8")) +
-    coord_fixed() +
-    theme_cowplot()
+    coord_fixed()
 
 ## Make a choice for a threshold (TODO not figured out how to
 ## do it in tidymodels yet)
