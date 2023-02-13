@@ -25,7 +25,8 @@ set.seed(47)
 ## less common outcome)
 split <- initial_split(dataset, prop = 0.75, strata = bleed_after)
 train <- training(split)
-test <- testing(split)
+test <- testing(split) %>%
+    drop_na()
 
 ## ========= Bleeding model ============
 
@@ -42,21 +43,42 @@ bleed_rec <- recipe(bleed_after ~ ., data = train) %>%
 summary(bleed_rec)
 
 ## Specify a logistic regression model
-## bleed_model <- logistic_reg() %>% 
-##     set_engine('glm') %>% 
-##     set_mode('classification')
+bleed_model <- logistic_reg() %>% 
+    set_engine('glm') %>% 
+    set_mode('classification')
 ## bleed_model <- discrim_linear(
 ##   mode = "classification",
 ##   penalty = NULL,
 ##   regularization_method = NULL,
 ##   engine = "MASS"
 ## )
-bleed_model <- naive_Bayes(
-  mode = "classification",
-  smoothness = NULL,
-  Laplace = NULL,
-  engine = "klaR"
-)
+## bleed_model <- naive_Bayes(
+##   mode = "classification",
+##   smoothness = NULL,
+##   Laplace = NULL,
+##   engine = "klaR"
+## )
+## bleed_model <- boost_tree(
+##   mode = "unknown",
+##   engine = "xgboost",
+##   mtry = NULL,
+##   trees = NULL,
+##   min_n = NULL,
+##   tree_depth = NULL,
+##   learn_rate = NULL,
+##   loss_reduction = NULL,
+##   sample_size = NULL,
+##   stop_iter = NULL
+## ) %>%
+##     set_mode("classification")
+## bleed_model <- rand_forest(
+##   mode = "unknown",
+##   engine = "ranger",
+##   mtry = NULL,
+##   trees = NULL,
+##   min_n = NULL
+## ) %>%
+##     set_mode("classification")
 
 bleed_workflow <- 
     workflow() %>% 
@@ -82,6 +104,10 @@ bleed_aug %>%
     roc_curve(truth = bleed_after, .pred_bleed_occured) %>% 
     autoplot()
 
+## Get the AUC
+bleed_auc <- bleed_aug %>%
+    roc_auc(truth = bleed_after, .pred_bleed_occured)
+
 ## Plot the calibration plot
 bleed_aug %>%
     cal_plot_breaks(bleed_after, .pred_bleed_occured, num_breaks = 10)
@@ -101,21 +127,42 @@ ischaemia_rec <- recipe(ischaemia_after ~ ., data = train) %>%
 summary(ischaemia_rec)
 
 ## Specify a logistic regression model
-## ischaemia_model <- logistic_reg() %>% 
-##     set_engine('glm') %>% 
-##     set_mode('classification')
+ischaemia_model <- logistic_reg() %>% 
+    set_engine('glm') %>% 
+    set_mode('classification')
 ## ischaemia_model <- discrim_linear(
 ##   mode = "classification",
 ##   penalty = NULL,
 ##   regularization_method = NULL,
 ##   engine = "MASS"
 ## )
-ischaemia_model <- naive_Bayes(
-  mode = "classification",
-  smoothness = NULL,
-  Laplace = NULL,
-  engine = "klaR"
-)
+## ischaemia_model <- naive_Bayes(
+##   mode = "classification",
+##   smoothness = NULL,
+##   Laplace = NULL,
+##   engine = "klaR"
+## )
+## ischaemia_model <- boost_tree(
+##   mode = "unknown",
+##   engine = "xgboost",
+##   mtry = NULL,
+##   trees = NULL,
+##   min_n = NULL,
+##   tree_depth = NULL,
+##   learn_rate = NULL,
+##   loss_reduction = NULL,
+##   sample_size = NULL,
+##   stop_iter = NULL
+## ) %>%
+##     set_mode("classification")
+## ischaemia_model <- rand_forest(
+##   mode = "unknown",
+##   engine = "ranger",
+##   mtry = NULL,
+##   trees = NULL,
+##   min_n = NULL
+## ) %>%
+##     set_mode("classification")
 
 ischaemia_workflow <- 
     workflow() %>% 
@@ -139,6 +186,10 @@ ischaemia_aug <- augment(ischaemia_fit, test)
 ischaemia_aug %>% 
     roc_curve(truth = ischaemia_after, .pred_ischaemia_occured) %>% 
     autoplot()
+
+## Get the AUC
+ischaemia_auc <- ischaemia_aug %>%
+    roc_auc(truth = ischaemia_after, .pred_ischaemia_occured)
 
 ## Plot the calibration plot
 ischaemia_aug %>%
