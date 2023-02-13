@@ -37,23 +37,23 @@ test <- testing(split) %>%
 
 models <- list(
     ## Logistic regression
-    logistic_reg() %>% 
+    lr = logistic_reg() %>% 
     set_engine('glm') %>% 
     set_mode('classification'),
     ## Linear discriminant analysis
-    discrim_linear(
+    lda = discrim_linear(
         mode = "classification",
         penalty = NULL,
         regularization_method = NULL,
         engine = "MASS"),
     ## Naive Bayes
-    naive_Bayes(
+    nb = naive_Bayes(
         mode = "classification",
         smoothness = NULL,
         Laplace = NULL,
         engine = "klaR"),
     ## Boosted trees
-    boost_tree(
+    bt = boost_tree(
         mode = "unknown",
         engine = "xgboost",
         mtry = NULL,
@@ -66,7 +66,7 @@ models <- list(
         stop_iter = NULL) %>%
     set_mode("classification"),
     ## Random forest
-    rand_forest(
+    rf = rand_forest(
         mode = "unknown",
         engine = "ranger",
         mtry = NULL,
@@ -109,7 +109,7 @@ specific_recipes = list(
                    step_nzv(all_predictors()) %>%
                    step_center(all_predictors()) %>%
                    step_scale(all_predictors()) %>%
-                   step_naomit()),
+                   step_naomit(all_predictors(), all_outcomes())),
     ## Naive Bayes
     base_recipes %>%
     purrr::map(~ .x %>%
@@ -117,7 +117,7 @@ specific_recipes = list(
                    step_nzv(all_predictors()) %>%
                    step_center(all_predictors()) %>%
                    step_scale(all_predictors()) %>%
-                   step_naomit()),
+                   step_naomit(all_predictors(), all_outcomes())),
     ## Boosted trees
     base_recipes %>%
     purrr::map(~ .x %>%
@@ -125,7 +125,7 @@ specific_recipes = list(
                    step_nzv(all_predictors()) %>%
                    step_center(all_predictors()) %>%
                    step_scale(all_predictors()) %>%
-                   step_naomit()),
+                   step_naomit(all_predictors(), all_outcomes())),
     ## Random forest
     base_recipes %>%
     purrr::map(~ .x %>%
@@ -133,7 +133,7 @@ specific_recipes = list(
                    step_nzv(all_predictors()) %>%
                    step_center(all_predictors()) %>%
                    step_scale(all_predictors()) %>%
-                   step_naomit()))
+                   step_naomit(all_predictors(), all_outcomes())))
 
 ## ========= Workflows ==========
 
@@ -158,97 +158,119 @@ fits <- workflows %>%
                    ischaemia = .x$ischaemia %>% fit(data = train)
                ))
 
-## Fit to training data
-bleed_fit <- bleed_workflow %>%
-    fit(data = train)
-
-## View the fit
-bleed_fit %>%
-    extract_fit_parsnip() %>%
-    ## For some reason tidy() does not work always
-    ##tidy()
-    identity()
+## ## View the fit
+## bleed_fit %>%
+##     extract_fit_parsnip() %>%
+##     ## For some reason tidy() does not work always
+##     ##tidy()
+##     identity()
 
 ## Predict using the test set
-bleed_aug <- augment(bleed_fit, test)
+pred <- fits %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>% augment(test),
+                   ischaemia = .x$ischaemia %>% augment(test)
+               ))
 
-## Compute the ROC curve
-bleed_roc <- bleed_aug %>%
-    roc_curve(truth = bleed_after, .pred_bleed_occured)
+
+## Compute the ROC curves
+roc <- pred %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>%
+                       roc_curve(truth =  bleed_after, .pred_bleed_occured),
+                   ischaemia = .x$ischaemia %>%
+                       roc_curve(truth = ischaemia_after, .pred_ischaemia_occured)
+               ))
 
 ## Plot the ROC curve
-autoplot(bleed_roc)
 
 ## Make a choice for a threshold (TODO not figured out how to
 ## do it in tidymodels yet)
-threshold <- 0.03
+bleed_threshold <- 0.03
+ischaemia_threshold <- 0.05
 ##bleed_roc %>%
 ##coords(x = "best", best.method = "closest.topleft")
 
 ## Repredict the classes based on the custom threshold
-bleed_aug_custom <- bleed_aug %>%
-    mutate(.pred_class = make_two_class_pred(.pred_bleed_occured, 
-                                             levels(bleed_aug$bleed_after),
-                                             threshold = threshold),
-       .pred_class = factor(.pred_class, levels = levels(bleed_aug$bleed_after)))
+pred_custom <- pred %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>%
+                       mutate(.pred_class = make_two_class_pred(
+                                  .pred_bleed_occured, 
+                                  levels(.x$bleed$bleed_after),
+                                  threshold = bleed_threshold),
+                              .pred_class = factor(.pred_class,
+                                                   levels = levels(.x$bleed$bleed_after))),
+                   ischaemia = .x$ischaemia %>%
+                       mutate(.pred_class = make_two_class_pred(
+                                  .pred_ischaemia_occured, 
+                                  levels(.x$ischaemia$ischaemia_after),
+                                  threshold = ischaemia_threshold),
+                              .pred_class = factor(.pred_class,
+                                                   levels = levels(.x$ischaemia$ischaemia_after)))
+               ))
 
 ## Get the AUC
-bleed_auc <- bleed_fit %>%
-    roc_auc(truth = bleed_after, .pred_bleed_occured)
+auc <- pred %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>%
+                       roc_auc(truth =  bleed_after, .pred_bleed_occured),
+                   ischaemia = .x$ischaemia %>%
+                       roc_auc(truth = ischaemia_after, .pred_ischaemia_occured)
+               ))
 
 ## Confusion matrix with custom threshold
-bleed_aug_custom %>%
-conf_mat(truth = bleed_after, estimate = .pred_class)
+## bleed_aug_custom %>%
+## conf_mat(truth = bleed_after, estimate = .pred_class)
 
-## Get summary stats for the fit with custom threshold
-bleed_accuracy <- bleed_aug_custom %>%
-    accuracy(truth = bleed_after, estimate = .pred_class)
-bleed_sensitivity <- bleed_aug_custom %>%
-    sens(truth = bleed_after, estimate = .pred_class)
-bleed_specificity <- bleed_aug_custom %>%
-    spec(truth = bleed_after, estimate = .pred_class)
-bleed_ppv <- bleed_aug_custom %>%
-    ppv(truth = bleed_after, estimate = .pred_class)
-bleed_npv <- bleed_aug_custom %>%
-    npv(truth = bleed_after, estimate = .pred_class)
 
-## Get kappa for a bleeding prediction attempt
-bleed_kappa <- bleed_aug_custom %>%
-    kap(truth = bleed_after, estimate = .pred_class)
+accuracy <- pred %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>%
+                       accuracy(truth =  bleed_after, .pred_class),
+                   ischaemia = .x$ischaemia %>%
+                       accuracy(truth = ischaemia_after, .pred_class)
+               ))
+sensitivity <- pred %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>%
+                       sens(truth =  bleed_after, .pred_class),
+                   ischaemia = .x$ischaemia %>%
+                       sens(truth = ischaemia_after, .pred_class)
+               ))
+specificity <- pred %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>%
+                       spec(truth =  bleed_after, .pred_class),
+                   ischaemia = .x$ischaemia %>%
+                       spec(truth = ischaemia_after, .pred_class)
+               ))
+ppv <- pred %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>%
+                       ppv(truth =  bleed_after, .pred_class),
+                   ischaemia = .x$ischaemia %>%
+                       ppv(truth = ischaemia_after, .pred_class)
+               ))
+npv <- pred %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>%
+                       npv(truth =  bleed_after, .pred_class),
+                   ischaemia = .x$ischaemia %>%
+                       npv(truth = ischaemia_after, .pred_class)
+               ))
+kappa <- pred %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>%
+                       kappa(truth =  bleed_after, .pred_class),
+                   ischaemia = .x$ischaemia %>%
+                       kappa(truth = ischaemia_after, .pred_class)
+               ))
 
 ## Plot the calibration plot
-bleed_aug_custom %>%
-    cal_plot_breaks(bleed_after, .pred_bleed_occured, num_breaks = 10)
+## bleed_aug_custom %>%
+##     cal_plot_breaks(bleed_after, .pred_bleed_occured, num_breaks = 10)
                     
-## ========= Ischaemia model ============
-
-ischaemia_workflow <- 
-    workflow() %>% 
-    add_model(model) %>% 
-    add_recipe(ischaemia_rec)
-
-## Fit to training data
-ischaemia_fit <- ischaemia_workflow %>%
-    fit(data = train)
-
-## View the fit
-ischaemia_fit %>%
-    extract_fit_parsnip() %>% 
-    ## tidy() %>%
-    identity()
-    
-## Predict using the test set
-ischaemia_aug <- augment(ischaemia_fit, test)
-
-## Plot the ROC curve
-ischaemia_aug %>% 
-    roc_curve(truth = ischaemia_after, .pred_ischaemia_occured) %>% 
-    autoplot()
-
-## Get the AUC
-ischaemia_auc <- ischaemia_aug %>%
-    roc_auc(truth = ischaemia_after, .pred_ischaemia_occured)
-
 ## Plot the calibration plot
 ischaemia_aug %>%
     cal_plot_breaks(ischaemia_after, .pred_ischaemia_occured, num_breaks = 10)
