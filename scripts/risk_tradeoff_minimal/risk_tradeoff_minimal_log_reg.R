@@ -166,23 +166,46 @@ fits <- workflows %>%
 ##     identity()
 
 ## Predict using the test set
-pred <- fits %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>% augment(test),
-                   ischaemia = .x$ischaemia %>% augment(test)
-               ))
+pred <- list(fits, names(models)) %>%
+    purrr::pmap(function(fit, model_name)
+    {
+        bleed_pred <- fit$bleed %>%
+            augment(test) %>%
+            mutate(outcome = "bleed", model = model_name, pred_prob = .pred_bleed_occured) %>%
+            mutate(truth = bleed_after)
+        ischaemia_pred <- fit$ischaemia %>%
+            augment(test) %>%
+            mutate(outcome = "ischaemia", model = model_name, pred_prob = .pred_ischaemia_occured) %>%
+            mutate(truth = ischaemia_after)
+        bind_rows(bleed_pred, ischaemia_pred)
+    }) %>%
+    purrr::list_rbind()
 
 
-## Compute the ROC curves
-roc <- pred %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>%
-                       roc_curve(truth =  bleed_after, .pred_bleed_occured),
-                   ischaemia = .x$ischaemia %>%
-                       roc_curve(truth = ischaemia_after, .pred_ischaemia_occured)
-               ))
+## ## Compute the ROC curves
+## roc <- pred %>%
+##     purrr::map(~ roc_curve(truth =  bleed_after, .pred_bleed_occured),
+##                    ischaemia = .x$ischaemia %>%
+##                        roc_curve(truth = ischaemia_after, .pred_ischaemia_occured)
+##                ))
 
-## Plot the ROC curve
+## Plot the ROC curves
+                                        # plot ROC curves
+pred %>%
+    group_by(model) %>% # group to get individual ROC curve for each model
+    roc_curve(event_level = 'second', truth = truth, pred_prob) %>% # get values to plot an ROC curve
+    ggplot(
+        aes(
+            x = 1 - specificity, 
+            y = sensitivity, 
+            color = model
+        )
+    ) + # plot with 2 ROC curves for each model
+    geom_line(size = 1.1) +
+    geom_abline(slope = 1, intercept = 0, size = 0.4) +
+    scale_color_manual(values = c("#48466D", "#3D84A8")) +
+    coord_fixed() +
+    theme_cowplot()
 
 ## Make a choice for a threshold (TODO not figured out how to
 ## do it in tidymodels yet)
