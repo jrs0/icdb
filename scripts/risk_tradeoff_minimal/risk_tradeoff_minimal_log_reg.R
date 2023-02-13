@@ -6,7 +6,12 @@
 library(tidymodels)
 library(probably)
 library(discrim)
+library(probably)
 
+## For attempt to find optimal threshold
+library(pROC)
+
+        
 ## Load the data and convert the bleeding outcome to a factor
 ## (levels no_bleed, bleed_occured). The result is a dataset with age and
 ## all the ICD <code>_before columns, and a response variable bleed.
@@ -30,42 +35,45 @@ test <- testing(split) %>%
 
 ## ========= Model selection =============
 
-model <- logistic_reg() %>% 
+models <- list(
+    logistic_reg() %>% 
     set_engine('glm') %>% 
-    set_mode('classification')
-## model <- discrim_linear(
-##   mode = "classification",
-##   penalty = NULL,
-##   regularization_method = NULL,
-##   engine = "MASS"
-## )
-## model <- naive_Bayes(
-##   mode = "classification",
-##   smoothness = NULL,
-##   Laplace = NULL,
-##   engine = "klaR"
-## )
-## model <- boost_tree(
-##   mode = "unknown",
-##   engine = "xgboost",
-##   mtry = NULL,
-##   trees = NULL,
-##   min_n = NULL,
-##   tree_depth = NULL,
-##   learn_rate = NULL,
-##   loss_reduction = NULL,
-##   sample_size = NULL,
-##   stop_iter = NULL
-## ) %>%
-##     set_mode("classification")
-## model <- rand_forest(
-##   mode = "unknown",
-##   engine = "ranger",
-##   mtry = NULL,
-##   trees = NULL,
-##   min_n = NULL
-## ) %>%
-##     set_mode("classification")
+    set_mode('classification'),
+
+    discrim_linear(
+        mode = "classification",
+        penalty = NULL,
+        regularization_method = NULL,
+        engine = "MASS"
+    )
+
+    naive_Bayes(
+        mode = "classification",
+        smoothness = NULL,
+        Laplace = NULL,
+        engine = "klaR"
+    )
+    
+    boost_tree(
+        mode = "unknown",
+        engine = "xgboost",
+        mtry = NULL,
+        trees = NULL,
+        min_n = NULL,
+        tree_depth = NULL,
+        learn_rate = NULL,
+        loss_reduction = NULL,
+        sample_size = NULL,
+        stop_iter = NULL) %>%
+    set_mode("classification")
+    
+    rand_forest(
+        mode = "unknown",
+        engine = "ranger",
+        mtry = NULL,
+        trees = NULL,
+        min_n = NULL) %>%
+    set_mode("classification")
 
 ## ========= Bleeding model ============
 
@@ -80,11 +88,6 @@ bleed_rec <- recipe(bleed_after ~ ., data = train) %>%
     step_scale(all_predictors()) %>%
     step_naomit(all_predictors(), all_outcomes())
 summary(bleed_rec)
-
-## Specify a logistic regression model
-## bleed_model <- logistic_reg() %>% 
-##     set_engine('glm') %>% 
-##     set_mode('classification')
 
 bleed_workflow <- 
     workflow() %>% 
@@ -105,14 +108,49 @@ bleed_fit %>%
 ## Predict using the test set
 bleed_aug <- augment(bleed_fit, test)
 
+## Compute the ROC curve
+bleed_roc <- bleed_aug %>%
+    roc_curve(truth = bleed_after, .pred_bleed_occured)
+
 ## Plot the ROC curve
-bleed_aug %>% 
-    roc_curve(truth = bleed_after, .pred_bleed_occured) %>% 
-    autoplot()
+autoplot(bleed_roc)
+
+## Make a choice for a threshold (TODO not figured out how to
+## do it in tidymodels yet)
+threshold <- 0.03
+##bleed_roc %>%
+##coords(x = "best", best.method = "closest.topleft")
+
+## Repredict the classes based on the custom threshold
+bleed_aug_custom <- bleed_aug %>%
+    mutate(.pred_class = make_two_class_pred(.pred_bleed_occured, 
+                                             levels(bleed_aug$bleed_after),
+                                             threshold = threshold),
+       .pred_class = factor(.pred_class, levels = levels(bleed_aug$bleed_after)))
 
 ## Get the AUC
-bleed_auc <- bleed_aug %>%
+bleed_auc <- bleed_fit %>%
     roc_auc(truth = bleed_after, .pred_bleed_occured)
+
+bleed_aug_custom %>%
+conf_mat(truth = bleed_after, estimate = .pred_class)
+
+## Get summary stats for the fit
+bleed_accuracy <- bleed_aug_custom %>%
+    accuracy(truth = bleed_after, estimate = .pred_class)
+bleed_sensitivity <- bleed_aug_custom %>%
+    sens(truth = bleed_after, estimate = .pred_class)
+bleed_specificity <- bleed_aug_custom %>%
+    spec(truth = bleed_after, estimate = .pred_class)
+bleed_ppv <- bleed_aug_custom %>%
+    ppv(truth = bleed_after, estimate = .pred_class)
+bleed_npv <- bleed_aug_custom %>%
+    npv(truth = bleed_after, estimate = .pred_class)
+
+
+## Get kappa for a bleeding prediction attempt
+bleed_kappa <- bleed_aug %>%
+    kap(truth = bleed_after, estimate = .pred_class)
 
 ## Plot the calibration plot
 bleed_aug %>%
