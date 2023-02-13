@@ -4,6 +4,7 @@
 ##' 
 
 library(tidymodels)
+library(probably)
 
 ## Load the data and convert the bleeding outcome to a factor
 ## (levels no_bleed, bleed_occured). The result is a dataset with age and
@@ -13,7 +14,6 @@ dataset <- risk_tradeoff_minimal_dataset %>%
     mutate(bleed_after = factor(bleed_after == 0, labels = c("bleed_occured", "no_bleed"))) %>%
     mutate(ischaemia_after = factor(ischaemia_after == 0, labels = c("ischaemia_occured", "no_ischaemia")))
 summary(dataset)
-
 
 set.seed(47)
 
@@ -62,8 +62,12 @@ bleed_aug <- augment(bleed_fit, test)
 
 ## Plot the ROC curve
 bleed_aug %>% 
-  roc_curve(truth = bleed_after, .pred_bleed_occured) %>% 
-  autoplot()
+    roc_curve(truth = bleed_after, .pred_bleed_occured) %>% 
+    autoplot()
+
+## Plot the calibration plot
+bleed_aug %>%
+    cal_plot_breaks(bleed_after, .pred_bleed_occured, num_breaks = 10)
 
 ## ========= Ischaemia model ============
 
@@ -104,6 +108,11 @@ ischaemia_aug <- augment(ischaemia_fit, test)
 ischaemia_aug %>% 
     roc_curve(truth = ischaemia_after, .pred_ischaemia_occured) %>% 
     autoplot()
+
+## Plot the calibration plot
+ischaemia_aug %>%
+    cal_plot_breaks(ischaemia_after, .pred_ischaemia_occured, num_breaks = 10)
+
 
 ## ======== Combine predictions ============
 
