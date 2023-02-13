@@ -36,24 +36,23 @@ test <- testing(split) %>%
 ## ========= Model selection =============
 
 models <- list(
+    ## Logistic regression
     logistic_reg() %>% 
     set_engine('glm') %>% 
     set_mode('classification'),
-
+    ## Linear discriminant analysis
     discrim_linear(
         mode = "classification",
         penalty = NULL,
         regularization_method = NULL,
-        engine = "MASS"
-    )
-
+        engine = "MASS"),
+    ## Naive Bayes
     naive_Bayes(
         mode = "classification",
         smoothness = NULL,
         Laplace = NULL,
-        engine = "klaR"
-    )
-    
+        engine = "klaR"),
+    ## Boosted trees
     boost_tree(
         mode = "unknown",
         engine = "xgboost",
@@ -65,8 +64,8 @@ models <- list(
         loss_reduction = NULL,
         sample_size = NULL,
         stop_iter = NULL) %>%
-    set_mode("classification")
-    
+    set_mode("classification"),
+    ## Random forest
     rand_forest(
         mode = "unknown",
         engine = "ranger",
@@ -74,25 +73,90 @@ models <- list(
         trees = NULL,
         min_n = NULL) %>%
     set_mode("classification")
+)
 
-## ========= Bleeding model ============
+## ========= Recipes ============
 
-## Logistic regression requires preprocessing of the predictors
-## for sparse/unbalanced variables (p. 285, APM).
-bleed_rec <- recipe(bleed_after ~ ., data = train) %>%
-    update_role(date, new_role = "date") %>%
-    update_role(ischaemia_after, new_role = "ischaemic_after") %>%
-    step_integer(stemi_presentation) %>%
-    step_nzv(all_predictors()) %>%
-    step_center(all_predictors()) %>%
-    step_scale(all_predictors()) %>%
-    step_naomit(all_predictors(), all_outcomes())
-summary(bleed_rec)
+base_recipes = list(
+    ## Logistic regression requires preprocessing of the predictors
+    ## for sparse/unbalanced variables (p. 285, APM).
+    bleed = recipe(bleed_after ~ ., data = train) %>%
+        update_role(date, new_role = "date") %>%
+        update_role(ischaemia_after, new_role = "ischaemic_after") %>%
+        step_integer(stemi_presentation),
+    ## Logistic regression requires preprocessing of the predictors
+    ## for sparse/unbalanced variables (p. 285, APM).
+    ischaemia = recipe(ischaemia_after ~ ., data = train) %>%
+        update_role(date, new_role = "date") %>%
+        update_role(bleed_after, new_role = "bleed_after") %>%
+        step_integer(stemi_presentation))
+    
+## ======== Model specific recipes ============
 
-bleed_workflow <- 
-    workflow() %>% 
-    add_model(model) %>% 
-    add_recipe(bleed_rec)
+specific_recipes = list(
+    ## Logistic regression requires preprocessing of the predictors
+    ## for sparse/unbalanced variables (p. 285, APM).
+    base_recipes %>%
+    purrr::map(~ .x %>%
+                   step_integer(stemi_presentation) %>%
+                   step_nzv(all_predictors()) %>%
+                   step_center(all_predictors()) %>%
+                   step_scale(all_predictors())),
+    ## Linear discriminant analysis
+    base_recipes %>%
+    purrr::map(~ .x %>%
+                   step_integer(stemi_presentation) %>%
+                   step_nzv(all_predictors()) %>%
+                   step_center(all_predictors()) %>%
+                   step_scale(all_predictors()) %>%
+                   step_naomit()),
+    ## Naive Bayes
+    base_recipes %>%
+    purrr::map(~ .x %>%
+                   step_integer(stemi_presentation) %>%
+                   step_nzv(all_predictors()) %>%
+                   step_center(all_predictors()) %>%
+                   step_scale(all_predictors()) %>%
+                   step_naomit()),
+    ## Boosted trees
+    base_recipes %>%
+    purrr::map(~ .x %>%
+                   step_integer(stemi_presentation) %>%
+                   step_nzv(all_predictors()) %>%
+                   step_center(all_predictors()) %>%
+                   step_scale(all_predictors()) %>%
+                   step_naomit()),
+    ## Random forest
+    base_recipes %>%
+    purrr::map(~ .x %>%
+                   step_integer(stemi_presentation) %>%
+                   step_nzv(all_predictors()) %>%
+                   step_center(all_predictors()) %>%
+                   step_scale(all_predictors()) %>%
+                   step_naomit()))
+
+## ========= Workflows ==========
+
+## Each models (from the models list) has two recipes associated
+## with it -- one for bleeding and one for ischaemia prediction
+workflows <- list(models, specific_recipes) %>%
+    purrr::pmap(function(model, recipes) {
+        base_workflow <- workflow() %>%
+            add_model(model)                
+        list(
+            bleed = base_workflow %>%
+                add_recipe(recipes$bleed),
+            ischaemia = base_workflow %>%
+                add_recipe(recipes$ischaemia))
+})
+
+## ========= Fit the models =========
+
+fits <- workflows %>%
+    purrr::map(~ list(
+                   bleed = .x$bleed %>% fit(data = train),
+                   ischaemia = .x$ischaemia %>% fit(data = train)
+               ))
 
 ## Fit to training data
 bleed_fit <- bleed_workflow %>%
@@ -132,10 +196,11 @@ bleed_aug_custom <- bleed_aug %>%
 bleed_auc <- bleed_fit %>%
     roc_auc(truth = bleed_after, .pred_bleed_occured)
 
+## Confusion matrix with custom threshold
 bleed_aug_custom %>%
 conf_mat(truth = bleed_after, estimate = .pred_class)
 
-## Get summary stats for the fit
+## Get summary stats for the fit with custom threshold
 bleed_accuracy <- bleed_aug_custom %>%
     accuracy(truth = bleed_after, estimate = .pred_class)
 bleed_sensitivity <- bleed_aug_custom %>%
@@ -147,28 +212,15 @@ bleed_ppv <- bleed_aug_custom %>%
 bleed_npv <- bleed_aug_custom %>%
     npv(truth = bleed_after, estimate = .pred_class)
 
-
 ## Get kappa for a bleeding prediction attempt
-bleed_kappa <- bleed_aug %>%
+bleed_kappa <- bleed_aug_custom %>%
     kap(truth = bleed_after, estimate = .pred_class)
 
 ## Plot the calibration plot
-bleed_aug %>%
+bleed_aug_custom %>%
     cal_plot_breaks(bleed_after, .pred_bleed_occured, num_breaks = 10)
                     
 ## ========= Ischaemia model ============
-
-## Logistic regression requires preprocessing of the predictors
-## for sparse/unbalanced variables (p. 285, APM).
-ischaemia_rec <- recipe(ischaemia_after ~ ., data = train) %>%
-    update_role(date, new_role = "date") %>%
-    update_role(bleed_after, new_role = "bleed_after") %>%
-    step_integer(stemi_presentation) %>%
-    step_nzv(all_predictors()) %>%
-    step_center(all_predictors()) %>%
-    step_scale(all_predictors()) %>%
-    step_naomit(all_predictors(), all_outcomes())
-summary(ischaemia_rec)
 
 ischaemia_workflow <- 
     workflow() %>% 
