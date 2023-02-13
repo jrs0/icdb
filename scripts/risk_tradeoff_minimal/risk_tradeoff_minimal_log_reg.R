@@ -28,6 +28,45 @@ train <- training(split)
 test <- testing(split) %>%
     drop_na()
 
+## ========= Model selection =============
+
+model <- logistic_reg() %>% 
+    set_engine('glm') %>% 
+    set_mode('classification')
+## model <- discrim_linear(
+##   mode = "classification",
+##   penalty = NULL,
+##   regularization_method = NULL,
+##   engine = "MASS"
+## )
+## model <- naive_Bayes(
+##   mode = "classification",
+##   smoothness = NULL,
+##   Laplace = NULL,
+##   engine = "klaR"
+## )
+## model <- boost_tree(
+##   mode = "unknown",
+##   engine = "xgboost",
+##   mtry = NULL,
+##   trees = NULL,
+##   min_n = NULL,
+##   tree_depth = NULL,
+##   learn_rate = NULL,
+##   loss_reduction = NULL,
+##   sample_size = NULL,
+##   stop_iter = NULL
+## ) %>%
+##     set_mode("classification")
+## model <- rand_forest(
+##   mode = "unknown",
+##   engine = "ranger",
+##   mtry = NULL,
+##   trees = NULL,
+##   min_n = NULL
+## ) %>%
+##     set_mode("classification")
+
 ## ========= Bleeding model ============
 
 ## Logistic regression requires preprocessing of the predictors
@@ -43,46 +82,13 @@ bleed_rec <- recipe(bleed_after ~ ., data = train) %>%
 summary(bleed_rec)
 
 ## Specify a logistic regression model
-bleed_model <- logistic_reg() %>% 
-    set_engine('glm') %>% 
-    set_mode('classification')
-## bleed_model <- discrim_linear(
-##   mode = "classification",
-##   penalty = NULL,
-##   regularization_method = NULL,
-##   engine = "MASS"
-## )
-## bleed_model <- naive_Bayes(
-##   mode = "classification",
-##   smoothness = NULL,
-##   Laplace = NULL,
-##   engine = "klaR"
-## )
-## bleed_model <- boost_tree(
-##   mode = "unknown",
-##   engine = "xgboost",
-##   mtry = NULL,
-##   trees = NULL,
-##   min_n = NULL,
-##   tree_depth = NULL,
-##   learn_rate = NULL,
-##   loss_reduction = NULL,
-##   sample_size = NULL,
-##   stop_iter = NULL
-## ) %>%
-##     set_mode("classification")
-## bleed_model <- rand_forest(
-##   mode = "unknown",
-##   engine = "ranger",
-##   mtry = NULL,
-##   trees = NULL,
-##   min_n = NULL
-## ) %>%
-##     set_mode("classification")
+## bleed_model <- logistic_reg() %>% 
+##     set_engine('glm') %>% 
+##     set_mode('classification')
 
 bleed_workflow <- 
     workflow() %>% 
-    add_model(bleed_model) %>% 
+    add_model(model) %>% 
     add_recipe(bleed_rec)
 
 ## Fit to training data
@@ -126,47 +132,9 @@ ischaemia_rec <- recipe(ischaemia_after ~ ., data = train) %>%
     step_naomit(all_predictors(), all_outcomes())
 summary(ischaemia_rec)
 
-## Specify a logistic regression model
-ischaemia_model <- logistic_reg() %>% 
-    set_engine('glm') %>% 
-    set_mode('classification')
-## ischaemia_model <- discrim_linear(
-##   mode = "classification",
-##   penalty = NULL,
-##   regularization_method = NULL,
-##   engine = "MASS"
-## )
-## ischaemia_model <- naive_Bayes(
-##   mode = "classification",
-##   smoothness = NULL,
-##   Laplace = NULL,
-##   engine = "klaR"
-## )
-## ischaemia_model <- boost_tree(
-##   mode = "unknown",
-##   engine = "xgboost",
-##   mtry = NULL,
-##   trees = NULL,
-##   min_n = NULL,
-##   tree_depth = NULL,
-##   learn_rate = NULL,
-##   loss_reduction = NULL,
-##   sample_size = NULL,
-##   stop_iter = NULL
-## ) %>%
-##     set_mode("classification")
-## ischaemia_model <- rand_forest(
-##   mode = "unknown",
-##   engine = "ranger",
-##   mtry = NULL,
-##   trees = NULL,
-##   min_n = NULL
-## ) %>%
-##     set_mode("classification")
-
 ischaemia_workflow <- 
     workflow() %>% 
-    add_model(ischaemia_model) %>% 
+    add_model(model) %>% 
     add_recipe(ischaemia_rec)
 
 ## Fit to training data
