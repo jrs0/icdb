@@ -223,7 +223,7 @@ pred_custom <- pred %>%
 multi_metrics <- metric_set(accuracy, kap, sens, spec, ppv, npv, roc_auc)
 metrics <- pred_custom %>%
     group_by(outcome, model) %>%
-    multi_metrics(truth = truth, estimate = pred)
+    multi_metrics(truth = truth, pred_prob, estimate = pred)
 
 
 ## Get the AUC
