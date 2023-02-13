@@ -39,23 +39,23 @@ test <- testing(split) %>%
 
 models <- list(
     ## Logistic regression
-    lr = logistic_reg() %>% 
+    log_reg = logistic_reg() %>% 
     set_engine('glm') %>% 
     set_mode('classification'),
     ## Linear discriminant analysis
-    lda = discrim_linear(
+    lin_disc = discrim_linear(
         mode = "classification",
         penalty = NULL,
         regularization_method = NULL,
         engine = "MASS"),
     ## Naive Bayes
-    nb = naive_Bayes(
+    naive_bayes = naive_Bayes(
         mode = "classification",
         smoothness = NULL,
         Laplace = NULL,
         engine = "klaR"),
     ## Boosted trees
-    bt = boost_tree(
+    boost_tree = boost_tree(
         mode = "unknown",
         engine = "xgboost",
         mtry = NULL,
@@ -68,7 +68,7 @@ models <- list(
         stop_iter = NULL) %>%
     set_mode("classification"),
     ## Random forest
-    rf = rand_forest(
+    rand_forest = rand_forest(
         mode = "unknown",
         engine = "ranger",
         mtry = NULL,
@@ -192,7 +192,8 @@ roc <- pred %>%
 ggplot(roc, aes(x = 1 - specificity, y = sensitivity, color = model)) +
     geom_line() +
     geom_abline(slope = 1, intercept = 0, size = 0.4) +
-    coord_fixed()
+    coord_fixed() +
+    labs(title = "ROC curves for each fitted model")
 
 ## Make a choice for a threshold (TODO not figured out how to
 ## do it in tidymodels yet)
@@ -215,6 +216,30 @@ multi_metrics <- metric_set(accuracy, kap, sens, spec, ppv, npv, roc_auc)
 metrics <- pred_custom %>%
     group_by(outcome, model) %>%
     multi_metrics(truth = truth, pred_prob, estimate = pred)
+
+## Plot AUC for the models
+metrics %>%
+    filter(.metric == "roc_auc") %>%
+    ggplot(aes(x = reorder(model, -.estimate), y = .estimate, color = outcome)) +
+    labs(title = "Area under ROC curve for each bleeding/ischaemia model",
+         x = "Model", y = "AUC") +
+    geom_point()
+
+## Plot positive and negative predictive values
+metrics %>%
+    filter(stringr::str_detect(.metric, "ppv|npv")) %>%
+    ggplot(aes(x = reorder(model, -.estimate), y = .estimate, color = outcome, shape = .metric)) +
+    labs(title = "Positive and negative predictive values",
+         x = "Model", y = "P") +
+    geom_point()
+
+## Plot sensitivities and specifities
+metrics %>%
+    filter(stringr::str_detect(.metric, "spec|sens")) %>%
+    ggplot(aes(x = reorder(model, -.estimate), y = .estimate, color = outcome, shape = .metric)) +
+    labs(title = "Sensitivies and specifities",
+         x = "Model", y = "P") +
+    geom_point()
 
 
 ## Plot the calibration plot
