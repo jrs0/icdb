@@ -1,8 +1,3 @@
-##' Perform a logistic regression to attempt to predict bleeding outcome from the
-##' risk_tradeoff_minimal_dataset
-##'
-##' 
-
 library(tidymodels)
 library(probably)
 library(discrim)
