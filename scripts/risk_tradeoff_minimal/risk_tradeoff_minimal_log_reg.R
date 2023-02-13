@@ -191,17 +191,12 @@ pred <- list(fits, names(models)) %>%
 
 ## Plot the ROC curves
                                         # plot ROC curves
-pred %>%
-    group_by(model) %>% # group to get individual ROC curve for each model
-    roc_curve(event_level = 'second', truth = truth, pred_prob) %>% # get values to plot an ROC curve
-    ggplot(
-        aes(
-            x = 1 - specificity, 
-            y = sensitivity, 
-            color = model
-        )
-    ) + # plot with 2 ROC curves for each model
-    geom_line(size = 1.1) +
+roc <- pred %>%
+    group_by(model) %>%
+    roc_curve(event_level = 'second', truth = truth, pred_prob)
+
+ggplot(roc, aes(x = 1 - specificity, y = sensitivity, color = model)) +
+    geom_line() +
     geom_abline(slope = 1, intercept = 0, size = 0.4) +
     coord_fixed()
 
@@ -209,27 +204,27 @@ pred %>%
 ## do it in tidymodels yet)
 bleed_threshold <- 0.03
 ischaemia_threshold <- 0.05
+
 ##bleed_roc %>%
 ##coords(x = "best", best.method = "closest.topleft")
 
 ## Repredict the classes based on the custom threshold
+truth_levels <- levels(pred$truth)
 pred_custom <- pred %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>%
-                       mutate(.pred_class = make_two_class_pred(
-                                  .pred_bleed_occured, 
-                                  levels(.x$bleed$bleed_after),
-                                  threshold = bleed_threshold),
-                              .pred_class = factor(.pred_class,
-                                                   levels = levels(.x$bleed$bleed_after))),
-                   ischaemia = .x$ischaemia %>%
-                       mutate(.pred_class = make_two_class_pred(
-                                  .pred_ischaemia_occured, 
-                                  levels(.x$ischaemia$ischaemia_after),
-                                  threshold = ischaemia_threshold),
-                              .pred_class = factor(.pred_class,
-                                                   levels = levels(.x$ischaemia$ischaemia_after)))
-               ))
+    mutate(pred = case_when(outcome == "bleed" ~ make_two_class_pred(
+                                           pred_prob, truth_levels,
+                                           threshold = bleed_threshold),
+                            outcome == "ischaemia" ~ make_two_class_pred(
+                                           pred_prob, truth_levels,
+                                           threshold = ischaemia_threshold)))
+
+## Using the custom prediction (based on the choice of
+## threshold), compute model performance
+multi_metrics <- metric_set(accuracy, kap, sens, spec, ppv, npv, roc_auc)
+metrics <- pred_custom %>%
+    group_by(outcome, model) %>%
+    multi_metrics(truth = truth, estimate = pred)
+
 
 ## Get the AUC
 auc <- pred %>%
@@ -238,55 +233,8 @@ auc <- pred %>%
                        roc_auc(truth =  bleed_after, .pred_bleed_occured),
                    ischaemia = .x$ischaemia %>%
                        roc_auc(truth = ischaemia_after, .pred_ischaemia_occured)
-               ))
-
-## Confusion matrix with custom threshold
-## bleed_aug_custom %>%
-## conf_mat(truth = bleed_after, estimate = .pred_class)
 
 
-accuracy <- pred %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>%
-                       accuracy(truth =  bleed_after, .pred_class),
-                   ischaemia = .x$ischaemia %>%
-                       accuracy(truth = ischaemia_after, .pred_class)
-               ))
-sensitivity <- pred %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>%
-                       sens(truth =  bleed_after, .pred_class),
-                   ischaemia = .x$ischaemia %>%
-                       sens(truth = ischaemia_after, .pred_class)
-               ))
-specificity <- pred %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>%
-                       spec(truth =  bleed_after, .pred_class),
-                   ischaemia = .x$ischaemia %>%
-                       spec(truth = ischaemia_after, .pred_class)
-               ))
-ppv <- pred %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>%
-                       ppv(truth =  bleed_after, .pred_class),
-                   ischaemia = .x$ischaemia %>%
-                       ppv(truth = ischaemia_after, .pred_class)
-               ))
-npv <- pred %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>%
-                       npv(truth =  bleed_after, .pred_class),
-                   ischaemia = .x$ischaemia %>%
-                       npv(truth = ischaemia_after, .pred_class)
-               ))
-kappa <- pred %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>%
-                       kappa(truth =  bleed_after, .pred_class),
-                   ischaemia = .x$ischaemia %>%
-                       kappa(truth = ischaemia_after, .pred_class)
-               ))
 
 ## Plot the calibration plot
 ## bleed_aug_custom %>%
