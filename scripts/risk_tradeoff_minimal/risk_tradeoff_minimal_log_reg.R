@@ -5,10 +5,12 @@
 
 library(tidymodels)
 library(probably)
+library(discrim)
 
 ## Load the data and convert the bleeding outcome to a factor
 ## (levels no_bleed, bleed_occured). The result is a dataset with age and
 ## all the ICD <code>_before columns, and a response variable bleed.
+
 risk_tradeoff_minimal_dataset <- readRDS("gendata/risk_tradeoff_minimal_dataset.rds")
 dataset <- risk_tradeoff_minimal_dataset %>%
     mutate(bleed_after = factor(bleed_after == 0, labels = c("bleed_occured", "no_bleed"))) %>%
@@ -39,9 +41,15 @@ bleed_rec <- recipe(bleed_after ~ ., data = train) %>%
 summary(bleed_rec)
 
 ## Specify a logistic regression model
-bleed_model <- logistic_reg() %>% 
-    set_engine('glm') %>% 
-    set_mode('classification')
+## bleed_model <- logistic_reg() %>% 
+##     set_engine('glm') %>% 
+##     set_mode('classification')
+bleed_model <- discrim_linear(
+  mode = "classification",
+  penalty = NULL,
+  regularization_method = NULL,
+  engine = "MASS"
+)
 
 bleed_workflow <- 
     workflow() %>% 
@@ -54,8 +62,10 @@ bleed_fit <- bleed_workflow %>%
 
 ## View the fit
 bleed_fit %>%
-    extract_fit_parsnip() %>% 
-    tidy()
+    extract_fit_parsnip() %>%
+    ## For some reason tidy() does not work always
+    ##tidy()
+    identity()
 
 ## Predict using the test set
 bleed_aug <- augment(bleed_fit, test)
@@ -68,7 +78,7 @@ bleed_aug %>%
 ## Plot the calibration plot
 bleed_aug %>%
     cal_plot_breaks(bleed_after, .pred_bleed_occured, num_breaks = 10)
-
+                    
 ## ========= Ischaemia model ============
 
 ## Logistic regression requires preprocessing of the predictors
@@ -83,9 +93,15 @@ ischaemia_rec <- recipe(ischaemia_after ~ ., data = train) %>%
 summary(ischaemia_rec)
 
 ## Specify a logistic regression model
-ischaemia_model <- logistic_reg() %>% 
-    set_engine('glm') %>% 
-    set_mode('classification')
+## ischaemia_model <- logistic_reg() %>% 
+##     set_engine('glm') %>% 
+##     set_mode('classification')
+ischaemia_model <- discrim_linear(
+  mode = "classification",
+  penalty = NULL,
+  regularization_method = NULL,
+  engine = "MASS"
+)
 
 ischaemia_workflow <- 
     workflow() %>% 
@@ -99,8 +115,9 @@ ischaemia_fit <- ischaemia_workflow %>%
 ## View the fit
 ischaemia_fit %>%
     extract_fit_parsnip() %>% 
-    tidy()
-
+    ##tidy() %>%
+    identity()
+    
 ## Predict using the test set
 ischaemia_aug <- augment(ischaemia_fit, test)
 
