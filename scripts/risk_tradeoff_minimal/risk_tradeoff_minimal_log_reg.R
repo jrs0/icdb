@@ -31,7 +31,9 @@ set.seed(47)
 split <- initial_split(dataset, prop = 0.75, strata = bleed_after)
 train <- training(split)
 test <- testing(split) %>%
-    drop_na()
+    drop_na() %>%
+    ## The id is necessary later to pair up bleeding/ischaemic predictions
+    mutate(id = row_number())
 
 ## ========= Model selection =============
 
@@ -220,16 +222,14 @@ metrics <- pred_custom %>%
 ##     cal_plot_breaks(bleed_after, .pred_bleed_occured, num_breaks = 10)
                     
 ## Plot the calibration plot
-ischaemia_aug %>%
-    cal_plot_breaks(ischaemia_after, .pred_ischaemia_occured, num_breaks = 10)
-
-## ======== Combine predictions ============
-
-combined <- test %>%
-    mutate(.pred_bleed_occured = bleed_aug$.pred_bleed_occured) %>%
-    mutate(.pred_ischaemia_occured = ischaemia_aug$.pred_ischaemia_occured)
+## ischaemia_aug %>%
+##     cal_plot_breaks(ischaemia_after, .pred_ischaemia_occured, num_breaks = 10)
 
 ## ======= Plot risk trade-off ===========
 
-ggplot(combined, aes(x = .pred_bleed_occured, y = .pred_ischaemia_occured)) +
+
+pred %>%
+    select(id, outcome, model, pred_prob) %>%
+    pivot_wider(names_from = outcome, values_from = pred_prob) %>%
+    ggplot(aes(x = bleed, y = ischaemia, color = model)) +
     geom_point()
