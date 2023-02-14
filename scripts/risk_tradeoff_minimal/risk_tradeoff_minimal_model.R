@@ -1,3 +1,6 @@
+##' Modelling the bleeding/ischaemic risk tradeoff using multiple classification
+##' models, based on the minimal HES/ICD dataset
+
 library(tidymodels)
 library(probably)
 library(discrim)
@@ -29,6 +32,9 @@ test <- testing(split) %>%
     drop_na() %>%
     ## The id is necessary later to pair up bleeding/ischaemic predictions
     mutate(id = row_number())
+
+## Create cross-validation folds
+folds <- vfold_cv(train, v = 10)
 
 ## ========= Model selection =============
 
@@ -151,8 +157,8 @@ workflows <- list(models, specific_recipes) %>%
 
 fits <- workflows %>%
     purrr::map(~ list(
-                   bleed = .x$bleed %>% fit(data = train),
-                   ischaemia = .x$ischaemia %>% fit(data = train)
+                   bleed = .x$bleed %>% fit_resamples(folds),
+                   ischaemia = .x$ischaemia %>% fit_resamples(folds)
                ))
 
 ## ## View the fit
