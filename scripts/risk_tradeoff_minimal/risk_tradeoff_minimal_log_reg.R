@@ -90,38 +90,61 @@ tuning_results <- list(
     ischaemia = workflows$ischaemia %>%
         tune_grid(resamples = folds, grid = grid))
 
+## Combine metrics for plotting purposes
+combined_metrics <- bind_rows(
+    tuning_results$bleed %>% collect_metrics() %>% mutate(outcome = "bleed"),
+    tuning_results$ischaemia %>% collect_metrics() %>% mutate(outcome = "ischaemia"))
+
 ## Plot the tuning results for each model
-tree_res %>%
-    collect_metrics() %>%
-    mutate(tree_depth = factor(tree_depth)) %>%
-    ggplot(aes(cost_complexity, mean, color = tree_depth)) +
+combined_metrics %>%
+    mutate(mixture = factor(mixture)) %>%
+    ggplot(aes(penalty, mean, color = mixture)) +
     geom_line(linewidth = 1.5, alpha = 0.6) +
     geom_point(size = 2) +
-    facet_wrap(~ .metric, scales = "free", nrow = 2) +
+    facet_wrap(~ .metric + outcome, scales = "free", nrow = 2) +
     scale_x_log10(labels = scales::label_number()) +
-    scale_color_viridis_d(option = "plasma", begin = .9, end = 0)
+    scale_color_viridis_d(option = "plasma", begin = .9, end = 0) +
+    labs(title="Tuning results for bleeding and ischaemia models")
 
 
 ## Select the best model by ROC curve
+bleed_best <- tuning_results$bleed %>%
+    select_best("roc_auc")
+bleed_fit <- workflows$bleed %>%
+    finalize_workflow(bleed_best) %>%
+    last_fit(split)
+ischaemia_best <- tuning_results$ischaemia %>%
+    select_best("roc_auc")
+ischaemia_fit <- workflows$ischaemia %>%
+    finalize_workflow(ischaemia_best) %>%
+    last_fit(split)
+ 
+## Combined the two models for plotting the ROC curves
+combined_roc <- bind_rows(
+    bleed_fit %>%
+    collect_predictions() %>%
+    mutate(outcome = "bleed", pred_prob = .pred_bleed_occured) %>%
+    mutate(truth = recode_factor(bleed_after, "bleed_occured" = "occured", "no_bleed" = "none")),
+    ischaemia_fit %>%
+    collect_predictions() %>%
+    mutate(outcome = "ischaemia", pred_prob = .pred_ischaemia_occured) %>%
+    mutate(truth = recode_factor(ischaemia_after, "ischaemia_occured" = "occured", "no_ischaemia" = "none"))) %>%
+    group_by(outcome) %>%
+    roc_curve(truth, pred_prob)
 
-fits <- list(workflows, tuning_results) %>%
-    purrr::pmap(function(workflow, tune_result)
-    {
-        bleed_best <- tune_result$bleed %>%
-            select_best("roc_auc")
-        bleed_fit <- workflow$bleed %>%
-            finalize_workflow(bleed_best) %>%
-            last_fit(split)
-        ischaemia_best <- tune_result$ischaemia %>%
-            select_best("roc_auc")
-        ischaemia_fit <- workflow$ischaemia %>%
-            finalize_workflow(ischaemia_best) %>%
-            last_fit(split)
-        list(
-            bleed = bleed_fit,
-            ischaemia = ischaemia_fit
-        )
-    })
+## Plot the ROC curves
+ggplot(combined_roc, aes(x = 1 - specificity, y = sensitivity, color = outcome)) +
+    geom_line() +
+    geom_abline(slope = 1, intercept = 0, size = 0.4) +
+    coord_fixed() +
+    labs(title = "ROC curves for each fitted model")
+
+## Next step -- get the predictions =====
+
+
+
+
+
 
 ## Predict using the test set
 pred <- list(fits, names(models)) %>%
@@ -139,17 +162,9 @@ pred <- list(fits, names(models)) %>%
     }) %>%
     purrr::list_rbind()
 
-## Calculate ROC curves
-roc <- pred %>%
-    group_by(model) %>%
-    roc_curve(truth = truth, pred_prob)
 
-## Plot the ROC curves
-ggplot(roc, aes(x = 1 - specificity, y = sensitivity, color = model)) +
-    geom_line() +
-    geom_abline(slope = 1, intercept = 0, size = 0.4) +
-    coord_fixed() +
-    labs(title = "ROC curves for each fitted model")
+
+
 
 ## Make a choice for a threshold (TODO not figured out how to
 ## do it in tidymodels yet)
