@@ -6,12 +6,6 @@ output:
   pdf_document: default
 ---
 
-# Overview
-
-This document contains a comparison of several classification models for predicting the risk of bleeding vs. ischaemia following an acute coronary syndrome (ACS). 
-
-## Data set and predictors
-
 ```{r echo=FALSE, results="hide"}
 library(tidymodels)
 library(probably)
@@ -34,19 +28,6 @@ summary(dataset)
 set.seed(47)
 ```
 
-The data set was obtained from the primary diagnosis ICD column of HES data, defining groups of ICD codes that correspond to clinically-relevant risk factors for bleeding and ischaemic events following ACS. The columns in the underlying dataset are as follows:
-
-```{r echo=FALSE}
-dataset %>% colnames()
-```
-
-The predictors are all columns of the form `*_before`, which are counts of the number of instances of an ICD code in this group in the 12 months prior to the ACS event. In addition, `stemi_presentation` records whether the patient presented with ST-segment elevation in the index ICD code. In addition, `age` (at the time of index ACS) is used as a predictor.
-
-The outcome variables are `bleed_after` and `ischaemia_after`, which are boolean variables indicating whether a bleeding event (defined by a set of bleeding-related ICD codes) or an ischaemic event (a further ACS or ischaemic stroke) occured in the 12 months following the original ACS. The object of the models is to estimate the probability that these columns are true, given the previous patient ICD code history.
-
-## Training and test split
-
-
 ```{r echo=FALSE, results="hide"}
 
 ## Get a test training split stratified by bleeding (the
@@ -58,18 +39,6 @@ test <- testing(split) %>%
     ## The id is necessary later to pair up bleeding/ischaemic predictions
     mutate(id = row_number())
 ```
-
-In total, there are `r nrow(dataset)` rows (index ACS events) in the data, from `r min(dataset$date)` to `r max(dataset$date)`. The breakdown of subsequent bleeding and ischaemia events in the data set is as follows:
-
-```{r echo=FALSE}
-dataset %>%
-    select(bleed_after, ischaemia_after) %>%
-    summary()
-```
-
-The dataset is split into a training set, of size `r nrow(train)` and a test set, of size `r nrow(test)`, stratified by bleeding (the least common of the two outcome variables).
-
-## Predictor preprocessing
 
 ```{r echo=FALSE, results="hide"}
 ## ========= Model selection =============
@@ -114,8 +83,6 @@ models <- list(
     set_mode("classification")
 )
 ```
-
-All classification models were trained on centred and scaled versions of the predictors, after rejecting near-zero-variance predictors. No preprocessing is applied to mitigate the class imbalance in both outcome variables.
 
 ```{r echo=FALSE, results="hide"}
 ## ========= Recipes ============
@@ -224,24 +191,9 @@ roc <- pred %>%
 
 ```
 
-After applying the preprocessing steps to the data, nearly all the columns are removed. For example, for the first model, the following variables were excluded:
-
 ```{r echo=FALSE}
-fits %>%
-    pluck(1, "bleed") %>%
-    extract_recipe() %>%
-    pluck("steps", 3, "removals")
-```
-
-All models use the following remaining predictors (`age`, `stemi_presentation`, and `acs_stemi_before`).
-
-## Classification Model Performance
-
-The ROC curves for the classification models trained on the bleeding and ischaemia outcomes are shown below.
-
-```{r echo=FALSE}
-## Plot the ROC curves
-ggplot(roc, aes(x = 1 - specificity, y = sensitivity, color = model)) +
+## Plots of the ROC curves
+roc_plots <- ggplot(roc, aes(x = 1 - specificity, y = sensitivity, color = model)) +
     geom_line() +
     geom_abline(slope = 1, intercept = 0, size = 0.4) +
     coord_fixed() +
@@ -270,10 +222,9 @@ metrics <- pred_custom %>%
     multi_metrics(truth = truth, pred_prob, estimate = pred)
 ```
 
-
 ```{r echo=FALSE}
 ## Plot AUC for the models
-metrics %>%
+auc_plots <- metrics %>%
     filter(.metric == "roc_auc") %>%
     ggplot(aes(x = reorder(model, -.estimate), y = .estimate, color = outcome)) +
     labs(title = "Area under ROC curve for each bleeding/ischaemia model",
@@ -281,7 +232,7 @@ metrics %>%
     geom_point()
 
 ## Plot positive and negative predictive values
-metrics %>%
+pv_plots <- metrics %>%
     filter(stringr::str_detect(.metric, "ppv|npv")) %>%
     ggplot(aes(x = reorder(model, -.estimate), y = .estimate, color = outcome, shape = .metric)) +
     labs(title = "Positive and negative predictive values",
@@ -289,7 +240,7 @@ metrics %>%
     geom_point()
 
 ## Plot sensitivities and specifities
-metrics %>%
+sens_spec_plots <- metrics %>%
     filter(stringr::str_detect(.metric, "spec|sens")) %>%
     ggplot(aes(x = reorder(model, -.estimate), y = .estimate, color = outcome, shape = .metric)) +
     labs(title = "Sensitivies and specifities",
@@ -297,9 +248,9 @@ metrics %>%
     geom_point()
 
 ## Plot the calibration plot
-pred %>%
-    filter(outcome == "bleed", model == "log_reg") %>%
-    cal_plot_breaks(truth, pred_prob, num_breaks = 10)
+## cal_plots <- pred %>%
+##     filter(outcome == "bleed", model == "log_reg") %>%
+##     cal_plot_breaks(truth, pred_prob, num_breaks = 10)
 
 ## Plot the calibration plot
 ## ischaemia_aug %>%
@@ -308,10 +259,64 @@ pred %>%
 ## ======= Plot risk trade-off ===========
 
 
-pred %>%
+risk_tradeoff_plots <- pred %>%
     select(id, outcome, model, pred_prob) %>%
     pivot_wider(names_from = outcome, values_from = pred_prob) %>%
     ggplot(aes(x = bleed, y = ischaemia, facet = model)) +
     labs(title = "Bleeding/ischaemia risk trade-off") + 
     geom_point()
+```
+
+# Overview
+
+This document contains a comparison of several classification models for predicting the risk of bleeding vs. ischaemia following an acute coronary syndrome (ACS). 
+
+## Data set and predictors
+
+
+The data set was obtained from the primary diagnosis ICD column of HES data, defining groups of ICD codes that correspond to clinically-relevant risk factors for bleeding and ischaemic events following ACS. The columns in the underlying dataset are as follows:
+
+```{r echo=FALSE}
+dataset %>% colnames()
+```
+
+The predictors are all columns of the form `*_before`, which are counts of the number of instances of an ICD code in this group in the 12 months prior to the ACS event. In addition, `stemi_presentation` records whether the patient presented with ST-segment elevation in the index ICD code. In addition, `age` (at the time of index ACS) is used as a predictor.
+
+The outcome variables are `bleed_after` and `ischaemia_after`, which are boolean variables indicating whether a bleeding event (defined by a set of bleeding-related ICD codes) or an ischaemic event (a further ACS or ischaemic stroke) occured in the 12 months following the original ACS. The object of the models is to estimate the probability that these columns are true, given the previous patient ICD code history.
+
+## Training and test split
+
+
+In total, there are `r nrow(dataset)` rows (index ACS events) in the data, from `r min(dataset$date)` to `r max(dataset$date)`. The breakdown of subsequent bleeding and ischaemia events in the data set is as follows:
+
+```{r echo=FALSE}
+dataset %>%
+    select(bleed_after, ischaemia_after) %>%
+    summary()
+```
+
+The dataset is split into a training set, of size `r nrow(train)` and a test set, of size `r nrow(test)`, stratified by bleeding (the least common of the two outcome variables).
+
+## Predictor preprocessing
+
+All classification models were trained on centred and scaled versions of the predictors, after rejecting near-zero-variance predictors. No preprocessing is applied to mitigate the class imbalance in both outcome variables.
+
+After applying the preprocessing steps to the data, nearly all the columns are removed. For example, for the first model, the following variables were excluded:
+
+```{r echo=FALSE}
+fits %>%
+    pluck(1, "bleed") %>%
+    extract_recipe() %>%
+    pluck("steps", 3, "removals")
+```
+
+All models use only the following remaining predictors (`age`, `stemi_presentation`, and `acs_stemi_before`).
+
+## Summary of Model Performance
+
+The ROC curves for the classification models trained on the bleeding and ischaemia outcomes are shown below.
+
+
+```{r echo=FALSE}
+roc_plots
 ```
