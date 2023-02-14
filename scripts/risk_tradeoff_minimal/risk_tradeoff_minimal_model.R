@@ -36,6 +36,21 @@ test <- testing(split) %>%
 ## Create cross-validation folds
 folds <- vfold_cv(train, v = 10)
 
+tuning_plots <- list(
+    ## For decision tree
+    function(tuning_results)
+    {
+        tuning_results %>%
+            collect_metrics() %>%
+            mutate(tree_depth = factor(tree_depth)) %>%
+            ggplot(aes(cost_complexity, mean, color = tree_depth)) +
+            geom_line(linewidth = 1.5, alpha = 0.6) +
+            geom_point(size = 2) +
+            facet_wrap(~ .metric, scales = "free", nrow = 2) +
+            scale_x_log10(labels = scales::label_number())
+    }
+)
+
 ## ========= Model selection =============
 
 models <- list(
@@ -126,44 +141,53 @@ base_recipes = list(
 specific_recipes = list(
     ## Logistic regression requires preprocessing of the predictors
     ## for sparse/unbalanced variables (p. 285, APM).
-    base_recipes %>%
-    purrr::map(~ .x %>%
-                   step_integer(stemi_presentation) %>%
-                   step_nzv(all_predictors()) %>%
-                   step_center(all_predictors()) %>%
-                   step_scale(all_predictors())),
+    ## base_recipes %>%
+    ## purrr::map(~ .x %>%
+    ##                step_integer(stemi_presentation) %>%
+    ##                step_nzv(all_predictors()) %>%
+    ##                step_center(all_predictors()) %>%
+    ##                step_scale(all_predictors())),
     ## Linear discriminant analysis
-    base_recipes %>%
-    purrr::map(~ .x %>%
-                   step_integer(stemi_presentation) %>%
-                   step_nzv(all_predictors()) %>%
-                   step_center(all_predictors()) %>%
-                   step_scale(all_predictors()) %>%
-                   step_naomit(all_predictors(), all_outcomes())),
+    ## base_recipes %>%
+    ## purrr::map(~ .x %>%
+    ##                step_integer(stemi_presentation) %>%
+    ##                step_nzv(all_predictors()) %>%
+    ##                step_center(all_predictors()) %>%
+    ##                step_scale(all_predictors()) %>%
+    ##                step_naomit(all_predictors(), all_outcomes())),
     ## Naive Bayes
+    ## base_recipes %>%
+    ## purrr::map(~ .x %>%
+    ##                step_integer(stemi_presentation) %>%
+    ##                step_nzv(all_predictors()) %>%
+    ##                step_center(all_predictors()) %>%
+    ##                step_scale(all_predictors()) %>%
+    ##                step_naomit(all_predictors(), all_outcomes())),
+    ## Decision tree
     base_recipes %>%
     purrr::map(~ .x %>%
                    step_integer(stemi_presentation) %>%
                    step_nzv(all_predictors()) %>%
                    step_center(all_predictors()) %>%
                    step_scale(all_predictors()) %>%
-                   step_naomit(all_predictors(), all_outcomes())),
+                   step_naomit(all_predictors(), all_outcomes()))
     ## Boosted trees
-    base_recipes %>%
-    purrr::map(~ .x %>%
-                   step_integer(stemi_presentation) %>%
-                   step_nzv(all_predictors()) %>%
-                   step_center(all_predictors()) %>%
-                   step_scale(all_predictors()) %>%
-                   step_naomit(all_predictors(), all_outcomes())),
+    ## base_recipes %>%
+    ## purrr::map(~ .x %>%
+    ##                step_integer(stemi_presentation) %>%
+    ##                step_nzv(all_predictors()) %>%
+    ##                step_center(all_predictors()) %>%
+    ##                step_scale(all_predictors()) %>%
+    ##                step_naomit(all_predictors(), all_outcomes())),
     ## Random forest
-    base_recipes %>%
-    purrr::map(~ .x %>%
-                   step_integer(stemi_presentation) %>%
-                   step_nzv(all_predictors()) %>%
-                   step_center(all_predictors()) %>%
-                   step_scale(all_predictors()) %>%
-                   step_naomit(all_predictors(), all_outcomes())))
+    ## base_recipes %>%
+    ## purrr::map(~ .x %>%
+    ##                step_integer(stemi_presentation) %>%
+    ##                step_nzv(all_predictors()) %>%
+    ##                step_center(all_predictors()) %>%
+    ##                step_scale(all_predictors()) %>%
+    ##                step_naomit(all_predictors(), all_outcomes())))
+)
 
 ## ========= Workflows ==========
 
@@ -182,18 +206,43 @@ workflows <- list(models, specific_recipes) %>%
 
 ## ========= Fit the models =========
 
-fits <- workflows %>%
-    purrr::map(~ list(
-                   bleed = .x$bleed %>% fit_resamples(folds),
-                   ischaemia = .x$ischaemia %>% fit_resamples(folds)
-               ))
+tuning_results <- list(workflows, tune_grids) %>%
+    purrr::pmap(function(workflow, grid)
+    {
+        list(
+            bleed = workflow$bleed %>% tune_grid(resamples = folds, grid = grid),
+            ischaemia = workflow$ischaemia %>% tune_grid(resamples = folds, grid = grid)
+        )
+    })
 
-## ## View the fit
-## bleed_fit %>%
-##     extract_fit_parsnip() %>%
-##     ## For some reason tidy() does not work always
-##     ##tidy()
-##     identity()
+## Plot the tuning results for each model
+list(tuning_results, tuning_plots) %>%
+    purrr::pmap(function(tune_result, tune_plot)
+    {
+        tune_plot(tune_result$bleed) + labs(title = "Tuning results for bleeding model")
+        tune_plot(tune_result$bleed) + labs(title = "Tuning results for ischaemia model")
+    })
+
+## Select the best model by ROC curve
+
+fits <- list(workflows, tuning_results) %>%
+    purrr::pmap(function(workflow, tune_result)
+    {
+        bleed_best <- tune_result$bleed %>%
+            select_best("roc_auc")
+        bleed_fit <- workflow$bleed %>%
+            finalize_workflow(bleed_best) %>%
+            last_fit(split)
+        ischaemia_best <- tune_result$ischaemia %>%
+            select_best("roc_auc")
+        ischaemia_fit <- workflow$ischaemia %>%
+            finalize_workflow(ischaemia_best) %>%
+            last_fit(split)
+        list(
+            bleed = bleed_fit,
+            ischaemia = ischaemia_fit
+        )
+    })
 
 ## Predict using the test set
 pred <- list(fits, names(models)) %>%
