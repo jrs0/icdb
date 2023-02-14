@@ -40,42 +40,69 @@ folds <- vfold_cv(train, v = 10)
 
 models <- list(
     ## Logistic regression
-    log_reg = logistic_reg() %>% 
-    set_engine('glm') %>% 
-    set_mode('classification'),
+    ## log_reg = logistic_reg() %>% 
+    ## set_engine('glm') %>% 
+    ## set_mode('classification'),
     ## Linear discriminant analysis
-    lin_disc = discrim_linear(
-        mode = "classification",
-        penalty = NULL,
-        regularization_method = NULL,
-        engine = "MASS"),
+    ## lin_disc = discrim_linear(
+    ##     mode = "classification",
+    ##     penalty = NULL,
+    ##     regularization_method = NULL,
+    ##     engine = "MASS"),
     ## Naive Bayes
-    naive_bayes = naive_Bayes(
-        mode = "classification",
-        smoothness = NULL,
-        Laplace = NULL,
-        engine = "klaR"),
+    ## naive_bayes = naive_Bayes(
+    ##     mode = "classification",
+    ##     smoothness = NULL,
+    ##     Laplace = NULL,
+    ##     engine = "klaR"),
+    ## Decision tree
+    decision_tree <- 
+        decision_tree(
+            cost_complexity = tune(),
+            tree_depth = tune()
+        ) %>% 
+        set_engine("rpart") %>% 
+        set_mode("classification")
     ## Boosted trees
-    boost_tree = boost_tree(
-        mode = "unknown",
-        engine = "xgboost",
-        mtry = NULL,
-        trees = NULL,
-        min_n = NULL,
-        tree_depth = NULL,
-        learn_rate = NULL,
-        loss_reduction = NULL,
-        sample_size = NULL,
-        stop_iter = NULL) %>%
-    set_mode("classification"),
+    ## boost_tree = boost_tree(
+    ##     mode = "unknown",
+    ##     engine = "xgboost",
+    ##     mtry = NULL,
+    ##     trees = NULL,
+    ##     min_n = NULL,
+    ##     tree_depth = NULL,
+    ##     learn_rate = NULL,
+    ##     loss_reduction = NULL,
+    ##     sample_size = NULL,
+    ##     stop_iter = NULL) %>%
+    ## set_mode("classification"),
     ## Random forest
-    rand_forest = rand_forest(
-        mode = "unknown",
-        engine = "ranger",
-        mtry = NULL,
-        trees = NULL,
-        min_n = NULL) %>%
-    set_mode("classification")
+    ## rand_forest = rand_forest(
+    ##     mode = "unknown",
+    ##     engine = "ranger",
+    ##     mtry = NULL,
+    ##     trees = NULL,
+    ##     min_n = NULL) %>%
+    ## set_mode("classification")
+)
+
+## ======== Tuning grids ========
+
+tune_grids <- list(
+    ## Logistic regression
+    ##grid_regular(),
+    ## Linear discriminant analysis
+    ##grid_regular(),
+    ## Naive Bayes
+    ##grid_regular(),
+    ## Decision tree
+    grid_regular(cost_complexity(),
+                 tree_depth(),
+                 levels = 5)
+    ## Boosted trees
+    ##grid_regular(),
+    ## Random forest
+    ##grid_regular()
 )
 
 ## ========= Recipes ============
