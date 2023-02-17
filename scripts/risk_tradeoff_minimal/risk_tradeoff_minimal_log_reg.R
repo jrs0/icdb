@@ -1,131 +1,231 @@
-##' Perform a logistic regression to attempt to predict bleeding outcome from the
-##' minimal HBR dataset
-##'
-##' 
+##' The object of this script is to obtain confidence intervals
+##' around the predicted probabilities
 
-library(caret)
-library(corrplot)
+library(tidymodels)
+library(probably)
+library(discrim)
+library(probably)
+
+## For attempt to find optimal threshold
 library(pROC)
-library(tidyverse)
 
-source("utils.R")
+        
+## Load the data and convert the bleeding outcome to a factor
+## (levels no_bleed, bleed_occured). The result is a dataset with age and
+## all the ICD <code>_before columns, and a response variable bleed.
 
-hbr_minimal_dataset_test <- readRDS("gendata/hbr_minimal_dataset_test.rds")
-hbr_minimal_dataset_train <- readRDS("gendata/hbr_minimal_dataset_train.rds")
-
-## Get the predictors and response variable for the test and
-## training set (all column except date; response is the last
-## column
-data_test <- hbr_minimal_dataset_test %>%
-    select(-date)
-data_train <- hbr_minimal_dataset_train %>%
-    select(-date)
-
-## Logistic regression requires preprocessing of the predictors
-## for sparse/unbalanced variables (p. 285, APM).
-
-## Remove zero-variance predictors from the test and train sets
-predictors_train <- hbr_minimal_dataset_train %>%
-    select(-bleed)
-near_zero_var_indices <- nearZeroVar(predictors_train)
-data_test <- data_test %>%
-    select(-near_zero_var_indices)
-data_train <- data_train %>%
-    select(-near_zero_var_indices)
-
-## Drop rows with missing values in the training and test sets
-data_train <- data_train %>%
+risk_tradeoff_minimal_dataset <- readRDS("gendata/risk_tradeoff_minimal_dataset.rds")
+dataset <- risk_tradeoff_minimal_dataset %>%
+    mutate(bleed_after = factor(bleed_after == 0, labels = c("bleed_occured", "no_bleed"))) %>%
+    mutate(ischaemia_after = factor(ischaemia_after == 0, labels = c("ischaemia_occured", "no_ischaemia"))) %>%
     drop_na()
-message("Kept ", nrow(data_train), " rows out of ",
-        nrow(hbr_minimal_dataset_train), " (missingness, train)")
-data_test <- data_test %>%
-    drop_na()
-message("Kept ", nrow(data_test), " rows out of ",
-        nrow(hbr_minimal_dataset_test), " (missingness, test)")
+summary(dataset)
 
-## TODO Deal with class inbalance here
-## See this: "https://datascience.stackexchange.com/questions/82073/
-## why-you-shouldnt-upsample-before-cross-validation"
-## Upsampling appears to reduce the variance in the training fold ROCs
-upsample = FALSE
-if (upsample)
-{
-    data_train <- data_train %>%
-        upSample(y = data_train$bleed, yname = "bleed_upsampled") %>%
-        as_tibble() %>%
-        select(-bleed) %>%
-        rename(bleed = bleed_upsampled)
-}
+set.seed(47)
 
-## Randomness is used below this point (for the cross-validation)
-set.seed(476)
+## ======== Test/train split ===========
 
-## Fit the logistic regression model. There are no tuning parameters for
-## logistic regression. Use cross-validation to assess average model
-## performance within the training set
-ctrl <- trainControl(summaryFunction = twoClassSummary,
-                     method = "cv",
-                     number = 10,
-                     classProbs = TRUE,
-                     savePredictions = TRUE)
+## Get a test training split stratified by bleeding (the
+## less common outcome)
+split <- initial_split(dataset, prop = 0.75, strata = bleed_after)
+train <- training(split)
+test <- testing(split) %>%
+    ## The id is necessary later to pair up bleeding/ischaemic predictions
+    mutate(id = row_number())
 
-## Try mixed effects in here
-fit <- train(bleed ~ .,
-             data = data_train,
-             method = "glm",
-             metric = "ROC",
-             preProcess = c("center", "scale"),
-             trControl = ctrl)
+## Create cross-validation folds
+folds <- vfold_cv(train, v = 10)
 
-## View the summary, look for ROC area, which is the average
-## over the n folds of the cross validation
-fit
-message("The SD of the AUC for the ROC is: ", fit$results$ROCSD)
+## ========= Model selection =============
 
-## Get the ROC curves for the models fitted in each fold
-roc_cv <- get_cv_roc(fit)
+model <- logistic_reg(
+    penalty = tune(),
+    mixture = tune()) %>% 
+    set_engine('glmnet') %>% 
+    set_mode('classification')
 
-## Get the (re-)predicted class probabilities for the training set,
-## in order to ocmpute ROC curves
-data_train <- data_train %>%
-    add_prediction_probs(fit, response = "bleed", positive_event = "bleed_occured")
+## ======== Tuning grids ========
 
-## Get the ROC curve for the training set reprediction
-roc_train <- data_train %>%
-    get_roc(response = "bleed", label = "train")
+grid <- grid_regular(penalty(), mixture())
 
-## Get the predicted class probabilities for the test set,
-## in order to ocmpute ROC curves
-data_test <- data_test %>%
-    add_prediction_probs(fit, response = "bleed", positive_event = "bleed_occured")
+## ========= Recipes ============
 
-## Store the ROC curve for the testing set prediction
-roc_test <- data_test %>%
-    get_roc(response = "bleed", label = "test")
+recipes = list(
+    ## Logistic regression requires preprocessing of the predictors
+    ## for sparse/unbalanced variables (p. 285, APM).
+    bleed = recipe(bleed_after ~ ., data = train) %>%
+        update_role(date, new_role = "date") %>%
+        update_role(ischaemia_after, new_role = "ischaemic_after") %>%
+        step_integer(stemi_presentation) %>%
+        step_nzv(all_predictors()) %>%
+        step_center(all_predictors()) %>%
+        step_scale(all_predictors()),
+    ## Logistic regression requires preprocessing of the predictors
+    ## for sparse/unbalanced variables (p. 285, APM).
+    ischaemia = recipe(ischaemia_after ~ ., data = train) %>%
+        update_role(date, new_role = "date") %>%
+        update_role(bleed_after, new_role = "bleed_after") %>%
+        step_integer(stemi_presentation) %>%
+        step_nzv(all_predictors()) %>%
+        step_center(all_predictors()) %>%
+        step_scale(all_predictors()))
 
-## Combine all the ROC curves
-roc_curves <- rbind(roc_train, roc_test, roc_cv) %>%
-    mutate(type = case_when(label == "train" ~ "Train",
-                            label == "test" ~ "Test",
-                            TRUE ~ "Fold"))
+## ========= Workflows ==========
 
-## Plot the ROC curves for each fold, the ROC curve for repredicting
-## the training set, and the ROC curve for predicting the test set
-ggplot(roc_curves, aes(x=specificities,y=sensitivities)) +
-    geom_path(aes(group = label, colour = type)) +
-    ylim(0,1) +
-    geom_abline(aes(slope = 1, intercept = 1)) +
-    scale_x_reverse(limit = c(1,0)) +
-    scale_colour_manual(values = c("Test"="green", "Train"="red", "Fold"="gray")) +
-    theme_bw() +
-    labs(title = "ROC curves for the test and train sets (including each cross-validation fold)",
-         x = "Specificity", y = "Sensitivity") + 
-    theme(legend.position = "bottom")
+## Each models (from the models list) has two recipes associated
+## with it -- one for bleeding and one for ischaemia prediction
+base_workflow <- workflow() %>%
+    add_model(model)
+workflows <- list(
+    bleed = base_workflow %>%
+        add_recipe(recipes$bleed),
+    ischaemia = base_workflow %>%
+        add_recipe(recipes$ischaemia))
 
-## Compute the "best" threshold value (ROC curve point closest to top level)
-roc <- roc(data_test$bleed, data_test$bleed_prob)
-p_tr <- coords(roc, x = "best", best.method = "closest.topleft")
+## ========= Fit the models =========
 
-## Make predictions based on a particular manually chosen threshold
-data_test %>% print_confusion(bleed, bleed_prob, p_tr$threshold)
+tuning_results <- list(
+    bleed = workflows$bleed %>%
+        tune_grid(resamples = folds, grid = grid),
+    ischaemia = workflows$ischaemia %>%
+        tune_grid(resamples = folds, grid = grid))
 
+## Combine metrics for plotting purposes
+combined_metrics <- bind_rows(
+    tuning_results$bleed %>% collect_metrics() %>% mutate(outcome = "bleed"),
+    tuning_results$ischaemia %>% collect_metrics() %>% mutate(outcome = "ischaemia"))
+
+## Plot the tuning results for each model
+combined_metrics %>%
+    mutate(mixture = factor(mixture)) %>%
+    ggplot(aes(penalty, mean, color = mixture)) +
+    geom_line(linewidth = 1.5, alpha = 0.6) +
+    geom_point(size = 2) +
+    facet_wrap(~ .metric + outcome, scales = "free", nrow = 2) +
+    scale_x_log10(labels = scales::label_number()) +
+    scale_color_viridis_d(option = "plasma", begin = .9, end = 0) +
+    labs(title="Tuning results for bleeding and ischaemia models")
+
+
+## Select the best model by ROC curve
+bleed_best <- tuning_results$bleed %>%
+    select_best("roc_auc")
+bleed_fit <- workflows$bleed %>%
+    finalize_workflow(bleed_best) %>%
+    last_fit(split)
+ischaemia_best <- tuning_results$ischaemia %>%
+    select_best("roc_auc")
+ischaemia_fit <- workflows$ischaemia %>%
+    finalize_workflow(ischaemia_best) %>%
+    last_fit(split)
+ 
+## Combined the two models for plotting the ROC curves
+combined_roc <- bind_rows(
+    bleed_fit %>%
+    collect_predictions() %>%
+    mutate(outcome = "bleed", pred_prob = .pred_bleed_occured) %>%
+    mutate(truth = recode_factor(bleed_after, "bleed_occured" = "occured", "no_bleed" = "none")),
+    ischaemia_fit %>%
+    collect_predictions() %>%
+    mutate(outcome = "ischaemia", pred_prob = .pred_ischaemia_occured) %>%
+    mutate(truth = recode_factor(ischaemia_after, "ischaemia_occured" = "occured", "no_ischaemia" = "none"))) %>%
+    group_by(outcome) %>%
+    roc_curve(truth, pred_prob)
+
+## Plot the ROC curves
+ggplot(combined_roc, aes(x = 1 - specificity, y = sensitivity, color = outcome)) +
+    geom_line() +
+    geom_abline(slope = 1, intercept = 0, size = 0.4) +
+    coord_fixed() +
+    labs(title = "ROC curves for each fitted model")
+
+## Next step -- get the predictions =====
+
+
+
+
+
+
+## Predict using the test set
+pred <- list(fits, names(models)) %>%
+    purrr::pmap(function(fit, model_name)
+    {
+        bleed_pred <- fit$bleed %>%
+            augment(test) %>%
+            mutate(outcome = "bleed", model = model_name, pred_prob = .pred_bleed_occured) %>%
+            mutate(truth = recode_factor(bleed_after, "bleed_occured" = "occured", "no_bleed" = "none"))
+        ischaemia_pred <- fit$ischaemia %>%
+            augment(test) %>%
+            mutate(outcome = "ischaemia", model = model_name, pred_prob = .pred_ischaemia_occured) %>%
+            mutate(truth = recode_factor(ischaemia_after, "ischaemia_occured" = "occured", "no_ischaemia" = "none"))
+        bind_rows(bleed_pred, ischaemia_pred)
+    }) %>%
+    purrr::list_rbind()
+
+
+
+
+
+## Make a choice for a threshold (TODO not figured out how to
+## do it in tidymodels yet)
+bleed_threshold <- 0.03
+ischaemia_threshold <- 0.05
+
+## Repredict the classes based on the custom threshold
+truth_levels <- levels(pred$truth)
+pred_custom <- pred %>%
+    mutate(pred = case_when(outcome == "bleed" ~ make_two_class_pred(
+                                           pred_prob, truth_levels,
+                                           threshold = bleed_threshold),
+                            outcome == "ischaemia" ~ make_two_class_pred(
+                                           pred_prob, truth_levels,
+                                           threshold = ischaemia_threshold)))
+
+## Using the custom prediction (based on the choice of
+## threshold), compute model performance
+multi_metrics <- metric_set(accuracy, kap, sens, spec, ppv, npv, roc_auc)
+metrics <- pred_custom %>%
+    group_by(outcome, model) %>%
+    multi_metrics(truth = truth, pred_prob, estimate = pred)
+
+## Plot AUC for the models
+metrics %>%
+    filter(.metric == "roc_auc") %>%
+    ggplot(aes(x = reorder(model, -.estimate), y = .estimate, color = outcome)) +
+    labs(title = "Area under ROC curve for each bleeding/ischaemia model",
+         x = "Model", y = "AUC") +
+    geom_point()
+
+## Plot positive and negative predictive values
+metrics %>%
+    filter(stringr::str_detect(.metric, "ppv|npv")) %>%
+    ggplot(aes(x = reorder(model, -.estimate), y = .estimate, color = outcome, shape = .metric)) +
+    labs(title = "Positive and negative predictive values",
+         x = "Model", y = "P") +
+    geom_point()
+
+## Plot sensitivities and specifities
+metrics %>%
+    filter(stringr::str_detect(.metric, "spec|sens")) %>%
+    ggplot(aes(x = reorder(model, -.estimate), y = .estimate, color = outcome, shape = .metric)) +
+    labs(title = "Sensitivies and specifities",
+         x = "Model", y = "P") +
+    geom_point()
+
+
+## Plot the calibration plot
+## bleed_aug_custom %>%
+##     cal_plot_breaks(bleed_after, .pred_bleed_occured, num_breaks = 10)
+                    
+## Plot the calibration plot
+## ischaemia_aug %>%
+##     cal_plot_breaks(ischaemia_after, .pred_ischaemia_occured, num_breaks = 10)
+
+## ======= Plot risk trade-off ===========
+
+
+pred %>%
+    select(id, outcome, model, pred_prob) %>%
+    pivot_wider(names_from = outcome, values_from = pred_prob) %>%
+    ggplot(aes(x = bleed, y = ischaemia, color = model)) +
+    geom_point()
