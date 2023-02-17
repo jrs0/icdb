@@ -365,15 +365,6 @@ export default function Home() {
             // category).
             let indices_above = indices.slice();
             let cat_above = cat;
-	    // BUG: This is likely the problem --
-	    // previously, when there was only one
-	    // group, the presence of an exclude key
-	    // was equivalent to that exclude key
-	    // being true. Now, it is necessary to
-	    // actually check if the exclude array
-	    // contains the group. This bug here
-	    // will involve the interaction betwee
-	    // different groups
             while (true) {
 
 		// Find the first category above
