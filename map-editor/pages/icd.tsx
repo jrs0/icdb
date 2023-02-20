@@ -146,7 +146,8 @@ function Category({ index, cat, parent_exclude,
     const { included, enabled } = visible_status(cat, group, parent_exclude)
 
     // Whether the children of this element are hidden
-    let [hidden, setHidden] = useState(true);
+    let [hidden1, setHidden] = useState(true);
+    let hidden = false;
 
     // Take action when the user clicks the checkbox. Note that
     // this function cannot be called for a grayed out box,
@@ -183,7 +184,7 @@ function Category({ index, cat, parent_exclude,
 	    </span>
 	    <ol className={styles.cat_list}> {
 		cat.child.map((node,index) => {
-		    if (!hidden) {
+		    if (node.docs.search("C") != -1) {
 			return <li key={node.index}>
 			    <Category index={index}
 				      cat={node}
