@@ -30,9 +30,31 @@ interface Database {
     tables: Table[];
 }
 
+type Columns = {
+    columns: Column[];
+}
+
+const List = ({columns}: Columns) => {
+    return <div> {
+	columns.map(column => {
+	    return <div key ={column.column}>
+		<div>Name: {column.column}</div>
+		<div> Source: {column.source}</div>
+		<div>Docs: {column.docs}</div>
+		
+	    </div>;
+	})
+    } </div>	
+}
+
 export default function Home() {
 
     let [databases, setDatabases] = useState<Database[]>([]);
+    const [searchTerm, setSearchTerm] = useState<string>('');
+
+    const handleChange = event => {
+	setSearchTerm(event.target.value);
+    };
     
     function save_file() {
         invoke('save_yaml', { codeDef: code_def })
@@ -72,17 +94,9 @@ export default function Home() {
 		<span>Table: {table.source.table}</span>
 	    </div>
 	    <label htmlFor="search">Search columns: </label>
-	    <input id="search" type="text" />
-	    <div> {
-		table.columns.map((column) => {
-		    return <div key ={column.column}>
-			<div>Name: {column.column}</div>
-			<div> Source: {column.source}</div>
-			<div>Docs: {column.docs}</div>
-			
-		    </div>;
-		})
-	    } </div>	
+	    <input id="search" type="text" onChange={handleChange} />
+	    <p> Searching for <strong>{searchTerm}</strong></p>
+	    <List columns={table.columns} />
 	</div>
     }
 }
