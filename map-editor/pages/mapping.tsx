@@ -1,19 +1,42 @@
+import { useState, useRef, useEffect, useMemo, ChangeEvent } from 'react';
+import { invoke } from "@tauri-apps/api/tauri"
 import Link from 'next/link'
 
-interface Database {
-    docs: string[];
-    exclude?: string[];
-    child?: Cat[];
-    category?: string;
-    code?: string;
+import styles from '../styles/Category.module.css'
+
+interface Source {
+    catalog: string;
+    schema: string;
+    table: string;
+}
+
+interface Column {
+    column: string;
     docs: string;
-    index: string;
+    use: string;
+    source: string[]
+    strategy: string
+}
+
+interface Table {
+    table: string;
+    source: Source;
+    columns: Column[]
+}
+
+interface Database {
+    database: string;
+    docs: string;
+    tables: Table[];
+}
+
+interface Mapping {
+    databases: Database[]
 }
 
 export default function Home() {
 
-    let [mapping, setMapping] = useState<Cat>({docs: "None",
-					       index: "None"});
+    let [mapping, setMapping] = useState<Mapping>([]);
     
     function save_file() {
         invoke('save_yaml', { codeDef: code_def })
@@ -25,27 +48,21 @@ export default function Home() {
 
 		let res: Cat = JSON.parse(result as string);
 		console.log(res)
-		// Note: all .then are executed
-		// asynchronously, so put
-		// sequential steps in here
-		if (res.groups !== undefined) {
-		    if (res.groups.length > 0) {
-			setGroup(res.groups[0])
-		    } else {
-			alert("No groups found. Add some groups and reload the file.")
-			return
-		    }
-		} else {
-		    alert("Did not find groups key. Add a groups key containing an array of groups.")
-		    return
-		}
-		// If you get here, then the state is valid
-		setCodeDef(res)
+		setMapping(res)
 
 	    })
     }
     
     
-    return <p>Todo</p>
+    return <div>
+        <h1>Database Mapping Editor</h1>
+	<p className={styles.info}>Load a mapping file to set up databases tables and columns.</p>
+	<div>
+	    <span className={styles.button}
+		  onClick={load_file}>Load file</span>
+	    <Link className={styles.button} href="/">Back</Link>
+	</div>
+    </div>
+
 }
 
