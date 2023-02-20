@@ -30,8 +30,19 @@ interface Database {
     tables: Table[];
 }
 
-type Columns = {
+interface Columns {
     columns: Column[];
+}
+
+interface OnSearch {
+    onSearch: (event: any) => void;
+}
+
+const Search = ({ onSearch }: OnSearch) => {
+    return <div>
+	<label htmlFor="search">Search columns: </label>
+	<input id="search" type="text" onChange={onSearch} />
+    </div>
 }
 
 const List = ({columns}: Columns) => {
@@ -47,14 +58,26 @@ const List = ({columns}: Columns) => {
     } </div>	
 }
 
+const SearchTerm = ({searchTerm}: string) => {
+    if (searchTerm.length == 0) {
+	return <div></div>
+    } else {
+	return <div>
+	    Showing results for <strong>{searchTerm}</strong> in column docs
+	</div>
+    }
+}
+
 export default function Home() {
 
     let [databases, setDatabases] = useState<Database[]>([]);
-    const [searchTerm, setSearchTerm] = useState<string>('');
 
-    const handleChange = event => {
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    
+    const handleSearch = event => {
 	setSearchTerm(event.target.value);
     };
+
     
     function save_file() {
         invoke('save_yaml', { codeDef: code_def })
@@ -71,7 +94,6 @@ export default function Home() {
 	    })
     }
     
-
     if (databases.length == 0) {
 	return <div>
             <h1>Database Mapping Editor</h1>
@@ -84,7 +106,13 @@ export default function Home() {
 	</div>
     } else {
 
-	let table = databases[0].tables[0];
+	const table = databases[0].tables[0];
+
+	const columns = table.columns
+	
+	const filtered_columns = columns.filter((column) => {
+	    return column.docs.includes(searchTerm);
+	})
 	
 	return <div>
 	    <div>Table name: {table.table}</div>
@@ -93,10 +121,9 @@ export default function Home() {
 		<span>Schema: {table.source.schema}</span>
 		<span>Table: {table.source.table}</span>
 	    </div>
-	    <label htmlFor="search">Search columns: </label>
-	    <input id="search" type="text" onChange={handleChange} />
-	    <p> Searching for <strong>{searchTerm}</strong></p>
-	    <List columns={table.columns} />
+	    <Search onSearch={handleSearch} />
+	    <SearchTerm searchTerm ={searchTerm} />
+	    <List columns={filtered_columns} />
 	</div>
     }
 }
