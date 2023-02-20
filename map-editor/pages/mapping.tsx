@@ -35,31 +35,35 @@ interface Columns {
 }
 
 interface OnSearch {
+    search: string;
     onSearch: (event: any) => void;
 }
 
-const Search = ({ onSearch }: OnSearch) => {
+const Search = ({ search, onSearch }: OnSearch) => {
     return <div>
 	<label htmlFor="search">Search columns: </label>
-	<input id="search" type="text" onChange={onSearch} />
+	<input id="search" type="text" onChange={onSearch}
+	value ={search} />
     </div>
 }
 
 const List = ({columns}: Columns) => {
     return <div> {
-	columns.map(column => {
-	    return <div key ={column.column}>
-		<div>Name: {column.column}</div>
-		<div> Source: {column.source}</div>
-		<div>Docs: {column.docs}</div>
-		
-	    </div>;
-	})
+	columns.map(column => <Item key={column.column} column={column} />)
     } </div>	
 }
 
-const SearchTerm = ({searchTerm}: string) => {
-    if (searchTerm.length == 0) {
+const Item = ({ column }: Column) => (
+    <div>
+	<div>Name: {column.column}</div>
+	<div> Source: {column.source}</div>
+	<div>Docs: {column.docs}</div>
+    </div>
+)
+
+
+    const SearchTerm = ({searchTerm}: string) => {
+	if (searchTerm.length == 0) {
 	return <div></div>
     } else {
 	return <div>
@@ -72,7 +76,7 @@ export default function Home() {
 
     let [databases, setDatabases] = useState<Database[]>([]);
 
-    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [searchTerm, setSearchTerm] = useState<string>('Something');
     
     const handleSearch = event => {
 	setSearchTerm(event.target.value);
@@ -121,7 +125,7 @@ export default function Home() {
 		<span>Schema: {table.source.schema}</span>
 		<span>Table: {table.source.table}</span>
 	    </div>
-	    <Search onSearch={handleSearch} />
+	    <Search search ={searchTerm} onSearch={handleSearch} />
 	    <SearchTerm searchTerm ={searchTerm} />
 	    <List columns={filtered_columns} />
 	</div>
