@@ -30,13 +30,9 @@ interface Database {
     tables: Table[];
 }
 
-interface Mapping {
-    databases: Database[]
-}
-
 export default function Home() {
 
-    let [mapping, setMapping] = useState<Mapping>([]);
+    let [databases, setDatabases] = useState<Database[]>([]);
     
     function save_file() {
         invoke('save_yaml', { codeDef: code_def })
@@ -48,21 +44,41 @@ export default function Home() {
 
 		let res: Cat = JSON.parse(result as string);
 		console.log(res)
-		setMapping(res)
+		setDatabases(res)
 
 	    })
     }
     
-    
-    return <div>
-        <h1>Database Mapping Editor</h1>
-	<p className={styles.info}>Load a mapping file to set up databases tables and columns.</p>
-	<div>
-	    <span className={styles.button}
-		  onClick={load_file}>Load file</span>
-	    <Link className={styles.button} href="/">Back</Link>
-	</div>
-    </div>
 
+    if (databases.length == 0) {
+	return <div>
+            <h1>Database Mapping Editor</h1>
+	    <p className={styles.info}>Load a mapping file to set up databases tables and columns.</p>
+	    <div>
+		<span className={styles.button}
+		      onClick={load_file}>Load file</span>
+		<Link className={styles.button} href="/">Back</Link>
+	    </div>
+	</div>
+    } else {
+
+	let table = databases[0].tables[0];
+	
+	return <div>
+	<div>Table name: {table.table}</div>
+	<label htmlFor="search">Search columns: </label>
+	<input id="search" type="text" />
+	<ol> {
+	    table.columns.map((column) => {
+		return <li>
+		    <div>Name: {column.column}</div>
+		    <div>Source: {column.source}</div>
+		    <div>Docs: {column.docs}</div>
+		    
+		</li>;
+	    })
+	} </ol>	
+	</div>
+    }
 }
 
