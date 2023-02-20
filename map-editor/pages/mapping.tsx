@@ -65,19 +65,24 @@ export default function Home() {
 	let table = databases[0].tables[0];
 	
 	return <div>
-	<div>Table name: {table.table}</div>
-	<label htmlFor="search">Search columns: </label>
-	<input id="search" type="text" />
-	<ol> {
-	    table.columns.map((column) => {
-		return <li>
-		    <div>Name: {column.column}</div>
-		    <div>Source: {column.source}</div>
-		    <div>Docs: {column.docs}</div>
-		    
-		</li>;
-	    })
-	} </ol>	
+	    <div>Table name: {table.table}</div>
+	    <div> Source:
+		<span>Catalog: {table.source.catalog} </span>
+		<span>Schema: {table.source.schema}</span>
+		<span>Table: {table.source.table}</span>
+	    </div>
+	    <label htmlFor="search">Search columns: </label>
+	    <input id="search" type="text" />
+	    <div> {
+		table.columns.map((column) => {
+		    return <div key ={column.column}>
+			<div>Name: {column.column}</div>
+			<div> Source: {column.source}</div>
+			<div>Docs: {column.docs}</div>
+			
+		    </div>;
+		})
+	    } </div>	
 	</div>
     }
 }
