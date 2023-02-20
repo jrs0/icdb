@@ -1,0 +1,178 @@
+## A configuration file is a list of objects. The objects are dictionaries
+## (structures with keys mapped to values). There are four kinds of objects,
+## determined by which of the following keys is present in the object:
+## "database", "table", or "column", or "include"  Configuration files can be
+## included, but the top level of the included file must always be a list
+## (meaning the top level elements begin with a dash). The include line itself
+## is always prefixed by a dash, making the include key an element of a list.
+## The effect of the include is to copy all the contents of the included
+## file into the list which contained the original include.
+##
+## The valid keys in each of the object are as follows:
+##
+## -- Database --
+## Keys: database   the name of the database (unique key in the list)
+##       docs       a description of what the database contains
+##       source     the underlying source database (informational)
+##       tables     a list of table objects stored in the database,
+##                  or include objects storing tables
+##
+## -- Table --
+## Keys: table     the name of the table (unique key in the list)
+##       docs      a description of what the table contains
+##       source    the fully-qualified table name
+##       columns   a list of column objects stored in the database,
+##                 or include objects storing columns
+##
+## -- Column --
+## Keys: column    the name of the column (unique key in the list)
+##       docs      a description of what the database
+##       source    a list of column names to draw values from
+##       strategy  a rule to use to combine the underlying columns
+## 
+##
+##
+- database: "sus"
+  docs: "The SUS database contains hospital episode statistics, which contain records of patient care activities that take place in a hospital visit."
+  tables:
+    - table: apc_episodes
+      docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital."
+      source:
+        catalog: ABI
+        schema: dbo
+        table: vw_APC_SEM_001
+      columns:
+      - column: unique_booking_reference_number_converted
+        docs: "The unique booking reference number assigned by the Choose and Book system
+          when a PATIENT accepts an APPOINTMENT DATE OFFERED of an APPOINTMENT OFFER where
+          the offer was made via the Choose and Book system.\r\n\r\nWhen a PATIENT accepts
+          an APPOINTMENT DATE OFFERED, the unique booking reference number issued and
+          used during the booking process is considered to be 'converted' i.e. an APPOINTMENT
+          has been created and recorded; and the PATIENT has been placed on an Out-Patient
+          Waiting List even if subsequently the PATIENT does not attend or cancels the
+          APPOINTMENT."
+        use: no
+        source:
+        - UniqueBookingReferenceNumber_Converted
+        strategy: coalesce
+      - column: patient_pathway_identifier
+        docs: "An identifier, which together with the ORGANISATION CODE / ORGANISATION
+          IDENTIFIER of the issuer, uniquely identifies a PATIENT PATHWAY.\r\nThis is
+          a specific type of the attribute ACTIVITY IDENTIFIER.\r\n\r\nWhere a pathway
+          is initiated by a SERVICE REQUEST using the Choose and Book system, the PATIENT
+          PATHWAY will be uniquely identified by the Unique Booking Reference Number (UBRN)
+          of the first referral and the ORGANISATION CODE of Choose and Book which is
+          X09.\r\n\r\nWhere the pathway is initiated by some other method, the PATIENT
+          PATHWAY IDENTIFIER will be allocated by the ORGANISATION receiving the SERVICE
+          REQUEST which together with that ORGANISATION's ORGANISATION CODE / ORGANISATION
+          IDENTIFIER will uniquely identify the PATIENT PATHWAY."
+        use: no
+        source:
+        - PatientPathwayIdentifier
+        strategy: coalesce
+
+    - table: apc_spells
+      docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital This table contains the spells."
+      source:
+        catalog: ABI
+        schema: dbo
+        table: vw_APC_SEM_Spell_001
+      columns:
+      - column: unique_booking_reference_number_converted
+        docs: "The unique booking reference number assigned by the Choose and Book system
+          when a PATIENT accepts an APPOINTMENT DATE OFFERED of an APPOINTMENT OFFER where
+          the offer was made via the Choose and Book system.\r\n\r\nWhen a PATIENT accepts
+          an APPOINTMENT DATE OFFERED, the unique booking reference number issued and
+          used during the booking process is considered to be 'converted' i.e. an APPOINTMENT
+          has been created and recorded; and the PATIENT has been placed on an Out-Patient
+          Waiting List even if subsequently the PATIENT does not attend or cancels the
+          APPOINTMENT."
+        use: no
+        source:
+        - UniqueBookingReferenceNumber_Converted
+        strategy: coalesce
+      - column: patient_pathway_identifier
+        docs: "An identifier, which together with the ORGANISATION CODE / ORGANISATION
+          IDENTIFIER of the issuer, uniquely identifies a PATIENT PATHWAY.\r\nThis is
+          a specific type of the attribute ACTIVITY IDENTIFIER.\r\n\r\nWhere a pathway
+          is initiated by a SERVICE REQUEST using the Choose and Book system, the PATIENT
+          PATHWAY will be uniquely identified by the Unique Booking Reference Number (UBRN)
+          of the first referral and the ORGANISATION CODE of Choose and Book which is
+          X09.\r\n\r\nWhere the pathway is initiated by some other method, the PATIENT
+          PATHWAY IDENTIFIER will be allocated by the ORGANISATION receiving the SERVICE
+          REQUEST which together with that ORGANISATION's ORGANISATION CODE / ORGANISATION
+          IDENTIFIER will uniquely identify the PATIENT PATHWAY."
+        use: no
+        source:
+        - PatientPathwayIdentifier
+        strategy: coalesce
+        
+- database: "mort"
+  docs: "There are two main tables containing death information....."
+  source: "ABI"
+  tables:
+    - table: "civ-reg"
+      docs: "The Civil Registry Mortality table contains information about when a person died and what they died of, listed as ICD10 diagnosis codes. It also has lots of other information, such as where they died."
+      source: "test_lookup_test"
+      # Raw is used to import all the columns as-is. This overrides the columns key. Mapping the columns properly is preferred.
+      raw: yes
+    - table: "nhais"
+      docs: "NHAIS Deaths table...."
+      source: "test_lookup_test"
+      raw: yes
+      
+- database: "swd"
+  docs: "The MODELLING_SQL_AREA database contains the System Wide Dataset tables (activity, attributes, measurements), which bring together data from primary care (GPs), secondary care (hsopitals), mental health, and community care services."
+  source: "MODELLING_SQL_AREA"
+  tables:
+    - table: swd_activity
+      docs: "The SWD activity table contains records of healthcare encounters (e.g. a GP appointment) from  primary care (GPs), secondary care (hsopitals), mental health, and community care services."
+      source:
+        catalog: MODELLING_SQL_AREA
+        schema: dbo
+        table: swd_activity
+      columns:
+      - column: arr_date
+        docs: Arrival date and time - when time is unavailable, the time component takes
+          the value 00:00
+        source: arr_date
+        strategy: coalesce
+        use: yes
+      - column: attend_code
+        docs: Follows NHS data dictionary definitions
+        source: attend_code
+        strategy: coalesce
+        use: yes
+      - column: cost1
+        docs: Cost of activity - details of derivation logic to be added
+        source: cost1
+        strategy: coalesce
+        use: yes
+      - column: cost1_type
+        docs: Description of cost type in cost1 column
+        source: cost1_type
+        strategy: coalesce
+        use: yes
+      - column: cost2
+        docs: Spare cost field to represent different cost type - not currently populated
+        source: cost2
+        strategy: coalesce
+        use: yes
+
+
+      
+    - table: "attr_h"
+      docs: "The SWD attributes-history table contains every monthly snapshot of patient attributes going back to inception of the swd attributes table in 201X(?when, look this up)."
+      source:
+        catalog: "MODELLING_SQL_AREA"
+        schema: "dbo"
+        table: "primary_care_attributes"
+      raw: yes
+
+    - table: "lsoa"
+      docs: "The LSOA (Lower Super Output Area) table contains details about the local areas in Bristol. We need this as it provides the key for matching patients to the various local 'regions' - in order of size: 'wards', 'LSOAs' and 'MSOAs' (Middle Super Output Areas). TODO: there are quite a few of these tables, find the right one"
+      source:
+        catalog: "MODELLING_SQL_AREA"
+        schema: "dbo"
+        table: "swd_LSOA_descriptions"
+      raw: yes

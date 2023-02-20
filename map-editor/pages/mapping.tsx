@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-interface Cat {
-    groups?: string[];
+interface Database {
+    docs: string[];
     exclude?: string[];
     child?: Cat[];
     category?: string;
