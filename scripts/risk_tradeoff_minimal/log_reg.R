@@ -88,38 +88,25 @@ sample_and_fit <- function(sample_num)
         ischaemia = workflows$ischaemia %>%
             fit(data = train))
 
-    ## Predict using the test set
-    bleed_pred <- fit$bleed %>%
-        augment(test) %>%
-        mutate(outcome = "bleed", pred_prob = .pred_bleed_occured,
-               sample_num = sample_num) %>%
-        mutate(truth = recode_factor(bleed_after, "bleed_occured" = "occured", "no_bleed" = "none"))
-
-    ischaemia_pred <- fit$ischaemia %>%
-        augment(test) %>%
-        mutate(outcome = "ischaemia", pred_prob = .pred_ischaemia_occured,
-               sample_num = sample_num) %>%
-        mutate(truth = recode_factor(ischaemia_after, "ischaemia_occured" = "occured", "no_ischaemia" = "none"))
-
-    pred <- bind_rows(bleed_pred, ischaemia_pred)
-
+    pred_bleed <- fit$bleed %>% augment(test)
+    pred_ischaemia <- fit$ischaemia %>% augment(test)
     
+    ## Predict using the test set. Data is in wide format,
+    ## with the bleeding and ischaemia predictions
+    pred_bleed %>%
+        left_join(pred_ischaemia, by=c("id"="id"))    
 }
 
 
-pred <- 1:100 %>%
+pred <- 1:12 %>%
     purrr::map(~ sample_and_fit(.x)) %>%
-    purrr::list_rbind()
-
-pred_factor <- pred %>%
+    purrr::list_rbind() %>%
     mutate(id = as.factor(id))
 
 
-pred_factor %>%
-    select(id, outcome, sample_num, pred_prob) %>%
-    filter(sample_num == 1) %>%
-    pivot_wider(names_from = outcome, values_from = pred_prob) %>%
-    ggplot(aes(x = bleed, y = ischaemia)) +
+pred %>%
+    #filter(sample_num == 1) %>%
+    ggplot(aes(x = .pred_bleed_occured, y = .pred_ischaemia_occured)) +
     geom_point() +
     scale_y_log10() +
     scale_x_log10()
