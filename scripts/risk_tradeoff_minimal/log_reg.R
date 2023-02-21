@@ -105,8 +105,13 @@ pred <- 1:12 %>%
 
 
 pred %>%
-    #filter(sample_num == 1) %>%
-    ggplot(aes(x = .pred_bleed_occured, y = .pred_ischaemia_occured)) +
+    ## Uncomment to view one model for all patients
+    ##filter(sample_num == 1) %>%
+    ## Uncomment to view all models for some patients
+    filter(id %in% c(1,20,23,43)) %>%
+    ggplot(aes(x = .pred_bleed_occured,
+               y = .pred_ischaemia_occured,
+               color = id)) +
     geom_point() +
     scale_y_log10() +
     scale_x_log10()
