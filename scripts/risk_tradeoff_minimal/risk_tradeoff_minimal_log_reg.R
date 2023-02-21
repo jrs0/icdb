@@ -38,9 +38,7 @@ folds <- vfold_cv(train, v = 10)
 
 ## ========= Model selection =============
 
-model <- logistic_reg(
-    penalty = tune(),
-    mixture = tune()) %>% 
+model <- logistic_reg() %>% 
     set_engine('glmnet') %>% 
     set_mode('classification')
 
