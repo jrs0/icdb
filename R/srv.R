@@ -323,7 +323,7 @@ server <- function(data_source_name = NULL,
         ## with dplyr (storing the bigint as a character string)
         conf$bigint <- "character"
         print(conf)
-        
+
         ## Open the database connection
         con <- do.call(DBI::dbConnect, conf)
     }
@@ -424,6 +424,14 @@ get_tbl <- function(srv, source)
     {
         ## e.g., for Microsoft
         id <- rlang::exec(dbplyr::in_catalog, !!!source)
+    }
+    else if ("catalog" %in% names(source) & !"schema" %in% names(source))
+    {
+        ## e.g. for a mysql database that only has tables under catalog names, and no schema
+        ## basically added without much testing to make Nick's home database work
+        source$schema <- source$catalog
+        source$catalog <- NULL
+        id <- rlang::exec(dbplyr::in_schema, !!!source)
     }
     else if ("catalog" %in% names(source))
     {
@@ -637,6 +645,8 @@ setMethod("show", "server", function(object) {
 ##' @export
 run <- function(x, lifetime = NULL, ...)
 {
+  print("run()")
+  print(x)
     ## Generate an SQL string for the query
     output <- capture.output(x %>% dplyr::show_query())
     query <- paste(tail(output, -1), collapse="")
