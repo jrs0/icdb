@@ -90,9 +90,15 @@ fit_rs <- list(
     ischaemia = workflows$ischaemia %>%
         fit_resamples(folds, control = ctrl_rs))
 
+fit_bleed <- fit_rs$bleed %>%
+    pull(.extracts)
+fit_ischaemia <- fit_rs$bleed %>%
+    pull(.extracts)
 
-pred_bleed <- fit$bleed %>% augment(test)
-pred_ischaemia <- fit$ischaemia %>% augment(test)
+## Use each of the models
+
+pred_bleed <- fit_bleed[[1]] %>% augment(test)
+pred_ischaemia <- fit_ischaemia[[1]] %>% augment(test)
 
 ## Predict using the test set. Data is in wide format,
 ## with the bleeding and ischaemia predictions
