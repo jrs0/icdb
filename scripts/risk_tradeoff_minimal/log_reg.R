@@ -23,31 +23,35 @@ summary(dataset)
 
 set.seed(47)
 
-resample <- dataset %>%
-    group_by(bleed_after) %>%
-    slice_sample(prop = 1,
-                 replace = TRUE)
-
 
 sample_and_fit <- function(sample_num)
 {
 
-    ## Resample with replacement (bootstrap)
-    resample <- dataset %>%
-        group_by(bleed_after) %>%
-        slice_sample(prop = 1,
-                     replace = TRUE)
+    ## ======== Test/train split ===========
 
-    sample(dataset, replace = TRUE)
+    ## Get a test training split stratified by bleeding (the
+    ## less common outcome)
+    split <- initial_split(dataset, prop = 0.75, strata = bleed_after)
+    train <- training(split)
+    test <- testing(split) %>%
+        ## The id is necessary later to pair up bleeding/ischaemic predictions
+        mutate(id = row_number())
+
+    ## Create cross-validation folds
+    folds <- vfold_cv(train, v = 10)
+
+    ## ========= Model selection =============
 
     model <- logistic_reg() %>% 
         set_engine('glm') %>% 
         set_mode('classification')
 
+    ## ========= Recipes ============
+
     recipes = list(
         ## Logistic regression requires preprocessing of the predictors
         ## for sparse/unbalanced variables (p. 285, APM).
-        bleed = recipe(bleed_after ~ ., data = resample) %>%
+        bleed = recipe(bleed_after ~ ., data = train) %>%
             update_role(date, new_role = "date") %>%
             update_role(ischaemia_after, new_role = "ischaemic_after") %>%
             step_integer(stemi_presentation) %>%
@@ -56,7 +60,7 @@ sample_and_fit <- function(sample_num)
             step_scale(all_predictors()),
         ## Logistic regression requires preprocessing of the predictors
         ## for sparse/unbalanced variables (p. 285, APM).
-        ischaemia = recipe(ischaemia_after ~ ., data = resample) %>%
+        ischaemia = recipe(ischaemia_after ~ ., data = train) %>%
             update_role(date, new_role = "date") %>%
             update_role(bleed_after, new_role = "bleed_after") %>%
             step_integer(stemi_presentation) %>%
@@ -80,9 +84,9 @@ sample_and_fit <- function(sample_num)
 
     fit <- list(
         bleed = workflows$bleed %>%
-            fit(data = resample),
+            fit(data = train),
         ischaemia = workflows$ischaemia %>%
-            fit(data = resample))
+            fit(data = train))
 
     pred_bleed <- fit$bleed %>% augment(test)
     pred_ischaemia <- fit$ischaemia %>% augment(test)
