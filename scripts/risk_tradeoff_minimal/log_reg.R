@@ -4,8 +4,19 @@
 ##' The idea of this script is to use the models developed in the
 ##' cross-validation resamples to give an indication of variation
 ##' in the outcome class score (the real number that is normally
-##' used to make a class prediction). 
+##' used to make a class prediction).
 ##'
+##' The main function, predict_resamples, creates N logistic
+##' regression models on the folds of a training set, and then
+##' uses all N models to obtain predicted class probabilities for
+##' the rows in the test set. Each row will give a slightly
+##' different class probability, depending on the model used.
+##' A selection of the clusters of probabilities are plotted at
+##' the end of the script.
+##'
+##' This method may generalise to models where the output is not
+##' a probability, and their may not be formulae for confidence
+##' intervals of the class score.
 
 library(tidymodels)
 library(probably)
