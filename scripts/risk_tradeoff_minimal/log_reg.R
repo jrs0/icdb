@@ -82,7 +82,13 @@ workflows <- list(
 ## ========= Fit the models =========
 
 ctrl_rs <- control_resamples(
-    extract = function (x) extract_fit_parsnip(x))
+    extract = function (x)
+    {
+        list(
+            fit = extract_fit_parsnip(x),
+            recipe = extract_preprocessor(x)
+        )
+    })
 
 fit_rs <- list(
     bleed = workflows$bleed %>%
@@ -96,8 +102,11 @@ fit_ischaemia <- fit_rs$bleed %>%
     pull(.extracts)
 
 ## Use each of the models
+recipes$bleed %>%
+    prep() %>%
+    bake(new_data = test) %>%
+    augment(fit_bleed[[1]]$.extracts[[1]]$fit, new_data = .)
 
-pred_bleed <- fit_bleed[[1]] %>% augment(test)
 pred_ischaemia <- fit_ischaemia[[1]] %>% augment(test)
 
 ## Predict using the test set. Data is in wide format,
