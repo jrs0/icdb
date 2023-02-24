@@ -30,9 +30,7 @@ set.seed(47)
 ## less common outcome)
 split <- initial_split(dataset, prop = 0.75, strata = bleed_after)
 train <- training(split)
-test <- testing(split) %>%
-    ## The id is necessary later to pair up bleeding/ischaemic predictions
-    mutate(id = as.factor(row_number()))
+test <- testing(split)
 
 ## Create cross-validation folds
 folds <- vfold_cv(train,
@@ -92,16 +90,20 @@ fit_rs <- list(
 
 fit_bleed <- fit_rs$bleed %>%
     pull(.extracts)
-fit_ischaemia <- fit_rs$bleed %>%
+fit_ischaemia <- fit_rs$ischaemia %>%
     pull(.extracts)
 
 ## Use all the models developed on each cross-validation fold
 ## to predict probabilities in the training set
-
-test_pre <- recipes$bleed %>%
+pre_bleed <- recipes$bleed %>%
     prep() %>%
-    bake(new_data = test)
+    bake(new_data = test) %>%
+    ## The id is necessary later to pair up bleeding/ischaemic predictions
+    mutate(id = as.factor(row_number()))
 
+## For each bleeding model, predict the probabilities for
+## the test set and record the model used to make the
+## prediction in model_id
 bleed_fits <- fit_bleed %>%
     map(~ .x %>% pluck(".extracts", 1))
 
@@ -112,10 +114,16 @@ pred_bleed <- list(
     pmap(function(n, f)
     {
         f %>%
-            augment(new_data = test_pre) %>%
-            mutate(model_id = n)
+            augment(new_data = pre_bleed) %>%
+            mutate(model_id = as.factor(n))
     }) %>%
     list_rbind()
+
+pre_ischaemia <- recipes$ischaemia %>%
+    prep() %>%
+    bake(new_data = test) %>%
+    ## The id is necessary later to pair up bleeding/ischaemic predictions
+    mutate(id = as.factor(row_number()))
 
 ischaemia_fits <- fit_ischaemia %>%
     map(~ .x %>% pluck(".extracts", 1))
@@ -127,20 +135,15 @@ pred_ischaemia <- list(
     pmap(function(n, f)
     {
         f %>%
-            augment(new_data = test_pre) %>%
-            mutate(model_id = n)
+            augment(new_data = pre_ischaemia) %>%
+            mutate(model_id = as.factor(n))
     }) %>%
     list_rbind()
 
 ## Predict using the test set. Data is in wide format,
 ## with the bleeding and ischaemia predictions
 pred <- pred_bleed %>%
-    left_join(pred_ischaemia, by=c("id"="id"))
-
-
-## pred <- 1:12 %>%
-##     purrr::map(~ sample_and_fit(.x)) %>%
-##     purrr::list_rbind()
+    left_join(pred_ischaemia, by=c("id", "model_id"))
 
 pred %>%
     ## Uncomment to view one model for all patients
