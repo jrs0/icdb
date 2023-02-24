@@ -79,16 +79,10 @@ workflows <- list(
     ischaemia = base_workflow %>%
         add_recipe(recipes$ischaemia))
 
-## ========= Fit the models =========
-
+## Fit the models
 ctrl_rs <- control_resamples(
-    extract = function (x)
-    {
-        list(
-            fit = extract_fit_parsnip(x),
-            recipe = extract_preprocessor(x)
-        )
-    })
+    extract = function (x) extract_fit_parsnip(x)
+)
 
 fit_rs <- list(
     bleed = workflows$bleed %>%
@@ -101,13 +95,42 @@ fit_bleed <- fit_rs$bleed %>%
 fit_ischaemia <- fit_rs$bleed %>%
     pull(.extracts)
 
-## Use each of the models
-recipes$bleed %>%
-    prep() %>%
-    bake(new_data = test) %>%
-    augment(fit_bleed[[1]]$.extracts[[1]]$fit, new_data = .)
+## Use all the models developed on each cross-validation fold
+## to predict probabilities in the training set
 
-pred_ischaemia <- fit_ischaemia[[1]] %>% augment(test)
+test_pre <- recipes$bleed %>%
+    prep() %>%
+    bake(new_data = test)
+
+bleed_fits <- fit_bleed %>%
+    map(~ .x %>% pluck(".extracts", 1))
+
+pred_bleed <- list(
+    n = seq_along(bleed_fits),
+    f = bleed_fits
+) %>%
+    pmap(function(n, f)
+    {
+        f %>%
+            augment(new_data = test_pre) %>%
+            mutate(model_id = n)
+    }) %>%
+    list_rbind()
+
+ischaemia_fits <- fit_ischaemia %>%
+    map(~ .x %>% pluck(".extracts", 1))
+
+pred_ischaemia <- list(
+    n = seq_along(ischaemia_fits),
+    f = ischaemia_fits
+) %>%
+    pmap(function(n, f)
+    {
+        f %>%
+            augment(new_data = test_pre) %>%
+            mutate(model_id = n)
+    }) %>%
+    list_rbind()
 
 ## Predict using the test set. Data is in wide format,
 ## with the bleeding and ischaemia predictions
