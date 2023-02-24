@@ -1,5 +1,11 @@
 ##' The object of this script is to obtain confidence intervals
-##' around the predicted probabilities
+##' around the predicted probabilities.
+##'
+##' The idea of this script is to use the models developed in the
+##' cross-validation resamples to give an indication of variation
+##' in the outcome class score (the real number that is normally
+##' used to make a class prediction). 
+##'
 
 library(tidymodels)
 library(probably)
@@ -13,7 +19,9 @@ library(pROC)
 ##' and thereby obtain a spectrum of predicted class scoress. The
 ##' intent is to assess the variability in the predicted probabilities.
 ##'
-##' @return 
+##' @return A tibble with the test set, containing predictors retained
+##' in the model and the predicted outcome, along with a model_id column
+##' indicating which cross-validation model was used to make the predictions.
 ##' @author 
 predict_resample <- function(train, test, folds, recipe)
 {
@@ -67,9 +75,6 @@ summary(dataset)
 
 set.seed(47)
 
-
-## ======== Test/train split ===========
-
 ## Get a test training split stratified by bleeding (the
 ## less common outcome)
 split <- initial_split(dataset, prop = 0.75, strata = bleed_after)
@@ -78,7 +83,7 @@ test <- testing(split)
 
 ## Create cross-validation folds
 folds <- vfold_cv(train,
-                  v = 5,
+                  v = 50,
                   strata = bleed_after)
 
 ## Create the recipe for the bleed models
@@ -120,5 +125,3 @@ pred %>%
     geom_point() +
     scale_y_log10() +
     scale_x_log10()
-
-## Compute the distributions 
