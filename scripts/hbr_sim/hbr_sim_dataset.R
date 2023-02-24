@@ -150,7 +150,7 @@ hbr_data <- tibble(
     ## apply the wanted proportions of each HBR score group
     group_by(arc_hbr_score) %>%
     ## This is slice_head with prop = p_arc_hbr[[arc_hbr_score]]
-    slice(as.integer(p_arc_hbr[[first(arc_hbr_score)]] * n())) %>%
+    slice(1:as.integer(p_arc_hbr[[first(arc_hbr_score)]] * n())) %>%
     ungroup()
 
 ## Compute the proportion of HBR vs. non-HBR rows
@@ -171,7 +171,68 @@ full_data <- full_data %>%
 ## Generate subsequent 12-month bleeding for each patient based
 ## on the bleeding risk (Bernoulli with p = bleeding risk)
 full_data <- full_data %>%
-    mutate(bleed = rbinom(n = n, size = 1, prob = p_hbr_criteria[["major_oac"]]))
+    mutate(bleed = rbinom(n = n, size = 1,
+                          prob = p_hbr_criteria[["major_oac"]]))
 
+## Save for reference
 saveRDS(full_data, "gendata/hbr_sim_dataset.R")
 
+hbr_dataset <- full_data %>%
+    filter(arc_hbr_score > 0)
+
+## Check the size of the HBR group
+p_hbr_in_data <- hbr_dataset %>%
+    filter(arc_hbr_score > 0) %>%
+    nrow() / nrow(full_data)
+message("Proportion of HBR rows: ", p_hbr_in_data)
+
+## Plot the proportion of different HBR scores, compared
+## to the target values in Cao et al.
+hbr_score_prop <- hbr_dataset %>%
+    mutate(n=n()) %>%
+    group_by(arc_hbr_score) %>%
+    summarise(prop = n()/first(n)) %>%
+    mutate(arc_hbr_score = as.character(arc_hbr_score)) %>%
+    left_join(data.frame(arc_hbr_score = names(p_arc_hbr),
+                         cao_prop = unname(p_arc_hbr)),
+              by = "arc_hbr_score") %>%
+    pivot_longer(cols = c("prop","cao_prop"), names_to = "label", values_to = "value")
+
+## Plot comparison
+ggplot(data = hbr_score_prop) +
+    geom_bar(mapping = aes(x = arc_hbr_score, y = value, fill = label), stat = "identity", position = "dodge") +
+    ggtitle("Proportion of different ARC-HBR scores in the HBR group") + 
+    theme_bw()
+
+## Check the prevalence of each major/minor criterion in the HBR group
+hbr_criteria_prop <- hbr_dataset %>%
+    mutate(n=n()) %>%
+    summarise(across(matches("major|minor"), ~ sum(.x)/first(n))) %>%
+    pivot_longer(cols = colnames(.), names_to = "label", values_to = "value") %>%
+    mutate(class = "prop")
+hbr_criteria_target <- tibble(label = paste0(names(p_hbr_criteria)),
+                              value = unlist(p_hbr_criteria),
+                              class = "target")
+hbr_criteria_full <- rbind(hbr_criteria_prop, hbr_criteria_target)
+
+## Reorder the factors
+hbr_criteria_full <- hbr_criteria_full %>%
+    mutate(label = factor(label, levels=c("minor_bleed",
+                                          "minor_cva",
+                                          "minor_mild_anaemia",                                   
+                                          "minor_mod_ckd",
+                                          "minor_age",
+                                          "major_thrmcyt",
+                                          "major_surgery",
+                                          "major_sev_ckd",
+                                          "major_malig",
+                                          "major_oac",
+                                          "major_sev_anaemia")))
+
+
+## Plot the comparison
+ggplot(data = hbr_criteria_full) +
+    geom_bar(mapping = aes(x = label, y = value, fill = class), stat = "identity", position = "dodge") +
+    theme_bw() +
+    coord_flip() +
+    ggtitle("Prevalence of the ARC-HBR Criteria vs Cao et al. Within HBR Group")
