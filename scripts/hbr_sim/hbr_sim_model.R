@@ -92,10 +92,14 @@ recipe <- recipe(bleed_after ~ ., data = train) %>%
 ## Perform the resampling predictions
 pred <- predict_resample(train, test, folds, recipe)
 
-## Plot the true risk vs the logistic regression probability
+## Plot the true risk vs the logistic regression probability. The importance
+## of this plot is that it shows that the true risk does not necessarily fall
+## within the variation of predicted class probabilities for models developed
+## on cross-validation training folds. That variation is not related to the
+## confidence interval for the true risk.
 pred %>%
     ## Uncomment to view one model for all patients
-    filter(model_id %in% c(1,2,3,4)) %>%
+    filter(model_id == 1) %>%
     slice_sample(prop = 0.25) %>%
     ## Uncomment to view all models for some patients
     ggplot(aes(x = risk,
