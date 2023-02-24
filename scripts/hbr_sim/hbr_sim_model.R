@@ -95,13 +95,16 @@ pred <- predict_resample(train, test, folds, recipe)
 ## Plot the true risk vs the logistic regression probability
 pred %>%
     ## Uncomment to view one model for all patients
-    filter(model_id == 1) %>%
+    filter(model_id %in% c(1,2,3,4)) %>%
+    slice_sample(prop = 0.25) %>%
     ## Uncomment to view all models for some patients
     ggplot(aes(x = risk,
-               y = .pred_bleed_occured)) +
+               y = .pred_bleed_occured,
+               color = model_id)) +
     geom_point() +
-    scale_y_log10() +
-    scale_x_log10()
+    geom_abline(slope=1, intercept=0) +
+    xlim(0, 0.4) +
+    ylim(0, 0.4)
 
 
 
