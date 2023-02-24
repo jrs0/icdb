@@ -85,7 +85,7 @@ recipe <- recipe(bleed_after ~ ., data = train) %>%
     update_role(maj_score, new_role = "maj_score") %>%
     update_role(min_score, new_role = "min_score") %>%
     update_role(risk, new_role = "risk") %>%
-    step_nzv(all_predictors()) %>%
+    #step_nzv(all_predictors()) %>%
     step_center(all_predictors()) %>%
     step_scale(all_predictors())
 
