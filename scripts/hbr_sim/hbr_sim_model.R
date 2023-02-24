@@ -62,6 +62,7 @@ hbr_sim_dataset <- readRDS("gendata/hbr_sim_dataset.R")
 
 dataset <- hbr_sim_dataset %>%
     mutate(bleed_after = factor(bleed == 0, labels = c("bleed_occured", "no_bleed"))) %>%
+    select(-bleed) %>%
     drop_na()
 summary(dataset)
 
@@ -75,15 +76,27 @@ test <- testing(split)
 
 ## Create cross-validation folds
 folds <- vfold_cv(train,
-                  v = 50,
+                  v = 10,
                   strata = bleed_after)
 
 ## Create the recipe for the bleed models
-bleed_recipe <- recipe(bleed_after ~ ., data = train) %>%
+recipe <- recipe(bleed_after ~ ., data = train) %>%
+    update_role(arc_hbr_score, new_role = "arc_hbr_score") %>%
+    update_role(maj_score, new_role = "maj_score") %>%
+    update_role(min_score, new_role = "min_score") %>%
+    update_role(risk, new_role = "risk") %>%
     step_nzv(all_predictors()) %>%
     step_center(all_predictors()) %>%
     step_scale(all_predictors())
 
 ## Perform the resampling predictions
-pred_bleed <- predict_resample(train, test, folds, bleed_recipe)
+pred_bleed <- predict_resample(train, test, folds, recipe)
+
+
+
+
+################ working
+
+fit <- glm(bleed_after ~ minor_age, data = dataset, family = 'binomial')
+
 
