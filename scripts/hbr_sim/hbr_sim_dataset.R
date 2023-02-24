@@ -151,9 +151,10 @@ hbr_dataset <- hbr_sim_dataset %>%
     filter(arc_hbr_score > 0)
 
 ## Check the size of the HBR group
-hbr_dataset %>%
+p_hbr_real <- hbr_dataset %>%
     filter(arc_hbr_score > 0) %>%
     nrow() / nrow(hbr_sim_dataset)
+message("Proportion of rows at HBR: ", p_hbr_real, " vs. target ", p_hbr)
 
 ## Plot the proportion of different HBR scores, compared
 ## to the target values in Cao et al.
