@@ -90,8 +90,18 @@ recipe <- recipe(bleed_after ~ ., data = train) %>%
     step_scale(all_predictors())
 
 ## Perform the resampling predictions
-pred_bleed <- predict_resample(train, test, folds, recipe)
+pred <- predict_resample(train, test, folds, recipe)
 
+## Plot the true risk vs the logistic regression probability
+pred %>%
+    ## Uncomment to view one model for all patients
+    filter(model_id == 1) %>%
+    ## Uncomment to view all models for some patients
+    ggplot(aes(x = risk,
+               y = .pred_bleed_occured)) +
+    geom_point() +
+    scale_y_log10() +
+    scale_x_log10()
 
 
 
