@@ -5,6 +5,7 @@
 ##' understanding of the performance of bleeding risk simulation in the
 ##' case where the exact risk is known.
 ##'
+##' NOTE: this script does not work. Needs fixing.
 
 library(tidyverse)
 library(fabricatr)
@@ -38,8 +39,6 @@ p_hbr_criteria = list(
     minor_cva = 0.207,
     minor_bleed = 0.037
 )
-
-dplyr::fi
 
 ## Probability of bleed occurance for the baseline
 ## population (baseline bleeding risk), vs probability
