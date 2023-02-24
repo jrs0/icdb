@@ -96,7 +96,7 @@ estimate_risk <- function(arc_score) {
 }
 
 ## Size of dataframe to sample from
-n_sample = n*10
+n_sample = 10*n
 
 set.seed(470)
 
@@ -149,8 +149,9 @@ hbr_data <- tibble(
     filter(arc_hbr_score <= length(p_arc_hbr)) %>%
     ## apply the wanted proportions of each HBR score group
     group_by(arc_hbr_score) %>%
-    ## This is slice_head with prop = p_arc_hbr[[arc_hbr_score]]
-    slice(1:as.integer(p_arc_hbr[[first(arc_hbr_score)]] * n())) %>%
+    ## This is slice_head with prop = p_arc_hbr[[arc_hbr_score]] * n
+    ## However, slice_head does not support non-const prop
+    slice(1:as.integer(p_arc_hbr[[first(arc_hbr_score)]] * p_hbr * n)) %>%
     ungroup()
 
 ## Compute the proportion of HBR vs. non-HBR rows
@@ -184,7 +185,7 @@ hbr_dataset <- full_data %>%
 p_hbr_in_data <- hbr_dataset %>%
     filter(arc_hbr_score > 0) %>%
     nrow() / nrow(full_data)
-message("Proportion of HBR rows: ", p_hbr_in_data)
+message("Proportion of HBR rows: ", p_hbr_in_data, " (target ", p_hbr, ")")
 
 ## Plot the proportion of different HBR scores, compared
 ## to the target values in Cao et al.
@@ -192,11 +193,11 @@ hbr_score_prop <- hbr_dataset %>%
     mutate(n=n()) %>%
     group_by(arc_hbr_score) %>%
     summarise(prop = n()/first(n)) %>%
-    mutate(arc_hbr_score = as.character(arc_hbr_score)) %>%
-    left_join(data.frame(arc_hbr_score = names(p_arc_hbr),
-                         cao_prop = unname(p_arc_hbr)),
+    left_join(data.frame(arc_hbr_score = seq_along(p_arc_hbr),
+                         cao_prop = p_arc_hbr),
               by = "arc_hbr_score") %>%
-    pivot_longer(cols = c("prop","cao_prop"), names_to = "label", values_to = "value")
+    pivot_longer(cols = c("prop","cao_prop"),
+                 names_to = "label", values_to = "value")
 
 ## Plot comparison
 ggplot(data = hbr_score_prop) +
@@ -219,7 +220,7 @@ hbr_criteria_full <- rbind(hbr_criteria_prop, hbr_criteria_target)
 hbr_criteria_full <- hbr_criteria_full %>%
     mutate(label = factor(label, levels=c("minor_bleed",
                                           "minor_cva",
-                                          "minor_mild_anaemia",                                   
+                                          "minor_mild_anaemia",
                                           "minor_mod_ckd",
                                           "minor_age",
                                           "major_thrmcyt",
