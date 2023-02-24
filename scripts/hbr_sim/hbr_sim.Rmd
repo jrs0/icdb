@@ -264,7 +264,7 @@ ggplot(data = hbr_criteria_full) +
     ggtitle("Prevalence of the ARC-HBR Criteria vs Cao et al. Within HBR Group")
 ```
 
-In the simulated data, risk (probability) of bleeding depends quadratically on a linear combination of binary (0 or 1) input predictors $x$, the major and minor criteria: $$p_{bleed} = \text{p_bleed_base} + \alpha\left(\frac{1}{2}\sum x_{minor} + \sum x_{major}\right)^2$$. As a result, a logistic regression model is not appropriate for modelling the probability in this data. 
+In the simulated data, risk (probability) of bleeding depends quadratically on a linear combination of binary (0 or 1) input predictors $x$, the major and minor criteria: <!-- $$p_{bleed} = \text{p_bleed_base} + \alpha\left(\frac{1}{2}\sum x_{minor} + \sum x_{major}\right)^2$$ -->. As a result, a logistic regression model is not appropriate for modelling the probability in this data. 
 
 However, it is possible to use a logistic regression model anyway, to demonstrate that the variability in the logistic regression model is not a proxy for the confidence interval around the bleeding risk
 
