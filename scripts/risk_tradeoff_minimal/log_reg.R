@@ -34,7 +34,7 @@ test <- testing(split)
 
 ## Create cross-validation folds
 folds <- vfold_cv(train,
-                  v = 10,
+                  v = 100,
                   strata = bleed_after)
 
 ## ========= Model selection =============
@@ -145,14 +145,17 @@ pred_ischaemia <- list(
 pred <- pred_bleed %>%
     left_join(pred_ischaemia, by=c("id", "model_id"))
 
+## Plot a few example probabilities in the predicted data
 pred %>%
     ## Uncomment to view one model for all patients
     ##filter(sample_num == 1) %>%
     ## Uncomment to view all models for some patients
-    filter(id %in% c(1,20,23,43)) %>%
+    filter(id %in% c(1,20,23,43, 100, 101, 102)) %>%
     ggplot(aes(x = .pred_bleed_occured,
                y = .pred_ischaemia_occured,
                color = id)) +
     geom_point() +
     scale_y_log10() +
     scale_x_log10()
+
+## Compute the distributions 
