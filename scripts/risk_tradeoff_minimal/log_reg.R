@@ -9,6 +9,50 @@ library(probably)
 ## For attempt to find optimal threshold
 library(pROC)
 
+##' Using the cross-validation resamples to obtain multiple models
+##' and thereby obtain a spectrum of predicted class scoress. The
+##' intent is to assess the variability in the predicted probabilities.
+##'
+##' @return 
+##' @author 
+predict_resample <- function(train, test, folds, recipe)
+{
+    model <- logistic_reg() %>% 
+        set_engine('glm') %>% 
+        set_mode('classification')
+    workflow <- workflow() %>%
+        add_model(model) %>%
+        add_recipe(recipe)
+    ctrl_rs <- control_resamples(
+        extract = function (x) extract_fit_parsnip(x)
+    )
+    fits <- workflow %>%
+        fit_resamples(folds, control = ctrl_rs) %>%
+        pull(.extracts) %>%
+        map(~ .x %>% pluck(".extracts", 1))
+    ## Use all the models developed on each cross-validation fold
+    ## to predict probabilities in the training set
+    pre <- recipe %>%
+        prep() %>%
+        bake(new_data = test) %>%
+        ## The id is necessary later to pair up predictions from
+        ## multiple different calls to this function
+        mutate(id = as.factor(row_number()))
+    ## For each bleeding model, predict the probabilities for
+    ## the test set and record the model used to make the
+    ## prediction in model_id
+    pred_bleed <- list(
+        n = seq_along(fits),
+        f = fits
+    ) %>%
+        pmap(function(n, f)
+        {
+            f %>%
+                augment(new_data = pre) %>%
+                mutate(model_id = as.factor(n))
+        }) %>%
+        list_rbind()
+}
         
 ## Load the data and convert the bleeding outcome to a factor
 ## (levels no_bleed, bleed_occured). The result is a dataset with age and
@@ -34,111 +78,30 @@ test <- testing(split)
 
 ## Create cross-validation folds
 folds <- vfold_cv(train,
-                  v = 100,
+                  v = 5,
                   strata = bleed_after)
 
-## ========= Model selection =============
+## Create the recipe for the bleed models
+bleed_recipe <- recipe(bleed_after ~ ., data = train) %>%
+    update_role(date, new_role = "date") %>%
+    update_role(ischaemia_after, new_role = "ischaemic_after") %>%
+    step_integer(stemi_presentation) %>%
+    step_nzv(all_predictors()) %>%
+    step_center(all_predictors()) %>%
+    step_scale(all_predictors())
 
-model <- logistic_reg() %>% 
-    set_engine('glm') %>% 
-    set_mode('classification')
+## Create the ischaemia recipe
+ischaemia_recipe <- recipe(ischaemia_after ~ ., data = train) %>%
+    update_role(date, new_role = "date") %>%
+    update_role(bleed_after, new_role = "bleed_after") %>%
+    step_integer(stemi_presentation) %>%
+    step_nzv(all_predictors()) %>%
+    step_center(all_predictors()) %>%
+    step_scale(all_predictors())
 
-## ========= Recipes ============
-
-recipes = list(
-    ## Logistic regression requires preprocessing of the predictors
-    ## for sparse/unbalanced variables (p. 285, APM).
-    bleed = recipe(bleed_after ~ ., data = train) %>%
-        update_role(date, new_role = "date") %>%
-        update_role(ischaemia_after, new_role = "ischaemic_after") %>%
-        step_integer(stemi_presentation) %>%
-        step_nzv(all_predictors()) %>%
-        step_center(all_predictors()) %>%
-        step_scale(all_predictors()),
-    ## Logistic regression requires preprocessing of the predictors
-    ## for sparse/unbalanced variables (p. 285, APM).
-    ischaemia = recipe(ischaemia_after ~ ., data = train) %>%
-        update_role(date, new_role = "date") %>%
-        update_role(bleed_after, new_role = "bleed_after") %>%
-        step_integer(stemi_presentation) %>%
-        step_nzv(all_predictors()) %>%
-        step_center(all_predictors()) %>%
-        step_scale(all_predictors()))
-
-## ========= Workflows ==========
-
-## Each models (from the models list) has two recipes associated
-## with it -- one for bleeding and one for ischaemia prediction
-base_workflow <- workflow() %>%
-    add_model(model)
-workflows <- list(
-    bleed = base_workflow %>%
-        add_recipe(recipes$bleed),
-    ischaemia = base_workflow %>%
-        add_recipe(recipes$ischaemia))
-
-## Fit the models
-ctrl_rs <- control_resamples(
-    extract = function (x) extract_fit_parsnip(x)
-)
-
-fit_rs <- list(
-    bleed = workflows$bleed %>%
-        fit_resamples(folds, control = ctrl_rs),
-    ischaemia = workflows$ischaemia %>%
-        fit_resamples(folds, control = ctrl_rs))
-
-fit_bleed <- fit_rs$bleed %>%
-    pull(.extracts)
-fit_ischaemia <- fit_rs$ischaemia %>%
-    pull(.extracts)
-
-## Use all the models developed on each cross-validation fold
-## to predict probabilities in the training set
-pre_bleed <- recipes$bleed %>%
-    prep() %>%
-    bake(new_data = test) %>%
-    ## The id is necessary later to pair up bleeding/ischaemic predictions
-    mutate(id = as.factor(row_number()))
-
-## For each bleeding model, predict the probabilities for
-## the test set and record the model used to make the
-## prediction in model_id
-bleed_fits <- fit_bleed %>%
-    map(~ .x %>% pluck(".extracts", 1))
-
-pred_bleed <- list(
-    n = seq_along(bleed_fits),
-    f = bleed_fits
-) %>%
-    pmap(function(n, f)
-    {
-        f %>%
-            augment(new_data = pre_bleed) %>%
-            mutate(model_id = as.factor(n))
-    }) %>%
-    list_rbind()
-
-pre_ischaemia <- recipes$ischaemia %>%
-    prep() %>%
-    bake(new_data = test) %>%
-    ## The id is necessary later to pair up bleeding/ischaemic predictions
-    mutate(id = as.factor(row_number()))
-
-ischaemia_fits <- fit_ischaemia %>%
-    map(~ .x %>% pluck(".extracts", 1))
-
-pred_ischaemia <- list(
-    n = seq_along(ischaemia_fits),
-    f = ischaemia_fits
-) %>%
-    pmap(function(n, f)
-    {
-        f %>%
-            augment(new_data = pre_ischaemia) %>%
-            mutate(model_id = as.factor(n))
-    }) %>%
-    list_rbind()
+## Perform the resampling predictions
+pred_bleed <- predict_resample(train, test, folds, bleed_recipe)
+pred_ischaemia <- predict_resample(train, test, folds, ischaemia_recipe)
 
 ## Predict using the test set. Data is in wide format,
 ## with the bleeding and ischaemia predictions
