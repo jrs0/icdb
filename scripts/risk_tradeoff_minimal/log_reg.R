@@ -93,9 +93,7 @@ train <- training(split)
 test <- testing(split)
 
 ## Create cross-validation folds
-folds <- vfold_cv(train,
-                  v = 50,
-                  strata = bleed_after)
+folds <- bootstraps(dataset, times = 100)
 
 ## Create the recipe for the bleed models
 bleed_recipe <- recipe(bleed_after ~ ., data = train) %>%
@@ -125,14 +123,33 @@ pred <- pred_bleed %>%
     left_join(pred_ischaemia, by=c("id", "model_id"))
 
 ## Plot a few example probabilities in the predicted data
+## pred %>%
+##     ## Uncomment to view one model for all patients
+##     ##filter(sample_num == 1) %>%
+##     ## Uncomment to view all models for some patients
+##     filter(id %in% c(1,20,23,43, 100, 101, 102)) %>%
+##     ggplot(aes(x = .pred_bleed_occured,
+##                y = .pred_ischaemia_occured,
+##                color = id)) +
+##     geom_point() +
+##     scale_y_log10() +
+##     scale_x_log10()
+
 pred %>%
     ## Uncomment to view one model for all patients
     ##filter(sample_num == 1) %>%
     ## Uncomment to view all models for some patients
-    filter(id %in% c(1,20,23,43, 100, 101, 102)) %>%
-    ggplot(aes(x = .pred_bleed_occured,
-               y = .pred_ischaemia_occured,
-               color = id)) +
-    geom_point() +
-    scale_y_log10() +
-    scale_x_log10()
+    ##filter(id %in% c(1,20,23,43, 100, 101, 102)) %>%
+    sample_frac(0.051) %>%
+    group_by(id) %>%
+    na.omit() %>%
+    mutate(.pred_bleed_occured_mean = mean(.pred_bleed_occured),
+           .pred_ischaemia_occured_mean = mean(.pred_ischaemia_occured)) %>%
+    ggplot(aes(x = .pred_bleed_occured - .pred_bleed_occured_mean,
+               y = .pred_ischaemia_occured - .pred_ischaemia_occured_mean)) +
+    #geom_point() +
+    stat_density_2d(n = 10000,
+  geom = "raster",
+  aes(fill = after_stat(density)),
+  contour = FALSE
+) + scale_fill_viridis_c()
