@@ -33,39 +33,51 @@ predict_resample <- function(model, train, test, resamples_from_train, recipe)
     workflow <- workflow() %>%
         add_model(model) %>%
         add_recipe(recipe)
+
     ## Set the control to extract the fitted model for each resample
+    ## Turns out you don't need to run extract_fit_parsnip. Surely
+    ## there is a way not to call the identity function!
     ctrl_rs <- control_resamples(
-        extract = function (x) extract_fit_parsnip(x)
+        extract = function (x) x
     )
-    fits <- workflow %>%
+
+    ## Perform an independent fit on each bootstrapped resample,
+    ## extracting the fit objects
+    bootstrap_fits <- workflow %>%
         fit_resamples(resamples_from_train, control = ctrl_rs) %>%
         pull(.extracts) %>%
         map(~ .x %>% pluck(".extracts", 1))
-    ## Use all the models developed on each cross-validation fold
-    ## to predict probabilities in the training set
-    pre <- recipe %>%
-        prep() %>%
-        bake(new_data = test) %>%
-        ## The id is necessary later to pair up predictions from
-        ## multiple different calls to this function
-        mutate(id = as.factor(row_number()))
+
+    ## Perform one fit on the entire training dataset. This is the
+    ## single (no cross-validation here) main fit of the model on the
+    ## entire training set.
+    primary_fit <- workflow %>%
+        fit(data = train)
+
+    ## Use the primary model to predict the test set
+    primary_pred <- primary_fit %>%
+        augment(new_data = test) %>%
+        mutate(model_id = as.factor("primary"))
+
     ## For each bleeding model, predict the probabilities for
     ## the test set and record the model used to make the
     ## prediction in model_id
-    pred_bleed <- list(
-        n = seq_along(fits),
-        f = fits
+    bootstrap_pred <- list(
+        n = seq_along(bootstrap_fits),
+        f = bootstrap_fits
     ) %>%
         pmap(function(n, f)
         {
             f %>%
-                augment(new_data = pre) %>%
+                augment(new_data = test) %>%
                 mutate(model_id = as.factor(n))
         }) %>%
         list_rbind()
-    
-    
-    pred_bleed
+
+    ## Bind together the primary and bootstrap fits
+    pred <- bind_rows(primary_pred, bootstrap_pred)
+
+    pred 
 }
         
 ## Load the data and convert the bleeding outcome to a factor
@@ -154,15 +166,6 @@ primary_pred <- primary_fit %>%
     augment(new_data = test) %>%
     mutate(model_id = as.factor("primary"))
 
-## Use all the models developed on each bootstrapped resample
-## to predict probabilities in the training set
-pre <- recipe %>%
-    prep() %>%
-    bake(new_data = test)## %>%
-    ## The id is necessary later to pair up predictions from
-    ## multiple different calls to this function
-    ##mutate(id = as.factor(row_number()))
-
 ## For each bleeding model, predict the probabilities for
 ## the test set and record the model used to make the
 ## prediction in model_id
@@ -178,8 +181,8 @@ bootstrap_pred <- list(
     }) %>%
     list_rbind()
 
-
-
+## Bind together the primary and bootstrap fits
+pred <- bind_rows(primary_pred, bootstrap_pred)
 
 
 
@@ -207,10 +210,13 @@ pred %>%
     ## Uncomment to view one model for all patients
     ##filter(sample_num == 1) %>%
     ## Uncomment to view all models for some patients
-    filter(id %in% c(1,20,23,43, 100, 101, 102)) %>%
+    mutate(primary = case_when(model_id == "primary" ~ "primary",
+                               TRUE ~ "Bootstrap")) %>%
+    filter(id %in% c(3,5,12)) %>%
     ggplot(aes(x = .pred_bleed_occured,
                y = .pred_ischaemia_occured,
-               color = id)) +
+               color = id,
+               shape = primary)) +
     geom_point() +
     scale_y_log10() +
     scale_x_log10()
