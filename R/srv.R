@@ -336,7 +336,7 @@ server <- function(data_source_name = NULL,
     ## disabled. If interactive mode is enabled, then move on to the next stage
     ## which constructs the nested list
     if (interactive == FALSE)
-    {
+    {F
         return(new("server", node(list()), con = con))
     }
 
@@ -645,8 +645,6 @@ setMethod("show", "server", function(object) {
 ##' @export
 run <- function(x, lifetime = NULL, ...)
 {
-  print("run()")
-  print(x)
     ## Generate an SQL string for the query
     output <- capture.output(x %>% dplyr::show_query())
     query <- paste(tail(output, -1), collapse="")
