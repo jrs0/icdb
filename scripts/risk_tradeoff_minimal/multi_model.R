@@ -10,9 +10,10 @@ library(probably)
 ## For attempt to find optimal threshold
 library(pROC)
 
-##' Using the cross-validation resamples to obtain multiple models
-##' and thereby obtain a spectrum of predicted class scoress. The
-##' intent is to assess the variability in the predicted probabilities.
+##' Using the bootstrap resamples to obtain multiple models
+##' and thereby obtain a spectrum of predicted class scores for each
+##' element of the test set. This indicates the variability in the
+##' model fitting process.
 ##'
 ##' @param model The tidymodels model to use for the fit
 ##' @param train The training data on which to perform the fits
@@ -102,7 +103,7 @@ train <- training(split)
 test <- testing(split)
 
 ## Create cross-validation folds
-resamples_from_train <- bootstraps(train, times = 5)
+resamples_from_train <- bootstraps(train, times = 30)
 
 ## Create the model list
 models <- list(
@@ -154,7 +155,13 @@ pred_bleed <- list(names(models), models) %>%
     {
         predict_resample(model, train, test,
                          resamples_from_train, bleed_recipe) %>%
-            mutate(model_name = model_name)
+            mutate(model_name = model_name) %>%
+            mutate(outcome_name = "bleed") %>%
+            mutate(outcome_result =
+                       recode_factor(bleed_after,
+                                     "bleed_occured" = "occured",
+                                     "no_bleed" = "none")) %>%
+            rename(.pred_occured = .pred_bleed_occured)
     }) %>%
     list_rbind()
 
@@ -164,48 +171,71 @@ pred_ischaemia <- list(names(models), models) %>%
     {
         predict_resample(model, train, test,
                          resamples_from_train, ischaemia_recipe) %>%
-            mutate(model_name = model_name)
+            mutate(model_name = model_name) %>%
+            mutate(outcome_name = "ischaemia") %>%
+            mutate(outcome_result =
+                       recode_factor(ischaemia_after,
+                                     "ischaemia_occured" = "occured",
+                                     "no_ischaemia" = "none")) %>%
+            rename(.pred_occured = .pred_ischaemia_occured)
     }) %>%
     list_rbind()
 
-## Predict using the test set. Data is in wide format,
-## with the bleeding and ischaemia predictions
-pred <- pred_bleed %>%
-    left_join(pred_ischaemia, by=c("id", "model_id", "model_name"))
+## Predict using the test set. Data needs to be in long
+## format to be able to get at the individual ROC curves
+## later
+pred <- bind_rows(pred_bleed, pred_ischaemia) %>%
+    mutate(primary = case_when(model_id == "primary" ~ "primary",
+                               TRUE ~ "Bootstrap"))
 
 ## Plot a few example probabilities in the predicted data
-pred %>%
-    ## Uncomment to view one model for all patients
-    ##filter(model_name == "log_reg") %>%
-    ## Pick a single patients
-    filter(id == 3) %>%
-    ## Uncomment to view all models for some patients
-    mutate(primary = case_when(model_id == "primary" ~ "primary",
-                               TRUE ~ "Bootstrap")) %>%
-    filter(id %in% c(3,5,12)) %>%
-    ggplot(aes(x = .pred_bleed_occured,
-               y = .pred_ischaemia_occured,
-               color = model_name,
-               shape = primary)) +
-    geom_point() +
-    scale_y_log10() +
-    scale_x_log10()
-
 ## pred %>%
 ##     ## Uncomment to view one model for all patients
-##     ##filter(sample_num == 1) %>%
+##     ##filter(model_name == "log_reg") %>%
+##     ## Pick a single patients
+##     filter(id == 3) %>%
 ##     ## Uncomment to view all models for some patients
-##     ##filter(id %in% c(1,20,23,43, 100, 101, 102)) %>%
-##     sample_frac(0.051) %>%
-##     group_by(id) %>%
-##     na.omit() %>%
-##     mutate(.pred_bleed_occured_mean = mean(.pred_bleed_occured),
-##            .pred_ischaemia_occured_mean = mean(.pred_ischaemia_occured)) %>%
-##     ggplot(aes(x = .pred_bleed_occured - .pred_bleed_occured_mean,
-##                y = .pred_ischaemia_occured - .pred_ischaemia_occured_mean)) +
-##     #geom_point() +
-##     stat_density_2d(n = 10000,
-##   geom = "raster",
-##   aes(fill = after_stat(density)),
-##   contour = FALSE
-## ) + scale_fill_viridis_c()
+##     filter(id %in% c(3,5,12)) %>%
+##     ggplot(aes(x = .pred_bleed_occured,
+##                y = .pred_ischaemia_occured,
+##                color = model_name,
+##                shape = primary)) +
+##     geom_point() +
+##     scale_y_log10() +
+##     scale_x_log10()
+
+## What do we want
+## - Table containing: AUC of primary model; mean AUC of bootstrapped models
+##   variance of AUC of bootstrapped models. Positive and negative predictive
+##   value for each primary model, and mean and variance for bootstrap models.
+##   Summary of the variance in the predictions for bleeding and ischaemia
+##   risk for each model. Summary of the variance between the models for
+##   the bleeding and ischaemia risk.
+##
+## - Two ROC curves for each model (one for bleeding, one for ischaemia).
+##   Curves should show the primary model, and all the curves for the
+##   bootstrapped models
+##
+## - Two plots per model (one for bleeding, one for ischaemia), showing
+##   centered variance of all predicted probabilities
+##
+## - Several plots, with a few randomly selected patients, showing what
+##   all the models predict for bleeding and ischaemia risk
+##
+## - Risk-tradeoff-style plots, one for each model, showing the distribution
+##   of all the risk predictions
+##
+##
+
+## Plot AUC curves
+pred %>%
+    filter(model_name == "log_reg") %>%
+    group_by(model_name, outcome_name, primary, model_id) %>%
+    roc_curve(outcome_result, .pred_occured) %>%
+    ggplot(aes(x = 1 - specificity, y = sensitivity,
+           color=outcome_name, linetype = model_id)) +
+    geom_line() +
+    geom_abline(slope = 1, intercept = 0, size = 0.4) +
+    coord_fixed() +
+    labs(title = "ROC curves for each fitted model")
+
