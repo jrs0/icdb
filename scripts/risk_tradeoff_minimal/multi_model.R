@@ -176,14 +176,16 @@ pred <- pred_bleed %>%
 ## Plot a few example probabilities in the predicted data
 pred %>%
     ## Uncomment to view one model for all patients
-    ##filter(sample_num == 1) %>%
+    ##filter(model_name == "log_reg") %>%
+    ## Pick a single patients
+    filter(id == 3) %>%
     ## Uncomment to view all models for some patients
     mutate(primary = case_when(model_id == "primary" ~ "primary",
                                TRUE ~ "Bootstrap")) %>%
     filter(id %in% c(3,5,12)) %>%
     ggplot(aes(x = .pred_bleed_occured,
                y = .pred_ischaemia_occured,
-               color = id,
+               color = model_name,
                shape = primary)) +
     geom_point() +
     scale_y_log10() +
