@@ -229,7 +229,6 @@ pred <- bind_rows(pred_bleed, pred_ischaemia) %>%
 
 ## Group data by the model, bootstrap rerun, and outcome
 grouped_pred <- pred %>%
-    filter(model_name == "log_reg") %>%
     group_by(model_name, outcome_name, primary, model_id)
 
 ## Compute the ROC curves
@@ -238,15 +237,45 @@ roc_curves <- grouped_pred %>%
 
 ## Compute the AUC
 roc_auc <- grouped_pred %>%
-    roc_auc(outcome_result, .pred_occured)
+    roc_auc(outcome_result, .pred_occured) %>%
+    rename(auc = .estimate) %>%
+    dplyr::select(model_name, outcome_name, model_id, primary, auc) %>%
+    group_by(model_name, outcome_name)
+    
+## Summarise the AUC (should add primary AUC here)
+roc_auc %>%
+    group_by(outcome_name, model_name) %>%
+    summarise(auc_mean = mean(auc), auc_sd = sd(auc))
 
-
+## Plot the ROC curves
 roc_curves %>%
+    filter(model_name == "log_reg") %>%
     ggplot(aes(x = 1 - specificity, y = sensitivity,
-               color=outcome_name,
+               color = outcome_name,
                group = interaction(model_name, outcome_name, model_id))) +
     geom_line() +
     geom_abline(slope = 1, intercept = 0, size = 0.4) +
     coord_fixed() +
     labs(title = "ROC curves for each fitted model")
+
+## For one patient, plot all the model predictions
+grouped_pred %>%
+    ## Uncomment to view one model for all patients
+    filter(id == 1) %>%
+    ## Uncomment to view all models for some patients
+    filter(id %in% c(1,20,23,43, 100, 101, 102)) %>%
+    ggplot(aes(x = .pred_bleed_occured,
+               y = .pred_ischaemia_occured,
+               color = id)) +
+    geom_point() +
+    scale_y_log10() +
+    scale_x_log10()
+
+
+grouped_pred %>%
+    dplyr::select(id, outcome_name, model_name, .pred_occured) %>% colnames()
+    
+    pivot_wider(names_from = outcome, values_from = pred_prob) %>%
+    ggplot(aes(x = bleed, y = ischaemia, color = model)) +
+    geom_point()
 
