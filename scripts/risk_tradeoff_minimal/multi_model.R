@@ -186,7 +186,7 @@ pred_ischaemia <- list(names(models), models) %>%
 ## later
 pred <- bind_rows(pred_bleed, pred_ischaemia) %>%
     mutate(primary = case_when(model_id == "primary" ~ "primary",
-                               TRUE ~ "Bootstrap"))
+                               TRUE ~ "bootstrap"))
 
 ## Plot a few example probabilities in the predicted data
 ## pred %>%
@@ -227,13 +227,24 @@ pred <- bind_rows(pred_bleed, pred_ischaemia) %>%
 ##
 ##
 
-## Plot AUC curves
-pred %>%
+## Group data by the model, bootstrap rerun, and outcome
+grouped_pred <- pred %>%
     filter(model_name == "log_reg") %>%
-    group_by(model_name, outcome_name, primary, model_id) %>%
-    roc_curve(outcome_result, .pred_occured) %>%
+    group_by(model_name, outcome_name, primary, model_id)
+
+## Compute the ROC curves
+roc_curves <- grouped_pred %>%
+    roc_curve(outcome_result, .pred_occured)
+
+## Compute the AUC
+roc_auc <- grouped_pred %>%
+    roc_auc(outcome_result, .pred_occured)
+
+
+roc_curves %>%
     ggplot(aes(x = 1 - specificity, y = sensitivity,
-           color=outcome_name, linetype = model_id)) +
+               color=outcome_name,
+               group = interaction(model_name, outcome_name, model_id))) +
     geom_line() +
     geom_abline(slope = 1, intercept = 0, size = 0.4) +
     coord_fixed() +
