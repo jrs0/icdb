@@ -104,10 +104,33 @@ test <- testing(split)
 ## Create cross-validation folds
 resamples_from_train <- bootstraps(train, times = 5)
 
-## Create the model
-model <- logistic_reg() %>% 
-    set_engine('glm') %>% 
-    set_mode('classification')
+## Create the model list
+models <- list(
+    ## Logistic regression
+    log_reg = logistic_reg() %>% 
+        set_engine('glm') %>% 
+        set_mode('classification'),
+    ## Linear discriminant analysis
+    lin_disc = discrim_linear(
+        mode = "classification",
+        penalty = NULL,
+        regularization_method = NULL,
+        engine = "MASS"),
+    ## Naive Bayes
+    naive_bayes = naive_Bayes(
+        mode = "classification",
+        smoothness = NULL,
+        Laplace = NULL,
+        engine = "klaR"),
+    ## Decision tree
+    decision_tree <- 
+        decision_tree(
+            cost_complexity = tune(),
+            tree_depth = tune()
+        ) %>% 
+        set_engine("rpart") %>% 
+        set_mode("classification")
+)
 
 ## Create the recipe for the bleed models
 bleed_recipe <- recipe(bleed_after ~ ., data = train) %>%
@@ -129,74 +152,16 @@ ischaemia_recipe <- recipe(ischaemia_after ~ ., data = train) %>%
     step_center(all_predictors()) %>%
     step_scale(all_predictors())
 
-
-### ===========
-
-recipe <- bleed_recipe
-
-## Add an ID row to the test set in order to 
-
-## Create the workflow for this model
-workflow <- workflow() %>%
-    add_model(model) %>%
-    add_recipe(recipe)
-
-## Set the control to extract the fitted model for each resample
-## Turns out you don't need to run extract_fit_parsnip. Surely
-## there is a way not to call the identity function!
-ctrl_rs <- control_resamples(
-    extract = function (x) x
-)
-
-## Perform an independent fit on each bootstrapped resample,
-## extracting the fit objects
-bootstrap_fits <- workflow %>%
-    fit_resamples(resamples_from_train, control = ctrl_rs) %>%
-    pull(.extracts) %>%
-    map(~ .x %>% pluck(".extracts", 1))
-
-## Perform one fit on the entire training dataset. This is the
-## single (no cross-validation here) main fit of the model on the
-## entire training set.
-primary_fit <- workflow %>%
-    fit(data = train)
-
-## Use the primary model to predict the test set
-primary_pred <- primary_fit %>%
-    augment(new_data = test) %>%
-    mutate(model_id = as.factor("primary"))
-
-## For each bleeding model, predict the probabilities for
-## the test set and record the model used to make the
-## prediction in model_id
-bootstrap_pred <- list(
-    n = seq_along(bootstrap_fits),
-    f = bootstrap_fits
-) %>%
-    pmap(function(n, f)
+## Perform the resampling predictions for all the models
+pred_bleed <- models %>%
+    purrr::map(function(model)
     {
-        f %>%
-            augment(new_data = test) %>%
-            mutate(model_id = as.factor(n))
-    }) %>%
-    list_rbind()
-
-## Bind together the primary and bootstrap fits
-pred <- bind_rows(primary_pred, bootstrap_pred)
+        predict_resample(model, train, test, resamples_from_train, bleed_recipe)
+        
+    })
 
 
 
-## =============
-
-
-
-
-
-
-
-
-
-## Perform the resampling predictions
 pred_bleed <- predict_resample(model, train, test, resamples_from_train, bleed_recipe)
 pred_ischaemia <- predict_resample(model, train, test, resamples_from_train, ischaemia_recipe)
 
