@@ -123,11 +123,7 @@ models <- list(
         Laplace = NULL,
         engine = "klaR"),
     ## Decision tree
-    decision_tree <- 
-        decision_tree(
-            cost_complexity = tune(),
-            tree_depth = tune()
-        ) %>% 
+    decision_tree = decision_tree() %>% 
         set_engine("rpart") %>% 
         set_mode("classification")
 )
@@ -152,23 +148,30 @@ ischaemia_recipe <- recipe(ischaemia_after ~ ., data = train) %>%
     step_center(all_predictors()) %>%
     step_scale(all_predictors())
 
-## Perform the resampling predictions for all the models
-pred_bleed <- models %>%
-    purrr::map(function(model)
+## Perform the resampling predictions for all the models for bleeding
+pred_bleed <- list(names(models), models) %>%
+    purrr::pmap(function(model_name, model)
     {
-        predict_resample(model, train, test, resamples_from_train, bleed_recipe)
-        
-    })
+        predict_resample(model, train, test,
+                         resamples_from_train, bleed_recipe) %>%
+            mutate(model_name = model_name)
+    }) %>%
+    list_rbind()
 
-
-
-pred_bleed <- predict_resample(model, train, test, resamples_from_train, bleed_recipe)
-pred_ischaemia <- predict_resample(model, train, test, resamples_from_train, ischaemia_recipe)
+## Perform the resampling predictions for all the models for ischaemia
+pred_ischaemia <- list(names(models), models) %>%
+    purrr::pmap(function(model_name, model)
+    {
+        predict_resample(model, train, test,
+                         resamples_from_train, ischaemia_recipe) %>%
+            mutate(model_name = model_name)
+    }) %>%
+    list_rbind()
 
 ## Predict using the test set. Data is in wide format,
 ## with the bleeding and ischaemia predictions
 pred <- pred_bleed %>%
-    left_join(pred_ischaemia, by=c("id", "model_id"))
+    left_join(pred_ischaemia, by=c("id", "model_id", "model_name"))
 
 ## Plot a few example probabilities in the predicted data
 pred %>%
