@@ -445,7 +445,8 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     
     std::map<std::string, ParseResult> cache;       
 
-#pragma omp parallel for
+    //#pragma omp parallel for <- Probably don't, just parallelise at
+    // the task level.
     for (std::size_t n = 0; n < str.size(); ++n) {
 
 	// Try the cache first, then parse the string
