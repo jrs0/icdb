@@ -445,8 +445,11 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     
     std::map<std::string, ParseResult> cache;       
 
-    //#pragma omp parallel for <- Probably don't, just parallelise at
-    // the task level.
+    // Unfortunately you cannot parallelise any function which has
+    // calls to Rcpp (this is everything I would want to write). Potentially,
+    // you can't even parallelise functions that call these kind of functions
+    // either (i.e. with furrr), but there must surely be a workaround for that.
+    //#pragma omp parallel for 
     for (std::size_t n = 0; n < str.size(); ++n) {
 
 	// Try the cache first, then parse the string
