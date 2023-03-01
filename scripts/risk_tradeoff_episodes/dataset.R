@@ -131,37 +131,21 @@ flush_level1()
 
 ## Parse all the diagnoses fields.
 code_file <- "icd10.yaml"
-codes_def <- icd10_load_codes(code_file)
 
-num_workers <- parallel::detectCores()
-future::plan(future::multisession, workers = min(1, num_workers - 2))
+num_cores <- parallel::detectCores()
 
-test <- all_episodes %>% head(2000)
+future::plan(future::multisession, workers = max(1, num_cores - 2))
 
-## This bit is really slow
-parsed_diagnoses <- test %>%
+t <- all_episodes %>%
     colnames() %>%
     str_subset("diagnosis") %>%
-    purrr::map(~ test %>% select(.x)) %>%
-    purrr::map(~ .x %>% mutate(across(everything(), ~ icd10(.x, codes_def = codes_def)))) %>%
-    list_cbind()
+    head(4) %>%
+    purrr::map(~ all_episodes %>% pull(.x)) %>%
+    furrr::future_map(~ icd10(.x, code_file))
 
-## This bit is obviously fast
-parsed_episodes <- test %>%
-    select(!matches("diagnosis")) %>%
-    bind_cols(parsed_diagnoses)
-
-    
-
-## This takes about 12 minutes unparallelised.
-parsed_icd <- all_episodes %>%
+## This takes about 12 minutes unparallelised
+parsed_icd <- all_episodes %>% head(1000) %>%
     mutate(across(matches("diagnosis"), ~ icd10(.x, code_file)))
-
-## Save the parsed ICD (since parsing takes so long)
-saveRDS(parsed_icd, "gendata/parsed_icd.rds")
-
-parsed_icd <- readRDS("gendata/parsed_icd.rds")
-
 
 parse_stats <- parsed_icd$diagnosis %>% get_parse_stats()
 total_valid <- parse_stats$valid_count + parse_stats$trailing_count

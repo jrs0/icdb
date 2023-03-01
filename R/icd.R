@@ -95,16 +95,18 @@ icd10_load_codes <- function(codes_file)
 ##'
 ##' @title Make an ICD-10 object from a string
 ##' @param str The input string to parse
-##' @param codes_def The codes definition structure
+##' @param codes_file The path of the codes definition
+##' file to use
 ##' @return The new icd10 S3 object
 ##' 
-new_icd10 <- function(str = character(), codes_def)
+new_icd10 <- function(str = character(), codes_file)
 {
-    vctrs::vec_assert(str, character()) 
+    vctrs::vec_assert(str, character())
+    codes_def <- icd10_load_codes(codes_file) 
     str <- stringr::str_replace_all(str, "\\.", "") %>%
         trimws()
     results <- new_icd10_impl(str, codes_def)
-    vctrs::new_rcrd(results, class = "icdb_icd10")
+    vctrs::new_rcrd(results, codes_file = codes_file, class = "icdb_icd10")
 }
 
 ##' An icd10 object is a vector class containing parsed ICD codes,
@@ -122,15 +124,10 @@ new_icd10 <- function(str = character(), codes_def)
 icd10 <- function(str = character(),
                   codes_file = system.file("extdata",
                                            "icd10/icd10.yaml",
-                                           package = "icdb"),
-                  codes_def = NULL)
+                                           package = "icdb"))
 {
-    if (is.null(codes_def)) {
-        codes_def <- icd10_load_codes(codes_file)
-    }
-
     str <- vctrs::vec_cast(str, character())
-    new_icd10(str, codes_def)
+    new_icd10(str, codes_file)
 }
 
 ##' @title Return which ICD codes are valid as a logical vector
