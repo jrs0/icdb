@@ -445,7 +445,12 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     
     std::map<std::string, ParseResult> cache;       
 
-#pragma omp parallel for
+    // This issue is that you cannot call any Rcpp stuff while using
+    // threads, so that's OpenMP out! But potentially, this function
+    // might not even be safe to call in any parallel context (even
+    // say furrr), if this restriction applies to any threads (it
+    // probably does).
+    //#pragma omp parallel for
     for (std::size_t n = 0; n < str.size(); ++n) {
 
 	// Try the cache first, then parse the string
