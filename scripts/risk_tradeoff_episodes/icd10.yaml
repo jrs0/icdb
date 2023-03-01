@@ -8397,7 +8397,6 @@ child:
           docs: Acute myocardial infarction, unspecified
           exclude:
           - acs_stemi
-          - acs_nstemi
           index: I219
         docs: Acute myocardial infarction
         exclude:

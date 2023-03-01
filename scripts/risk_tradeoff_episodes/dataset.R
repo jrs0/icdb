@@ -108,7 +108,7 @@ library(icdb)
 ## a load_all() or a library(icdb)
 use_cache(TRUE, lifetime = ddays(30))
 
-msrv <- mapped_server("xsw")
+msrv <- mapped_server("xsw", mapping="mapping.yaml")
 
 ## Start and end dates for index percutaneous coronary intervention (PCI)
 ## procedures. This script will use acute coronary syndrome (ACS)
@@ -116,22 +116,22 @@ msrv <- mapped_server("xsw")
 start <- ymd("2000-1-1")
 end <- ymd("2023-1-1")
 
-## Fetch all spells between the dates (approx 6.8 million rows)
-all_spells <- msrv$sus$apc_spells %>%
-    filter(spell_start >= !!start, spell_start <= !!end) %>%
+## Fetch all episodes between the dates (approx 10 million rows)
+all_episodes <- msrv$sus$apc_episodes %>%
+    filter(episode_start >= !!start, episode_start <= !!end) %>%
     run()
-message("Total spells: ", nrow(all_spells))
+message("Total episodes: ", nrow(all_episodes))
+
+## This is a workaround for now, because the cache destructor is not
+## getting called correctly on package exit.
 flush_level1()
 
 ## Note: before running the parts below, make sure the working
 ## directory is set to the location of this script
 
-## Parse (read and interpret) the primary diagnosis ICD code field.
-## After this step, certain codes are kept (the ones the program knows
-## how to interpret), and these are guaranteed to have been interpreted
-## correctly. It rejects codes where it unsure of the meaning of the code.
-code_file <- "risk_tradeoff_minimal_icd10.yaml"
-parsed_icd <- all_spells %>%
+## Parse all the diagnoses fields.
+code_file <- "icd10.yaml"
+parsed_icd <- all_episodes %>%
     mutate(diagnosis = icd10(primary_diagnosis_icd, code_file))
 
 parse_stats <- parsed_icd$diagnosis %>% get_parse_stats()

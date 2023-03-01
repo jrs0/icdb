@@ -53,11 +53,42 @@ icd10_sort_by_index <- function(cat)
 }
 
 
+## This object is used to avoid rereading the same
+## (quite large) codes file every time icd10 is used.
+CodesDefCache <- R6::R6Class(
+                      "CodesCache",
+                      public = list(
+                          codes_file = "",
+                          codes_def = NULL,
+                          load_codes = function(codes_file)
+                          {
+                              if (codes_file == self$codes_file)
+                              {
+                                  ## You have previously loaded the codes
+                                  ## Just return it
+                                  self$codes_def
+                              }
+                              else
+                              {
+                                  ## You need to reread the codes from the disk
+                                  codes_def <- yaml::read_yaml(codes_file)
+                                  self$codes_def <- icd10_sort_by_index(codes_def)
+                                  ## Set the codes file
+                                  self$codes_file <- codes_file
+                                  ## Return the codes
+                                  self$codes_def
+                              }
+                              
+                          }
+                      )
+                      )
+
+## Global codes file
+codes_def_cache <- CodesDefCache$new()
+
 icd10_load_codes <- function(codes_file)
 {
-    codes_def <- yaml::read_yaml(codes_file)
-    codes_def <- icd10_sort_by_index(codes_def)
-    codes_def
+    codes_def_cache$load_codes(codes_file)
 }
 
 ##' Create a new icd10 <-(S3) object from a string
