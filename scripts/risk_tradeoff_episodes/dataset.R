@@ -131,8 +131,21 @@ flush_level1()
 
 ## Parse all the diagnoses fields.
 code_file <- "icd10.yaml"
-parsed_icd <- all_episodes %>%
-    mutate(diagnosis = icd10(primary_diagnosis_icd, code_file))
+
+num_cores <- parallel::detectCores()
+
+future::plan(future::multisession, workers = max(1, num_cores - 2))
+
+t <- all_episodes %>%
+    colnames() %>%
+    str_subset("diagnosis") %>%
+    head(4) %>%
+    purrr::map(~ all_episodes %>% pull(.x)) %>%
+    furrr::future_map(~ icd10(.x, code_file))
+
+## This takes about 12 minutes unparallelised
+parsed_icd <- all_episodes %>% head(1000) %>%
+    mutate(across(matches("diagnosis"), ~ icd10(.x, code_file)))
 
 parse_stats <- parsed_icd$diagnosis %>% get_parse_stats()
 total_valid <- parse_stats$valid_count + parse_stats$trailing_count
