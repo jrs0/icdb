@@ -131,7 +131,7 @@ flush_level1()
 
 ## Parse all the diagnoses fields.
 code_file <- "icd10.yaml"
-codes_def <- icdb:::icd10_load_codes(code_file)
+codes_def <- icd10_load_codes(code_file)
 
 num_workers <- parallel::detectCores()
 future::plan(future::multisession, workers = min(1, num_workers - 2))
