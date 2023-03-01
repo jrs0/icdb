@@ -131,42 +131,16 @@ flush_level1()
 
 ## Parse all the diagnoses fields.
 code_file <- "icd10.yaml"
-codes_def <- icdb:::icd10_load_codes(code_file)
+codes_def <- icd10_load_codes(code_file)
 
 num_workers <- parallel::detectCores()
 future::plan(future::multisession, workers = min(1, num_workers - 2))
 
-## Just do it manually
-all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_1_icd <- icd10(all_episodes$secondary_diagnosis_1_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_2_icd <- icd10(all_episodes$secondary_diagnosis_2_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_3_icd <- icd10(all_episodes$secondary_diagnosis_3_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_4_icd <- icd10(all_episodes$secondary_diagnosis_4_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_5_icd <- icd10(all_episodes$secondary_diagnosis_5_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_6_icd <- icd10(all_episodes$secondary_diagnosis_6_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_7_icd <- icd10(all_episodes$secondary_diagnosis_7_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_8_icd <- icd10(all_episodes$secondary_diagnosis_8_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_9_icd <- icd10(all_episodes$secondary_diagnosis_9_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_10_icd <- icd10(all_episodes$secondary_diagnosis_10_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_11_icd <- icd10(all_episodes$secondary_diagnosis_11_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_12_icd <- icd10(all_episodes$secondary_diagnosis_12_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_13_icd <- icd10(all_episodes$secondary_diagnosis_13_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_14_icd <- icd10(all_episodes$secondary_diagnosis_14_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_15_icd <- icd10(all_episodes$secondary_diagnosis_15_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_16_icd <- icd10(all_episodes$secondary_diagnosis_16_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_17_icd <- icd10(all_episodes$secondary_diagnosis_17_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_18_icd <- icd10(all_episodes$secondary_diagnosis_18_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_19_icd <- icd10(all_episodes$secondary_diagnosis_19_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_20_icd <- icd10(all_episodes$secondary_diagnosis_20_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_21_icd <- icd10(all_episodes$secondary_diagnosis_21_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_22_icd <- icd10(all_episodes$secondary_diagnosis_22_icd, codes_def = codes_def)
-all_episodes$secondary_diagnosis_23_icd <- icd10(all_episodes$secondary_diagnosis_23_icd, codes_def = codes_def)
+test <- all_episodes %>% head(2000)
 
 ## This bit is really slow
 parsed_diagnoses <- test %>%
-    colnames()
-
-
+    colnames() %>%
     str_subset("diagnosis") %>%
     purrr::map(~ test %>% select(.x)) %>%
     purrr::map(~ .x %>% mutate(across(everything(), ~ icd10(.x, codes_def = codes_def)))) %>%
@@ -181,7 +155,7 @@ parsed_episodes <- test %>%
 
 ## This takes about 12 minutes unparallelised.
 parsed_icd <- all_episodes %>%
-    mutate(across(matches("diagnosis"), ~ icd10(.x, code_def = code_def)))
+    mutate(across(matches("diagnosis"), ~ icd10(.x, code_file)))
 
 ## Save the parsed ICD (since parsing takes so long)
 saveRDS(parsed_icd, "gendata/parsed_icd.rds")
