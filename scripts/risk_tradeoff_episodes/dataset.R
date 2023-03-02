@@ -136,8 +136,28 @@ code_file <- "icd10.yaml"
 parsed_icd <- all_episodes %>%
     mutate(across(matches("diagnosis"), ~ icd10(.x, code_file)))
 
-## Save the result here
-saveRDS(parsed_icd, "gendata/parsed_icd.rds")
+## Parse codes and extract groups
+num_workers <- max(1, parallel::detectCores() - 2)
+future::plan(future::multisession, workers = num_workers)
+cols_to_parse <- all_episodes %>%
+    colnames() %>%
+    str_subset("diagnosis")
+
+parsed_icd <- cols_to_parse %>% head(3) %>%
+    purrr::map(~ all_episodes %>% pull(.x)) %>%
+    purrr::map(~ icd10(.x, code_file))
+
+
+all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, code_file)
+
+all_episodes$secondary_diagnosis_1_icd <- icd10(all_episodes$secondary_diagnosis_1_icd, code_file)
+ 
+## Save the result heres
+aveRDS(parsed_icd, "gendata/parsed_icd.rds")
+
+## Read the parsed results
+parsed_icd <- readRDS("gendata/parsed_icd.rds")
+
 
 parse_stats <- parsed_icd$diagnosis %>% get_parse_stats()
 total_valid <- parse_stats$valid_count + parse_stats$trailing_count
