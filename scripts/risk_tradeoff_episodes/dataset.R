@@ -136,21 +136,19 @@ code_file <- "icd10.yaml"
 parsed_icd <- all_episodes %>%
     mutate(across(matches("diagnosis"), ~ icd10(.x, code_file)))
 
-## Parse codes and extract groups
-num_workers <- max(1, parallel::detectCores() - 2)
-future::plan(future::multisession, workers = num_workers)
-cols_to_parse <- all_episodes %>%
-    colnames() %>%
-    str_subset("diagnosis")
 
-parsed_icd <- cols_to_parse %>% head(3) %>%
-    purrr::map(~ all_episodes %>% pull(.x)) %>%
-    purrr::map(~ icd10(.x, code_file))
-
-
+#all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, code_file)
 all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, code_file)
 
-all_episodes$secondary_diagnosis_1_icd <- icd10(all_episodes$secondary_diagnosis_1_icd, code_file)
+## Parse codes and extract groups. There is a memory problem here
+all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, code_file)
+gc()
+all_episodes$secondary_diagnosis_1_icd <- group_string(icd10(all_episodes$secondary_diagnosis_1_icd, code_file))
+gc()
+all_episodes$secondary_diagnosis_2_icd <- group_string(icd10(all_episodes$secondary_diagnosis_2_icd, code_file))
+gc()
+all_episodes$secondary_diagnosis_3_icd <- group_string(icd10(all_episodes$secondary_diagnosis_3_icd, code_file))
+gc()
  
 ## Save the result heres
 aveRDS(parsed_icd, "gendata/parsed_icd.rds")
