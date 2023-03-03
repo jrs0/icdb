@@ -132,32 +132,103 @@ flush_level1()
 ## Parse all the diagnoses fields.
 code_file <- "icd10.yaml"
 
+#####################################################################
+## Starting here, you are on thin ice memory wise -- thye icd10 class
+## uses a very large amount of memory
+
 ## This takes about 12 minutes unparallelised
 parsed_icd <- all_episodes %>%
     mutate(across(matches("diagnosis"), ~ icd10(.x, code_file)))
 
-## Save the result here
-saveRDS(parsed_icd, "gendata/parsed_icd.rds")
+## Keep only the ICD codes where the primary diagnosis is valid. This
+## uses base R to avoid any memory copies of any icd10 columns
+parsed_icd <- parsed_icd[is_valid(primary_diagnosis_icd),]
 
-parse_stats <- parsed_icd$diagnosis %>% get_parse_stats()
-total_valid <- parse_stats$valid_count + parse_stats$trailing_count
-total_excluded <- parse_stats$empty_count + parse_stats$invalid_count
-message("Total valid ICD codes: ", total_valid)
-message("Total invalid/non-interpreted ICD codes: ", total_excluded)
-message("Percentage excluded: ",
-        round(100*total_excluded/nrow(all_spells), 2), "%")
+## Now drop all the ICD columns in place. Being very close to the
+## memory limit (64 GiB), this one took ages, but then running the
+## gc frees up some space.
+parsed_icd$primary_diagnosis_icd <- group_string(parsed_icd$primary_diagnosis_icd)
+gc() ## Needed running twice the first time to get itself sorted
 
-## Keep only the ICD codes that were parse correctly (with optional
-## trailing matter). Reject empty/invalid codes. Drop the original
-## diagnosis column.
-valid_icd <- parsed_icd %>%
-    filter(is_valid(diagnosis)) %>% 
-    select(-primary_diagnosis_icd, -spell_end)
+parsed_icd$secondary_diagnosis_1_icd <- group_string(parsed_icd$secondary_diagnosis_1_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_2_icd <- group_string(parsed_icd$secondary_diagnosis_2_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_3_icd <- group_string(parsed_icd$secondary_diagnosis_3_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_4_icd <- group_string(parsed_icd$secondary_diagnosis_4_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_5_icd <- group_string(parsed_icd$secondary_diagnosis_5_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_6_icd <- group_string(parsed_icd$secondary_diagnosis_6_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_7_icd <- group_string(parsed_icd$secondary_diagnosis_7_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_8_icd <- group_string(parsed_icd$secondary_diagnosis_8_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_9_icd <- group_string(parsed_icd$secondary_diagnosis_9_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_10_icd <- group_string(parsed_icd$secondary_diagnosis_10_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_11_icd <- group_string(parsed_icd$secondary_diagnosis_11_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_12_icd <- group_string(parsed_icd$secondary_diagnosis_12_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_13_icd <- group_string(parsed_icd$secondary_diagnosis_13_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_14_icd <- group_string(parsed_icd$secondary_diagnosis_14_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_15_icd <- group_string(parsed_icd$secondary_diagnosis_15_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_16_icd <- group_string(parsed_icd$secondary_diagnosis_16_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_17_icd <- group_string(parsed_icd$secondary_diagnosis_17_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_18_icd <- group_string(parsed_icd$secondary_diagnosis_18_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_19_icd <- group_string(parsed_icd$secondary_diagnosis_19_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_20_icd <- group_string(parsed_icd$secondary_diagnosis_20_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_21_icd <- group_string(parsed_icd$secondary_diagnosis_21_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_22_icd <- group_string(parsed_icd$secondary_diagnosis_22_icd)
+gc()
+
+parsed_icd$secondary_diagnosis_23_icd <- group_string(parsed_icd$secondary_diagnosis_23_icd)
+gc()
+
+saveRDS(parsed_icd, "gendata/parsed_icd_char.rds")
+
+## End of the silly memory issues ############################################
+
+parsed_icd <- readRDS("gendata/parsed_icd_char.rds")
 
 ## Get the data range covered by the spells -- this is the range
 ## for which it is assumed data is present
-first_spell_date <- min(valid_icd$spell_start)
-last_spell_date <- max(valid_icd$spell_start)
+first_episode_date <- min(valid_icd$spell_start)
+last_episode_date <- max(valid_icd$spell_start)
 
 ## Filter the valid ICD codes only keeping the ones in a specified
 ## ICD-10 group (set by using the map-editor tool). In addition,
