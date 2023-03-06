@@ -133,7 +133,7 @@ flush_level1()
 code_file <- "icd10.yaml"
 
 #####################################################################
-## Starting here, you are on thin ice memory wise -- thye icd10 class
+## Starting here, you are on thin ice memory wise -- the icd10 class
 ## uses a very large amount of memory
 
 ## This takes about 12 minutes unparallelised
@@ -143,6 +143,8 @@ parsed_icd <- all_episodes %>%
 ## Keep only the ICD codes where the primary diagnosis is valid. This
 ## uses base R to avoid any memory copies of any icd10 columns
 parsed_icd <- parsed_icd[is_valid(primary_diagnosis_icd),]
+gc()
+gc()
 
 ## Now drop all the ICD columns in place. Being very close to the
 ## memory limit (64 GiB), this one took ages, but then running the
@@ -249,20 +251,27 @@ saveRDS(parsed_icd, "gendata/parsed_icd_char.rds")
 
 parsed_icd <- readRDS("gendata/parsed_icd_char.rds")
 
+## Get the data range covered by the spells -- this is the range
+## for which it is assumed data is present
+first_episode_date <- min(parsed_icd$episode_start)
+last_episode_date <- max(parsed_icd$episode_start)
+
 ## Reduce the ICD groups to the relevant groups of
 ## interest for the predictors and the response
+## (several minutes)
 with_id <- parsed_icd %>%
     ## Add an id to every row that will become
     ## the id for index acs events. The data is
     ## arranged by nhs number and date so that
-    ## grouping by id later will also perform this
+     ## grouping by id later will also perform this
     ## arrangement.
     arrange(nhs_number, episode_start) %>%
     mutate(id = row_number())
 
 ## Make the table of index acs events, and record whether
 ## the presentation was stemi or nstemi
-index_acs <- with_id %>% head(10000) %>%
+## (about 10 mins)
+index_acs <- with_id %>%
     ## Collect episodes into spells
     group_by(hospital_provider_spell_identifier) %>%
     ## Keep only the groups (spells) which begin with an ACS episode
@@ -294,10 +303,10 @@ message("Total acs events: ", total_acs_events)
 ## column which lists which primary/secondary column it
 ## came from (i.e. the data is long). Any empty diagnoses
 ## are then dropped.
-with_reduced_groups <- with_id %>% head(10000) %>%
+with_reduced_groups <- with_id %>%
     ## Rename episode date and episode ID so that they will
     ## get a good name on the left join with acs index events
-    rename(other_episode_start_date = episode_start,
+    rename(other_episode_date = episode_start,
            other_episode_id = id) %>%
     ## Drop unnecessary columns
     select(-age_on_admission, -episode_end) %>%
@@ -325,10 +334,10 @@ with_reduced_groups <- with_id %>% head(10000) %>%
     pivot_longer(matches("diagnosis"), names_to = "diagnosis_type", values_to = "predictor_group") %>%
     filter(predictor_group != "") %>%
     ## Create response column from the primary diagnosis. 
-    mutate(bleed_response = if_else(diagnosis_type == "primary_diagnosis_icd" & predictor_group == "bleeding",
-                                    "bleeding", NA_character_)) %>%
-    mutate(ischaemia_response = if_else(diagnosis_type == "primary_diagnosis_icd" & str_detect(predictor_group, "(acs|ischaemic_stroke)"),
-                                        "ischaemia", NA_character_)) %>%
+    ## mutate(bleed_response = if_else(diagnosis_type == "primary_diagnosis_icd" & predictor_group == "bleeding",
+    ##                                 "bleeding", NA_character_)) %>%
+    ## mutate(ischaemia_response = if_else(diagnosis_type == "primary_diagnosis_icd" & str_detect(predictor_group, "(acs|ischaemic_stroke)"),
+    ##                                     "ischaemia", NA_character_)) %>%
     ## We don't need anything except the NHS number, the dates, and the diagnoses
     select(nhs_number, matches("diagnosis"), predictor_group, matches("episode"), matches("response"))
 
@@ -344,8 +353,8 @@ events_by_acs <- index_acs %>%
 ## acs event (before or after)
 window <- ddays(365)
 events_in_window <- events_by_acs %>%
-    filter(other_spell_date >= acs_date - window,
-           other_spell_date <= acs_date + window)
+    filter(other_episode_date >= acs_date - window,
+           other_episode_date <= acs_date + window)
 
 ## Count the number of acs events without any other spells in +- 12 months 
 total_isolated_acs <- events_in_window %>%
@@ -365,12 +374,12 @@ with_code_columns <- events_in_window %>%
     ## of that group in the previous 12 months
     group_by(predictor_group, .add=TRUE) %>%
     ## Count how many times each group occurs before the ACS.
-    mutate(before = sum(other_spell_date < acs_date)) %>%
+    mutate(before = sum(other_episode_date < acs_date)) %>%
     ## Compute the response columns (whether a bleeding event or
     ## an ischaemic event occur after the ACS)
-    mutate(bleed_after = sum((other_spell_date > acs_date) &
+    mutate(bleed_after = sum((other_episode_date > acs_date) &
                              str_detect(predictor_group, "bleeding"))) %>%
-    mutate(ischaemia_after = sum((other_spell_date > acs_date) &
+    mutate(ischaemia_after = sum((other_episode_date > acs_date) &
                                  str_detect(predictor_group, "(acs|ischaemic_stroke)"))) %>%    
     ## Only keep one instance of each predictor group, because the
     ## count information is all we need.
@@ -383,7 +392,7 @@ with_code_columns <- events_in_window %>%
     mutate(ischaemia_after = max(ischaemia_after)) %>%
     ## Drop the other_spell_icd column so that the pivot wider works
     ## (i.e. the column values are unique)
-    select(-other_spell_id, -other_spell_date) %>%
+    select(-other_episode_id, -other_episode_date) %>%
     ## Convert into a wide format where every predictor group becomes
     ## two columns of the form <code_name>_before and <code_name>_after,
     ## which store the number of times that diagnosis group occured before
@@ -398,12 +407,12 @@ with_code_columns <- events_in_window %>%
 ## Remove acs index events that do not have at least 12 months
 ## prior time, and do not have at least 12 months follow up time
 pruned_dataset <- with_code_columns %>%
-    filter(acs_date >= first_spell_date + window,
-           acs_date <= last_spell_date - window)
+    filter(acs_date >= first_episode_date + window,
+           acs_date <= last_episode_date - window)
 
-risk_tradeoff_minimal_dataset <- pruned_dataset %>%
+risk_tradeoff_episodes_dataset <- pruned_dataset %>%
     rename(date = acs_date) %>%
     select(date, age, bleed_after, ischaemia_after, everything(), -nhs_number, -acs_id)
 
 ## Save the dataset
-saveRDS(risk_tradeoff_minimal_dataset, "gendata/risk_tradeoff_minimal_dataset.rds")
+saveRDS(risk_tradeoff_episodes_dataset, "gendata/risk_tradeoff_episodes_dataset.rds")

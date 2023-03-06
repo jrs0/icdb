@@ -399,11 +399,16 @@
     - StartTime_HospitalProviderSpell
     strategy: coalesce
   - column: age_on_admission
-    docs: AGE ON ADMISSION is derived as the number of completed years between the
+    docs: "AGE ON ADMISSION is derived as the number of completed years between the
       PERSON BIRTH DATE of the PATIENT and the START DATE (HOSPITAL PROVIDER SPELL).
-    use: no
+
+      Note: using a derived age for this column -- need to check what AIMTC_Age is
+      actually derived from. There are a few different age columns in CDS 130 that
+      this column might map to."
+    use: yes
     source:
-    - AgeOnAdmission
+    - AIMTC_Age
+    #- AgeOnAdmission
     strategy: coalesce
   - column: ambulance_call_identifier
     docs: A unique identifier for each AMBULANCE CALL.
