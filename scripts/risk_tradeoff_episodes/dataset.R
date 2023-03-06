@@ -149,74 +149,98 @@ parsed_icd <- parsed_icd[is_valid(primary_diagnosis_icd),]
 ## gc frees up some space.
 parsed_icd$primary_diagnosis_icd <- group_string(parsed_icd$primary_diagnosis_icd)
 gc() ## Needed running twice the first time to get itself sorted
+gc()
 
 parsed_icd$secondary_diagnosis_1_icd <- group_string(parsed_icd$secondary_diagnosis_1_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_2_icd <- group_string(parsed_icd$secondary_diagnosis_2_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_3_icd <- group_string(parsed_icd$secondary_diagnosis_3_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_4_icd <- group_string(parsed_icd$secondary_diagnosis_4_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_5_icd <- group_string(parsed_icd$secondary_diagnosis_5_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_6_icd <- group_string(parsed_icd$secondary_diagnosis_6_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_7_icd <- group_string(parsed_icd$secondary_diagnosis_7_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_8_icd <- group_string(parsed_icd$secondary_diagnosis_8_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_9_icd <- group_string(parsed_icd$secondary_diagnosis_9_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_10_icd <- group_string(parsed_icd$secondary_diagnosis_10_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_11_icd <- group_string(parsed_icd$secondary_diagnosis_11_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_12_icd <- group_string(parsed_icd$secondary_diagnosis_12_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_13_icd <- group_string(parsed_icd$secondary_diagnosis_13_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_14_icd <- group_string(parsed_icd$secondary_diagnosis_14_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_15_icd <- group_string(parsed_icd$secondary_diagnosis_15_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_16_icd <- group_string(parsed_icd$secondary_diagnosis_16_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_17_icd <- group_string(parsed_icd$secondary_diagnosis_17_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_18_icd <- group_string(parsed_icd$secondary_diagnosis_18_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_19_icd <- group_string(parsed_icd$secondary_diagnosis_19_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_20_icd <- group_string(parsed_icd$secondary_diagnosis_20_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_21_icd <- group_string(parsed_icd$secondary_diagnosis_21_icd)
+gc()
 gc()
 
 parsed_icd$secondary_diagnosis_22_icd <- group_string(parsed_icd$secondary_diagnosis_22_icd)
 gc()
+gc()
 
 parsed_icd$secondary_diagnosis_23_icd <- group_string(parsed_icd$secondary_diagnosis_23_icd)
+gc()
 gc()
 
 saveRDS(parsed_icd, "gendata/parsed_icd_char.rds")
@@ -225,72 +249,36 @@ saveRDS(parsed_icd, "gendata/parsed_icd_char.rds")
 
 parsed_icd <- readRDS("gendata/parsed_icd_char.rds")
 
-## Get the data range covered by the spells -- this is the range
-## for which it is assumed data is present
-first_episode_date <- min(valid_icd$spell_start)
-last_episode_date <- max(valid_icd$spell_start)
-
-## Filter the valid ICD codes only keeping the ones in a specified
-## ICD-10 group (set by using the map-editor tool). In addition,
-## extract the groups as strings and drop the original diagnosis
-## column.
-spells_of_interest <- valid_icd %>%
-    mutate(group = group_string(diagnosis)) %>%
-    filter(group != "") %>%
-    select(-diagnosis)
-message("Total spells of interest (those in groups): ",
-        nrow(spells_of_interest))
-
-## Plot the distribution of different conditions (note the
-## log scale). In viewing this graph, note that some conditions
-## have a greater spells-per-person-per-time than others -- a
-## acute condition may have one spell, but a chronic condition
-## may have many.
-spells_of_interest %>%
-    count(group) %>%
-    ggplot() +
-    geom_bar(mapping = aes(x = reorder(group, -n), y = n), stat="identity") +
-    scale_y_log10()
-
-## Print a summary of the breakdown of each condition
-spells_of_interest %>%
-    count(group) %>%
-    print(n=30)
-
-save_data <- list(spells_of_interest = spells_of_interest,
-                  first_spell_date = first_spell_date,
-                  last_spell_date = last_spell_date)                  
-saveRDS(save_data, "gendata/spells_of_interest.rds")
-
-## Save Point 1 ============================================
-## If you get here, save the result so that you can pick up
-## without needing to redo the parsing steps
-save_data <- readRDS("gendata/spells_of_interest.rds")
-spells_of_interest = save_data$spells_of_interest
-first_spell_date = save_data$first_spell_date
-last_spell_date = save_data$last_spell_date
-
 ## Reduce the ICD groups to the relevant groups of
 ## interest for the predictors and the response
-with_id <- spells_of_interest %>%
+with_id <- parsed_icd %>%
     ## Add an id to every row that will become
     ## the id for index acs events. The data is
     ## arranged by nhs number and date so that
     ## grouping by id later will also perform this
     ## arrangement.
-    arrange(nhs_number, spell_start) %>%
+    arrange(nhs_number, episode_start) %>%
     mutate(id = row_number())
 
 ## Make the table of index acs events, and record whether
 ## the presentation was stemi or nstemi
-index_acs <- with_id %>%
-    filter(str_detect(group, "acs")) %>%
-    mutate(stemi_presentation = str_detect(group, "acs_stemi")) %>%
+index_acs <- with_id %>% head(10000) %>%
+    ## Collect episodes into spells
+    group_by(hospital_provider_spell_identifier) %>%
+    ## Keep only the groups (spells) which begin with an ACS episode
+    filter(str_detect(first(primary_diagnosis_icd), "acs")) %>%
+    ## Get only that ACS episode row 
+    slice_head(n = 1) %>%
+    mutate(stemi_presentation = str_detect(primary_diagnosis_icd, "acs_stemi")) %>%
     rename(age = age_on_admission,
-           acs_date = spell_start,
+           acs_date = episode_start,
            acs_id = id) %>%
-    select(-group)
-    
+    ## Drop all the diagnoses columns -- the goal is to have no duplicate columns
+    ## names for the left join that comes next
+    select(-matches("diagnosis")) %>%
+    ## Drop the episode end date
+    select(-episode_end)
+
 total_acs_events <- nrow(index_acs)
 message("Total acs events: ", total_acs_events)
 
@@ -299,38 +287,50 @@ message("Total acs events: ", total_acs_events)
 ## joining the other spells and accounting for the number
 ## of occurances of each reduced group. It is important
 ## not to separate rows before finding the index events,
-## in case any ACS events are double counted.
-with_reduced_groups <- with_id %>%
-    rename(other_spell_date = spell_start,
-           other_spell_id = id) %>%
+## in case any ACS events are double counted. After this,
+## you will get a dataframe with a "predictor_group" which
+## contains all the diagnosis information (from all the
+## primary and secondary columns), and a diagnosis_type
+## column which lists which primary/secondary column it
+## came from (i.e. the data is long). Any empty diagnoses
+## are then dropped.
+with_reduced_groups <- with_id %>% head(10000) %>%
+    ## Rename episode date and episode ID so that they will
+    ## get a good name on the left join with acs index events
+    rename(other_episode_start_date = episode_start,
+           other_episode_id = id) %>%
     ## Drop unnecessary columns
-    select(-age_on_admission) %>%
+    select(-age_on_admission, -episode_end) %>%
     ## Seperate diagnosis rows that fall into two categories
     ## (e.g. anaemia,bleeding), into two rows, one for each
     ## group. This is so that they can be accounted for properly
-    ## when the groups are accounted for in the pivot below.
-    separate_rows(group, sep = ",") %>%
-    ## Add predictor reduced groups
-    mutate(predictor_group = case_when(
-               ## Class any CKD as renal
-               str_detect(group, "ckd") ~ "renal",
-               ## Consider unstable angina as nstemi
-               str_detect(group, "unstable_angina") ~ "acs_nstemi",
-               ## Group cirrhosis, portal hypertension and hepatic failure
-               str_detect(group, "(portal_hypertension|cirrhosis|hepatic_failure)") ~ "cirrhosis_portal_htn",
-               TRUE ~ group)) %>%
-    ## Drop excluded predictors
-    filter(!str_detect(predictor_group, "(type_2_diabetes|diabetes_unspecified)")) %>%
-    ## Create response column
-    ## mutate(bleed_response = if_else(str_detect(group, "bleeding"), "bleeding", NA_character_)) %>%
-    ## mutate(ischaemia_response = if_else(str_detect(group, "(acs|ischaemic_stroke)"), "ischaemia", NA_character_))
-    ## Drop unnecessary columns
-    select(-group)
-           
-## Print the reduced groups
-with_reduced_groups %>%
-    count(predictor_group) %>%
-    print(n=30)
+    ## when the groups are counted in the pivot below.
+    separate_rows(matches("diagnosis"), sep = ",") %>%
+    ## In all primary and secondary diagnosis columns, group together the ICD groups
+    ## from the mapping file into groups of interest for predictors. This creates a
+    ## slightly coarser-grained grouping than the mapping file (the advantage of doing
+    ## this here is that you don't need to refetch from the database to change the groups)
+    mutate(across(matches("diagnosis"), ~ case_when(
+                                           ## Class any CKD as renal
+                                           str_detect(.x, "ckd") ~ "renal",
+                                           ## Consider unstable angina as nstemi
+                                           str_detect(.x, "unstable_angina") ~ "acs_nstemi",
+                                           ## Group cirrhosis, portal hypertension and hepatic failure
+                                           str_detect(.x, "(portal_hypertension|cirrhosis|hepatic_failure)") ~ "cirrhosis_portal_htn",
+                                           ## Group together all diabetes
+                                           str_detect(.x, "(type_1_diabetes|type_2_diabetes|diabetes_unspecified)") ~ "diabetes",
+                                           TRUE ~ .x))) %>%
+    ## Collapse all the diagnoses (primary and secondary) into one big "predictor_group" column. Then remove any rows that do not
+    ## contain a diagnosis (these do not contribute information).
+    pivot_longer(matches("diagnosis"), names_to = "diagnosis_type", values_to = "predictor_group") %>%
+    filter(predictor_group != "") %>%
+    ## Create response column from the primary diagnosis. 
+    mutate(bleed_response = if_else(diagnosis_type == "primary_diagnosis_icd" & predictor_group == "bleeding",
+                                    "bleeding", NA_character_)) %>%
+    mutate(ischaemia_response = if_else(diagnosis_type == "primary_diagnosis_icd" & str_detect(predictor_group, "(acs|ischaemic_stroke)"),
+                                        "ischaemia", NA_character_)) %>%
+    ## We don't need anything except the NHS number, the dates, and the diagnoses
+    select(nhs_number, matches("diagnosis"), predictor_group, matches("episode"), matches("response"))
 
 ## Join back all the other spells onto the index
 ## events by nhs number
