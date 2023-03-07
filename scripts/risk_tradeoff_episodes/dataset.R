@@ -256,10 +256,12 @@ parsed_icd <- readRDS("gendata/parsed_icd_char.rds")
 first_episode_date <- min(parsed_icd$episode_start)
 last_episode_date <- max(parsed_icd$episode_start)
 
+test_parsed_icd <- parsed_icd %>% head(100000)
+
 ## Reduce the ICD groups to the relevant groups of
 ## interest for the predictors and the response
 ## (several minutes)
-with_id <- parsed_icd %>%
+with_id <- test_parsed_icd %>%
     ## Add an id to every row that will become
     ## the id for index acs events. The data is
     ## arranged by nhs number and date so that
@@ -272,9 +274,16 @@ with_id <- parsed_icd %>%
 ## the presentation was stemi or nstemi
 ## (about 10 mins)
 index_acs <- with_id %>%
+    ## You want to group by spell ID here, but you can't because
+    ## some spell IDs are empty. So filter out all the rows with
+    ## empty spell ID
+    filter(hospital_provider_spell_identifier != "") %>%
     ## Collect episodes into spells
     group_by(hospital_provider_spell_identifier) %>%
-    ## Keep only the groups (spells) which begin with an ACS episode
+    ## Arrange the episodes by start date and then end date. For equal
+    ## start dates, if the episode ends sooner it is assumed to be before
+    arrange(episode_start, episode_end) %>%
+    ## Keep only the groups (spells) which begin with an ACS primary episode
     filter(str_detect(first(primary_diagnosis_icd), "acs")) %>%
     ## Get only that ACS episode row 
     slice_head(n = 1) %>%
@@ -286,7 +295,8 @@ index_acs <- with_id %>%
     ## names for the left join that comes next
     select(-matches("diagnosis")) %>%
     ## Drop the episode end date
-    select(-episode_end)
+    select(-episode_end) %>%
+    ungroup()
 
 total_acs_events <- nrow(index_acs)
 message("Total acs events: ", total_acs_events)
@@ -344,7 +354,7 @@ with_reduced_groups <- with_id %>%
 ## Join back all the other spells onto the index
 ## events by nhs number
 events_by_acs <- index_acs %>%
-    left_join(with_reduced_groups, by=c("nhs_number"="nhs_number")) %>%
+    left_join(with_reduced_groups, by=c("nhs_number"), multiple = "all") %>%
     ## Group this table by id.x, which is the index acs id
     group_by(acs_id) %>%
     arrange(acs_date, .by_group = TRUE)
@@ -380,19 +390,22 @@ with_code_columns <- events_in_window %>%
     mutate(bleed_after = sum((other_episode_date > acs_date) &
                              str_detect(predictor_group, "bleeding"))) %>%
     mutate(ischaemia_after = sum((other_episode_date > acs_date) &
-                                 str_detect(predictor_group, "(acs|ischaemic_stroke)"))) %>%    
+                                 str_detect(predictor_group, "(acs|ischaemic_stroke)"))) %>%
     ## Only keep one instance of each predictor group, because the
     ## count information is all we need.
-    slice(1) %>%    
+    slice(1) %>%
     ## In order to make the pivot wider step work later, the
     ## bleed_after count needs to be filled up and down in the acs
     ## group.
     group_by(acs_id) %>%
     mutate(bleed_after = max(bleed_after)) %>%
     mutate(ischaemia_after = max(ischaemia_after)) %>%
+    ## Deduplicate the ACS index row (only keep the primary episode or
+    ## the index spell)
+    filter(!((acs_id == other_episode_id) & (diagnosis_type != "primary_diagnosis_icd"))) %>%
     ## Drop the other_spell_icd column so that the pivot wider works
     ## (i.e. the column values are unique)
-    select(-other_episode_id, -other_episode_date) %>%
+    select(-other_episode_id, -other_episode_date, -diagnosis_type) %>%
     ## Convert into a wide format where every predictor group becomes
     ## two columns of the form <code_name>_before and <code_name>_after,
     ## which store the number of times that diagnosis group occured before

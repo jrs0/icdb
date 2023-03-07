@@ -85,8 +85,8 @@ predict_resample <- function(model, train, test, resamples_from_train, recipe)
 ## (levels no_bleed, bleed_occured). The result is a dataset with age and
 ## all the ICD <code>_before columns, and a response variable bleed.
 
-risk_tradeoff_minimal_dataset <- readRDS("gendata/risk_tradeoff_minimal_dataset.rds")
-dataset <- risk_tradeoff_minimal_dataset %>%
+risk_tradeoff_episodes_dataset <- readRDS("gendata/risk_tradeoff_episodes_dataset.rds")
+dataset <- risk_tradeoff_episodes_dataset %>%
     mutate(bleed_after = factor(bleed_after == 0, labels = c("bleed_occured", "no_bleed"))) %>%
     mutate(ischaemia_after = factor(ischaemia_after == 0, labels = c("ischaemia_occured", "no_ischaemia"))) %>%
     drop_na() %>%
