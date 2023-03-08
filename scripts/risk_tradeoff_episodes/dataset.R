@@ -251,17 +251,21 @@ saveRDS(parsed_icd, "gendata/parsed_icd_char.rds")
 
 parsed_icd <- readRDS("gendata/parsed_icd_char.rds")
 
+## Keep less data (R script too slow)
+start <- ymd("2015-1-1")
+end <- ymd("2023-1-1")
+parsed_icd <- parsed_icd %>%
+    filter(episode_start >= start, episode_end <= end)
+
 ## Get the data range covered by the spells -- this is the range
 ## for which it is assumed data is present
 first_episode_date <- min(parsed_icd$episode_start)
 last_episode_date <- max(parsed_icd$episode_start)
 
-test_parsed_icd <- parsed_icd %>% head(100000)
-
 ## Reduce the ICD groups to the relevant groups of
 ## interest for the predictors and the response
 ## (several minutes)
-with_id <- test_parsed_icd %>%
+with_id <- parsed_icd %>%
     ## Add an id to every row that will become
     ## the id for index acs events. The data is
     ## arranged by nhs number and date so that
@@ -416,7 +420,6 @@ with_code_columns <- events_in_window %>%
                 names_glue = "{predictor_group}_{.value}") %>%
     ungroup()
 
-
 ## Remove acs index events that do not have at least 12 months
 ## prior time, and do not have at least 12 months follow up time
 pruned_dataset <- with_code_columns %>%
@@ -428,4 +431,4 @@ risk_tradeoff_episodes_dataset <- pruned_dataset %>%
     select(date, age, bleed_after, ischaemia_after, everything(), -nhs_number, -acs_id)
 
 ## Save the dataset
-saveRDS(risk_tradeoff_episodes_dataset, "gendata/risk_tradeoff_episodes_dataset.rds")
+saveRDS(risk_tradeoff_episodes_dataset, "gendata/dataset_2015_2023.rds")

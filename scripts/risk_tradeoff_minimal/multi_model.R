@@ -24,10 +24,11 @@ library(pROC)
 ##' @param recipe The recipe (preprocessing steps) to apply before training
 ##' _any_ of the models. (i.e. the same preprocessing steps are applied before
 ##' fitting the models in the bootstrap resamples.
-##' @return A tibble with the test set, containing predictors retained
-##' in the model and the predicted outcome, along with a model_id column
-##' indicating which bootstrap resample was used to fit that model
-##' 
+##' @return A list of two items. The first ("results") is a tibble with
+##' the test set, containing predictors along with a model_id column
+##' indicating which bootstrap resample was used to fit that model. The
+##' second ("removals") is a list of predictors removed due to near-zero
+##' variance in the primary fit.
 predict_resample <- function(model, train, test, resamples_from_train, recipe)
 {
     ## Create the workflow for this model
@@ -48,7 +49,7 @@ predict_resample <- function(model, train, test, resamples_from_train, recipe)
         fit_resamples(resamples_from_train, control = ctrl_rs) %>%
         pull(.extracts) %>%
         map(~ .x %>% pluck(".extracts", 1))
-
+    
     ## Perform one fit on the entire training dataset. This is the
     ## single (no cross-validation here) main fit of the model on the
     ## entire training set.
@@ -60,6 +61,10 @@ predict_resample <- function(model, train, test, resamples_from_train, recipe)
         augment(new_data = test) %>%
         mutate(model_id = as.factor("primary"))
 
+    primary_removals <- primary_fit %>%
+        extract_recipe() %>%
+        pluck("steps", 2, "removals")
+    
     ## For each bleeding model, predict the probabilities for
     ## the test set and record the model used to make the
     ## prediction in model_id
@@ -78,7 +83,7 @@ predict_resample <- function(model, train, test, resamples_from_train, recipe)
     ## Bind together the primary and bootstrap fits
     pred <- bind_rows(primary_pred, bootstrap_pred)
 
-    pred 
+    list(results = pred, removals = primary_removals) 
 }
         
 ## Load the data and convert the bleeding outcome to a factor
@@ -103,7 +108,7 @@ train <- training(split)
 test <- testing(split)
 
 ## Create cross-validation folds
-resamples_from_train <- bootstraps(train, times = 30)
+resamples_from_train <- bootstraps(train, times = 3)
 
 ## Create the model list
 models <- list(
@@ -153,31 +158,44 @@ ischaemia_recipe <- recipe(ischaemia_after ~ ., data = train) %>%
 pred_bleed <- list(names(models), models) %>%
     purrr::pmap(function(model_name, model)
     {
-        predict_resample(model, train, test,
-                         resamples_from_train, bleed_recipe) %>%
+        ## x is a list of result and removals
+        x <- predict_resample(model, train, test,
+                              resamples_from_train, bleed_recipe)
+        results <- x$results
+        removals <- x$removals
+        results %>%
             mutate(model_name = model_name) %>%
             mutate(outcome_name = "bleed") %>%
             mutate(outcome_result =
                        recode_factor(bleed_after,
                                      "bleed_occured" = "occured",
                                      "no_bleed" = "none")) %>%
-            rename(.pred_occured = .pred_bleed_occured)
+            rename(.pred_occured = .pred_bleed_occured) %>%
+            mutate(removals = if_else(model_id == "primary",
+                                      list(removals = removals),
+                                      list(removals = NULL)))
     }) %>%
     list_rbind()
+
 
 ## Perform the resampling predictions for all the models for ischaemia
 pred_ischaemia <- list(names(models), models) %>%
     purrr::pmap(function(model_name, model)
     {
-        predict_resample(model, train, test,
-                         resamples_from_train, ischaemia_recipe) %>%
-            mutate(model_name = model_name) %>%
+        x <- predict_resample(model, train, test,
+                              resamples_from_train, ischaemia_recipe)
+        results <- x$results
+        removals <- x$removals        
+        results %>% mutate(model_name = model_name) %>%
             mutate(outcome_name = "ischaemia") %>%
             mutate(outcome_result =
                        recode_factor(ischaemia_after,
                                      "ischaemia_occured" = "occured",
                                      "no_ischaemia" = "none")) %>%
-            rename(.pred_occured = .pred_ischaemia_occured)
+            rename(.pred_occured = .pred_ischaemia_occured) %>%
+        mutate(removals = if_else(model_id == "primary",
+                                  list(removals = removals),
+                                  list(removals = NULL)))
     }) %>%
     list_rbind()
 
@@ -187,6 +205,24 @@ pred_ischaemia <- list(names(models), models) %>%
 pred <- bind_rows(pred_bleed, pred_ischaemia) %>%
     mutate(primary = case_when(model_id == "primary" ~ "primary",
                                TRUE ~ "bootstrap"))
+
+## For each model, get the predictors that were removed in the
+## primary fit due to near zero variance
+models <- pred %>%
+    dplyr::select(model_name) %>%
+    unique()
+
+## Get a named list mapping models and outcomes to lists of
+## the predictors that were removed in the primary fit
+removals_by_models <- pred %>%
+    filter(primary == "primary") %>%
+    dplyr::select(model_name, outcome_name, removals) %>%
+    tidyr::unite(model, c("model_name", "outcome_name")) %>%
+    unique() %>%
+    pivot_wider(names_from = model, values_from = removals) %>%
+    as.list()
+
+2
 
 ## Plot a few example probabilities in the predicted data
 ## pred %>%
@@ -260,13 +296,18 @@ roc_curves %>%
 
 ## For one patient, plot all the model predictions
 grouped_pred %>%
+    ungroup() %>%
+    dplyr::select(id, model_name, outcome_name,
+                  primary, model_id, .pred_occured) %>%
+    pivot_wider(names_from = "outcome_name",
+                values_from = ".pred_occured") %>%
     ## Uncomment to view one model for all patients
-    filter(id == 1) %>%
+    group_by(model_id) %>%
+    slice_head(n = 10) %>%
+    ungroup() %>%
     ## Uncomment to view all models for some patients
-    filter(id %in% c(1,20,23,43, 100, 101, 102)) %>%
-    ggplot(aes(x = .pred_bleed_occured,
-               y = .pred_ischaemia_occured,
-               color = id)) +
+    ##filter(id %in% c(1,20,23,43, 100, 101, 102)) %>%
+    ggplot(aes(x = bleed, y = ischaemia, color=id, shape = primary)) +
     geom_point() +
     scale_y_log10() +
     scale_x_log10()
