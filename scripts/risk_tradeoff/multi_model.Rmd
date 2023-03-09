@@ -1,3 +1,12 @@
+---
+title: "Bleeding/ischaemia risk trade-off using HES ICD data"
+author: "John Scott"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+---
+
+```{r echo=FALSE, results="hide"}
 ##' Script that performs basic model fitting of multiple models
 ##' on the ICD HES data.
 ##'
@@ -91,17 +100,11 @@ predict_resample <- function(model, train, test, resamples_from_train, recipe)
 ## (levels no_bleed, bleed_occured). The result is a dataset with age and
 ## all the ICD <code>_before columns, and a response variable bleed.
 
-## Set start and end dates
-start <- ymd("2015-1-1")
-end <- ymd("2023-1-1")
-
 #data_input <- "gendata/risk_tradeoff_minimal_dataset.rds"
-data_input <- "../risk_tradeoff_episodes/gendata/dataset_2015_2023.rds"
+data_input <- "gendata/episodes_secondary.rds"
 
 risk_tradeoff_minimal_dataset <- readRDS(data_input)
 dataset <- risk_tradeoff_minimal_dataset %>%
-    filter(date >= start, date <= end) %>%
-    dplyr::select(-matches("hospital_provider_spell_identifier")) %>%
     mutate(bleed_after = factor(bleed_after == 0, labels = c("bleed_occured", "no_bleed"))) %>%
     mutate(ischaemia_after = factor(ischaemia_after == 0, labels = c("ischaemia_occured", "no_ischaemia"))) %>%
     drop_na() %>%
@@ -287,12 +290,35 @@ roc_auc <- grouped_pred %>%
     rename(auc = .estimate) %>%
     dplyr::select(model_name, outcome_name, model_id, primary, auc) %>%
     group_by(model_name, outcome_name)
-    
+```
+
+```{r echo=FALSE}
+dataset %>%
+    pivot_longer(matches("(after|before)") & !matches("(bleed_after|ischaemia_after)")) %>%
+    group_by(bleed_after, ischaemia_after, name) %>%
+    summarise(value = mean(value)) %>%
+    ggplot(aes(name, value)) +
+    geom_col(fill = 'deepskyblue4') +
+    facet_grid(bleed_after ~ fct_relevel(ischaemia_after,'no_ischaemia','ischaemia_occured')) +
+    labs(x = 'Predictor class', y = 'Average count') +
+    theme_minimal(base_size = 16) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+
+ROC AUC for the models:
+
+```{r echo=FALSE}
 ## Summarise the AUC (should add primary AUC here)
 roc_auc %>%
     group_by(outcome_name, model_name) %>%
     summarise(auc_mean = mean(auc), auc_sd = sd(auc))
 
+```
+
+Plots of the ROC curves
+
+```{r echo=FALSE}
 ## Plot the ROC curves
 roc_curves %>%
     ##filter(model_name == "log_reg") %>%
@@ -304,7 +330,11 @@ roc_curves %>%
     coord_fixed() +
     labs(title = "ROC curves for each fitted model") +
     facet_wrap( ~ model_name + outcome_name, ncol=2)
+```
 
+Plots of predictions for a selection of patients
+
+```{r echo=FALSE}
 ## For one patient, plot all the model predictions. This graph is supposed
 ## to test how well the models agree with one another. The bootstrap models
 ## and the primary model are all plotted as dots (not distinguished).
@@ -325,7 +355,11 @@ grouped_pred %>%
     scale_x_log10() +
     labs(title = "Plot of risk predictions from all models for some patients") +
     facet_wrap( ~ patient_id, ncol=2)
+```
 
+Plots of risk tradeoff for each model
+
+```{r echo=FALSE}
 ## Plot of the risk trade-off graph for each model (using the primary model)
 grouped_pred %>%
     filter(model_id == "primary") %>%
@@ -334,3 +368,10 @@ grouped_pred %>%
     ggplot(aes(x = bleed, y = ischaemia, color = model_id)) +
     geom_point() +
     facet_wrap( ~ model_name, ncol=2)
+```
+
+Variables removed in the models:
+
+```{r echo=FALSE}
+removals_by_models
+```
