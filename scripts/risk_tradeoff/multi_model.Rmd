@@ -6,7 +6,8 @@ output:
   pdf_document: default
 ---
 
-```{r echo=FALSE, results="hide"}
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results="hide"}
 ##' Script that performs basic model fitting of multiple models
 ##' on the ICD HES data.
 ##'
@@ -19,6 +20,7 @@ library(probably)
 ## For attempt to find optimal threshold
 library(pROC)
 library(lubridate)
+library(knitr)
 
 ##' Using the bootstrap resamples to obtain multiple models
 ##' and thereby obtain a spectrum of predicted class scores for each
@@ -100,7 +102,7 @@ predict_resample <- function(model, train, test, resamples_from_train, recipe)
 ## (levels no_bleed, bleed_occured). The result is a dataset with age and
 ## all the ICD <code>_before columns, and a response variable bleed.
 
-#data_input <- "gendata/risk_tradeoff_minimal_dataset.rds"
+#data_input <- "gendata/spells_primary.rds"
 data_input <- "gendata/episodes_secondary.rds"
 
 risk_tradeoff_minimal_dataset <- readRDS(data_input)
@@ -112,7 +114,9 @@ dataset <- risk_tradeoff_minimal_dataset %>%
     mutate(patient_id = as.factor(row_number()))
 
 ## Get number of acs patients
-acs_patients <- dataset %>% nrow()
+num_acs_patients <- dataset %>% nrow()
+start <- min(dataset$date)
+end <- max(dataset$date)
 
 set.seed(47)
 
@@ -123,7 +127,7 @@ train <- training(split)
 test <- testing(split)
 
 ## Create cross-validation folds
-resamples_from_train <- bootstraps(train, times = 3)
+resamples_from_train <- bootstraps(train, times = 5)
 
 ## Create the model list
 models <- list(
@@ -237,6 +241,16 @@ removals_by_models <- pred %>%
     pivot_wider(names_from = model, values_from = removals) %>%
     as.list()
 
+predictors <- dataset %>%
+    names() %>%
+    grep("(present|age|before$)",.,value=TRUE)
+
+## This assumes that all the models remove the same predictors
+## (they all use the same preprocessing steps
+remaining_predictors <- setdiff(predictors, removals_by_models[[1]][[1]])
+remaining_predictors
+
+2
 ## Plot a few example probabilities in the predicted data
 ## pred %>%
 ##     ## Uncomment to view one model for all patients
@@ -292,7 +306,35 @@ roc_auc <- grouped_pred %>%
     group_by(model_name, outcome_name)
 ```
 
+Models are based on the primary diagnosis and all secondary diagnosis fields of the HES episode dataset. The dataset contains `r num_acs_patients` index ACS events, from `r start` to `r end`
+
+# Summary
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results="asis"}
+## Summarise the AUC (should add primary AUC here)
+roc_auc %>%
+    group_by(outcome_name, model_name) %>%
+    summarise(auc_mean = mean(auc), auc_sd = sd(auc)) %>%
+    kable(caption = "Summary of model performance")
+```
+
+Total input predictors:
+
 ```{r echo=FALSE}
+predictors
+```
+
+Remaining predictors after preprocessing:
+
+```{r echo=FALSE}
+remaining_predictors
+```
+
+# Distribution of predictors by outcome
+
+The four quadrants show the four possible bleeding/ischaemia outcomes, along with the mean number of occurances of the event on the x-axis before the ACS event. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=11}
 dataset %>%
     pivot_longer(matches("(after|before)") & !matches("(bleed_after|ischaemia_after)")) %>%
     group_by(bleed_after, ischaemia_after, name) %>%
@@ -305,36 +347,45 @@ dataset %>%
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
+# ROC curves for the bleeding risk models
 
-ROC AUC for the models:
-
-```{r echo=FALSE}
-## Summarise the AUC (should add primary AUC here)
-roc_auc %>%
-    group_by(outcome_name, model_name) %>%
-    summarise(auc_mean = mean(auc), auc_sd = sd(auc))
-
-```
-
-Plots of the ROC curves
-
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=11}
 ## Plot the ROC curves
 roc_curves %>%
-    ##filter(model_name == "log_reg") %>%
+    filter(outcome_name == "bleed") %>%
     ggplot(aes(x = 1 - specificity, y = sensitivity,
                color = primary,
                group = interaction(model_name, outcome_name, model_id))) +
     geom_line() +
     geom_abline(slope = 1, intercept = 0, size = 0.4) +
     coord_fixed() +
-    labs(title = "ROC curves for each fitted model") +
-    facet_wrap( ~ model_name + outcome_name, ncol=2)
+    theme_minimal(base_size = 16) +
+    labs(title = "ROC curves for the bleeding risk models") +
+    facet_wrap( ~ model_name, ncol=2)
 ```
 
-Plots of predictions for a selection of patients
+# ROC curves for the ischaemia risk models
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=11}
+## Plot the ROC curves
+roc_curves %>%
+    filter(outcome_name == "ischaemia") %>%
+    ggplot(aes(x = 1 - specificity, y = sensitivity,
+               color = primary,
+               group = interaction(model_name, outcome_name, model_id))) +
+    geom_line() +
+    geom_abline(slope = 1, intercept = 0, size = 0.4) +
+    coord_fixed() +
+    theme_minimal(base_size = 16) +
+    labs(title = "ROC curves for the ischaemia risk models") +
+    facet_wrap( ~ model_name, ncol=2)
+```
+
+# Variability in risk predictions by model
+
+The purpose of this plot is to assess the variability inherent in fitting eahc model, and the variability between models. Each model has a small cluster (from bootstrap resampling), and the proximity of the clusters shows how well the models agree.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=11}
 ## For one patient, plot all the model predictions. This graph is supposed
 ## to test how well the models agree with one another. The bootstrap models
 ## and the primary model are all plotted as dots (not distinguished).
@@ -354,24 +405,24 @@ grouped_pred %>%
     scale_y_log10() +
     scale_x_log10() +
     labs(title = "Plot of risk predictions from all models for some patients") +
-    facet_wrap( ~ patient_id, ncol=2)
+    facet_wrap( ~ patient_id, ncol=2) +
+    theme_minimal(base_size = 16)
 ```
 
-Plots of risk tradeoff for each model
+# Risk trade-off plots for each model
 
-```{r echo=FALSE}
+Plots of risk tradeoff for each model. The plot includes the STEMI presentation predictor explicitly (one of the two retained) to show where the two lines are coming from.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=11}
 ## Plot of the risk trade-off graph for each model (using the primary model)
 grouped_pred %>%
-    filter(model_id == "primary") %>%
-    dplyr::select(patient_id, outcome_name, model_name, .pred_occured) %>%
+    ungroup() %>%
+    filter(primary == "primary") %>%
+    dplyr::select(stemi_presentation, patient_id, outcome_name, model_name, .pred_occured) %>%
     pivot_wider(names_from = outcome_name, values_from = .pred_occured) %>%
-    ggplot(aes(x = bleed, y = ischaemia, color = model_id)) +
+    ggplot(aes(x = bleed, y = ischaemia, color = stemi_presentation)) +
     geom_point() +
-    facet_wrap( ~ model_name, ncol=2)
+    facet_wrap( ~ model_name, ncol=2) +
+    theme_minimal(base_size = 16)
 ```
 
-Variables removed in the models:
-
-```{r echo=FALSE}
-removals_by_models
-```

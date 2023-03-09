@@ -125,7 +125,7 @@ train <- training(split)
 test <- testing(split)
 
 ## Create cross-validation folds
-resamples_from_train <- bootstraps(train, times = 3)
+resamples_from_train <- bootstraps(train, times = 5)
 
 ## Create the model list
 models <- list(
@@ -294,21 +294,35 @@ roc_auc <- grouped_pred %>%
     group_by(model_name, outcome_name)
     
 ## Summarise the AUC (should add primary AUC here)
-roc_auc %>%
+roc_summary <- roc_auc %>%
     group_by(outcome_name, model_name) %>%
     summarise(auc_mean = mean(auc), auc_sd = sd(auc))
 
 ## Plot the ROC curves
 roc_curves %>%
-    ##filter(model_name == "log_reg") %>%
+    filter(outcome_name == "bleed") %>%
     ggplot(aes(x = 1 - specificity, y = sensitivity,
                color = primary,
                group = interaction(model_name, outcome_name, model_id))) +
     geom_line() +
     geom_abline(slope = 1, intercept = 0, size = 0.4) +
     coord_fixed() +
-    labs(title = "ROC curves for each fitted model") +
-    facet_wrap( ~ model_name + outcome_name, ncol=2)
+    theme_minimal(base_size = 16) +
+    labs(title = "ROC curves for the bleeding risk models") +
+    facet_wrap( ~ model_name, ncol=2)
+
+roc_curves %>%
+    filter(outcome_name == "ischaemia") %>%
+    ggplot(aes(x = 1 - specificity, y = sensitivity,
+               color = primary,
+               group = interaction(model_name, outcome_name, model_id))) +
+    geom_line() +
+    geom_abline(slope = 1, intercept = 0, size = 0.4) +
+    coord_fixed() +
+    theme_minimal(base_size = 16) +
+    labs(title = "ROC curves for the ischaemia risk models") +
+    facet_wrap( ~ model_name, ncol=2)
+
 
 ## For one patient, plot all the model predictions. This graph is supposed
 ## to test how well the models agree with one another. The bootstrap models
@@ -326,8 +340,6 @@ grouped_pred %>%
     ##filter(id %in% c(1,20,23,43, 100, 101, 102)) %>%
     ggplot(aes(x = bleed, y = ischaemia, color=model_name, shape = primary)) +
     geom_point() +
-    scale_y_log10() +
-    scale_x_log10() +
     labs(title = "Plot of risk predictions from all models for some patients") +
     facet_wrap( ~ patient_id, ncol=2)
 
