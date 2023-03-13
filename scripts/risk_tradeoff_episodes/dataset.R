@@ -249,6 +249,7 @@ saveRDS(parsed_icd, "gendata/parsed_icd_char.rds")
 
 ## End of the silly memory issues ############################################
 
+## 1 minute
 parsed_icd <- readRDS("gendata/parsed_icd_char.rds")
 
 ## Get the data range covered by the spells -- this is the range
@@ -256,12 +257,10 @@ parsed_icd <- readRDS("gendata/parsed_icd_char.rds")
 first_episode_date <- min(parsed_icd$episode_start)
 last_episode_date <- max(parsed_icd$episode_start)
 
-test_parsed_icd <- parsed_icd %>% head(100000)
-
 ## Reduce the ICD groups to the relevant groups of
 ## interest for the predictors and the response
 ## (several minutes)
-with_id <- test_parsed_icd %>%
+with_id <- parsed_icd %>%
     ## Add an id to every row that will become
     ## the id for index acs events. The data is
     ## arranged by nhs number and date so that
@@ -425,7 +424,7 @@ pruned_dataset <- with_code_columns %>%
 
 risk_tradeoff_episodes_dataset <- pruned_dataset %>%
     rename(date = acs_date) %>%
-    select(date, age, bleed_after, ischaemia_after, everything(), -nhs_number, -acs_id)
+    select(date, age, bleed_after, ischaemia_after, everything(), -nhs_number, -acs_id, -hospital_provider_spell_identifier)
 
 ## Save the dataset
 saveRDS(risk_tradeoff_episodes_dataset, "gendata/risk_tradeoff_episodes_dataset.rds")
