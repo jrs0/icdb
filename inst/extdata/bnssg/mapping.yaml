@@ -50,7 +50,10 @@
       raw: yes
     - table: "nhais"
       docs: "NHAIS Deaths table...."
-      source: "test_lookup_test"
+      source:
+        catalog: "ABI"
+        schema: "dbo"
+        table: "vw_NHAIS_Deaths_All"
       raw: yes
       
 - database: "swd"
