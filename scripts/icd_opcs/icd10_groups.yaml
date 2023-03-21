@@ -1,0 +1,9 @@
+---
+categories:
+  bleeding:
+    docs: "Bleeding ICD codes"
+    codes: ["D62", "D68", "D69"]
+  acs:
+    docs: "Acute coronary syndrome"
+    codes: ["I21.0", "I210", "I21.1", "I211"]
+    

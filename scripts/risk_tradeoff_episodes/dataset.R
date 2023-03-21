@@ -257,6 +257,7 @@ saveRDS(parsed_icd, "gendata/parsed_icd_char.rds")
 
 ## End of the silly memory issues ############################################
 
+## 1 minute
 parsed_icd <- readRDS("gendata/parsed_icd_char.rds")
 
 ## Keep less data (R script too slow)
@@ -436,7 +437,7 @@ pruned_dataset <- with_code_columns %>%
 
 risk_tradeoff_episodes_dataset <- pruned_dataset %>%
     rename(date = acs_date) %>%
-    select(date, age, bleed_after, ischaemia_after, everything(), -nhs_number, -acs_id)
+    select(date, age, bleed_after, ischaemia_after, everything(), -nhs_number, -acs_id, -hospital_provider_spell_identifier)
 
 ## Save the dataset
 saveRDS(risk_tradeoff_episodes_dataset, "gendata/dataset_2015_2023.rds")
