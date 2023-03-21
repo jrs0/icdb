@@ -113,7 +113,7 @@ msrv <- mapped_server("xsw", mapping="mapping.yaml")
 ## Start and end dates for index percutaneous coronary intervention (PCI)
 ## procedures. This script will use acute coronary syndrome (ACS)
 ## diagnosis codes in lieu of procedure codes for now.
-start <- ymd("2022-1-1")
+start <- ymd("2020-1-1")
 end <- ymd("2023-1-1")
 
 ## Fetch all episodes between the dates (approx 10 million rows)
@@ -144,6 +144,9 @@ code_file <- "icd10.yaml"
 ## This takes about 12 minutes unparallelised
 parsed_icd <- all_episodes %>%
     mutate(across(matches("diagnosis"), ~ icd10(.x, code_file)))
+
+parsed_mort <- all_mortality %>%
+    mutate(across(matches("icd"), ~ icd10(.x, code_file)))
 
 ## Keep only the ICD codes where the primary diagnosis is valid. This
 ## uses base R to avoid any memory copies of any icd10 columns

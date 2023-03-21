@@ -56,7 +56,7 @@
         use: yes
         source:
         - "Derived_Pseudo_NHS"
-        strategy: coalesce
+        strategy: coalesce_exclude_null
       - column: "date_of_death"
         docs: "Date of death (careful not to mix it up with REG_DATE)"
         use: yes
@@ -64,7 +64,7 @@
         - "REG_DATE_OF_DEATH"
         strategy: coalesce
       - column: "cause_of_death_icd"
-        docs: "The cause of death as an ICD code? Presumably COD is cause of death -- there are also a bunch of other COD columns"
+        docs: "The cause of death as an ICD code? Presumably COD is cause of death -- there are also a bunch of other COD columns (like the secondary diagnoses in the "
         use: yes
         source:
         - "S_UNDERLYING_COD_ICD10"
