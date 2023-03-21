@@ -113,7 +113,7 @@ msrv <- mapped_server("xsw", mapping="mapping.yaml")
 ## Start and end dates for index percutaneous coronary intervention (PCI)
 ## procedures. This script will use acute coronary syndrome (ACS)
 ## diagnosis codes in lieu of procedure codes for now.
-start <- ymd("2020-1-1")
+start <- ymd("2000-1-1")
 end <- ymd("2023-1-1")
 
 ## Fetch all episodes between the dates (approx 10 million rows)
@@ -122,11 +122,6 @@ all_episodes <- msrv$sus$apc_episodes %>%
     run()
 message("Total episodes: ", nrow(all_episodes))
 
-## Fetch all the mortality between the two dates
-all_mortality <- msrv$mort$civ_reg %>%
-    filter(date_of_death >= !!start, date_of_death <= !!end) %>%
-    run()
-    
 ## This is a workaround for now, because the cache destructor is not
 ## getting called correctly on package exit.
 flush_level1()
@@ -144,30 +139,6 @@ code_file <- "icd10.yaml"
 ## This takes about 12 minutes unparallelised
 parsed_icd <- all_episodes %>%
     mutate(across(matches("diagnosis"), ~ icd10(.x, code_file)))
-
-<<<<<<< HEAD
-
-#all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, code_file)
-all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, code_file)
-
-## Parse codes and extract groups. There is a memory problem here
-all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, code_file)
-gc()
-all_episodes$secondary_diagnosis_1_icd <- group_string(icd10(all_episodes$secondary_diagnosis_1_icd, code_file))
-gc()
-all_episodes$secondary_diagnosis_2_icd <- group_string(icd10(all_episodes$secondary_diagnosis_2_icd, code_file))
-gc()
-all_episodes$secondary_diagnosis_3_icd <- group_string(icd10(all_episodes$secondary_diagnosis_3_icd, code_file))
-gc()
- 
-## Save the result heres
-aveRDS(parsed_icd, "gendata/parsed_icd.rds")
-
-## Read the parsed results
-parsed_icd <- readRDS("gendata/parsed_icd.rds")
-
-parsed_mort <- all_mortality %>%
-    mutate(across(matches("icd"), ~ icd10(.x, code_file)))
 
 ## Keep only the ICD codes where the primary diagnosis is valid. This
 ## uses base R to avoid any memory copies of any icd10 columns
@@ -278,7 +249,6 @@ saveRDS(parsed_icd, "gendata/parsed_icd_char.rds")
 
 ## End of the silly memory issues ############################################
 
-## 1 minute
 parsed_icd <- readRDS("gendata/parsed_icd_char.rds")
 
 ## Keep less data (R script too slow)
@@ -458,7 +428,7 @@ pruned_dataset <- with_code_columns %>%
 
 risk_tradeoff_episodes_dataset <- pruned_dataset %>%
     rename(date = acs_date) %>%
-    select(date, age, bleed_after, ischaemia_after, everything(), -nhs_number, -acs_id, -hospital_provider_spell_identifier)
+    select(date, age, bleed_after, ischaemia_after, everything(), -nhs_number, -acs_id)
 
 ## Save the dataset
 saveRDS(risk_tradeoff_episodes_dataset, "gendata/dataset_2015_2023.rds")

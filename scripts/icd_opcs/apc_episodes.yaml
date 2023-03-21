@@ -726,7 +726,9 @@
     source:
     - DiagnosisPrimary_ICD # This is the name in the database
     #- PrimaryDiagnosis_ICD
-    strategy: coalesce
+    strategy:
+      - coalesce
+      - ["codes_from", "icd10_groups.yaml"]
   - column: present_on_admission_indicator
     docs: An indication of whether a PATIENT DIAGNOSIS was already present when the
       PATIENT started a Hospital Provider Spell.

@@ -1,4 +1,4 @@
-##' Perform a logistic regression to attempt to predict bleeding outcome from the
+`##' Perform a logistic regression to attempt to predict bleeding outcome from the
 ##' minimal HBR dataset
 ##'
 ##' 

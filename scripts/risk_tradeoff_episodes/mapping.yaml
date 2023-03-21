@@ -43,15 +43,51 @@
   docs: "There are two main tables containing death information....."
   source: "ABI"
   tables:
-    - table: "civ-reg"
+    - table: "civ_reg"
       docs: "The Civil Registry Mortality table contains information about when a person died and what they died of, listed as ICD10 diagnosis codes. It also has lots of other information, such as where they died."
-      source: "test_lookup_test"
+      source:
+        catalog: "ABI"
+        schema: "Civil_Registration"
+        table: "Mortality"
       # Raw is used to import all the columns as-is. This overrides the columns key. Mapping the columns properly is preferred.
-      raw: yes
+      columns: 
+      - column: "nhs_number"
+        docs: "The NHS number"
+        use: yes
+        source:
+        - "Derived_Pseudo_NHS"
+        strategy: coalesce_exclude_null
+      - column: "date_of_death"
+        docs: "Date of death (careful not to mix it up with REG_DATE)"
+        use: yes
+        source:
+        - "REG_DATE_OF_DEATH"
+        strategy: coalesce
+      - column: "cause_of_death_icd"
+        docs: "The cause of death as an ICD code? Presumably COD is cause of death -- there are also a bunch of other COD columns (like the secondary diagnoses in the "
+        use: yes
+        source:
+        - "S_UNDERLYING_COD_ICD10"
+        strategy: coalesce
     - table: "nhais"
       docs: "NHAIS Deaths table...."
-      source: "test_lookup_test"
-      raw: yes
+      source:
+        catalog: "ABI"
+        schema: "dbo"
+        table: "vw_NHAIS_Deaths_All"
+      columns:
+      - column: "nhs_number"
+        docs: "The NHS number (linkable with the SWD)"
+        use: yes
+        source:
+        - "Derived_Pseudo_NHS"
+        strategy: coalesce
+      - column: "date_of_death"
+        docs: "Date of death"
+        use: yes
+        source:
+        - "Date_Of_Death"
+        strategy: coalesce
       
 - database: "swd"
   docs: "The MODELLING_SQL_AREA database contains the System Wide Dataset tables (activity, attributes, measurements), which bring together data from primary care (GPs), secondary care (hsopitals), mental health, and community care services."

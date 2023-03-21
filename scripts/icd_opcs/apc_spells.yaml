@@ -1,9 +1,9 @@
-- table: apc_episodes
-  docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital."
+- table: apc_spells
+  docs: "The APC (admitted patient care) contains records from patients who have been admitted into the hospital. The rows in the table correspond to episodes: individual care activities performed by one consultant. Groups of rows are organised into spells, which represent the entirety of the patient's stay in hospital This table contains the spells."
   source:
     catalog: ABI
     schema: dbo
-    table: vw_APC_SEM_001
+    table: vw_APC_SEM_Spell_001
   columns:
   - column: unique_booking_reference_number_converted
     docs: "The unique booking reference number assigned by the Choose and Book system
@@ -352,12 +352,10 @@
     - DataAbsentReason_FHIRR4
     strategy: coalesce
   - column: hospital_provider_spell_identifier
-    docs: A unique identifier for each Hospital Provider Spell for a Health Care Provider. Note --
-      added PBRspellID as the source because it seemed closest, and there is no similarly named
-      ID column (jrs).
-    use: yes
+    docs: A unique identifier for each Hospital Provider Spell for a Health Care Provider.
+    use: no
     source:
-    - PBRspellID
+    - HospitalProviderSpellIdentifier
     strategy: coalesce
   - column: administrative_category_code_on_admission
     docs: ADMINISTRATIVE CATEGORY CODE (ON ADMISSION) is used to record the ADMINISTRATIVE
@@ -720,8 +718,8 @@
     - DiagnosisSchemeInUse_CommissioningDataSet
     strategy: coalesce
   - column: primary_diagnosis_icd
-    docs: PRIMARY DIAGNOSIS (ICD) is the International Classification of Diseases
-      (ICD) code used to identify the PRIMARY DIAGNOSIS.
+    docs: "PRIMARY DIAGNOSIS (ICD) is the International Classification of Diseases
+      (ICD) code used to identify the PRIMARY DIAGNOSIS."
     use: yes
     source:
     - DiagnosisPrimary_ICD # This is the name in the database
@@ -1876,183 +1874,185 @@
     - LatestClinicallyAppropriateDate
     strategy: coalesce
 
-  ## The columns below have been added manually
-  - column: "episode_start"
-    docs: "A datetime field that is the time when the episode began."
+  ## Columns added below here do not directly correspond to an entry in CDS 130
+  ## They combine several datetime columns into one
+  - column: "spell_start"
+    docs: "A datetime field that is the time when the associated spell for this episode began."
     source:
-    - "StartDate_ConsultantEpisode"
-    - "StartDate1"
-    - "StartTime_Episode"
+    - "AIMTC_ProviderSpell_Start_Date"
+    - "StartDate_HospitalProviderSpell"
+    - "StartTime_HospitalProviderSpell"
     strategy: "coalesce"
-    use: yes
-  - column: "episode_end"
-    docs: "A datetime field that is the time when the episode finished."
+    use: yes 
+  - column: "spell_end"
+    docs: "A datetime field that is the time when the associated spell for this episode ended."
     source:
-    - "EndDate_ConsultantEpisode"
-    - "EndDate1"
-    - "EndTime_Episode"
+    - "AIMTC_ProviderSpell_End_Date"
+    - "DischargeDate_FromHospitalProviderSpell"
+    - "DischargeTime_HospitalProviderSpell"
     strategy: "coalesce"
-    use: yes
-
-
+    use: yes 
+    
   - column: secondary_diagnosis_1_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis1stSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_2_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis2ndSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_3_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis3rdSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_4_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis4thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_5_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis5thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_6_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis6thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_7_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis7thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_8_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis8thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_9_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis9thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_10_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis10thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_11_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis11thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_12_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis12thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_13_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis13thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_14_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis14thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_15_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis15thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_16_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis16thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_17_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis17thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_18_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis18thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_19_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis19thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_20_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis20thSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_21_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis21stSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_22_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis22ndSecondary_ICD
     strategy: coalesce
   - column: secondary_diagnosis_23_icd
     docs: SECONDARY DIAGNOSIS (ICD) is the International Classification of Diseases
       (ICD) code used to identify the secondary PATIENT DIAGNOSIS.
-    use: yes
+    use: no
     source:
     - Diagnosis23rdSecondary_ICD
     strategy: coalesce
+
+      
