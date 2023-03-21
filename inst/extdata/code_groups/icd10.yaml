@@ -13,9 +13,6 @@ categories:
           index: A009
           name: A00.9
         docs: Cholera
-        exclude:
-        - group1
-        - group2
         index: A00
         name: A00
       - categories:
@@ -23,27 +20,15 @@ categories:
           index: A010
           name: A01.0
         - docs: Paratyphoid fever A
-          exclude:
-          - group1
-          - group2
           index: A011
           name: A01.1
         - docs: Paratyphoid fever B
-          exclude:
-          - group1
-          - group2
           index: A012
           name: A01.2
         - docs: Paratyphoid fever C
-          exclude:
-          - group1
-          - group2
           index: A013
           name: A01.3
         - docs: Paratyphoid fever, unspecified
-          exclude:
-          - group1
-          - group2
           index: A014
           name: A01.4
         docs: Typhoid and paratyphoid fevers
@@ -66,9 +51,6 @@ categories:
           index: A029
           name: A02.9
         docs: Other salmonella infections
-        exclude:
-        - group1
-        - group2
         index: A02
         name: A02
       - categories:
@@ -91,9 +73,6 @@ categories:
           index: A039
           name: A03.9
         docs: Shigellosis
-        exclude:
-        - group1
-        - group2
         index: A03
         name: A03
       - categories:
@@ -128,9 +107,6 @@ categories:
           index: A049
           name: A04.9
         docs: Other bacterial intestinal infections
-        exclude:
-        - group1
-        - group2
         index: A04
         name: A04
       - categories:
@@ -156,9 +132,6 @@ categories:
           index: A059
           name: A05.9
         docs: Other bacterial foodborne intoxications, not elsewhere classified
-        exclude:
-        - group1
-        - group2
         index: A05
         name: A05
       - categories:
@@ -193,9 +166,6 @@ categories:
           index: A069
           name: A06.9
         docs: Amoebiasis
-        exclude:
-        - group1
-        - group2
         index: A06
         name: A06
       - categories:
@@ -218,9 +188,6 @@ categories:
           index: A079
           name: A07.9
         docs: Other protozoal intestinal diseases
-        exclude:
-        - group1
-        - group2
         index: A07
         name: A07
       - categories:
@@ -243,9 +210,6 @@ categories:
           index: A085
           name: A08.5
         docs: Viral and other specified intestinal infections
-        exclude:
-        - group1
-        - group2
         index: A08
         name: A08
       - categories:
@@ -256,9 +220,6 @@ categories:
           index: A099
           name: A09.9
         docs: Other gastroenteritis and colitis of infectious and unspecified origin
-        exclude:
-        - group1
-        - group2
         index: A09
         name: A09
       docs: Intestinal infectious diseases
@@ -399,9 +360,6 @@ categories:
         index: A19
         name: A19
       docs: Tuberculosis
-      exclude:
-      - group1
-      - group2
       index:
       - A15
       - A19
@@ -582,9 +540,6 @@ categories:
         index: A28
         name: A28
       docs: Certain zoonotic bacterial diseases
-      exclude:
-      - group1
-      - group2
       index:
       - A20
       - A28
@@ -883,9 +838,6 @@ categories:
         index: A49
         name: A49
       docs: Other bacterial diseases
-      exclude:
-      - group1
-      - group2
       index:
       - A30
       - A49
@@ -1084,9 +1036,6 @@ categories:
         index: A64
         name: A64
       docs: Infections with a predominantly sexual mode of transmission
-      exclude:
-      - group1
-      - group2
       index:
       - A50
       - A64
@@ -1181,9 +1130,6 @@ categories:
         index: A69
         name: A69
       docs: Other spirochaetal diseases
-      exclude:
-      - group1
-      - group2
       index:
       - A65
       - A69
@@ -1219,9 +1165,6 @@ categories:
         index: A74
         name: A74
       docs: Other diseases caused by chlamydiae
-      exclude:
-      - group1
-      - group2
       index:
       - A70
       - A74
@@ -1288,9 +1231,6 @@ categories:
         index: A79
         name: A79
       docs: Rickettsioses
-      exclude:
-      - group1
-      - group2
       index:
       - A75
       - A79
@@ -1452,9 +1392,6 @@ categories:
         index: A89
         name: A89
       docs: Viral infections of the central nervous system
-      exclude:
-      - group1
-      - group2
       index:
       - A80
       - A89
@@ -1581,9 +1518,6 @@ categories:
         index: A99
         name: A99
       docs: Arthropod-borne viral fevers and viral haemorrhagic fevers
-      exclude:
-      - group1
-      - group2
       index:
       - A92
       - A99
@@ -1740,9 +1674,6 @@ categories:
         index: B09
         name: B09
       docs: Viral infections characterized by skin and mucous membrane lesions
-      exclude:
-      - group1
-      - group2
       index:
       - B00
       - B09
@@ -1823,9 +1754,6 @@ categories:
         index: B19
         name: B19
       docs: Viral hepatitis
-      exclude:
-      - group1
-      - group2
       index:
       - B15
       - B19
@@ -1926,9 +1854,6 @@ categories:
         index: B24
         name: B24
       docs: Human immunodeficiency virus [HIV] disease
-      exclude:
-      - group1
-      - group2
       index:
       - B20
       - B24
@@ -2061,9 +1986,6 @@ categories:
         index: B34
         name: B34
       docs: Other viral diseases
-      exclude:
-      - group1
-      - group2
       index:
       - B25
       - B34
@@ -2405,9 +2327,6 @@ categories:
         index: B49
         name: B49
       docs: Mycoses
-      exclude:
-      - group1
-      - group2
       index:
       - B35
       - B49
@@ -2564,9 +2483,6 @@ categories:
         index: B64
         name: B64
       docs: Protozoal diseases
-      exclude:
-      - group1
-      - group2
       index:
       - B50
       - B64
@@ -2854,9 +2770,6 @@ categories:
         index: B83
         name: B83
       docs: Helminthiases
-      exclude:
-      - group1
-      - group2
       index:
       - B65
       - B83
@@ -2935,9 +2848,6 @@ categories:
         index: B89
         name: B89
       docs: Pediculosis, acariasis and other infestations
-      exclude:
-      - group1
-      - group2
       index:
       - B85
       - B89
@@ -2988,9 +2898,6 @@ categories:
         index: B94
         name: B94
       docs: Sequelae of infectious and parasitic diseases
-      exclude:
-      - group1
-      - group2
       index:
       - B90
       - B94
@@ -3100,9 +3007,6 @@ categories:
         index: B98
         name: B98
       docs: Bacterial, viral and other infectious agents
-      exclude:
-      - group1
-      - group2
       index:
       - B95
       - B98
@@ -3112,16 +3016,11 @@ categories:
         index: B99
         name: B99
       docs: Other infectious diseases
-      exclude:
-      - group1
-      - group2
       index:
       - B99
       - B99
       name: B99-B99
     docs: Certain infectious and parasitic diseases
-    exclude:
-    - group3
     index:
     - A00
     - B99
@@ -4913,9 +4812,6 @@ categories:
         - C97
         name: C97-C97
       docs: Malignant neoplasms
-      exclude:
-      - group2
-      - group3
       index:
       - C00
       - C97
@@ -4932,9 +4828,6 @@ categories:
           index: D002
           name: D00.2
         docs: Carcinoma in situ of oral cavity, oesophagus and stomach
-        exclude:
-        - group2
-        - group3
         index: D00
         name: D00
       - categories:
@@ -4963,37 +4856,22 @@ categories:
           index: D019
           name: D01.9
         docs: Carcinoma in situ of other and unspecified digestive organs
-        exclude:
-        - group2
-        - group3
         index: D01
         name: D01
       - categories:
         - docs: 'Carcinoma in situ: Larynx'
-          exclude:
-          - group2
-          - group3
           index: D020
           name: D02.0
         - docs: 'Carcinoma in situ: Trachea'
           index: D021
           name: D02.1
         - docs: 'Carcinoma in situ: Bronchus and lung'
-          exclude:
-          - group2
-          - group3
           index: D022
           name: D02.2
         - docs: 'Carcinoma in situ: Other parts of respiratory system'
-          exclude:
-          - group2
-          - group3
           index: D023
           name: D02.3
         - docs: 'Carcinoma in situ: Respiratory system, unspecified'
-          exclude:
-          - group2
-          - group3
           index: D024
           name: D02.4
         docs: Carcinoma in situ of middle ear and respiratory system
@@ -5031,9 +4909,6 @@ categories:
           index: D039
           name: D03.9
         docs: Melanoma in situ
-        exclude:
-        - group2
-        - group3
         index: D03
         name: D03
       - categories:
@@ -5068,9 +4943,6 @@ categories:
           index: D049
           name: D04.9
         docs: Carcinoma in situ of skin
-        exclude:
-        - group2
-        - group3
         index: D04
         name: D04
       - categories:
@@ -5087,9 +4959,6 @@ categories:
           index: D059
           name: D05.9
         docs: Carcinoma in situ of breast
-        exclude:
-        - group2
-        - group3
         index: D05
         name: D05
       - categories:
@@ -5106,9 +4975,6 @@ categories:
           index: D069
           name: D06.9
         docs: Carcinoma in situ of cervix uteri
-        exclude:
-        - group2
-        - group3
         index: D06
         name: D06
       - categories:
@@ -5134,9 +5000,6 @@ categories:
           index: D076
           name: D07.6
         docs: Carcinoma in situ of other and unspecified genital organs
-        exclude:
-        - group2
-        - group3
         index: D07
         name: D07
       - categories:
@@ -5159,9 +5022,6 @@ categories:
           index: D099
           name: D09.9
         docs: Carcinoma in situ of other and unspecified sites
-        exclude:
-        - group2
-        - group3
         index: D09
         name: D09
       docs: In situ neoplasms
@@ -5735,9 +5595,6 @@ categories:
         index: D36
         name: D36
       docs: Benign neoplasms
-      exclude:
-      - group2
-      - group3
       index:
       - D10
       - D36
@@ -6022,16 +5879,11 @@ categories:
         index: D48
         name: D48
       docs: Neoplasms of uncertain or unknown behaviour
-      exclude:
-      - group2
-      - group3
       index:
       - D37
       - D48
       name: D37-D48
     docs: Neoplasms
-    exclude:
-    - group1
     index:
     - C00
     - D48
@@ -6677,10 +6529,6 @@ categories:
       - D89
       name: D80-D89
     docs: Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - D50
     - D89
@@ -8027,10 +7875,6 @@ categories:
       - E90
       name: E70-E90
     docs: Endocrine, nutritional and metabolic diseases
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - E00
     - E90
@@ -9526,10 +9370,6 @@ categories:
       - I99
       name: I95-I99
     docs: Diseases of the circulatory system
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - I00
     - I99
@@ -11063,10 +10903,6 @@ categories:
       - F99
       name: F99-F99
     docs: Mental and behavioural disorders
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - F00
     - F99
@@ -12364,10 +12200,6 @@ categories:
       - G99
       name: G90-G99
     docs: Diseases of the nervous system
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - G00
     - G99
@@ -13406,10 +13238,6 @@ categories:
       - H59
       name: H55-H59
     docs: Diseases of the eye and adnexa
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - H00
     - H59
@@ -13867,10 +13695,6 @@ categories:
       - H95
       name: H90-H95
     docs: Diseases of the ear and mastoid process
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - H60
     - H95
@@ -14819,10 +14643,6 @@ categories:
       - J99
       name: J95-J99
     docs: Diseases of the respiratory system
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - J00
     - J99
@@ -16466,10 +16286,6 @@ categories:
       - K93
       name: K90-K93
     docs: Diseases of the digestive system
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - K00
     - K93
@@ -17782,10 +17598,6 @@ categories:
       - L99
       name: L80-L99
     docs: Diseases of the skin and subcutaneous tissue
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - L00
     - L99
@@ -19853,10 +19665,6 @@ categories:
       - M99
       name: M95-M99
     docs: Diseases of the musculoskeletal system and connective tissue
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - M00
     - M99
@@ -21511,10 +21319,6 @@ categories:
       - N99
       name: N99-N99
     docs: Diseases of the genitourinary system
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - N00
     - N99
@@ -26215,10 +26019,6 @@ categories:
       - T98
       name: T90-T98
     docs: Injury, poisoning and certain other consequences of external causes
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - S00
     - T98
@@ -27843,10 +27643,6 @@ categories:
       - O99
       name: O94-O99
     docs: Pregnancy, childbirth and the puerperium
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - O00
     - O99
@@ -29128,10 +28924,6 @@ categories:
       - P96
       name: P90-P96
     docs: Certain conditions originating in the perinatal period
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - P00
     - P96
@@ -31405,10 +31197,6 @@ categories:
       - Q99
       name: Q90-Q99
     docs: Congenital malformations, deformations and chromosomal abnormalities
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - Q00
     - Q99
@@ -32745,10 +32533,6 @@ categories:
       - R99
       name: R95-R99
     docs: Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - R00
     - R99
@@ -37701,10 +37485,6 @@ categories:
       - Y98
       name: Y90-Y98
     docs: External causes of morbidity and mortality
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - V01
     - Y98
@@ -39971,10 +39751,6 @@ categories:
       - Z99
       name: Z80-Z99
     docs: Factors influencing health status and contact with health services
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - Z00
     - Z99
@@ -40137,10 +39913,6 @@ categories:
       - U85
       name: U82-U85
     docs: Codes for special purposes
-    exclude:
-    - group1
-    - group2
-    - group3
     index:
     - U00
     - U85
@@ -40150,7 +39922,4 @@ categories:
   - A00
   - Z99
   name: ICD-10
-groups:
-- group1
-- group2
-- group3
+groups: []

@@ -145,6 +145,27 @@ code_file <- "icd10.yaml"
 parsed_icd <- all_episodes %>%
     mutate(across(matches("diagnosis"), ~ icd10(.x, code_file)))
 
+<<<<<<< HEAD
+
+#all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, code_file)
+all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, code_file)
+
+## Parse codes and extract groups. There is a memory problem here
+all_episodes$primary_diagnosis_icd <- icd10(all_episodes$primary_diagnosis_icd, code_file)
+gc()
+all_episodes$secondary_diagnosis_1_icd <- group_string(icd10(all_episodes$secondary_diagnosis_1_icd, code_file))
+gc()
+all_episodes$secondary_diagnosis_2_icd <- group_string(icd10(all_episodes$secondary_diagnosis_2_icd, code_file))
+gc()
+all_episodes$secondary_diagnosis_3_icd <- group_string(icd10(all_episodes$secondary_diagnosis_3_icd, code_file))
+gc()
+ 
+## Save the result heres
+aveRDS(parsed_icd, "gendata/parsed_icd.rds")
+
+## Read the parsed results
+parsed_icd <- readRDS("gendata/parsed_icd.rds")
+
 parsed_mort <- all_mortality %>%
     mutate(across(matches("icd"), ~ icd10(.x, code_file)))
 

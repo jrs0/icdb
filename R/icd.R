@@ -25,27 +25,27 @@ icd10_sort_by_index <- function(cat)
     ## Only perform the reordering if this
     ## is a proper category -- do not reorder
     ## anything for leaf (code) nodes
-    if (!is.null(cat$child))
+    if (!is.null(cat$categories))
     {
         ## Reorder all the child levels, if
         ## there are any
-        for (n in seq_along(cat$child))
+        for (n in seq_along(cat$categories))
         {
-            cat$child[[n]] <- icd10_sort_by_index(cat$child[[n]])
+            cat$categories[[n]] <- icd10_sort_by_index(cat$categories[[n]])
         }
 
         ## Get the sorted order of this list of
         ## categories. The intention here is to sort
         ## by the first element of the index (the
         ## unlist is used to flatten the resulting list)
-        k <- cat$child %>%
+        k <- cat$categories %>%
             purrr::map("index") %>%
             purrr::map(~ .[[1]]) %>%
             unlist() %>%
             order()
         
         ## Use k to reorder the current level
-        cat$child <- cat$child[k]
+        cat$categories <- cat$categories[k]
     }
     
     ## Return the modified category
@@ -62,6 +62,7 @@ CodesDefCache <- R6::R6Class(
                           codes_def = NULL,
                           load_codes = function(codes_file)
                           {
+                              ## The false disables the cache for now
                               if (codes_file == self$codes_file)
                               {
                                   ## You have previously loaded the codes
@@ -123,7 +124,7 @@ new_icd10 <- function(str = character(), codes_file)
 ##' @export
 icd10 <- function(str = character(),
                   codes_file = system.file("extdata",
-                                           "icd10/icd10.yaml",
+                                           "code_groups/icd10.yaml",
                                            package = "icdb"))
 {
     str <- vctrs::vec_cast(str, character())

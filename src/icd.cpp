@@ -126,16 +126,11 @@ public:
 	cat_ = cat;
     }
 
-    // This function returns the string for the category
-    // key and the code key (both of which will probably
-    // be called category in a future version)
+    /// This is the code or category "title" (code not
+    /// yet refactored to reflect name change)
     std::string category() const
     {
-	try {
-	    return Rcpp::as<std::string>(cat_["category"]);
-	} catch(Rcpp::index_out_of_bounds &) {    
-	    return Rcpp::as<std::string>(cat_["code"]);
-	}
+	return Rcpp::as<std::string>(cat_["name"]);
     } 
     std::string docs() const
     {
@@ -157,7 +152,7 @@ public:
 	// This is simpler than checking the names,
 	// can check performance later
 	try {
-	    Rcpp::List val = cat_["child"];
+	    Rcpp::List val = cat_["categories"];
 	    return true;
 	} catch (const Rcpp::index_out_of_bounds &) {
 	    return false;
@@ -166,7 +161,7 @@ public:
 
     Rcpp::List get_subcats()
     {
-	return Rcpp::as<Rcpp::List>(cat_["child"]);
+	return Rcpp::as<Rcpp::List>(cat_["categories"]);
     }
     
     // Return true if code is (lexicographically) contained
@@ -436,7 +431,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	auto val{Rcpp::as<std::vector<std::string>>(code_def["groups"])};
 	groups = std::set<std::string>(val.begin(), val.end());
     }
-
+    
     // Create separate lists for each output (to avoid doing it in R)
     Rcpp::List lst_indices(str.size());
     Rcpp::NumericVector lst_type(str.size());
@@ -466,7 +461,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	} catch (const std::out_of_range &) {	
 	    try {
 		ParseResult res = icd10_str_to_indices_impl(str[n],
-							    code_def["child"],
+							    code_def["categories"],
 							    groups);	
 		lst_indices[n] = res.indices();
 		lst_type[n] = res.type();
