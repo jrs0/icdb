@@ -19,6 +19,7 @@
 // Use Rcpp::Rcout instead of std::cout. However, still
 // overload output to std::ostream -- that just works.
 
+
 #include <Rcpp.h>
 #include <string>
 #include <vector>
@@ -443,16 +444,13 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
     Rcpp::CharacterVector lst_name(str.size());
     Rcpp::CharacterVector lst_basic_name(str.size());
     
-    // BUG? Runtime still scales with the length of the
-    // input vector, even when the cache is used. This
-    // doesn't seem right -- either the cache is not
-    // being used, or the cost of the parse is the cost
-    // of a cache hit (seems unlikely).
-    // FIXED: moved this line outside the for loop
-    // (seriously)
     std::map<std::string, ParseResult> cache;       
 
-    //#pragma omp parallel for
+    // Unfortunately you cannot parallelise any function which has
+    // calls to Rcpp (this is everything I would want to write). Potentially,
+    // you can't even parallelise functions that call these kind of functions
+    // either (i.e. with furrr), but there must surely be a workaround for that.
+    //#pragma omp parallel for 
     for (std::size_t n = 0; n < str.size(); ++n) {
 
 	// Try the cache first, then parse the string

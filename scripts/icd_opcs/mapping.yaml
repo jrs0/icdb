@@ -36,8 +36,8 @@
   docs: "The SUS database contains hospital episode statistics, which contain records of patient care activities that take place in a hospital visit."
   source: "ABI"
   tables:
-    - include: "bnssg/apc_episodes.yaml"
-    - include: "bnssg/apc_spells.yaml"
+    - include: "apc_episodes.yaml"
+    - include: "apc_spells.yaml"
 
 - database: "mort"
   docs: "There are two main tables containing death information....."
@@ -61,7 +61,7 @@
   source: "MODELLING_SQL_AREA"
   tables:
     ## This will paste a list at the current level. (If there were a leading dash, the list would be nested) 
-    - include: "bnssg/swd.yaml"
+    - include: "swd.yaml"
     - table: "attr_h"
       docs: "The SWD attributes-history table contains every monthly snapshot of patient attributes going back to inception of the swd attributes table in 201X(?when, look this up)."
       source:

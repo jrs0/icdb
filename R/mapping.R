@@ -92,23 +92,28 @@ make_mapped_table_getter <- function(srv, source, table)
             }
 
             ## Loop over the strategies, applying one-by-one
+            ## print(strategies)
             for (strategy in strategies)
             {
+                ##strategy <- strategies
+                
                 ## If the item is not a list, then it is a simple function
                 ## which can be called to process the item
-                if (is.null(names(strategy)))
+                if (length(strategy) == 1)
                 {
+                    print(length(strategy))
                     tbl <- rlang::exec(strategy, tbl = tbl,
                                        name = logical_column_name)
                 }
                 else
                 {
+                    print("there")
                     ## If the strategy is a list, then the first element
                     ## is the function name and the subsequent elements are
                     ## the arguments
-                    tbl <- rlang::exec(names(strategy), tbl=tbl,
-                                        name = logical_column_name,
-                                        !!!strategy[[1]])
+                    tbl <- rlang::exec(strategy[[1]], tbl=tbl,
+                                       name = logical_column_name,
+                                       !!!strategy[-1])
                 }
             }
         }
