@@ -431,7 +431,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	auto val{Rcpp::as<std::vector<std::string>>(code_def["groups"])};
 	groups = std::set<std::string>(val.begin(), val.end());
     }
-
+    
     // Create separate lists for each output (to avoid doing it in R)
     Rcpp::List lst_indices(str.size());
     Rcpp::NumericVector lst_type(str.size());
