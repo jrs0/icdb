@@ -113,7 +113,7 @@ msrv <- mapped_server("xsw", mapping="mapping.yaml")
 ## Start and end dates for index percutaneous coronary intervention (PCI)
 ## procedures. This script will use acute coronary syndrome (ACS)
 ## diagnosis codes in lieu of procedure codes for now.
-start <- ymd("2000-1-1")
+start <- ymd("2022-1-1")
 end <- ymd("2023-1-1")
 
 ## Fetch all episodes between the dates (approx 10 million rows)
@@ -122,6 +122,11 @@ all_episodes <- msrv$sus$apc_episodes %>%
     run()
 message("Total episodes: ", nrow(all_episodes))
 
+## Fetch all the mortality between the two dates
+all_mortality <- msrv$mort$civ_reg %>%
+    filter(date_of_death >= !!start, date_of_death <= !!end) %>%
+    run()
+    
 ## This is a workaround for now, because the cache destructor is not
 ## getting called correctly on package exit.
 flush_level1()

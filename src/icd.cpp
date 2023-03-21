@@ -19,6 +19,7 @@
 // Use Rcpp::Rcout instead of std::cout. However, still
 // overload output to std::ostream -- that just works.
 
+
 #include <Rcpp.h>
 #include <string>
 #include <vector>
