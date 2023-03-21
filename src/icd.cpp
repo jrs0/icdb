@@ -465,7 +465,7 @@ Rcpp::List new_icd10_impl(const std::vector<std::string> & str,
 	} catch (const std::out_of_range &) {	
 	    try {
 		ParseResult res = icd10_str_to_indices_impl(str[n],
-							    code_def["child"],
+							    code_def["categories"],
 							    groups);	
 		lst_indices[n] = res.indices();
 		lst_type[n] = res.type();
