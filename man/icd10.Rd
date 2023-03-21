@@ -6,7 +6,7 @@
 \usage{
 icd10(
   str = character(),
-  codes_file = system.file("extdata", "icd10/icd10.yaml", package = "icdb")
+  codes_file = system.file("extdata", "code_groups/icd10.yaml", package = "icdb")
 )
 }
 \arguments{
