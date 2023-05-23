@@ -140,67 +140,67 @@
     docs: Termination of pregnancy - ever had
     source: abortion
     strategy: coalesce
-    use: no
+    use: yes
   - column: adhd
     docs: ADHD
     source: adhd
     strategy: coalesce
-    use: no
+    use: yes
   - column: af
     docs: Atrial fibrillation
     source: af
     strategy: coalesce
-    use: no
+    use: yes
   - column: age
     docs: Patient age
     source: age
     strategy: coalesce
-    use: no
+    use: yes
   - column: alcohol_cscore
     docs: Alcohol - Audit-C score, most recent record within the past 2 years
     source: alcohol_cscore
     strategy: coalesce
-    use: no
+    use: yes
   - column: alcohol_units
     docs: Alcohol - units consumption, most recent record if within past 2 years
     source: alcohol_units
     strategy: coalesce
-    use: no
+    use: yes
   - column: amputations
     docs: Amputations
     source: amputations
     strategy: coalesce
-    use: no
+    use: yes
   - column: anaemia_iron
     docs: Iron Deficiency anaemia
     source: anaemia_iron
     strategy: coalesce
-    use: no
+    use: yes
   - column: anaemia_other
     docs: Anaemia - any other
     source: anaemia_other
     strategy: coalesce
-    use: no
+    use: yes
   - column: angio_anaph
     docs: Angioedema, anaphylaxis
     source: angio_anaph
     strategy: coalesce
-    use: no
+    use: yes
   - column: arrhythmia_other
     docs: Other cardiac arrhythmias
     source: arrhythmia_other
     strategy: coalesce
-    use: no
+    use: yes
   - column: asthma
     docs: Asthma
     source: asthma
     strategy: coalesce
-    use: no
+    use: yes
   - column: autism
     docs: Autism, ASD and Asperger's
     source: autism
     strategy: coalesce
-    use: no
+    use: yes
   - column: back_pain
     docs: Low back pain
     source: back_pain
