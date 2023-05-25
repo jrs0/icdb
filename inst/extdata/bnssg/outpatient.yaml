@@ -122,9 +122,10 @@
       NHS NUMBER is 10 numeric digits in length. The tenth digit is a check digit
       used to confirm its validity. The check digit is validated using the Modulus
       11 algorithm and the use of this algorithm is mandatory."
-    use: no
+    use: yes
     source:
-    - NHSNumber
+    - AIMTC_Pseudo_NHS
+    #- NHSNumber
     strategy: coalesce
   - column: nhs_number_status_indicator_code_2
     docs: NHS NUMBER STATUS INDICATOR CODE is the trace status of the NHS NUMBER.
@@ -523,11 +524,17 @@
     - AdministrativeCategoryCode
     strategy: coalesce
   - column: attendance_status
-    docs: Indicates whether an APPOINTMENT for a CARE CONTACT took place and if the
-      APPOINTMENT did not take place it whether advanced warning was given.
-    use: no
+    docs: |
+      Indicates whether an APPOINTMENT for a CARE CONTACT took place and if the
+      APPOINTMENT did not take place it whether advanced warning was given. A code is
+      used to indicate status: 5 = attended on time (or before doctor); 6 = arrived
+      late but was seen; 7 = arrived late and could not be seen; 2 = canceled by or
+      on behalf of patient; 3 = did not attend, no advance warning; 4 = canceled or
+      postponed by health care provider.
+    use: yes
     source:
-    - AttendanceStatus
+    - AIMTC_AttendedOrDidNotAttend
+    #- AttendanceStatus
     strategy: coalesce
   - column: first_attendance_code
     docs: An indication of whether a PATIENT is making a first attendance or contact;

@@ -17,3 +17,14 @@ msrv$swd$attr_h %>%
     run() %>%
     nrow()
     
+
+msrv$sus$outpatient %>%
+    mutate(attendance_status = case_when(
+               attendance_status == 5 ~ "attended_on_time",
+               attendance_status == 6 ~ "attended_late_was_seen",
+               attendance_status == 7 ~ "attended_late_not_seen",
+               attendance_status == 2 ~ "canceled_by_patient",
+               attendance_status == 3 ~ "did_not_attend",
+               attendance_status == 4 ~ "canceled_by_provider",
+               TRUE ~ "unknown"
+           ))
