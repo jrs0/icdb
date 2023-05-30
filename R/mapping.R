@@ -101,7 +101,6 @@ make_mapped_table_getter <- function(srv, source, table)
                 ## which can be called to process the item
                 if (length(strategy) == 1)
                 {
-                    print(length(strategy))
                     tbl <- rlang::exec(strategy, tbl = tbl,
                                        name = logical_column_name)
                 }
