@@ -2012,10 +2012,10 @@
     docs: Migraine + other headache disorders
     source: migraine
     use: yes
-  # - column: miscarriage
-  #   docs: Miscarriage
-  #   source: miscarriage
-  #   use: yes
+  - column: miscarriage
+    docs: Miscarriage
+    source: miscarriage
+    use: yes
   - column: mmr1
     docs: Vaccines - MMR1
     source: mmr1
@@ -2049,10 +2049,10 @@
     docs: Infant newborn check (6-8 weeks)
     source: newborn_check
     use: yes
-  # - column: newborn_weight
-  #   docs: Infant weight at newborn check
-  #   source: newborn_weight
-  #   use: yes
+  - column: newborn_weight
+    docs: Infant weight at newborn check
+    source: newborn_weight
+    use: yes
   - column: nh_rh
     docs: Lives in a Nursing or Residential Home
     source: nh_rh
@@ -2122,563 +2122,563 @@
     docs: Pregnancy
     source: pregnancy
     use: yes
-  # - column: prim_language
-  #   docs: Primary Language
-  #   source: prim_language
-  #   use: yes
+  - column: prim_language
+    docs: Primary Language
+    source: prim_language
+    use: yes
   - column: psoriasis
     docs: Psoriasis
     source: psoriasis
     use: yes
-  # - column: ptsd
-  #   docs: PTSD
-  #   source: ptsd
-  #   use: yes
-  # - column: qof_af
-  #   docs: QOF_Atrial Fibrillation
-  #   source: qof_af
-  #   use: yes
-  # - column: qof_asthma
-  #   docs: QOF_Asthma
-  #   source: qof_asthma
-  #   use: yes
-  # - column: qof_cancer
-  #   docs: Not currently populated
-  #   source: qof_cancer
-  #   use: yes
-  # - column: qof_chd
-  #   docs: QOF_Coronary Heart Disease
-  #   source: qof_chd
-  #   use: yes
-  # - column: qof_ckd
-  #   docs: QOF_Chronic Kidney Disease (18+)
-  #   source: qof_ckd
-  #   use: yes
-  # - column: qof_copd
-  #   docs: QOF_Chronic Obstructive Pulmonary Disease
-  #   source: qof_copd
-  #   use: yes
-  # - column: qof_dementia
-  #   docs: QOF_Dementia
-  #   source: qof_dementia
-  #   use: yes
-  # - column: qof_depression
-  #   docs: QOF_Depression (18+)
-  #   source: qof_depression
-  #   use: yes
-  # - column: qof_diabetes
-  #   docs: QOF_Diabetes mellitus (17+)
-  #   source: qof_diabetes
-  #   use: yes
-  # - column: qof_epilepsy
-  #   docs: QOF_Epilepsy (18+)
-  #   source: qof_epilepsy
-  #   use: yes
-  # - column: qof_hf
-  #   docs: QOF_Heart Failure
-  #   source: qof_hf
-  #   use: yes
-  # - column: qof_ht
-  #   docs: QOF_Hypertension
-  #   source: qof_ht
-  #   use: yes
-  # - column: qof_learndis
-  #   docs: QOF_Learning Disabilities
-  #   source: qof_learndis
-  #   use: yes
-  # - column: qof_mental
-  #   docs: QOF_Mental Health
-  #   source: qof_mental
-  #   use: yes
-  # - column: qof_obesity
-  #   docs: QOF_Obesity (18+)
-  #   source: qof_obesity
-  #   use: yes
-  # - column: qof_osteoporosis
-  #   docs: QOF_Osteoporosis
-  #   source: qof_osteoporosis
-  #   use: yes
-  # - column: qof_pad
-  #   docs: QOF_Peripheral Arterial Disease
-  #   source: qof_pad
-  #   use: yes
-  # - column: qof_pall
-  #   docs: QOF_Palliative care
-  #   source: qof_pall
-  #   use: yes
-  # - column: qof_rheumarth
-  #   docs: QOF_Rheumatoid Arthritis
-  #   source: qof_rheumarth
-  #   use: yes
-  # - column: qof_stroke
-  #   docs: QOF_Stroke and Transient Ischaemic Attack
-  #   source: qof_stroke
-  #   use: yes
-  # - column: qrisk2_3
-  #   docs: Most up to date QRisk2 or 3 score
-  #   source: qrisk2_3
-  #   use: yes
-  # - column: religion
-  #   docs: Religious Belief
-  #   source: religion
-  #   use: yes
-  # - column: ricketts
-  #   docs: Not currently populated
-  #   source: ricketts
-  #   use: yes
-  # - column: sad
-  #   docs: Stress, anxiety, mild-mod depression, mixed anxiety/depressive disorder
-  #   source: sad
-  #   use: yes
-  # - column: screen_aaa
-  #   docs: NHS abdominal aortic aneurysm (AAA) programme
-  #   source: screen_aaa
-  #   use: yes
-  # - column: screen_bowel
-  #   docs: NHS bowel cancer screening (BCSP) programme
-  #   source: screen_bowel
-  #   use: yes
-  # - column: screen_breast
-  #   docs: NHS breast screening (BSP) programme
-  #   source: screen_breast
-  #   use: yes
-  # - column: screen_cervical
-  #   docs: NHS cervical screening (CSP) programme
-  #   source: screen_cervical
-  #   use: yes
-  # - column: screen_eye
-  #   docs: NHS diabetic eye screening (DES) programme
-  #   source: screen_eye
-  #   use: yes
-  # - column: self_harm
-  #   docs: Ever had self harm problems
-  #   source: self_harm
-  #   use: yes
-  # - column: sex
-  #   docs: Patient sex at birth
-  #   source: sex
-  #   use: yes
-  # - column: sexual_orient
-  #   docs: Sexual Orientation
-  #   source: sexual_orient
-  #   use: yes
-  # - column: sickle
-  #   docs: Sickle cell disease
-  #   source: sickle
-  #   use: yes
-  # - column: smi
-  #   docs: Serious Mental Health, including bipolar affective disorder
-  #   source: smi
-  #   use: yes
-  # - column: smoking
-  #   docs: Smoking status
-  #   source: smoking
-  #   use: yes
-  # - column: stomach
-  #   docs: Stomach ulcers, oesophageal reflux, gord
-  #   source: stomach
-  #   use: yes
-  # - column: stroke
-  #   docs: Cerebrovascular disease - stroke
-  #   source: stroke
-  #   use: yes
-  # - column: tb
-  #   docs: Tuberculosis
-  #   source: tb
-  #   use: yes
-  # - column: thyroid
-  #   docs: Thyroid Disease
-  #   source: thyroid
-  #   use: yes
-  # - column: uterine
-  #   docs: Dysfunctional uterine bleeding including oligo- and amenorrhoea
-  #   source: uterine
-  #   use: yes
-  # - column: vasc_dis
-  #   docs: Peripheral vascular disease
-  #   source: vasc_dis
-  #   use: yes
-  # - column: veteran
-  #   docs: Veteran
-  #   source: veteran
-  #   use: yes
-  # - column: visual_impair
-  #   docs: Visual impairment
-  #   source: visual_impair
-  #   use: yes
-  # - column: primary_care_network
-  #   docs: Primary care network of registered GP practice code
-  #   source: primary_care_network
-  #   use: no
-  # - column: locality_name
-  #   docs: Locality name of registered GP practice code
-  #   source: locality_name
-  #   use: no
-  # - column: wd_local_authority
-  #   docs: local authority name of LSOA
-  #   source: wd_local_authority
-  #   use: no
-  # - column: wd_mye_population_2018
-  #   docs: annual population estimate (mid-2018) of LSOA
-  #   source: wd_mye_population_2018
-  #   use: no
-  # - column: wd_mye_population_2017
-  #   docs: annual population estimate (mid-2017) of LSOA
-  #   source: wd_mye_population_2017
-  #   use: no
-  # - column: wd_mye_population_2016
-  #   docs: annual population estimate (mid-2016) of LSOA
-  #   source: wd_mye_population_2016
-  #   use: no
-  # - column: wd_derived_registered_patients
-  #   docs: derived count of current registered patients (all ages) in LSOA
-  #   source: wd_derived_registered_patients
-  #   use: no
-  # - column: wd_derived_registered_patients_over_64
-  #   docs: derived count of current registered patients (65+) in LSOA
-  #   source: wd_derived_registered_patients_over_64
-  #   use: no
-  # - column: wd_derived_registered_patients_under_18
-  #   docs: derived count of current registered patients (under 18) in LSOA
-  #   source: wd_derived_registered_patients_under_18
-  #   use: no
-  # - column: wd_derived_trust_catchment
-  #   docs: derived trust catchment of LSOA
-  #   source: wd_derived_trust_catchment
-  #   use: no
-  # - column: wd_people_per_sq_km
-  #   docs: population density of LSOA
-  #   source: wd_people_per_sq_km
-  #   use: no
-  # - column: wd_rural_urban_classification
-  #   docs: official statistic used to distinguish LSOA as rural or urban area
-  #   source: wd_rural_urban_classification
-  #   use: no
-  # - column: wd_imd_decile_19
-  #   docs: relative deprivation of LSOA
-  #   source: wd_imd_decile_19
-  #   use: no
-  # - column: wd_health_deprivation_and_disability_decile
-  #   docs: measures the risk of premature death and the impairment of quality of life
-  #     through poor physical or mental health within LSOA
-  #   source: wd_health_deprivation_and_disability_decile
-  #   use: no
-  # - column: wd_years_of_potential_life_lost_indicator
-  #   docs: measures ‘premature death’, defined as death before the age of 75 from any
-  #     cause (the commonly used measure of premature death) within LSOA
-  #   source: wd_years_of_potential_life_lost_indicator
-  #   use: no
-  # - column: wd_comparative_illness_and_disability_ratio_indicator
-  #   docs: work limiting morbidity and disability, based on those receiving benefits
-  #     due to inability to work through ill health within LSOA
-  #   source: wd_comparative_illness_and_disability_ratio_indicator
-  #   use: no
-  # - column: wd_acute_morbidity_indicator
-  #   docs: level of emergency admissions to hospital within LSOA, based on administrative
-  #     records of inpatient admissions
-  #   source: wd_acute_morbidity_indicator
-  #   use: no
-  # - column: wd_mood_and_anxiety_disorders_indicator
-  #   docs: broad measure of levels of mental ill health within LSOA
-  #   source: wd_mood_and_anxiety_disorders_indicator
-  #   use: no
-  # - column: wd_fsa_takeaway_sandwich_bar_count
-  #   docs: count of locations within LSOA registered with the food standards agency
-  #     where the description is 'takeaway of sandwich bar'
-  #   source: wd_fsa_takeaway_sandwich_bar_count
-  #   use: no
-  # - column: wd_education_skills_and_training_decile
-  #   docs: the lack of attainment and skills within LSOA
-  #   source: wd_education_skills_and_training_decile
-  #   use: no
-  # - column: wd_adult_skills_sub_domain_decile
-  #   docs: education, skills and training deprivation within LSOA - working age adults
-  #   source: wd_adult_skills_sub_domain_decile
-  #   use: no
-  # - column: wd_children_and_young_people_sub_domain_decile
-  #   docs: education, skills and training deprivation within LSOA - children & young
-  #     people
-  #   source: wd_children_and_young_people_sub_domain_decile
-  #   use: no
-  # - column: wd_staying_on_in_education_post_16_indicator
-  #   docs: proportion of young people within LSOA not staying on in school or non-advanced
-  #     education above age 16, based on receipt of child benefit
-  #   source: wd_staying_on_in_education_post_16_indicator
-  #   use: no
-  # - column: wd_entry_to_higher_education_indicator
-  #   docs: proportion of young people aged under 21 within LSOA not entering higher
-  #     education
-  #   source: wd_entry_to_higher_education_indicator
-  #   use: no
-  # - column: wd_adult_skills_and_english_language_proficiency_indicator
-  #   docs: proportion of working-age adults within LSOA (women aged 25 to 59 and men
-  #     aged 25 to 64) with no or low qualifications combined with the proportion of
-  #     the working-age population who cannot speak english or cannot speak english
-  #     ‘well’
-  #   source: wd_adult_skills_and_english_language_proficiency_indicator
-  #   use: no
-  # - column: wd_employment_decile
-  #   docs: employment deprivation within LSOA
-  #   source: wd_employment_decile
-  #   use: no
-  # - column: wd_geographical_barriers_sub_domain_decile
-  #   docs: physical proximity of local services within LSOA
-  #   source: wd_geographical_barriers_sub_domain_decile
-  #   use: no
-  # - column: wd_road_distance_to_a_gp_surgery_indicator
-  #   docs: average road distance within LSOA to GP surgery measured in kilometres
-  #   source: wd_road_distance_to_a_gp_surgery_indicator
-  #   use: no
-  # - column: wd_road_distance_to_a_post_office_indicator
-  #   docs: average road distance within LSOA to post office measured in kilometres
-  #   source: wd_road_distance_to_a_post_office_indicator
-  #   use: no
-  # - column: wd_road_distance_to_a_primary_school_indicator
-  #   docs: average road distance within LSOA to primary school measured in kilometres
-  #   source: wd_road_distance_to_a_primary_school_indicator
-  #   use: no
-  # - column: wd_road_distance_to_general_store_or_supermarket_indicator
-  #   docs: average road distance within LSOA to general store or supermarket measured
-  #     in kilometres
-  #   source: wd_road_distance_to_general_store_or_supermarket_indicator
-  #   use: no
-  # - column: wd_travel_time_to_ae
-  #   docs: approximate travel time by car from lsoa population weighted centre to closest
-  #     type 1 ae department
-  #   source: wd_travel_time_to_ae
-  #   use: no
-  # - column: wd_travel_time_to_miu
-  #   docs: approximate travel time by car from lsoa population weighted centre to closest
-  #     type 3 miu department
-  #   source: wd_travel_time_to_miu
-  #   use: no
-  # - column: wd_barriers_to_housing_and_services_decile
-  #   docs: barriers to housing indicator - measures the physical and financial accessibility
-  #     of housing and local services within LSOA
-  #   source: wd_barriers_to_housing_and_services_decile
-  #   use: no
-  # - column: wd_household_overcrowding_indicator
-  #   docs: the proportion of households within LSOA that are classed as overcrowded
-  #   source: wd_household_overcrowding_indicator
-  #   use: no
-  # - column: wd_homelessness_indicator_rate_per_1000_households
-  #   docs: the rate of acceptances for housing assistance under the homelessness provisions
-  #     of housing legislation within LSOA
-  #   source: wd_homelessness_indicator_rate_per_1000_households
-  #   use: no
-  # - column: wd_owner_occupation_affordability
-  #   docs: measure of the inability to afford to enter owner-occupation with LSOA
-  #   source: wd_owner_occupation_affordability
-  #   use: no
-  # - column: wd_private_rental_affordability
-  #   docs: measure of the inability to afford to enter the private rental market within
-  #     LSOA
-  #   source: wd_private_rental_affordability
-  #   use: no
-  # - column: wd_housing_affordability_indicator
-  #   docs: inability to afford to enter owner-occupation or the private rental market
-  #     within LSOA
-  #   source: wd_housing_affordability_indicator
-  #   use: no
-  # - column: wd_estimated_number_of_fuel_poor_households
-  #   docs: estimated number of households in fuel poverty in LSOA
-  #   source: wd_estimated_number_of_fuel_poor_households
-  #   use: no
-  # - column: wd_income_deprivation_affecting_children_index_decile
-  #   docs: proportion of all children aged 0 to 15 living in income deprived families
-  #     within LSOA
-  #   source: wd_income_deprivation_affecting_children_index_decile
-  #   use: no
-  # - column: wd_income_deprivation_affecting_older_people_decile
-  #   docs: proportion of all those aged 60 or over living in income deprived families
-  #     within LSOA
-  #   source: wd_income_deprivation_affecting_older_people_decile
-  #   use: no
-  # - column: wd_income_decile
-  #   docs: income deprivation within LSOA
-  #   source: wd_income_decile
-  #   use: no
-  # - column: wd_housing_in_poor_condition_indicator
-  #   docs: a modelled estimate of the proportion of social and private homes that fail
-  #     to meet the decent homes standard within LSOA
-  #   source: wd_housing_in_poor_condition_indicator
-  #   use: no
-  # - column: wd_houses_without_central_heating_indicator
-  #   docs: housing which is expensive to heat within LSOA
-  #   source: wd_houses_without_central_heating_indicator
-  #   use: no
-  # - column: wd_living_environment_decile
-  #   docs: quality of the local environment within LSOA
-  #   source: wd_living_environment_decile
-  #   use: no
-  # - column: wd_outdoors_sub_domain_decile
-  #   docs: air quality and road traffic accidents within LSOA
-  #   source: wd_outdoors_sub_domain_decile
-  #   use: no
-  # - column: wd_indoors_sub_domain_decile
-  #   docs: measures the quality of housing within LSOA
-  #   source: wd_indoors_sub_domain_decile
-  #   use: no
-  # - column: wd_road_traffic_accidents_indicator
-  #   docs: reported accidents that involve death or personal injury to a pedestrian
-  #     or cyclist within LSOA
-  #   source: wd_road_traffic_accidents_indicator
-  #   use: no
-  # - column: wd_nitrogen_dioxide_component_of_air_quality_indicator
-  #   docs: estimate of concentration of nitrogen dioxide within LSOA
-  #   source: wd_nitrogen_dioxide_component_of_air_quality_indicator
-  #   use: no
-  # - column: wd_benzene_component_of_air_quality_indicator
-  #   docs: estimate of concentration of benzene within LSOA
-  #   source: wd_benzene_component_of_air_quality_indicator
-  #   use: no
-  # - column: wd_sulphur_dioxide_component_of_air_quality_indicator
-  #   docs: estimate of concentration of sulphur dioxide within LSOA
-  #   source: wd_sulphur_dioxide_component_of_air_quality_indicator
-  #   use: no
-  # - column: wd_particulates_component_of_air_quality_indicator
-  #   docs: estimate of concentration of particulates within LSOA
-  #   source: wd_particulates_component_of_air_quality_indicator
-  #   use: no
-  # - column: wd_air_quality_indicator
-  #   docs: estimate of the concentration of the four pollutants nitrogen dioxide, benzene,
-  #     sulphur dioxide and particulates within LSOA
-  #   source: wd_air_quality_indicator
-  #   use: no
-  # - column: wd_wider_barriers_sub_domain_decile
-  #   docs: issues relating to access to housing (such as affordability) within LSOA
-  #   source: wd_wider_barriers_sub_domain_decile
-  #   use: no
-  # - column: wd_crime_decile
-  #   docs: the risk of personal and material victimisation within LSOA
-  #   source: wd_crime_decile
-  #   use: no
-  # - column: wd_asb_per_1000
-  #   docs: anti-social behaviour incidents reported to the police per 1000 residents
-  #     within LSOA in a 12mth period
-  #   source: wd_asb_per_1000
-  #   use: no
-  # - column: wd_burglary_per_1000
-  #   docs: burglary incidents reported to the police per 1000 residents within LSOA
-  #     in a 12mth period
-  #   source: wd_burglary_per_1000
-  #   use: no
-  # - column: wd_robbery_per_1000
-  #   docs: robbery incidents reported to the police per 1000 residents within LSOA
-  #     in a 12mth period
-  #   source: wd_robbery_per_1000
-  #   use: no
-  # - column: wd_violence_and_sexual_offences_per_1000
-  #   docs: violence and sexual offence incidents reported to the police per 1000 residents
-  #     within LSOA in a 12mth period
-  #   source: wd_violence_and_sexual_offences_per_1000
-  #   use: no
-  # - column: wd_child_benefit_receipt_all_children
-  #   docs: count of children within LSOA in receipt of child benefit as at 31 august
-  #     2019
-  #   source: wd_child_benefit_receipt_all_children
-  #   use: no
-  # - column: wd_child_benefit_receipt_children_under_5
-  #   docs: count of children under 5 years within LSOA old in receipt of child benefit
-  #     as at 31 august 2019
-  #   source: wd_child_benefit_receipt_children_under_5
-  #   use: no
-  # - column: wd_child_benefit_receipt_children_5_to_10
-  #   docs: count of children aged 5 to 10 years old within LSOA in receipt of child
-  #     benefit as at 31 august 2019
-  #   source: wd_child_benefit_receipt_children_5_to_10
-  #   use: no
-  # - column: wd_child_benefit_receipt_children_11_to_15
-  #   docs: count of children aged 11 to 15 years old within LSOA in receipt of child
-  #     benefit as at 31 august 2019
-  #   source: wd_child_benefit_receipt_children_11_to_15
-  #   use: no
-  # - column: wd_child_benefit_receipt_children_16_to_19
-  #   docs: count of children aged 16 to 19 years old within LSOA in receipt of child
-  #     benefit as at 31 august 2019
-  #   source: wd_child_benefit_receipt_children_16_to_19
-  #   use: no
-  # - column: wd_child_benefit_receipt_all_families
-  #   docs: count of families within LSOA in receipt of child benefit as at 31 august
-  #     2019
-  #   source: wd_child_benefit_receipt_all_families
-  #   use: no
-  # - column: wd_child_benefit_receipt_family_size_one_child
-  #   docs: count of families within LSOA with one child in receipt of child benefit
-  #     as at 31 august 2019
-  #   source: wd_child_benefit_receipt_family_size_one_child
-  #   use: no
-  # - column: wd_child_benefit_receipt_family_size_two_children
-  #   docs: count of families within LSOA with two children in receipt of child benefit
-  #     as at 31 august 2019
-  #   source: wd_child_benefit_receipt_family_size_two_children
-  #   use: no
-  # - column: wd_child_benefit_receipt_family_size_three_or_more_children
-  #   docs: count of families within LSOA with three or more  children in receipt of
-  #     child benefit as at 31 august 2019
-  #   source: wd_child_benefit_receipt_family_size_three_or_more_children
-  #   use: no
-  # - column: wd_townsend_score
-  #   docs: townsend deprivation measure of material deprivation within LSOA
-  #   source: wd_townsend_score
-  #   use: no
-  # - column: version
-  #   docs: current version of attributes dataset
-  #   source: version
-  #   use: no
-  # - column: mh_plus_associated_condition
-  #   docs: Mental health and associated condition
-  #   source: mh_plus_associated_condition
-  #   use: no
-  # - column: mh_multi_diagnoses
-  #   docs: Multiple mental health diagnoses
-  #   source: mh_multi_diagnoses
-  #   use: no
-  # - column: mh_plus_dependency
-  #   docs: Mental health and drug or alcohol dependency
-  #   source: mh_plus_dependency
-  #   use: no
-  # - column: mh_plus_social_risk
-  #   docs: Mental health and social risk
-  #   source: mh_plus_social_risk
-  #   use: no
-  # - column: asylum_seeker_refugee
-  #   docs: Refugee/Asylum seeker
-  #   source: asylum_seeker_refugee
-  #   use: no
+  - column: ptsd
+    docs: PTSD
+    source: ptsd
+    use: yes
+  - column: qof_af
+    docs: QOF_Atrial Fibrillation
+    source: qof_af
+    use: yes
+  - column: qof_asthma
+    docs: QOF_Asthma
+    source: qof_asthma
+    use: yes
+  - column: qof_cancer
+    docs: Not currently populated
+    source: qof_cancer
+    use: yes
+  - column: qof_chd
+    docs: QOF_Coronary Heart Disease
+    source: qof_chd
+    use: yes
+  - column: qof_ckd
+    docs: QOF_Chronic Kidney Disease (18+)
+    source: qof_ckd
+    use: yes
+  - column: qof_copd
+    docs: QOF_Chronic Obstructive Pulmonary Disease
+    source: qof_copd
+    use: yes
+  - column: qof_dementia
+    docs: QOF_Dementia
+    source: qof_dementia
+    use: yes
+  - column: qof_depression
+    docs: QOF_Depression (18+)
+    source: qof_depression
+    use: yes
+  - column: qof_diabetes
+    docs: QOF_Diabetes mellitus (17+)
+    source: qof_diabetes
+    use: yes
+  - column: qof_epilepsy
+    docs: QOF_Epilepsy (18+)
+    source: qof_epilepsy
+    use: yes
+  - column: qof_hf
+    docs: QOF_Heart Failure
+    source: qof_hf
+    use: yes
+  - column: qof_ht
+    docs: QOF_Hypertension
+    source: qof_ht
+    use: yes
+  - column: qof_learndis
+    docs: QOF_Learning Disabilities
+    source: qof_learndis
+    use: yes
+  - column: qof_mental
+    docs: QOF_Mental Health
+    source: qof_mental
+    use: yes
+  - column: qof_obesity
+    docs: QOF_Obesity (18+)
+    source: qof_obesity
+    use: yes
+  - column: qof_osteoporosis
+    docs: QOF_Osteoporosis
+    source: qof_osteoporosis
+    use: yes
+  - column: qof_pad
+    docs: QOF_Peripheral Arterial Disease
+    source: qof_pad
+    use: yes
+  - column: qof_pall
+    docs: QOF_Palliative care
+    source: qof_pall
+    use: yes
+  - column: qof_rheumarth
+    docs: QOF_Rheumatoid Arthritis
+    source: qof_rheumarth
+    use: yes
+  - column: qof_stroke
+    docs: QOF_Stroke and Transient Ischaemic Attack
+    source: qof_stroke
+    use: yes
+  - column: qrisk2_3
+    docs: Most up to date QRisk2 or 3 score
+    source: qrisk2_3
+    use: yes
+  - column: religion
+    docs: Religious Belief
+    source: religion
+    use: yes
+  - column: ricketts
+    docs: Not currently populated
+    source: ricketts
+    use: yes
+  - column: sad
+    docs: Stress, anxiety, mild-mod depression, mixed anxiety/depressive disorder
+    source: sad
+    use: yes
+  - column: screen_aaa
+    docs: NHS abdominal aortic aneurysm (AAA) programme
+    source: screen_aaa
+    use: yes
+  - column: screen_bowel
+    docs: NHS bowel cancer screening (BCSP) programme
+    source: screen_bowel
+    use: yes
+  - column: screen_breast
+    docs: NHS breast screening (BSP) programme
+    source: screen_breast
+    use: yes
+  - column: screen_cervical
+    docs: NHS cervical screening (CSP) programme
+    source: screen_cervical
+    use: yes
+  - column: screen_eye
+    docs: NHS diabetic eye screening (DES) programme
+    source: screen_eye
+    use: yes
+  - column: self_harm
+    docs: Ever had self harm problems
+    source: self_harm
+    use: yes
+  - column: sex
+    docs: Patient sex at birth
+    source: sex
+    use: yes
+  - column: sexual_orient
+    docs: Sexual Orientation
+    source: sexual_orient
+    use: yes
+  - column: sickle
+    docs: Sickle cell disease
+    source: sickle
+    use: yes
+  - column: smi
+    docs: Serious Mental Health, including bipolar affective disorder
+    source: smi
+    use: yes
+  - column: smoking
+    docs: Smoking status
+    source: smoking
+    use: yes
+  - column: stomach
+    docs: Stomach ulcers, oesophageal reflux, gord
+    source: stomach
+    use: yes
+  - column: stroke
+    docs: Cerebrovascular disease - stroke
+    source: stroke
+    use: yes
+  - column: tb
+    docs: Tuberculosis
+    source: tb
+    use: yes
+  - column: thyroid
+    docs: Thyroid Disease
+    source: thyroid
+    use: yes
+  - column: uterine
+    docs: Dysfunctional uterine bleeding including oligo- and amenorrhoea
+    source: uterine
+    use: yes
+  - column: vasc_dis
+    docs: Peripheral vascular disease
+    source: vasc_dis
+    use: yes
+  - column: veteran
+    docs: Veteran
+    source: veteran
+    use: yes
+  - column: visual_impair
+    docs: Visual impairment
+    source: visual_impair
+    use: yes
+  - column: primary_care_network
+    docs: Primary care network of registered GP practice code
+    source: primary_care_network
+    use: no
+  - column: locality_name
+    docs: Locality name of registered GP practice code
+    source: locality_name
+    use: no
+  - column: wd_local_authority
+    docs: local authority name of LSOA
+    source: wd_local_authority
+    use: no
+  - column: wd_mye_population_2018
+    docs: annual population estimate (mid-2018) of LSOA
+    source: wd_mye_population_2018
+    use: no
+  - column: wd_mye_population_2017
+    docs: annual population estimate (mid-2017) of LSOA
+    source: wd_mye_population_2017
+    use: no
+  - column: wd_mye_population_2016
+    docs: annual population estimate (mid-2016) of LSOA
+    source: wd_mye_population_2016
+    use: no
+  - column: wd_derived_registered_patients
+    docs: derived count of current registered patients (all ages) in LSOA
+    source: wd_derived_registered_patients
+    use: no
+  - column: wd_derived_registered_patients_over_64
+    docs: derived count of current registered patients (65+) in LSOA
+    source: wd_derived_registered_patients_over_64
+    use: no
+  - column: wd_derived_registered_patients_under_18
+    docs: derived count of current registered patients (under 18) in LSOA
+    source: wd_derived_registered_patients_under_18
+    use: no
+  - column: wd_derived_trust_catchment
+    docs: derived trust catchment of LSOA
+    source: wd_derived_trust_catchment
+    use: no
+  - column: wd_people_per_sq_km
+    docs: population density of LSOA
+    source: wd_people_per_sq_km
+    use: no
+  - column: wd_rural_urban_classification
+    docs: official statistic used to distinguish LSOA as rural or urban area
+    source: wd_rural_urban_classification
+    use: no
+  - column: wd_imd_decile_19
+    docs: relative deprivation of LSOA
+    source: wd_imd_decile_19
+    use: no
+  - column: wd_health_deprivation_and_disability_decile
+    docs: measures the risk of premature death and the impairment of quality of life
+      through poor physical or mental health within LSOA
+    source: wd_health_deprivation_and_disability_decile
+    use: no
+  - column: wd_years_of_potential_life_lost_indicator
+    docs: measures ‘premature death’, defined as death before the age of 75 from any
+      cause (the commonly used measure of premature death) within LSOA
+    source: wd_years_of_potential_life_lost_indicator
+    use: no
+  - column: wd_comparative_illness_and_disability_ratio_indicator
+    docs: work limiting morbidity and disability, based on those receiving benefits
+      due to inability to work through ill health within LSOA
+    source: wd_comparative_illness_and_disability_ratio_indicator
+    use: no
+  - column: wd_acute_morbidity_indicator
+    docs: level of emergency admissions to hospital within LSOA, based on administrative
+      records of inpatient admissions
+    source: wd_acute_morbidity_indicator
+    use: no
+  - column: wd_mood_and_anxiety_disorders_indicator
+    docs: broad measure of levels of mental ill health within LSOA
+    source: wd_mood_and_anxiety_disorders_indicator
+    use: no
+  - column: wd_fsa_takeaway_sandwich_bar_count
+    docs: count of locations within LSOA registered with the food standards agency
+      where the description is 'takeaway of sandwich bar'
+    source: wd_fsa_takeaway_sandwich_bar_count
+    use: no
+  - column: wd_education_skills_and_training_decile
+    docs: the lack of attainment and skills within LSOA
+    source: wd_education_skills_and_training_decile
+    use: no
+  - column: wd_adult_skills_sub_domain_decile
+    docs: education, skills and training deprivation within LSOA - working age adults
+    source: wd_adult_skills_sub_domain_decile
+    use: no
+  - column: wd_children_and_young_people_sub_domain_decile
+    docs: education, skills and training deprivation within LSOA - children & young
+      people
+    source: wd_children_and_young_people_sub_domain_decile
+    use: no
+  - column: wd_staying_on_in_education_post_16_indicator
+    docs: proportion of young people within LSOA not staying on in school or non-advanced
+      education above age 16, based on receipt of child benefit
+    source: wd_staying_on_in_education_post_16_indicator
+    use: no
+  - column: wd_entry_to_higher_education_indicator
+    docs: proportion of young people aged under 21 within LSOA not entering higher
+      education
+    source: wd_entry_to_higher_education_indicator
+    use: no
+  - column: wd_adult_skills_and_english_language_proficiency_indicator
+    docs: proportion of working-age adults within LSOA (women aged 25 to 59 and men
+      aged 25 to 64) with no or low qualifications combined with the proportion of
+      the working-age population who cannot speak english or cannot speak english
+      ‘well’
+    source: wd_adult_skills_and_english_language_proficiency_indicator
+    use: no
+  - column: wd_employment_decile
+    docs: employment deprivation within LSOA
+    source: wd_employment_decile
+    use: no
+  - column: wd_geographical_barriers_sub_domain_decile
+    docs: physical proximity of local services within LSOA
+    source: wd_geographical_barriers_sub_domain_decile
+    use: no
+  - column: wd_road_distance_to_a_gp_surgery_indicator
+    docs: average road distance within LSOA to GP surgery measured in kilometres
+    source: wd_road_distance_to_a_gp_surgery_indicator
+    use: no
+  - column: wd_road_distance_to_a_post_office_indicator
+    docs: average road distance within LSOA to post office measured in kilometres
+    source: wd_road_distance_to_a_post_office_indicator
+    use: no
+  - column: wd_road_distance_to_a_primary_school_indicator
+    docs: average road distance within LSOA to primary school measured in kilometres
+    source: wd_road_distance_to_a_primary_school_indicator
+    use: no
+  - column: wd_road_distance_to_general_store_or_supermarket_indicator
+    docs: average road distance within LSOA to general store or supermarket measured
+      in kilometres
+    source: wd_road_distance_to_general_store_or_supermarket_indicator
+    use: no
+  - column: wd_travel_time_to_ae
+    docs: approximate travel time by car from lsoa population weighted centre to closest
+      type 1 ae department
+    source: wd_travel_time_to_ae
+    use: no
+  - column: wd_travel_time_to_miu
+    docs: approximate travel time by car from lsoa population weighted centre to closest
+      type 3 miu department
+    source: wd_travel_time_to_miu
+    use: no
+  - column: wd_barriers_to_housing_and_services_decile
+    docs: barriers to housing indicator - measures the physical and financial accessibility
+      of housing and local services within LSOA
+    source: wd_barriers_to_housing_and_services_decile
+    use: no
+  - column: wd_household_overcrowding_indicator
+    docs: the proportion of households within LSOA that are classed as overcrowded
+    source: wd_household_overcrowding_indicator
+    use: no
+  - column: wd_homelessness_indicator_rate_per_1000_households
+    docs: the rate of acceptances for housing assistance under the homelessness provisions
+      of housing legislation within LSOA
+    source: wd_homelessness_indicator_rate_per_1000_households
+    use: no
+  - column: wd_owner_occupation_affordability
+    docs: measure of the inability to afford to enter owner-occupation with LSOA
+    source: wd_owner_occupation_affordability
+    use: no
+  - column: wd_private_rental_affordability
+    docs: measure of the inability to afford to enter the private rental market within
+      LSOA
+    source: wd_private_rental_affordability
+    use: no
+  - column: wd_housing_affordability_indicator
+    docs: inability to afford to enter owner-occupation or the private rental market
+      within LSOA
+    source: wd_housing_affordability_indicator
+    use: no
+  - column: wd_estimated_number_of_fuel_poor_households
+    docs: estimated number of households in fuel poverty in LSOA
+    source: wd_estimated_number_of_fuel_poor_households
+    use: no
+  - column: wd_income_deprivation_affecting_children_index_decile
+    docs: proportion of all children aged 0 to 15 living in income deprived families
+      within LSOA
+    source: wd_income_deprivation_affecting_children_index_decile
+    use: no
+  - column: wd_income_deprivation_affecting_older_people_decile
+    docs: proportion of all those aged 60 or over living in income deprived families
+      within LSOA
+    source: wd_income_deprivation_affecting_older_people_decile
+    use: no
+  - column: wd_income_decile
+    docs: income deprivation within LSOA
+    source: wd_income_decile
+    use: no
+  - column: wd_housing_in_poor_condition_indicator
+    docs: a modelled estimate of the proportion of social and private homes that fail
+      to meet the decent homes standard within LSOA
+    source: wd_housing_in_poor_condition_indicator
+    use: no
+  - column: wd_houses_without_central_heating_indicator
+    docs: housing which is expensive to heat within LSOA
+    source: wd_houses_without_central_heating_indicator
+    use: no
+  - column: wd_living_environment_decile
+    docs: quality of the local environment within LSOA
+    source: wd_living_environment_decile
+    use: no
+  - column: wd_outdoors_sub_domain_decile
+    docs: air quality and road traffic accidents within LSOA
+    source: wd_outdoors_sub_domain_decile
+    use: no
+  - column: wd_indoors_sub_domain_decile
+    docs: measures the quality of housing within LSOA
+    source: wd_indoors_sub_domain_decile
+    use: no
+  - column: wd_road_traffic_accidents_indicator
+    docs: reported accidents that involve death or personal injury to a pedestrian
+      or cyclist within LSOA
+    source: wd_road_traffic_accidents_indicator
+    use: no
+  - column: wd_nitrogen_dioxide_component_of_air_quality_indicator
+    docs: estimate of concentration of nitrogen dioxide within LSOA
+    source: wd_nitrogen_dioxide_component_of_air_quality_indicator
+    use: no
+  - column: wd_benzene_component_of_air_quality_indicator
+    docs: estimate of concentration of benzene within LSOA
+    source: wd_benzene_component_of_air_quality_indicator
+    use: no
+  - column: wd_sulphur_dioxide_component_of_air_quality_indicator
+    docs: estimate of concentration of sulphur dioxide within LSOA
+    source: wd_sulphur_dioxide_component_of_air_quality_indicator
+    use: no
+  - column: wd_particulates_component_of_air_quality_indicator
+    docs: estimate of concentration of particulates within LSOA
+    source: wd_particulates_component_of_air_quality_indicator
+    use: no
+  - column: wd_air_quality_indicator
+    docs: estimate of the concentration of the four pollutants nitrogen dioxide, benzene,
+      sulphur dioxide and particulates within LSOA
+    source: wd_air_quality_indicator
+    use: no
+  - column: wd_wider_barriers_sub_domain_decile
+    docs: issues relating to access to housing (such as affordability) within LSOA
+    source: wd_wider_barriers_sub_domain_decile
+    use: no
+  - column: wd_crime_decile
+    docs: the risk of personal and material victimisation within LSOA
+    source: wd_crime_decile
+    use: no
+  - column: wd_asb_per_1000
+    docs: anti-social behaviour incidents reported to the police per 1000 residents
+      within LSOA in a 12mth period
+    source: wd_asb_per_1000
+    use: no
+  - column: wd_burglary_per_1000
+    docs: burglary incidents reported to the police per 1000 residents within LSOA
+      in a 12mth period
+    source: wd_burglary_per_1000
+    use: no
+  - column: wd_robbery_per_1000
+    docs: robbery incidents reported to the police per 1000 residents within LSOA
+      in a 12mth period
+    source: wd_robbery_per_1000
+    use: no
+  - column: wd_violence_and_sexual_offences_per_1000
+    docs: violence and sexual offence incidents reported to the police per 1000 residents
+      within LSOA in a 12mth period
+    source: wd_violence_and_sexual_offences_per_1000
+    use: no
+  - column: wd_child_benefit_receipt_all_children
+    docs: count of children within LSOA in receipt of child benefit as at 31 august
+      2019
+    source: wd_child_benefit_receipt_all_children
+    use: no
+  - column: wd_child_benefit_receipt_children_under_5
+    docs: count of children under 5 years within LSOA old in receipt of child benefit
+      as at 31 august 2019
+    source: wd_child_benefit_receipt_children_under_5
+    use: no
+  - column: wd_child_benefit_receipt_children_5_to_10
+    docs: count of children aged 5 to 10 years old within LSOA in receipt of child
+      benefit as at 31 august 2019
+    source: wd_child_benefit_receipt_children_5_to_10
+    use: no
+  - column: wd_child_benefit_receipt_children_11_to_15
+    docs: count of children aged 11 to 15 years old within LSOA in receipt of child
+      benefit as at 31 august 2019
+    source: wd_child_benefit_receipt_children_11_to_15
+    use: no
+  - column: wd_child_benefit_receipt_children_16_to_19
+    docs: count of children aged 16 to 19 years old within LSOA in receipt of child
+      benefit as at 31 august 2019
+    source: wd_child_benefit_receipt_children_16_to_19
+    use: no
+  - column: wd_child_benefit_receipt_all_families
+    docs: count of families within LSOA in receipt of child benefit as at 31 august
+      2019
+    source: wd_child_benefit_receipt_all_families
+    use: no
+  - column: wd_child_benefit_receipt_family_size_one_child
+    docs: count of families within LSOA with one child in receipt of child benefit
+      as at 31 august 2019
+    source: wd_child_benefit_receipt_family_size_one_child
+    use: no
+  - column: wd_child_benefit_receipt_family_size_two_children
+    docs: count of families within LSOA with two children in receipt of child benefit
+      as at 31 august 2019
+    source: wd_child_benefit_receipt_family_size_two_children
+    use: no
+  - column: wd_child_benefit_receipt_family_size_three_or_more_children
+    docs: count of families within LSOA with three or more  children in receipt of
+      child benefit as at 31 august 2019
+    source: wd_child_benefit_receipt_family_size_three_or_more_children
+    use: no
+  - column: wd_townsend_score
+    docs: townsend deprivation measure of material deprivation within LSOA
+    source: wd_townsend_score
+    use: no
+  - column: version
+    docs: current version of attributes dataset
+    source: version
+    use: no
+  - column: mh_plus_associated_condition
+    docs: Mental health and associated condition
+    source: mh_plus_associated_condition
+    use: no
+  - column: mh_multi_diagnoses
+    docs: Multiple mental health diagnoses
+    source: mh_multi_diagnoses
+    use: no
+  - column: mh_plus_dependency
+    docs: Mental health and drug or alcohol dependency
+    source: mh_plus_dependency
+    use: no
+  - column: mh_plus_social_risk
+    docs: Mental health and social risk
+    source: mh_plus_social_risk
+    use: no
+  - column: asylum_seeker_refugee
+    docs: Refugee/Asylum seeker
+    source: asylum_seeker_refugee
+    use: no
 
-  # # Columns added specifically relating to attribute history
-  # - column: process_date
-  #   docs: This datetime seems to be fixed for a block of records in a given attribute_period. The field has resolution down to the second, and always seems to be about a month ahead of attribute_period. Unlike the inserted_date, this is always the same for a given attribute period
-  #   source: ProcessDate
-  #   use: no
-  # - column: inserted_date
-  #   docs: The inserted date varies through an attribute period. It is always quite similar to the process_date (within about an hour or so). Might be the time the data was inserted into a database? This might make sense, if the data for a particular attribute period is processed about a month after the given period.
-  #   source: InsertedDate
-  #   use: no
-  # - column: attribute_period
-  #   docs: "This is always the 1st of the month, and defines a block of data as relating to the period [attribute_period, attribute_period + 1 month)?"
-  #   source: attribute_period
-  #   use: yes
+  # Columns added specifically relating to attribute history
+  - column: process_date
+    docs: This datetime seems to be fixed for a block of records in a given attribute_period. The field has resolution down to the second, and always seems to be about a month ahead of attribute_period. Unlike the inserted_date, this is always the same for a given attribute period
+    source: ProcessDate
+    use: no
+  - column: inserted_date
+    docs: The inserted date varies through an attribute period. It is always quite similar to the process_date (within about an hour or so). Might be the time the data was inserted into a database? This might make sense, if the data for a particular attribute period is processed about a month after the given period.
+    source: InsertedDate
+    use: no
+  - column: attribute_period
+    docs: "This is always the 1st of the month, and defines a block of data as relating to the period [attribute_period, attribute_period + 1 month)?"
+    source: attribute_period
+    use: yes
 
-  # # Other columns
-  # - column: process_id_pseudo
-  #   docs: This could be the identifier for the process by which a block of data (relating to an attribute period) was inserted into the database.
-  #   source: ProcessID_Pseudo
-  #   use: no
-  # - column: process_id
-  #   docs: The underlying source of process_id_pseudo?
-  #   source: Process_ID
-  #   use: no
+  # Other columns
+  - column: process_id_pseudo
+    docs: This could be the identifier for the process by which a block of data (relating to an attribute period) was inserted into the database.
+    source: ProcessID_Pseudo
+    use: no
+  - column: process_id
+    docs: The underlying source of process_id_pseudo?
+    source: Process_ID
+    use: no
 
-  # - column: nhs_number_was_valid
-  #   docs: Not sure what this means
-  #   source: NHSNumberWasValid
-  #   use: no
-  # - column: mabatch
-  #   docs: Not sure what this means
-  #   source: MABATCH
-  #   use: no
+  - column: nhs_number_was_valid
+    docs: Not sure what this means
+    source: NHSNumberWasValid
+    use: no
+  - column: mabatch
+    docs: Not sure what this means
+    source: MABATCH
+    use: no
 
     
 - table: swd_supplemental
