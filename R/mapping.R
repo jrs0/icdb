@@ -72,7 +72,7 @@ make_mapped_table_getter <- function(srv, source, table)
             tbl <- tbl %>% dplyr::rename_with(~ new_name, old_name)
             
         }
-
+b
         ## Loop over all the logical columns, reducing by the specified
         ## strategies. The strategies are presented as a list -- the order
         ## in the yaml file specifies the order in which they are executed.
