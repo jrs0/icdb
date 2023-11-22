@@ -28,7 +28,7 @@ designed to make data analysis using these databases easier.
 
 ## Obtaining the documentation
 
-If you need to generate the documentation locally, clone or download this repository, and open an R session in the icdb/ folder. Then run the following command:
+To generate the documentation, clone or download this repository, and open an R session in the `icdb/` folder. Run the following command:
 
 ```{r eval=FALSE}
 # You need to install devtools first
@@ -39,7 +39,7 @@ Once the documentation has finished building, there will be a folder called *doc
 
 ## Installation
 
-The library should install directly from the GitHub repo using the following command (you will need to ensure that devtools is installed first):
+The library should install directly from the GitHub repo using the following command (you will need to ensure that `devtools` is installed first):
 
 ```{r eval=FALSE}
 devtools::install_github("https://github.com/jrs0/icdb")
@@ -50,5 +50,3 @@ Once you have installed the library, you should be able to load the ICDB package
 ```{r eval=FALSE}
 library(icdb)
 ```
-
-test

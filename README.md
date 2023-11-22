@@ -5,6 +5,7 @@
 
 <!-- badges: start -->
 
+[![Docs](https://github.com/jrs0/icdb/actions/workflows/docs.yaml/badge.svg)](https://jrs0.github.io/icdb)
 [![R-CMD-check](https://github.com/jrs0/icdb/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jrs0/icdb/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/jrs0/icdb/branch/main/graph/badge.svg?token=VXGD77WTZI)](https://codecov.io/gh/jrs0/icdb)
 <!-- badges: end -->
@@ -16,14 +17,11 @@ designed to make data analysis using these databases easier.
 
 ## Obtaining the documentation
 
-The documentation is hosted [here](https://jrs0.github.io/icdb/).
-
-If you need to generate the documentation locally, clone or download
-this repository, and open an R session in the icdb/ folder. Then run the
-following command:
+To generate the documentation, clone or download this repository, and
+open an R session in the `icdb/` folder. Run the following command:
 
 ``` r
-# You may need to install devtools first 
+# You need to install devtools first
 devtools::build_site()
 ```
 
@@ -37,7 +35,7 @@ web browser.
 ## Installation
 
 The library should install directly from the GitHub repo using the
-following command (you will need to ensure that devtools is installed
+following command (you will need to ensure that `devtools` is installed
 first):
 
 ``` r
