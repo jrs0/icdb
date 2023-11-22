@@ -28,12 +28,10 @@ designed to make data analysis using these databases easier.
 
 ## Obtaining the documentation
 
-The documentation is hosted [here](https://jrs0.github.io/icdb/).
-
 If you need to generate the documentation locally, clone or download this repository, and open an R session in the icdb/ folder. Then run the following command:
 
 ```{r eval=FALSE}
-# You may need to install devtools first 
+# You need to install devtools first
 devtools::build_site()
 ```
 
