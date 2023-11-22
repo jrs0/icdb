@@ -710,7 +710,8 @@
       to denote the code scheme basis of the Diagnosis."
     use: no
     source:
-    - DiagnosisSchemeInUse_CommissioningDataSet
+    #- DiagnosisSchemeInUse_CommissioningDataSet
+    - DiagnosisSchemeInUse_ICD
     strategy: coalesce
   - column: primary_diagnosis_icd
     docs: PRIMARY DIAGNOSIS (ICD) is the International Classification of Diseases

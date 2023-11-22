@@ -64,6 +64,8 @@ icd_api_request <- function(token, endpoint, data = list())
 
 }
 
+icd_api_get_releases(token)
+
 ##' Use this function to automatically process the ICD-10 classifications into
 ##' a codes definition file that can be used to process diagnosis code columns.
 ##' This function uses the 2016 release of ICD-10.

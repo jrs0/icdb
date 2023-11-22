@@ -38,7 +38,8 @@
   tables:
     - include: "bnssg/apc_episodes.yaml"
     - include: "bnssg/apc_spells.yaml"
-
+    - include: "bnssg/outpatient.yaml"
+      
 - database: "mort"
   docs: "There are two main tables containing death information....."
   source: "ABI"
