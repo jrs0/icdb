@@ -47,3 +47,30 @@ package in any other script or project to try out the features:
 ``` r
 library(icdb)
 ```
+
+## Removing ICDB
+
+If you need to remove a dependency on ICDB, then follow the steps outlined here. ICDB is essentially a thin wrapper around DBI. 
+
+1. Wherever you have called `server` or `mapped_server` (e.g. a line like `msrv <- icdb::mapped_server`), replace that with the following block:
+
+    ```r
+    # Replace "xsw" with your data source name
+    con <- DBI::dbConnect(odbc::odbc(), "xsw", bigint = "character")
+    ```
+
+2. Then, whenever you access a table using a line such as `msrv$civil_registration$mort` (which refers to a particular table in the SQL Server), use this to get the table instead:
+
+    ```r
+    # Put the real database, schema and table name are here
+    id <- dbplyr::in_catalog("abi", "civil_registration", "Mortality")
+    # Get the table using this line. This is not the database fetch
+    # yet, it is just the preview of what the table contains.
+    table <- dplyr::tbl(con, id)
+```
+
+    At this point, any `dplyr` code that pipes the result of `msrv$civil_registration$mort` should also run using the `table` object.
+
+3. At the end of the `dplyr` commands, replace the `run()` function with `collect()` (from `dplyr`).
+
+Other features of ICDB (such as caching) should not have any effect on the results, and can be removed. 
